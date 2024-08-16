@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useRef, useState } from 'react';
 
 import { MAX_PIN_LENGTH } from '../../constants/pin-password';
@@ -6,9 +7,13 @@ import PinPasswordInputField from './PinPasswordInputField';
 
 interface PinPasswordInputProps {
   inputId: string;
+  className?: string;
 }
 
-export default function PinPasswordInput({ inputId }: PinPasswordInputProps) {
+export default function PinPasswordInput({
+  inputId,
+  className,
+}: PinPasswordInputProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const [, setValue] = useState('');
@@ -43,7 +48,7 @@ export default function PinPasswordInput({ inputId }: PinPasswordInputProps) {
   }
 
   return (
-    <div className="flex gap-3">
+    <div className={clsx('flex gap-3', className)}>
       {Array.from({ length: MAX_PIN_LENGTH }).map((_, index) => (
         <PinPasswordInputField
           key={index}

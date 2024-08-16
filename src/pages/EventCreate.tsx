@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import NavBar from '../components/nav-bar/event-create/NavBar';
 import DateSection from '../components/section/event-create/DateSection';
 import TimeSection from '../components/section/event-create/TimeSection';
 import TitleSection from '../components/section/event-create/TitleSection';
@@ -13,6 +14,7 @@ export default function EventCreate() {
 
   return (
     <div className="px-4">
+      <NavBar />
       <main className="mx-auto max-w-screen-sm pb-40 pt-8">
         <div className="flex flex-col gap-16">
           <TitleSection />

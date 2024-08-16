@@ -22,7 +22,7 @@ export default function Landing() {
         background: 'linear-gradient(180deg, #1B1C23 24.41%, #31333F 100%)',
       }}
     >
-      <div className="flex h-[4rem] w-full justify-center">
+      <div className="flex h-[4rem] w-full items-center justify-center">
         <img src={logoWhite} alt="OneTime 로고" />
       </div>
       <div className="mt-12 h-[114px] w-[132px]">
