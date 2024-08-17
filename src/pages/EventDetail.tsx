@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
+import Participants from '../components/Participants';
+import RecommendTime from '../components/RecommendTime';
 import NavBar from '../components/nav-bar/event-detail/NavBar';
-import Participants from '../components/participants/Participants';
-import RecommendTime from '../components/recommend-time/RecommendTime';
 import FloatingButtonSection from '../components/section/event-detail/FloatingButtonSection';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { Schedule } from '../types/schedule.type';

@@ -1,4 +1,4 @@
-import TimeAccordionItem from './TimeAccordionItem';
+import TimeAccordionItem from '../TimeAccordionItem';
 import { IconX } from '@tabler/icons-react';
 
 interface RecommendTimeDialogProps {

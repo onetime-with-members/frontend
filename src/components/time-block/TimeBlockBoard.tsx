@@ -1,6 +1,8 @@
 import dayjs from 'dayjs';
+import { useState } from 'react';
 
 import { Schedule } from '../../types/schedule.type';
+import TimeBlockDialog from '../dialog/TimeBlockDialog';
 import TBDayLine from './TBDayLine';
 import TBLeftLabelLine from './TBLeftLabelLine';
 import { IconTriangleFilled } from '@tabler/icons-react';
@@ -20,6 +22,8 @@ export default function TimeBlockBoard({
   setSchedules,
   editable,
 }: TimeBlockBoardProps) {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   function handleSetTime(day: string) {
     if (!editable || !setSchedules) return () => {};
     return function (time: Schedule['time'][0]) {
@@ -33,6 +37,22 @@ export default function TimeBlockBoard({
         ),
       );
     };
+  }
+
+  function handleDialogOpen() {
+    setIsDialogOpen(true);
+  }
+
+  function handleDialogClose() {
+    setIsDialogOpen(false);
+  }
+
+  function handleTimeBlockClick(time: Schedule['time'][0]) {
+    if (editable) {
+      handleSetTime(time);
+    } else {
+      handleDialogOpen();
+    }
   }
 
   return (
@@ -57,12 +77,12 @@ export default function TimeBlockBoard({
               startTime={startTime}
               endTime={endTime}
               times={schedule.time}
-              handleSetTime={handleSetTime(schedule.day)}
-              editable={editable}
+              handleTimeBlockClick={handleTimeBlockClick}
             />
           ))}
         </div>
       </div>
+      {isDialogOpen && <TimeBlockDialog onClose={handleDialogClose} />}
     </>
   );
 }

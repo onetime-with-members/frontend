@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import RecommendTimeDialog from './RecommendTimeDialog';
+import RecommendTimeDialog from './dialog/RecommendTimeDialog';
 import { IconChevronRight } from '@tabler/icons-react';
 
 export default function RecommendTime() {

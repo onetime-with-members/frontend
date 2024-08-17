@@ -42,8 +42,15 @@ export default function PinPasswordInput({
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number,
   ) {
-    if (e.key === 'Backspace' && !e.currentTarget.value && index > 0) {
-      inputRefs.current[index - 1]?.focus();
+    if (e.key === 'Backspace') {
+      const newPin = pin.split('');
+      if (e.currentTarget.value) {
+        newPin[index] = '-';
+      } else if (index > 0) {
+        inputRefs.current[index - 1]?.focus();
+        newPin[index - 1] = '-';
+      }
+      setPin(newPin.join(''));
     }
   }
 

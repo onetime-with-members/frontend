@@ -38,22 +38,19 @@ export default function EventCreate() {
   });
 
   function handleSubmit() {
+    if (disabled) return;
     createEvent.mutate();
   }
 
   useEffect(() => {
     const startTime = dayjs(value.start_time, 'HH:mm');
     const endTime = dayjs(value.end_time, 'HH:mm');
-    if (
+    setDisabled(
       value.title === '' ||
-      value.ranges.length === 0 ||
-      startTime.isAfter(endTime) ||
-      startTime.isSame(endTime)
-    ) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
+        value.ranges.length === 0 ||
+        startTime.isAfter(endTime) ||
+        startTime.isSame(endTime),
+    );
   }, [value]);
 
   return (

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import MemberBadge from '../MemberBadge';
-import ParticipantsDialog from './ParticipantsDialog';
+import MemberBadge from './MemberBadge';
+import ParticipantsDialog from './dialog/ParticipantsDialog';
 import { IconChevronRight } from '@tabler/icons-react';
 
 export default function Participants() {

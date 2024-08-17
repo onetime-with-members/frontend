@@ -16,12 +16,14 @@ interface MemberLoginProps {
   setEventCategory: React.Dispatch<
     React.SetStateAction<EventValue['category']>
   >;
+  setIsEmpty: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function MemberLogin({
   setPageIndex,
   setMemberId,
   setEventCategory,
+  setIsEmpty,
 }: MemberLoginProps) {
   const [value, setValue] = useState<MemberValue>({
     name: '',
@@ -56,15 +58,17 @@ export default function MemberLogin({
   }
 
   function handleSubmit() {
+    if (disabled) return;
     registerMember.mutate();
   }
 
   useEffect(() => {
-    if (value.name === '' || value.pin.length !== 4) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
+    setIsEmpty(
+      value.name === '' && (value.pin.length === 0 || value.pin === '----'),
+    );
+    setDisabled(
+      value.name === '' || value.pin.length !== 4 || value.pin.includes('-'),
+    );
   }, [value]);
 
   return (

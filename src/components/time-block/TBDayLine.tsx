@@ -8,8 +8,7 @@ interface ScheduleLineProps {
   startTime: string;
   endTime: string;
   times: Schedule['time'];
-  handleSetTime: (time: Schedule['time'][0]) => void;
-  editable?: boolean;
+  handleTimeBlockClick: (time: Schedule['time'][0]) => void;
 }
 
 export default function TBDayLine({
@@ -17,8 +16,7 @@ export default function TBDayLine({
   startTime,
   endTime,
   times,
-  handleSetTime,
-  editable,
+  handleTimeBlockClick,
 }: ScheduleLineProps) {
   const blockCount =
     (dayjs(endTime, 'HH:mm').hour() - dayjs(startTime, 'HH:mm').hour()) * 2;
@@ -39,8 +37,7 @@ export default function TBDayLine({
           <TBItem
             key={index}
             active={times.includes(time)}
-            onClick={() => handleSetTime(time)}
-            editable={editable}
+            onClick={() => handleTimeBlockClick(time)}
           />
         ))}
       </div>
