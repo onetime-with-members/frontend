@@ -3,25 +3,26 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import { SELECTED_DATE_LIST_FORMAT } from '../../constants/date';
+import { EventValue } from '../../types/event.type';
 import DateItem from '../DateItem';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface CalendarSelectProps {
   className?: string;
-  selectedDateList: string[];
-  selectDate: (date: string) => void;
+  value: EventValue;
+  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
 }
 
 export default function CalendarSelect({
   className,
-  selectedDateList,
-  selectDate,
+  value,
+  setValue,
 }: CalendarSelectProps) {
-  const [currentDate, setCurrentDate] = useState(dayjs());
+  const [selectedDate, setCurrentDate] = useState(dayjs());
 
-  const firstWeekdayIndex = currentDate.startOf('month').day();
-  const lastDate = currentDate.endOf('month').date();
-  const isPrevDisabled = currentDate
+  const firstWeekdayIndex = selectedDate.startOf('month').day();
+  const lastDate = selectedDate.endOf('month').date();
+  const isPrevDisabled = selectedDate
     .subtract(1, 'month')
     .isBefore(dayjs(), 'month');
 
@@ -35,17 +36,22 @@ export default function CalendarSelect({
   }
 
   function handleDateItemClick(date: number) {
-    const selectedDate = currentDate
+    const newSelectedDate = selectedDate
       .date(date)
       .format(SELECTED_DATE_LIST_FORMAT);
-    selectDate(selectedDate);
+    setValue((prev) => ({
+      ...prev,
+      ranges: prev.ranges.includes(newSelectedDate)
+        ? prev.ranges.filter((range) => range !== newSelectedDate)
+        : [...prev.ranges, newSelectedDate],
+    }));
   }
 
   return (
     <div className={clsx('flex flex-col gap-3', className)}>
       <div className="flex items-center justify-between">
         <div className="text-lg-300 text-gray-90">
-          {currentDate.format('YYYY.MM')}
+          {selectedDate.format('YYYY.MM')}
         </div>
         <div className="flex items-center gap-8">
           <IconTriangleFilled
@@ -78,8 +84,8 @@ export default function CalendarSelect({
           (date) => (
             <DateItem
               key={date}
-              active={selectedDateList.includes(
-                currentDate.date(date).format(SELECTED_DATE_LIST_FORMAT),
+              active={value.ranges.includes(
+                selectedDate.date(date).format(SELECTED_DATE_LIST_FORMAT),
               )}
               onClick={() => handleDateItemClick(date)}
             >

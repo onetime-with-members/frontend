@@ -1,30 +1,47 @@
 import dayjs from 'dayjs';
 
+import { Schedule } from '../../types/schedule.type';
 import TBItem from './TBItem';
 
 interface ScheduleLineProps {
-  weekDayIndex: number;
-  startHour: number;
-  endHour: number;
+  weekday: string;
+  startTime: string;
+  endTime: string;
+  times: Schedule['time'];
+  handleSetTime: (time: Schedule['time'][0]) => void;
+  editable?: boolean;
 }
 
 export default function TBDayLine({
-  weekDayIndex,
-  startHour,
-  endHour,
+  weekday,
+  startTime,
+  endTime,
+  times,
+  handleSetTime,
+  editable,
 }: ScheduleLineProps) {
-  const blockCount = (endHour - startHour) * 2;
+  const blockCount =
+    (dayjs(endTime, 'HH:mm').hour() - dayjs(startTime, 'HH:mm').hour()) * 2;
+
+  const timeList = Array.from({ length: blockCount }, (_, i) =>
+    dayjs(startTime, 'HH:mm')
+      .add(i * 30, 'minute')
+      .format('HH:mm'),
+  ).filter((time) => time <= endTime);
 
   return (
     <div className="flex-1">
       <div className="text-center">
-        <span className="text-md-200 text-gray-30">
-          {dayjs.weekdaysMin()[weekDayIndex]}
-        </span>
+        <span className="text-md-200 text-gray-30">{weekday}</span>
       </div>
       <div className="mt-2 flex flex-col overflow-hidden rounded-lg">
-        {Array.from({ length: blockCount }).map((_, index) => (
-          <TBItem key={index} />
+        {timeList.map((time, index) => (
+          <TBItem
+            key={index}
+            active={times.includes(time)}
+            onClick={() => handleSetTime(time)}
+            editable={editable}
+          />
         ))}
       </div>
     </div>

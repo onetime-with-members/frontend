@@ -1,0 +1,103 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import axios from '../../../api/axios';
+import { EventValue } from '../../../types/event.type';
+import { MemberValue } from '../../../types/member.type';
+import Input from '../../Input';
+import BottomButton from '../../floating-button/schedule-create/BottomButton';
+import ScheduleInputLabel from '../../input-label/ScheduleInputLabel';
+import PinPasswordInput from '../../pin-password/PinPasswordInput';
+import { useMutation } from '@tanstack/react-query';
+
+interface MemberLoginProps {
+  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
+  setMemberId: React.Dispatch<React.SetStateAction<string>>;
+  setEventCategory: React.Dispatch<
+    React.SetStateAction<EventValue['category']>
+  >;
+}
+
+export default function MemberLogin({
+  setPageIndex,
+  setMemberId,
+  setEventCategory,
+}: MemberLoginProps) {
+  const [value, setValue] = useState<MemberValue>({
+    name: '',
+    pin: '',
+  });
+  const [disabled, setDisabled] = useState(true);
+
+  const params = useParams();
+
+  const registerMember = useMutation({
+    mutationFn: () => {
+      return axios.post('/members/action-login', {
+        name: value.name,
+        pin: value.pin,
+        event_id: params.eventId,
+      });
+    },
+    onSuccess: (data) => {
+      setMemberId(data.data.payload.member_id);
+      setEventCategory(data.data.payload.category);
+      setPageIndex(1);
+    },
+  });
+
+  function handleInputChange<T>(key: keyof MemberValue) {
+    return function (value: T) {
+      setValue((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+    };
+  }
+
+  function handleSubmit() {
+    registerMember.mutate();
+  }
+
+  useEffect(() => {
+    if (value.name === '' || value.pin.length !== 4) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [value]);
+
+  return (
+    <>
+      <div>
+        <div>
+          <ScheduleInputLabel htmlFor="name" required>
+            이름
+          </ScheduleInputLabel>
+          <Input
+            className="mt-2"
+            id="name"
+            name="name"
+            placeholder="이름"
+            value={value.name}
+            onChange={(e) => handleInputChange('name')(e.target.value)}
+          />
+        </div>
+        <div className="mt-12">
+          <ScheduleInputLabel htmlFor="pin" required>
+            PIN 번호
+          </ScheduleInputLabel>
+          <PinPasswordInput
+            className="mt-2"
+            inputId="pin"
+            pin={value.pin}
+            setPin={handleInputChange('pin')}
+          />
+        </div>
+      </div>
+      <BottomButton onClick={handleSubmit} disabled={disabled}>
+        다음
+      </BottomButton>
+    </>
+  );
+}

@@ -38,7 +38,7 @@ export default function Landing() {
         쉽게 일정을 맞추세요.
       </p>
       <Link
-        to="/schedules/create"
+        to="/events/new"
         className="text-md-300 mt-6 rounded-full bg-primary-40 px-12 py-3"
       >
         이벤트 만들기

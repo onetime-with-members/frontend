@@ -35,8 +35,8 @@ export default function Participants() {
           <MemberBadge>닉네임</MemberBadge>
           <MemberBadge>닉네임</MemberBadge>
           <MemberBadge>닉네임</MemberBadge>
-          <MemberBadge>닉네임</MemberBadge>
-          <MemberBadge>닉네임</MemberBadge>
+          <MemberBadge className="hidden min-[440px]:block">닉네임</MemberBadge>
+          <MemberBadge className="hidden min-[440px]:block">닉네임</MemberBadge>
           <MemberBadge variant="gray">...</MemberBadge>
         </div>
       </div>

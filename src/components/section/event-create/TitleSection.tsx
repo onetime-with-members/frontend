@@ -1,7 +1,20 @@
+import { EventValue } from '../../../types/event.type';
 import Input from '../../Input';
 import EventInputLabel from '../../input-label/EventInputLabel';
 
-export default function TitleSection() {
+interface TitleSectionProps {
+  value: EventValue;
+  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
+}
+
+export default function TitleSection({ value, setValue }: TitleSectionProps) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValue((prev) => ({
+      ...prev,
+      title: e.target.value,
+    }));
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <EventInputLabel
@@ -12,8 +25,11 @@ export default function TitleSection() {
       <Input
         type="text"
         id="title"
+        name="title"
         placeholder="어떤 이벤트인가요?"
         maxLength={15}
+        value={value.title}
+        onChange={handleChange}
       />
     </div>
   );

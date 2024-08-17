@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 
 import { MAX_PIN_LENGTH } from '../../constants/pin-password';
 import { numberRegex } from '../../constants/regex';
@@ -8,15 +8,17 @@ import PinPasswordInputField from './PinPasswordInputField';
 interface PinPasswordInputProps {
   inputId: string;
   className?: string;
+  pin: string;
+  setPin: (pin: string) => void;
 }
 
 export default function PinPasswordInput({
   inputId,
   className,
+  pin,
+  setPin,
 }: PinPasswordInputProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
-  const [, setValue] = useState('');
 
   function handleInputChange(
     e: React.ChangeEvent<HTMLInputElement>,
@@ -27,11 +29,9 @@ export default function PinPasswordInput({
       return;
     }
 
-    setValue((prev) => {
-      const newValue = prev.split('');
-      newValue[index] = e.target.value;
-      return newValue.join('');
-    });
+    const newPin = pin.split('');
+    newPin[index] = e.target.value;
+    setPin(newPin.join(''));
 
     if (index < MAX_PIN_LENGTH - 1) {
       inputRefs.current[index + 1]?.focus();

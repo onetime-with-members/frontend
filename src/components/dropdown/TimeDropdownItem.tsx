@@ -2,7 +2,7 @@ import clsx from 'clsx';
 
 interface DropdownItemProps extends React.LiHTMLAttributes<HTMLLIElement> {}
 
-export default function DropdownItem(props: DropdownItemProps) {
+export default function TimeDropdownItem(props: DropdownItemProps) {
   const { children, className, ...rest } = props;
 
   return (

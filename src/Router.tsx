@@ -4,7 +4,7 @@ import Layout from './layouts/Layout';
 import EventCreate from './pages/EventCreate';
 import EventDetail from './pages/EventDetail';
 import Landing from './pages/Landing';
-import ScheduleAdd from './pages/ScheduleAdd';
+import ScheduleCreate from './pages/ScheduleCreate';
 
 const router = createBrowserRouter([
   {
@@ -16,16 +16,21 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: 'schedules/create',
+        path: 'events/new',
         element: <EventCreate />,
       },
       {
-        path: 'schedules/:id',
-        element: <EventDetail />,
-      },
-      {
-        path: 'schedules/new',
-        element: <ScheduleAdd />,
+        path: 'events/:eventId',
+        children: [
+          {
+            path: '',
+            element: <EventDetail />,
+          },
+          {
+            path: 'schedules/new',
+            element: <ScheduleCreate />,
+          },
+        ],
       },
     ],
   },

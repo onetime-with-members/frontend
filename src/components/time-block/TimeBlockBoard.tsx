@@ -1,10 +1,39 @@
+import dayjs from 'dayjs';
+
+import { Schedule } from '../../types/schedule.type';
 import TBDayLine from './TBDayLine';
 import TBLeftLabelLine from './TBLeftLabelLine';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
-export default function TimeBlockBoard() {
-  const startHour = 9;
-  const endHour = 24;
+interface TimeBlockBoardProps {
+  startTime: string;
+  endTime: string;
+  schedules: Schedule[];
+  setSchedules?: React.Dispatch<React.SetStateAction<Schedule[]>>;
+  editable?: boolean;
+}
+
+export default function TimeBlockBoard({
+  startTime,
+  endTime,
+  schedules,
+  setSchedules,
+  editable,
+}: TimeBlockBoardProps) {
+  function handleSetTime(day: string) {
+    if (!editable || !setSchedules) return () => {};
+    return function (time: Schedule['time'][0]) {
+      setSchedules((prev) =>
+        prev.map((schedule) =>
+          schedule.day === day
+            ? schedule.time.includes(time)
+              ? { ...schedule, time: schedule.time.filter((t) => t !== time) }
+              : { ...schedule, time: [...schedule.time, time] }
+            : schedule,
+        ),
+      );
+    };
+  }
 
   return (
     <>
@@ -16,14 +45,20 @@ export default function TimeBlockBoard() {
         </div>
       </div>
       <div className="mt-3 flex gap-3">
-        <TBLeftLabelLine startHour={startHour} endHour={endHour} />
+        <TBLeftLabelLine
+          startHour={dayjs(startTime, 'HH:mm').hour()}
+          endHour={dayjs(endTime, 'HH:mm').hour()}
+        />
         <div className="flex w-full gap-3">
-          {Array.from({ length: 5 }).map((_, index) => (
+          {schedules.map((schedule) => (
             <TBDayLine
-              key={index}
-              weekDayIndex={index}
-              startHour={startHour}
-              endHour={endHour}
+              key={schedule.day}
+              weekday={schedule.day}
+              startTime={startTime}
+              endTime={endTime}
+              times={schedule.time}
+              handleSetTime={handleSetTime(schedule.day)}
+              editable={editable}
             />
           ))}
         </div>

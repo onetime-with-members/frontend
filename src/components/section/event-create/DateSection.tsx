@@ -1,28 +1,21 @@
-import { useState } from 'react';
-
+import { EventValue } from '../../../types/event.type';
 import Chip from '../../Chip';
 import EventInputLabel from '../../input-label/EventInputLabel';
 import CalendarSelect from '../../select/CalendarSelect';
 import WeekdaySelect from '../../select/WeekdaySelect';
 
-export default function DateSection() {
-  const [selectedChip, setSelectedChip] = useState<'WEEKDAY' | 'CALENDAR'>(
-    'WEEKDAY',
-  );
-  const [selectedDateList, setSelectedDateList] = useState<string[]>([]);
+interface DateSectionProps {
+  value: EventValue;
+  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
+}
 
-  function handleSelectChip(chip: 'WEEKDAY' | 'CALENDAR') {
-    setSelectedChip(chip);
-  }
-
-  function selectDate(date: string) {
-    setSelectedDateList((prev) => {
-      const index = prev.indexOf(date);
-      if (index === -1) {
-        return [...prev, date].sort();
-      }
-      return prev.filter((prevDate) => prevDate !== date);
-    });
+export default function DateSection({ value, setValue }: DateSectionProps) {
+  function handleSelectChip(chip: 'DATE' | 'DAY') {
+    setValue((prev) => ({
+      ...prev,
+      category: chip,
+      ranges: [],
+    }));
   }
 
   return (
@@ -35,30 +28,26 @@ export default function DateSection() {
       <div className="flex flex-col">
         <div className="flex gap-2">
           <Chip
-            active={selectedChip === 'WEEKDAY'}
-            onClick={() => handleSelectChip('WEEKDAY')}
+            active={value.category === 'DAY'}
+            onClick={() => handleSelectChip('DAY')}
           >
             요일
           </Chip>
           <Chip
-            active={selectedChip === 'CALENDAR'}
-            onClick={() => handleSelectChip('CALENDAR')}
+            active={value.category === 'DATE'}
+            onClick={() => handleSelectChip('DATE')}
           >
             날짜
           </Chip>
         </div>
-        {selectedChip === 'WEEKDAY' ? (
-          <WeekdaySelect
-            className="mt-3.5"
-            selectedDateList={selectedDateList}
-            selectDate={selectDate}
-          />
+        {value.category === 'DAY' ? (
+          <WeekdaySelect className="mt-3.5" value={value} setValue={setValue} />
         ) : (
-          selectedChip === 'CALENDAR' && (
+          value.category === 'DATE' && (
             <CalendarSelect
               className="mt-6"
-              selectedDateList={selectedDateList}
-              selectDate={selectDate}
+              value={value}
+              setValue={setValue}
             />
           )
         )}

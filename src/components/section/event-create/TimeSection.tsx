@@ -1,15 +1,28 @@
-import { useState } from 'react';
-
-import Dropdown from '../../dropdown/Dropdown';
+import { EventValue } from '../../../types/event.type';
+import TimeDropdown from '../../dropdown/TimeDropdown';
 import EventInputLabel from '../../input-label/EventInputLabel';
 
-export default function TimeSection() {
-  const [selectedStartHour, setSelectedStartHour] = useState(0);
-  const [selectedEndHour, setSelectedEndHour] = useState(0);
+interface TimeSectionProps {
+  value: EventValue;
+  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
+}
 
+export default function TimeSection({ value, setValue }: TimeSectionProps) {
   function handleSelectAllTime() {
-    setSelectedStartHour(0);
-    setSelectedEndHour(24);
+    setValue((prev) => ({
+      ...prev,
+      start_time: '00:00',
+      end_time: '24:00',
+    }));
+  }
+
+  function handleSelectTime(key: keyof EventValue) {
+    return function (time: string) {
+      setValue((prev) => ({
+        ...prev,
+        [key]: time,
+      }));
+    };
   }
 
   return (
@@ -21,16 +34,16 @@ export default function TimeSection() {
       />
       <div className="flex gap-4">
         <div className="flex items-center gap-3">
-          <Dropdown
+          <TimeDropdown
             className="w-[7.5rem]"
-            value={selectedStartHour}
-            setValue={setSelectedStartHour}
+            time={value.start_time}
+            setTime={handleSelectTime('start_time')}
           />
           <span className="text-md-300 text-gray-70">~</span>
-          <Dropdown
+          <TimeDropdown
             className="w-[7.5rem]"
-            value={selectedEndHour}
-            setValue={setSelectedEndHour}
+            time={value.end_time}
+            setTime={handleSelectTime('end_time')}
           />
         </div>
         <button

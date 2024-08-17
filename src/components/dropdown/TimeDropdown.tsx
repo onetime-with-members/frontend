@@ -1,21 +1,21 @@
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
-import DropdownItem from './DropdownItem';
+import TimeDropdownItem from './TimeDropdownItem';
 import {
   IconTriangleFilled,
   IconTriangleInvertedFilled,
 } from '@tabler/icons-react';
 
 interface DropdownProps {
-  value: number;
-  setValue: React.Dispatch<React.SetStateAction<number>>;
+  time: string;
+  setTime: (time: string) => void;
   className?: string;
 }
 
-export default function Dropdown({
-  value,
-  setValue,
+export default function TimeDropdown({
+  time,
+  setTime,
   className,
 }: DropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -26,8 +26,8 @@ export default function Dropdown({
     setIsOpen((prev) => !prev);
   }
 
-  function handleSelectTime(time: number) {
-    setValue(time);
+  function handleSelectTime(time: string) {
+    setTime(time);
     setIsOpen(false);
   }
 
@@ -51,10 +51,13 @@ export default function Dropdown({
   return (
     <div className={clsx('relative', className)} ref={dropdownRef}>
       <div
-        className={clsx('flex items-center gap-4 rounded-xl px-5 py-4', {
-          'bg-primary-40': isOpen,
-          'bg-gray-05': !isOpen,
-        })}
+        className={clsx(
+          'flex cursor-pointer items-center gap-4 rounded-xl px-5 py-4',
+          {
+            'bg-primary-40': isOpen,
+            'bg-gray-05': !isOpen,
+          },
+        )}
         onClick={handleOpen}
       >
         <span
@@ -63,7 +66,7 @@ export default function Dropdown({
             'text-gray-70': !isOpen,
           })}
         >
-          {value.toString().padStart(2, '0')}:00
+          {time}
         </span>
         {isOpen ? (
           <IconTriangleFilled size={12} className="text-gray-00" />
@@ -74,9 +77,14 @@ export default function Dropdown({
       {isOpen && (
         <ul className="absolute -bottom-3 max-h-[10rem] w-full translate-y-full overflow-y-auto rounded-xl bg-gray-00 py-2 shadow-[0_4px_24px_0_rgba(0,0,0,0.15)]">
           {Array.from({ length: 25 }, (_, index) => index).map((time) => (
-            <DropdownItem key={time} onClick={() => handleSelectTime(time)}>
+            <TimeDropdownItem
+              key={time}
+              onClick={() =>
+                handleSelectTime(`${time.toString().padStart(2, '0')}:00`)
+              }
+            >
               {time.toString().padStart(2, '0')}:00
-            </DropdownItem>
+            </TimeDropdownItem>
           ))}
         </ul>
       )}
