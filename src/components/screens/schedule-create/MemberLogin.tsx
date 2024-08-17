@@ -5,7 +5,7 @@ import axios from '../../../api/axios';
 import { EventValue } from '../../../types/event.type';
 import { MemberValue } from '../../../types/member.type';
 import Input from '../../Input';
-import BottomButton from '../../floating-button/schedule-create/BottomButton';
+import FloatingBottomButton from '../../floating-button/schedule-create/FloatingBottomButton';
 import ScheduleInputLabel from '../../input-label/ScheduleInputLabel';
 import PinPasswordInput from '../../pin-password/PinPasswordInput';
 import { useMutation } from '@tanstack/react-query';
@@ -99,9 +99,9 @@ export default function MemberLogin({
           />
         </div>
       </div>
-      <BottomButton onClick={handleSubmit} disabled={disabled}>
+      <FloatingBottomButton onClick={handleSubmit} disabled={disabled}>
         다음
-      </BottomButton>
+      </FloatingBottomButton>
     </>
   );
 }

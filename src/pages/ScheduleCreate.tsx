@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import CancelPopUp from '../components/CancelPopUp';
+import ScheduleCancelPopUp from '../components/dialog/ScheduleCancelPopUp';
 import MemberLogin from '../components/screens/schedule-create/MemberLogin';
 import ScheduleForm from '../components/screens/schedule-create/ScheduleForm';
 import { EventValue } from '../types/event.type';
@@ -70,7 +70,7 @@ export default function ScheduleCreate() {
         </main>
       </div>
       {isPopUpOpen && (
-        <CancelPopUp
+        <ScheduleCancelPopUp
           onConfirm={handlePopUpConfirm}
           onClose={handlePopUpClose}
         />

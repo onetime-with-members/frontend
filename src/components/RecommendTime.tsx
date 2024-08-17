@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import RecommendTimeDialog from './dialog/RecommendTimeDialog';
+import RecommendTimePopUp from './dialog/RecommendTimePopUp';
 import { IconChevronRight } from '@tabler/icons-react';
 
 export default function RecommendTime() {
@@ -29,7 +29,7 @@ export default function RecommendTime() {
           <span className="ml-2">18:00 - 20:00</span>
         </div>
       </div>
-      {isDialogOpen && <RecommendTimeDialog onClose={handleDialogClose} />}
+      {isDialogOpen && <RecommendTimePopUp onClose={handleDialogClose} />}
     </>
   );
 }

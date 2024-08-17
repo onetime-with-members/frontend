@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import MemberBadge from './MemberBadge';
-import ParticipantsDialog from './dialog/ParticipantsDialog';
+import ParticipantsPopUp from './dialog/ParticipantsPopUp';
 import { IconChevronRight } from '@tabler/icons-react';
 
 export default function Participants() {
@@ -40,7 +40,7 @@ export default function Participants() {
           <MemberBadge variant="gray">...</MemberBadge>
         </div>
       </div>
-      {isDialogOpen && <ParticipantsDialog onClose={handleDialogClose} />}
+      {isDialogOpen && <ParticipantsPopUp onClose={handleDialogClose} />}
     </>
   );
 }

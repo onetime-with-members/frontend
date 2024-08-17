@@ -5,7 +5,7 @@ interface RecommendTimeDialogProps {
   onClose: () => void;
 }
 
-export default function RecommendTimeDialog({
+export default function RecommendTimePopUp({
   onClose,
 }: RecommendTimeDialogProps) {
   const style = {

@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { IconPlus } from '@tabler/icons-react';
 
-export default function FloatingButtonSection() {
+export default function FloatingBottomButton() {
   const params = useParams();
 
   return (

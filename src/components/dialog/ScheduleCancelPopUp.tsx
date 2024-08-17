@@ -3,7 +3,10 @@ interface CancelPopUpProps {
   onClose: () => void;
 }
 
-export default function CancelPopUp({ onConfirm, onClose }: CancelPopUpProps) {
+export default function ScheduleCancelPopUp({
+  onConfirm,
+  onClose,
+}: CancelPopUpProps) {
   return (
     <div
       className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50"

@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import { Schedule } from '../../types/schedule.type';
-import TimeBlockDialog from '../dialog/TimeBlockDialog';
+import TimeBlockPopUp from '../dialog/TimeBlockPopUp';
 import TBDayLine from './TBDayLine';
 import TBLeftLabelLine from './TBLeftLabelLine';
 import { IconTriangleFilled } from '@tabler/icons-react';
@@ -82,7 +82,7 @@ export default function TimeBlockBoard({
           ))}
         </div>
       </div>
-      {isDialogOpen && <TimeBlockDialog onClose={handleDialogClose} />}
+      {isDialogOpen && <TimeBlockPopUp onClose={handleDialogClose} />}
     </>
   );
 }

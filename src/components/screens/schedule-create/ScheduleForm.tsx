@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from '../../../api/axios';
 import { EventValue } from '../../../types/event.type';
 import { Schedule } from '../../../types/schedule.type';
-import BottomButton from '../../floating-button/schedule-create/BottomButton';
+import FloatingBottomButton from '../../floating-button/schedule-create/FloatingBottomButton';
 import TimeBlockBoard from '../../time-block/TimeBlockBoard';
 import { useMutation } from '@tanstack/react-query';
 
@@ -62,7 +62,9 @@ export default function ScheduleForm({
           editable
         />
       </div>
-      <BottomButton onClick={handleSubmit}>스케줄 등록</BottomButton>
+      <FloatingBottomButton onClick={handleSubmit}>
+        스케줄 등록
+      </FloatingBottomButton>
     </>
   );
 }

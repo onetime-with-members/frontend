@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import axios from '../api/axios';
 import Participants from '../components/Participants';
 import RecommendTime from '../components/RecommendTime';
+import FloatingBottomButton from '../components/floating-button/event-detail/FloatingBottomButton';
 import NavBar from '../components/nav-bar/event-detail/NavBar';
-import FloatingButtonSection from '../components/section/event-detail/FloatingButtonSection';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { Schedule } from '../types/schedule.type';
 import { useQuery } from '@tanstack/react-query';
@@ -82,7 +82,7 @@ export default function EventDetail() {
             startTime={startTime}
             endTime={endTime}
           />
-          <FloatingButtonSection />
+          <FloatingBottomButton />
         </main>
       </div>
     </div>

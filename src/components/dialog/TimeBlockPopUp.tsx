@@ -7,7 +7,7 @@ interface TimeBlockDialogProps {
   onClose: () => void;
 }
 
-export default function TimeBlockDialog({ onClose }: TimeBlockDialogProps) {
+export default function TimeBlockPopUp({ onClose }: TimeBlockDialogProps) {
   const style = {
     title: 'text-md-300',
     memberBadgeList: 'flex mt-2 flex-wrap gap-2',

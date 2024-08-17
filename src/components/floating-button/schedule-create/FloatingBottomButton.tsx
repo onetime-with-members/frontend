@@ -5,7 +5,7 @@ interface BottomButtonProps
   children: React.ReactNode;
 }
 
-export default function BottomButton({
+export default function FloatingBottomButton({
   children,
   className,
   ...rest

@@ -6,7 +6,7 @@ interface ParticipantsDialogProps {
   onClose: () => void;
 }
 
-export default function ParticipantsDialog({
+export default function ParticipantsPopUp({
   onClose,
 }: ParticipantsDialogProps) {
   return (
