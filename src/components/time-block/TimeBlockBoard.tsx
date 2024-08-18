@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-import { Schedule } from '../../types/schedule.type';
+import { Schedule, ScheduleAll } from '../../types/schedule.type';
 import TimeBlockPopUp from '../dialog/TimeBlockPopUp';
 import TBDayLine from './TBDayLine';
 import TBLeftLabelLine from './TBLeftLabelLine';
@@ -11,6 +11,7 @@ interface TimeBlockBoardProps {
   startTime: string;
   endTime: string;
   schedules: Schedule[];
+  schedulesAll?: ScheduleAll[];
   setSchedules?: React.Dispatch<React.SetStateAction<Schedule[]>>;
   editable?: boolean;
 }
@@ -19,10 +20,13 @@ export default function TimeBlockBoard({
   startTime,
   endTime,
   schedules,
+  schedulesAll,
   setSchedules,
   editable,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const memberCount = schedulesAll?.length || 0;
 
   function changeTimeBlockStatus(
     day: string,
@@ -64,6 +68,23 @@ export default function TimeBlockBoard({
     setIsDialogOpen(false);
   }
 
+  function getTimesAll(weekday: string) {
+    let result: string[] = [];
+    schedulesAll?.forEach((schedule) => {
+      schedule.day_schedules.forEach((daySchedule) => {
+        if (daySchedule.day === weekday) {
+          result = [
+            ...result,
+            ...daySchedule.times.map((time) =>
+              dayjs(time, 'HH:mm:ss').format('HH:mm'),
+            ),
+          ];
+        }
+      });
+    });
+    return result;
+  }
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -86,9 +107,11 @@ export default function TimeBlockBoard({
               startTime={startTime}
               endTime={endTime}
               times={schedule.time}
+              timesAll={getTimesAll(schedule.day)}
               changeTimeBlockStatus={changeTimeBlockStatus}
               handleDialogOpen={handleDialogOpen}
               editable={editable}
+              memberCount={memberCount}
             />
           ))}
         </div>

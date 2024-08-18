@@ -7,6 +7,7 @@ import RecommendTime from '../components/RecommendTime';
 import FloatingBottomButton from '../components/floating-button/event-detail/FloatingBottomButton';
 import NavBar from '../components/nav-bar/event-detail/NavBar';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
+import { schedulesMock } from '../constants/schedule';
 import { Schedule } from '../types/schedule.type';
 import { useQuery } from '@tanstack/react-query';
 
@@ -66,6 +67,7 @@ export default function EventDetail() {
             schedules={schedules}
             startTime={startTime}
             endTime={endTime}
+            schedulesAll={schedulesMock}
           />
           <FloatingBottomButton />
         </main>

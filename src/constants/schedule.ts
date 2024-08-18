@@ -4,7 +4,7 @@ export const schedulesMock = [
     day_schedules: [
       {
         day: '월',
-        times: ['09:00:00', '09:30:00', '15:00:00', '20:30:00'],
+        times: ['15:00:00', '20:30:00'],
       },
       {
         day: '수',

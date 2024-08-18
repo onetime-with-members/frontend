@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
 
-import { Schedule } from '../../types/schedule.type';
+import { Schedule, ScheduleAll } from '../../types/schedule.type';
 import TBItem from './TBItem';
 
 interface ScheduleLineProps {
@@ -9,6 +9,7 @@ interface ScheduleLineProps {
   startTime: string;
   endTime: string;
   times: Schedule['time'];
+  timesAll?: ScheduleAll['day_schedules']['0']['times'];
   changeTimeBlockStatus: (
     day: Schedule['day'],
     time: Schedule['time'][0],
@@ -16,6 +17,7 @@ interface ScheduleLineProps {
   ) => void;
   handleDialogOpen: () => void;
   editable?: boolean;
+  memberCount: number;
 }
 
 export default function TBDayLine({
@@ -23,9 +25,11 @@ export default function TBDayLine({
   startTime,
   endTime,
   times,
+  timesAll,
   changeTimeBlockStatus,
   handleDialogOpen,
   editable,
+  memberCount,
 }: ScheduleLineProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [isFilling, setIsFilling] = useState(false);
@@ -68,12 +72,10 @@ export default function TBDayLine({
   }
 
   function handleMouseStart(time: Schedule['time'][0], index: number) {
-    if (!editable) return;
     dragStart(time, index);
   }
 
   function handleTouchStart(time: Schedule['time'][0], index: number) {
-    if (!editable) return;
     dragStart(time, index);
   }
 
@@ -91,18 +93,19 @@ export default function TBDayLine({
   }
 
   function handleMouseEnd() {
-    if (!editable) return;
     dragEnd();
   }
 
   function handleTouchEnd() {
-    if (!editable) return;
     dragEnd();
   }
 
   function handleTimeBlockDialogOpen() {
-    if (editable) return;
     handleDialogOpen();
+  }
+
+  function getTimeBlockActive(time: Schedule['time'][0]) {
+    return editable ? times.includes(time) : timesAll?.includes(time);
   }
 
   useEffect(() => {
@@ -118,14 +121,12 @@ export default function TBDayLine({
     }
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!editable) return;
       if (isDragging) {
         dragMove(e.clientX, e.clientY);
       }
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (!editable) return;
       if (isDragging) {
         const touchedElement = document.elementFromPoint(
           e.touches[0].clientX,
@@ -220,10 +221,23 @@ export default function TBDayLine({
                 blockRefs.current[index] = el;
               }
             }}
-            active={times.includes(time)}
-            onMouseDown={() => handleMouseStart(time, index)}
-            onTouchStart={() => handleTouchStart(time, index)}
-            onClick={handleTimeBlockDialogOpen}
+            active={getTimeBlockActive(time)}
+            bgOpacity={
+              timesAll &&
+              timesAll?.filter((t) => t === time).length / memberCount
+            }
+            onMouseDown={
+              editable ? () => handleMouseStart(time, index) : undefined
+            }
+            onTouchStart={
+              editable ? () => handleTouchStart(time, index) : undefined
+            }
+            onClick={
+              !editable && getTimeBlockActive(time)
+                ? handleTimeBlockDialogOpen
+                : undefined
+            }
+            editable={editable}
           />
         ))}
       </div>
