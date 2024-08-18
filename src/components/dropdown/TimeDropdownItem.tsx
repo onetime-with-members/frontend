@@ -8,7 +8,7 @@ export default function TimeDropdownItem(props: DropdownItemProps) {
   return (
     <li
       className={clsx(
-        'text-lg-200 w-full py-2 text-center text-gray-50',
+        'text-lg-200 w-full cursor-pointer py-2 text-center text-gray-50',
         className,
       )}
       {...rest}

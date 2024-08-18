@@ -24,19 +24,31 @@ export default function TimeBlockBoard({
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  function handleSetTime(day: string) {
-    if (!editable || !setSchedules) return () => {};
-    return function (time: Schedule['time'][0]) {
-      setSchedules((prev) =>
-        prev.map((schedule) =>
-          schedule.day === day
-            ? schedule.time.includes(time)
-              ? { ...schedule, time: schedule.time.filter((t) => t !== time) }
-              : { ...schedule, time: [...schedule.time, time] }
-            : schedule,
-        ),
-      );
-    };
+  function handleSetTime(
+    day: string,
+    time: Schedule['time'][0],
+    newStatus: boolean,
+  ) {
+    if (!editable || !setSchedules) return;
+    setSchedules((prev) =>
+      prev.map((schedule) => {
+        if (schedule.day === day) {
+          let newSchedule = {
+            ...schedule,
+            time: schedule.time.filter((t) => t !== time),
+          };
+          if (newStatus) {
+            newSchedule = {
+              ...newSchedule,
+              time: [...newSchedule.time, time],
+            };
+          }
+          return newSchedule;
+        } else {
+          return schedule;
+        }
+      }),
+    );
   }
 
   function handleDialogOpen() {
@@ -47,9 +59,13 @@ export default function TimeBlockBoard({
     setIsDialogOpen(false);
   }
 
-  function handleTimeBlockClick(time: Schedule['time'][0]) {
+  function handleTimeBlockClick(
+    day: Schedule['day'],
+    time: Schedule['time'][0],
+    newStatus: boolean,
+  ) {
     if (editable) {
-      handleSetTime(time);
+      handleSetTime(day, time, newStatus);
     } else {
       handleDialogOpen();
     }

@@ -2,7 +2,6 @@ import clsx from 'clsx';
 
 interface TBItemProps extends React.HTMLAttributes<HTMLDivElement> {
   active?: boolean;
-  handleDialogOpen?: () => void;
 }
 
 export default function TBItem({ active, className, ...rest }: TBItemProps) {
