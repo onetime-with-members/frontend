@@ -24,7 +24,7 @@ export default function TimeBlockBoard({
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  function handleSetTime(
+  function changeTimeBlockStatus(
     day: string,
     time: Schedule['time'][0],
     newStatus: boolean,
@@ -37,10 +37,15 @@ export default function TimeBlockBoard({
             ...schedule,
             time: schedule.time.filter((t) => t !== time),
           };
-          if (newStatus) {
+          if (newStatus !== undefined && newStatus) {
             newSchedule = {
               ...newSchedule,
               time: [...newSchedule.time, time],
+            };
+          } else {
+            newSchedule = {
+              ...newSchedule,
+              time: newSchedule.time.filter((t) => t !== time),
             };
           }
           return newSchedule;
@@ -65,7 +70,7 @@ export default function TimeBlockBoard({
     newStatus: boolean,
   ) {
     if (editable) {
-      handleSetTime(day, time, newStatus);
+      changeTimeBlockStatus(day, time, newStatus);
     } else {
       handleDialogOpen();
     }
