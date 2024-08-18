@@ -66,6 +66,7 @@ export default function PinPasswordInput({
           onChange={(e) => handleInputChange(e, index)}
           onKeyDown={(e) => handleKeyDown(e, index)}
           inputMode="numeric"
+          value={pin[index] === '-' ? '' : pin[index]}
         />
       ))}
     </div>

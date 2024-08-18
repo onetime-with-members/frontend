@@ -17,6 +17,8 @@ interface MemberLoginProps {
     React.SetStateAction<EventValue['category']>
   >;
   setIsEmpty: React.Dispatch<React.SetStateAction<boolean>>;
+  value: MemberValue;
+  setValue: React.Dispatch<React.SetStateAction<MemberValue>>;
 }
 
 export default function MemberLogin({
@@ -24,11 +26,9 @@ export default function MemberLogin({
   setMemberId,
   setEventCategory,
   setIsEmpty,
+  value,
+  setValue,
 }: MemberLoginProps) {
-  const [value, setValue] = useState<MemberValue>({
-    name: '',
-    pin: '',
-  });
   const [disabled, setDisabled] = useState(true);
 
   const params = useParams();

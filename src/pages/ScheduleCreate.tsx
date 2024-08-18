@@ -5,6 +5,7 @@ import ScheduleCancelPopUp from '../components/dialog/ScheduleCancelPopUp';
 import MemberLogin from '../components/screens/schedule-create/MemberLogin';
 import ScheduleForm from '../components/screens/schedule-create/ScheduleForm';
 import { EventValue } from '../types/event.type';
+import { MemberValue } from '../types/member.type';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function ScheduleCreate() {
@@ -14,6 +15,10 @@ export default function ScheduleCreate() {
     useState<EventValue['category']>('DAY');
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
+  const [value, setValue] = useState<MemberValue>({
+    name: '',
+    pin: '',
+  });
 
   const navigate = useNavigate();
 
@@ -62,6 +67,8 @@ export default function ScheduleCreate() {
               setMemberId={setMemberId}
               setEventCategory={setEventCategory}
               setIsEmpty={setIsEmpty}
+              value={value}
+              setValue={setValue}
             />
           )}
           {pageIndex === 1 && (

@@ -64,18 +64,6 @@ export default function TimeBlockBoard({
     setIsDialogOpen(false);
   }
 
-  function handleTimeBlockClick(
-    day: Schedule['day'],
-    time: Schedule['time'][0],
-    newStatus: boolean,
-  ) {
-    if (editable) {
-      changeTimeBlockStatus(day, time, newStatus);
-    } else {
-      handleDialogOpen();
-    }
-  }
-
   return (
     <>
       <div className="flex items-center justify-between">
@@ -98,7 +86,9 @@ export default function TimeBlockBoard({
               startTime={startTime}
               endTime={endTime}
               times={schedule.time}
-              handleTimeBlockClick={handleTimeBlockClick}
+              changeTimeBlockStatus={changeTimeBlockStatus}
+              handleDialogOpen={handleDialogOpen}
+              editable={editable}
             />
           ))}
         </div>

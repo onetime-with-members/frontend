@@ -12,26 +12,11 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function EventDetail() {
   const [schedules] = useState<Schedule[]>([
-    {
-      day: '월',
-      time: [],
-    },
-    {
-      day: '화',
-      time: [],
-    },
-    {
-      day: '수',
-      time: [],
-    },
-    {
-      day: '목',
-      time: [],
-    },
-    {
-      day: '금',
-      time: [],
-    },
+    { day: '일', time: [] },
+    { day: '월', time: [] },
+    { day: '화', time: [] },
+    { day: '수', time: [] },
+    { day: '목', time: [] },
   ]);
 
   const params = useParams();

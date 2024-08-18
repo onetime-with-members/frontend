@@ -13,7 +13,7 @@ export default function ScheduleCancelPopUp({
       onClick={onClose}
     >
       <div
-        className="flex h-[12rem] w-[23rem] flex-col overflow-hidden rounded-2xl bg-gray-00"
+        className="flex h-[12rem] w-[23rem] cursor-auto flex-col overflow-hidden rounded-2xl bg-gray-00"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex-1 pb-8 pt-10">

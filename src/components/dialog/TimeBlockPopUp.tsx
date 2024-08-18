@@ -14,12 +14,9 @@ export default function TimeBlockPopUp({ onClose }: TimeBlockDialogProps) {
   };
 
   return (
-    <div
-      className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50"
-      onClick={onClose}
-    >
+    <div className="fixed left-0 top-[4.5rem] z-50 flex w-full justify-center px-4">
       <div
-        className="w-full max-w-[23rem] cursor-auto overflow-hidden rounded-2xl bg-gray-00"
+        className="w-full max-w-screen-sm overflow-hidden rounded-2xl bg-gray-00 shadow-lg"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between bg-primary-50 px-5 pb-3 pt-4">
