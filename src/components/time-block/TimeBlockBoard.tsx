@@ -115,11 +115,7 @@ export default function TimeBlockBoard({
 
   function handleLeftScroll() {
     if (!boardContentRef.current) return;
-    setChunkIndex((prev) => {
-      if (prev - 1 < 0) return prev;
-      return prev - 1;
-    });
-    if (chunkIndex > 0) {
+    if (chunkIndex - 1 > 0) {
       boardContentRef.current.scrollBy({
         left: -boardContentRef.current.clientWidth - dayLineGap,
         behavior: 'smooth',
@@ -130,15 +126,15 @@ export default function TimeBlockBoard({
         behavior: 'smooth',
       });
     }
+    setChunkIndex((prev) => {
+      if (prev - 1 < 0) return prev;
+      return prev - 1;
+    });
   }
 
   function handleRightScroll() {
     if (!boardContentRef.current) return;
-    setChunkIndex((prev) => {
-      if (prev + 1 >= timePointChunks.length) return prev;
-      return prev + 1;
-    });
-    if (chunkIndex < timePointChunks.length - 1) {
+    if (chunkIndex + 1 < timePointChunks.length - 1) {
       boardContentRef.current.scrollBy({
         left: boardContentRef.current.clientWidth + dayLineGap,
         behavior: 'smooth',
@@ -149,6 +145,10 @@ export default function TimeBlockBoard({
         behavior: 'smooth',
       });
     }
+    setChunkIndex((prev) => {
+      if (prev + 1 >= timePointChunks.length) return prev;
+      return prev + 1;
+    });
   }
 
   function chunkRangeArray(array: string[], chunkSize: number) {
@@ -193,10 +193,9 @@ export default function TimeBlockBoard({
           endTime={event.end_time}
           category={event.category}
         />
-        <TBRightBoardContent
-          as="div"
+        <div
           ref={boardContentRef}
-          className="flex flex-1 overflow-x-scroll"
+          className="flex flex-1 overflow-hidden"
           style={{ gap: dayLineGap }}
         >
           {timePointChunks.map((timePoints, index) => (
@@ -233,25 +232,7 @@ export default function TimeBlockBoard({
               })}
             </div>
           ))}
-          {/* <div className="flex min-w-full" style={{ gap: dayLineGap }}>
-            {chunkRangeArray(event.ranges, 5).slice(0, 5).map((timePoint) => {
-              return (
-                <TBDayLine
-                  ref={dayLineRef}
-                  key={timePoint}
-                  timePoint={timePoint}
-                  startTime={event.start_time}
-                  endTime={event.end_time}
-                  category={event.category}
-                  schedules={schedules}
-                  changeTimeBlockStatus={changeTimeBlockStatus}
-                  handleDialogOpen={handleDialogOpen}
-                  editable={editable}
-                />
-              );
-            })}
-          </div> */}
-        </TBRightBoardContent>
+        </div>
       </div>
       {isDialogOpen && (
         <TimeBlockPopUp
@@ -259,17 +240,9 @@ export default function TimeBlockBoard({
           timePoint={dialogData.timePoint}
           time={dialogData.time}
           members={dialogData.members}
+          category={event.category}
         />
       )}
     </>
   );
 }
-
-const TBRightBoardContent = styled.div`
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;

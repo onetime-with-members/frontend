@@ -10,6 +10,7 @@ interface TimeBlockPopUpProps {
   timePoint: TimeBlockPopUpData['timePoint'];
   time: TimeBlockPopUpData['time'];
   members: TimeBlockPopUpData['members'];
+  category: 'DAY' | 'DATE';
 }
 
 export default function TimeBlockPopUp({
@@ -17,6 +18,7 @@ export default function TimeBlockPopUp({
   timePoint,
   time,
   members,
+  category,
 }: TimeBlockPopUpProps) {
   const startTime = time;
   let endTime = dayjs(time, 'HH:mm').add(30, 'minute').format('HH:mm');
@@ -35,7 +37,11 @@ export default function TimeBlockPopUp({
       >
         <div className="flex items-center justify-between bg-primary-50 px-5 pb-3 pt-4">
           <div className="text-lg-300 text-gray-00">
-            <span>{timePoint}요일</span>
+            <span>
+              {category === 'DATE'
+                ? dayjs(timePoint, 'YYYY.MM.DD').format('YYYY.MM.DD (dd)')
+                : `${timePoint}요일`}
+            </span>
             <span className="ml-2">
               {startTime} - {endTime}
             </span>
