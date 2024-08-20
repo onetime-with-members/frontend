@@ -39,6 +39,8 @@ export default function TimeBlockBoard({
   const dayLineGap = 12;
   const timePointChunks = chunkRangeArray(event.ranges, 5);
 
+  console.log(timePointChunks);
+
   function changeTimeBlockStatus(
     day: string,
     time: Schedules['schedules'][0]['times'][0],
@@ -200,7 +202,9 @@ export default function TimeBlockBoard({
           {timePointChunks.map((timePoints, index) => (
             <div
               className={clsx('flex', {
-                'min-w-full': index !== timePointChunks.length - 1,
+                'min-w-full':
+                  index !== timePointChunks.length - 1 ||
+                  timePointChunks.length === 1,
               })}
               style={{ gap: dayLineGap }}
             >
