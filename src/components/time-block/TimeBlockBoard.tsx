@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 
 import { EventValue } from '../../types/event.type';
 import { Schedules, Time, TimeBlockPopUpData } from '../../types/schedule.type';
