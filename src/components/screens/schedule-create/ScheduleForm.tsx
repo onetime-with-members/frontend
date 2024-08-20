@@ -1,54 +1,148 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import axios from '../../../api/axios';
 import { EventValue } from '../../../types/event.type';
-import { Schedule } from '../../../types/schedule.type';
+import { MemberValue } from '../../../types/member.type';
+import { Schedules } from '../../../types/schedule.type';
+import { sortWeekdayList } from '../../../utils/weekday';
 import FloatingBottomButton from '../../floating-button/schedule-create/FloatingBottomButton';
 import TimeBlockBoard from '../../time-block/TimeBlockBoard';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface ScheduleFormProps {
   memberId: string;
-  eventCategory: EventValue['category'];
+  isNewMember: boolean;
+  memberValue: MemberValue;
 }
 
 export default function ScheduleForm({
   memberId,
-  eventCategory,
+  isNewMember,
+  memberValue,
 }: ScheduleFormProps) {
-  const [schedules, setSchedules] = useState<Schedule[]>([
-    { day: '일', time: [] },
-    { day: '월', time: [] },
-    { day: '화', time: [] },
-    { day: '수', time: [] },
-    { day: '목', time: [] },
+  const [schedules, setSchedules] = useState<Schedules[]>([
+    {
+      name: '본인',
+      schedules: [],
+    },
   ]);
 
   const navigate = useNavigate();
   const params = useParams();
+  const queryClient = useQueryClient();
 
-  const startTime = '09:00';
-  const endTime = '23:00';
+  const { isPending: isEventPending, data: eventData } = useQuery({
+    queryKey: ['events', params.eventId],
+    queryFn: async () => {
+      const res = await axios.get(`/events/${params.eventId}`);
+      return res.data;
+    },
+  });
 
-  const createSchedule = useMutation({
-    mutationFn: () => {
-      return axios.post(
-        `/schedules/${eventCategory === 'DAY' ? 'day' : 'date'}`,
+  let event: EventValue | undefined = eventData?.payload;
+  if (event && event.category === 'DAY')
+    event.ranges = sortWeekdayList(event.ranges);
+
+  const { isPending: isSchedulePending, data: scheduleData } = useQuery({
+    queryKey: [
+      'schedules',
+      event?.category.toLowerCase(),
+      params.eventId,
+      memberId,
+    ],
+    queryFn: async () => {
+      const res = await axios.get(
+        `/schedules/${event?.category.toLowerCase()}/${params.eventId}/${memberId}`,
+      );
+      return res.data;
+    },
+    enabled: !!event && !isNewMember,
+  });
+
+  const mySchedule: Schedules | undefined = scheduleData?.payload;
+
+  const createNewMemberSchedule = useMutation({
+    mutationFn: async () => {
+      const res = await axios.post(`/members/action-register`, {
+        event_id: params.eventId,
+        name: memberValue.name,
+        pin: memberValue.pin,
+        schedules: schedules[0].schedules,
+      });
+      return res.data;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+      navigate(`/events/${params.eventId}`);
+    },
+  });
+
+  const updateSchedule = useMutation({
+    mutationFn: async () => {
+      const res = await axios.post(
+        `/schedules/${event?.category.toLowerCase()}`,
         {
           event_id: params.eventId,
           member_id: memberId,
-          schedules,
+          schedules: schedules[0].schedules,
         },
       );
+      return res.data;
     },
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
       navigate(`/events/${params.eventId}`);
     },
   });
 
   function handleSubmit() {
-    createSchedule.mutate();
+    if (isNewMember) {
+      createNewMemberSchedule.mutate();
+    } else {
+      updateSchedule.mutate();
+    }
+  }
+
+  useEffect(() => {
+    if (!event) return;
+    if (isNewMember) {
+      setSchedules([
+        {
+          name: memberValue.name,
+          schedules: event.ranges.map((timePoint) => ({
+            time_point: timePoint,
+            times: [],
+          })),
+        },
+      ]);
+    } else if (!isSchedulePending && mySchedule) {
+      setSchedules([
+        {
+          name: memberValue.name,
+          schedules: event.ranges.map((timePoint) => ({
+            time_point: timePoint,
+            times:
+              mySchedule.schedules.find((s) => s.time_point === timePoint)
+                ?.times || [],
+          })),
+        },
+      ]);
+    }
+  }, [event, isNewMember, isSchedulePending, mySchedule]);
+
+  if (isNewMember) {
+    if (isEventPending || !event || !schedules) return <></>;
+  } else if (
+    isEventPending ||
+    isSchedulePending ||
+    !event ||
+    !mySchedule ||
+    !schedules
+  ) {
+    return <></>;
   }
 
   return (
@@ -57,8 +151,7 @@ export default function ScheduleForm({
         <TimeBlockBoard
           schedules={schedules}
           setSchedules={setSchedules}
-          startTime={startTime}
-          endTime={endTime}
+          event={event}
           editable
         />
       </div>

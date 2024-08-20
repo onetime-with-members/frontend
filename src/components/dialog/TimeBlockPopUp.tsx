@@ -1,13 +1,27 @@
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 
+import { TimeBlockPopUpData } from '../../types/schedule.type';
 import MemberBadge from '../MemberBadge';
 import { IconX } from '@tabler/icons-react';
 
-interface TimeBlockDialogProps {
+interface TimeBlockPopUpProps {
   onClose: () => void;
+  timePoint: TimeBlockPopUpData['timePoint'];
+  time: TimeBlockPopUpData['time'];
+  members: TimeBlockPopUpData['members'];
 }
 
-export default function TimeBlockPopUp({ onClose }: TimeBlockDialogProps) {
+export default function TimeBlockPopUp({
+  onClose,
+  timePoint,
+  time,
+  members,
+}: TimeBlockPopUpProps) {
+  const startTime = time;
+  let endTime = dayjs(time, 'HH:mm').add(30, 'minute').format('HH:mm');
+  endTime = endTime === '00:00' ? '24:00' : endTime;
+
   const style = {
     title: 'text-md-300',
     memberBadgeList: 'flex mt-2 flex-wrap gap-2',
@@ -21,38 +35,38 @@ export default function TimeBlockPopUp({ onClose }: TimeBlockDialogProps) {
       >
         <div className="flex items-center justify-between bg-primary-50 px-5 pb-3 pt-4">
           <div className="text-lg-300 text-gray-00">
-            <span>2024.03.01 월</span>
-            <span className="ml-2">18:00 - 20:00</span>
+            <span>{timePoint}요일</span>
+            <span className="ml-2">
+              {startTime} - {endTime}
+            </span>
           </div>
           <button className="text-primary-10" onClick={onClose}>
             <IconX size={24} />
           </button>
         </div>
-        <div className="px-5 py-4">
-          <div>
-            <h3 className={clsx(style.title, 'text-primary-60')}>가능</h3>
-            <div className={style.memberBadgeList}>
-              <MemberBadge>닉네임</MemberBadge>
-              <MemberBadge>닉네임</MemberBadge>
-              <MemberBadge>닉네임</MemberBadge>
-              <MemberBadge>닉네임</MemberBadge>
-              <MemberBadge>닉네임</MemberBadge>
-              <MemberBadge>닉네임</MemberBadge>
-              <MemberBadge>닉네임</MemberBadge>
+        <div className="flex flex-col gap-5 px-5 pb-6 pt-4">
+          {members.possible.length > 0 && (
+            <div>
+              <h3 className={clsx(style.title, 'text-primary-60')}>가능</h3>
+              <div className={style.memberBadgeList}>
+                {members.possible.map((member) => (
+                  <MemberBadge key={member}>{member}</MemberBadge>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="mt-5">
-            <h3 className={clsx(style.title, 'text-gray-50')}>불가능</h3>
-            <div className={style.memberBadgeList}>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
+          )}
+          {members.impossible.length > 0 && (
+            <div>
+              <h3 className={clsx(style.title, 'text-gray-50')}>불가능</h3>
+              <div className={style.memberBadgeList}>
+                {members.impossible.map((member) => (
+                  <MemberBadge key={member} variant="gray">
+                    {member}
+                  </MemberBadge>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

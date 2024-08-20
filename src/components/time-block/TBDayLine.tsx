@@ -1,246 +1,279 @@
-import dayjs from 'dayjs';
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 
-import { Schedule, ScheduleAll } from '../../types/schedule.type';
+import { Schedules, Time, TimeBlockDragIndex } from '../../types/schedule.type';
+import { getBlockTimeList } from '../../utils/time-block';
+import TBDayTopLabel from './TBDayTopLabel';
 import TBItem from './TBItem';
 
-interface ScheduleLineProps {
-  weekday: string;
+interface TBDayLineProps {
+  timePoint: string;
   startTime: string;
   endTime: string;
-  times: Schedule['time'];
-  timesAll?: ScheduleAll['day_schedules']['0']['times'];
+  category: 'DAY' | 'DATE';
+  schedules: Schedules[];
   changeTimeBlockStatus: (
-    day: Schedule['day'],
-    time: Schedule['time'][0],
+    day: Time['time_point'],
+    time: Time['times'][0],
     newStatus: boolean,
   ) => void;
-  handleDialogOpen: () => void;
+  handleDialogOpen: ({
+    timePoint,
+    time,
+  }: {
+    timePoint: string;
+    time: string;
+  }) => void;
   editable?: boolean;
-  memberCount: number;
+  minWidth?: number;
 }
 
-export default function TBDayLine({
-  weekday,
-  startTime,
-  endTime,
-  times,
-  timesAll,
-  changeTimeBlockStatus,
-  handleDialogOpen,
-  editable,
-  memberCount,
-}: ScheduleLineProps) {
-  const [isDragging, setIsDragging] = useState(false);
-  const [isFilling, setIsFilling] = useState(false);
-  const [dragIndex, setDragIndex] = useState<{
-    start: number;
-    end: number;
-    min: number;
-    max: number;
-    totalMin: number;
-    totalMax: number;
-  }>({
-    start: -1,
-    end: -1,
-    min: -1,
-    max: -1,
-    totalMin: -1,
-    totalMax: -1,
-  });
+const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
+  (
+    {
+      timePoint,
+      startTime,
+      endTime,
+      category,
+      schedules,
+      changeTimeBlockStatus,
+      handleDialogOpen,
+      editable,
+      minWidth,
+    },
+    ref,
+  ) => {
+    const [isDragging, setIsDragging] = useState(false);
+    const [isFilling, setIsFilling] = useState(false);
+    const [timeBlockDragIndex, setTimeBlockDragIndex] =
+      useState<TimeBlockDragIndex>({
+        start: -1,
+        end: -1,
+        min: -1,
+        max: -1,
+        totalMin: -1,
+        totalMax: -1,
+      });
 
-  const blockRefs = useRef<HTMLDivElement[]>([]);
+    const blockRefList = useRef<HTMLDivElement[]>([]);
 
-  const blockCount =
-    dayjs(endTime, 'HH:mm').diff(dayjs(startTime, 'HH:mm'), 'hour') * 2;
+    const timeList = getBlockTimeList(startTime, endTime);
 
-  const timeList = Array.from({ length: blockCount }, (_, i) =>
-    dayjs(startTime, 'HH:mm')
-      .add(i * 30, 'minute')
-      .format('HH:mm'),
-  );
+    const timesAllMember = getTimesAllMember(timePoint);
 
-  function dragStart(time: Schedule['time'][0], index: number) {
-    setIsFilling(!times.includes(time));
-    setIsDragging(true);
-    setDragIndex((prev) => ({
-      ...prev,
-      start: index,
-      end: index,
-      totalMin: index,
-    }));
-  }
+    const memberCount = schedules.length || 0;
 
-  function handleMouseStart(time: Schedule['time'][0], index: number) {
-    dragStart(time, index);
-  }
+    function dragStart(time: Time['times'][0], index: number) {
+      setIsFilling(!timesAllMember.includes(time));
+      setIsDragging(true);
+      setTimeBlockDragIndex((prev) => ({
+        ...prev,
+        start: index,
+        end: index,
+        totalMin: index,
+      }));
+    }
 
-  function handleTouchStart(time: Schedule['time'][0], index: number) {
-    dragStart(time, index);
-  }
+    function handleMouseStart(time: Time['times'][0], index: number) {
+      dragStart(time, index);
+    }
 
-  function dragEnd() {
-    setIsDragging(false);
-    setIsFilling(false);
-    setDragIndex({
-      start: -1,
-      end: -1,
-      min: -1,
-      max: -1,
-      totalMin: -1,
-      totalMax: -1,
-    });
-  }
+    function handleTouchStart(time: Time['times'][0], index: number) {
+      dragStart(time, index);
+    }
 
-  function handleMouseEnd() {
-    dragEnd();
-  }
-
-  function handleTouchEnd() {
-    dragEnd();
-  }
-
-  function handleTimeBlockDialogOpen() {
-    handleDialogOpen();
-  }
-
-  function getTimeBlockActive(time: Schedule['time'][0]) {
-    return editable ? times.includes(time) : timesAll?.includes(time);
-  }
-
-  useEffect(() => {
-    function dragMove(clientX: number, clientY: number) {
-      blockRefs.current.forEach((block, index) => {
-        if (document.elementFromPoint(clientX, clientY) === block) {
-          setDragIndex((prev) => ({
-            ...prev,
-            end: index,
-          }));
-        }
+    function dragEnd() {
+      setIsDragging(false);
+      setIsFilling(false);
+      setTimeBlockDragIndex({
+        start: -1,
+        end: -1,
+        min: -1,
+        max: -1,
+        totalMin: -1,
+        totalMax: -1,
       });
     }
 
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isDragging) {
-        dragMove(e.clientX, e.clientY);
-      }
-    };
+    function handleMouseEnd() {
+      dragEnd();
+    }
 
-    const handleTouchMove = (e: TouchEvent) => {
-      if (isDragging) {
-        const touchedElement = document.elementFromPoint(
-          e.touches[0].clientX,
-          e.touches[0].clientY,
-        );
+    function handleTouchEnd() {
+      dragEnd();
+    }
 
-        const isInsideBlock = blockRefs.current.some(
-          (block) => block === touchedElement,
-        );
-
-        if (isInsideBlock) {
-          e.preventDefault();
-        }
-
-        dragMove(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('touchmove', handleTouchMove);
-    };
-  }, [isDragging]);
-
-  useEffect(() => {
-    if (dragIndex.start === -1 || dragIndex.end === -1) return;
-
-    const [minIndex, maxIndex] = [dragIndex.start, dragIndex.end].sort(
-      (a, b) => a - b,
-    );
-    const totalMinIndex =
-      minIndex < dragIndex.totalMin ? minIndex : dragIndex.totalMin;
-    const totalMaxIndex =
-      maxIndex > dragIndex.totalMax ? maxIndex : dragIndex.totalMax;
-
-    setDragIndex((prev) => ({
-      ...prev,
-      min: minIndex,
-      max: maxIndex,
-      totalMin: totalMinIndex,
-      totalMax: totalMaxIndex,
-    }));
-  }, [dragIndex.start, dragIndex.end]);
-
-  useEffect(() => {
-    if (
-      dragIndex.min === -1 ||
-      dragIndex.max === -1 ||
-      dragIndex.totalMin === -1 ||
-      dragIndex.totalMax === -1
-    )
-      return;
-
-    if (isFilling) {
-      blockRefs.current.forEach((_, index) => {
-        if (index >= dragIndex.totalMin && index <= dragIndex.totalMax) {
-          if (index >= dragIndex.min && index <= dragIndex.max) {
-            changeTimeBlockStatus(weekday, timeList[index], isFilling);
-          } else {
-            changeTimeBlockStatus(weekday, timeList[index], !isFilling);
+    function getTimesAllMember(timePoint: string) {
+      let result: string[] = [];
+      schedules.forEach((schedule) => {
+        schedule.schedules.forEach((daySchedule) => {
+          if (daySchedule.time_point === timePoint) {
+            result = [...result, ...daySchedule.times];
           }
-        }
+        });
       });
-    } else {
-      blockRefs.current.forEach((_, index) => {
-        if (index >= dragIndex.min && index <= dragIndex.max) {
-          changeTimeBlockStatus(weekday, timeList[index], isFilling);
-        }
-      });
+      return result;
     }
-  }, [dragIndex.min, dragIndex.max, dragIndex.totalMin, dragIndex.totalMax]);
 
-  return (
-    <div className="flex-1">
-      <div className="text-center">
-        <span className="text-md-200 text-gray-30">{weekday}</span>
-      </div>
-      <div
-        className="mt-2 flex flex-col overflow-hidden rounded-lg"
-        onMouseUp={handleMouseEnd}
-        onMouseLeave={handleMouseEnd}
-        onTouchEnd={handleTouchEnd}
-      >
-        {timeList.map((time, index) => (
-          <TBItem
-            key={index}
-            ref={(el) => {
-              if (el) {
-                blockRefs.current[index] = el;
+    function getTimeBlockActive(time: Time['times'][0]) {
+      return timesAllMember.includes(time);
+    }
+
+    useEffect(() => {
+      function dragMove(clientX: number, clientY: number) {
+        blockRefList.current.forEach((block, index) => {
+          if (document.elementFromPoint(clientX, clientY) === block) {
+            setTimeBlockDragIndex((prev) => ({
+              ...prev,
+              end: index,
+            }));
+          }
+        });
+      }
+
+      const handleMouseMove = (e: MouseEvent) => {
+        if (isDragging) {
+          dragMove(e.clientX, e.clientY);
+        }
+      };
+
+      const handleTouchMove = (e: TouchEvent) => {
+        if (isDragging) {
+          const touchedElement = document.elementFromPoint(
+            e.touches[0].clientX,
+            e.touches[0].clientY,
+          );
+
+          const isInsideBlock = blockRefList.current.some(
+            (block) => block === touchedElement,
+          );
+
+          if (isInsideBlock) {
+            e.preventDefault();
+          }
+
+          dragMove(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      };
+
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('touchmove', handleTouchMove, {
+        passive: false,
+      });
+
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('touchmove', handleTouchMove);
+      };
+    }, [isDragging]);
+
+    useEffect(() => {
+      if (timeBlockDragIndex.start === -1 || timeBlockDragIndex.end === -1)
+        return;
+
+      const [minIndex, maxIndex] = [
+        timeBlockDragIndex.start,
+        timeBlockDragIndex.end,
+      ].sort((a, b) => a - b);
+      const totalMinIndex =
+        minIndex < timeBlockDragIndex.totalMin
+          ? minIndex
+          : timeBlockDragIndex.totalMin;
+      const totalMaxIndex =
+        maxIndex > timeBlockDragIndex.totalMax
+          ? maxIndex
+          : timeBlockDragIndex.totalMax;
+
+      setTimeBlockDragIndex((prev) => ({
+        ...prev,
+        min: minIndex,
+        max: maxIndex,
+        totalMin: totalMinIndex,
+        totalMax: totalMaxIndex,
+      }));
+    }, [timeBlockDragIndex.start, timeBlockDragIndex.end]);
+
+    useEffect(() => {
+      if (
+        timeBlockDragIndex.min === -1 ||
+        timeBlockDragIndex.max === -1 ||
+        timeBlockDragIndex.totalMin === -1 ||
+        timeBlockDragIndex.totalMax === -1
+      )
+        return;
+
+      if (isFilling) {
+        blockRefList.current.forEach((_, index) => {
+          if (
+            index >= timeBlockDragIndex.totalMin &&
+            index <= timeBlockDragIndex.totalMax
+          ) {
+            if (
+              index >= timeBlockDragIndex.min &&
+              index <= timeBlockDragIndex.max
+            ) {
+              changeTimeBlockStatus(timePoint, timeList[index], isFilling);
+            } else {
+              changeTimeBlockStatus(timePoint, timeList[index], !isFilling);
+            }
+          }
+        });
+      } else {
+        blockRefList.current.forEach((_, index) => {
+          if (
+            index >= timeBlockDragIndex.min &&
+            index <= timeBlockDragIndex.max
+          ) {
+            changeTimeBlockStatus(timePoint, timeList[index], isFilling);
+          }
+        });
+      }
+    }, [
+      timeBlockDragIndex.min,
+      timeBlockDragIndex.max,
+      timeBlockDragIndex.totalMin,
+      timeBlockDragIndex.totalMax,
+    ]);
+
+    return (
+      <div className="flex-1" ref={ref} style={{ minWidth }}>
+        <TBDayTopLabel category={category} timePoint={timePoint} />
+        <div
+          className="mt-2 flex flex-col overflow-hidden rounded-lg"
+          onMouseUp={handleMouseEnd}
+          onMouseLeave={handleMouseEnd}
+          onTouchEnd={handleTouchEnd}
+        >
+          {timeList.map((time, index) => (
+            <TBItem
+              key={index}
+              ref={(el) => {
+                if (el) {
+                  blockRefList.current[index] = el;
+                }
+              }}
+              active={getTimeBlockActive(time)}
+              cursorPointer={schedules.length > 0}
+              bgOpacity={
+                timesAllMember.filter((t) => t === time).length / memberCount
               }
-            }}
-            active={getTimeBlockActive(time)}
-            bgOpacity={
-              timesAll &&
-              timesAll?.filter((t) => t === time).length / memberCount
-            }
-            onMouseDown={
-              editable ? () => handleMouseStart(time, index) : undefined
-            }
-            onTouchStart={
-              editable ? () => handleTouchStart(time, index) : undefined
-            }
-            onClick={
-              !editable && getTimeBlockActive(time)
-                ? handleTimeBlockDialogOpen
-                : undefined
-            }
-            editable={editable}
-          />
-        ))}
+              onMouseDown={
+                editable ? () => handleMouseStart(time, index) : undefined
+              }
+              onTouchStart={
+                editable ? () => handleTouchStart(time, index) : undefined
+              }
+              onClick={
+                !editable
+                  ? () => handleDialogOpen({ timePoint, time })
+                  : undefined
+              }
+              editable={editable}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  },
+);
+
+export default TBDayLine;

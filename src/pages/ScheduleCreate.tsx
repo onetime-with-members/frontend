@@ -4,18 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import ScheduleCancelPopUp from '../components/dialog/ScheduleCancelPopUp';
 import MemberLogin from '../components/screens/schedule-create/MemberLogin';
 import ScheduleForm from '../components/screens/schedule-create/ScheduleForm';
-import { EventValue } from '../types/event.type';
 import { MemberValue } from '../types/member.type';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function ScheduleCreate() {
   const [pageIndex, setPageIndex] = useState(0);
   const [memberId, setMemberId] = useState('');
-  const [eventCategory, setEventCategory] =
-    useState<EventValue['category']>('DAY');
+  const [isNewMember, setIsNewMember] = useState(false);
   const [isPopUpOpen, setIsPopUpOpen] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
-  const [value, setValue] = useState<MemberValue>({
+  const [memberValue, setMemberValue] = useState<MemberValue>({
     name: '',
     pin: '',
   });
@@ -65,14 +63,18 @@ export default function ScheduleCreate() {
             <MemberLogin
               setPageIndex={setPageIndex}
               setMemberId={setMemberId}
-              setEventCategory={setEventCategory}
               setIsEmpty={setIsEmpty}
-              value={value}
-              setValue={setValue}
+              memberValue={memberValue}
+              setMemberValue={setMemberValue}
+              setIsNewMember={setIsNewMember}
             />
           )}
           {pageIndex === 1 && (
-            <ScheduleForm memberId={memberId} eventCategory={eventCategory} />
+            <ScheduleForm
+              memberId={memberId}
+              isNewMember={isNewMember}
+              memberValue={memberValue}
+            />
           )}
         </main>
       </div>

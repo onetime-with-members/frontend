@@ -5,10 +5,22 @@ interface TBItemProps extends React.HTMLAttributes<HTMLDivElement> {
   active?: boolean;
   bgOpacity?: number;
   editable?: boolean;
+  cursorPointer?: boolean;
 }
 
 const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
-  ({ active, className, bgOpacity = 1, style, editable, ...rest }, ref) => {
+  (
+    {
+      active,
+      className,
+      bgOpacity = 1,
+      style,
+      editable,
+      cursorPointer = true,
+      ...rest
+    },
+    ref,
+  ) => {
     return (
       <div
         ref={ref}
@@ -18,7 +30,7 @@ const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
           {
             'bg-primary-50': active,
             'bg-gray-05': !active,
-            'cursor-pointer': editable || active,
+            'cursor-pointer': cursorPointer,
           },
         )}
         style={{

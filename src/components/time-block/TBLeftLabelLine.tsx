@@ -1,42 +1,46 @@
 import clsx from 'clsx';
 
-interface ScheduleTimeLabelLineProps {
-  startHour: number;
-  endHour: number;
+import { getLabelTimeList } from '../../utils/time-block';
+import TBDayTopLabel from './TBDayTopLabel';
+
+interface TBLeftLabelLineProps {
+  startTime: string;
+  endTime: string;
+  category: 'DAY' | 'DATE';
 }
 
 export default function TBLeftLabelLine({
-  startHour,
-  endHour,
-}: ScheduleTimeLabelLineProps) {
-  const hourRange = endHour - startHour;
+  startTime,
+  endTime,
+  category,
+}: TBLeftLabelLineProps) {
+  const timeList = getLabelTimeList(startTime, endTime);
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <span className="text-md-200 text-center text-gray-30 opacity-0">-</span>
+      <TBDayTopLabel
+        category={category}
+        timePoint={category === 'DATE' ? '2024.08.20' : '화'}
+        className="opacity-0"
+      />
       <div className="flex flex-col">
-        {Array.from({ length: hourRange }, (_, index) => index + startHour).map(
-          (hour, index) => (
-            <div key={hour}>
-              <div className="flex h-[2rem] items-start">
-                <span
-                  className={clsx('text-sm-200 text-gray-30', {
-                    '-translate-y-1/2': index !== 0,
-                  })}
-                >
-                  {hour.toString().padStart(2, '0')}:00
-                </span>
-              </div>
-              <div className="flex h-[2rem] items-end">
-                {index === hourRange - 1 && (
-                  <span className="text-sm-200 text-gray-30">
-                    {(hour + 1).toString().padStart(2, '0')}:00
-                  </span>
-                )}
-              </div>
-            </div>
-          ),
-        )}
+        {timeList.map((time, index) => (
+          <div
+            key={time}
+            className={clsx('flex h-[2rem] items-start', {
+              'opacity-0': index % 2 && index !== timeList.length - 1,
+            })}
+          >
+            <span
+              className={clsx('text-sm-200 text-gray-30', {
+                '-translate-y-1/2': index !== 0,
+                '-translate-y-full': index === timeList.length - 1,
+              })}
+            >
+              {time}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );

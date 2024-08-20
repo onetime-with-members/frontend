@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import logoWhite from '../../../assets/logo-white.svg';
 import logoBlack from '../../../assets/logo.svg';
@@ -24,8 +25,8 @@ export default function NavBar() {
   }, [isNavBackground]);
 
   return (
-    <div className="flex h-[4rem] w-full">
-      <nav
+    <nav className="flex h-[4rem] w-full">
+      <div
         className={clsx(
           'fixed left-0 top-0 z-40 flex h-[4rem] w-full items-center justify-center shadow transition-colors duration-200',
           {
@@ -34,8 +35,13 @@ export default function NavBar() {
           },
         )}
       >
-        <img src={isNavBackground ? logoBlack : logoWhite} alt="OneTime 로고" />
-      </nav>
-    </div>
+        <Link to="/">
+          <img
+            src={isNavBackground ? logoBlack : logoWhite}
+            alt="OneTime 로고"
+          />
+        </Link>
+      </div>
+    </nav>
   );
 }
