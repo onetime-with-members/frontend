@@ -32,6 +32,7 @@ export default function TimeBlockBoard({
     },
   });
   const [dayLineWidth, setDayLineWidth] = useState(0);
+  const [chunkIndex, setChunkIndex] = useState(0);
 
   const dayLineRef = useRef<HTMLDivElement>(null);
   const boardContentRef = useRef<HTMLDivElement>(null);
@@ -113,17 +114,41 @@ export default function TimeBlockBoard({
   }
 
   function handleLeftScroll() {
-    boardContentRef.current?.scrollBy({
-      left: -(boardContentRef.current?.clientWidth + dayLineGap),
-      behavior: 'smooth',
+    if (!boardContentRef.current) return;
+    setChunkIndex((prev) => {
+      if (prev - 1 < 0) return prev;
+      return prev - 1;
     });
+    if (chunkIndex > 0) {
+      boardContentRef.current.scrollBy({
+        left: -boardContentRef.current.clientWidth - dayLineGap,
+        behavior: 'smooth',
+      });
+    } else {
+      boardContentRef.current.scrollTo({
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
   }
 
   function handleRightScroll() {
-    boardContentRef.current?.scrollBy({
-      left: boardContentRef.current?.clientWidth + dayLineGap,
-      behavior: 'smooth',
+    if (!boardContentRef.current) return;
+    setChunkIndex((prev) => {
+      if (prev + 1 >= timePointChunks.length) return prev;
+      return prev + 1;
     });
+    if (chunkIndex < timePointChunks.length - 1) {
+      boardContentRef.current.scrollBy({
+        left: boardContentRef.current.clientWidth + dayLineGap,
+        behavior: 'smooth',
+      });
+    } else {
+      boardContentRef.current.scrollTo({
+        left: boardContentRef.current.scrollWidth,
+        behavior: 'smooth',
+      });
+    }
   }
 
   function chunkRangeArray(array: string[], chunkSize: number) {
