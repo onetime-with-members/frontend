@@ -39,26 +39,34 @@ export default function Participants({ participants }: ParticipantsProps) {
           </span>
           <IconChevronRight size={24} className="text-gray-30" />
         </div>
-        <div className={clsx(style.badgeList, 'hidden min-[440px]:flex')}>
-          {participants.slice(0, 9).map((participant) => (
-            <MemberBadge key={participant}>{participant}</MemberBadge>
-          ))}
-          {participants.length > 9 && (
-            <MemberBadge variant="gray" className="">
-              ...
-            </MemberBadge>
-          )}
-        </div>
-        <div className={clsx(style.badgeList, 'flex min-[440px]:hidden')}>
-          {participants.slice(0, 7).map((participant) => (
-            <MemberBadge key={participant}>{participant}</MemberBadge>
-          ))}
-          {participants.length > 7 && (
-            <MemberBadge variant="gray" className="">
-              ...
-            </MemberBadge>
-          )}
-        </div>
+        {participants.length === 0 ? (
+          <div className="text-sm-200 ml-1 mt-2 text-gray-50">
+            참여자가 없습니다.
+          </div>
+        ) : (
+          <>
+            <div className={clsx(style.badgeList, 'hidden min-[440px]:flex')}>
+              {participants.slice(0, 9).map((participant) => (
+                <MemberBadge key={participant}>{participant}</MemberBadge>
+              ))}
+              {participants.length > 9 && (
+                <MemberBadge variant="gray" className="">
+                  ...
+                </MemberBadge>
+              )}
+            </div>
+            <div className={clsx(style.badgeList, 'flex min-[440px]:hidden')}>
+              {participants.slice(0, 7).map((participant) => (
+                <MemberBadge key={participant}>{participant}</MemberBadge>
+              ))}
+              {participants.length > 7 && (
+                <MemberBadge variant="gray" className="">
+                  ...
+                </MemberBadge>
+              )}
+            </div>
+          </>
+        )}
       </div>
       {isDialogOpen && (
         <ParticipantsPopUp

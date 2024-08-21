@@ -33,15 +33,21 @@ export default function RecommendTime({
           <IconChevronRight size={24} className="text-gray-30" />
         </div>
         <div className="text-md-300 sm:text-lg-300 mt-2 rounded-2xl bg-primary-00 p-4 text-primary-50">
-          <span>
-            {dayjs(recommendSchedules[0].time_point, 'YYYY.MM.DD').format(
-              'YYYY.MM.DD (dd)',
-            )}
-          </span>
-          <span className="ml-2">
-            {recommendSchedules[0].start_time} -{' '}
-            {recommendSchedules[0].end_time}
-          </span>
+          {recommendSchedules.length === 0 ? (
+            <span>추천 시간이 없습니다.</span>
+          ) : (
+            <>
+              <span>
+                {dayjs(recommendSchedules[0].time_point, 'YYYY.MM.DD').format(
+                  'YYYY.MM.DD (dd)',
+                )}
+              </span>
+              <span className="ml-2">
+                {recommendSchedules[0].start_time} -{' '}
+                {recommendSchedules[0].end_time}
+              </span>
+            </>
+          )}
         </div>
       </div>
       {isDialogOpen && (
