@@ -54,6 +54,10 @@ export default function PinPasswordInput({
     }
   }
 
+  function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
+    e.target.select();
+  }
+
   return (
     <div className={clsx('flex gap-3', className)}>
       {Array.from({ length: MAX_PIN_LENGTH }).map((_, index) => (
@@ -65,7 +69,7 @@ export default function PinPasswordInput({
           inputRef={(el) => (inputRefs.current[index] = el)}
           onChange={(e) => handleInputChange(e, index)}
           onKeyDown={(e) => handleKeyDown(e, index)}
-          onFocus={(e) => e.target.select()}
+          onFocus={handleFocus}
           inputMode="numeric"
           value={pin[index] === '-' ? '' : pin[index]}
         />
