@@ -1,17 +1,20 @@
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
+import { Event } from '../types/event.type';
 import { RecommendSchedule } from '../types/schedule.type';
 import CircleArrowButton from './CircleArrowButton';
 import Participants from './Participants';
 import RecommendTime from './RecommendTime';
 
 interface TopHeaderContentsListProps {
+  eventCategory: Event['category'];
   participants: string[];
   recommendSchedules: RecommendSchedule[];
 }
 
 export default function TopHeaderContentsList({
+  eventCategory,
   participants,
   recommendSchedules,
 }: TopHeaderContentsListProps) {
@@ -98,7 +101,10 @@ export default function TopHeaderContentsList({
         className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
         style={{ scrollSnapType: 'x mandatory' }}
       >
-        <RecommendTime recommendSchedules={recommendSchedules} />
+        <RecommendTime
+          recommendSchedules={recommendSchedules}
+          eventCategory={eventCategory}
+        />
         <Participants participants={participants} />
       </div>
       <CircleArrowButton

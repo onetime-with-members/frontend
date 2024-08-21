@@ -3,14 +3,14 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import { SELECTED_DATE_LIST_FORMAT } from '../../constants/date';
-import { EventValue } from '../../types/event.type';
+import { Event } from '../../types/event.type';
 import DateItem from '../DateItem';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface CalendarSelectProps {
   className?: string;
-  value: EventValue;
-  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
+  value: Event;
+  setValue: React.Dispatch<React.SetStateAction<Event>>;
 }
 
 export default function CalendarSelect({

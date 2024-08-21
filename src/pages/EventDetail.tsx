@@ -7,7 +7,7 @@ import TopHeaderContentsList from '../components/TopHeaderContentsList';
 import FloatingBottomButton from '../components/floating-button/event-detail/FloatingBottomButton';
 import NavBar from '../components/nav-bar/event-detail/NavBar';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
-import { EventValue } from '../types/event.type';
+import { Event } from '../types/event.type';
 import { Schedule } from '../types/schedule.type';
 import { sortWeekdayList } from '../utils/weekday';
 import { useQuery } from '@tanstack/react-query';
@@ -23,7 +23,7 @@ export default function EventDetail() {
     },
   });
 
-  let event: EventValue = eventData?.payload;
+  let event: Event = eventData?.payload;
   if (event) {
     if (event?.category === 'DAY') {
       event.ranges = sortWeekdayList(event.ranges);
@@ -99,6 +99,7 @@ export default function EventDetail() {
               <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
             ) : (
               <TopHeaderContentsList
+                eventCategory={event.category}
                 recommendSchedules={recommendSchedules}
                 participants={participants}
               />

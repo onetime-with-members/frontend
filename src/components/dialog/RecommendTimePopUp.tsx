@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 
+import { Event } from '../../types/event.type';
 import { RecommendSchedule } from '../../types/schedule.type';
 import TimeAccordionItem from '../TimeAccordionItem';
 import { IconX } from '@tabler/icons-react';
@@ -7,11 +8,13 @@ import { IconX } from '@tabler/icons-react';
 interface RecommendTimeDialogProps {
   onClose: () => void;
   recommendSchedules: RecommendSchedule[];
+  eventCategory: Event['category'];
 }
 
 export default function RecommendTimePopUp({
   onClose,
   recommendSchedules,
+  eventCategory,
 }: RecommendTimeDialogProps) {
   const formattedRecommendSchedules = [
     ...new Set(
@@ -37,7 +40,7 @@ export default function RecommendTimePopUp({
       onClick={onClose}
     >
       <div
-        className="max-h-[30rem] w-[23rem] cursor-auto overflow-y-auto rounded-2xl bg-gray-00"
+        className="w-[23rem] cursor-auto rounded-2xl bg-gray-00"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-5 pb-3 pt-4">
@@ -48,13 +51,15 @@ export default function RecommendTimePopUp({
             <IconX size={24} />
           </button>
         </div>
-        <div className="flex flex-col gap-8 px-5 pb-7 pt-4">
+        <div className="scrollbar-hidden flex max-h-[30rem] flex-col gap-8 overflow-y-auto px-5 pb-7 pt-4">
           {formattedRecommendSchedules.map((recommendSchedule) => (
             <div key={recommendSchedule.timePoint}>
               <h3 className={style.dateTitle}>
-                {dayjs(recommendSchedule.timePoint, 'YYYY.MM.DD').format(
-                  'YYYY.MM.DD (dd)',
-                )}
+                {eventCategory === 'DATE'
+                  ? dayjs(recommendSchedule.timePoint, 'YYYY.MM.DD').format(
+                      'YYYY.MM.DD (dd)',
+                    )
+                  : `${recommendSchedule.timePoint}요일`}
               </h3>
               <ul className={style.timeAccordionList}>
                 {recommendSchedule.schedules.map((schedule, index) => (

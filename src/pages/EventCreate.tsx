@@ -8,11 +8,11 @@ import NavBar from '../components/nav-bar/event-create/NavBar';
 import DateSection from '../components/section/event-create/DateSection';
 import TimeSection from '../components/section/event-create/TimeSection';
 import TitleSection from '../components/section/event-create/TitleSection';
-import { EventValue } from '../types/event.type';
+import { Event } from '../types/event.type';
 import { useMutation } from '@tanstack/react-query';
 
 export default function EventCreate() {
-  const [value, setValue] = useState<EventValue>({
+  const [value, setValue] = useState<Event>({
     title: '',
     start_time: '09:00',
     end_time: '24:00',
