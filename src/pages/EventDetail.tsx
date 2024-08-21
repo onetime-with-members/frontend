@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
@@ -58,38 +59,43 @@ export default function EventDetail() {
   if (isEventPending || isSchedulePending) return <></>;
 
   return (
-    <div>
-      <div
-        className="px-4 py-6"
-        style={{
-          background: 'linear-gradient(0deg, #334EDB 0%, #8898F2 100%)',
-        }}
-      >
-        <header className="mx-auto max-w-screen-sm">
-          <NavBar />
-          <div className="flex items-center justify-between">
-            <h1 className="title-md-300 text-gray-00">{event.title}</h1>
-            <button
-              className="text-md-200 rounded-xl bg-gray-90 px-4 py-2 text-gray-00"
-              onClick={copyEventShareLink}
-            >
-              공유하기
-            </button>
-          </div>
-          <div className="mt-4 flex items-center overflow-x-scroll">
-            <div className="flex items-stretch gap-4">
-              <RecommendTime />
-              <Participants participants={participants} />
+    <>
+      <Helmet>
+        <title>{event.title} - OneTime</title>
+      </Helmet>
+      <div>
+        <div
+          className="px-4 py-6"
+          style={{
+            background: 'linear-gradient(0deg, #334EDB 0%, #8898F2 100%)',
+          }}
+        >
+          <header className="mx-auto max-w-screen-sm">
+            <NavBar />
+            <div className="flex items-center justify-between">
+              <h1 className="title-md-300 text-gray-00">{event.title}</h1>
+              <button
+                className="text-md-200 rounded-xl bg-gray-90 px-4 py-2 text-gray-00"
+                onClick={copyEventShareLink}
+              >
+                공유하기
+              </button>
             </div>
-          </div>
-        </header>
+            <div className="mt-4 flex items-center overflow-x-scroll">
+              <div className="flex items-stretch gap-4">
+                <RecommendTime />
+                <Participants participants={participants} />
+              </div>
+            </div>
+          </header>
+        </div>
+        <div className="mx-auto mt-4 max-w-screen-sm px-4">
+          <main className="mb-28 mt-12">
+            <TimeBlockBoard event={event} schedules={schedules} />
+            <FloatingBottomButton />
+          </main>
+        </div>
       </div>
-      <div className="mx-auto mt-4 max-w-screen-sm px-4">
-        <main className="mb-28 mt-12">
-          <TimeBlockBoard event={event} schedules={schedules} />
-          <FloatingBottomButton />
-        </main>
-      </div>
-    </div>
+    </>
   );
 }

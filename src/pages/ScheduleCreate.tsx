@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 import ScheduleCancelPopUp from '../components/dialog/ScheduleCancelPopUp';
@@ -43,6 +44,9 @@ export default function ScheduleCreate() {
 
   return (
     <>
+      <Helmet>
+        <title>스케줄 등록 - OneTime</title>
+      </Helmet>
       <div className="px-4">
         <header className="h-[67px]">
           <div className="fixed left-0 top-0 z-40 w-full bg-white px-4">

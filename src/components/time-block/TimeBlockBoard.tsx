@@ -177,14 +177,22 @@ export default function TimeBlockBoard({
 
   return (
     <>
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between">
         <h2 className="title-sm-300 text-gray-90">가능한 스케줄</h2>
-        <div className="flex items-center gap-8">
-          <button onClick={handleLeftScroll}>
-            <IconTriangleFilled size={12} className="-rotate-90 text-gray-90" />
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleLeftScroll}
+            className="flex w-6 -rotate-90 items-center justify-center text-gray-90 disabled:text-gray-15"
+            disabled={chunkIndex === 0}
+          >
+            <IconTriangleFilled size={12} />
           </button>
-          <button onClick={handleRightScroll}>
-            <IconTriangleFilled size={12} className="rotate-90 text-gray-90" />
+          <button
+            onClick={handleRightScroll}
+            className="flex w-6 rotate-90 items-center justify-center disabled:text-gray-15"
+            disabled={chunkIndex === timePointChunks.length - 1}
+          >
+            <IconTriangleFilled size={12} />
           </button>
         </div>
       </div>

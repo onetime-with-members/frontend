@@ -49,24 +49,26 @@ export default function CalendarSelect({
 
   return (
     <div className={clsx('flex flex-col gap-3', className)}>
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between">
         <div className="text-lg-300 text-gray-90">
           {selectedDate.format('YYYY.MM')}
         </div>
-        <div className="flex items-center gap-8">
-          <IconTriangleFilled
-            size={12}
-            className={clsx('-rotate-90', {
+        <div className="flex items-center gap-4">
+          <button
+            className={clsx('flex w-6 -rotate-90 items-center justify-center', {
               'text-gray-15': isPrevDisabled,
               'text-gray-90': !isPrevDisabled,
             })}
             onClick={handlePrevMonth}
-          />
-          <IconTriangleFilled
-            size={12}
-            className="rotate-90 text-gray-90"
+          >
+            <IconTriangleFilled size={12} />
+          </button>
+          <button
+            className="flex w-6 rotate-90 items-center justify-center text-gray-90"
             onClick={handleNextMonth}
-          />
+          >
+            <IconTriangleFilled size={12} />
+          </button>
         </div>
       </div>
       <div className="grid grid-cols-7 gap-3">
@@ -82,15 +84,18 @@ export default function CalendarSelect({
         ))}
         {Array.from({ length: lastDate }, (_, index) => index + 1).map(
           (date) => (
-            <DateItem
-              key={date}
-              active={value.ranges.includes(
-                selectedDate.date(date).format(SELECTED_DATE_LIST_FORMAT),
-              )}
-              onClick={() => handleDateItemClick(date)}
-            >
-              {date}
-            </DateItem>
+            <div className="flex items-center justify-center">
+              <DateItem
+                key={date}
+                active={value.ranges.includes(
+                  selectedDate.date(date).format(SELECTED_DATE_LIST_FORMAT),
+                )}
+                onClick={() => handleDateItemClick(date)}
+                disabled={selectedDate.date(date).isBefore(dayjs(), 'date')}
+              >
+                {date}
+              </DateItem>
+            </div>
           ),
         )}
       </div>

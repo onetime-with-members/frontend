@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { HelmetProvider } from 'react-helmet-async';
 
 import Router from './Router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -15,7 +16,9 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
+      <HelmetProvider>
+        <Router />
+      </HelmetProvider>
     </QueryClientProvider>
   );
 }
