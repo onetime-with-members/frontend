@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { HelmetProvider } from 'react-helmet-async';
 
 import Router from './Router';
+import './styles/scroll.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import 'dayjs/locale/ko';
 import customParseFormat from 'dayjs/plugin/customParseFormat';

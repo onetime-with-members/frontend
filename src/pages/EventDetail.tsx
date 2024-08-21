@@ -91,11 +91,12 @@ export default function EventDetail() {
                 공유하기
               </button>
             </div>
-            <div className="mt-4 flex items-center overflow-x-scroll">
-              <div className="flex items-stretch gap-4">
-                <RecommendTime recommendSchedules={recommendSchedules} />
-                <Participants participants={participants} />
-              </div>
+            <div
+              className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
+              style={{ scrollSnapType: 'x mandatory' }}
+            >
+              <RecommendTime recommendSchedules={recommendSchedules} />
+              <Participants participants={participants} />
             </div>
           </header>
         </div>

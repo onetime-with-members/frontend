@@ -27,7 +27,7 @@ export default function Participants({ participants }: ParticipantsProps) {
   return (
     <>
       <div
-        className="min-w-[85%] cursor-pointer rounded-2xl bg-gray-00 px-4 py-5"
+        className="min-w-[85%] cursor-pointer snap-start rounded-2xl bg-gray-00 px-4 py-5"
         onClick={handleDialogOpen}
       >
         <div className="ml-1 flex items-center justify-between">
@@ -39,11 +39,7 @@ export default function Participants({ participants }: ParticipantsProps) {
           </span>
           <IconChevronRight size={24} className="text-gray-30" />
         </div>
-        {participants.length === 0 ? (
-          <div className="text-sm-200 ml-1 mt-2 text-gray-50">
-            참여자가 없습니다.
-          </div>
-        ) : (
+        {participants.length !== 0 && (
           <>
             <div className={clsx(style.badgeList, 'hidden min-[440px]:flex')}>
               {participants.slice(0, 9).map((participant) => (

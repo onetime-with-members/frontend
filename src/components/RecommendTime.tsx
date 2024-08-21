@@ -25,7 +25,7 @@ export default function RecommendTime({
   return (
     <>
       <div
-        className="min-w-[85%] cursor-pointer rounded-2xl bg-gray-00 px-4 py-5"
+        className="min-w-[85%] cursor-pointer snap-start rounded-2xl bg-gray-00 px-4 py-5"
         onClick={handleDialogOpen}
       >
         <div className="ml-1 flex items-center justify-between">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import ScheduleCancelPopUp from '../components/dialog/ScheduleCancelPopUp';
 import MemberLogin from '../components/screens/schedule-create/MemberLogin';
@@ -19,12 +19,14 @@ export default function ScheduleCreate() {
     pin: '',
   });
 
+  const params = useParams<{ eventId: string }>();
+
   const navigate = useNavigate();
 
   function handleBackButtonClick() {
     if (pageIndex === 0) {
       if (isEmpty) {
-        navigate(-1);
+        navigate(`/events/${params.eventId}`);
       } else {
         setIsPopUpOpen(true);
       }
@@ -57,7 +59,7 @@ export default function ScheduleCreate() {
                 </button>
               </div>
               <h2 className="text-lg-300 text-center text-gray-90">
-                정보 입력
+                {pageIndex === 0 ? '정보 입력' : '스케줄 등록'}
               </h2>
             </div>
           </div>
