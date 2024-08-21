@@ -1,13 +1,31 @@
+import dayjs from 'dayjs';
+
+import { RecommendSchedule } from '../../types/schedule.type';
 import TimeAccordionItem from '../TimeAccordionItem';
 import { IconX } from '@tabler/icons-react';
 
 interface RecommendTimeDialogProps {
   onClose: () => void;
+  recommendSchedules: RecommendSchedule[];
 }
 
 export default function RecommendTimePopUp({
   onClose,
+  recommendSchedules,
 }: RecommendTimeDialogProps) {
+  const formattedRecommendSchedules = [
+    ...new Set(
+      recommendSchedules.map(
+        (recommendSchedule) => recommendSchedule.time_point,
+      ),
+    ),
+  ].map((timePoint) => ({
+    timePoint,
+    schedules: recommendSchedules.filter(
+      (recommendSchedule) => recommendSchedule.time_point === timePoint,
+    ),
+  }));
+
   const style = {
     dateTitle: 'text-lg-300 text-gray-60',
     timeAccordionList: 'mt-3 flex flex-col gap-3',
@@ -31,20 +49,28 @@ export default function RecommendTimePopUp({
           </button>
         </div>
         <div className="flex flex-col gap-8 px-5 pb-7 pt-4">
-          <div>
-            <h3 className={style.dateTitle}>2024.03.01 월</h3>
-            <ul className={style.timeAccordionList}>
-              <TimeAccordionItem />
-              <TimeAccordionItem />
-            </ul>
-          </div>
-          <div>
-            <h3 className={style.dateTitle}>2024.03.01 월</h3>
-            <ul className={style.timeAccordionList}>
-              <TimeAccordionItem />
-              <TimeAccordionItem />
-            </ul>
-          </div>
+          {formattedRecommendSchedules.map((recommendSchedule) => (
+            <div key={recommendSchedule.timePoint}>
+              <h3 className={style.dateTitle}>
+                {dayjs(recommendSchedule.timePoint, 'YYYY.MM.DD').format(
+                  'YYYY.MM.DD (dd)',
+                )}
+              </h3>
+              <ul className={style.timeAccordionList}>
+                {recommendSchedule.schedules.map((schedule, index) => (
+                  <TimeAccordionItem
+                    key={index}
+                    startTime={schedule.start_time}
+                    endTime={schedule.end_time}
+                    members={{
+                      possible: schedule.possible_names,
+                      impossible: schedule.impossible_names,
+                    }}
+                  />
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </div>

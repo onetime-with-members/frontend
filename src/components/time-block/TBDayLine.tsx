@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 
-import { Schedules, Time, TimeBlockDragIndex } from '../../types/schedule.type';
+import { Schedule, Time, TimeBlockDragIndex } from '../../types/schedule.type';
 import { getBlockTimeList } from '../../utils/time-block';
 import TBDayTopLabel from './TBDayTopLabel';
 import TBItem from './TBItem';
@@ -10,7 +10,7 @@ interface TBDayLineProps {
   startTime: string;
   endTime: string;
   category: 'DAY' | 'DATE';
-  schedules: Schedules[];
+  schedules: Schedule[];
   changeTimeBlockStatus: (
     day: Time['time_point'],
     time: Time['times'][0],

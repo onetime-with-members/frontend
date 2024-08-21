@@ -8,14 +8,14 @@ import FloatingBottomButton from '../components/floating-button/event-detail/Flo
 import NavBar from '../components/nav-bar/event-detail/NavBar';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { EventValue } from '../types/event.type';
-import { Schedules } from '../types/schedule.type';
+import { Schedule } from '../types/schedule.type';
 import { sortWeekdayList } from '../utils/weekday';
 import { useQuery } from '@tanstack/react-query';
 
 export default function EventDetail() {
-  const params = useParams();
+  const params = useParams<{ eventId: string }>();
 
-  const { isLoading: isEventPending, data: eventData } = useQuery({
+  const { isPending: isEventPending, data: eventData } = useQuery({
     queryKey: ['events', params.eventId],
     queryFn: async () => {
       const res = await axios.get(`/events/${params.eventId}`);
@@ -32,7 +32,7 @@ export default function EventDetail() {
     }
   }
 
-  const { isLoading: isSchedulePending, data: scheduleData } = useQuery({
+  const { isPending: isSchedulePending, data: scheduleData } = useQuery({
     queryKey: ['schedules', event?.category.toLowerCase(), params.eventId],
     queryFn: async () => {
       const res = await axios.get(
@@ -43,7 +43,17 @@ export default function EventDetail() {
     enabled: !!event,
   });
 
-  const schedules: Schedules[] = scheduleData?.payload;
+  const schedules: Schedule[] = scheduleData?.payload;
+
+  const { isPending: isRecommendPending, data: recommendData } = useQuery({
+    queryKey: ['events', params.eventId, 'most'],
+    queryFn: async () => {
+      const res = await axios.get(`/events/${params.eventId}/most`);
+      return res.data;
+    },
+  });
+
+  let recommendSchedules = recommendData?.payload;
 
   const participants: string[] = schedules
     ?.map((schedule) => schedule.name)
@@ -56,7 +66,7 @@ export default function EventDetail() {
     alert('링크가 복사되었습니다.');
   }
 
-  if (isEventPending || isSchedulePending) return <></>;
+  if (isEventPending || isSchedulePending || isRecommendPending) return <></>;
 
   return (
     <>
@@ -83,7 +93,7 @@ export default function EventDetail() {
             </div>
             <div className="mt-4 flex items-center overflow-x-scroll">
               <div className="flex items-stretch gap-4">
-                <RecommendTime />
+                <RecommendTime recommendSchedules={recommendSchedules} />
                 <Participants participants={participants} />
               </div>
             </div>

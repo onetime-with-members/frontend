@@ -80,6 +80,10 @@ export default function MemberLogin({
 
   function handleSubmit() {
     if (disabled) return;
+    setMemberValue((prev) => ({
+      ...prev,
+      name: prev.name.trim(),
+    }));
     checkNewMember.mutate();
   }
 

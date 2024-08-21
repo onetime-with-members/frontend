@@ -1,9 +1,17 @@
+import dayjs from 'dayjs';
 import { useState } from 'react';
 
+import { RecommendSchedule } from '../types/schedule.type';
 import RecommendTimePopUp from './dialog/RecommendTimePopUp';
 import { IconChevronRight } from '@tabler/icons-react';
 
-export default function RecommendTime() {
+interface RecommendTimeProps {
+  recommendSchedules: RecommendSchedule[];
+}
+
+export default function RecommendTime({
+  recommendSchedules,
+}: RecommendTimeProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   function handleDialogOpen() {
@@ -25,11 +33,23 @@ export default function RecommendTime() {
           <IconChevronRight size={24} className="text-gray-30" />
         </div>
         <div className="text-lg-300 mt-2 rounded-2xl bg-primary-00 p-4 text-primary-50">
-          <span>2024.03.01 월</span>
-          <span className="ml-2">18:00 - 20:00</span>
+          <span>
+            {dayjs(recommendSchedules[0].time_point, 'YYYY.MM.DD').format(
+              'YYYY.MM.DD (dd)',
+            )}
+          </span>
+          <span className="ml-2">
+            {recommendSchedules[0].start_time} -{' '}
+            {recommendSchedules[0].end_time}
+          </span>
         </div>
       </div>
-      {isDialogOpen && <RecommendTimePopUp onClose={handleDialogClose} />}
+      {isDialogOpen && (
+        <RecommendTimePopUp
+          onClose={handleDialogClose}
+          recommendSchedules={recommendSchedules}
+        />
+      )}
     </>
   );
 }

@@ -4,7 +4,20 @@ import { useState } from 'react';
 import MemberBadge from './MemberBadge';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
-export default function TimeAccordionItem() {
+interface TimeAccordionItemProps {
+  startTime: string;
+  endTime: string;
+  members: {
+    possible: string[];
+    impossible: string[];
+  };
+}
+
+export default function TimeAccordionItem({
+  startTime,
+  endTime,
+  members,
+}: TimeAccordionItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const style = {
@@ -33,10 +46,10 @@ export default function TimeAccordionItem() {
             'text-gray-50': !isOpen,
           })}
         >
-          18:00 - 20:00
+          {startTime} - {endTime}
         </span>
         <div className="text-sm-300 rounded-full bg-primary-50 px-3 py-1 text-gray-00">
-          8명
+          {members.possible.length}명
         </div>
         {isOpen ? (
           <IconChevronUp size={24} className="text-primary-50" />
@@ -45,29 +58,31 @@ export default function TimeAccordionItem() {
         )}
       </div>
       {isOpen && (
-        <div className="px-5 pb-4">
-          <div>
-            <div className={clsx(style.title, 'text-primary-60')}>가능</div>
-            <div className={style.badgeList}>
-              <MemberBadge variant="primary">닉네임</MemberBadge>
-              <MemberBadge variant="primary">닉네임</MemberBadge>
-              <MemberBadge variant="primary">닉네임</MemberBadge>
-              <MemberBadge variant="primary">닉네임</MemberBadge>
-              <MemberBadge variant="primary">닉네임</MemberBadge>
-              <MemberBadge variant="primary">닉네임</MemberBadge>
+        <div className="flex flex-col gap-5 px-5 pb-4">
+          {members.possible.length > 0 && (
+            <div>
+              <div className={clsx(style.title, 'text-primary-60')}>가능</div>
+              <div className={style.badgeList}>
+                {members.possible.map((member) => (
+                  <MemberBadge key={member} variant="primary">
+                    {member}
+                  </MemberBadge>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="mt-5">
-            <div className={clsx(style.title, 'text-gray-50')}>불가능</div>
-            <div className={style.badgeList}>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
-              <MemberBadge variant="gray">닉네임</MemberBadge>
+          )}
+          {members.impossible.length > 0 && (
+            <div>
+              <div className={clsx(style.title, 'text-gray-50')}>불가능</div>
+              <div className={style.badgeList}>
+                {members.impossible.map((member) => (
+                  <MemberBadge key={member} variant="gray">
+                    {member}
+                  </MemberBadge>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       )}
     </li>

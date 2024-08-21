@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from '../../../api/axios';
 import { EventValue } from '../../../types/event.type';
 import { MemberValue } from '../../../types/member.type';
-import { Schedules } from '../../../types/schedule.type';
+import { Schedule } from '../../../types/schedule.type';
 import { sortWeekdayList } from '../../../utils/weekday';
 import FloatingBottomButton from '../../floating-button/schedule-create/FloatingBottomButton';
 import TimeBlockBoard from '../../time-block/TimeBlockBoard';
@@ -21,7 +21,7 @@ export default function ScheduleForm({
   isNewMember,
   memberValue,
 }: ScheduleFormProps) {
-  const [schedules, setSchedules] = useState<Schedules[]>([
+  const [schedules, setSchedules] = useState<Schedule[]>([
     {
       name: '본인',
       schedules: [],
@@ -60,7 +60,7 @@ export default function ScheduleForm({
     enabled: !!event && !isNewMember,
   });
 
-  const mySchedule: Schedules | undefined = scheduleData?.payload;
+  const mySchedule: Schedule | undefined = scheduleData?.payload;
 
   const createNewMemberSchedule = useMutation({
     mutationFn: async () => {

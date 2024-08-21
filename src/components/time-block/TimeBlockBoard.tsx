@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
 import { EventValue } from '../../types/event.type';
-import { Schedules, Time, TimeBlockPopUpData } from '../../types/schedule.type';
+import { Schedule, Time, TimeBlockPopUpData } from '../../types/schedule.type';
 import TimeBlockPopUp from '../dialog/TimeBlockPopUp';
 import TBDayLine from './TBDayLine';
 import TBLeftLabelLine from './TBLeftLabelLine';
@@ -10,8 +10,8 @@ import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface TimeBlockBoardProps {
   event: EventValue;
-  schedules: Schedules[];
-  setSchedules?: React.Dispatch<React.SetStateAction<Schedules[]>>;
+  schedules: Schedule[];
+  setSchedules?: React.Dispatch<React.SetStateAction<Schedule[]>>;
   editable?: boolean;
 }
 
@@ -39,11 +39,9 @@ export default function TimeBlockBoard({
   const dayLineGap = 12;
   const timePointChunks = chunkRangeArray(event.ranges, 5);
 
-  console.log(timePointChunks);
-
   function changeTimeBlockStatus(
     day: string,
-    time: Schedules['schedules'][0]['times'][0],
+    time: Schedule['schedules'][0]['times'][0],
     newStatus: boolean,
   ) {
     if (!editable || !setSchedules) return;
@@ -209,6 +207,7 @@ export default function TimeBlockBoard({
         >
           {timePointChunks.map((timePoints, index) => (
             <div
+              key={index}
               className={clsx('flex', {
                 'min-w-full':
                   index !== timePointChunks.length - 1 ||
@@ -219,12 +218,12 @@ export default function TimeBlockBoard({
               {timePoints.map((timePoint) => {
                 return (
                   <TBDayLine
+                    key={timePoint}
                     ref={
                       index !== timePointChunks.length - 1
                         ? dayLineRef
                         : undefined
                     }
-                    key={timePoint}
                     timePoint={timePoint}
                     startTime={event.start_time}
                     endTime={event.end_time}

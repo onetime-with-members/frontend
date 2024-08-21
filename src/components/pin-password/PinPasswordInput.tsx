@@ -65,6 +65,7 @@ export default function PinPasswordInput({
           inputRef={(el) => (inputRefs.current[index] = el)}
           onChange={(e) => handleInputChange(e, index)}
           onKeyDown={(e) => handleKeyDown(e, index)}
+          onFocus={(e) => e.target.select()}
           inputMode="numeric"
           value={pin[index] === '-' ? '' : pin[index]}
         />
