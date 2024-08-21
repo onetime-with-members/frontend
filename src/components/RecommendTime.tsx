@@ -32,7 +32,7 @@ export default function RecommendTime({
           <span className="text-md-300 text-gray-60">가장 많이 되는 시간</span>
           <IconChevronRight size={24} className="text-gray-30" />
         </div>
-        <div className="text-lg-300 mt-2 rounded-2xl bg-primary-00 p-4 text-primary-50">
+        <div className="text-md-300 sm:text-lg-300 mt-2 rounded-2xl bg-primary-00 p-4 text-primary-50">
           <span>
             {dayjs(recommendSchedules[0].time_point, 'YYYY.MM.DD').format(
               'YYYY.MM.DD (dd)',
