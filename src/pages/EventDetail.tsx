@@ -8,7 +8,7 @@ import FloatingBottomButton from '../components/floating-button/event-detail/Flo
 import NavBar from '../components/nav-bar/event-detail/NavBar';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { Event } from '../types/event.type';
-import { Schedule } from '../types/schedule.type';
+import { RecommendSchedule, Schedule } from '../types/schedule.type';
 import { sortWeekdayList } from '../utils/weekday';
 import { useQuery } from '@tanstack/react-query';
 
@@ -53,7 +53,7 @@ export default function EventDetail() {
     },
   });
 
-  let recommendSchedules = recommendData?.payload;
+  const recommendSchedules: RecommendSchedule[] = recommendData?.payload;
 
   const participants: string[] = schedules
     ?.map((schedule) => schedule.name)
@@ -70,7 +70,15 @@ export default function EventDetail() {
     alert('링크가 복사되었습니다.');
   }
 
-  if (isEventPending || isSchedulePending || isRecommendPending) return <></>;
+  if (
+    isEventPending ||
+    isSchedulePending ||
+    isRecommendPending ||
+    event === undefined ||
+    schedules === undefined ||
+    recommendSchedules === undefined
+  )
+    return <></>;
 
   return (
     <>

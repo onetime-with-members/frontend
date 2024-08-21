@@ -6,6 +6,7 @@ import ScheduleCancelPopUp from '../components/dialog/ScheduleCancelPopUp';
 import MemberLogin from '../components/screens/schedule-create/MemberLogin';
 import ScheduleForm from '../components/screens/schedule-create/ScheduleForm';
 import { MemberValue } from '../types/member.type';
+import { Schedule } from '../types/schedule.type';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function ScheduleCreate() {
@@ -18,6 +19,12 @@ export default function ScheduleCreate() {
     name: '',
     pin: '',
   });
+  const [schedules, setSchedules] = useState<Schedule[]>([
+    {
+      name: '본인',
+      schedules: [],
+    },
+  ]);
 
   const params = useParams<{ eventId: string }>();
 
@@ -80,6 +87,8 @@ export default function ScheduleCreate() {
               memberId={memberId}
               isNewMember={isNewMember}
               memberValue={memberValue}
+              schedules={schedules}
+              setSchedules={setSchedules}
             />
           )}
         </main>

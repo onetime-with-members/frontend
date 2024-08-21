@@ -32,8 +32,6 @@ export default function TimeDropdown({
   }
 
   useEffect(() => {
-    console.log('dropdownRef', dropdownRef.current);
-
     function handleClickOutside(e: MouseEvent) {
       if (
         dropdownRef.current &&

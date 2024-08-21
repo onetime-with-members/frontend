@@ -84,7 +84,7 @@ export default function CalendarSelect({
         ))}
         {Array.from({ length: lastDate }, (_, index) => index + 1).map(
           (date) => (
-            <div className="flex items-center justify-center">
+            <div key={date} className="flex items-center justify-center">
               <DateItem
                 key={date}
                 active={value.ranges.includes(

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import axios from '../../../api/axios';
@@ -14,20 +14,17 @@ interface ScheduleFormProps {
   memberId: string;
   isNewMember: boolean;
   memberValue: MemberValue;
+  schedules: Schedule[];
+  setSchedules: React.Dispatch<React.SetStateAction<Schedule[]>>;
 }
 
 export default function ScheduleForm({
   memberId,
   isNewMember,
   memberValue,
+  schedules,
+  setSchedules,
 }: ScheduleFormProps) {
-  const [schedules, setSchedules] = useState<Schedule[]>([
-    {
-      name: '본인',
-      schedules: [],
-    },
-  ]);
-
   const navigate = useNavigate();
   const params = useParams();
   const queryClient = useQueryClient();
@@ -114,7 +111,9 @@ export default function ScheduleForm({
           name: memberValue.name,
           schedules: event.ranges.map((timePoint) => ({
             time_point: timePoint,
-            times: [],
+            times:
+              schedules[0].schedules.find((s) => s.time_point === timePoint)
+                ?.times || [],
           })),
         },
       ]);
