@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
-import Participants from '../components/Participants';
-import RecommendTime from '../components/RecommendTime';
+import EmptyEventBanner from '../components/EmptyEventBanner';
+import TopHeaderContentsList from '../components/TopHeaderContentsList';
 import FloatingBottomButton from '../components/floating-button/event-detail/FloatingBottomButton';
 import NavBar from '../components/nav-bar/event-detail/NavBar';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
@@ -63,6 +63,10 @@ export default function EventDetail() {
     navigator.clipboard.writeText(
       `${window.location.origin}/events/${params.eventId}`,
     );
+  }
+
+  function handleShareButtonClick() {
+    copyEventShareLink();
     alert('링크가 복사되었습니다.');
   }
 
@@ -86,18 +90,19 @@ export default function EventDetail() {
               <h1 className="title-md-300 text-gray-00">{event.title}</h1>
               <button
                 className="text-md-200 rounded-xl bg-gray-90 px-4 py-2 text-gray-00"
-                onClick={copyEventShareLink}
+                onClick={handleShareButtonClick}
               >
                 공유하기
               </button>
             </div>
-            <div
-              className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
-              style={{ scrollSnapType: 'x mandatory' }}
-            >
-              <RecommendTime recommendSchedules={recommendSchedules} />
-              <Participants participants={participants} />
-            </div>
+            {schedules.length === 0 ? (
+              <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
+            ) : (
+              <TopHeaderContentsList
+                recommendSchedules={recommendSchedules}
+                participants={participants}
+              />
+            )}
           </header>
         </div>
         <div className="mx-auto mt-4 max-w-screen-sm px-4">

@@ -7,7 +7,7 @@ import {
   IconTriangleInvertedFilled,
 } from '@tabler/icons-react';
 
-interface DropdownProps {
+interface TimeDropdownProps {
   time: string;
   setTime: (time: string) => void;
   className?: string;
@@ -17,7 +17,7 @@ export default function TimeDropdown({
   time,
   setTime,
   className,
-}: DropdownProps) {
+}: TimeDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -32,6 +32,8 @@ export default function TimeDropdown({
   }
 
   useEffect(() => {
+    console.log('dropdownRef', dropdownRef.current);
+
     function handleClickOutside(e: MouseEvent) {
       if (
         dropdownRef.current &&
@@ -75,7 +77,7 @@ export default function TimeDropdown({
         )}
       </div>
       {isOpen && (
-        <ul className="absolute -bottom-3 max-h-[10rem] w-full translate-y-full overflow-y-auto rounded-xl bg-gray-00 py-2 shadow-[0_4px_24px_0_rgba(0,0,0,0.15)]">
+        <ul className="scrollbar-hidden absolute -bottom-3 max-h-[15.5rem] w-full translate-y-full overflow-y-auto rounded-xl bg-gray-00 py-2 shadow-[0_4px_24px_0_rgba(0,0,0,0.15)]">
           {Array.from({ length: 25 }, (_, index) => index).map((time) => (
             <TimeDropdownItem
               key={time}
