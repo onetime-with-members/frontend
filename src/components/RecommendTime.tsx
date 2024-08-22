@@ -38,14 +38,14 @@ export default function RecommendTime({
         <div className="text-md-300 sm:text-lg-300 mt-2 rounded-2xl bg-primary-00 p-4 text-primary-50">
           <span>
             {eventCategory === 'DATE'
-              ? dayjs(recommendSchedules[0].time_point, 'YYYY.MM.DD').format(
+              ? dayjs(recommendSchedules[0]?.time_point, 'YYYY.MM.DD').format(
                   'YYYY.MM.DD (dd)',
                 )
-              : `${recommendSchedules[0].time_point}요일`}
+              : `${recommendSchedules[0]?.time_point}요일`}
           </span>
           <span className="ml-2">
-            {recommendSchedules[0].start_time} -{' '}
-            {recommendSchedules[0].end_time}
+            {recommendSchedules[0]?.start_time} -{' '}
+            {recommendSchedules[0]?.end_time}
           </span>
         </div>
       </div>
