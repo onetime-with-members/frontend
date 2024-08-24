@@ -16,7 +16,7 @@ export default function EventCreate() {
     title: '',
     start_time: '09:00',
     end_time: '24:00',
-    category: 'DAY',
+    category: 'DATE',
     ranges: [],
   });
   const [disabled, setDisabled] = useState(false);
