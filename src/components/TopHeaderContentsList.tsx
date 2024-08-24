@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 
 import { Event } from '../types/event.type';
 import { RecommendSchedule } from '../types/schedule.type';
@@ -88,14 +89,16 @@ export default function TopHeaderContentsList({
 
   return (
     <div className="group relative">
-      <CircleArrowButton
-        direction="left"
-        className={clsx(style.circleArrowButton, 'left-10 sm:left-16', {
-          'group-hover:opacity-0': !circleArrowButtonVisible.left,
-          'group-hover:opacity-100': circleArrowButtonVisible.left,
-        })}
-        onClick={handleScrollLeft}
-      />
+      {!isMobile && (
+        <CircleArrowButton
+          direction="left"
+          className={clsx(style.circleArrowButton, 'left-10 sm:left-16', {
+            'group-hover:opacity-0': !circleArrowButtonVisible.left,
+            'group-hover:opacity-100': circleArrowButtonVisible.left,
+          })}
+          onClick={handleScrollLeft}
+        />
+      )}
       <div
         ref={topDialogListRef}
         className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
@@ -107,14 +110,16 @@ export default function TopHeaderContentsList({
         />
         <Participants participants={participants} />
       </div>
-      <CircleArrowButton
-        direction="right"
-        className={clsx(style.circleArrowButton, 'right-10 sm:right-16', {
-          'group-hover:opacity-0': !circleArrowButtonVisible.right,
-          'group-hover:opacity-100': circleArrowButtonVisible.right,
-        })}
-        onClick={handleScrollRight}
-      />
+      {!isMobile && (
+        <CircleArrowButton
+          direction="right"
+          className={clsx(style.circleArrowButton, 'right-10 sm:right-16', {
+            'group-hover:opacity-0': !circleArrowButtonVisible.right,
+            'group-hover:opacity-100': circleArrowButtonVisible.right,
+          })}
+          onClick={handleScrollRight}
+        />
+      )}
     </div>
   );
 }

@@ -120,15 +120,3 @@
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
-
-@media (hover: hover) {
-  .only-hover-flex {
-    display: flex;
-  }
-}
-
-@media (hover: none) {
-  .only-hover-flex {
-    display: none;
-  }
-}
