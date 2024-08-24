@@ -20,14 +20,14 @@ export default function TitleSection({ value, setValue }: TitleSectionProps) {
       <EventInputLabel
         labelId="title"
         labelText="이벤트 제목"
-        description="최대 15자"
+        description="최대 30자"
       />
       <Input
         type="text"
         id="title"
         name="title"
         placeholder="어떤 이벤트인가요?"
-        maxLength={15}
+        maxLength={30}
         value={value.title}
         onChange={handleChange}
       />
