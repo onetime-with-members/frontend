@@ -84,6 +84,7 @@ export default function EventDetail() {
     <>
       <Helmet>
         <title>{event.title} - OneTime</title>
+        <meta property="og:title" content={`${event.title} - OneTime`} />
       </Helmet>
       <div>
         <div

@@ -8,6 +8,7 @@ export default function Layout() {
     <>
       <Helmet>
         <title>OneTime</title>
+        <meta property="og:title" content="OneTime" />
       </Helmet>
       <div className="flex min-h-screen flex-col">
         <ScrollToTop />
