@@ -84,7 +84,6 @@ export default function EventDetail() {
     <>
       <Helmet>
         <title>{event.title} - OneTime</title>
-        <meta property="og:title" content={`${event.title} - OneTime`} />
       </Helmet>
       <div>
         <div
@@ -95,8 +94,10 @@ export default function EventDetail() {
         >
           <header className="mx-auto max-w-screen-sm">
             <NavBar />
-            <div className="flex items-center justify-between">
-              <h1 className="title-md-300 text-gray-00">{event.title}</h1>
+            <div className="flex items-center justify-between gap-2">
+              <h1 className="title-md-300 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00">
+                {event.title}
+              </h1>
               <button
                 className="text-md-200 rounded-xl bg-gray-90 px-4 py-2 text-gray-00"
                 onClick={handleShareButtonClick}
