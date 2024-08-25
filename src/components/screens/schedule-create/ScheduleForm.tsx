@@ -37,7 +37,7 @@ export default function ScheduleForm({
     },
   });
 
-  let event: Event | undefined = eventData?.payload;
+  let event: Event = eventData?.payload;
   if (event && event.category === 'DAY')
     event.ranges = sortWeekdayList(event.ranges);
 
@@ -54,10 +54,10 @@ export default function ScheduleForm({
       );
       return res.data;
     },
-    enabled: !!event && !isNewMember,
+    enabled: event !== undefined && !isNewMember,
   });
 
-  const mySchedule: Schedule | undefined = scheduleData?.payload;
+  const mySchedule: Schedule = scheduleData?.payload;
 
   const createNewMemberSchedule = useMutation({
     mutationFn: async () => {
@@ -133,14 +133,8 @@ export default function ScheduleForm({
   }, [event, isNewMember, isSchedulePending, mySchedule]);
 
   if (isNewMember) {
-    if (isEventPending || !event || !schedules) return <></>;
-  } else if (
-    isEventPending ||
-    isSchedulePending ||
-    !event ||
-    !mySchedule ||
-    !schedules
-  ) {
+    if (isEventPending) return <></>;
+  } else if (isEventPending || isSchedulePending) {
     return <></>;
   }
 
