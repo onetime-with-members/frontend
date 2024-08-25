@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import ScheduleCancelPopUp from '../components/dialog/ScheduleCancelPopUp';
 import MemberLogin from '../components/screens/schedule-create/MemberLogin';
 import ScheduleForm from '../components/screens/schedule-create/ScheduleForm';
 import { MemberValue } from '../types/member.type';
@@ -11,10 +10,8 @@ import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function ScheduleCreate() {
   const [pageIndex, setPageIndex] = useState(0);
-  const [memberId, setMemberId] = useState('');
   const [isNewMember, setIsNewMember] = useState(false);
-  const [isPopUpOpen, setIsPopUpOpen] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(true);
+  const [memberId, setMemberId] = useState('');
   const [memberValue, setMemberValue] = useState<MemberValue>({
     name: '',
     pin: '',
@@ -32,23 +29,10 @@ export default function ScheduleCreate() {
 
   function handleBackButtonClick() {
     if (pageIndex === 0) {
-      if (isEmpty) {
-        navigate(`/events/${params.eventId}`);
-      } else {
-        setIsPopUpOpen(true);
-      }
+      navigate(`/events/${params.eventId}`);
     } else {
       setPageIndex((prev) => prev - 1);
     }
-  }
-
-  function handlePopUpClose() {
-    setIsPopUpOpen(false);
-  }
-
-  function handlePopUpConfirm() {
-    setIsPopUpOpen(false);
-    navigate(-1);
   }
 
   return (
@@ -76,7 +60,6 @@ export default function ScheduleCreate() {
             <MemberLogin
               setPageIndex={setPageIndex}
               setMemberId={setMemberId}
-              setIsEmpty={setIsEmpty}
               memberValue={memberValue}
               setMemberValue={setMemberValue}
               setIsNewMember={setIsNewMember}
@@ -93,12 +76,6 @@ export default function ScheduleCreate() {
           )}
         </main>
       </div>
-      {isPopUpOpen && (
-        <ScheduleCancelPopUp
-          onConfirm={handlePopUpConfirm}
-          onClose={handlePopUpClose}
-        />
-      )}
     </>
   );
 }

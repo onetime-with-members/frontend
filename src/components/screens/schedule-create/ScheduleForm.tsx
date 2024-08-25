@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import axios from '../../../api/axios';
@@ -25,6 +25,8 @@ export default function ScheduleForm({
   schedules,
   setSchedules,
 }: ScheduleFormProps) {
+  const [disabled, setDisabled] = useState(true);
+
   const navigate = useNavigate();
   const params = useParams();
   const queryClient = useQueryClient();
@@ -96,6 +98,7 @@ export default function ScheduleForm({
   });
 
   function handleSubmit() {
+    if (disabled) return;
     if (isNewMember) {
       createNewMemberSchedule.mutate();
     } else {
@@ -132,6 +135,14 @@ export default function ScheduleForm({
     }
   }, [event, isNewMember, isSchedulePending, mySchedule]);
 
+  useEffect(() => {
+    if (schedules[0].schedules.some((s) => s.times.length > 0)) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [schedules]);
+
   if (isNewMember) {
     if (isEventPending) return <></>;
   } else if (isEventPending || isSchedulePending) {
@@ -148,7 +159,7 @@ export default function ScheduleForm({
           editable
         />
       </div>
-      <FloatingBottomButton onClick={handleSubmit}>
+      <FloatingBottomButton onClick={handleSubmit} disabled={disabled}>
         스케줄 등록
       </FloatingBottomButton>
     </>

@@ -13,7 +13,6 @@ import { useMutation } from '@tanstack/react-query';
 interface MemberLoginProps {
   setPageIndex: React.Dispatch<React.SetStateAction<number>>;
   setMemberId: React.Dispatch<React.SetStateAction<string>>;
-  setIsEmpty: React.Dispatch<React.SetStateAction<boolean>>;
   memberValue: MemberValue;
   setMemberValue: React.Dispatch<React.SetStateAction<MemberValue>>;
   setIsNewMember: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,7 +21,6 @@ interface MemberLoginProps {
 export default function MemberLogin({
   setPageIndex,
   setMemberId,
-  setIsEmpty,
   memberValue,
   setMemberValue,
   setIsNewMember,
@@ -88,10 +86,6 @@ export default function MemberLogin({
   }
 
   useEffect(() => {
-    setIsEmpty(
-      memberValue.name === '' &&
-        (memberValue.pin.length === 0 || memberValue.pin === '----'),
-    );
     setDisabled(
       memberValue.name === '' ||
         memberValue.pin.length !== 4 ||
