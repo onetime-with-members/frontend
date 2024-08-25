@@ -59,7 +59,7 @@ export default function PinPasswordInput({
   }
 
   return (
-    <div className={clsx('flex gap-3', className)}>
+    <div className={clsx('grid grid-cols-4 gap-3', className)}>
       {Array.from({ length: MAX_PIN_LENGTH }).map((_, index) => (
         <PinPasswordInputField
           key={index}
