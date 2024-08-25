@@ -115,12 +115,12 @@ export default function MemberLogin({
             onChange={(e) => handleInputChange('name')(e.target.value)}
           />
         </div>
-        <div className="mt-12">
+        <div className="mt-12 w-full">
           <ScheduleInputLabel htmlFor="pin" required>
             PIN 번호
           </ScheduleInputLabel>
           <PinPasswordInput
-            className="mt-2"
+            className="mt-2 w-full"
             inputId="pin"
             pin={memberValue.pin}
             setPin={handleInputChange('pin')}
