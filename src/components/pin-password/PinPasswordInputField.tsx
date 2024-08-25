@@ -15,7 +15,7 @@ export default function PinPasswordInputField({
     <input
       ref={inputRef}
       className={clsx(
-        'title-md-200 flex-1 rounded-xl bg-gray-05 px-5 py-4 text-center outline-none placeholder:text-gray-30',
+        'title-md-200 rounded-xl bg-gray-05 px-5 py-4 text-center outline-none placeholder:text-gray-30',
         className,
       )}
       autoComplete="off"
