@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Event } from '../../types/event.type';
 import { Schedule, Time, TimeBlockPopUpData } from '../../types/schedule.type';
-import TimeBlockPopUp from '../dialog/TimeBlockPopUp';
+import TimeBlockPopUp from '../pop-up/TimeBlockPopUp';
 import TBDayLine from './TBDayLine';
 import TBLeftLabelLine from './TBLeftLabelLine';
 import { IconTriangleFilled } from '@tabler/icons-react';

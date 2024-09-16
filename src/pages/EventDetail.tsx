@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
@@ -6,6 +7,7 @@ import EmptyEventBanner from '../components/EmptyEventBanner';
 import TopHeaderContentsList from '../components/TopHeaderContentsList';
 import FloatingBottomButton from '../components/floating-button/event-detail/FloatingBottomButton';
 import NavBar from '../components/nav-bar/event-detail/NavBar';
+import SharePopUp from '../components/pop-up/SharePopUp';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { Event } from '../types/event.type';
 import { RecommendSchedule, Schedule } from '../types/schedule.type';
@@ -13,6 +15,8 @@ import { sortWeekdayList } from '../utils/weekday';
 import { useQuery } from '@tanstack/react-query';
 
 export default function EventDetail() {
+  const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
+
   const params = useParams<{ eventId: string }>();
 
   const { isPending: isEventPending, data: eventData } = useQuery({
@@ -66,8 +70,11 @@ export default function EventDetail() {
   }
 
   function handleShareButtonClick() {
-    copyEventShareLink();
-    alert('링크가 복사되었습니다.');
+    setIsSharePopUpOpen(true);
+  }
+
+  function handleSharePopUpClose() {
+    setIsSharePopUpOpen(false);
   }
 
   if (
@@ -123,6 +130,7 @@ export default function EventDetail() {
           </main>
         </div>
       </div>
+      {isSharePopUpOpen && <SharePopUp onClose={handleSharePopUpClose} />}
     </>
   );
 }

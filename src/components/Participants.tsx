@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 
 import MemberBadge from './MemberBadge';
-import ParticipantsPopUp from './dialog/ParticipantsPopUp';
+import ParticipantsPopUp from './pop-up/ParticipantsPopUp';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface ParticipantsProps {

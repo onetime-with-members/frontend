@@ -47,7 +47,7 @@ export default function RecommendTimePopUp({
           <h2 className="text-lg-300 text-gray-80">
             가능한 시간은 언제일까요?
           </h2>
-          <button className="cursor-pointer text-gray-40" onClick={onClose}>
+          <button className="text-gray-40" onClick={onClose}>
             <IconX size={24} />
           </button>
         </div>
