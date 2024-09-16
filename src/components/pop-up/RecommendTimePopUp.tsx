@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 
 import { EventType } from '../../types/event.type';
 import { RecommendSchedule } from '../../types/schedule.type';
-import TimeAccordionItem from '../TimeAccordionItem';
+import TimeAccordionItem from '../banner/recommend-time/TimeAccordionItem';
 import { IconX } from '@tabler/icons-react';
 
 interface RecommendTimeDialogProps {

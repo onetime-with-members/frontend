@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 
-import { EventType } from '../../types/event.type';
-import DateItem from '../DateItem';
+import { EventType } from '../../../types/event.type';
+import DateItem from '../date-item/DateItem';
 
 interface WeekdaySelectProps {
   className?: string;

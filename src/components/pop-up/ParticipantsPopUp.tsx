@@ -1,5 +1,5 @@
 // import TimeAccordionItem from '../recommend-time/TimeAccordionItem';
-import MemberBadge from '../MemberBadge';
+import MemberBadge from '../badge/MemberBadge';
 import { IconX } from '@tabler/icons-react';
 
 interface ParticipantsPopUpProps {

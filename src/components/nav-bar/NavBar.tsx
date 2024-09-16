@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import logoWhite from '../../../assets/logo-white.svg';
-import logoBlack from '../../../assets/logo.svg';
+import logoWhite from '../../assets/logo-white.svg';
+import logoBlack from '../../assets/logo.svg';
 
 export default function NavBar() {
   const [isNavBackground, setIsNavBackground] = useState(false);

@@ -4,10 +4,10 @@ import { useParams } from 'react-router-dom';
 
 import axios from '../../api/axios';
 import { MemberValue } from '../../types/member.type';
-import Input from '../Input';
 import FloatingBottomButton from '../floating-button/schedule-create/FloatingBottomButton';
-import ScheduleInputLabel from '../input-label/ScheduleInputLabel';
-import PinPasswordInput from '../pin-password/PinPasswordInput';
+import ScheduleInputLabel from '../form-control/input-label/ScheduleInputLabel';
+import Input from '../form-control/input/Input';
+import PinPasswordInput from '../form-control/pin-password/PinPasswordInput';
 import { useMutation } from '@tanstack/react-query';
 
 interface MemberLoginProps {

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 
-import MemberBadge from './MemberBadge';
+import MemberBadge from '../../badge/MemberBadge';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 interface TimeAccordionItemProps {

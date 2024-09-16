@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-import { EventType } from '../types/event.type';
-import { RecommendSchedule } from '../types/schedule.type';
-import RecommendTimePopUp from './pop-up/RecommendTimePopUp';
+import { EventType } from '../../../types/event.type';
+import { RecommendSchedule } from '../../../types/schedule.type';
+import RecommendTimePopUp from '../../pop-up/RecommendTimePopUp';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface RecommendTimeProps {

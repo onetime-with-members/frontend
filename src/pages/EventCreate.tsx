@@ -4,10 +4,10 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
-import NavBar from '../components/nav-bar/event-create/NavBar';
-import DateSection from '../components/section/event-create/DateSection';
-import TimeSection from '../components/section/event-create/TimeSection';
-import TitleSection from '../components/section/event-create/TitleSection';
+import LandingNavBar from '../components/nav-bar/LandingNavBar';
+import DateSection from '../components/section/DateSection';
+import TimeSection from '../components/section/TimeSection';
+import TitleSection from '../components/section/TitleSection';
 import { EventType } from '../types/event.type';
 import { useMutation } from '@tanstack/react-query';
 
@@ -60,7 +60,7 @@ export default function EventCreate() {
         <title>이벤트 생성 - OneTime</title>
       </Helmet>
       <div className="px-4">
-        <NavBar />
+        <LandingNavBar />
         <main className="mx-auto max-w-screen-sm pb-40 pt-8">
           <div className="flex flex-col gap-16">
             <TitleSection value={value} setValue={setValue} />

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
-import clipboardImage from '../assets/clipboard.png';
+import clipboardImage from '../../../assets/clipboard.png';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 
 interface EmptyEventBannerProps {

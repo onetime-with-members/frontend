@@ -3,10 +3,10 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
-import EmptyEventBanner from '../components/EmptyEventBanner';
-import TopHeaderContentsList from '../components/TopHeaderContentsList';
+import TopBannerList from '../components/banner/banner-list/TopBannerList';
+import EmptyEventBanner from '../components/banner/empty-event/EmptyEventBanner';
 import FloatingBottomButton from '../components/floating-button/event-detail/FloatingBottomButton';
-import NavBar from '../components/nav-bar/event-detail/NavBar';
+import NavBar from '../components/nav-bar/NavBar';
 import SharePopUp from '../components/pop-up/SharePopUp';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { EventType } from '../types/event.type';
@@ -115,7 +115,7 @@ export default function EventDetail() {
             {schedules.length === 0 ? (
               <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
             ) : (
-              <TopHeaderContentsList
+              <TopBannerList
                 eventCategory={event.category}
                 recommendSchedules={recommendSchedules}
                 participants={participants}

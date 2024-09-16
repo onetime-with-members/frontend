@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 
 import { TimeBlockPopUpData } from '../../types/schedule.type';
-import MemberBadge from '../MemberBadge';
+import MemberBadge from '../badge/MemberBadge';
 import { IconX } from '@tabler/icons-react';
 
 interface TimeBlockPopUpProps {

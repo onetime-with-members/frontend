@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
-import { SELECTED_DATE_LIST_FORMAT } from '../../constants/date';
-import { EventType } from '../../types/event.type';
-import DateItem from '../DateItem';
+import { SELECTED_DATE_LIST_FORMAT } from '../../../constants/date';
+import { EventType } from '../../../types/event.type';
+import DateItem from '../date-item/DateItem';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface CalendarSelectProps {

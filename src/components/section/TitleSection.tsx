@@ -1,6 +1,6 @@
-import { EventType } from '../../../types/event.type';
-import Input from '../../Input';
-import EventInputLabel from '../../input-label/EventInputLabel';
+import { EventType } from '../../types/event.type';
+import EventInputLabel from '../form-control/input-label/EventInputLabel';
+import Input from '../form-control/input/Input';
 
 interface TitleSectionProps {
   value: EventType;

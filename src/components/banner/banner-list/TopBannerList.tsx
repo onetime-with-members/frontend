@@ -2,23 +2,23 @@ import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
-import { EventType } from '../types/event.type';
-import { RecommendSchedule } from '../types/schedule.type';
+import { EventType } from '../../../types/event.type';
+import { RecommendSchedule } from '../../../types/schedule.type';
+import Participants from '../participants/Participants';
+import RecommendTime from '../recommend-time/RecommendTime';
 import CircleArrowButton from './CircleArrowButton';
-import Participants from './Participants';
-import RecommendTime from './RecommendTime';
 
-interface TopHeaderContentsListProps {
+interface TopBannerListProps {
   eventCategory: EventType['category'];
   participants: string[];
   recommendSchedules: RecommendSchedule[];
 }
 
-export default function TopHeaderContentsList({
+export default function TopBannerList({
   eventCategory,
   participants,
   recommendSchedules,
-}: TopHeaderContentsListProps) {
+}: TopBannerListProps) {
   const [circleArrowButtonVisible, setCircleArrowButtonVisible] = useState({
     left: false,
     right: true,
