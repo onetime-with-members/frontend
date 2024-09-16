@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import kakaoIcon from '../assets/kakao-icon.png';
+import kakaoIcon from '../assets/kakao-icon.svg';
 import { EventType } from '../types/event.type';
 
 declare global {
