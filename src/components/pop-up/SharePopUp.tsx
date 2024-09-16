@@ -20,10 +20,10 @@ export default function SharePopUp({ onClose }: SharePopUpProps) {
 
   const params = useParams<{ eventId: string }>();
 
+  const currentUrl = `${window.location.origin}/events/${params.eventId}`;
+
   function copyEventShareLink() {
-    navigator.clipboard.writeText(
-      `${window.location.origin}/events/${params.eventId}`,
-    );
+    navigator.clipboard.writeText(currentUrl);
   }
 
   function handleCopyLinkButtonClick() {
@@ -58,9 +58,8 @@ export default function SharePopUp({ onClose }: SharePopUpProps) {
         <div className="flex flex-col gap-6 px-5 pb-8 pt-4">
           <div className="flex items-center gap-1 rounded-2xl bg-gray-05 px-5 py-4">
             <span className="text-md-200 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-50">
-              https://onetime-with-members.atlassian.net/jira/software/projects/OT/boards/1/backlog
+              {currentUrl}
             </span>
-
             {isCopied ? (
               <button className="text-primary-40">
                 <IconCheck size={20} />
