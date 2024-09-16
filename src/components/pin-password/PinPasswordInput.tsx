@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useRef } from 'react';
 
 import { MAX_PIN_LENGTH } from '../../constants/pin-password';
@@ -7,14 +6,12 @@ import PinPasswordInputField from './PinPasswordInputField';
 
 interface PinPasswordInputProps {
   inputId: string;
-  className?: string;
   pin: string;
   setPin: (pin: string) => void;
 }
 
 export default function PinPasswordInput({
   inputId,
-  className,
   pin,
   setPin,
 }: PinPasswordInputProps) {
@@ -59,7 +56,7 @@ export default function PinPasswordInput({
   }
 
   return (
-    <div className={clsx('grid grid-cols-4 gap-3', className)}>
+    <div className="grid grid-cols-4 gap-3">
       {Array.from({ length: MAX_PIN_LENGTH }).map((_, index) => (
         <PinPasswordInputField
           key={index}

@@ -95,7 +95,7 @@ export default function MemberLogin({
 
   return (
     <>
-      <div>
+      <div className="flex flex-col gap-12">
         <div>
           <ScheduleInputLabel htmlFor="name" required>
             이름
@@ -109,16 +109,21 @@ export default function MemberLogin({
             onChange={(e) => handleInputChange('name')(e.target.value)}
           />
         </div>
-        <div className="mt-12">
-          <ScheduleInputLabel htmlFor="pin" required>
-            PIN 번호
-          </ScheduleInputLabel>
-          <PinPasswordInput
-            className="mt-2"
-            inputId="pin"
-            pin={memberValue.pin}
-            setPin={handleInputChange('pin')}
-          />
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <ScheduleInputLabel htmlFor="pin" required>
+              비밀번호
+            </ScheduleInputLabel>
+            <PinPasswordInput
+              inputId="pin"
+              pin={memberValue.pin}
+              setPin={handleInputChange('pin')}
+            />
+          </div>
+          <p className="text-primary-40">
+            비밀번호를 설정하면, 같은 이름과 비밀번호를 입력했을 때 스케줄을
+            수정할 수 있어요.
+          </p>
         </div>
       </div>
       <FloatingBottomButton onClick={handleSubmit} disabled={disabled}>
