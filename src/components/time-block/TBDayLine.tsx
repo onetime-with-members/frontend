@@ -25,6 +25,7 @@ interface TBDayLineProps {
   }) => void;
   editable?: boolean;
   minWidth?: number;
+  isAvailable?: boolean;
 }
 
 const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
@@ -39,6 +40,7 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
       handleDialogOpen,
       editable,
       minWidth,
+      isAvailable = true,
     },
     ref,
   ) => {
@@ -268,6 +270,7 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
                   : undefined
               }
               editable={editable}
+              isAvailable={isAvailable}
             />
           ))}
         </div>

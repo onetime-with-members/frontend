@@ -3,7 +3,9 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Event } from '../../types/event.type';
 import { Schedule, Time, TimeBlockPopUpData } from '../../types/schedule.type';
+import { getBlockTimeList } from '../../utils/time-block';
 import TimeBlockPopUp from '../pop-up/TimeBlockPopUp';
+import AvailableToggle from './AvailableToggle';
 import TBDayLine from './TBDayLine';
 import TBLeftLabelLine from './TBLeftLabelLine';
 import { IconTriangleFilled } from '@tabler/icons-react';
@@ -13,6 +15,7 @@ interface TimeBlockBoardProps {
   schedules: Schedule[];
   setSchedules?: React.Dispatch<React.SetStateAction<Schedule[]>>;
   editable?: boolean;
+  setIsSubmitDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function TimeBlockBoard({
@@ -20,6 +23,7 @@ export default function TimeBlockBoard({
   schedules,
   setSchedules,
   editable,
+  setIsSubmitDisabled,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<TimeBlockPopUpData>({
@@ -32,6 +36,9 @@ export default function TimeBlockBoard({
   });
   const [dayLineWidth, setDayLineWidth] = useState(0);
   const [chunkIndex, setChunkIndex] = useState(0);
+  const [isAvailable, setIsAvailable] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(false);
+  const [isFull, setIsFull] = useState(false);
 
   const dayLineRef = useRef<HTMLDivElement>(null);
   const boardContentRef = useRef<HTMLDivElement>(null);
@@ -159,6 +166,38 @@ export default function TimeBlockBoard({
     return result;
   }
 
+  function handleAvailableToggle() {
+    if (!editable || !setSchedules) return;
+
+    let prevIsAvailable = isAvailable;
+
+    setIsAvailable((prev) => !prev);
+
+    if (prevIsAvailable && isEmpty) {
+      setSchedules(
+        schedules.map((schedule) => ({
+          ...schedule,
+          schedules: schedule.schedules.map((daySchedule) => ({
+            ...daySchedule,
+            times: getBlockTimeList(event.start_time, event.end_time),
+          })),
+        })),
+      );
+    }
+
+    if (!prevIsAvailable && isFull) {
+      setSchedules(
+        schedules.map((schedule) => ({
+          ...schedule,
+          schedules: schedule.schedules.map((daySchedule) => ({
+            ...daySchedule,
+            times: [],
+          })),
+        })),
+      );
+    }
+  }
+
   useEffect(() => {
     function handleResize() {
       setDayLineWidth(dayLineRef.current?.clientWidth || 0);
@@ -173,10 +212,35 @@ export default function TimeBlockBoard({
     };
   }, [dayLineRef]);
 
+  useEffect(() => {
+    if (!editable || schedules.length === 0) return;
+    setIsEmpty(schedules[0].schedules.every((s) => s.times.length === 0));
+    setIsFull(
+      schedules[0].schedules.every(
+        (s) =>
+          getBlockTimeList(event.start_time, event.end_time).filter(
+            (time) => !s.times.includes(time),
+          ).length === 0,
+      ),
+    );
+  }, [schedules]);
+
+  useEffect(() => {
+    if (!setIsSubmitDisabled) return;
+    setIsSubmitDisabled(isEmpty || isFull);
+  }, [isEmpty, isFull]);
+
   return (
     <>
       <div className="flex justify-between">
-        <h2 className="title-sm-300 text-gray-90">가능한 스케줄</h2>
+        {editable ? (
+          <AvailableToggle
+            isAvailable={isAvailable}
+            onToggle={handleAvailableToggle}
+          />
+        ) : (
+          <h2 className="title-sm-300 text-gray-90">가능한 스케줄</h2>
+        )}
         {timePointChunks.length !== 1 && (
           <div className="flex items-center gap-4">
             <button
@@ -239,6 +303,7 @@ export default function TimeBlockBoard({
                         ? dayLineWidth
                         : undefined
                     }
+                    isAvailable={isAvailable}
                   />
                 );
               })}

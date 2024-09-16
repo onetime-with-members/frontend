@@ -135,14 +135,6 @@ export default function ScheduleForm({
     }
   }, [event, isNewMember, isSchedulePending, mySchedule]);
 
-  useEffect(() => {
-    if (schedules[0].schedules.some((s) => s.times.length > 0)) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [schedules]);
-
   if (isNewMember) {
     if (isEventPending) return <></>;
   } else if (isEventPending || isSchedulePending) {
@@ -155,6 +147,7 @@ export default function ScheduleForm({
         <TimeBlockBoard
           schedules={schedules}
           setSchedules={setSchedules}
+          setIsSubmitDisabled={setDisabled}
           event={event}
           editable
         />
