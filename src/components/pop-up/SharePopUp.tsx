@@ -1,15 +1,10 @@
 import { useState } from 'react';
 
 import { EventType } from '../../types/event.type';
-import ShareItemWrapper from '../ShareItemWrapper';
-import ShareKakaoButton from '../ShareKakaoButton';
-import {
-  IconCheck,
-  IconCopy,
-  IconDots,
-  IconLink,
-  IconX,
-} from '@tabler/icons-react';
+import ShareButtonWrapper from '../share-button/ShareButtonWrapper';
+import ShareKakaoButton from '../share-button/ShareKakaoButton';
+import ShareMoreButton from '../share-button/ShareMoreButton';
+import { IconCheck, IconCopy, IconLink, IconX } from '@tabler/icons-react';
 
 interface SharePopUpProps {
   onClose: () => void;
@@ -87,22 +82,20 @@ export default function SharePopUp({ onClose, event }: SharePopUpProps) {
             )}
           </div>
           <div className="flex items-center justify-center gap-8">
-            <ShareItemWrapper label="링크 복사">
+            <ShareButtonWrapper label="링크 복사">
               <button
                 className="rounded-full bg-primary-00 p-3 text-primary-40"
                 onClick={handleCopyLinkButtonClick}
               >
                 <IconLink size={24} />
               </button>
-            </ShareItemWrapper>
-            <ShareItemWrapper label="카카오톡">
+            </ShareButtonWrapper>
+            <ShareButtonWrapper label="카카오톡">
               <ShareKakaoButton event={event} />
-            </ShareItemWrapper>
-            <ShareItemWrapper label="더보기">
-              <button className="rounded-full bg-gray-10 p-3 text-gray-40">
-                <IconDots size={24} />
-              </button>
-            </ShareItemWrapper>
+            </ShareButtonWrapper>
+            <ShareButtonWrapper label="더보기">
+              <ShareMoreButton event={event} currentUrl={currentUrl} />
+            </ShareButtonWrapper>
           </div>
         </div>
       </div>

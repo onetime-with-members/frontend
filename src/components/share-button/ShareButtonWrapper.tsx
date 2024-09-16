@@ -1,12 +1,12 @@
-interface ShareItemWrapperProps {
+interface ShareButtonWrapperProps {
   label: string;
   children: React.ReactNode;
 }
 
-export default function ShareItemWrapper({
+export default function ShareButtonWrapper({
   label,
   children,
-}: ShareItemWrapperProps) {
+}: ShareButtonWrapperProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       {children}
