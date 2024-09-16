@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Layout from './layouts/Layout';
 import EventCreate from './pages/EventCreate';
 import EventDetail from './pages/EventDetail';
+import EventDetailRedirect from './pages/EventDetailRedirect';
 import Landing from './pages/Landing';
 import ScheduleCreate from './pages/ScheduleCreate';
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             element: <ScheduleCreate />,
           },
         ],
+      },
+      {
+        path: ':shortenEventId',
+        element: <EventDetailRedirect />,
       },
     ],
   },
