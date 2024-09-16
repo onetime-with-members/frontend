@@ -42,7 +42,7 @@ const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
         style={{
           backgroundColor: editable
             ? ''
-            : active
+            : active && !isAllMembersAvailable
               ? `rgba(76, 101, 229, ${bgOpacity})`
               : '',
           ...style,
