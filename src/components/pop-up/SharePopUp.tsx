@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import kakaoIcon from '../../assets/kakao-icon.png';
 import ShareItemWrapper from '../ShareItemWrapper';
+import ShareKakaoButton from '../ShareKakaoButton';
 import {
   IconCheck,
   IconCopy,
@@ -83,9 +83,7 @@ export default function SharePopUp({ onClose }: SharePopUpProps) {
               </button>
             </ShareItemWrapper>
             <ShareItemWrapper label="카카오톡">
-              <button className="h-12 w-12 rounded-full bg-[#FAE100] p-1.5 text-primary-40">
-                <img src={kakaoIcon} alt="카카오톡 아이콘" />
-              </button>
+              <ShareKakaoButton />
             </ShareItemWrapper>
             <ShareItemWrapper label="더보기">
               <button className="rounded-full bg-gray-10 p-3 text-gray-40">
