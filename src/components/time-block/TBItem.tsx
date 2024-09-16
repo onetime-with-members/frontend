@@ -7,6 +7,7 @@ interface TBItemProps extends React.HTMLAttributes<HTMLDivElement> {
   editable?: boolean;
   cursorPointer?: boolean;
   isAvailable?: boolean;
+  isAllMembersAvailable?: boolean;
 }
 
 const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
@@ -19,6 +20,7 @@ const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
       editable,
       cursorPointer = true,
       isAvailable = true,
+      isAllMembersAvailable = false,
       ...rest
     },
     ref,
@@ -33,13 +35,14 @@ const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
             'bg-primary-50': isAvailable && active,
             'bg-danger-50': !isAvailable && !active,
             'bg-gray-05': isAvailable ? !active : active,
+            'bg-success-50': isAllMembersAvailable,
             'cursor-pointer': cursorPointer,
           },
         )}
         style={{
-          backgroundColor: editable
+          opacity: editable
             ? ''
-            : active
+            : active && !isAllMembersAvailable
               ? `rgba(76, 101, 229, ${bgOpacity})`
               : '',
           ...style,

@@ -271,6 +271,10 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
               }
               editable={editable}
               isAvailable={isAvailable}
+              isAllMembersAvailable={
+                timesAllMember.filter((t) => t === time).length ===
+                  memberCount && memberCount > 1
+              }
             />
           ))}
         </div>
