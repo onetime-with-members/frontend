@@ -1,12 +1,12 @@
-import { Event } from '../../../types/event.type';
+import { EventType } from '../../../types/event.type';
 import Chip from '../../Chip';
 import EventInputLabel from '../../input-label/EventInputLabel';
 import CalendarSelect from '../../select/CalendarSelect';
 import WeekdaySelect from '../../select/WeekdaySelect';
 
 interface DateSectionProps {
-  value: Event;
-  setValue: React.Dispatch<React.SetStateAction<Event>>;
+  value: EventType;
+  setValue: React.Dispatch<React.SetStateAction<EventType>>;
 }
 
 export default function DateSection({ value, setValue }: DateSectionProps) {

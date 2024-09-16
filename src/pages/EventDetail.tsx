@@ -9,7 +9,7 @@ import FloatingBottomButton from '../components/floating-button/event-detail/Flo
 import NavBar from '../components/nav-bar/event-detail/NavBar';
 import SharePopUp from '../components/pop-up/SharePopUp';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
-import { Event } from '../types/event.type';
+import { EventType } from '../types/event.type';
 import { RecommendSchedule, Schedule } from '../types/schedule.type';
 import { sortWeekdayList } from '../utils/weekday';
 import { useQuery } from '@tanstack/react-query';
@@ -27,7 +27,7 @@ export default function EventDetail() {
     },
   });
 
-  let event: Event = eventData?.payload;
+  let event: EventType = eventData?.payload;
   if (event) {
     if (event?.category === 'DAY') {
       event.ranges = sortWeekdayList(event.ranges);
@@ -130,7 +130,9 @@ export default function EventDetail() {
           </main>
         </div>
       </div>
-      {isSharePopUpOpen && <SharePopUp onClose={handleSharePopUpClose} />}
+      {isSharePopUpOpen && (
+        <SharePopUp onClose={handleSharePopUpClose} event={event} />
+      )}
     </>
   );
 }

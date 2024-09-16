@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import axios from '../../../api/axios';
-import { Event } from '../../../types/event.type';
+import { EventType } from '../../../types/event.type';
 import { MemberValue } from '../../../types/member.type';
 import { Schedule } from '../../../types/schedule.type';
 import { sortWeekdayList } from '../../../utils/weekday';
@@ -39,7 +39,7 @@ export default function ScheduleForm({
     },
   });
 
-  let event: Event = eventData?.payload;
+  let event: EventType = eventData?.payload;
   if (event && event.category === 'DAY')
     event.ranges = sortWeekdayList(event.ranges);
 

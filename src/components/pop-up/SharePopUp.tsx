@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { EventType } from '../../types/event.type';
 import ShareItemWrapper from '../ShareItemWrapper';
 import ShareKakaoButton from '../ShareKakaoButton';
 import {
@@ -13,9 +14,10 @@ import {
 
 interface SharePopUpProps {
   onClose: () => void;
+  event: EventType;
 }
 
-export default function SharePopUp({ onClose }: SharePopUpProps) {
+export default function SharePopUp({ onClose, event }: SharePopUpProps) {
   const [isCopied, setIsCopied] = useState(false);
 
   const params = useParams<{ eventId: string }>();
@@ -83,7 +85,7 @@ export default function SharePopUp({ onClose }: SharePopUpProps) {
               </button>
             </ShareItemWrapper>
             <ShareItemWrapper label="카카오톡">
-              <ShareKakaoButton />
+              <ShareKakaoButton event={event} />
             </ShareItemWrapper>
             <ShareItemWrapper label="더보기">
               <button className="rounded-full bg-gray-10 p-3 text-gray-40">

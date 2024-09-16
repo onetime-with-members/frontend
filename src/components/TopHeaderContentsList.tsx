@@ -2,14 +2,14 @@ import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
-import { Event } from '../types/event.type';
+import { EventType } from '../types/event.type';
 import { RecommendSchedule } from '../types/schedule.type';
 import CircleArrowButton from './CircleArrowButton';
 import Participants from './Participants';
 import RecommendTime from './RecommendTime';
 
 interface TopHeaderContentsListProps {
-  eventCategory: Event['category'];
+  eventCategory: EventType['category'];
   participants: string[];
   recommendSchedules: RecommendSchedule[];
 }

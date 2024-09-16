@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
-import { Event } from '../../types/event.type';
+import { EventType } from '../../types/event.type';
 import { Schedule, Time, TimeBlockPopUpData } from '../../types/schedule.type';
 import { getBlockTimeList } from '../../utils/time-block';
 import TimeBlockPopUp from '../pop-up/TimeBlockPopUp';
@@ -11,7 +11,7 @@ import TBLeftLabelLine from './TBLeftLabelLine';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface TimeBlockBoardProps {
-  event: Event;
+  event: EventType;
   schedules: Schedule[];
   setSchedules?: React.Dispatch<React.SetStateAction<Schedule[]>>;
   editable?: boolean;

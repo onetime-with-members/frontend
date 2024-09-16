@@ -1,10 +1,10 @@
-import { Event } from '../../../types/event.type';
+import { EventType } from '../../../types/event.type';
 import Input from '../../Input';
 import EventInputLabel from '../../input-label/EventInputLabel';
 
 interface TitleSectionProps {
-  value: Event;
-  setValue: React.Dispatch<React.SetStateAction<Event>>;
+  value: EventType;
+  setValue: React.Dispatch<React.SetStateAction<EventType>>;
 }
 
 export default function TitleSection({ value, setValue }: TitleSectionProps) {

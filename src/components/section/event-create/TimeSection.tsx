@@ -1,10 +1,10 @@
-import { Event } from '../../../types/event.type';
+import { EventType } from '../../../types/event.type';
 import TimeDropdown from '../../dropdown/TimeDropdown';
 import EventInputLabel from '../../input-label/EventInputLabel';
 
 interface TimeSectionProps {
-  value: Event;
-  setValue: React.Dispatch<React.SetStateAction<Event>>;
+  value: EventType;
+  setValue: React.Dispatch<React.SetStateAction<EventType>>;
 }
 
 export default function TimeSection({ value, setValue }: TimeSectionProps) {
@@ -16,7 +16,7 @@ export default function TimeSection({ value, setValue }: TimeSectionProps) {
     }));
   }
 
-  function handleSelectTime(key: keyof Event) {
+  function handleSelectTime(key: keyof EventType) {
     return function (time: string) {
       setValue((prev) => ({
         ...prev,

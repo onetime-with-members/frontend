@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import kakaoIcon from '../assets/kakao-icon.png';
+import { EventType } from '../types/event.type';
 
 declare global {
   interface Window {
@@ -9,9 +10,13 @@ declare global {
   }
 }
 
+interface ShareKakaoButtonProps {
+  event: EventType;
+}
+
 const { Kakao } = window;
 
-export default function ShareKakaoButton() {
+export default function ShareKakaoButton({ event }: ShareKakaoButtonProps) {
   const params = useParams<{ eventId: string }>();
 
   useEffect(() => {
@@ -25,10 +30,9 @@ export default function ShareKakaoButton() {
     Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: '오늘의 디저트',
-        description: '아메리카노, 빵, 케익',
-        imageUrl:
-          'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+        title: `${event.title} - OneTime`,
+        description: `'${event.title}'로부터 스케줄 등록 요청이 도착했습니다. 스케줄을 등록하고 추천된 시간을 확인해보세요!`,
+        imageUrl: `${import.meta.env.VITE_SITE_DOMAIN}/images/kakao-share-thumbnail.png`,
         link: {
           webUrl: url,
           mobileWebUrl: url,
@@ -36,7 +40,7 @@ export default function ShareKakaoButton() {
       },
       buttons: [
         {
-          title: '나도 테스트 하러가기',
+          title: '스케줄 등록하러 가기',
           link: {
             webUrl: url,
             mobileWebUrl: url,
