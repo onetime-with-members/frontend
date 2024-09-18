@@ -32,7 +32,7 @@ export default function ShareKakaoButton({ event }: ShareKakaoButtonProps) {
       content: {
         title: `${event.title} - OneTime`,
         description: `스케줄 등록 요청이 도착했습니다.`,
-        imageUrl: `${import.meta.env.VITE_SITE_DOMAIN}/images/kakao/kakao-thumbnail.png`,
+        imageUrl: `${import.meta.env.VITE_SITE_DOMAIN}/images/kakao/kakaotalk-share-thumbnail.png`,
         link: {
           webUrl: url,
           mobileWebUrl: url,

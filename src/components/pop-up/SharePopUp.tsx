@@ -70,6 +70,7 @@ export default function SharePopUp({ onClose, event }: SharePopUpProps) {
               inputRef={urlInputRef}
               value={currentUrl}
               className="text-sm-100 caret-transparent"
+              inputMode="none"
             />
             <div className="flex items-center justify-between">
               <div
