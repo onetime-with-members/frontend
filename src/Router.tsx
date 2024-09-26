@@ -5,6 +5,7 @@ import EventCreate from './pages/EventCreate';
 import EventDetail from './pages/EventDetail';
 import EventDetailRedirect from './pages/EventDetailRedirect';
 import Landing from './pages/Landing';
+import Login from './pages/Login';
 import ScheduleCreate from './pages/ScheduleCreate';
 
 const router = createBrowserRouter([
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
             element: <ScheduleCreate />,
           },
         ],
+      },
+      {
+        path: 'login',
+        element: <Login />,
       },
       {
         path: ':shortenEventId',
