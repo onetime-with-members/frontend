@@ -1,17 +1,28 @@
 import clsx from 'clsx';
+import { Link } from 'react-router-dom';
 
 import googleAuthLogo from '../../assets/google-auth-logo.svg';
 import kakaoAuthLogo from '../../assets/kakao-auth-logo.svg';
 import naverAuthLogo from '../../assets/naver-auth-logo.svg';
 
-interface SocialLoginButtonProps {
+interface SocialLoginButtonProps
+  extends React.DetailedHTMLProps<
+    React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    HTMLAnchorElement
+  > {
+  href: string;
   social: 'naver' | 'kakao' | 'google';
-  onClick?: () => void;
 }
 
-export default function SocialLoginButton({ social }: SocialLoginButtonProps) {
+export default function SocialLoginButton({
+  href,
+  social,
+  className,
+  ...rest
+}: SocialLoginButtonProps) {
   return (
-    <button
+    <Link
+      to={href}
       className={clsx(
         'flex h-14 w-full items-center justify-center gap-2 rounded-xl',
         {
@@ -19,7 +30,9 @@ export default function SocialLoginButton({ social }: SocialLoginButtonProps) {
           'bg-[#FEE500]': social === 'kakao',
           'bg-gray-00': social === 'google',
         },
+        className,
       )}
+      {...rest}
     >
       <div>
         <img
@@ -59,6 +72,6 @@ export default function SocialLoginButton({ social }: SocialLoginButtonProps) {
               : ''}{' '}
         로그인
       </span>
-    </button>
+    </Link>
   );
 }

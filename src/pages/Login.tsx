@@ -1,8 +1,22 @@
+import { useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+
 import authLogo from '../assets/auth-logo.svg';
 import SocialLoginButton from '../components/auth/SocialLoginButton';
 import NavBar from '../components/nav-bar/NavBar';
 
 export default function Login() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (searchParams.get('register_token')) {
+      navigate(
+        `/onboarding?register_token=${searchParams.get('register_token')}`,
+      );
+    }
+  }, [searchParams]);
+
   return (
     <div
       className="flex h-screen flex-col items-center justify-center"
@@ -20,9 +34,18 @@ export default function Login() {
           </div>
         </div>
         <div className="flex w-full flex-col gap-4">
-          <SocialLoginButton social="naver" />
-          <SocialLoginButton social="kakao" />
-          <SocialLoginButton social="google" />
+          <SocialLoginButton
+            href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/naver`}
+            social="naver"
+          />
+          <SocialLoginButton
+            href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/kakao`}
+            social="kakao"
+          />
+          <SocialLoginButton
+            href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/google`}
+            social="google"
+          />
         </div>
       </div>
     </div>
