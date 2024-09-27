@@ -10,10 +10,18 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (searchParams.get('register_token')) {
+    const registerToken = searchParams.get('register_token');
+    const accessToken = searchParams.get('access_token');
+    const refreshToken = searchParams.get('refresh_token');
+
+    if (registerToken) {
       navigate(
         `/onboarding?register_token=${searchParams.get('register_token')}`,
       );
+    } else if (accessToken && refreshToken) {
+      localStorage.setItem('access-token', accessToken);
+      localStorage.setItem('refresh-token', refreshToken);
+      navigate('/');
     }
   }, [searchParams]);
 

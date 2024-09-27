@@ -1,14 +1,21 @@
-import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+
+import NicknameFormScreen from '../components/screens/onboarding/NicknameFormScreen';
+import WelcomeScreen from '../components/screens/onboarding/WelcomeScreen';
 
 export default function Onboarding() {
-  const [searchParams] = useSearchParams();
+  const [page, setPage] = useState(0);
+  const [name, setName] = useState('');
 
-  useEffect(() => {
-    if (searchParams.get('register_token')) {
-      console.log('register_token', searchParams.get('register_token'));
-    }
-  }, [searchParams]);
-
-  return <div>온보딩 페이지</div>;
+  return (
+    <div className="px-4">
+      <div className="mx-auto flex w-full max-w-screen-sm flex-col gap-6">
+        {page === 0 ? (
+          <NicknameFormScreen page={page} setPage={setPage} setName={setName} />
+        ) : (
+          page === 1 && <WelcomeScreen name={name} />
+        )}
+      </div>
+    </div>
+  );
 }

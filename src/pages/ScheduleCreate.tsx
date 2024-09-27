@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import MemberLogin from '../components/screens/MemberLogin';
-import ScheduleForm from '../components/screens/ScheduleForm';
+import MemberLoginScreen from '../components/screens/schedule-create/MemberLoginScreen';
+import ScheduleFormScreen from '../components/screens/schedule-create/ScheduleFormScreen';
 import { MemberValue } from '../types/member.type';
 import { Schedule } from '../types/schedule.type';
 import { IconChevronLeft } from '@tabler/icons-react';
@@ -57,7 +57,7 @@ export default function ScheduleCreate() {
         </header>
         <main className="mx-auto mt-4 max-w-screen-sm">
           {pageIndex === 0 && (
-            <MemberLogin
+            <MemberLoginScreen
               setPageIndex={setPageIndex}
               setMemberId={setMemberId}
               memberValue={memberValue}
@@ -66,7 +66,7 @@ export default function ScheduleCreate() {
             />
           )}
           {pageIndex === 1 && (
-            <ScheduleForm
+            <ScheduleFormScreen
               memberId={memberId}
               isNewMember={isNewMember}
               memberValue={memberValue}

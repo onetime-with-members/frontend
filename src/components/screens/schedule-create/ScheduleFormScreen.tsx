@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import axios from '../../api/axios';
-import { EventType } from '../../types/event.type';
-import { MemberValue } from '../../types/member.type';
-import { Schedule } from '../../types/schedule.type';
-import { sortWeekdayList } from '../../utils/weekday';
-import FloatingBottomButton from '../floating-button/schedule-create/FloatingBottomButton';
-import TimeBlockBoard from '../time-block/TimeBlockBoard';
+import axios from '../../../api/axios';
+import { EventType } from '../../../types/event.type';
+import { MemberValue } from '../../../types/member.type';
+import { Schedule } from '../../../types/schedule.type';
+import { sortWeekdayList } from '../../../utils/weekday';
+import FloatingBottomButton from '../../floating-button/FloatingBottomButton';
+import TimeBlockBoard from '../../time-block/TimeBlockBoard';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface ScheduleFormProps {
@@ -18,7 +18,7 @@ interface ScheduleFormProps {
   setSchedules: React.Dispatch<React.SetStateAction<Schedule[]>>;
 }
 
-export default function ScheduleForm({
+export default function ScheduleFormScreen({
   memberId,
   isNewMember,
   memberValue,

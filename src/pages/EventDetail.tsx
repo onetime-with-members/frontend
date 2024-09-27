@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import axios from '../api/axios';
 import TopBannerList from '../components/banner/banner-list/TopBannerList';
 import EmptyEventBanner from '../components/banner/empty-event/EmptyEventBanner';
-import FloatingBottomButton from '../components/floating-button/event-detail/FloatingBottomButton';
+import BlackFloatingBottomButton from '../components/floating-button/BlackFloatingBottomButton';
 import NavBar from '../components/nav-bar/NavBar';
 import SharePopUp from '../components/pop-up/SharePopUp';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
@@ -126,7 +126,7 @@ export default function EventDetail() {
         <div className="mx-auto mt-4 max-w-screen-sm px-4">
           <main className="mb-28 mt-12">
             <TimeBlockBoard event={event} schedules={schedules} />
-            <FloatingBottomButton />
+            <BlackFloatingBottomButton />
           </main>
         </div>
       </div>

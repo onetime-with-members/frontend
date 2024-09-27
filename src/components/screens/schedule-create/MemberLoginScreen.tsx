@@ -2,12 +2,12 @@ import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import axios from '../../api/axios';
-import { MemberValue } from '../../types/member.type';
-import FloatingBottomButton from '../floating-button/schedule-create/FloatingBottomButton';
-import ScheduleInputLabel from '../form-control/input-label/ScheduleInputLabel';
-import Input from '../form-control/input/Input';
-import PinPasswordInput from '../form-control/pin-password/PinPasswordInput';
+import axios from '../../../api/axios';
+import { MemberValue } from '../../../types/member.type';
+import FloatingBottomButton from '../../floating-button/FloatingBottomButton';
+import ScheduleInputLabel from '../../form-control/input-label/ScheduleInputLabel';
+import Input from '../../form-control/input/Input';
+import PinPasswordInput from '../../form-control/pin-password/PinPasswordInput';
 import { useMutation } from '@tanstack/react-query';
 
 interface MemberLoginProps {
@@ -18,7 +18,7 @@ interface MemberLoginProps {
   setIsNewMember: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function MemberLogin({
+export default function MemberLoginScreen({
   setPageIndex,
   setMemberId,
   memberValue,
@@ -39,6 +39,7 @@ export default function MemberLogin({
     },
     onSuccess: (data) => {
       setIsNewMember(data.payload.is_possible);
+
       if (data.payload.is_possible) {
         setPageIndex(1);
       } else {
@@ -61,6 +62,7 @@ export default function MemberLogin({
     },
     onError: (error) => {
       const errorStatus = (error as AxiosError).response?.status;
+
       if (errorStatus === 404) {
         alert('PIN 번호가 올바르지 않습니다.');
       }
