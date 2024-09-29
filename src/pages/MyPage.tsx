@@ -21,9 +21,9 @@ export default function MyPage() {
   return (
     <>
       <nav className="h-[125px]">
-        <div className="fixed flex w-full justify-center bg-gray-00">
-          <div className="w-full max-w-screen-sm">
-            <div className="grid h-[4rem] grid-cols-3 px-4">
+        <div className="fixed flex w-full flex-col justify-center bg-gray-00">
+          <div className="flex justify-center px-4 text-center">
+            <div className="grid h-[4rem] w-full max-w-screen-sm grid-cols-3">
               <div className="flex items-center justify-start">
                 <button onClick={handleBackButtonClick}>
                   <IconChevronLeft size={24} />
@@ -38,7 +38,9 @@ export default function MyPage() {
                 </Link>
               </div>
             </div>
-            <div>
+          </div>
+          <div className="flex items-center justify-center">
+            <div className="w-full max-w-screen-sm">
               <button className="text-lg-200 w-full border-b-2 border-primary-50 px-3 py-4 text-primary-50">
                 참여한 이벤트
               </button>

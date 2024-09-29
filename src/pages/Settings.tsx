@@ -20,9 +20,9 @@ export default function Settings() {
 
   return (
     <div>
-      <nav className="flex justify-center">
+      <nav className="flex justify-center px-4">
         <div className="w-full max-w-screen-sm">
-          <div className="grid h-[4rem] grid-cols-3 px-4">
+          <div className="grid h-[4rem] grid-cols-3">
             <div />
             <div className="text-lg-300 flex items-center justify-center text-gray-90">
               설정
