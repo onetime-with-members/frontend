@@ -3,6 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      screens: {
+        xs: '390px',
+      },
       fontFamily: {
         pretendard: ['Pretendard', 'sans-serif'],
       },

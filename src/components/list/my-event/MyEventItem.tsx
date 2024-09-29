@@ -10,13 +10,13 @@ export default function MyEventItem() {
           <span>·</span>
           <span>2명</span>
         </div>
-        <h1 className="text-lg-300 overflow-hidden text-ellipsis whitespace-nowrap text-gray-80">
+        <h1 className="text-lg-300 overflow-hidden text-ellipsis whitespace-nowrap text-base text-gray-80 sm:text-lg">
           원타임 정기 회의 일정, 원타임 정기 회의 원타임 정기 회의 일정, 원타임
           정기 회의
         </h1>
       </div>
       <div className="flex items-center justify-between rounded-lg bg-primary-00 px-4 py-3">
-        <div className="text-md-300 flex items-center gap-2 text-primary-50">
+        <div className="xs:text-base flex items-center gap-2 text-xs font-semibold text-primary-50 sm:text-lg sm:font-medium">
           <span>
             <img src={alarmIcon} alt="알람 아이콘" />
           </span>
