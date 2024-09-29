@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import authLogo from '../assets/auth-logo.svg';
+import logo from '../assets/logo-white.svg';
 import SocialLoginButton from '../components/auth/SocialLoginButton';
 import NavBar from '../components/nav-bar/NavBar';
 
@@ -37,8 +37,12 @@ export default function Login() {
       <div className="flex w-full max-w-[22rem] -translate-y-12 flex-col items-center gap-12 px-4">
         <div className="flex flex-col items-center gap-4">
           <div className="title-md-200 text-gray-00">일정을 쉽고 빠르게,</div>
-          <div>
-            <img src={authLogo} alt="로그인 원타임 로고" />
+          <div className="">
+            <img
+              src={logo}
+              alt="로그인 원타임 로고"
+              className="w-[16rem] object-cover"
+            />
           </div>
         </div>
         <div className="flex w-full flex-col gap-4">

@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
-import LandingNavBar from '../components/nav-bar/LandingNavBar';
+import NavBar from '../components/nav-bar/NavBar';
 import DateSection from '../components/section/DateSection';
 import TimeSection from '../components/section/TimeSection';
 import TitleSection from '../components/section/TitleSection';
@@ -60,7 +60,7 @@ export default function EventCreate() {
         <title>이벤트 생성 - OneTime</title>
       </Helmet>
       <div className="px-4">
-        <LandingNavBar />
+        <NavBar variant="black" />
         <main className="mx-auto max-w-screen-sm pb-40 pt-8">
           <div className="flex flex-col gap-16">
             <TitleSection value={value} setValue={setValue} />
@@ -73,7 +73,7 @@ export default function EventCreate() {
               onClick={handleSubmit}
               disabled={disabled}
             >
-              이벤트 생성하기
+              일정 생성하기
             </button>
           </div>
         </main>
