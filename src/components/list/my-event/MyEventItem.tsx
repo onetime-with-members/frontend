@@ -16,7 +16,7 @@ export default function MyEventItem() {
         </h1>
       </div>
       <div className="flex items-center justify-between rounded-lg bg-primary-00 px-4 py-3">
-        <div className="xs:text-base flex items-center gap-2 text-xs font-semibold text-primary-50 sm:text-lg sm:font-medium">
+        <div className="flex items-center gap-2 text-sm font-semibold text-primary-50 xs:text-base sm:text-lg sm:font-medium">
           <span>
             <img src={alarmIcon} alt="알람 아이콘" />
           </span>
