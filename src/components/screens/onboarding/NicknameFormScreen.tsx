@@ -117,6 +117,7 @@ export default function NicknameFormScreen({
           <div className="flex flex-col gap-2">
             <Input
               name="name"
+              value={value.name}
               onChange={handleInputChange}
               placeholder="당신의 이름은 무엇인가요?"
               className={clsx({
