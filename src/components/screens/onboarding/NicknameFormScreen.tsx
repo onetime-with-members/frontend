@@ -66,8 +66,11 @@ export default function NicknameFormScreen({
   }
 
   useEffect(() => {
-    if (searchParams.get('register_token')) {
+    if (searchParams.get('register_token') && searchParams.get('name')) {
       setRegisterToken(searchParams.get('register_token') as string);
+      setValue({
+        name: searchParams.get('name') as string,
+      });
       const newSearchParams = new URLSearchParams();
       newSearchParams.delete('register_token');
       setSearchParams(newSearchParams);
@@ -99,13 +102,13 @@ export default function NicknameFormScreen({
         </button>
       </header>
       <main className="flex flex-col gap-8">
-        <h1 className="title-lg-300 text-gray-90">
+        <h1 className="text-gray-90 title-lg-300">
           시작하기 전,
           <br />
           당신의 이름을 알려주세요
         </h1>
         <div className="flex flex-col gap-2">
-          <label className="text-lg-200 pl-1 text-gray-90">이름</label>
+          <label className="pl-1 text-gray-90 text-lg-200">이름</label>
           <div className="flex flex-col gap-2">
             <Input
               name="name"
@@ -116,7 +119,7 @@ export default function NicknameFormScreen({
               })}
             />
             {invalid && (
-              <div className="text-sm-200 text-danger-50">
+              <div className="text-danger-50 text-sm-200">
                 특수문자 및 숫자는 사용할 수 없어요
               </div>
             )}

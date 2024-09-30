@@ -11,10 +11,11 @@ export default function Login() {
 
   useEffect(() => {
     const registerToken = searchParams.get('register_token');
+    const name = searchParams.get('name');
     const accessToken = searchParams.get('access_token');
     const refreshToken = searchParams.get('refresh_token');
 
-    if (registerToken) {
+    if (registerToken && name) {
       navigate(
         `/onboarding?register_token=${searchParams.get('register_token')}`,
       );
@@ -36,7 +37,7 @@ export default function Login() {
       <NavBar />
       <div className="flex w-full max-w-[22rem] -translate-y-12 flex-col items-center gap-12 px-4">
         <div className="flex flex-col items-center gap-4">
-          <div className="title-md-200 text-gray-00">일정을 쉽고 빠르게,</div>
+          <div className="text-gray-00 title-md-200">일정을 쉽고 빠르게,</div>
           <div className="">
             <img
               src={logo}
