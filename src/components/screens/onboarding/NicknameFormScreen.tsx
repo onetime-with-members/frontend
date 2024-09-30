@@ -66,13 +66,18 @@ export default function NicknameFormScreen({
   }
 
   useEffect(() => {
-    if (searchParams.get('register_token') && searchParams.get('name')) {
-      setRegisterToken(searchParams.get('register_token') as string);
-      setValue({
-        name: searchParams.get('name') as string,
-      });
+    if (searchParams.get('register_token') || searchParams.get('name')) {
+      if (searchParams.get('register_token')) {
+        setRegisterToken(searchParams.get('register_token') as string);
+      }
+      if (searchParams.get('name')) {
+        setValue({
+          name: searchParams.get('name') as string,
+        });
+      }
       const newSearchParams = new URLSearchParams();
       newSearchParams.delete('register_token');
+      newSearchParams.delete('name');
       setSearchParams(newSearchParams);
     }
   }, [searchParams]);

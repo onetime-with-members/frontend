@@ -15,10 +15,16 @@ export default function Login() {
     const accessToken = searchParams.get('access_token');
     const refreshToken = searchParams.get('refresh_token');
 
-    if (registerToken && name) {
-      navigate(
-        `/onboarding?register_token=${searchParams.get('register_token')}`,
-      );
+    if (registerToken || name) {
+      if (registerToken && name) {
+        navigate(
+          `/onboarding?register_token=${searchParams.get('register_token')}&name=${searchParams.get('name')}`,
+        );
+      } else {
+        navigate(
+          `/onboarding?register_token=${searchParams.get('register_token')}`,
+        );
+      }
     } else if (accessToken && refreshToken) {
       localStorage.setItem('access-token', accessToken);
       localStorage.setItem('refresh-token', refreshToken);
