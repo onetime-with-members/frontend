@@ -7,7 +7,7 @@ export default function Landing() {
       <header>
         <NavBar variant="black" />
       </header>
-      <main className="px-4 pb-40">
+      <main className="overflow-hidden px-4 pb-40">
         <div className="mx-auto max-w-screen-sm">
           <FirstSection />
         </div>
