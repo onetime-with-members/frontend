@@ -1,16 +1,21 @@
+import { Link } from 'react-router-dom';
+
 import SettingItem from './SettingItem';
 
 export default function SettingList() {
   return (
     <ul>
       <SettingItem>
-        <span className="text-md-200 text-gray-60">버전 정보</span>
-        <span className="text-md-200 text-primary-40">v 1.0.0</span>
+        <span className="text-gray-60 text-md-200">버전 정보</span>
+        <span className="text-primary-40 text-md-200">v 1.0.0</span>
       </SettingItem>
       <SettingItem>
-        <span className="text-md-200 cursor-pointer text-gray-30">
+        <Link
+          to="/withdraw"
+          className="cursor-pointer text-gray-30 text-md-200"
+        >
           서비스 탈퇴하기
-        </span>
+        </Link>
       </SettingItem>
     </ul>
   );
