@@ -1,8 +1,8 @@
-import { EventType } from '../../types/event.type';
-import Chip from '../chip/Chip';
-import EventInputLabel from '../form-control/input-label/EventInputLabel';
-import CalendarSelect from '../select/date-group/CalendarSelect';
-import WeekdaySelect from '../select/date-group/WeekdaySelect';
+import { EventType } from '../../../types/event.type';
+import Chip from '../../chip/Chip';
+import EventInputLabel from '../../form-control/input-label/EventInputLabel';
+import CalendarSelect from '../../select/date-group/CalendarSelect';
+import WeekdaySelect from '../../select/date-group/WeekdaySelect';
 
 interface DateSectionProps {
   value: EventType;

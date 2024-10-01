@@ -1,6 +1,6 @@
-import { EventType } from '../../types/event.type';
-import TimeDropdown from '../dropdown/TimeDropdown';
-import EventInputLabel from '../form-control/input-label/EventInputLabel';
+import { EventType } from '../../../types/event.type';
+import TimeDropdown from '../../dropdown/TimeDropdown';
+import EventInputLabel from '../../form-control/input-label/EventInputLabel';
 
 interface TimeSectionProps {
   value: EventType;
@@ -39,7 +39,7 @@ export default function TimeSection({ value, setValue }: TimeSectionProps) {
             time={value.start_time}
             setTime={handleSelectTime('start_time')}
           />
-          <span className="text-md-300 text-gray-70">~</span>
+          <span className="text-gray-70 text-md-300">~</span>
           <TimeDropdown
             className="w-[7.5rem]"
             time={value.end_time}

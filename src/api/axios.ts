@@ -18,11 +18,9 @@ axios.interceptors.request.use(
     const accessToken = localStorage.getItem('access-token');
     const refreshToken = localStorage.getItem('refresh-token');
 
-    config.headers.Authorization = config.headers.Authorization
-      ? config.headers.Authorization
-      : accessToken && refreshToken
-        ? `Bearer ${accessToken}`
-        : '';
+    if (accessToken && refreshToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
 
     return config;
   },
