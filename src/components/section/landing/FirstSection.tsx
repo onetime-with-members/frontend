@@ -28,7 +28,7 @@ export default function FirstSection() {
       </div>
       <Link
         to="/events/new"
-        className="flex h-[4rem] w-full items-center justify-center rounded-2xl text-gray-00 title-sm-300"
+        className="sticky bottom-4 flex h-[4rem] w-full items-center justify-center rounded-2xl text-gray-00 title-sm-300"
         style={{
           background: 'linear-gradient(148deg, #8898F2 3.59%, #4C65E5 98.84%)',
         }}
