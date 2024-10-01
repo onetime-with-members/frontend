@@ -4,8 +4,8 @@ import calendarImage from '../../../assets/landing/calendar.svg';
 
 export default function FirstSection() {
   return (
-    <section className="flex flex-col items-center gap-12">
-      <div className="relative flex flex-col gap-[3.25rem] pb-[4.75rem] pt-[4.25rem]">
+    <section className="flex w-full flex-col items-center gap-12">
+      <div className="relative flex w-full flex-col items-center gap-[3.25rem] overflow-x-hidden pb-[4.75rem] pt-[4.25rem]">
         <div>
           <img src={calendarImage} alt="캘린더 이미지" />
         </div>
@@ -26,15 +26,18 @@ export default function FirstSection() {
           }}
         />
       </div>
-      <Link
-        to="/events/new"
-        className="sticky bottom-4 flex h-[4rem] w-full items-center justify-center rounded-2xl text-gray-00 title-sm-300"
-        style={{
-          background: 'linear-gradient(148deg, #8898F2 3.59%, #4C65E5 98.84%)',
-        }}
-      >
-        일정 생성하기
-      </Link>
+      <div className="sticky bottom-4 mx-auto w-full max-w-[23rem] px-4">
+        <Link
+          to="/events/new"
+          className="flex h-[4rem] w-full items-center justify-center rounded-2xl px-4 text-gray-00 title-sm-300"
+          style={{
+            background:
+              'linear-gradient(148deg, #8898F2 3.59%, #4C65E5 98.84%)',
+          }}
+        >
+          일정 생성하기
+        </Link>
+      </div>
     </section>
   );
 }
