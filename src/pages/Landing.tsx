@@ -1,6 +1,3 @@
-import { Link } from 'react-router-dom';
-
-import calendarImage from '../assets/landing/calendar.svg';
 import NavBar from '../components/nav-bar/NavBar';
 import FirstSection from '../components/section/landing/FirstSection';
 
