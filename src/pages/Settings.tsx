@@ -61,7 +61,9 @@ export default function Settings() {
                   <div className="text-gray-80 title-sm-300">
                     {user.nickname}
                   </div>
-                  <div className="text-gray-40 text-sm-200">{user.email}</div>
+                  <div className="text-gray-40 no-underline text-sm-200">
+                    {user.email}
+                  </div>
                 </div>
               </div>
               <div className="flex items-center gap-4">
