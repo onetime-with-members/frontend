@@ -7,6 +7,13 @@ const axios = _axios.create({
   },
 });
 
+const reissuer = _axios.create({
+  baseURL: import.meta.env.VITE_SERVER_API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 function removeTokens() {
   localStorage.removeItem('access-token');
   localStorage.removeItem('refresh-token');
@@ -41,7 +48,7 @@ axios.interceptors.response.use(
 
       if (refreshToken) {
         try {
-          const res = await axios.post('/tokens/action-reissue', {
+          const res = await reissuer.post('/tokens/action-reissue', {
             refresh_token: refreshToken,
           });
 
