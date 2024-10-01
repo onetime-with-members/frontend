@@ -41,11 +41,11 @@ export default function WithdrawPage() {
                 title="회원님의 일정 및 스케줄 데이터가 모두 삭제돼요"
                 description="참여한 이벤트, 등록한 스케줄 등 OneTime에서 작성하신 내용이 모두 삭제돼요."
               />
-              <div className="flex items-center gap-4 rounded-xl bg-danger-10 p-4">
-                <RedCheckbox
-                  isChecked={isChecked}
-                  onClick={handleCheckboxClick}
-                />
+              <div
+                className="flex cursor-pointer items-center gap-4 rounded-xl bg-danger-10 p-4"
+                onClick={handleCheckboxClick}
+              >
+                <RedCheckbox isChecked={isChecked} />
                 <div className="text-danger-60 text-md-200">
                   상기 내용을 모두 확인했습니다.
                 </div>
