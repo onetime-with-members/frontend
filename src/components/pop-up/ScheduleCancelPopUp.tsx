@@ -1,7 +1,8 @@
 import Alert from '../alert/Alert';
 
-interface CancelPopUpProps {
+interface ScheduleCancelPopUpProps {
   onConfirm: () => void;
+  onCancel: () => void;
   onClose: () => void;
   confirmText: string;
   cancelText: string;
@@ -9,13 +10,15 @@ interface CancelPopUpProps {
 
 export default function ScheduleCancelPopUp({
   onConfirm,
+  onCancel,
   onClose,
   confirmText,
   cancelText,
-}: CancelPopUpProps) {
+}: ScheduleCancelPopUpProps) {
   return (
     <Alert
       onConfirm={onConfirm}
+      onCancel={onCancel}
       onClose={onClose}
       confirmText={confirmText}
       cancelText={cancelText}
