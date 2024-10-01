@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
+import FloatingBottomButton from '../components/floating-button/FloatingBottomButton';
 import NavBar from '../components/nav-bar/NavBar';
 import DateSection from '../components/section/event-create/DateSection';
 import TimeSection from '../components/section/event-create/TimeSection';
@@ -67,15 +68,9 @@ export default function EventCreate() {
             <TimeSection value={value} setValue={setValue} />
             <DateSection value={value} setValue={setValue} />
           </div>
-          <div className="fixed bottom-6 left-0 flex w-full justify-center px-4">
-            <button
-              className="h-16 w-full max-w-screen-sm rounded-2xl bg-gray-90 text-gray-00 title-sm-200 disabled:bg-gray-10 disabled:text-gray-60"
-              onClick={handleSubmit}
-              disabled={disabled}
-            >
-              일정 생성하기
-            </button>
-          </div>
+          <FloatingBottomButton onClick={handleSubmit} disabled={disabled}>
+            일정 생성하기
+          </FloatingBottomButton>
         </main>
       </div>
     </>
