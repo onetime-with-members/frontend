@@ -10,6 +10,7 @@ import MyPage from './pages/MyPage';
 import Onboarding from './pages/Onboarding';
 import ScheduleCreate from './pages/ScheduleCreate';
 import Settings from './pages/Settings';
+import WithdrawPage from './pages/WithdrawPage';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: 'settings',
         element: <Settings />,
+      },
+      {
+        path: 'withdraw',
+        element: <WithdrawPage />,
       },
       {
         path: ':shortenEventId',

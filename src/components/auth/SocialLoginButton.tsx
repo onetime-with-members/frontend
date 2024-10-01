@@ -28,7 +28,7 @@ export default function SocialLoginButton({
         {
           'bg-[#03C75A]': social === 'naver',
           'bg-[#FEE500]': social === 'kakao',
-          'bg-gray-00': social === 'google',
+          'bg-[#F2F2F2]': social === 'google',
         },
         className,
       )}

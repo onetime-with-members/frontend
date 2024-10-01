@@ -23,11 +23,17 @@ export default function NicknameFormScreen({
   const [value, setValue] = useState({
     name: '',
   });
-  const [invalid, setInvalid] = useState(false);
+  const [invalid, setInvalid] = useState({
+    format: false,
+    length: false,
+    empty: false,
+  });
   const [disabled, setDisabled] = useState(true);
   const [registerToken, setRegisterToken] = useState('');
 
   const navigate = useNavigate();
+
+  const isInvalid = invalid.format || invalid.length || invalid.empty;
 
   const registerNickname = useMutation({
     mutationFn: async () => {
@@ -84,15 +90,16 @@ export default function NicknameFormScreen({
 
   useEffect(() => {
     const lettersOnly = /^[\p{L}]+$/u;
-    if (lettersOnly.test(value.name) || value.name === '') {
-      setInvalid(false);
-    } else {
-      setInvalid(true);
-    }
+
+    setInvalid({
+      format: !lettersOnly.test(value.name) && value.name !== '',
+      length: value.name.length > 10,
+      empty: value.name === '',
+    });
   }, [value]);
 
   useEffect(() => {
-    if (value.name === '' || invalid) {
+    if (isInvalid) {
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -121,14 +128,21 @@ export default function NicknameFormScreen({
               onChange={handleInputChange}
               placeholder="당신의 이름은 무엇인가요?"
               className={clsx({
-                'ring-2 ring-danger-30': invalid,
+                'ring-2 ring-danger-30': invalid.format || invalid.length,
               })}
             />
-            {invalid && (
-              <div className="text-danger-50 text-sm-200">
-                특수문자 및 숫자는 사용할 수 없어요
-              </div>
-            )}
+            <ul className="flex flex-col gap-1">
+              {invalid.format && (
+                <li className="text-danger-50 text-sm-200">
+                  특수문자 및 숫자는 사용할 수 없어요
+                </li>
+              )}
+              {invalid.length && (
+                <li className="text-danger-50 text-sm-200">
+                  10자 이내로 입력해주세요
+                </li>
+              )}
+            </ul>
           </div>
         </div>
         <FloatingBottomButton

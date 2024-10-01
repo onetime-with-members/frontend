@@ -2,9 +2,11 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import axios from '../../api/axios';
 import logoWhite from '../../assets/logo-white.svg';
 import logoBlack from '../../assets/logo.svg';
-import Avatar from '../avatar/Avatar';
+import NameAvatar from '../avatar/NameAvatar';
+import { useQuery } from '@tanstack/react-query';
 
 interface NavBarProps {
   variant?: 'white' | 'black';
@@ -13,6 +15,16 @@ interface NavBarProps {
 export default function NavBar({ variant = 'white' }: NavBarProps) {
   const [isNavBackground, setIsNavBackground] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const { isPending: isUserPending, data: userData } = useQuery({
+    queryKey: ['users', 'profile'],
+    queryFn: async () => {
+      const res = await axios.get('/users/profile');
+      return res.data;
+    },
+  });
+
+  const user = userData?.payload;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -66,9 +78,12 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
             />
           </Link>
           {isLoggedIn ? (
-            <Link to="/mypage">
-              <Avatar />
-            </Link>
+            !isUserPending &&
+            user && (
+              <Link to="/mypage">
+                <NameAvatar name={user.nickname} />
+              </Link>
+            )
           ) : (
             <Link to="/login" className="text-lg-200">
               로그인
