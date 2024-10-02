@@ -30,7 +30,7 @@ export default function CardSection() {
               className="h-[198px] w-[259px] rounded-xl"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(232, 235, 252, 0.00) 58.84%, #E8EBFC 98.48%), url(/public/images/landing/participants.png) lightgray 50% / cover no-repeat',
+                  'linear-gradient(180deg, rgba(232, 235, 252, 0.00) 58.84%, #E8EBFC 98.48%), url(/images/landing/participants.png) lightgray 50% / cover no-repeat',
               }}
             />
           </div>
