@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 
 import calendarImage from '../../../assets/landing/calendar.svg';
+import { IconChevronRight } from '@tabler/icons-react';
 
 export default function FirstSection() {
   return (
-    <section className="flex w-full flex-col items-center gap-12">
+    <section className="w-full">
       <div className="relative flex w-full flex-col items-center gap-[3.25rem] overflow-x-hidden pb-[4.75rem] pt-[4.25rem]">
         <div>
           <img src={calendarImage} alt="캘린더 이미지" />
@@ -26,7 +27,7 @@ export default function FirstSection() {
           }}
         />
       </div>
-      <div className="sticky bottom-4 mx-auto w-full max-w-[23rem] px-4">
+      <div className="sticky bottom-4 left-0 mx-auto mt-12 w-full max-w-[23rem] px-4">
         <Link
           to="/events/new"
           className="flex h-[4rem] w-full items-center justify-center rounded-2xl px-4 text-gray-00 title-sm-300"
@@ -37,6 +38,9 @@ export default function FirstSection() {
         >
           일정 생성하기
         </Link>
+      </div>
+      <div className="mt-10 flex justify-center">
+        <IconChevronRight size={48} className="rotate-90 text-primary-10" />
       </div>
     </section>
   );

@@ -16,6 +16,7 @@ interface ScheduleFormProps {
   memberValue: MemberValue;
   schedules: Schedule[];
   setSchedules: React.Dispatch<React.SetStateAction<Schedule[]>>;
+  isLoggedIn: boolean;
 }
 
 export default function ScheduleFormScreen({
@@ -24,6 +25,7 @@ export default function ScheduleFormScreen({
   memberValue,
   schedules,
   setSchedules,
+  isLoggedIn,
 }: ScheduleFormProps) {
   const [disabled, setDisabled] = useState(true);
 
@@ -40,6 +42,7 @@ export default function ScheduleFormScreen({
   });
 
   let event: EventType = eventData?.payload;
+
   if (event && event.category === 'DAY')
     event.ranges = sortWeekdayList(event.ranges);
 
@@ -48,11 +51,11 @@ export default function ScheduleFormScreen({
       'schedules',
       event?.category.toLowerCase(),
       params.eventId,
-      memberId,
+      isLoggedIn ? 'user' : memberId,
     ],
     queryFn: async () => {
       const res = await axios.get(
-        `/schedules/${event?.category.toLowerCase()}/${params.eventId}/${memberId}`,
+        `/schedules/${event?.category.toLowerCase()}/${params.eventId}/${isLoggedIn ? 'user' : memberId}`,
       );
       return res.data;
     },

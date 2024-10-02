@@ -19,6 +19,10 @@ export default function WithdrawPage() {
     navigate(-1);
   }
 
+  function handleWithdrawButtonClick() {
+    alert('기능 개발 중');
+  }
+
   return (
     <div className="px-4">
       <div className="mx-auto max-w-screen-sm">
@@ -52,7 +56,11 @@ export default function WithdrawPage() {
               </div>
             </div>
           </div>
-          <Button variant="danger" disabled={!isChecked}>
+          <Button
+            variant="danger"
+            disabled={!isChecked}
+            onClick={handleWithdrawButtonClick}
+          >
             탈퇴하기
           </Button>
         </main>

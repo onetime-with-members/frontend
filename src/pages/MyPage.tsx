@@ -29,7 +29,7 @@ export default function MyPage() {
                   <IconChevronLeft size={24} />
                 </button>
               </div>
-              <div className="text-lg-300 flex items-center justify-center text-gray-90">
+              <div className="flex items-center justify-center text-gray-90 text-lg-300">
                 마이타임
               </div>
               <div className="flex items-center justify-end">
@@ -41,7 +41,7 @@ export default function MyPage() {
           </div>
           <div className="flex items-center justify-center">
             <div className="w-full max-w-screen-sm">
-              <button className="text-lg-200 w-full border-b-2 border-primary-50 px-3 py-4 text-primary-50">
+              <button className="w-full border-b-2 border-primary-50 px-3 py-4 text-primary-50 text-lg-200">
                 참여한 이벤트
               </button>
             </div>

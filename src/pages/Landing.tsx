@@ -8,9 +8,7 @@ export default function Landing() {
         <NavBar variant="black" />
       </header>
       <main className="pb-40">
-        <div className="">
-          <FirstSection />
-        </div>
+        <FirstSection />
       </main>
     </>
   );

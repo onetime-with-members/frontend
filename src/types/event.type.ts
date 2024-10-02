@@ -5,3 +5,10 @@ export interface EventType {
   category: 'DATE' | 'DAY';
   ranges: string[];
 }
+
+export interface MyEvent {
+  title: string;
+  participant_count: number;
+  created_date: string;
+  event_id: string;
+}

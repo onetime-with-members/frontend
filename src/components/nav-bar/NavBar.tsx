@@ -52,10 +52,10 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
   }, [isLoggedIn]);
 
   return (
-    <nav className="flex h-[4rem] w-full">
+    <nav className="flex h-[4.5rem] w-full">
       <div
         className={clsx(
-          'fixed left-0 top-0 z-40 h-[4rem] w-full p-4 duration-150',
+          'fixed left-0 top-0 z-40 h-[4.5rem] w-full p-4 duration-150',
           {
             'bg-transparent text-gray-00':
               !isNavBackground && variant === 'white',
