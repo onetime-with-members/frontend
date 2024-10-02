@@ -64,7 +64,7 @@ export default function Settings() {
                   <div className="text-gray-40 text-sm-200">{user.email}</div>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 px-4">
                 <GrayButton onClick={handleLogoutButtonClick}>
                   로그아웃
                 </GrayButton>

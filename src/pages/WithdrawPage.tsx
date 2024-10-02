@@ -1,15 +1,29 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import axios from '../api/axios';
 import Button from '../components/button/Button';
 import RedCheckbox from '../components/checkbox/RedCheckbox';
 import WithdrawGrayBox from '../components/withdraw/WithdrawGrayBox';
 import { IconX } from '@tabler/icons-react';
+import { useMutation } from '@tanstack/react-query';
 
 export default function WithdrawPage() {
   const [isChecked, setIsChecked] = useState(false);
 
   const navigate = useNavigate();
+
+  const withdrawUser = useMutation({
+    mutationFn: async () => {
+      const res = await axios.post('/users/action-withdraw');
+      return res.data;
+    },
+    onSuccess: () => {
+      localStorage.removeItem('access-token');
+      localStorage.removeItem('refresh-token');
+      location.href = '/';
+    },
+  });
 
   function handleCheckboxClick() {
     setIsChecked((prev) => !prev);
@@ -20,7 +34,7 @@ export default function WithdrawPage() {
   }
 
   function handleWithdrawButtonClick() {
-    alert('기능 개발 중');
+    withdrawUser.mutate();
   }
 
   return (
@@ -43,7 +57,7 @@ export default function WithdrawPage() {
               />
               <WithdrawGrayBox
                 title="회원님의 일정 및 스케줄 데이터가 모두 삭제돼요"
-                description="참여한 이벤트, 등록한 스케줄 등 OneTime에서 작성하신 내용이 모두 삭제돼요."
+                description="참여한 이벤트에 등록한 스케줄 등 OneTime에서 작성하신 내용이 모두 삭제돼요."
               />
               <div
                 className="flex cursor-pointer items-center gap-4 rounded-xl bg-danger-10 p-4"

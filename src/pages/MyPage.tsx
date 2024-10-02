@@ -19,7 +19,7 @@ export default function MyPage() {
   }, []);
 
   return (
-    <>
+    <div className="flex h-screen flex-col">
       <nav className="h-[125px]">
         <div className="fixed flex w-full flex-col justify-center bg-gray-00">
           <div className="flex justify-center px-4 text-center">
@@ -48,11 +48,11 @@ export default function MyPage() {
           </div>
         </div>
       </nav>
-      <main className="flex justify-center bg-gray-05 px-4 py-5">
+      <main className="flex flex-1 justify-center bg-gray-05 px-4 py-5">
         <div className="w-full max-w-screen-sm">
           <MyEventList />
         </div>
       </main>
-    </>
+    </div>
   );
 }

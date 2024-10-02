@@ -6,7 +6,7 @@ import { IconChevronRight } from '@tabler/icons-react';
 export default function FirstSection() {
   return (
     <section className="w-full">
-      <div className="relative flex w-full flex-col items-center gap-4 overflow-x-hidden pb-[4.75rem] pt-[4.25rem]">
+      <div className="relative flex w-full flex-col items-center gap-4 pb-[4.75rem] pt-[4.25rem]">
         <div>
           <img src={calendarImage} alt="캘린더 이미지" />
         </div>
@@ -27,7 +27,7 @@ export default function FirstSection() {
           }}
         />
       </div>
-      <div className="sticky bottom-4 left-0 mx-auto mt-12 w-full max-w-[23rem] px-4">
+      <div className="sticky bottom-4 left-0 mx-auto mt-20 w-full max-w-[23rem] px-4">
         <Link
           to="/events/new"
           className="flex h-[4rem] w-full items-center justify-center rounded-2xl px-4 text-gray-00 title-sm-300"

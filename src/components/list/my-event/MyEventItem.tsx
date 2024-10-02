@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +11,11 @@ interface MyEventItemProps {
 }
 
 export default function MyEventItem({ event }: MyEventItemProps) {
+  const isRecommended =
+    event.most_possible_times.length > 0 && event.participant_count >= 1;
+
+  const recommendedTime = event.most_possible_times[0];
+
   return (
     <li>
       <Link
@@ -26,16 +32,51 @@ export default function MyEventItem({ event }: MyEventItemProps) {
             {event.title}
           </h1>
         </div>
-        <div className="flex items-center justify-between rounded-lg bg-primary-00 px-4 py-3">
-          <div className="flex items-center gap-2 text-primary-50 text-sm-300 xs:text-md-200 sm:text-lg-200">
-            <span>
-              <img src={alarmIcon} alt="알람 아이콘" />
-            </span>
-            <span>2024.03.01 월</span>
-            <span>18:00 - 20:00</span>
+        <div
+          className={clsx(
+            'flex items-center justify-between rounded-lg px-4 py-3',
+            {
+              'bg-primary-00': isRecommended,
+              'bg-gray-05': !isRecommended,
+            },
+          )}
+        >
+          <div
+            className={clsx(
+              'flex items-center gap-2 text-sm-200 xs:text-md-200 sm:text-lg-200',
+              {
+                'text-primary-50': isRecommended,
+                'text-gray-40': !isRecommended,
+              },
+            )}
+          >
+            {isRecommended ? (
+              recommendedTime && (
+                <>
+                  <span>
+                    <img src={alarmIcon} alt="알람 아이콘" />
+                  </span>
+                  <span>
+                    {recommendedTime.time_point}{' '}
+                    {dayjs(recommendedTime.time_point).format('dd')}
+                  </span>
+                  <span>
+                    {recommendedTime.start_time} - {recommendedTime.end_time}
+                  </span>
+                </>
+              )
+            ) : (
+              <span>아무도 스케줄을 등록하지 않았어요.</span>
+            )}
           </div>
           <div>
-            <IconChevronRight size={20} className="text-gray-30" />
+            <IconChevronRight
+              size={20}
+              className={clsx({
+                'text-primary-20': isRecommended,
+                'text-gray-30': !isRecommended,
+              })}
+            />
           </div>
         </div>
       </Link>
