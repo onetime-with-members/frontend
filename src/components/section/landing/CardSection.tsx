@@ -1,4 +1,3 @@
-import participants from '../../../assets/landing/participants.png';
 import recommendTime from '../../../assets/landing/recommend-time.png';
 
 export default function CardSection() {
