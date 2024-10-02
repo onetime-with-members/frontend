@@ -10,7 +10,7 @@ export default function Landing() {
       <header>
         <NavBar variant="black" />
       </header>
-      <main className="w-full overflow-hidden">
+      <main className="w-full">
         <FirstSection />
         <TypoSection />
         <CardSection />

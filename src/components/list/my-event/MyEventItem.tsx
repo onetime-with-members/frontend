@@ -56,10 +56,14 @@ export default function MyEventItem({ event }: MyEventItemProps) {
                   <span>
                     <img src={alarmIcon} alt="알람 아이콘" />
                   </span>
-                  <span>
-                    {recommendedTime.time_point}{' '}
-                    {dayjs(recommendedTime.time_point).format('dd')}
-                  </span>
+                  {event.category === 'DATE' ? (
+                    <span>
+                      {recommendedTime.time_point}{' '}
+                      {dayjs(recommendedTime.time_point).format('dd')}
+                    </span>
+                  ) : (
+                    <span>{recommendedTime.time_point}요일</span>
+                  )}
                   <span>
                     {recommendedTime.start_time} - {recommendedTime.end_time}
                   </span>
