@@ -44,13 +44,16 @@ axios.interceptors.response.use(
     if (error.response?.status === 401) {
       const originalRequest = { ...error.config };
 
+      const accessToken = localStorage.getItem('access-token');
       const refreshToken = localStorage.getItem('refresh-token');
 
-      if (refreshToken) {
+      if (accessToken && refreshToken) {
         try {
-          const res = await reissuer.post('/tokens/action-reissue', {
-            refresh_token: refreshToken,
-          });
+          const res = await reissuer.post(
+            '/tokens/action-reissue',
+            { refresh_token: refreshToken },
+            { headers: { Authorization: `Bearer ${accessToken}` } },
+          );
 
           localStorage.setItem('access-token', res.data.payload.access_token);
           localStorage.setItem('refresh-token', res.data.payload.refresh_token);

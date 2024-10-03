@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import clockImage from '../../../assets/landing/clock.svg';
 import ClockPattern from '../../pattern/ClockPattern';
 
@@ -15,9 +17,12 @@ export default function LastSection() {
             쉽고 빠르게 스케줄을 맞춰봐요
           </p>
         </div>
-        <button className="h-[4rem] w-[23rem] rounded-2xl bg-[#1B1C23] text-gray-00 title-sm-200">
+        <Link
+          to="/events/new"
+          className="flex h-[4rem] w-[23rem] items-center justify-center rounded-2xl bg-[#1B1C23] text-gray-00 title-sm-200"
+        >
           일정 생성하기
-        </button>
+        </Link>
       </div>
       <ClockPattern />
     </section>

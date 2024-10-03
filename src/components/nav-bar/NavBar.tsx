@@ -22,6 +22,7 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
       const res = await axios.get('/users/profile');
       return res.data;
     },
+    enabled: isLoggedIn,
   });
 
   const user = userData?.payload;
