@@ -13,21 +13,27 @@ export default function Login() {
     const name = searchParams.get('name');
     const accessToken = searchParams.get('access_token');
     const refreshToken = searchParams.get('refresh_token');
+    const redirectUrl = searchParams.get('redirect_url');
+
+    if (redirectUrl) {
+      localStorage.setItem('redirect-url', redirectUrl);
+    }
 
     if (registerToken || name) {
-      if (registerToken && name) {
-        navigate(
-          `/onboarding?register_token=${searchParams.get('register_token')}&name=${searchParams.get('name')}`,
-        );
-      } else {
-        navigate(
-          `/onboarding?register_token=${searchParams.get('register_token')}`,
-        );
-      }
+      const urlSearchParams = new URLSearchParams([
+        ...(registerToken ? [['register_token', registerToken]] : []),
+        ...(name ? [['name', name]] : []),
+      ]);
+
+      navigate(`/onboarding?${urlSearchParams.toString()}`);
     } else if (accessToken && refreshToken) {
       localStorage.setItem('access-token', accessToken);
       localStorage.setItem('refresh-token', refreshToken);
-      navigate('/');
+
+      const localRedirectUrl = localStorage.getItem('redirect-url');
+      localStorage.removeItem('redirect-url');
+
+      location.href = localRedirectUrl || '/';
     }
   }, [searchParams]);
 

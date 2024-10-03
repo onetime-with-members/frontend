@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
 import LoginAlert from '../components/alert/LoginAlert';
@@ -20,6 +20,7 @@ export default function EventDetail() {
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const params = useParams<{ eventId: string }>();
 
@@ -90,7 +91,7 @@ export default function EventDetail() {
   }
 
   function handleLoginAlertConfirm() {
-    navigate('/login');
+    navigate(`/login?redirect_url=${location.pathname}`);
   }
 
   function handleFloatingButtonClick() {

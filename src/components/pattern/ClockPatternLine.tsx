@@ -9,7 +9,7 @@ interface ClockPatternLineProps {
 export default function ClockPatternLine({ shift }: ClockPatternLineProps) {
   return (
     <div
-      className={clsx('flex gap-7', {
+      className={clsx('flex gap-7 overflow-hidden', {
         'translate-x-[61px]': shift,
       })}
     >
