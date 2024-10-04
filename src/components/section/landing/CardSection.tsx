@@ -2,7 +2,7 @@ import availableTimeImage from '../../../assets/landing/available-time.png';
 import paperAirplaneImage from '../../../assets/landing/paper-airplane.svg';
 import recommendTimeImage from '../../../assets/landing/recommend-time.png';
 import unavailableTimeImage from '../../../assets/landing/unavailable-time.png';
-import LandingCard from '../../card/LandingCard';
+import LandingCard from '../../LandingCard';
 
 export default function CardSection() {
   return (

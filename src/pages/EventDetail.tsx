@@ -3,11 +3,11 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
+import NavBar from '../components/NavBar';
 import LoginAlert from '../components/alert/LoginAlert';
 import TopBannerList from '../components/banner/banner-list/TopBannerList';
 import EmptyEventBanner from '../components/banner/empty-event/EmptyEventBanner';
 import BlackFloatingBottomButton from '../components/floating-button/BlackFloatingBottomButton';
-import NavBar from '../components/nav-bar/NavBar';
 import SharePopUp from '../components/pop-up/SharePopUp';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { EventType } from '../types/event.type';

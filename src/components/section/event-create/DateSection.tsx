@@ -1,5 +1,5 @@
 import { EventType } from '../../../types/event.type';
-import Chip from '../../chip/Chip';
+import Chip from '../../Chip';
 import EventInputLabel from '../../form-control/input-label/EventInputLabel';
 import CalendarSelect from '../../select/date-group/CalendarSelect';
 import WeekdaySelect from '../../select/date-group/WeekdaySelect';
@@ -37,7 +37,7 @@ export default function DateSection({ value, setValue }: DateSectionProps) {
             active={value.category === 'DAY'}
             onClick={() => handleSelectChip('DAY')}
           >
-            요일
+            요일c
           </Chip>
         </div>
         {value.category === 'DAY' ? (

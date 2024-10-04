@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
-import NameAvatar from '../components/avatar/NameAvatar';
+import Avatar from '../components/Avatar';
 import GrayButton from '../components/button/GrayButton';
 import SettingList from '../components/list/setting/SettingList';
 import { IconX } from '@tabler/icons-react';
@@ -56,7 +56,7 @@ export default function Settings() {
           <div className="flex flex-col gap-7">
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-4 px-4 pt-2">
-                <NameAvatar size={64} name={user.nickname} />
+                <Avatar size={64} name={user.nickname} />
                 <div className="flex flex-col gap-1">
                   <div className="text-gray-80 title-sm-300">
                     {user.nickname}

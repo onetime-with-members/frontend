@@ -4,7 +4,7 @@ import clockIcon from '../../../assets/landing/clock-icon.svg';
 import typo1 from '../../../assets/landing/typo1.svg';
 import typo2 from '../../../assets/landing/typo2.svg';
 import typo3 from '../../../assets/landing/typo3.svg';
-import TypoWrapper from '../../landing/TypoWrapper';
+import TypoWrapper from '../../TypoWrapper';
 
 export default function TypoSection() {
   return (

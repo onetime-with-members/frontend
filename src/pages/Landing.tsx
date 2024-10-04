@@ -1,4 +1,4 @@
-import NavBar from '../components/nav-bar/NavBar';
+import NavBar from '../components/NavBar';
 import CardSection from '../components/section/landing/CardSection';
 import FirstSection from '../components/section/landing/FirstSection';
 import LastSection from '../components/section/landing/LastSection';

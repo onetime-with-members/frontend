@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
+import WithdrawGrayBox from '../components/WithdrawGrayBox';
 import Button from '../components/button/Button';
 import RedCheckbox from '../components/checkbox/RedCheckbox';
-import WithdrawGrayBox from '../components/withdraw/WithdrawGrayBox';
 import { IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 

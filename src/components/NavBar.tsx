@@ -2,10 +2,10 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import axios from '../../api/axios';
-import logoWhite from '../../assets/logo-white.svg';
-import logoBlack from '../../assets/logo.svg';
-import NameAvatar from '../avatar/NameAvatar';
+import axios from '../api/axios';
+import logoWhite from '../assets/logo-white.svg';
+import logoBlack from '../assets/logo.svg';
+import Avatar from './Avatar';
 import { useQuery } from '@tanstack/react-query';
 
 interface NavBarProps {
@@ -82,7 +82,7 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
             !isUserPending &&
             user && (
               <Link to="/mypage">
-                <NameAvatar name={user.nickname} />
+                <Avatar name={user.nickname} />
               </Link>
             )
           ) : (

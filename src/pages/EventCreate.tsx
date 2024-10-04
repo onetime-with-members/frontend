@@ -4,8 +4,8 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
+import NavBar from '../components/NavBar';
 import FloatingBottomButton from '../components/floating-button/FloatingBottomButton';
-import NavBar from '../components/nav-bar/NavBar';
 import DateSection from '../components/section/event-create/DateSection';
 import TimeSection from '../components/section/event-create/TimeSection';
 import TitleSection from '../components/section/event-create/TitleSection';

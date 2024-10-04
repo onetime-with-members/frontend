@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import MemberLoginScreen from '../components/screens/schedule-create/MemberLoginScreen';
-import ScheduleFormScreen from '../components/screens/schedule-create/ScheduleFormScreen';
+import MemberLoginScreen from '../components/screen/schedule-create/MemberLoginScreen';
+import ScheduleFormScreen from '../components/screen/schedule-create/ScheduleFormScreen';
 import { MemberValue } from '../types/member.type';
 import { Schedule } from '../types/schedule.type';
 import { IconChevronLeft } from '@tabler/icons-react';

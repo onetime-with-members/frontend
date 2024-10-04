@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import logo from '../assets/logo-auth.svg';
-import SocialLoginButton from '../components/auth/SocialLoginButton';
+import SocialLoginButton from '../components/button/SocialLoginButton';
 
 export default function Login() {
   const [searchParams] = useSearchParams();
