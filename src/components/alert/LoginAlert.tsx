@@ -1,21 +1,32 @@
+import { useNavigate, useParams } from 'react-router-dom';
+
 import Alert from './Alert';
 
 interface LoginAlertProps {
-  onClose: () => void;
-  onCancel: () => void;
-  onConfirm: () => void;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function LoginAlert({
-  onClose,
-  onConfirm,
-  onCancel,
-}: LoginAlertProps) {
+export default function LoginAlert({ setIsOpen }: LoginAlertProps) {
+  const navigate = useNavigate();
+  const params = useParams<{ eventId: string }>();
+
+  function handleLoginAlertClose() {
+    setIsOpen(false);
+  }
+
+  function handleLoginAlertCancel() {
+    navigate(`/events/${params.eventId}/schedules/new`);
+  }
+
+  function handleLoginAlertConfirm() {
+    navigate(`/login?redirect_url=${location.pathname}`);
+  }
+
   return (
     <Alert
-      onConfirm={onConfirm}
-      onCancel={onCancel}
-      onClose={onClose}
+      onConfirm={handleLoginAlertConfirm}
+      onCancel={handleLoginAlertCancel}
+      onClose={handleLoginAlertClose}
       confirmText="로그인"
       cancelText="다음에 할게요"
     >

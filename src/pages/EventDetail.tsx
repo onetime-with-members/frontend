@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
 import LoginAlert from '../components/alert/LoginAlert';
@@ -18,9 +18,6 @@ import { useQuery } from '@tanstack/react-query';
 export default function EventDetail() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
-
-  const navigate = useNavigate();
-  const location = useLocation();
 
   const params = useParams<{ eventId: string }>();
 
@@ -76,22 +73,6 @@ export default function EventDetail() {
 
   function handleShareButtonClick() {
     setIsSharePopUpOpen(true);
-  }
-
-  function handleSharePopUpClose() {
-    setIsSharePopUpOpen(false);
-  }
-
-  function handleLoginAlertClose() {
-    setIsLoginAlertOpen(false);
-  }
-
-  function handleLoginAlertCancel() {
-    navigate(`/events/${params.eventId}/schedules/new`);
-  }
-
-  function handleLoginAlertConfirm() {
-    navigate(`/login?redirect_url=${location.pathname}`);
   }
 
   function handleFloatingButtonClick() {
@@ -156,15 +137,9 @@ export default function EventDetail() {
         </div>
       </div>
       {isSharePopUpOpen && (
-        <SharePopUp onClose={handleSharePopUpClose} event={event} />
+        <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
       )}
-      {isLoginAlertOpen && (
-        <LoginAlert
-          onClose={handleLoginAlertClose}
-          onCancel={handleLoginAlertCancel}
-          onConfirm={handleLoginAlertConfirm}
-        />
-      )}
+      {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
     </>
   );
 }

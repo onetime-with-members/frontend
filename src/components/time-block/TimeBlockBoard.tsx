@@ -227,7 +227,7 @@ export default function TimeBlockBoard({
 
   useEffect(() => {
     if (!setIsSubmitDisabled) return;
-    setIsSubmitDisabled(isEmpty || isFull);
+    setIsSubmitDisabled(isAvailable ? isEmpty : isFull);
   }, [isEmpty, isFull]);
 
   return (
@@ -239,7 +239,7 @@ export default function TimeBlockBoard({
             onToggle={handleAvailableToggle}
           />
         ) : (
-          <h2 className="title-sm-300 text-gray-90">가능한 스케줄</h2>
+          <h2 className="text-gray-90 title-sm-300">가능한 스케줄</h2>
         )}
         {timePointChunks.length !== 1 && (
           <div className="flex items-center gap-4">
