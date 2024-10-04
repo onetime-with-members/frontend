@@ -59,7 +59,7 @@ export default function MyEventItem({ event }: MyEventItemProps) {
                   {event.category === 'DATE' ? (
                     <span>
                       {recommendedTime.time_point}{' '}
-                      {dayjs(recommendedTime.time_point).format('dd')}
+                      {dayjs(recommendedTime.time_point).format('ddd')}
                     </span>
                   ) : (
                     <span>{recommendedTime.time_point}요일</span>

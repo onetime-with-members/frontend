@@ -32,7 +32,6 @@ export default function Login() {
 
       const localRedirectUrl = localStorage.getItem('redirect-url');
       localStorage.removeItem('redirect-url');
-
       location.href = localRedirectUrl || '/';
     }
   }, [searchParams]);
