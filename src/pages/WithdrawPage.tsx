@@ -39,12 +39,18 @@ export default function WithdrawPage() {
 
   return (
     <div className="px-4">
+      <div className="h-[4rem]">
+        <div className="fixed h-[4rem] w-full bg-gray-00">
+          <div className="mx-auto max-w-screen-sm">
+            <header className="flex items-center justify-end py-5">
+              <button onClick={handleBackButtonClick}>
+                <IconX size={24} />
+              </button>
+            </header>
+          </div>
+        </div>
+      </div>
       <div className="mx-auto max-w-screen-sm">
-        <header className="flex items-center justify-end py-5">
-          <button onClick={handleBackButtonClick}>
-            <IconX size={24} />
-          </button>
-        </header>
         <main className="flex w-full flex-col items-center gap-10">
           <div className="flex w-full flex-col items-center gap-6">
             <h1 className="text-gray-90 title-md-300">

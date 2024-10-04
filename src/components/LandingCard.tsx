@@ -39,7 +39,7 @@ export default function LandingCard({
             {title}
           </h2>
           <p
-            className={clsx('text-lg-200', {
+            className={clsx('text-center text-lg-200', {
               'text-primary-30': variant === 'lightPurple',
               'text-gray-00': variant === 'purple',
             })}

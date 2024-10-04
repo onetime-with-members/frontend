@@ -36,21 +36,25 @@ export default function Settings() {
 
   return (
     <div>
-      <nav className="flex justify-center px-4">
-        <div className="w-full max-w-screen-sm">
-          <div className="grid h-[4rem] grid-cols-3">
-            <div />
-            <div className="flex items-center justify-center text-gray-90 text-lg-300">
-              설정
-            </div>
-            <div className="flex items-center justify-end">
-              <button onClick={handleBackButtonClick}>
-                <IconX size={24} />
-              </button>
+      <header>
+        <nav className="flex h-[4rem]">
+          <div className="fixed flex h-[4rem] w-full justify-center bg-gray-00 px-4">
+            <div className="w-full max-w-screen-sm">
+              <div className="grid h-[4rem] grid-cols-3">
+                <div />
+                <div className="flex items-center justify-center text-gray-90 text-lg-300">
+                  설정
+                </div>
+                <div className="flex items-center justify-end">
+                  <button onClick={handleBackButtonClick}>
+                    <IconX size={24} />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
       <main className="flex justify-center">
         <div className="w-full max-w-screen-sm">
           <div className="flex flex-col gap-7">

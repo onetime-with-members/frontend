@@ -53,10 +53,10 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
   }, [isLoggedIn]);
 
   return (
-    <nav className="flex h-[4.5rem] w-full">
+    <nav className="flex h-[4rem] w-full items-center">
       <div
         className={clsx(
-          'fixed left-0 top-0 z-40 h-[4.5rem] w-full p-4 duration-150',
+          'fixed left-0 top-0 z-40 h-[4rem] w-full p-4 duration-150',
           {
             'bg-transparent text-gray-00':
               !isNavBackground && variant === 'white',
@@ -65,7 +65,7 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
           },
         )}
       >
-        <div className="mx-auto flex max-w-screen-sm items-center justify-between">
+        <div className="mx-auto flex h-full max-w-screen-sm items-center justify-between">
           <Link to="/">
             <img
               src={
@@ -76,6 +76,7 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
                     : logoWhite
               }
               alt="OneTime 로고"
+              className="h-[2rem]"
             />
           </Link>
           {isLoggedIn ? (
@@ -86,7 +87,7 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
               </Link>
             )
           ) : (
-            <Link to="/login" className="text-lg-200">
+            <Link to="/login" className="flex items-center text-lg-200">
               로그인
             </Link>
           )}

@@ -66,15 +66,15 @@ export default function CardSection() {
       />
       <LandingCard
         variant="purple"
-        title="간편한 가능시간 체크"
-        description={`가능한 시간을 가늠하기 어려우신가요?\n그렇다면 ‘안되는 시간’을 지워보세요`}
+        title="모바일에서도 편리하게"
+        description={`공유 한 번으로 멤버들과 언제 어디서든\n일정을 간편하게 조율해 보세요`}
         textImageGap={45}
         imageElement={
           <div className="h-[15rem]">
             <div className="absolute -left-0">
               <img
                 src={paperAirplaneImage}
-                alt="가능 시간 UI"
+                alt="종이 비행기 그래픽"
                 className="w-[275px] rounded-xl"
                 style={{
                   filter:
