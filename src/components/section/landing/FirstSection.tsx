@@ -11,7 +11,7 @@ export default function FirstSection() {
     <section className="w-full">
       <div className="relative flex w-full flex-col items-center gap-4 overflow-hidden pb-[4.75rem] pt-[4.25rem]">
         <div>
-          <img src={calendarImage} alt="캘린더 이미지" />
+          <object data={calendarImage} type="image/svg+xml"></object>
         </div>
         <div className="flex flex-col gap-2">
           <h1 className="text-[2rem] font-bold text-primary-50">

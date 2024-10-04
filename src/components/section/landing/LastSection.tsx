@@ -9,7 +9,7 @@ export default function LastSection() {
       <div className="relative z-10 flex flex-col items-center gap-[4.25rem]">
         <div className="flex flex-col items-center gap-9">
           <div>
-            <img src={clockImage} alt="시계 스티커" />
+            <object data={clockImage} type="image/svg+xml"></object>
           </div>
           <p className="text-center text-gray-00 title-lg-300">
             일정을 생성하고 그룹원들과
