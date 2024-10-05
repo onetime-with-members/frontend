@@ -1,16 +1,14 @@
 import { Link } from 'react-router-dom';
 
-import clockImage from '../../../assets/landing/clock.svg';
 import ClockPattern from '../../clock-pattern/ClockPattern';
+import ClockImage from '../../image/ClockImage';
 
 export default function LastSection() {
   return (
     <section className="relative mt-10 w-full overflow-hidden bg-primary-40 pb-14 pt-20">
       <div className="relative z-10 flex flex-col items-center gap-[4.25rem]">
         <div className="flex flex-col items-center gap-9">
-          <div>
-            <object data={clockImage} type="image/svg+xml"></object>
-          </div>
+          <ClockImage />
           <p className="text-center text-gray-00 title-lg-300">
             일정을 생성하고 그룹원들과
             <br />
