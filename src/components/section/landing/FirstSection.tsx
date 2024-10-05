@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import CalendarImage from '../../image/CalendarImage';
+import calendarImage from '../../../assets/landing/calendar.svg';
 import { IconChevronRight } from '@tabler/icons-react';
 
 export default function FirstSection() {
@@ -10,7 +10,9 @@ export default function FirstSection() {
   return (
     <section className="w-full">
       <div className="relative flex w-full flex-col items-center gap-4 overflow-hidden pb-[4.75rem] pt-[4.25rem]">
-        <CalendarImage />
+        <div className="h-[185px] w-[214px]">
+          <object data={calendarImage} type="image/svg+xml"></object>
+        </div>
         <div className="flex flex-col gap-2">
           <h1 className="text-[2rem] font-bold text-primary-50">
             일정을 쉽고 빠르게
