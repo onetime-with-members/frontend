@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import MemberLoginScreen from '../components/screens/schedule-create/MemberLoginScreen';
-import ScheduleFormScreen from '../components/screens/schedule-create/ScheduleFormScreen';
+import MemberLoginScreen from '../components/screen/schedule-create/MemberLoginScreen';
+import ScheduleFormScreen from '../components/screen/schedule-create/ScheduleFormScreen';
 import { MemberValue } from '../types/member.type';
 import { Schedule } from '../types/schedule.type';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function ScheduleCreate() {
-  const [pageIndex, setPageIndex] = useState(0);
+  const isLoggedIn = localStorage.getItem('access-token') !== null;
+
+  const [pageIndex, setPageIndex] = useState(isLoggedIn ? 1 : 0);
   const [isNewMember, setIsNewMember] = useState(false);
   const [memberId, setMemberId] = useState('');
   const [memberValue, setMemberValue] = useState<MemberValue>({
@@ -30,8 +32,12 @@ export default function ScheduleCreate() {
   function handleBackButtonClick() {
     if (pageIndex === 0) {
       navigate(`/events/${params.eventId}`);
-    } else {
-      setPageIndex((prev) => prev - 1);
+    } else if (pageIndex === 1) {
+      if (isLoggedIn) {
+        navigate(`/events/${params.eventId}`);
+      } else {
+        setPageIndex((prev) => prev - 1);
+      }
     }
   }
 
@@ -49,7 +55,7 @@ export default function ScheduleCreate() {
                   <IconChevronLeft size={24} className="text-gray-80" />
                 </button>
               </div>
-              <h2 className="text-lg-300 text-center text-gray-90">
+              <h2 className="text-center text-gray-90 text-lg-300">
                 {pageIndex === 0 ? '정보 입력' : '스케줄 등록'}
               </h2>
             </div>
@@ -72,6 +78,7 @@ export default function ScheduleCreate() {
               memberValue={memberValue}
               schedules={schedules}
               setSchedules={setSchedules}
+              isLoggedIn={isLoggedIn}
             />
           )}
         </main>

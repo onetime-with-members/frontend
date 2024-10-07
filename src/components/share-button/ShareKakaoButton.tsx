@@ -52,7 +52,7 @@ export default function ShareKakaoButton({ event }: ShareKakaoButtonProps) {
 
   return (
     <button
-      className="h-12 w-12 rounded-full bg-[#FAE100] p-1.5 text-primary-40"
+      className="h-12 w-12 overflow-hidden rounded-full bg-[#FFE80F] p-1.5 text-primary-40"
       onClick={handleClick}
     >
       <img src={kakaoIcon} alt="카카오톡 아이콘" />
