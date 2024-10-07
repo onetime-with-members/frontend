@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 
-import ScrollToTop from '../components/scroll-to-top/ScrollToTop';
+import ScrollToTop from '../components/ScrollToTop';
 
 export default function Layout() {
   return (
