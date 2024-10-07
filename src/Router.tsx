@@ -44,13 +44,13 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
+        path: 'onboarding',
+        element: <Onboarding />,
+      },
+      {
         path: '',
         element: <AuthLayout />,
         children: [
-          {
-            path: 'onboarding',
-            element: <Onboarding />,
-          },
           {
             path: 'mypage',
             element: <MyPage />,

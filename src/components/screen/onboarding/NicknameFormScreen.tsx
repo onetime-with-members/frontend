@@ -85,6 +85,8 @@ export default function NicknameFormScreen({
       newSearchParams.delete('register_token');
       newSearchParams.delete('name');
       setSearchParams(newSearchParams);
+    } else {
+      navigate('/login');
     }
   }, [searchParams]);
 
