@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 
-import MemberBadge from '../../MemberBadge';
+import MemberBadge from '../../badge/MemberBadge';
 import ParticipantsPopUp from '../../pop-up/ParticipantsPopUp';
 import { IconChevronRight } from '@tabler/icons-react';
 
@@ -31,9 +31,9 @@ export default function Participants({ participants }: ParticipantsProps) {
         onClick={handleDialogOpen}
       >
         <div className="ml-1 flex items-center justify-between">
-          <span className="text-gray-60 text-md-300">
+          <span className="text-md-300 text-gray-60">
             참여자{' '}
-            <strong className="text-primary-50 text-md-300">
+            <strong className="text-md-300 text-primary-50">
               {participants.length}
             </strong>
           </span>
