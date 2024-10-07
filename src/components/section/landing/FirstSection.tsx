@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import calendarImage from '../../../assets/landing/calendar.svg';
+import calendarImage from '../../../assets/landing/calendar.png';
 import { IconChevronRight } from '@tabler/icons-react';
 
 export default function FirstSection() {
@@ -11,7 +11,7 @@ export default function FirstSection() {
     <section className="w-full">
       <div className="relative flex w-full flex-col items-center gap-4 overflow-hidden pb-[4.75rem] pt-[4.25rem]">
         <div className="h-[185px] w-[214px]">
-          <object data={calendarImage} type="image/svg+xml"></object>
+          <img src={calendarImage} alt="캘린더" className="h-full w-full" />
         </div>
         <div className="flex flex-col gap-2">
           <h1 className="text-[2rem] font-bold text-primary-50">
