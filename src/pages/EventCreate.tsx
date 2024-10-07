@@ -20,7 +20,7 @@ export default function EventCreate() {
     category: 'DATE',
     ranges: [],
   });
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   const navigate = useNavigate();
 
