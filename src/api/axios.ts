@@ -63,8 +63,6 @@ axios.interceptors.response.use(
         } catch (error) {
           removeTokens();
         }
-      } else {
-        removeTokens();
       }
     }
   },
