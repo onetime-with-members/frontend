@@ -1,13 +1,17 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import AuthLayout from './layouts/AuthLayout';
 import Layout from './layouts/Layout';
 import EventCreate from './pages/EventCreate';
 import EventDetail from './pages/EventDetail';
 import EventDetailRedirect from './pages/EventDetailRedirect';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
+import MyPage from './pages/MyPage';
 import Onboarding from './pages/Onboarding';
 import ScheduleCreate from './pages/ScheduleCreate';
+import Settings from './pages/Settings';
+import WithdrawPage from './pages/WithdrawPage';
 
 const router = createBrowserRouter([
   {
@@ -40,12 +44,30 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: 'onboarding',
-        element: <Onboarding />,
-      },
-      {
-        path: ':shortenEventId',
-        element: <EventDetailRedirect />,
+        path: '',
+        element: <AuthLayout />,
+        children: [
+          {
+            path: 'onboarding',
+            element: <Onboarding />,
+          },
+          {
+            path: 'mypage',
+            element: <MyPage />,
+          },
+          {
+            path: 'settings',
+            element: <Settings />,
+          },
+          {
+            path: 'withdraw',
+            element: <WithdrawPage />,
+          },
+          {
+            path: ':shortenEventId',
+            element: <EventDetailRedirect />,
+          },
+        ],
       },
     ],
   },

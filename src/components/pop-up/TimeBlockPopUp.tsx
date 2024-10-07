@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 
 import { TimeBlockPopUpData } from '../../types/schedule.type';
-import MemberBadge from '../badge/MemberBadge';
+import MemberBadge from '../MemberBadge';
 import { IconX } from '@tabler/icons-react';
 
 interface TimeBlockPopUpProps {
@@ -36,7 +36,7 @@ export default function TimeBlockPopUp({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between bg-primary-50 px-5 pb-3 pt-4">
-          <div className="text-lg-300 text-gray-00">
+          <div className="text-gray-00 text-lg-300">
             <span>
               {category === 'DATE'
                 ? dayjs(timePoint, 'YYYY.MM.DD').format('YYYY.MM.DD (dd)')

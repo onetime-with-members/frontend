@@ -3,10 +3,11 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
+import NavBar from '../components/NavBar';
+import LoginAlert from '../components/alert/LoginAlert';
 import TopBannerList from '../components/banner/banner-list/TopBannerList';
 import EmptyEventBanner from '../components/banner/empty-event/EmptyEventBanner';
 import BlackFloatingBottomButton from '../components/floating-button/BlackFloatingBottomButton';
-import NavBar from '../components/nav-bar/NavBar';
 import SharePopUp from '../components/pop-up/SharePopUp';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { EventType } from '../types/event.type';
@@ -16,6 +17,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function EventDetail() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
+  const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
 
   const params = useParams<{ eventId: string }>();
 
@@ -73,8 +75,12 @@ export default function EventDetail() {
     setIsSharePopUpOpen(true);
   }
 
-  function handleSharePopUpClose() {
-    setIsSharePopUpOpen(false);
+  function handleFloatingButtonClick() {
+    if (localStorage.getItem('access-token')) {
+      window.location.href = `/events/${params.eventId}/schedules/new`;
+    } else {
+      setIsLoginAlertOpen(true);
+    }
   }
 
   if (
@@ -102,11 +108,11 @@ export default function EventDetail() {
           <header className="mx-auto max-w-screen-sm">
             <NavBar />
             <div className="flex items-center justify-between gap-2">
-              <h1 className="title-md-300 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00">
+              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-md-300">
                 {event.title}
               </h1>
               <button
-                className="text-md-200 rounded-xl bg-gray-90 px-4 py-2 text-gray-00"
+                className="rounded-xl bg-gray-90 px-4 py-2 text-gray-00 text-md-200"
                 onClick={handleShareButtonClick}
               >
                 공유하기
@@ -126,13 +132,14 @@ export default function EventDetail() {
         <div className="mx-auto mt-4 max-w-screen-sm px-4">
           <main className="mb-28 mt-12">
             <TimeBlockBoard event={event} schedules={schedules} />
-            <BlackFloatingBottomButton />
+            <BlackFloatingBottomButton onClick={handleFloatingButtonClick} />
           </main>
         </div>
       </div>
       {isSharePopUpOpen && (
-        <SharePopUp onClose={handleSharePopUpClose} event={event} />
+        <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
       )}
+      {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
     </>
   );
 }
