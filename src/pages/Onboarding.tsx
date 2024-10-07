@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import NicknameFormScreen from '../components/screen/onboarding/NicknameFormScreen';
-import WelcomeScreen from '../components/screen/onboarding/WelcomeScreen';
+import NicknameFormScreen from '../components/screens/onboarding/NicknameFormScreen';
+import WelcomeScreen from '../components/screens/onboarding/WelcomeScreen';
 
 export default function Onboarding() {
   const [page, setPage] = useState(0);

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useState } from 'react';
 
-import MemberBadge from '../../MemberBadge';
+import MemberBadge from '../../badge/MemberBadge';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 interface TimeAccordionItemProps {
@@ -41,14 +41,14 @@ export default function TimeAccordionItem({
         onClick={handleAccordionClick}
       >
         <span
-          className={clsx('flex-1 text-lg-200', {
+          className={clsx('text-lg-200 flex-1', {
             'text-primary-50': isOpen,
             'text-gray-50': !isOpen,
           })}
         >
           {startTime} - {endTime}
         </span>
-        <div className="rounded-full bg-primary-50 px-3 py-1 text-gray-00 text-sm-300">
+        <div className="text-sm-300 rounded-full bg-primary-50 px-3 py-1 text-gray-00">
           {members.possible.length}명
         </div>
         {isOpen ? (

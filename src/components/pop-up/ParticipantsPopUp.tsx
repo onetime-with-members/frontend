@@ -1,5 +1,5 @@
 // import TimeAccordionItem from '../recommend-time/TimeAccordionItem';
-import MemberBadge from '../MemberBadge';
+import MemberBadge from '../badge/MemberBadge';
 import { IconX } from '@tabler/icons-react';
 
 interface ParticipantsPopUpProps {
@@ -22,8 +22,8 @@ export default function ParticipantsPopUp({
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <h2 className="text-gray-80 text-lg-300">스케줄을 추가한 사람들</h2>
-            <span className="text-primary-50 text-lg-300">
+            <h2 className="text-lg-300 text-gray-80">스케줄을 추가한 사람들</h2>
+            <span className="text-lg-300 text-primary-50">
               {participants.length}
             </span>
           </div>

@@ -3,9 +3,6 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      screens: {
-        xs: '390px',
-      },
       fontFamily: {
         pretendard: ['Pretendard', 'sans-serif'],
       },
@@ -62,100 +59,5 @@ export default {
       },
     },
   },
-  plugins: [
-    ({ addUtilities }) => {
-      addUtilities({
-        '.title-lg-300': {
-          fontSize: '1.5rem',
-          fontWeight: 600,
-          lineHeight: '150%',
-        },
-        '.title-lg-200': {
-          fontSize: '1.5rem',
-          fontWeight: 500,
-          lineHeight: '150%',
-        },
-        '.title-lg-100': {
-          fontSize: '1.5rem',
-          fontWeight: 400,
-          lineHeight: '150%',
-        },
-        '.title-md-300': {
-          fontSize: '1.375rem',
-          fontWeight: 600,
-          lineHeight: '150%',
-        },
-        '.title-md-200': {
-          fontSize: '1.375rem',
-          fontWeight: 500,
-          lineHeight: '150%',
-        },
-        '.title-md-100': {
-          fontSize: '1.375rem',
-          fontWeight: 400,
-          lineHeight: '150%',
-        },
-        '.title-sm-300': {
-          fontSize: '1.25rem',
-          fontWeight: 600,
-          lineHeight: '150%',
-        },
-        '.title-sm-200': {
-          fontSize: '1.25rem',
-          fontWeight: 500,
-          lineHeight: '150%',
-        },
-        '.title-sm-100': {
-          fontSize: '1.25rem',
-          fontWeight: 400,
-          lineHeight: '150%',
-        },
-        '.text-lg-300': {
-          fontSize: '1.125rem',
-          fontWeight: 600,
-          lineHeight: '150%',
-        },
-        '.text-lg-200': {
-          fontSize: '1.125rem',
-          fontWeight: 500,
-          lineHeight: '150%',
-        },
-        '.text-lg-100': {
-          fontSize: '1.125rem',
-          fontWeight: 400,
-          lineHeight: '150%',
-        },
-        '.text-md-300': {
-          fontSize: '1rem',
-          fontWeight: 600,
-          lineHeight: '150%',
-        },
-        '.text-md-200': {
-          fontSize: '1rem',
-          fontWeight: 500,
-          lineHeight: '150%',
-        },
-        '.text-md-100': {
-          fontSize: '1rem',
-          fontWeight: 400,
-          lineHeight: '150%',
-        },
-        '.text-sm-300': {
-          fontSize: '0.875rem',
-          fontWeight: 600,
-          lineHeight: 'normal',
-        },
-        '.text-sm-200': {
-          fontSize: '0.875rem',
-          fontWeight: 500,
-          lineHeight: 'normal',
-        },
-        '.text-sm-100': {
-          fontSize: '0.875rem',
-          fontWeight: 400,
-          lineHeight: 'normal',
-        },
-      });
-    },
-  ],
+  plugins: [],
 };

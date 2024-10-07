@@ -11,11 +11,11 @@ import { IconCopy, IconLink, IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 
 interface SharePopUpProps {
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  onClose: () => void;
   event: EventType;
 }
 
-export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
+export default function SharePopUp({ onClose, event }: SharePopUpProps) {
   const [currentUrl, setCurrentUrl] = useState(window.location.href);
   const [isShortenUrl, setIsShortenUrl] = useState(false);
 
@@ -49,22 +49,18 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
     }
   }
 
-  function handleSharePopUpClose() {
-    setIsOpen(false);
-  }
-
   return (
     <div
       className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-8"
-      onClick={handleSharePopUpClose}
+      onClick={onClose}
     >
       <div
         className="flex w-full max-w-[35rem] cursor-auto flex-col overflow-hidden rounded-2xl bg-gray-00"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-5 pb-3 pt-4">
-          <h2 className="text-gray-80 text-lg-300">공유하기</h2>
-          <button className="text-gray-40" onClick={handleSharePopUpClose}>
+          <h2 className="text-lg-300 text-gray-80">공유하기</h2>
+          <button className="text-gray-40" onClick={onClose}>
             <IconX size={24} />
           </button>
         </div>
@@ -73,7 +69,7 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
             <Input
               inputRef={urlInputRef}
               value={currentUrl}
-              className="caret-transparent text-sm-100"
+              className="text-sm-100 caret-transparent"
               inputMode="none"
             />
             <div className="flex items-center justify-between">
@@ -82,7 +78,7 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
                 onClick={handleToggleShortenUrl}
               >
                 <Checkbox isChecked={isShortenUrl} />
-                <span className="text-gray-40 text-md-200">단축 URL</span>
+                <span className="text-md-200 text-gray-40">단축 URL</span>
               </div>
               <div
                 className="flex cursor-pointer items-center gap-2 text-primary-40"
