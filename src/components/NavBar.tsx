@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import axios from '../api/axios';
 import logoWhite from '../assets/logo-white.svg';
@@ -15,6 +15,8 @@ interface NavBarProps {
 export default function NavBar({ variant = 'white' }: NavBarProps) {
   const [isNavBackground, setIsNavBackground] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const location = useLocation();
 
   const { isPending: isUserPending, data: userData } = useQuery({
     queryKey: ['users', 'profile'],
@@ -87,7 +89,10 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
               </Link>
             )
           ) : (
-            <Link to="/login" className="flex items-center text-lg-200">
+            <Link
+              to={`/login?redirect_url=${location.pathname}`}
+              className="flex items-center text-lg-200"
+            >
               로그인
             </Link>
           )}
