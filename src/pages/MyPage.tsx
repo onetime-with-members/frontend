@@ -19,7 +19,7 @@ export default function MyPage() {
   }, []);
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex min-h-screen flex-col">
       <nav className="h-[125px]">
         <div className="fixed flex w-full flex-col justify-center bg-gray-00">
           <div className="flex justify-center px-4 text-center">
