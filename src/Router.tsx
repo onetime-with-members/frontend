@@ -63,11 +63,11 @@ const router = createBrowserRouter([
             path: 'withdraw',
             element: <WithdrawPage />,
           },
-          {
-            path: ':shortenEventId',
-            element: <EventDetailRedirect />,
-          },
         ],
+      },
+      {
+        path: ':shortenEventId',
+        element: <EventDetailRedirect />,
       },
     ],
   },
