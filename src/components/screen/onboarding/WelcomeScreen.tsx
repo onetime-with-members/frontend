@@ -11,7 +11,14 @@ export default function WelcomeScreen({ name }: WelcomeScreenProps) {
   const navigate = useNavigate();
 
   function handleStartButtonClick() {
-    navigate('/');
+    const redirectUrl = localStorage.getItem('redirect-url');
+
+    if (redirectUrl) {
+      localStorage.removeItem('redirect-url');
+      navigate(redirectUrl);
+    } else {
+      navigate('/');
+    }
   }
 
   return (
