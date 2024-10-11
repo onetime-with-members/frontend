@@ -6,7 +6,7 @@ import LandingCard from '../../LandingCard';
 
 export default function CardSection() {
   return (
-    <section className="mt-10 flex flex-col gap-10">
+    <section className="mt-10 flex flex-col gap-10 px-4">
       <LandingCard
         title="빠른 현황 확인"
         description={`이벤트 참여자와 가장 많은 사람들이\n되는 시간을 빠르게 확인할 수 있어요`}

@@ -18,7 +18,7 @@ export default function LandingCard({
   variant = 'lightPurple',
 }: LandingCard) {
   return (
-    <div className="mx-auto flex w-[342px] justify-center overflow-hidden">
+    <div className="mx-auto flex w-full max-w-[342px] justify-center overflow-hidden">
       <div
         className={clsx(
           'relative flex w-full flex-col items-center rounded-2xl px-6 pb-7 pt-10',
