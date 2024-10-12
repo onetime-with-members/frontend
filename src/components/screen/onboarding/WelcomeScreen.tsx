@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import clock from '../../../assets/clock.png';
+import clock from '../../../assets/clock.svg';
 import Button from '../../button/Button';
 
 interface WelcomeScreenProps {
