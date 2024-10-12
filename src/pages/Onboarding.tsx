@@ -10,11 +10,13 @@ export default function Onboarding() {
   return (
     <div className="px-4">
       <div className="mx-auto flex w-full max-w-screen-sm flex-col gap-6">
-        {page === 0 ? (
-          <NicknameFormScreen page={page} setPage={setPage} setName={setName} />
-        ) : (
-          page === 1 && <WelcomeScreen name={name} />
-        )}
+        <NicknameFormScreen
+          page={page}
+          setPage={setPage}
+          setName={setName}
+          isVisible={page === 0}
+        />
+        <WelcomeScreen name={name} isVisible={page === 1} />
       </div>
     </div>
   );

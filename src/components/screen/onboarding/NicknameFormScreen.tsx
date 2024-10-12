@@ -12,12 +12,14 @@ interface NicknameFormProps {
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setName: React.Dispatch<React.SetStateAction<string>>;
+  isVisible: boolean;
 }
 
 export default function NicknameFormScreen({
   page,
   setPage,
   setName,
+  isVisible,
 }: NicknameFormProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState({
@@ -107,7 +109,11 @@ export default function NicknameFormScreen({
   }, [value, invalid]);
 
   return (
-    <>
+    <div
+      className={clsx({
+        hidden: !isVisible,
+      })}
+    >
       <header className="py-5">
         <button onClick={handleBackButtonClick}>
           <IconChevronLeft />
@@ -152,6 +158,6 @@ export default function NicknameFormScreen({
           다음
         </FloatingBottomButton>
       </main>
-    </>
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
 import clock from '../../../assets/clock.svg';
@@ -5,9 +6,10 @@ import Button from '../../button/Button';
 
 interface WelcomeScreenProps {
   name: string;
+  isVisible: boolean;
 }
 
-export default function WelcomeScreen({ name }: WelcomeScreenProps) {
+export default function WelcomeScreen({ name, isVisible }: WelcomeScreenProps) {
   const navigate = useNavigate();
 
   function handleStartButtonClick() {
@@ -22,7 +24,11 @@ export default function WelcomeScreen({ name }: WelcomeScreenProps) {
   }
 
   return (
-    <main className="flex h-screen flex-col items-center justify-center">
+    <main
+      className={clsx('flex h-screen flex-col items-center justify-center', {
+        hidden: !isVisible,
+      })}
+    >
       <div className="flex w-[22rem] -translate-y-8 flex-col items-center gap-12">
         <div className="flex flex-col items-center gap-6">
           <div>
