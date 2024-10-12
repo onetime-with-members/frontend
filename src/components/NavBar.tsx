@@ -81,13 +81,10 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
               className="h-[2rem]"
             />
           </Link>
-          {isLoggedIn ? (
-            !isUserPending &&
-            user && (
-              <Link to="/mypage">
-                <Avatar name={user.nickname} />
-              </Link>
-            )
+          {isLoggedIn && !isUserPending && user ? (
+            <Link to="/mypage">
+              <Avatar name={user.nickname} />
+            </Link>
           ) : (
             <Link
               to={`/login?redirect_url=${location.pathname}`}
