@@ -99,12 +99,7 @@ export default function EventDetail() {
         <title>{event.title} - OneTime</title>
       </Helmet>
       <div>
-        <div
-          className="px-4 py-6"
-          style={{
-            background: 'linear-gradient(0deg, #334EDB 0%, #8898F2 100%)',
-          }}
-        >
+        <div className="bg-primary-40 px-4 py-6">
           <header className="mx-auto max-w-screen-sm">
             <NavBar />
             <div className="flex items-center justify-between gap-2">
