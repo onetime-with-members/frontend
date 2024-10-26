@@ -1,11 +1,12 @@
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import axios from '../api/axios';
 import logoWhite from '../assets/logo-white.svg';
 import logoBlack from '../assets/logo.svg';
 import Avatar from './Avatar';
+import LoginButton from './LoginButton';
 import { useQuery } from '@tanstack/react-query';
 
 interface NavBarProps {
@@ -15,16 +16,21 @@ interface NavBarProps {
 export default function NavBar({ variant = 'white' }: NavBarProps) {
   const [isNavBackground, setIsNavBackground] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const location = useLocation();
+  const [userError, setUserError] = useState<unknown>();
 
   const { isPending: isUserPending, data: userData } = useQuery({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
-      const res = await axios.get('/users/profile');
-      return res.data;
+      try {
+        const res = await axios.get('/users/profile');
+        return res.data;
+      } catch (error) {
+        setUserError(error);
+        return null;
+      }
     },
     enabled: isLoggedIn,
+    retry: false,
   });
 
   const user = userData?.payload;
@@ -54,6 +60,12 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
     }
   }, [isLoggedIn]);
 
+  useEffect(() => {
+    if (userError) {
+      console.log(userError);
+    }
+  }, [userError]);
+
   return (
     <nav className="flex h-[4rem] w-full items-center">
       <div
@@ -81,17 +93,14 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
               className="h-[2rem]"
             />
           </Link>
-          {isLoggedIn && !isUserPending && user ? (
-            <Link to="/mypage">
+          {isLoggedIn ? (
+            !isUserPending && user ? (
               <Avatar name={user.nickname} />
-            </Link>
+            ) : userError ? (
+              <LoginButton />
+            ) : null
           ) : (
-            <Link
-              to={`/login?redirect_url=${location.pathname}`}
-              className="flex items-center text-lg-200"
-            >
-              로그인
-            </Link>
+            <LoginButton />
           )}
         </div>
       </div>

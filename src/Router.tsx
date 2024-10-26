@@ -9,6 +9,7 @@ import Landing from './pages/Landing';
 import Login from './pages/Login';
 import MyPage from './pages/MyPage';
 import Onboarding from './pages/Onboarding';
+import ProfileEdit from './pages/ProfileEdit';
 import ScheduleCreate from './pages/ScheduleCreate';
 import Settings from './pages/Settings';
 import WithdrawPage from './pages/WithdrawPage';
@@ -57,7 +58,16 @@ const router = createBrowserRouter([
           },
           {
             path: 'settings',
-            element: <Settings />,
+            children: [
+              {
+                path: '',
+                element: <Settings />,
+              },
+              {
+                path: 'edit-profile',
+                element: <ProfileEdit />,
+              },
+            ],
           },
           {
             path: 'withdraw',

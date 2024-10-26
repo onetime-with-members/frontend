@@ -8,14 +8,6 @@ interface TimeSectionProps {
 }
 
 export default function TimeSection({ value, setValue }: TimeSectionProps) {
-  function handleSelectAllTime() {
-    setValue((prev) => ({
-      ...prev,
-      start_time: '00:00',
-      end_time: '24:00',
-    }));
-  }
-
   function handleSelectTime(key: keyof EventType) {
     return function (time: string) {
       setValue((prev) => ({
@@ -46,12 +38,6 @@ export default function TimeSection({ value, setValue }: TimeSectionProps) {
             setTime={handleSelectTime('end_time')}
           />
         </div>
-        <button
-          className="rounded-xl bg-gray-80 px-5 py-4 text-gray-00"
-          onClick={handleSelectAllTime}
-        >
-          종일
-        </button>
       </div>
     </div>
   );
