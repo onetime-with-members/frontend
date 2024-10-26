@@ -24,6 +24,10 @@ export default function Settings() {
     navigate(-1);
   }
 
+  function handleProfileEditButtonClick() {
+    navigate('/settings/edit-profile');
+  }
+
   function handleLogoutButtonClick() {
     localStorage.removeItem('access-token');
     localStorage.removeItem('refresh-token');
@@ -69,6 +73,9 @@ export default function Settings() {
                 </div>
               </div>
               <div className="flex items-center gap-4 px-4">
+                <GrayButton onClick={handleProfileEditButtonClick}>
+                  프로필 수정
+                </GrayButton>
                 <GrayButton onClick={handleLogoutButtonClick}>
                   로그아웃
                 </GrayButton>
