@@ -7,7 +7,9 @@ import EventDetail from './pages/EventDetail';
 import EventDetailRedirect from './pages/EventDetailRedirect';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
-import MyPage from './pages/MyPage';
+import MyEvents from './pages/MyEvents';
+import MyScheduleCreate from './pages/MyScheduleCreate';
+import MySchedules from './pages/MySchedules';
 import Onboarding from './pages/Onboarding';
 import ProfileEdit from './pages/ProfileEdit';
 import ScheduleCreate from './pages/ScheduleCreate';
@@ -54,7 +56,20 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'mypage',
-            element: <MyPage />,
+            children: [
+              {
+                path: 'events',
+                element: <MyEvents />,
+              },
+              {
+                path: 'schedules',
+                element: <MySchedules />,
+              },
+              {
+                path: 'schedules/new',
+                element: <MyScheduleCreate />,
+              },
+            ],
           },
           {
             path: 'settings',

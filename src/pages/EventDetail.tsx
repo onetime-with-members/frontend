@@ -127,7 +127,10 @@ export default function EventDetail() {
         <div className="mx-auto mt-4 max-w-screen-sm px-4">
           <main className="mb-28 mt-12">
             <TimeBlockBoard event={event} schedules={schedules} />
-            <BlackFloatingBottomButton onClick={handleFloatingButtonClick} />
+            <BlackFloatingBottomButton
+              name="스케줄 등록"
+              onClick={handleFloatingButtonClick}
+            />
           </main>
         </div>
       </div>
