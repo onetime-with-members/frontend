@@ -1,11 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 
+import axios from '../api/axios';
 import MyTimeBlockBoard from '../components/MyTimeBlockBoard';
 import BlackFloatingBottomButton from '../components/floating-button/BlackFloatingBottomButton';
 import { IconChevronLeft } from '@tabler/icons-react';
+import { useQuery } from '@tanstack/react-query';
 
 export default function MySchedules() {
   const navigate = useNavigate();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['fixed-schedules'],
+    queryFn: async () => {
+      const res = await axios.get('/fixed-schedules');
+      return res.data;
+    },
+  });
+
+  const mySchedules = data?.data;
 
   function handleBackButtonClick() {
     navigate(-1);
@@ -14,6 +26,8 @@ export default function MySchedules() {
   function handleFLoatingButtonClick() {
     navigate('/mypage/schedules/new');
   }
+
+  if (isLoading || mySchedules === undefined) return <></>;
 
   return (
     <div className="flex flex-col gap-4">
@@ -35,7 +49,7 @@ export default function MySchedules() {
       </nav>
       <main className="px-4">
         <div className="mx-auto w-full max-w-screen-sm pb-32">
-          <MyTimeBlockBoard />
+          <MyTimeBlockBoard mode="view" mySchedules={mySchedules} />
           <BlackFloatingBottomButton
             name="스케줄 추가"
             onClick={handleFLoatingButtonClick}

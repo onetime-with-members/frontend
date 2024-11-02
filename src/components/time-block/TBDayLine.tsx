@@ -26,6 +26,7 @@ interface TBDayLineProps {
   editable?: boolean;
   minWidth?: number;
   isAvailable?: boolean;
+  backgroundColor: 'white' | 'gray';
 }
 
 const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
@@ -41,6 +42,7 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
       editable,
       minWidth,
       isAvailable = true,
+      backgroundColor,
     },
     ref,
   ) => {
@@ -275,6 +277,7 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
                 timesAllMember.filter((t) => t === time).length ===
                   memberCount && memberCount > 1
               }
+              backgroundColor={backgroundColor}
             />
           ))}
         </div>

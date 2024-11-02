@@ -32,7 +32,7 @@ export default function MyScheduleActionButton({
           <EditIcon fill="#5D6279" />
         )}
       </span>
-      <span>수정</span>
+      <span>{action === 'edit' ? '수정' : '삭제'}</span>
     </button>
   );
 }

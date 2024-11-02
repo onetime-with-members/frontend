@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { EventType } from '../../types/event.type';
 import { Schedule, Time, TimeBlockPopUpData } from '../../types/schedule.type';
 import { getBlockTimeList } from '../../utils/time-block';
+import TBBoardActionButton from '../button/TBBoardActionButton';
 import TimeBlockPopUp from '../pop-up/TimeBlockPopUp';
 import AvailableToggle from './AvailableToggle';
 import TBDayLine from './TBDayLine';
@@ -16,6 +17,12 @@ interface TimeBlockBoardProps {
   setSchedules?: React.Dispatch<React.SetStateAction<Schedule[]>>;
   editable?: boolean;
   setIsSubmitDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
+  backgroundColor?: 'white' | 'gray';
+  topAction?: boolean;
+  topActionOnClick?: {
+    share: () => void;
+    delete: () => void;
+  };
 }
 
 export default function TimeBlockBoard({
@@ -24,6 +31,9 @@ export default function TimeBlockBoard({
   setSchedules,
   editable,
   setIsSubmitDisabled,
+  backgroundColor = 'gray',
+  topAction = false,
+  topActionOnClick,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<TimeBlockPopUpData>({
@@ -123,7 +133,7 @@ export default function TimeBlockBoard({
     if (!boardContentRef.current) return;
     if (chunkIndex - 1 > 0) {
       boardContentRef.current.scrollBy({
-        left: -boardContentRef.current.clientWidth - dayLineGap,
+        left: (-boardContentRef.current.clientWidth - dayLineGap) * 0.9,
         behavior: 'smooth',
       });
     } else {
@@ -142,7 +152,7 @@ export default function TimeBlockBoard({
     if (!boardContentRef.current) return;
     if (chunkIndex + 1 < timePointChunks.length - 1) {
       boardContentRef.current.scrollBy({
-        left: boardContentRef.current.clientWidth + dayLineGap,
+        left: (boardContentRef.current.clientWidth + dayLineGap) * 0.9,
         behavior: 'smooth',
       });
     } else {
@@ -231,13 +241,24 @@ export default function TimeBlockBoard({
   }, [isEmpty, isFull]);
 
   return (
-    <>
+    <div>
       <div className="flex justify-between">
         {editable ? (
           <AvailableToggle
             isAvailable={isAvailable}
             onToggle={handleAvailableToggle}
           />
+        ) : topAction ? (
+          <div className="flex gap-2">
+            <TBBoardActionButton
+              mode="share"
+              onClick={topActionOnClick?.share}
+            />
+            <TBBoardActionButton
+              mode="delete"
+              onClick={topActionOnClick?.delete}
+            />
+          </div>
         ) : (
           <h2 className="text-gray-90 title-sm-300">가능한 스케줄</h2>
         )}
@@ -275,7 +296,7 @@ export default function TimeBlockBoard({
             <div
               key={index}
               className={clsx('flex', {
-                'min-w-full':
+                'min-w-[90%]':
                   index !== timePointChunks.length - 1 ||
                   timePointChunks.length === 1,
               })}
@@ -304,6 +325,7 @@ export default function TimeBlockBoard({
                         : undefined
                     }
                     isAvailable={isAvailable}
+                    backgroundColor={backgroundColor}
                   />
                 );
               })}
@@ -320,6 +342,6 @@ export default function TimeBlockBoard({
           category={event.category}
         />
       )}
-    </>
+    </div>
   );
 }

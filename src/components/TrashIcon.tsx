@@ -1,16 +1,18 @@
 interface TrashIconProps {
   fill?: string;
   innerFill?: string;
+  size?: number;
 }
 
 export default function TrashIcon({
   fill = '#1B1C23',
   innerFill = '#FFFFFF',
+  size = 20,
 }: TrashIconProps) {
   return (
     <svg
-      width="21"
-      height="20"
+      width={size}
+      height={size}
       viewBox="0 0 21 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -8,6 +8,7 @@ interface TBItemProps extends React.HTMLAttributes<HTMLDivElement> {
   cursorPointer?: boolean;
   isAvailable?: boolean;
   isAllMembersAvailable?: boolean;
+  backgroundColor: 'white' | 'gray';
 }
 
 const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
@@ -21,6 +22,7 @@ const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
       cursorPointer = true,
       isAvailable = true,
       isAllMembersAvailable = false,
+      backgroundColor = 'gray',
       ...rest
     },
     ref,
@@ -34,7 +36,12 @@ const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
           {
             'bg-primary-50': isAvailable && active,
             'bg-danger-50': !isAvailable && !active,
-            'bg-gray-05': isAvailable ? !active : active,
+            'bg-gray-05': isAvailable
+              ? !active && backgroundColor === 'gray'
+              : active && backgroundColor === 'gray',
+            'bg-gray-00': isAvailable
+              ? !active && backgroundColor === 'white'
+              : active && backgroundColor === 'white',
             'bg-success-50': isAllMembersAvailable,
             'cursor-pointer': cursorPointer,
           },

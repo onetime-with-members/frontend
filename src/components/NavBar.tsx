@@ -10,10 +10,10 @@ import LoginButton from './LoginButton';
 import { useQuery } from '@tanstack/react-query';
 
 interface NavBarProps {
-  variant?: 'white' | 'black';
+  variant?: 'transparent' | 'black' | 'white';
 }
 
-export default function NavBar({ variant = 'white' }: NavBarProps) {
+export default function NavBar({ variant = 'transparent' }: NavBarProps) {
   const [isNavBackground, setIsNavBackground] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userError, setUserError] = useState<unknown>();
@@ -73,8 +73,9 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
           'fixed left-0 top-0 z-40 h-[4rem] w-full p-4 duration-150',
           {
             'bg-transparent text-gray-00':
-              !isNavBackground && variant === 'white',
-            'bg-gray-00 text-gray-80': !isNavBackground && variant === 'black',
+              !isNavBackground && variant === 'transparent',
+            'bg-gray-00 text-gray-80':
+              !isNavBackground && (variant === 'black' || variant === 'white'),
             'bg-gray-00 text-gray-80 shadow-lg': isNavBackground,
           },
         )}
@@ -83,13 +84,13 @@ export default function NavBar({ variant = 'white' }: NavBarProps) {
           <Link to="/">
             <img
               src={
-                variant === 'black'
+                variant === 'black' || variant === 'white'
                   ? logoBlack
                   : isNavBackground
                     ? logoBlack
                     : logoWhite
               }
-              alt="OneTime 로고"
+              alt="OneTime"
               className="h-[2rem]"
             />
           </Link>

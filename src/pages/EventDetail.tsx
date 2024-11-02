@@ -98,35 +98,40 @@ export default function EventDetail() {
       <Helmet>
         <title>{event.title} - OneTime</title>
       </Helmet>
-      <div>
-        <div className="bg-primary-40 px-4 py-6">
-          <header className="mx-auto max-w-screen-sm">
-            <NavBar />
-            <div className="flex items-center justify-between gap-2">
-              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-md-300">
+      <div className="flex flex-col gap-2 bg-gray-05">
+        <div>
+          <NavBar variant="white" />
+          <div className="rounded-t-3xl bg-primary-40 px-6 py-4">
+            <header className="mx-auto max-w-screen-sm">
+              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-lg-300">
                 {event.title}
               </h1>
-              <button
-                className="rounded-xl bg-gray-90 px-4 py-2 text-gray-00 text-md-200"
-                onClick={handleShareButtonClick}
-              >
-                공유하기
-              </button>
-            </div>
-            {schedules.length === 0 ? (
-              <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
-            ) : (
-              <TopBannerList
-                eventCategory={event.category}
-                recommendSchedules={recommendSchedules}
-                participants={participants}
-              />
-            )}
-          </header>
+            </header>
+          </div>
         </div>
-        <div className="mx-auto mt-4 max-w-screen-sm px-4">
-          <main className="mb-28 mt-12">
-            <TimeBlockBoard event={event} schedules={schedules} />
+        <div className="mx-auto mt-4 w-full max-w-screen-sm px-4">
+          <main className="mb-28">
+            <div className="flex flex-col gap-10">
+              <TimeBlockBoard
+                event={event}
+                schedules={schedules}
+                backgroundColor="white"
+                topAction={true}
+                topActionOnClick={{
+                  share: handleShareButtonClick,
+                  delete: () => {},
+                }}
+              />
+              {schedules.length === 0 ? (
+                <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
+              ) : (
+                <TopBannerList
+                  eventCategory={event.category}
+                  recommendSchedules={recommendSchedules}
+                  participants={participants}
+                />
+              )}
+            </div>
             <BlackFloatingBottomButton
               name="스케줄 등록"
               onClick={handleFloatingButtonClick}

@@ -1,25 +1,49 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import MyScheduleActionButton from '../components/MyScheduleActionButton';
-import Button from '../components/button/Button';
-import Input from '../components/form-control/input/Input';
+import axios from '../api/axios';
+import MyScheduleBottomSheet from '../components/MyScheduleBottomSheet';
+import MyTimeBlockBoard from '../components/MyTimeBlockBoard';
 import { IconX } from '@tabler/icons-react';
+import { useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleCreate() {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
   const navigate = useNavigate();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['fixed-schedules'],
+    queryFn: async () => {
+      const res = await axios.get('/fixed-schedules');
+      return res.data;
+    },
+  });
+
+  const mySchedules = data?.data;
+
+  function handleBottomSheetOpen() {
+    setIsBottomSheetOpen(true);
+  }
+
+  function handleBottomSheetClose() {
+    setIsBottomSheetOpen(false);
+  }
 
   function handleCloseButtonClick() {
     navigate(-1);
   }
 
+  if (isLoading || mySchedules === undefined) return <></>;
+
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       <nav className="h-[64px]">
-        <div className="fixed flex w-full flex-col justify-center bg-primary-00">
+        <div className="fixed z-10 flex w-full flex-col justify-center bg-primary-00">
           <div className="flex justify-center px-4 text-center">
             <div className="grid h-[4rem] w-full max-w-screen-sm grid-cols-3">
               <div className="flex items-center justify-start">
-                <button>
+                <button onClick={handleCloseButtonClick}>
                   <IconX size={24} />
                 </button>
               </div>
@@ -27,34 +51,25 @@ export default function MyScheduleCreate() {
                 내 스케줄
               </div>
               <div className="flex items-center justify-end">
-                <button className="text-primary-40 text-md-300">완료</button>
+                <button
+                  className="text-primary-40 text-md-300"
+                  onClick={handleBottomSheetOpen}
+                >
+                  완료
+                </button>
               </div>
             </div>
           </div>
         </div>
       </nav>
-      <div className="fixed left-0 top-0 flex h-full w-full items-end justify-center bg-gray-90 bg-opacity-30">
-        <div className="w-full max-w-screen-sm rounded-tl-3xl rounded-tr-3xl bg-gray-00 px-4 py-5">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between">
-              <h2 className="pl-2 text-gray-90 text-lg-200">스케줄 설정</h2>
-              <button onClick={handleCloseButtonClick}>
-                <IconX size={24} className="text-gray-80" />
-              </button>
-            </div>
-            <div className="flex flex-col gap-8">
-              <div className="flex flex-col gap-4">
-                <Input placeholder="스케줄의 이름은 무엇인가요?" />
-                <div className="flex items-center gap-4">
-                  <MyScheduleActionButton action="edit" />
-                  <MyScheduleActionButton action="delete" />
-                </div>
-              </div>
-              <Button>저장</Button>
-            </div>
-          </div>
+      <main className="px-4 pb-24">
+        <div className="mx-auto max-w-screen-sm">
+          <MyTimeBlockBoard mode="edit" mySchedules={mySchedules} />
         </div>
-      </div>
+        {isBottomSheetOpen && (
+          <MyScheduleBottomSheet onClose={handleBottomSheetClose} />
+        )}
+      </main>
     </div>
   );
 }
