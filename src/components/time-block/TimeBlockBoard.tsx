@@ -55,6 +55,7 @@ export default function TimeBlockBoard({
 
   const dayLineGap = 12;
   const timePointChunks = chunkRangeArray(event.ranges, 5);
+  const innerContentProportion = schedules.length > 5 ? 0.9 : 1;
 
   function changeTimeBlockStatus(
     day: string,
@@ -133,7 +134,9 @@ export default function TimeBlockBoard({
     if (!boardContentRef.current) return;
     if (chunkIndex - 1 > 0) {
       boardContentRef.current.scrollBy({
-        left: (-boardContentRef.current.clientWidth - dayLineGap) * 0.9,
+        left:
+          (-boardContentRef.current.clientWidth - dayLineGap) *
+          innerContentProportion,
         behavior: 'smooth',
       });
     } else {
@@ -152,7 +155,9 @@ export default function TimeBlockBoard({
     if (!boardContentRef.current) return;
     if (chunkIndex + 1 < timePointChunks.length - 1) {
       boardContentRef.current.scrollBy({
-        left: (boardContentRef.current.clientWidth + dayLineGap) * 0.9,
+        left:
+          (boardContentRef.current.clientWidth + dayLineGap) *
+          innerContentProportion,
         behavior: 'smooth',
       });
     } else {
@@ -300,7 +305,14 @@ export default function TimeBlockBoard({
                   index !== timePointChunks.length - 1 ||
                   timePointChunks.length === 1,
               })}
-              style={{ gap: dayLineGap }}
+              style={{
+                gap: dayLineGap,
+                minWidth:
+                  index !== timePointChunks.length - 1 ||
+                  timePointChunks.length === 1
+                    ? `${innerContentProportion * 100}%`
+                    : undefined,
+              }}
             >
               {timePoints.map((timePoint) => {
                 return (
