@@ -4,6 +4,15 @@ export interface EventType {
   end_time: string;
   category: 'DATE' | 'DAY';
   ranges: string[];
+  event_status: 'CREATOR' | 'PARTICIPANT';
+}
+
+export interface EventValue {
+  title: string;
+  start_time: string;
+  end_time: string;
+  category: 'DATE' | 'DAY';
+  ranges: string[];
 }
 
 export interface MyEvent {

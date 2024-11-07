@@ -1,11 +1,15 @@
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import axios from '../api/axios';
+import { MyNewSchedule } from '../types/schedule.type';
 import { getBlockTimeList, getLabelTimeList } from '../utils/time-block';
+import MyScheduleBottomSheet from './MyScheduleBottomSheet';
+import { useQuery } from '@tanstack/react-query';
 
 interface MyTimeBlockBoard {
-  mode: 'view' | 'edit';
+  mode: 'view' | 'create' | 'edit';
   mySchedules: {
     id: number;
     start_time: string;
@@ -15,63 +19,27 @@ interface MyTimeBlockBoard {
       times: string[];
     }[];
   }[];
+  setMyNewSchedule?: (newSchedule: MyNewSchedule['schedules']) => void;
+  selectedTimeBlockId?: number | null;
+  setSelectedTimeBlockId?: React.Dispatch<React.SetStateAction<number | null>>;
+  handleDeleteButtonClick?: () => void;
+  handleEditButtonClick?: () => void;
+  setSelectedTimeBlockName?: React.Dispatch<
+    React.SetStateAction<string | null>
+  >;
+  editedScheduleId?: number;
 }
-
-// const mySchedules = [
-//   {
-//     id: 1,
-//     start_time: '10:00',
-//     end_time: '11:00',
-//     schedules: [
-//       {
-//         time_point: '화',
-//         times: ['09:30', '10:00', '10:30'],
-//       },
-//       {
-//         time_point: '월',
-//         times: ['10:00', '10:30'],
-//       },
-//       {
-//         time_point: '수',
-//         times: ['10:00', '10:30'],
-//       },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     start_time: '11:00',
-//     end_time: '12:00',
-//     schedules: [
-//       {
-//         time_point: '화',
-//         times: ['11:00', '11:30'],
-//       },
-//       {
-//         time_point: '수',
-//         times: ['11:00', '11:30'],
-//       },
-//     ],
-//   },
-//   {
-//     id: 3,
-//     start_time: '12:00',
-//     end_time: '13:00',
-//     schedules: [
-//       {
-//         time_point: '수',
-//         times: ['12:00', '12:30'],
-//       },
-//       {
-//         time_point: '목',
-//         times: ['12:00', '12:30'],
-//       },
-//     ],
-//   },
-// ];
 
 export default function MyTimeBlockBoard({
   mode,
   mySchedules,
+  setMyNewSchedule,
+  selectedTimeBlockId,
+  setSelectedTimeBlockId,
+  handleDeleteButtonClick,
+  handleEditButtonClick,
+  setSelectedTimeBlockName,
+  editedScheduleId = -1,
 }: MyTimeBlockBoard) {
   const [timeBlockData, setTimeBlockData] = useState(
     mySchedules.flatMap((schedule) =>
@@ -79,7 +47,6 @@ export default function MyTimeBlockBoard({
         id: schedule.id,
         time_point: s.time_point,
         times: s.times,
-        isEditable: false, // 현재 수정 중인 고정 스케줄인지 여부
       })),
     ),
   );
@@ -98,30 +65,45 @@ export default function MyTimeBlockBoard({
   const timeBlockList = getBlockTimeList('00:00', '24:00', '30m');
   const labelTimeList = getLabelTimeList('00:00', '24:00', '1h');
 
+  const editedId = mode === 'edit' ? editedScheduleId : -1;
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['fixed-schedules', selectedTimeBlockId],
+    queryFn: async () => {
+      const res = await axios.get(`/fixed-schedules/${selectedTimeBlockId}`);
+      return res.data;
+    },
+    enabled: mode === 'view' && selectedTimeBlockId !== null,
+  });
+
+  const selectedTimeBlock = data?.payload;
+
   function changeTimeBlock(
     weekday: string,
     times: string[],
     isFilling: boolean,
   ) {
-    // 새로운 타임 블록 ID
-    const newId = 4;
+    // 뷰 모드일 때 종료
+    if (mode === 'view') return;
+
+    // 요일과 시간이 없으면 종료
+    if (weekday === '' || times.length === 0) return;
 
     // 타임 블록 리스트 데이터 복사
     const newTimeBlockData = [...timeBlockData];
 
     // 타임 블록 객체가 있는지 확인
     const searchedIndex = newTimeBlockData.findIndex(
-      (data) => data.id === newId && data.time_point === weekday,
+      (data) => data.id === editedId && data.time_point === weekday,
     );
 
     // 타임 블록 객체가 없으면
     if (searchedIndex === -1) {
       // 새로운 타임 블록 객체 추가
       newTimeBlockData.push({
-        id: newId,
+        id: editedId,
         time_point: weekday,
         times: times,
-        isEditable: true,
       });
       setTimeBlockData([...newTimeBlockData]);
     }
@@ -145,6 +127,23 @@ export default function MyTimeBlockBoard({
       }
       setTimeBlockData([...newTimeBlockData]);
     }
+
+    // 새 스케줄 데이터의 상태 변화된 값으로 업데이트
+    if (setMyNewSchedule) {
+      setMyNewSchedule(getMyNewSchedule(newTimeBlockData));
+    }
+  }
+
+  function getMyNewSchedule(newTimeBlockData: typeof timeBlockData) {
+    // 수정 중이면서 채워져 있는 고정 스케줄 데이터만 필터링해 새 스케줄 데이터 형식으로 변환하여 반환
+    return newTimeBlockData
+      .filter((data) => {
+        return data.id === editedId && data.times.length > 0;
+      })
+      .map((data) => ({
+        time_point: data.time_point,
+        times: data.times,
+      }));
   }
 
   function isTimeBlockExist(weekday: string, time: string) {
@@ -158,13 +157,13 @@ export default function MyTimeBlockBoard({
     // 타임 블록 데이터 중 해당 요일에 해당 시간이 있지만 다른 고정 스케줄에 있는지 확인
     return timeBlockData.some(
       (r) =>
-        r.time_point === weekday && r.times.includes(time) && !r.isEditable,
+        r.time_point === weekday && r.times.includes(time) && r.id !== editedId,
     );
   }
 
   function handleTimeBlockDragStart(weekday: string, time: string) {
-    // 수정 모드가 아닐 때 종료
-    if (mode !== 'edit') return;
+    // 뷰 모드일 때 종료
+    if (mode === 'view') return;
 
     // 드래그 중인 타임 블록이 다른 고정 스케줄에 이미 포함되어 있으면 드래그 종료
     if (isTimeBlockInOtherSchedule(weekday, time)) {
@@ -181,8 +180,8 @@ export default function MyTimeBlockBoard({
   }
 
   function handleTimeBlockDragMove(weekday: string, time: string) {
-    // 수정 모드가 아닐 때 종료
-    if (mode !== 'edit') return;
+    // 뷰 모드일 때 종료
+    if (mode === 'view') return;
 
     // 드래그 중이 아닐 때 종료
     if (!drageStatus.isDragging) return;
@@ -201,8 +200,8 @@ export default function MyTimeBlockBoard({
   }
 
   function handleTimeBlockDragEnd() {
-    // 수정 모드가 아닐 때 종료
-    if (mode !== 'edit') return;
+    // 뷰 모드일 때 종료
+    if (mode === 'view') return;
 
     // 드래그 중이 아닐 때 종료
     if (!drageStatus.isDragging) return;
@@ -215,6 +214,13 @@ export default function MyTimeBlockBoard({
       times: [],
     });
   }
+
+  function handleBottomSheetClose() {
+    if (setSelectedTimeBlockId) {
+      setSelectedTimeBlockId(null);
+    }
+  }
+
   useEffect(() => {
     // 드래그 상태가 변경되면 타임 블록 변경
     changeTimeBlock(
@@ -224,89 +230,161 @@ export default function MyTimeBlockBoard({
     );
   }, [drageStatus]);
 
+  useEffect(() => {
+    setTimeBlockData(
+      mySchedules.flatMap((schedule) =>
+        schedule.schedules.map((s) => ({
+          id: schedule.id,
+          time_point: s.time_point,
+          times: s.times,
+        })),
+      ),
+    );
+  }, [mySchedules]);
+
+  useEffect(() => {
+    if (selectedTimeBlock && setSelectedTimeBlockName) {
+      setSelectedTimeBlockName(selectedTimeBlock.title);
+    }
+  }, [selectedTimeBlock]);
+
   return (
-    <div className="flex gap-2">
-      <div className="flex flex-col gap-2">
-        <div className="h-[1.5rem]"></div>
-        <div>
-          {labelTimeList.map((time, index) => (
-            <div
-              key={time}
-              className={clsx('h-[6rem] text-center', {
-                'h-0': index === labelTimeList.length - 1,
-              })}
-            >
-              <span
-                className={clsx(
-                  'block -translate-y-1/2 text-gray-30 text-sm-200',
-                  {
-                    'translate-y-0': index === 0,
-                    '-translate-y-full': index === labelTimeList.length - 1,
-                  },
-                )}
+    <>
+      {mode === 'view' && selectedTimeBlockId !== null && (
+        <div className="fixed left-0 top-0 h-screen w-screen bg-gray-90 bg-opacity-30"></div>
+      )}
+      <div className="flex gap-2">
+        <div className="flex flex-col gap-2">
+          <div className="h-[1.5rem]"></div>
+          <div>
+            {labelTimeList.map((time, index) => (
+              <div
+                key={time}
+                className={clsx('h-[6rem] text-center', {
+                  'h-0': index === labelTimeList.length - 1,
+                })}
               >
-                {time === '24:00' ? '24시' : dayjs(time, 'HH:mm').format('H시')}
-              </span>
+                <span
+                  className={clsx(
+                    'block -translate-y-1/2 text-gray-30 text-sm-200',
+                    {
+                      'translate-y-0': index === 0,
+                      '-translate-y-full': index === labelTimeList.length - 1,
+                    },
+                  )}
+                >
+                  {time === '24:00'
+                    ? '24시'
+                    : dayjs(time, 'HH:mm').format('H시')}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="grid flex-1 grid-cols-7 gap-2">
+          {dayjs.weekdaysMin().map((weekday) => (
+            <div key={weekday} className="flex flex-col gap-2">
+              <div
+                key={weekday}
+                className="text-center text-gray-30 text-md-200"
+              >
+                {weekday}
+              </div>
+              <div
+                className="overflow-hidden rounded-lg"
+                onMouseLeave={() => handleTimeBlockDragEnd()}
+              >
+                {timeBlockList.map((timeBlock, index) => (
+                  <div
+                    key={index}
+                    onClick={
+                      mode === 'view' && setSelectedTimeBlockId
+                        ? () =>
+                            setSelectedTimeBlockId(
+                              timeBlockData.find(
+                                (tb) =>
+                                  tb.time_point === weekday &&
+                                  tb.times.includes(timeBlock),
+                              )?.id || null,
+                            )
+                        : undefined
+                    }
+                    onMouseDown={() =>
+                      handleTimeBlockDragStart(weekday, timeBlock)
+                    }
+                    onMouseMove={() =>
+                      handleTimeBlockDragMove(weekday, timeBlock)
+                    }
+                    onMouseUp={() => handleTimeBlockDragEnd()}
+                    className={clsx(
+                      'h-[3rem] last:border-b-0',
+                      {
+                        'cursor-pointer border-b border-gray-10 bg-gray-05 odd:border-dashed even:border-solid':
+                          mode !== 'view' &&
+                          !isTimeBlockExist(weekday, timeBlock),
+                        'border-b border-gray-10 bg-gray-05 odd:border-dashed even:border-solid':
+                          mode === 'view' &&
+                          !isTimeBlockExist(weekday, timeBlock),
+                        'cursor-pointer border-l border-r border-gray-00 bg-primary-40':
+                          (mode === 'view' &&
+                            isTimeBlockExist(weekday, timeBlock)) ||
+                          (mode !== 'view' &&
+                            isTimeBlockExist(weekday, timeBlock) &&
+                            !isTimeBlockInOtherSchedule(weekday, timeBlock)),
+                        'bg-primary-20':
+                          mode !== 'view' &&
+                          isTimeBlockExist(weekday, timeBlock) &&
+                          isTimeBlockInOtherSchedule(weekday, timeBlock),
+                        'relative z-[100] bg-primary-40':
+                          mode === 'view' &&
+                          selectedTimeBlockId ===
+                            timeBlockData.find(
+                              (tb) =>
+                                tb.time_point === weekday &&
+                                tb.times.includes(timeBlock),
+                            )?.id,
+                      },
+                      {
+                        'rounded-t-lg border-t border-gray-00':
+                          timeBlockData.some(
+                            (r) =>
+                              r.time_point === weekday &&
+                              r.times.includes(timeBlock) &&
+                              r.times[0] === timeBlock,
+                          ),
+                      },
+                      {
+                        'rounded-b-lg border-b border-gray-00':
+                          timeBlockData.some(
+                            (r) =>
+                              r.time_point === weekday &&
+                              r.times.includes(timeBlock) &&
+                              r.times[r.times.length - 1] === timeBlock,
+                          ),
+                      },
+                    )}
+                  />
+                ))}
+              </div>
             </div>
           ))}
         </div>
       </div>
-      <div className="grid flex-1 grid-cols-7 gap-2">
-        {dayjs.weekdaysMin().map((weekday) => (
-          <div key={weekday} className="flex flex-col gap-2">
-            <div key={weekday} className="text-center text-gray-30 text-md-200">
-              {weekday}
-            </div>
-            <div
-              className="overflow-hidden rounded-lg"
-              onMouseLeave={() => handleTimeBlockDragEnd()}
-            >
-              {timeBlockList.map((timeBlock, index) => (
-                <div
-                  key={index}
-                  onMouseDown={() =>
-                    handleTimeBlockDragStart(weekday, timeBlock)
-                  }
-                  onMouseMove={() =>
-                    handleTimeBlockDragMove(weekday, timeBlock)
-                  }
-                  onMouseUp={() => handleTimeBlockDragEnd()}
-                  className={clsx(
-                    'h-[3rem] border-b border-gray-10 bg-gray-05 last:border-b-0 odd:border-dashed even:border-solid',
-                    {
-                      'bg-primary-40':
-                        (mode === 'view' &&
-                          isTimeBlockExist(weekday, timeBlock)) ||
-                        (isTimeBlockExist(weekday, timeBlock) &&
-                          !isTimeBlockInOtherSchedule(weekday, timeBlock)),
-                      'bg-primary-20':
-                        mode === 'edit' &&
-                        isTimeBlockExist(weekday, timeBlock) &&
-                        isTimeBlockInOtherSchedule(weekday, timeBlock),
-                    },
-                    {
-                      'rounded-t-lg': timeBlockData.some(
-                        (r) =>
-                          r.time_point === weekday &&
-                          r.times.includes(timeBlock) &&
-                          r.times[0] === timeBlock,
-                      ),
-                    },
-                    {
-                      'rounded-b-lg': timeBlockData.some(
-                        (r) =>
-                          r.time_point === weekday &&
-                          r.times.includes(timeBlock) &&
-                          r.times[r.times.length - 1] === timeBlock,
-                      ),
-                    },
-                  )}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+      {mode === 'view' && selectedTimeBlockId !== null && (
+        <MyScheduleBottomSheet
+          onClose={handleBottomSheetClose}
+          title={
+            isLoading || selectedTimeBlock === undefined
+              ? ' '
+              : selectedTimeBlock.title
+          }
+          mode="view"
+          overlay={false}
+          placeholder=""
+          handleDeleteButtonClick={handleDeleteButtonClick}
+          handleEditButtonClick={handleEditButtonClick}
+        />
+      )}
+    </>
   );
 }

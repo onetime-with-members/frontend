@@ -59,7 +59,7 @@ export default function TopBannerList({
       }
 
       if (
-        topDialogListRef.current.scrollLeft ===
+        Math.ceil(topDialogListRef.current.scrollLeft) >=
         topDialogListRef.current.scrollWidth -
           topDialogListRef.current.clientWidth
       ) {

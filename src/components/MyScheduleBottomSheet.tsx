@@ -1,3 +1,6 @@
+import clsx from 'clsx';
+
+import { MyNewSchedule } from '../types/schedule.type';
 import MyScheduleActionButton from './MyScheduleActionButton';
 import Button from './button/Button';
 import Input from './form-control/input/Input';
@@ -5,13 +8,43 @@ import { IconX } from '@tabler/icons-react';
 
 interface MyScheduleBottomSheetProps {
   onClose: () => void;
+  title?: MyNewSchedule['title'];
+  setTitle?: (title: MyNewSchedule['title']) => void;
+  mode: 'view' | 'new';
+  handleSubmit?: () => void;
+  handleDeleteButtonClick?: () => void;
+  handleEditButtonClick?: () => void;
+  buttonDisabled?: boolean;
+  overlay?: boolean;
+  placeholder?: string;
 }
 
 export default function MyScheduleBottomSheet({
   onClose,
+  title,
+  setTitle,
+  mode,
+  handleSubmit,
+  handleDeleteButtonClick,
+  handleEditButtonClick,
+  buttonDisabled = false,
+  overlay = true,
+  placeholder = '스케줄의 이름은 무엇인가요?',
 }: MyScheduleBottomSheetProps) {
+  function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (setTitle) setTitle(e.target.value);
+  }
+
   return (
-    <div className="fixed left-0 top-0 z-50 flex h-full w-full items-end justify-center bg-gray-90 bg-opacity-30">
+    <div
+      className={clsx(
+        'fixed left-0 top-0 z-[999] flex h-full w-full flex-col items-center justify-end bg-gray-90',
+        {
+          'bg-opacity-30': overlay,
+          'bg-opacity-0': !overlay,
+        },
+      )}
+    >
       <div className="w-full max-w-screen-sm cursor-default rounded-tl-3xl rounded-tr-3xl bg-gray-00 px-4 py-5">
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
@@ -22,13 +55,30 @@ export default function MyScheduleBottomSheet({
           </div>
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
-              <Input placeholder="스케줄의 이름은 무엇인가요?" />
-              <div className="flex items-center gap-4">
-                <MyScheduleActionButton action="edit" />
-                <MyScheduleActionButton action="delete" />
-              </div>
+              <Input
+                value={title}
+                onChange={handleTitleChange}
+                placeholder={placeholder}
+                disabled={mode === 'view'}
+              />
+              {mode === 'view' && (
+                <div className="flex items-center gap-4">
+                  <MyScheduleActionButton
+                    action="edit"
+                    onClick={handleEditButtonClick}
+                  />
+                  <MyScheduleActionButton
+                    action="delete"
+                    onClick={handleDeleteButtonClick}
+                  />
+                </div>
+              )}
             </div>
-            <Button>저장</Button>
+            {mode === 'new' && (
+              <Button onClick={handleSubmit} disabled={buttonDisabled}>
+                저장
+              </Button>
+            )}
           </div>
         </div>
       </div>

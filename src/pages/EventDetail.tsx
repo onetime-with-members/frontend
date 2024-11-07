@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
 import NavBar from '../components/NavBar';
+import EventDeleteAlert from '../components/alert/EventDeleteAlert';
 import LoginAlert from '../components/alert/LoginAlert';
 import TopBannerList from '../components/banner/banner-list/TopBannerList';
 import EmptyEventBanner from '../components/banner/empty-event/EmptyEventBanner';
@@ -13,13 +14,16 @@ import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { EventType } from '../types/event.type';
 import { RecommendSchedule, Schedule } from '../types/schedule.type';
 import { sortWeekdayList } from '../utils/weekday';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function EventDetail() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
+  const [isEventDeleteAlertOpen, setIsEventDeleteAlertOpen] = useState(false);
 
   const params = useParams<{ eventId: string }>();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { isPending: isEventPending, data: eventData } = useQuery({
     queryKey: ['events', params.eventId],
@@ -65,6 +69,17 @@ export default function EventDetail() {
     ?.map((schedule) => schedule.name)
     .sort();
 
+  const deleteEvent = useMutation({
+    mutationFn: async () => {
+      const res = await axios.delete(`/events/${params.eventId}`);
+      return res.data;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      navigate('/');
+    },
+  });
+
   function copyEventShareLink() {
     navigator.clipboard.writeText(
       `${window.location.origin}/events/${params.eventId}`,
@@ -81,6 +96,18 @@ export default function EventDetail() {
     } else {
       setIsLoginAlertOpen(true);
     }
+  }
+
+  function handleEventDeleteALertOpen() {
+    setIsEventDeleteAlertOpen(true);
+  }
+
+  function handleEventDeleteALertClose() {
+    setIsEventDeleteAlertOpen(false);
+  }
+
+  function handleEventDelete() {
+    deleteEvent.mutate();
   }
 
   if (
@@ -119,8 +146,9 @@ export default function EventDetail() {
                 topAction={true}
                 topActionOnClick={{
                   share: handleShareButtonClick,
-                  delete: () => {},
+                  delete: handleEventDeleteALertOpen,
                 }}
+                isCreator={event.event_status === 'CREATOR'}
               />
               {schedules.length === 0 ? (
                 <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
@@ -143,6 +171,14 @@ export default function EventDetail() {
         <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
       )}
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
+      {isEventDeleteAlertOpen && (
+        <EventDeleteAlert
+          onConfirm={handleEventDelete}
+          onCancel={handleEventDeleteALertClose}
+          onClose={handleEventDeleteALertClose}
+          isDeleteLoading={deleteEvent.isPending}
+        />
+      )}
     </>
   );
 }

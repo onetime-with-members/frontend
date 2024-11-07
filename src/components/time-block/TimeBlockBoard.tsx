@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
 import { EventType } from '../../types/event.type';
@@ -6,7 +5,7 @@ import { Schedule, Time, TimeBlockPopUpData } from '../../types/schedule.type';
 import { getBlockTimeList } from '../../utils/time-block';
 import TBBoardActionButton from '../button/TBBoardActionButton';
 import TimeBlockPopUp from '../pop-up/TimeBlockPopUp';
-import AvailableToggle from './AvailableToggle';
+import PossibleTimeToggle from './PossibleTimeToggle';
 import TBDayLine from './TBDayLine';
 import TBLeftLabelLine from './TBLeftLabelLine';
 import { IconTriangleFilled } from '@tabler/icons-react';
@@ -23,6 +22,9 @@ interface TimeBlockBoardProps {
     share: () => void;
     delete: () => void;
   };
+  isCreator?: boolean;
+  isPossibleTime?: boolean;
+  setIsPossibleTime?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function TimeBlockBoard({
@@ -34,6 +36,9 @@ export default function TimeBlockBoard({
   backgroundColor = 'gray',
   topAction = false,
   topActionOnClick,
+  isCreator,
+  isPossibleTime = true,
+  setIsPossibleTime,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<TimeBlockPopUpData>({
@@ -46,7 +51,6 @@ export default function TimeBlockBoard({
   });
   const [dayLineWidth, setDayLineWidth] = useState(0);
   const [chunkIndex, setChunkIndex] = useState(0);
-  const [isAvailable, setIsAvailable] = useState(true);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isFull, setIsFull] = useState(false);
 
@@ -55,7 +59,7 @@ export default function TimeBlockBoard({
 
   const dayLineGap = 12;
   const timePointChunks = chunkRangeArray(event.ranges, 5);
-  const innerContentProportion = schedules.length > 5 ? 0.9 : 1;
+  const innerContentProportion = timePointChunks.length >= 2 ? 0.9 : 1;
 
   function changeTimeBlockStatus(
     day: string,
@@ -184,9 +188,11 @@ export default function TimeBlockBoard({
   function handleAvailableToggle() {
     if (!editable || !setSchedules) return;
 
-    let prevIsAvailable = isAvailable;
+    let prevIsAvailable = isPossibleTime;
 
-    setIsAvailable((prev) => !prev);
+    if (setIsPossibleTime) {
+      setIsPossibleTime((prev) => !prev);
+    }
 
     if (prevIsAvailable && isEmpty) {
       setSchedules(
@@ -242,15 +248,15 @@ export default function TimeBlockBoard({
 
   useEffect(() => {
     if (!setIsSubmitDisabled) return;
-    setIsSubmitDisabled(isAvailable ? isEmpty : isFull);
+    setIsSubmitDisabled(isPossibleTime ? isEmpty : isFull);
   }, [isEmpty, isFull]);
 
   return (
     <div>
       <div className="flex justify-between">
         {editable ? (
-          <AvailableToggle
-            isAvailable={isAvailable}
+          <PossibleTimeToggle
+            isPossibleTime={isPossibleTime}
             onToggle={handleAvailableToggle}
           />
         ) : topAction ? (
@@ -259,10 +265,12 @@ export default function TimeBlockBoard({
               mode="share"
               onClick={topActionOnClick?.share}
             />
-            <TBBoardActionButton
-              mode="delete"
-              onClick={topActionOnClick?.delete}
-            />
+            {isCreator && (
+              <TBBoardActionButton
+                mode="delete"
+                onClick={topActionOnClick?.delete}
+              />
+            )}
           </div>
         ) : (
           <h2 className="text-gray-90 title-sm-300">가능한 스케줄</h2>
@@ -300,11 +308,7 @@ export default function TimeBlockBoard({
           {timePointChunks.map((timePoints, index) => (
             <div
               key={index}
-              className={clsx('flex', {
-                'min-w-[90%]':
-                  index !== timePointChunks.length - 1 ||
-                  timePointChunks.length === 1,
-              })}
+              className="flex"
               style={{
                 gap: dayLineGap,
                 minWidth:
@@ -336,7 +340,7 @@ export default function TimeBlockBoard({
                         ? dayLineWidth
                         : undefined
                     }
-                    isAvailable={isAvailable}
+                    isPossibleTime={isPossibleTime}
                     backgroundColor={backgroundColor}
                   />
                 );
