@@ -169,23 +169,47 @@ export default function ScheduleFormScreen({
             ),
           }));
 
-          setSchedules([
-            {
-              name: guestValue.name,
-              schedules: event.ranges.map((timePoint) => ({
-                time_point: timePoint,
-                times:
-                  convertedMyFixedSchedules.find((s) =>
-                    event.category === 'DATE'
-                      ? s.time_point ===
-                        dayjs(timePoint, 'YYYY.MM.DD').format('dd')
-                      : s.time_point === timePoint,
-                  )?.times || [],
-              })),
-            },
-          ]);
+          let newSchedules: Schedule[] = [];
 
-          setIsPossibleTime(false);
+          if (
+            convertedMyFixedSchedules.every(
+              (s) =>
+                JSON.stringify(s.times) ===
+                JSON.stringify(
+                  getBlockTimeList(event.start_time, event.end_time),
+                ),
+            )
+          ) {
+            newSchedules = [
+              {
+                name: guestValue.name,
+                schedules: event.ranges.map((timePoint) => ({
+                  time_point: timePoint,
+                  times: [],
+                })),
+              },
+            ];
+            setIsPossibleTime(true);
+          } else {
+            newSchedules = [
+              {
+                name: guestValue.name,
+                schedules: event.ranges.map((timePoint) => ({
+                  time_point: timePoint,
+                  times:
+                    convertedMyFixedSchedules.find((s) =>
+                      event.category === 'DATE'
+                        ? s.time_point ===
+                          dayjs(timePoint, 'YYYY.MM.DD').format('dd')
+                        : s.time_point === timePoint,
+                    )?.times || [],
+                })),
+              },
+            ];
+            setIsPossibleTime(false);
+          }
+
+          setSchedules(newSchedules);
         }
       } else {
         setSchedules([
