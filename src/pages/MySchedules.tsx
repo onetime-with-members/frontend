@@ -38,8 +38,8 @@ export default function MySchedules() {
       const res = await axios.delete(`/fixed-schedules/${selectedTimeBlockId}`);
       return res.data;
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
       setIsMyScheduleDeleteAlertOpen(false);
       setSelectedTimeBlockId(null);
       setSelectedTimeBlockName(null);

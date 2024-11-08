@@ -74,8 +74,8 @@ export default function EventDetail() {
       const res = await axios.delete(`/events/${params.eventId}`);
       return res.data;
     },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['events'] });
       navigate('/');
     },
   });
