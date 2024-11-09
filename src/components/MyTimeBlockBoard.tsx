@@ -240,6 +240,8 @@ export default function MyTimeBlockBoard({
   }
 
   function handleTimeBlockTouchEnd(e: React.TouchEvent) {
+    if (mode === 'view') return;
+
     e.preventDefault();
 
     handleTimeBlockDragEnd();
