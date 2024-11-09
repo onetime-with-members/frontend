@@ -11,7 +11,7 @@ export default function BlackFloatingBottomButton({
 }: BlackFloatingBottomButtonProps) {
   return (
     <>
-      <section className="fixed bottom-8 left-0 flex w-full justify-center">
+      <section className="fixed bottom-8 left-1/2 flex -translate-x-1/2 justify-center">
         <button
           onClick={onClick}
           className="flex items-center gap-1 rounded-full bg-gray-90 px-6 py-3 text-gray-00"
