@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import MemberLoginScreen from '../components/screen/schedule-create/MemberLoginScreen';
 import ScheduleFormScreen from '../components/screen/schedule-create/ScheduleFormScreen';
-import { MemberValue } from '../types/member.type';
+import { GuestValue } from '../types/guest.type';
 import { Schedule } from '../types/schedule.type';
 import { IconChevronLeft } from '@tabler/icons-react';
 
@@ -12,9 +12,9 @@ export default function ScheduleCreate() {
   const isLoggedIn = localStorage.getItem('access-token') !== null;
 
   const [pageIndex, setPageIndex] = useState(isLoggedIn ? 1 : 0);
-  const [isNewMember, setIsNewMember] = useState(false);
-  const [memberId, setMemberId] = useState('');
-  const [memberValue, setMemberValue] = useState<MemberValue>({
+  const [isNewGuest, setIsNewGuest] = useState(false);
+  const [guestId, setGuestId] = useState('');
+  const [guestValue, setGuestValue] = useState<GuestValue>({
     name: '',
     pin: '',
   });
@@ -65,17 +65,17 @@ export default function ScheduleCreate() {
           {pageIndex === 0 && (
             <MemberLoginScreen
               setPageIndex={setPageIndex}
-              setMemberId={setMemberId}
-              memberValue={memberValue}
-              setMemberValue={setMemberValue}
-              setIsNewMember={setIsNewMember}
+              setGuestId={setGuestId}
+              guestValue={guestValue}
+              setGuestValue={setGuestValue}
+              setIsNewGuest={setIsNewGuest}
             />
           )}
           {pageIndex === 1 && (
             <ScheduleFormScreen
-              memberId={memberId}
-              isNewMember={isNewMember}
-              memberValue={memberValue}
+              guestId={guestId}
+              isNewGuest={isNewGuest}
+              guestValue={guestValue}
               schedules={schedules}
               setSchedules={setSchedules}
               isLoggedIn={isLoggedIn}

@@ -25,7 +25,8 @@ interface TBDayLineProps {
   }) => void;
   editable?: boolean;
   minWidth?: number;
-  isAvailable?: boolean;
+  isPossibleTime?: boolean;
+  backgroundColor: 'white' | 'gray';
 }
 
 const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
@@ -40,7 +41,8 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
       handleDialogOpen,
       editable,
       minWidth,
-      isAvailable = true,
+      isPossibleTime = true,
+      backgroundColor,
     },
     ref,
   ) => {
@@ -270,11 +272,12 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
                   : undefined
               }
               editable={editable}
-              isAvailable={isAvailable}
+              isPossibleTime={isPossibleTime}
               isAllMembersAvailable={
                 timesAllMember.filter((t) => t === time).length ===
                   memberCount && memberCount > 1
               }
+              backgroundColor={backgroundColor}
             />
           ))}
         </div>

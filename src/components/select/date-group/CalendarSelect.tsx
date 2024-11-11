@@ -3,14 +3,14 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import { SELECTED_DATE_LIST_FORMAT } from '../../../constants/date';
-import { EventType } from '../../../types/event.type';
+import { EventValue } from '../../../types/event.type';
 import DateItem from '../date-item/DateItem';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface CalendarSelectProps {
   className?: string;
-  value: EventType;
-  setValue: React.Dispatch<React.SetStateAction<EventType>>;
+  value: EventValue;
+  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
 }
 
 export default function CalendarSelect({
@@ -50,7 +50,7 @@ export default function CalendarSelect({
   return (
     <div className={clsx('flex flex-col gap-3', className)}>
       <div className="flex justify-between">
-        <div className="text-lg-300 text-gray-90">
+        <div className="text-gray-90 text-lg-300">
           {selectedDate.format('YYYY.MM')}
         </div>
         <div className="flex items-center gap-4">
@@ -73,7 +73,7 @@ export default function CalendarSelect({
       </div>
       <div className="grid grid-cols-7 gap-3">
         {dayjs.weekdaysMin().map((weekday) => (
-          <div key={weekday} className="text-md-200 text-center text-gray-30">
+          <div key={weekday} className="text-center text-gray-30 text-md-200">
             {weekday}
           </div>
         ))}

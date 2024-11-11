@@ -1,12 +1,12 @@
 import clsx from 'clsx';
 
 interface AvailableToggleProps {
-  isAvailable: boolean;
+  isPossibleTime: boolean;
   onToggle: () => void;
 }
 
-export default function AvailableToggle({
-  isAvailable,
+export default function PossibleTimeToggle({
+  isPossibleTime,
   onToggle,
 }: AvailableToggleProps) {
   return (
@@ -15,8 +15,8 @@ export default function AvailableToggle({
         className={clsx(
           'flex h-6 w-12 cursor-pointer items-center rounded-full px-1 duration-150',
           {
-            'bg-primary-50': isAvailable,
-            'bg-danger-50': !isAvailable,
+            'bg-primary-50': isPossibleTime,
+            'bg-danger-50': !isPossibleTime,
           },
         )}
         onClick={onToggle}
@@ -25,14 +25,14 @@ export default function AvailableToggle({
           className={clsx(
             'h-[18px] w-[18px] rounded-full bg-white duration-150',
             {
-              'translate-x-0': isAvailable,
-              'translate-x-[22px]': !isAvailable,
+              'translate-x-0': isPossibleTime,
+              'translate-x-[22px]': !isPossibleTime,
             },
           )}
         ></div>
       </div>
-      <span className="text-md-200 text-gray-60">
-        {isAvailable ? '되는' : '안되는'} 시간 체크
+      <span className="text-gray-60 text-md-200">
+        {isPossibleTime ? '되는' : '안되는'} 시간 체크
       </span>
     </div>
   );

@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { Outlet } from 'react-router-dom';
 
+import Footer from '../components/Footer';
 import ScrollToTop from '../components/ScrollToTop';
 
 export default function Layout() {
@@ -9,10 +10,11 @@ export default function Layout() {
       <Helmet>
         <title>OneTime</title>
       </Helmet>
+      <ScrollToTop />
       <div className="flex min-h-screen flex-col">
-        <ScrollToTop />
         <Outlet />
       </div>
+      <Footer />
     </>
   );
 }

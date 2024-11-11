@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
+import withdrawClockImage from '../assets/withdraw-clock.png';
 import WithdrawGrayBox from '../components/WithdrawGrayBox';
 import Button from '../components/button/Button';
 import RedCheckbox from '../components/checkbox/RedCheckbox';
@@ -50,13 +51,22 @@ export default function WithdrawPage() {
           </div>
         </div>
       </header>
-      <main className="px-4">
+      <main className="px-4 pb-24">
         <div className="mx-auto max-w-screen-sm">
           <div className="flex w-full flex-col items-center gap-10">
             <div className="flex w-full flex-col items-center gap-6">
-              <h1 className="text-gray-90 title-md-300">
-                정말 서비스를 탈퇴하시겠어요?
-              </h1>
+              <div className="flex flex-col items-center gap-8">
+                <div className="h-[160px] w-[160px]">
+                  <img
+                    src={withdrawClockImage}
+                    alt="깨진 시계 이미지"
+                    className="h-full w-full"
+                  />
+                </div>
+                <h1 className="text-gray-90 title-md-300">
+                  정말 서비스를 탈퇴하시겠어요?
+                </h1>
+              </div>
               <div className="flex w-full flex-col gap-4">
                 <WithdrawGrayBox
                   title="회원님의 계정이 즉시 삭제돼요"

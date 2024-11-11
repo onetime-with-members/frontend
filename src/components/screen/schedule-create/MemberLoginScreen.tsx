@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import axios from '../../../api/axios';
-import { MemberValue } from '../../../types/member.type';
+import { GuestValue } from '../../../types/guest.type';
 import FloatingBottomButton from '../../floating-button/FloatingBottomButton';
 import ScheduleInputLabel from '../../form-control/input-label/ScheduleInputLabel';
 import Input from '../../form-control/input/Input';
@@ -12,52 +12,52 @@ import { useMutation } from '@tanstack/react-query';
 
 interface MemberLoginProps {
   setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-  setMemberId: React.Dispatch<React.SetStateAction<string>>;
-  memberValue: MemberValue;
-  setMemberValue: React.Dispatch<React.SetStateAction<MemberValue>>;
-  setIsNewMember: React.Dispatch<React.SetStateAction<boolean>>;
+  setGuestId: React.Dispatch<React.SetStateAction<string>>;
+  guestValue: GuestValue;
+  setGuestValue: React.Dispatch<React.SetStateAction<GuestValue>>;
+  setIsNewGuest: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function MemberLoginScreen({
   setPageIndex,
-  setMemberId,
-  memberValue,
-  setMemberValue,
-  setIsNewMember,
+  setGuestId,
+  guestValue,
+  setGuestValue,
+  setIsNewGuest,
 }: MemberLoginProps) {
   const [disabled, setDisabled] = useState(true);
 
   const params = useParams();
 
-  const checkNewMember = useMutation({
+  const checkNewGuest = useMutation({
     mutationFn: async () => {
       const res = await axios.post('/members/name/action-check', {
         event_id: params.eventId,
-        name: memberValue.name,
+        name: guestValue.name.trim(),
       });
       return res.data;
     },
     onSuccess: (data) => {
-      setIsNewMember(data.payload.is_possible);
+      setIsNewGuest(data.payload.is_possible);
 
       if (data.payload.is_possible) {
         setPageIndex(1);
       } else {
-        loginMember.mutate();
+        loginGuest.mutate();
       }
     },
   });
 
-  const loginMember = useMutation({
+  const loginGuest = useMutation({
     mutationFn: () => {
       return axios.post('/members/action-login', {
         event_id: params.eventId,
-        name: memberValue.name,
-        pin: memberValue.pin,
+        name: guestValue.name,
+        pin: guestValue.pin,
       });
     },
     onSuccess: (data) => {
-      setMemberId(data.data.payload.member_id);
+      setGuestId(data.data.payload.member_id);
       setPageIndex(1);
     },
     onError: (error) => {
@@ -69,9 +69,9 @@ export default function MemberLoginScreen({
     },
   });
 
-  function handleInputChange<T>(key: keyof MemberValue) {
+  function handleInputChange<T>(key: keyof GuestValue) {
     return function (value: T) {
-      setMemberValue((prev) => ({
+      setGuestValue((prev) => ({
         ...prev,
         [key]: value,
       }));
@@ -80,20 +80,16 @@ export default function MemberLoginScreen({
 
   function handleSubmit() {
     if (disabled) return;
-    setMemberValue((prev) => ({
-      ...prev,
-      name: prev.name.trim(),
-    }));
-    checkNewMember.mutate();
+    checkNewGuest.mutate();
   }
 
   useEffect(() => {
     setDisabled(
-      memberValue.name === '' ||
-        memberValue.pin.length !== 4 ||
-        memberValue.pin.includes('-'),
+      guestValue.name === '' ||
+        guestValue.pin.length !== 4 ||
+        guestValue.pin.includes('-'),
     );
-  }, [memberValue]);
+  }, [guestValue]);
 
   return (
     <>
@@ -107,7 +103,7 @@ export default function MemberLoginScreen({
             id="name"
             name="name"
             placeholder="이름"
-            value={memberValue.name}
+            value={guestValue.name}
             onChange={(e) => handleInputChange('name')(e.target.value)}
           />
         </div>
@@ -118,7 +114,7 @@ export default function MemberLoginScreen({
             </ScheduleInputLabel>
             <PinPasswordInput
               inputId="pin"
-              pin={memberValue.pin}
+              pin={guestValue.pin}
               setPin={handleInputChange('pin')}
             />
           </div>

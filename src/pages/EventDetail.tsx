@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
 import NavBar from '../components/NavBar';
+import EventDeleteAlert from '../components/alert/EventDeleteAlert';
 import LoginAlert from '../components/alert/LoginAlert';
 import TopBannerList from '../components/banner/banner-list/TopBannerList';
 import EmptyEventBanner from '../components/banner/empty-event/EmptyEventBanner';
@@ -13,13 +14,16 @@ import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { EventType } from '../types/event.type';
 import { RecommendSchedule, Schedule } from '../types/schedule.type';
 import { sortWeekdayList } from '../utils/weekday';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function EventDetail() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
+  const [isEventDeleteAlertOpen, setIsEventDeleteAlertOpen] = useState(false);
 
   const params = useParams<{ eventId: string }>();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { isPending: isEventPending, data: eventData } = useQuery({
     queryKey: ['events', params.eventId],
@@ -65,6 +69,17 @@ export default function EventDetail() {
     ?.map((schedule) => schedule.name)
     .sort();
 
+  const deleteEvent = useMutation({
+    mutationFn: async () => {
+      const res = await axios.delete(`/events/${params.eventId}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['events'] });
+      navigate('/');
+    },
+  });
+
   function copyEventShareLink() {
     navigator.clipboard.writeText(
       `${window.location.origin}/events/${params.eventId}`,
@@ -83,6 +98,18 @@ export default function EventDetail() {
     }
   }
 
+  function handleEventDeleteALertOpen() {
+    setIsEventDeleteAlertOpen(true);
+  }
+
+  function handleEventDeleteALertClose() {
+    setIsEventDeleteAlertOpen(false);
+  }
+
+  function handleEventDelete() {
+    deleteEvent.mutate();
+  }
+
   if (
     isEventPending ||
     isSchedulePending ||
@@ -98,36 +125,45 @@ export default function EventDetail() {
       <Helmet>
         <title>{event.title} - OneTime</title>
       </Helmet>
-      <div>
-        <div className="bg-primary-40 px-4 py-6">
-          <header className="mx-auto max-w-screen-sm">
-            <NavBar />
-            <div className="flex items-center justify-between gap-2">
-              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-md-300">
+      <div className="flex flex-col gap-2 bg-gray-05">
+        <div>
+          <NavBar variant="white" />
+          <div className="rounded-t-3xl bg-primary-40 px-6 py-4">
+            <header className="mx-auto max-w-screen-sm">
+              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-sm-300">
                 {event.title}
               </h1>
-              <button
-                className="rounded-xl bg-gray-90 px-4 py-2 text-gray-00 text-md-200"
-                onClick={handleShareButtonClick}
-              >
-                공유하기
-              </button>
-            </div>
-            {schedules.length === 0 ? (
-              <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
-            ) : (
-              <TopBannerList
-                eventCategory={event.category}
-                recommendSchedules={recommendSchedules}
-                participants={participants}
-              />
-            )}
-          </header>
+            </header>
+          </div>
         </div>
-        <div className="mx-auto mt-4 max-w-screen-sm px-4">
-          <main className="mb-28 mt-12">
-            <TimeBlockBoard event={event} schedules={schedules} />
-            <BlackFloatingBottomButton onClick={handleFloatingButtonClick} />
+        <div className="mx-auto mt-4 w-full max-w-screen-sm px-4">
+          <main className="mb-28">
+            <div className="flex flex-col gap-10">
+              <TimeBlockBoard
+                event={event}
+                schedules={schedules}
+                backgroundColor="white"
+                topAction={true}
+                topActionOnClick={{
+                  share: handleShareButtonClick,
+                  delete: handleEventDeleteALertOpen,
+                }}
+                isCreator={event.event_status === 'CREATOR'}
+              />
+              {schedules.length === 0 ? (
+                <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
+              ) : (
+                <TopBannerList
+                  eventCategory={event.category}
+                  recommendSchedules={recommendSchedules}
+                  participants={participants}
+                />
+              )}
+            </div>
+            <BlackFloatingBottomButton
+              name="스케줄 등록"
+              onClick={handleFloatingButtonClick}
+            />
           </main>
         </div>
       </div>
@@ -135,6 +171,14 @@ export default function EventDetail() {
         <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
       )}
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
+      {isEventDeleteAlertOpen && (
+        <EventDeleteAlert
+          onConfirm={handleEventDelete}
+          onCancel={handleEventDeleteALertClose}
+          onClose={handleEventDeleteALertClose}
+          isDeleteLoading={deleteEvent.isPending}
+        />
+      )}
     </>
   );
 }

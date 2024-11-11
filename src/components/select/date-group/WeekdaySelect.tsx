@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 
-import { EventType } from '../../../types/event.type';
+import { EventValue } from '../../../types/event.type';
 import DateItem from '../date-item/DateItem';
 
 interface WeekdaySelectProps {
   className?: string;
-  value: EventType;
-  setValue: React.Dispatch<React.SetStateAction<EventType>>;
+  value: EventValue;
+  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
 }
 
 export default function WeekdaySelect({

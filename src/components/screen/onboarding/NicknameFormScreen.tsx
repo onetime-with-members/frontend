@@ -68,6 +68,10 @@ export default function NicknameFormScreen({
   }
 
   useEffect(() => {
+    if (!searchParams.get('register_token') || !searchParams.get('name')) {
+      navigate('/login');
+    }
+
     if (searchParams.get('register_token') || searchParams.get('name')) {
       if (searchParams.get('register_token')) {
         setRegisterToken(searchParams.get('register_token') as string);

@@ -1,36 +1,55 @@
 import dayjs from 'dayjs';
 
-export function getBlockCount(startTime: string, endTime: string) {
+type TimeBlockUnit = '30m' | '1h';
+
+export function getBlockCount(
+  startTime: string,
+  endTime: string,
+  unit: TimeBlockUnit,
+) {
   const blockCount =
-    dayjs(endTime, 'HH:mm').diff(dayjs(startTime, 'HH:mm'), 'minute') / 30;
+    dayjs(endTime, 'HH:mm').diff(dayjs(startTime, 'HH:mm'), 'minute') /
+    (unit === '30m' ? 30 : 60);
 
   return blockCount;
 }
 
-function getTimeList(blockCount: number, startTime: string) {
+function getTimeList(
+  blockCount: number,
+  startTime: string,
+  unit: TimeBlockUnit,
+) {
   const timeList = Array.from({ length: blockCount }, (_, i) =>
     dayjs(startTime, 'HH:mm')
-      .add(i * 30, 'minute')
+      .add(i * (unit === '30m' ? 30 : 60), 'minute')
       .format('HH:mm'),
   );
 
   return timeList;
 }
 
-export function getLabelTimeList(startTime: string, endTime: string) {
-  const blockCount = getBlockCount(startTime, endTime) + 1;
+export function getLabelTimeList(
+  startTime: string,
+  endTime: string,
+  unit: TimeBlockUnit = '30m',
+) {
+  const blockCount = getBlockCount(startTime, endTime, unit) + 1;
 
-  let timeList = getTimeList(blockCount, startTime);
+  let timeList = getTimeList(blockCount, startTime, unit);
 
   if (endTime === '24:00') timeList[timeList.length - 1] = '24:00';
 
   return timeList;
 }
 
-export function getBlockTimeList(startTime: string, endTime: string) {
-  const blockCount = getBlockCount(startTime, endTime);
+export function getBlockTimeList(
+  startTime: string,
+  endTime: string,
+  unit: TimeBlockUnit = '30m',
+) {
+  const blockCount = getBlockCount(startTime, endTime, unit);
 
-  const timeList = getTimeList(blockCount, startTime);
+  const timeList = getTimeList(blockCount, startTime, unit);
 
   return timeList;
 }

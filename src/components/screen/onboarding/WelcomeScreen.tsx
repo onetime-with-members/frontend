@@ -29,7 +29,7 @@ export default function WelcomeScreen({ name, isVisible }: WelcomeScreenProps) {
         hidden: !isVisible,
       })}
     >
-      <div className="flex w-[22rem] -translate-y-8 flex-col items-center gap-12">
+      <div className="flex w-full max-w-[22rem] -translate-y-8 flex-col items-center gap-12">
         <div className="flex flex-col items-center gap-6">
           <div>
             <img
