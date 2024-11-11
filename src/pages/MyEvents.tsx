@@ -37,8 +37,8 @@ export default function MyEvents() {
           </div>
         </div>
       </nav>
-      <main className="flex-1">
-        <div className="flex justify-center px-4 py-5">
+      <main className="flex w-full flex-1">
+        <div className="flex w-full justify-center px-4 py-5">
           <div className="w-full max-w-screen-sm">
             <MyEventList />
           </div>

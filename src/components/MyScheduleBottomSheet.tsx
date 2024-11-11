@@ -16,7 +16,6 @@ interface MyScheduleBottomSheetProps {
   handleEditButtonClick?: () => void;
   buttonDisabled?: boolean;
   overlay?: boolean;
-  placeholder?: string;
 }
 
 export default function MyScheduleBottomSheet({
@@ -29,7 +28,6 @@ export default function MyScheduleBottomSheet({
   handleEditButtonClick,
   buttonDisabled = false,
   overlay = true,
-  placeholder = '스케줄의 이름은 무엇인가요?',
 }: MyScheduleBottomSheetProps) {
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (setTitle) setTitle(e.target.value);
@@ -55,12 +53,17 @@ export default function MyScheduleBottomSheet({
           </div>
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
-              <Input
-                value={title}
-                onChange={handleTitleChange}
-                placeholder={placeholder}
-                disabled={mode === 'view'}
-              />
+              {mode === 'view' ? (
+                <Input
+                  value={title}
+                  onChange={handleTitleChange}
+                  inputMode="none"
+                  readOnly
+                />
+              ) : (
+                <Input value={title} onChange={handleTitleChange} />
+              )}
+
               {mode === 'view' && (
                 <div className="flex items-center gap-4">
                   <MyScheduleActionButton

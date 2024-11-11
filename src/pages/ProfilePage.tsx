@@ -7,7 +7,7 @@ import SettingList from '../components/list/setting/SettingList';
 import { IconX } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
-export default function Settings() {
+export default function ProfilePage() {
   const navigate = useNavigate();
 
   const { isPending: isUserPending, data: userData } = useQuery({
@@ -25,7 +25,7 @@ export default function Settings() {
   }
 
   function handleProfileEditButtonClick() {
-    navigate('/settings/edit-profile');
+    navigate('/mypage/profile/edit');
   }
 
   function handleLogoutButtonClick() {
@@ -47,7 +47,7 @@ export default function Settings() {
               <div className="grid h-[4rem] grid-cols-3">
                 <div />
                 <div className="flex items-center justify-center text-gray-90 text-lg-300">
-                  설정
+                  프로필 정보
                 </div>
                 <div className="flex items-center justify-end">
                   <button onClick={handleBackButtonClick}>

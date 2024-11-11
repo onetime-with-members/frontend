@@ -13,7 +13,7 @@ export default function ParticipantsPopUp({
 }: ParticipantsPopUpProps) {
   return (
     <div
-      className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50"
+      className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
       onClick={onClose}
     >
       <div
@@ -32,8 +32,8 @@ export default function ParticipantsPopUp({
           </button>
         </div>
         <div className="mt-2 flex flex-wrap gap-3">
-          {participants.map((participant) => (
-            <MemberBadge>{participant}</MemberBadge>
+          {participants.map((participant, index) => (
+            <MemberBadge key={index}>{participant}</MemberBadge>
           ))}
         </div>
       </div>

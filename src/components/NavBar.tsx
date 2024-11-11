@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from '../api/axios';
 import logoWhite from '../assets/logo-white.svg';
 import logoBlack from '../assets/logo.svg';
-import Avatar from './Avatar';
+import AvatarDropdown from './AvatarDropdown';
 import LoginButton from './LoginButton';
 import { useQuery } from '@tanstack/react-query';
 
@@ -96,7 +96,7 @@ export default function NavBar({ variant = 'transparent' }: NavBarProps) {
           </Link>
           {isLoggedIn ? (
             !isUserPending && user ? (
-              <Avatar name={user.nickname} />
+              <AvatarDropdown name={user.nickname} />
             ) : userError ? (
               <LoginButton />
             ) : null

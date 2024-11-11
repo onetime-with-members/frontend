@@ -36,7 +36,7 @@ export default function RecommendTimePopUp({
 
   return (
     <div
-      className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50"
+      className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
       onClick={onClose}
     >
       <div
@@ -44,7 +44,7 @@ export default function RecommendTimePopUp({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-5 pb-3 pt-4">
-          <h2 className="text-lg-300 text-gray-80">
+          <h2 className="text-gray-80 text-lg-300">
             가능한 시간은 언제일까요?
           </h2>
           <button className="text-gray-40" onClick={onClose}>

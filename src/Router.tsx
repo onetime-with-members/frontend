@@ -13,8 +13,8 @@ import MyScheduleEdit from './pages/MyScheduleEdit';
 import MySchedules from './pages/MySchedules';
 import Onboarding from './pages/Onboarding';
 import ProfileEdit from './pages/ProfileEdit';
+import ProfilePage from './pages/ProfilePage';
 import ScheduleCreate from './pages/ScheduleCreate';
-import Settings from './pages/Settings';
 import WithdrawPage from './pages/WithdrawPage';
 
 const router = createBrowserRouter([
@@ -77,14 +77,14 @@ const router = createBrowserRouter([
             ],
           },
           {
-            path: 'settings',
+            path: 'mypage/profile',
             children: [
               {
                 path: '',
-                element: <Settings />,
+                element: <ProfilePage />,
               },
               {
-                path: 'edit-profile',
+                path: 'edit',
                 element: <ProfileEdit />,
               },
             ],

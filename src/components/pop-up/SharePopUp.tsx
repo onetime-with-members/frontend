@@ -65,8 +65,9 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
             <Input
               inputRef={urlInputRef}
               value={currentUrl}
-              className="caret-transparent text-sm-100"
+              className="text-sm-100"
               inputMode="none"
+              readOnly
             />
           </div>
           <div className="flex items-center justify-center gap-8">

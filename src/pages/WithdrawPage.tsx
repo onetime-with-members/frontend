@@ -51,7 +51,7 @@ export default function WithdrawPage() {
           </div>
         </div>
       </header>
-      <main className="px-4">
+      <main className="px-4 pb-24">
         <div className="mx-auto max-w-screen-sm">
           <div className="flex w-full flex-col items-center gap-10">
             <div className="flex w-full flex-col items-center gap-6">

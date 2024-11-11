@@ -130,7 +130,7 @@ export default function EventDetail() {
           <NavBar variant="white" />
           <div className="rounded-t-3xl bg-primary-40 px-6 py-4">
             <header className="mx-auto max-w-screen-sm">
-              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-lg-300">
+              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-sm-300">
                 {event.title}
               </h1>
             </header>

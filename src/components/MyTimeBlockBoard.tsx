@@ -152,46 +152,82 @@ export default function MyTimeBlockBoard({
     );
   }
 
+  function isTimeBlockChunkEdge(
+    weekday: string,
+    time: string,
+    status: 'start' | 'end',
+  ) {
+    const schedule = timeBlockData.find(
+      (r) => r.time_point === weekday && r.times.includes(time),
+    );
+    if (schedule) {
+      const foundedIndex = schedule.times.findIndex((t) => t === time);
+      if (foundedIndex !== -1) {
+        if (status === 'start') {
+          return (
+            schedule.times[foundedIndex - 1] !==
+            dayjs(time, 'HH:mm').subtract(30, 'minute').format('HH:mm')
+          );
+        } else if (status === 'end') {
+          return (
+            schedule.times[foundedIndex + 1] !==
+            dayjs(time, 'HH:mm').add(30, 'minute').format('HH:mm')
+          );
+        }
+      }
+    }
+    return false;
+  }
+
   function timeBlockStyle(weekday: string, time: string) {
     return clsx(
       'h-[3rem] last:border-b-0',
       {
-        'cursor-pointer border-b border-gray-10 bg-gray-05 odd:border-dashed even:border-solid':
-          mode !== 'view' && !isTimeBlockExist(weekday, time),
         'border-b border-gray-10 bg-gray-05 odd:border-dashed even:border-solid':
-          mode === 'view' && !isTimeBlockExist(weekday, time),
-        'cursor-pointer border-l border-r border-gray-00 bg-primary-40':
-          (mode === 'view' && isTimeBlockExist(weekday, time)) ||
-          (mode !== 'view' &&
-            isTimeBlockExist(weekday, time) &&
-            !isTimeBlockInOtherSchedule(weekday, time)),
-        'bg-primary-20':
-          mode !== 'view' &&
-          isTimeBlockExist(weekday, time) &&
-          isTimeBlockInOtherSchedule(weekday, time),
-        'relative z-[100] bg-primary-40':
-          mode === 'view' &&
-          selectedTimeBlockId ===
-            timeBlockData.find(
-              (tb) => tb.time_point === weekday && tb.times.includes(time),
-            )?.id,
+          !isTimeBlockExist(weekday, time),
       },
       {
-        'rounded-t-lg border-t border-gray-00': timeBlockData.some(
-          (r) =>
-            r.time_point === weekday &&
-            r.times.includes(time) &&
-            r.times[0] === time,
+        'rounded-t-lg border-t border-gray-00': isTimeBlockChunkEdge(
+          weekday,
+          time,
+          'start',
+        ),
+        'rounded-b-lg border-b border-gray-00': isTimeBlockChunkEdge(
+          weekday,
+          time,
+          'end',
         ),
       },
-      {
-        'rounded-b-lg border-b border-gray-00': timeBlockData.some(
-          (r) =>
-            r.time_point === weekday &&
-            r.times.includes(time) &&
-            r.times[r.times.length - 1] === time,
-        ),
-      },
+      mode === 'view'
+        ? {
+            'cursor-pointer bg-primary-40': isTimeBlockExist(weekday, time),
+            'relative z-[100] border-l-2 border-r-2 border-gray-00 bg-primary-40':
+              selectedTimeBlockId ===
+              timeBlockData.find(
+                (tb) => tb.time_point === weekday && tb.times.includes(time),
+              )?.id,
+            'border-t-2':
+              isTimeBlockChunkEdge(weekday, time, 'start') &&
+              selectedTimeBlockId ===
+                timeBlockData.find(
+                  (tb) => tb.time_point === weekday && tb.times.includes(time),
+                )?.id,
+            'border-b-2':
+              isTimeBlockChunkEdge(weekday, time, 'end') &&
+              selectedTimeBlockId ===
+                timeBlockData.find(
+                  (tb) => tb.time_point === weekday && tb.times.includes(time),
+                )?.id,
+          }
+        : {
+            'cursor-pointer': !isTimeBlockExist(weekday, time),
+            'border-l border-r cursor-pointer bg-primary-40 border-gray-00':
+              isTimeBlockExist(weekday, time) &&
+              !isTimeBlockInOtherSchedule(weekday, time),
+            'bg-primary-20':
+              isTimeBlockExist(weekday, time) &&
+              isTimeBlockInOtherSchedule(weekday, time),
+          },
     );
   }
 
@@ -408,12 +444,11 @@ export default function MyTimeBlockBoard({
           onClose={handleBottomSheetClose}
           title={
             isLoading || selectedTimeBlock === undefined
-              ? ' '
+              ? ''
               : selectedTimeBlock.title
           }
           mode="view"
           overlay={false}
-          placeholder=""
           handleDeleteButtonClick={handleDeleteButtonClick}
           handleEditButtonClick={handleEditButtonClick}
         />

@@ -21,7 +21,7 @@ export default function EventDeleteAlert({
       confirmText={isDeleteLoading ? '삭제 중...' : '삭제'}
       cancelText="취소"
     >
-      <div className="flex h-full w-[23rem] flex-col items-center gap-1 pb-8 pt-10 text-center">
+      <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">
         <h2 className="text-gray-80 title-sm-300">
           정말로 이벤트를 삭제하시겠어요?
         </h2>
