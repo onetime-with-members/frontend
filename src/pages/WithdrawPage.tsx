@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
-import withdrawClock from '../assets/withdraw-clock.svg';
+import withdrawClockImage from '../assets/withdraw-clock.png';
 import WithdrawGrayBox from '../components/WithdrawGrayBox';
 import Button from '../components/button/Button';
 import RedCheckbox from '../components/checkbox/RedCheckbox';
@@ -56,8 +56,12 @@ export default function WithdrawPage() {
           <div className="flex w-full flex-col items-center gap-10">
             <div className="flex w-full flex-col items-center gap-6">
               <div className="flex flex-col items-center gap-8">
-                <div>
-                  <img src={withdrawClock} alt="깨진 시계 이미지" />
+                <div className="h-[160px] w-[160px]">
+                  <img
+                    src={withdrawClockImage}
+                    alt="깨진 시계 이미지"
+                    className="h-full w-full"
+                  />
                 </div>
                 <h1 className="text-gray-90 title-md-300">
                   정말 서비스를 탈퇴하시겠어요?
