@@ -36,7 +36,7 @@ export default function MyScheduleBottomSheet({
   return (
     <div
       className={clsx(
-        'fixed left-0 top-0 z-[999] flex h-full w-full flex-col items-center justify-end bg-gray-90',
+        'fixed left-0 top-0 z-[999] flex h-screen w-screen flex-col items-center justify-end bg-gray-90',
         {
           'bg-opacity-30': overlay,
           'bg-opacity-0': !overlay,
