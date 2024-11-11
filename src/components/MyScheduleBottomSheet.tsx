@@ -43,50 +43,47 @@ export default function MyScheduleBottomSheet({
         },
       )}
     >
-      <div className="flex w-full justify-center">
-        <div className="w-full max-w-screen-sm cursor-default rounded-tl-3xl rounded-tr-3xl bg-gray-00 px-4 py-5">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between">
-              <h2 className="pl-2 text-gray-90 text-lg-200">스케줄 설정</h2>
-              <button onClick={onClose}>
-                <IconX size={24} className="text-gray-80" />
-              </button>
-            </div>
-            <div className="flex flex-col gap-8">
-              <div className="flex flex-col gap-4">
-                {mode === 'view' ? (
-                  <Input
-                    value={title}
-                    onChange={handleTitleChange}
-                    inputMode="none"
-                    readOnly
+      <div className="relative w-full max-w-screen-sm cursor-default rounded-tl-3xl rounded-tr-3xl bg-gray-00 px-4 py-5">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <h2 className="pl-2 text-gray-90 text-lg-200">스케줄 설정</h2>
+            <button onClick={onClose}>
+              <IconX size={24} className="text-gray-80" />
+            </button>
+          </div>
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-4">
+              {mode === 'view' ? (
+                <Input
+                  value={title}
+                  onChange={handleTitleChange}
+                  inputMode="none"
+                  readOnly
+                />
+              ) : (
+                <Input value={title} onChange={handleTitleChange} />
+              )}
+              {mode === 'view' && (
+                <div className="flex items-center gap-4">
+                  <MyScheduleActionButton
+                    action="edit"
+                    onClick={handleEditButtonClick}
                   />
-                ) : (
-                  <Input value={title} onChange={handleTitleChange} />
-                )}
-
-                {mode === 'view' && (
-                  <div className="flex items-center gap-4">
-                    <MyScheduleActionButton
-                      action="edit"
-                      onClick={handleEditButtonClick}
-                    />
-                    <MyScheduleActionButton
-                      action="delete"
-                      onClick={handleDeleteButtonClick}
-                    />
-                  </div>
-                )}
-              </div>
-              {mode === 'new' && (
-                <Button onClick={handleSubmit} disabled={buttonDisabled}>
-                  저장
-                </Button>
+                  <MyScheduleActionButton
+                    action="delete"
+                    onClick={handleDeleteButtonClick}
+                  />
+                </div>
               )}
             </div>
+            {mode === 'new' && (
+              <Button onClick={handleSubmit} disabled={buttonDisabled}>
+                저장
+              </Button>
+            )}
           </div>
         </div>
-        <div className="absolute bottom-0 left-1/2 h-[15rem] w-full max-w-screen-sm -translate-x-1/2 translate-y-full bg-gray-00" />
+        <div className="absolute bottom-0 left-0 h-[15rem] w-full translate-y-full bg-gray-00" />
       </div>
     </div>
   );
