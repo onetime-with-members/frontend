@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import axios from '../../api/axios';
 import { EventType } from '../../types/event.type';
-import Input from '../form-control/input/Input';
+import InputReadOnly from '../form-control/input/InputReadOnly';
 import ShareButtonWrapper from '../share-button/ShareButtonWrapper';
 import ShareKakaoButton from '../share-button/ShareKakaoButton';
 import ShareMoreButton from '../share-button/ShareMoreButton';
@@ -16,8 +16,7 @@ interface SharePopUpProps {
 
 export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
   const [currentUrl, setCurrentUrl] = useState('Loading...');
-
-  const urlInputRef = useRef<HTMLInputElement>(null);
+  const [linkSelected, setLinkSelected] = useState(false);
 
   const makeShortenUrl = useMutation({
     mutationFn: async () => {
@@ -33,7 +32,7 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
 
   function handleCopyLinkButtonClick() {
     navigator.clipboard.writeText(currentUrl);
-    urlInputRef.current?.select();
+    setLinkSelected(true);
     alert('링크가 복사되었습니다.');
   }
 
@@ -62,12 +61,11 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
         </div>
         <div className="flex flex-col gap-6 px-5 pb-8 pt-4">
           <div className="flex flex-col gap-3">
-            <Input
-              inputRef={urlInputRef}
+            <InputReadOnly
               value={currentUrl}
               className="text-sm-100"
-              inputMode="none"
-              readOnly
+              selected={linkSelected}
+              setSelected={setLinkSelected}
             />
           </div>
           <div className="flex items-center justify-center gap-8">
