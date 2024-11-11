@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import axios from '../../api/axios';
 import { EventType } from '../../types/event.type';
 import Input from '../form-control/input/Input';
-// import InputReadOnly from '../form-control/input/InputReadOnly';
 import ShareButtonWrapper from '../share-button/ShareButtonWrapper';
 import ShareKakaoButton from '../share-button/ShareKakaoButton';
 import ShareMoreButton from '../share-button/ShareMoreButton';
@@ -17,7 +16,6 @@ interface SharePopUpProps {
 
 export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
   const [currentUrl, setCurrentUrl] = useState('Loading...');
-  // const [linkSelected, setLinkSelected] = useState(false);
 
   const urlInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,7 +36,6 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
     if (urlInputRef.current) {
       urlInputRef.current.select();
     }
-    // setLinkSelected(true);
     alert('링크가 복사되었습니다.');
   }
 
@@ -71,16 +68,10 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
               inputRef={urlInputRef}
               value={currentUrl}
               className="overflow-hidden text-sm-100"
-              inputClassName="overflow-hidden"
+              inputClassName="pr-0"
               inputMode="none"
               readOnly
             />
-            {/* <InputReadOnly
-              value={currentUrl}
-              className="text-sm-100"
-              selected={linkSelected}
-              setSelected={setLinkSelected}
-            /> */}
           </div>
           <div className="flex items-center justify-center gap-8">
             <ShareButtonWrapper label="링크 복사">
