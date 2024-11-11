@@ -152,6 +152,15 @@ export default function MyTimeBlockBoard({
     );
   }
 
+  function isTimeBlockSelected(weekday: string, time: string) {
+    return (
+      selectedTimeBlockId ===
+      timeBlockData.find(
+        (tb) => tb.time_point === weekday && tb.times.includes(time),
+      )?.id
+    );
+  }
+
   function isTimeBlockChunkEdge(
     weekday: string,
     time: string,
@@ -202,26 +211,17 @@ export default function MyTimeBlockBoard({
         ? {
             'cursor-pointer bg-primary-40': isTimeBlockExist(weekday, time),
             'relative z-[100] border-l-2 border-r-2 border-gray-00 bg-primary-40':
-              selectedTimeBlockId ===
-              timeBlockData.find(
-                (tb) => tb.time_point === weekday && tb.times.includes(time),
-              )?.id,
+              isTimeBlockSelected(weekday, time),
             'border-t-2':
               isTimeBlockChunkEdge(weekday, time, 'start') &&
-              selectedTimeBlockId ===
-                timeBlockData.find(
-                  (tb) => tb.time_point === weekday && tb.times.includes(time),
-                )?.id,
+              isTimeBlockSelected(weekday, time),
             'border-b-2':
               isTimeBlockChunkEdge(weekday, time, 'end') &&
-              selectedTimeBlockId ===
-                timeBlockData.find(
-                  (tb) => tb.time_point === weekday && tb.times.includes(time),
-                )?.id,
+              isTimeBlockSelected(weekday, time),
           }
         : {
             'cursor-pointer': !isTimeBlockExist(weekday, time),
-            'border-l border-r cursor-pointer bg-primary-40 border-gray-00':
+            'cursor-pointer bg-primary-40 border-gray-00':
               isTimeBlockExist(weekday, time) &&
               !isTimeBlockInOtherSchedule(weekday, time),
             'bg-primary-20':
@@ -229,6 +229,20 @@ export default function MyTimeBlockBoard({
               isTimeBlockInOtherSchedule(weekday, time),
           },
     );
+  }
+
+  function addTimeBlockRefInList(
+    weekday: string,
+    time: string,
+    element: HTMLDivElement | null,
+  ) {
+    if (element) {
+      timeBlockRefList.current.push({
+        weekday: weekday,
+        time: time,
+        ref: element,
+      });
+    }
   }
 
   function handleTimeBlockDragStart(weekday: string, time: string) {
@@ -416,15 +430,7 @@ export default function MyTimeBlockBoard({
                 {timeBlockList.map((time, index) => (
                   <div
                     key={index}
-                    ref={(el) => {
-                      if (el) {
-                        timeBlockRefList.current.push({
-                          weekday: weekday,
-                          time: time,
-                          ref: el,
-                        });
-                      }
-                    }}
+                    ref={(el) => addTimeBlockRefInList(weekday, time, el)}
                     onClick={() => handleTimeBlockClick(weekday, time)}
                     onMouseDown={() => handleTimeBlockDragStart(weekday, time)}
                     onMouseMove={() => handleTimeBlockDragMove(weekday, time)}
