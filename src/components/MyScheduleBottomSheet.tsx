@@ -29,6 +29,8 @@ export default function MyScheduleBottomSheet({
   buttonDisabled = false,
   overlay = true,
 }: MyScheduleBottomSheetProps) {
+  const bottomSpacingRem = 15;
+
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (setTitle) setTitle(e.target.value);
   }
@@ -43,7 +45,12 @@ export default function MyScheduleBottomSheet({
         },
       )}
     >
-      <div className="relative w-full max-w-screen-sm cursor-default rounded-tl-3xl rounded-tr-3xl bg-gray-00 px-4 py-5">
+      <div
+        className="relative w-full max-w-screen-sm cursor-default rounded-tl-3xl rounded-tr-3xl bg-gray-00 px-4 py-5"
+        style={{
+          transform: `translateY(${bottomSpacingRem}rem)`,
+        }}
+      >
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
             <h2 className="pl-2 text-gray-90 text-lg-200">스케줄 설정</h2>
@@ -83,7 +90,7 @@ export default function MyScheduleBottomSheet({
             )}
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 h-[15rem] w-full translate-y-full bg-gray-00" />
+        <div className="w-full" style={{ height: `${bottomSpacingRem}rem` }} />
       </div>
     </div>
   );
