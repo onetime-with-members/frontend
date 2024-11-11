@@ -29,7 +29,7 @@ export default function MyScheduleBottomSheet({
   buttonDisabled = false,
   overlay = true,
 }: MyScheduleBottomSheetProps) {
-  const bottomSpacingRem = 15;
+  // const bottomSpacingRem = 15;
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (setTitle) setTitle(e.target.value);
