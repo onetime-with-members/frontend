@@ -38,7 +38,7 @@ export default function MyScheduleBottomSheet({
   return (
     <div
       className={clsx(
-        'fixed left-0 top-0 z-[999] flex h-screen w-screen flex-col items-center justify-end bg-gray-90',
+        'fixed left-0 top-0 z-[999] flex h-screen w-screen flex-col items-center bg-gray-90',
         {
           'bg-opacity-30': overlay,
           'bg-opacity-0': !overlay,
@@ -46,10 +46,12 @@ export default function MyScheduleBottomSheet({
       )}
     >
       <div
-        className="relative w-full max-w-screen-sm cursor-default rounded-tl-3xl rounded-tr-3xl bg-gray-00 px-4 py-5"
-        style={{
-          transform: `translateY(${bottomSpacingRem}rem)`,
-        }}
+        className="fixed bottom-0 w-full max-w-screen-sm cursor-default rounded-tl-3xl rounded-tr-3xl bg-gray-00 px-4 py-5"
+        style={
+          {
+            // transform: `translateY(${bottomSpacingRem}rem)`,
+          }
+        }
       >
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between">
@@ -90,7 +92,7 @@ export default function MyScheduleBottomSheet({
             )}
           </div>
         </div>
-        <div className="w-full" style={{ height: `${bottomSpacingRem}rem` }} />
+        {/* <div className="w-full" style={{ height: `${bottomSpacingRem}rem` }} /> */}
       </div>
     </div>
   );
