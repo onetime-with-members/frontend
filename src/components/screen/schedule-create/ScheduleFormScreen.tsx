@@ -74,6 +74,7 @@ export default function ScheduleFormScreen({
         const res = await axios.get('/fixed-schedules');
         return res.data;
       },
+      enabled: isLoggedIn,
     });
 
   const myFixedSchedules: MySchedule[] = myFixedShedulesData?.payload;
