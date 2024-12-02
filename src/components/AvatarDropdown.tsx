@@ -44,7 +44,7 @@ export default function AvatarDropdown({
         imageUrl={imageUrl}
         onClick={handleAvatarClick}
       />
-      {isMenuOpen && <AvatarDropdownMenu />}
+      {isMenuOpen && <AvatarDropdownMenu setIsMenuOpen={setIsMenuOpen} />}
     </div>
   );
 }
