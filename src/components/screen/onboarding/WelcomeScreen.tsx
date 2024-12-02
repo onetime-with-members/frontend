@@ -29,7 +29,7 @@ export default function WelcomeScreen({ name, isVisible }: WelcomeScreenProps) {
         hidden: !isVisible,
       })}
     >
-      <div className="flex w-full max-w-[22rem] -translate-y-8 flex-col items-center gap-12">
+      <div className="flex w-full -translate-y-8 flex-col items-center gap-12">
         <div className="flex flex-col items-center gap-6">
           <div>
             <img
@@ -38,10 +38,10 @@ export default function WelcomeScreen({ name, isVisible }: WelcomeScreenProps) {
               className="h-[10rem] w-[10rem]"
             />
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col items-center gap-4">
             <h1 className="text-center text-[2rem] font-bold text-gray-90">
               환영합니다,
-              <br />
+              <br className="block md:hidden" />
               {name}님!
             </h1>
             <p className="text-gray-90 text-lg-200">
@@ -49,7 +49,11 @@ export default function WelcomeScreen({ name, isVisible }: WelcomeScreenProps) {
             </p>
           </div>
         </div>
-        <Button onClick={handleStartButtonClick}>시작하기</Button>
+        <div className="w-full max-w-[22rem]">
+          <Button variant="black" onClick={handleStartButtonClick}>
+            시작하기
+          </Button>
+        </div>
       </div>
     </main>
   );

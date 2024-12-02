@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-interface BottomButtonProps
+export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant?: 'primary' | 'danger' | 'black';
@@ -11,7 +11,7 @@ export default function Button({
   className,
   variant = 'primary',
   ...rest
-}: BottomButtonProps) {
+}: ButtonProps) {
   return (
     <button
       className={clsx(

@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import axios from '../../../api/axios';
 import NicknameFormControl from '../../NicknameFormControl';
+import Button from '../../button/Button';
 import FloatingBottomButton from '../../floating-button/FloatingBottomButton';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
@@ -99,23 +100,31 @@ export default function NicknameFormScreen({
           <IconChevronLeft />
         </button>
       </header>
-      <main className="flex flex-col gap-8">
-        <h1 className="text-gray-90 title-lg-300">
-          시작하기 전,
-          <br />
-          당신의 이름을 알려주세요
-        </h1>
-        <NicknameFormControl
-          value={value.name}
-          onChange={handleInputChange}
-          setSubmitDisabled={setDisabled}
-        />
-        <FloatingBottomButton
-          onClick={handleNextButtonClick}
-          disabled={disabled}
-        >
-          다음
-        </FloatingBottomButton>
+      <main className="flex flex-col gap-3">
+        <div className="flex flex-col gap-8">
+          <h1 className="text-left text-gray-90 title-lg-300 md:text-center">
+            당신의 이름을 알려주세요
+          </h1>
+          <NicknameFormControl
+            value={value.name}
+            onChange={handleInputChange}
+            setSubmitDisabled={setDisabled}
+          />
+        </div>
+        <div>
+          <div className="hidden md:block">
+            <Button variant="black">다음</Button>
+          </div>
+          <div className="block md:hidden">
+            <FloatingBottomButton
+              onClick={handleNextButtonClick}
+              disabled={disabled}
+              variant="black"
+            >
+              다음
+            </FloatingBottomButton>
+          </div>
+        </div>
       </main>
     </div>
   );

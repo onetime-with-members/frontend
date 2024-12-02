@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import NicknameFormScreen from '../components/screen/onboarding/NicknameFormScreen';
 import WelcomeScreen from '../components/screen/onboarding/WelcomeScreen';
@@ -6,6 +6,14 @@ import WelcomeScreen from '../components/screen/onboarding/WelcomeScreen';
 export default function Onboarding() {
   const [page, setPage] = useState(0);
   const [name, setName] = useState('');
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   return (
     <div className="px-4">
