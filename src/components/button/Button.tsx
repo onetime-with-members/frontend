@@ -3,7 +3,7 @@ import clsx from 'clsx';
 interface BottomButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant?: 'primary' | 'danger';
+  variant?: 'primary' | 'danger' | 'black';
 }
 
 export default function Button({
@@ -19,6 +19,7 @@ export default function Button({
         {
           'bg-primary-50': variant === 'primary',
           'bg-danger-50': variant === 'danger',
+          'bg-gray-90': variant === 'black',
         },
         className,
       )}

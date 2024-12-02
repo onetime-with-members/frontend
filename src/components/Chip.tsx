@@ -13,9 +13,9 @@ export default function Chip({
   return (
     <button
       className={clsx(
-        'text-md-200 rounded-full px-6 py-1',
+        'rounded-full px-6 py-1 text-md-200',
         {
-          'bg-gray-80 text-gray-00': active,
+          'bg-primary-40 text-gray-00': active,
           'bg-gray-05 text-gray-40': !active,
         },
         className,

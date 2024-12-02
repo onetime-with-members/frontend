@@ -5,11 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
 import NavBar from '../components/NavBar';
-import FloatingBottomButton from '../components/floating-button/FloatingBottomButton';
+import Button from '../components/button/Button';
 import DateSection from '../components/section/event-create/DateSection';
 import TimeSection from '../components/section/event-create/TimeSection';
 import TitleSection from '../components/section/event-create/TitleSection';
 import { EventValue } from '../types/event.type';
+import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 
 export default function EventCreate() {
@@ -39,6 +40,10 @@ export default function EventCreate() {
     },
   });
 
+  function handleBackButtonClick() {
+    navigate(-1);
+  }
+
   function handleSubmit() {
     if (disabled) return;
     createEvent.mutate();
@@ -55,6 +60,10 @@ export default function EventCreate() {
     );
   }, [value]);
 
+  useEffect(() => {
+    document.body.style.backgroundColor = '#F9F9F9';
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -62,15 +71,35 @@ export default function EventCreate() {
       </Helmet>
       <div className="px-4">
         <NavBar variant="black" />
-        <main className="mx-auto max-w-screen-sm pb-40 pt-8">
-          <div className="flex flex-col gap-16">
-            <TitleSection value={value} setValue={setValue} />
-            <TimeSection value={value} setValue={setValue} />
-            <DateSection value={value} setValue={setValue} />
+        <main className="mx-auto flex w-full max-w-screen-md flex-col items-center justify-center pb-40 pt-6">
+          <div className="hidden w-full items-center justify-start pb-6 md:flex">
+            <button
+              onClick={handleBackButtonClick}
+              className="flex items-center justify-center"
+            >
+              <IconChevronLeft size={24} />
+            </button>
           </div>
-          <FloatingBottomButton onClick={handleSubmit} disabled={disabled}>
-            일정 생성하기
-          </FloatingBottomButton>
+          <div className="flex w-full flex-col items-center justify-center gap-10">
+            <div className="flex w-full flex-col justify-center gap-16 rounded-3xl bg-gray-00 p-6 md:flex-row">
+              <div className="flex flex-1 flex-col gap-16">
+                <TitleSection value={value} setValue={setValue} />
+                <TimeSection value={value} setValue={setValue} />
+              </div>
+              <div>
+                <DateSection value={value} setValue={setValue} />
+              </div>
+            </div>
+            <div className="sticky bottom-4 w-full md:static md:w-[25rem]">
+              <Button
+                onClick={handleSubmit}
+                disabled={disabled}
+                variant="black"
+              >
+                이벤트 생성하기
+              </Button>
+            </div>
+          </div>
         </main>
       </div>
     </>

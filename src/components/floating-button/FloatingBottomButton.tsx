@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 import Button from '../button/Button';
 
 interface BottomButtonProps
@@ -7,10 +9,11 @@ interface BottomButtonProps
 
 export default function FloatingBottomButton({
   children,
+  className,
   ...rest
 }: BottomButtonProps) {
   return (
-    <div className="fixed bottom-4 left-0 w-full px-4">
+    <div className={clsx('fixed bottom-4 left-0 w-full px-4', className)}>
       <div className="mx-auto w-full max-w-screen-sm">
         <Button {...rest}>{children}</Button>
       </div>

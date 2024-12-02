@@ -80,7 +80,7 @@ export default function NavBar({ variant = 'transparent' }: NavBarProps) {
           },
         )}
       >
-        <div className="mx-auto flex h-full max-w-screen-sm items-center justify-between">
+        <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
           <Link to="/">
             <img
               src={
