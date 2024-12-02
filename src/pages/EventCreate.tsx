@@ -62,6 +62,10 @@ export default function EventCreate() {
 
   useEffect(() => {
     document.body.style.backgroundColor = '#F9F9F9';
+
+    return () => {
+      document.body.style.backgroundColor = '';
+    };
   }, []);
 
   return (
