@@ -3,17 +3,12 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import axios from '../api/axios';
-import logoWhite from '../assets/logo-white.svg';
 import logoBlack from '../assets/logo.svg';
 import AvatarDropdown from './AvatarDropdown';
 import LoginButton from './LoginButton';
 import { useQuery } from '@tanstack/react-query';
 
-interface NavBarProps {
-  variant?: 'transparent' | 'black' | 'white';
-}
-
-export default function NavBar({ variant = 'transparent' }: NavBarProps) {
+export default function NavBar() {
   const [isNavBackground, setIsNavBackground] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userError, setUserError] = useState<unknown>();
@@ -49,7 +44,7 @@ export default function NavBar({ variant = 'transparent' }: NavBarProps) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isNavBackground, variant]);
+  }, [isNavBackground]);
 
   useEffect(() => {
     if (
@@ -72,27 +67,14 @@ export default function NavBar({ variant = 'transparent' }: NavBarProps) {
         className={clsx(
           'fixed left-0 top-0 z-40 h-[4rem] w-full p-4 duration-150',
           {
-            'bg-transparent text-gray-00':
-              !isNavBackground && variant === 'transparent',
-            'bg-gray-00 text-gray-80':
-              !isNavBackground && (variant === 'black' || variant === 'white'),
+            'bg-gray-00 text-gray-80': !isNavBackground,
             'bg-gray-00 text-gray-80 shadow-lg': isNavBackground,
           },
         )}
       >
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
           <Link to="/">
-            <img
-              src={
-                variant === 'black' || variant === 'white'
-                  ? logoBlack
-                  : isNavBackground
-                    ? logoBlack
-                    : logoWhite
-              }
-              alt="OneTime"
-              className="h-[2rem]"
-            />
+            <img src={logoBlack} alt="OneTime" className="h-[2rem]" />
           </Link>
           {isLoggedIn ? (
             !isUserPending && user ? (

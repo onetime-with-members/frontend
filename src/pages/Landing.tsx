@@ -8,7 +8,7 @@ export default function Landing() {
   return (
     <>
       <header>
-        <NavBar variant="black" />
+        <NavBar />
       </header>
       <main className="w-full">
         <FirstSection />

@@ -62,7 +62,7 @@ export default function MyPageLayout() {
       </div>
       {/* 데스크탑 */}
       <div className="hidden min-h-screen flex-col md:flex">
-        <NavBar variant="white" />
+        <NavBar />
         <main className="flex w-full flex-1">
           <div className="flex w-full flex-col px-4">
             <div className="mx-auto flex w-full max-w-screen-md gap-4 min-[850px]:gap-10">

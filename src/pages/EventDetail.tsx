@@ -127,7 +127,7 @@ export default function EventDetail() {
       </Helmet>
       <div className="flex flex-col gap-2 bg-gray-05">
         <div>
-          <NavBar variant="white" />
+          <NavBar />
           <div className="rounded-t-3xl bg-primary-40 px-6 py-4">
             <header className="mx-auto max-w-screen-sm">
               <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-sm-300">

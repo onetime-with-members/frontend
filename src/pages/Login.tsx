@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import logo from '../assets/logo-auth.svg';
+import NavBar from '../components/NavBar';
 import SocialLoginButton from '../components/button/SocialLoginButton';
 
 export default function Login() {
@@ -37,33 +38,36 @@ export default function Login() {
   }, [searchParams]);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <div className="flex w-full max-w-[22rem] -translate-y-6 flex-col items-center gap-12 px-4">
-        <div className="flex flex-col items-center gap-4">
-          <div className="text-primary-50 title-md-200">
-            일정을 쉽고 빠르게,
+    <div className="flex h-screen flex-col">
+      <NavBar />
+      <div className="flex flex-1 flex-col items-center justify-center">
+        <div className="flex w-full max-w-[22rem] -translate-y-12 flex-col items-center gap-12 px-4">
+          <div className="flex flex-col items-center gap-4">
+            <div className="text-primary-50 title-md-200">
+              일정을 쉽고 빠르게,
+            </div>
+            <div className="">
+              <img
+                src={logo}
+                alt="로그인 원타임 로고"
+                className="w-[16rem] object-cover"
+              />
+            </div>
           </div>
-          <div className="">
-            <img
-              src={logo}
-              alt="로그인 원타임 로고"
-              className="w-[16rem] object-cover"
+          <div className="flex w-full flex-col gap-4">
+            <SocialLoginButton
+              href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/naver`}
+              social="naver"
+            />
+            <SocialLoginButton
+              href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/kakao`}
+              social="kakao"
+            />
+            <SocialLoginButton
+              href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/google`}
+              social="google"
             />
           </div>
-        </div>
-        <div className="flex w-full flex-col gap-4">
-          <SocialLoginButton
-            href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/naver`}
-            social="naver"
-          />
-          <SocialLoginButton
-            href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/kakao`}
-            social="kakao"
-          />
-          <SocialLoginButton
-            href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/google`}
-            social="google"
-          />
         </div>
       </div>
     </div>

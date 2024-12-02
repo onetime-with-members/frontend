@@ -74,7 +74,7 @@ export default function EventCreate() {
         <title>이벤트 생성 - OneTime</title>
       </Helmet>
       <div className="px-4">
-        <NavBar variant="black" />
+        <NavBar />
         <main className="mx-auto flex w-full max-w-screen-md flex-col items-center justify-center pb-40 pt-6">
           <div className="hidden w-full items-center justify-start pb-6 md:flex">
             <button
