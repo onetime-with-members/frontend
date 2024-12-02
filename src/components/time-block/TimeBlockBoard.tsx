@@ -15,7 +15,6 @@ interface TimeBlockBoardProps {
   schedules: Schedule[];
   setSchedules?: React.Dispatch<React.SetStateAction<Schedule[]>>;
   editable?: boolean;
-  setIsSubmitDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
   backgroundColor?: 'white' | 'gray';
   topAction?: boolean;
   topActionOnClick?: {
@@ -32,7 +31,6 @@ export default function TimeBlockBoard({
   schedules,
   setSchedules,
   editable,
-  setIsSubmitDisabled,
   backgroundColor = 'gray',
   topAction = false,
   topActionOnClick,
@@ -245,11 +243,6 @@ export default function TimeBlockBoard({
       ),
     );
   }, [schedules]);
-
-  useEffect(() => {
-    if (!setIsSubmitDisabled) return;
-    setIsSubmitDisabled(isPossibleTime ? isEmpty : isFull);
-  }, [isEmpty, isFull]);
 
   return (
     <div>

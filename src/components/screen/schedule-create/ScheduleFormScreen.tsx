@@ -29,7 +29,6 @@ export default function ScheduleFormScreen({
   setSchedules,
   isLoggedIn,
 }: ScheduleFormProps) {
-  const [disabled, setDisabled] = useState(true);
   const [isPossibleTime, setIsPossibleTime] = useState(true);
 
   const navigate = useNavigate();
@@ -116,7 +115,6 @@ export default function ScheduleFormScreen({
   });
 
   function handleSubmit() {
-    if (disabled) return;
     if (isNewGuest) {
       createNewMemberSchedule.mutate();
     } else {
@@ -247,14 +245,13 @@ export default function ScheduleFormScreen({
         <TimeBlockBoard
           schedules={schedules}
           setSchedules={setSchedules}
-          setIsSubmitDisabled={setDisabled}
           event={event}
           isPossibleTime={isPossibleTime}
           setIsPossibleTime={setIsPossibleTime}
           editable
         />
       </div>
-      <FloatingBottomButton onClick={handleSubmit} disabled={disabled}>
+      <FloatingBottomButton onClick={handleSubmit}>
         스케줄 등록
       </FloatingBottomButton>
     </>
