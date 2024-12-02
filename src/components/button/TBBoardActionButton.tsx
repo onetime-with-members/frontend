@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import TrashIcon from '../TrashIcon';
+import TrashIcon from '../icon/TrashIcon';
 import { IconShare } from '@tabler/icons-react';
 
 interface TBBoardActionButton extends React.HTMLAttributes<HTMLButtonElement> {

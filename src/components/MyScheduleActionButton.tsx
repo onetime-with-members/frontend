@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
-import EditIcon from './EditIcon';
-import TrashIcon from './TrashIcon';
+import EditIcon from './icon/EditIcon';
+import TrashIcon from './icon/TrashIcon';
 
 interface MyScheduleActionButtonProps
   extends React.HTMLAttributes<HTMLButtonElement> {

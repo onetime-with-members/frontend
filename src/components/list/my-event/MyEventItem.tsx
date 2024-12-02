@@ -20,7 +20,7 @@ export default function MyEventItem({ event }: MyEventItemProps) {
     <li>
       <Link
         to={`/events/${event.event_id}`}
-        className="flex flex-col gap-3 rounded-2xl bg-gray-00 p-5"
+        className="flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5"
       >
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-1 text-gray-30 text-sm-200">

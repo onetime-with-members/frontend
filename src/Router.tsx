@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import AuthLayout from './layouts/AuthLayout';
 import Layout from './layouts/Layout';
+import MyPageLayout from './layouts/MyPageLayout';
 import EventCreate from './pages/EventCreate';
 import EventDetail from './pages/EventDetail';
 import EventDetailRedirect from './pages/EventDetailRedirect';
@@ -57,37 +58,33 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'mypage',
+            element: <MyPageLayout />,
             children: [
               {
                 path: 'events',
                 element: <MyEvents />,
               },
               {
-                path: 'schedules',
-                element: <MySchedules />,
-              },
-              {
-                path: 'schedules/new',
-                element: <MyScheduleCreate />,
-              },
-              {
-                path: 'schedules/:myScheduleId/edit',
-                element: <MyScheduleEdit />,
+                path: 'profile',
+                element: <ProfilePage />,
               },
             ],
           },
           {
-            path: 'mypage/profile',
-            children: [
-              {
-                path: '',
-                element: <ProfilePage />,
-              },
-              {
-                path: 'edit',
-                element: <ProfileEdit />,
-              },
-            ],
+            path: 'mypage/schedules',
+            element: <MySchedules />,
+          },
+          {
+            path: 'mypage/schedules/new',
+            element: <MyScheduleCreate />,
+          },
+          {
+            path: 'mypage/schedules/:myScheduleId/edit',
+            element: <MyScheduleEdit />,
+          },
+          {
+            path: 'mypage/profile/edit',
+            element: <ProfileEdit />,
           },
           {
             path: 'withdraw',
