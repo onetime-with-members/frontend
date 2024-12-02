@@ -1,12 +1,5 @@
 import MyEventList from '../components/list/my-event/MyEventList';
 
 export default function MyEvents() {
-  return (
-    <>
-      <MyEventList />
-      <MyEventList />
-      <MyEventList />
-      <MyEventList />
-    </>
-  );
+  return <MyEventList />;
 }

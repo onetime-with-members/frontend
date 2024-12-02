@@ -1,13 +1,33 @@
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
+import axios from '../api/axios';
 import logo from '../assets/logo-auth.svg';
 import NavBar from '../components/NavBar';
 import SocialLoginButton from '../components/button/SocialLoginButton';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Login() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+
+  const { data, isError } = useQuery({
+    queryKey: ['users', 'profile'],
+    queryFn: async () => {
+      const res = await axios.get('/users/profile');
+      return res.data;
+    },
+    enabled: !!(
+      localStorage.getItem('access-token') &&
+      localStorage.getItem('refresh-token')
+    ),
+  });
+
+  useEffect(() => {
+    if (data) {
+      navigate('/');
+    }
+  }, [data, isError]);
 
   useEffect(() => {
     const registerToken = searchParams.get('register_token');
