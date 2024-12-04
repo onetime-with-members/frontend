@@ -50,6 +50,11 @@ export default function NicknameFormScreen({
       setName(value.name);
       setPage(page + 1);
     },
+    onError: () => {
+      const redirectUrl = localStorage.getItem('redirect-url');
+
+      navigate(`/login?redirect_url=${redirectUrl}`);
+    },
   });
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
