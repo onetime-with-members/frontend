@@ -198,7 +198,10 @@ export default function EventDetail() {
               },
             )}
           >
-            <Button className="w-full max-w-screen-sm">
+            <Button
+              className="w-full max-w-screen-sm"
+              onClick={handleFloatingButtonClick}
+            >
               <span className="flex items-center justify-center gap-1">
                 <span>스케줄 추가</span>
                 <span>
