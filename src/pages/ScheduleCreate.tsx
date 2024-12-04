@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import MemberLoginScreen from '../components/screen/schedule-create/MemberLoginScreen';
 import ScheduleFormScreen from '../components/screen/schedule-create/ScheduleFormScreen';
+import { FooterContext } from '../contexts/FooterContext';
 import { GuestValue } from '../types/guest.type';
 import { Schedule } from '../types/schedule.type';
 import { IconChevronLeft } from '@tabler/icons-react';
@@ -25,8 +26,11 @@ export default function ScheduleCreate() {
     },
   ]);
 
-  const params = useParams<{ eventId: string }>();
+  const footerContext = useContext(FooterContext);
 
+  const { setIsFooterVisible } = footerContext;
+
+  const params = useParams<{ eventId: string }>();
   const navigate = useNavigate();
 
   function handleBackButtonClick() {
@@ -40,6 +44,14 @@ export default function ScheduleCreate() {
       }
     }
   }
+
+  useEffect(() => {
+    setIsFooterVisible(false);
+
+    return () => {
+      setIsFooterVisible(true);
+    };
+  });
 
   return (
     <>

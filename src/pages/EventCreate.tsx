@@ -98,7 +98,7 @@ export default function EventCreate() {
               <Button
                 onClick={handleSubmit}
                 disabled={disabled}
-                variant="black"
+                variant="primary"
               >
                 이벤트 생성하기
               </Button>

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 import MyTimeBlockBoard from '../components/MyTimeBlockBoard';
 import MyScheduleDeleteAlert from '../components/alert/MyScheduleDeleteAlert';
-import BlackFloatingBottomButton from '../components/floating-button/BlackFloatingBottomButton';
+import BadgeFloatingBottomButton from '../components/floating-button/BadgeFloatingBottomButton';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -103,7 +103,8 @@ export default function MySchedules() {
               handleEditButtonClick={handleMyScheduleEdit}
               setSelectedTimeBlockName={setSelectedTimeBlockName}
             />
-            <BlackFloatingBottomButton
+            <BadgeFloatingBottomButton
+              variant="black"
               name="스케줄 추가"
               onClick={handleFloatingButtonClick}
             />

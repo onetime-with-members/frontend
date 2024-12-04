@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import clsx from 'clsx';
+import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -8,12 +9,17 @@ import EventDeleteAlert from '../components/alert/EventDeleteAlert';
 import LoginAlert from '../components/alert/LoginAlert';
 import TopBannerList from '../components/banner/banner-list/TopBannerList';
 import EmptyEventBanner from '../components/banner/empty-event/EmptyEventBanner';
-import BlackFloatingBottomButton from '../components/floating-button/BlackFloatingBottomButton';
+import BlackBadgeButton from '../components/button/BlackBadgeButton';
+import Button from '../components/button/Button';
+import BadgeFloatingBottomButton from '../components/floating-button/BadgeFloatingBottomButton';
+import FloatingBottomButton from '../components/floating-button/FloatingBottomButton';
 import SharePopUp from '../components/pop-up/SharePopUp';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
+import { FooterContext } from '../contexts/FooterContext';
 import { EventType } from '../types/event.type';
 import { RecommendSchedule, Schedule } from '../types/schedule.type';
 import { sortWeekdayList } from '../utils/weekday';
+import { IconPlus } from '@tabler/icons-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function EventDetail() {
@@ -110,6 +116,29 @@ export default function EventDetail() {
     deleteEvent.mutate();
   }
 
+  const [isFooterShown, setIsFooterShown] = useState(false);
+
+  const { footerRef } = useContext(FooterContext);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterShown(entry.isIntersecting);
+      },
+      { threshold: 0 },
+    );
+
+    if (footerRef && footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => {
+      if (footerRef && footerRef.current) {
+        observer.unobserve(footerRef.current);
+      }
+    };
+  }, [footerRef]);
+
   if (
     isEventPending ||
     isSchedulePending ||
@@ -137,7 +166,7 @@ export default function EventDetail() {
           </div>
         </div>
         <div className="mx-auto mt-4 w-full max-w-screen-sm px-4">
-          <main className="mb-28">
+          <main className="pb-16">
             <div className="flex flex-col gap-10">
               <TimeBlockBoard
                 event={event}
@@ -160,12 +189,34 @@ export default function EventDetail() {
                 />
               )}
             </div>
-            <BlackFloatingBottomButton
-              name="스케줄 등록"
-              onClick={handleFloatingButtonClick}
-            />
           </main>
         </div>
+        <>
+          <div
+            className={clsx(
+              'fixed bottom-0 flex w-full items-center justify-center bg-gray-00 px-4 pb-6 pt-4 duration-150 md:hidden',
+              {
+                'pointer-events-none opacity-0': isFooterShown,
+              },
+            )}
+          >
+            <Button variant="secondary" className="w-full max-w-screen-sm">
+              <span className="flex items-center justify-center gap-1">
+                <span>스케줄 추가</span>
+                <span>
+                  <IconPlus size={24} />
+                </span>
+              </span>
+            </Button>
+          </div>
+          <BadgeFloatingBottomButton
+            name="스케줄 추가"
+            onClick={handleFloatingButtonClick}
+            className={clsx('hidden duration-150 md:block', {
+              'pointer-events-none opacity-0': isFooterShown,
+            })}
+          />
+        </>
       </div>
       {isSharePopUpOpen && (
         <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />

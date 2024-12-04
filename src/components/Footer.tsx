@@ -1,9 +1,24 @@
+import { useContext, useEffect, useRef } from 'react';
+
 import logoWhite from '../assets/logo-white.svg';
+import { FooterContext } from '../contexts/FooterContext';
 import { IconBrandInstagram } from '@tabler/icons-react';
 
 export default function Footer() {
+  const footerRef = useRef<HTMLDivElement>(null);
+
+  const footerContext = useContext(FooterContext);
+
+  const { setFooterRef } = footerContext;
+
+  useEffect(() => {
+    if (footerRef && footerRef.current) {
+      setFooterRef(footerRef);
+    }
+  }, [footerRef]);
+
   return (
-    <footer className="bg-gray-80 px-4 pb-10 pt-8">
+    <footer ref={footerRef} className="bg-gray-80 px-4 pb-10 pt-8">
       <div className="mx-auto flex max-w-screen-sm flex-col gap-2">
         <div className="flex items-center justify-between">
           <div>
