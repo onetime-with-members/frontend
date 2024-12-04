@@ -192,7 +192,7 @@ export default function EventDetail() {
         <>
           <div
             className={clsx(
-              'fixed bottom-0 flex w-full items-center justify-center bg-gray-00 px-4 pb-6 pt-4 duration-150 md:hidden',
+              'fixed bottom-0 flex w-full items-center justify-center bg-gray-00 p-4 duration-150 md:hidden',
               {
                 'pointer-events-none opacity-0': isFooterShown,
               },
