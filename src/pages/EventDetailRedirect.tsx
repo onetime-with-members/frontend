@@ -6,6 +6,8 @@ import { useMutation } from '@tanstack/react-query';
 export default function EventDetailRedirect() {
   const navigate = useNavigate();
 
+  const accessToken = localStorage.getItem('access-token');
+
   const extendShortenUrl = useMutation({
     mutationFn: async () => {
       const res = await fetch(
@@ -14,6 +16,7 @@ export default function EventDetailRedirect() {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
           },
           body: JSON.stringify({
             shorten_url: window.location.href,

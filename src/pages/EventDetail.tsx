@@ -29,6 +29,8 @@ export default function EventDetail() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+  const accessToken = localStorage.getItem('access-token');
+
   const { isPending: isEventPending, data: eventData } = useQuery({
     queryKey: ['events', params.eventId],
     queryFn: async () => {
@@ -38,7 +40,7 @@ export default function EventDetail() {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+            ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
           },
         },
       );
