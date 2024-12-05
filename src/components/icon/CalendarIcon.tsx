@@ -37,14 +37,14 @@ export default function CalendarIcon({
         <path
           d="M5 7L13 7"
           stroke={innerFill}
-          stroke-width="2"
-          stroke-linecap="round"
+          strokeWidth="2"
+          strokeLinecap="round"
         />
         <path
           d="M4 3V1M14 3V1"
           stroke={fill}
-          stroke-width="2"
-          stroke-linecap="round"
+          strokeWidth="2"
+          strokeLinecap="round"
         />
       </svg>
     </div>

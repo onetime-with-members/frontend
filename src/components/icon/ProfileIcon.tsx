@@ -39,8 +39,8 @@ export default function ProfileIcon({
         <g mask="url(#mask0_1413_1215)">
           <circle cx="10" cy="7.65887" r="3.83416" fill={innerFill} />
           <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
+            fillRule="evenodd"
+            clipRule="evenodd"
             d="M3.86536 19.4385C3.86542 15.6269 6.49454 12.5371 10 12.5371C13.5055 12.5371 16.1346 15.6269 16.1347 19.4385H16.1347V20.5688H3.86536V19.4386C3.86536 19.4386 3.86536 19.4385 3.86536 19.4385Z"
             fill={innerFill}
           />

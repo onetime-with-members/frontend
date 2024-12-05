@@ -56,17 +56,17 @@ export default function MyPageLayout() {
             </div>
           </nav>
         </header>
-        <main className="px-4">
+        <main className="px-4 pb-20">
           <Outlet />
         </main>
       </div>
       {/* 데스크탑 */}
       <div className="hidden min-h-screen flex-col md:flex">
         <NavBar />
-        <main className="flex w-full flex-1">
+        <div className="flex w-full flex-1">
           <div className="flex w-full flex-col px-4">
             <div className="mx-auto flex w-full max-w-screen-md gap-4 min-[850px]:gap-10">
-              <div className="border-l border-r border-gray-10 px-5 py-7">
+              <nav className="border-l border-r border-gray-10 px-5 py-7">
                 <ul className="flex flex-col gap-3">
                   <SideTabItem
                     to={'/mypage/events'}
@@ -103,16 +103,16 @@ export default function MyPageLayout() {
                     마이페이지
                   </SideTabItem>
                 </ul>
-              </div>
-              <div className="flex max-h-screen flex-1 flex-col gap-4 py-10">
+              </nav>
+              <main className="flex max-h-screen flex-1 flex-col gap-4 py-10 pb-20">
                 <h1 className="text-[1.75rem] font-semibold">{pageTitle}</h1>
                 <div className="scrollbar-hidden flex-1 overflow-y-auto">
                   <Outlet />
                 </div>
-              </div>
+              </main>
             </div>
           </div>
-        </main>
+        </div>
       </div>
     </>
   );
