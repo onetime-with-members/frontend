@@ -28,9 +28,7 @@ export default function TBBoardActionButton({
         {mode === 'share' ? (
           <IconShare size={16} />
         ) : (
-          mode === 'delete' && (
-            <TrashIcon fill="#DD3C6C" innerFill="#FFFFFF" size={16} />
-          )
+          mode === 'delete' && <TrashIcon fill="#DD3C6C" innerFill="#FFFFFF" />
         )}
       </span>
       <span>{mode === 'share' ? '공유' : mode === 'delete' && '삭제'}</span>
