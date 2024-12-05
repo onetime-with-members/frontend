@@ -1,22 +1,14 @@
 interface ProfileIconProps {
-  size?: number;
   fill?: string;
   innerFill?: string;
 }
 
 export default function ProfileIcon({
-  size = 24,
   fill = '#4C65E5',
   innerFill = '#FFFFFF',
 }: ProfileIconProps) {
   return (
-    <div
-      className="flex items-center justify-center"
-      style={{
-        width: `${size}px`,
-        height: `${size}px`,
-      }}
-    >
+    <span className="flex h-[24px] w-[24px] items-center justify-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="20"
@@ -46,6 +38,6 @@ export default function ProfileIcon({
           />
         </g>
       </svg>
-    </div>
+    </span>
   );
 }

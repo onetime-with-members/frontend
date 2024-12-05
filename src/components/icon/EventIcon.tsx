@@ -1,20 +1,18 @@
 interface EventIconProps {
-  size?: number;
   fill?: string;
   innerFill?: string;
 }
 
 export default function EventIcon({
-  size = 24,
   fill = '#4C65E5',
   innerFill = '#FFFFFF',
 }: EventIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={`${size}`}
-      height={`${size}`}
-      viewBox={`0 0 ${size} ${size}`}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
       fill="none"
     >
       <rect
