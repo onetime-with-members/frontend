@@ -69,10 +69,14 @@ export default function NavBar({ overlay = false }: NavBarProps) {
     <nav className="flex h-[4rem] w-full items-center">
       <div
         className={clsx(
-          'fixed left-0 top-0 z-[9999] h-[4rem] w-full p-4 duration-150',
+          'fixed left-0 top-0 h-[4rem] w-full p-4 duration-150',
           {
             'bg-gray-00 text-gray-80': !isNavBackground,
             'bg-gray-00 text-gray-80 shadow-lg': isNavBackground,
+          },
+          {
+            'z-[9999]': overlay,
+            'z-40': !overlay,
           },
         )}
       >
