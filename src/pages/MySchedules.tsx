@@ -16,9 +16,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 export default function MySchedules() {
   const [isMyScheduleDeleteAlertOpen, setIsMyScheduleDeleteAlertOpen] =
     useState(false);
-  const [selectedTimeBlockName, setSelectedTimeBlockName] = useState<
-    string | null
-  >(null);
   const [viewMode, setViewMode] = useState<'timeblock' | 'list'>('timeblock');
 
   const { selectedTimeBlockId, setSelectedTimeBlockId, selectedTimeBlock } =
@@ -46,7 +43,6 @@ export default function MySchedules() {
       queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
       setIsMyScheduleDeleteAlertOpen(false);
       setSelectedTimeBlockId(null);
-      setSelectedTimeBlockName(null);
     },
   });
 
@@ -90,6 +86,12 @@ export default function MySchedules() {
     window.scrollTo(0, 0);
   }, [viewMode]);
 
+  useEffect(() => {
+    return () => {
+      setSelectedTimeBlockId(null);
+    };
+  }, []);
+
   return (
     <>
       <div>
@@ -130,7 +132,6 @@ export default function MySchedules() {
                   <MyTimeBlockBoard
                     mode="view"
                     mySchedules={mySchedules}
-                    setSelectedTimeBlockName={setSelectedTimeBlockName}
                     className="pt-3"
                   />
                 ),
@@ -151,7 +152,6 @@ export default function MySchedules() {
           onCancel={handleMyScheduleDeleteAlertClose}
           onClose={handleMyScheduleDeleteAlertClose}
           isDeleteLoading={deleteMySchedule.isPending}
-          myScheduleName={selectedTimeBlockName || ''}
         />
       )}
       {selectedTimeBlockId !== null && (

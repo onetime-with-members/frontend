@@ -2,11 +2,9 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
-import axios from '../api/axios';
 import { MyScheduleContext } from '../contexts/MyScheduleContext';
 import { MyNewSchedule, MySchedule } from '../types/schedule.type';
 import { getBlockTimeList, getLabelTimeList } from '../utils/time-block';
-import { useQuery } from '@tanstack/react-query';
 
 interface MyTimeBlockBoard {
   mode: 'view' | 'create' | 'edit';
@@ -14,9 +12,6 @@ interface MyTimeBlockBoard {
   setMyNewSchedule?: (newSchedule: MyNewSchedule['schedules']) => void;
   handleDeleteButtonClick?: () => void;
   handleEditButtonClick?: () => void;
-  setSelectedTimeBlockName?: React.Dispatch<
-    React.SetStateAction<string | null>
-  >;
   editedScheduleId?: number;
   className?: string;
 }
@@ -25,7 +20,6 @@ export default function MyTimeBlockBoard({
   mode,
   mySchedules,
   setMyNewSchedule,
-  setSelectedTimeBlockName,
   editedScheduleId = -1,
   className,
 }: MyTimeBlockBoard) {
@@ -65,17 +59,6 @@ export default function MyTimeBlockBoard({
   const labelTimeList = getLabelTimeList('00:00', '24:00', '1h');
 
   const editedId = mode === 'edit' ? editedScheduleId : -1;
-
-  const { data } = useQuery({
-    queryKey: ['fixed-schedules', selectedTimeBlockId],
-    queryFn: async () => {
-      const res = await axios.get(`/fixed-schedules/${selectedTimeBlockId}`);
-      return res.data;
-    },
-    enabled: mode === 'view' && selectedTimeBlockId !== null,
-  });
-
-  const selectedTimeBlock = data?.payload;
 
   function changeTimeBlock(
     weekday: string,
@@ -359,12 +342,6 @@ export default function MyTimeBlockBoard({
       ),
     );
   }, [mySchedules]);
-
-  useEffect(() => {
-    if (selectedTimeBlock && setSelectedTimeBlockName) {
-      setSelectedTimeBlockName(selectedTimeBlock.title);
-    }
-  }, [selectedTimeBlock]);
 
   return (
     <div className={className}>

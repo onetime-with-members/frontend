@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import axios from '../api/axios';
 import { MyScheduleDetail } from '../types/schedule.type';
@@ -24,6 +24,8 @@ export function MyScheduleContextProvider({
   const [selectedTimeBlockId, setSelectedTimeBlockId] = useState<number | null>(
     null,
   );
+  const [selectedTimeBlock, setSelectedTimeBlock] =
+    useState<MyScheduleDetail | null>(null);
 
   const { data } = useQuery({
     queryKey: ['fixed-schedules', selectedTimeBlockId],
@@ -34,7 +36,13 @@ export function MyScheduleContextProvider({
     enabled: selectedTimeBlockId !== null,
   });
 
-  const selectedTimeBlock = data?.payload;
+  useEffect(() => {
+    if (data && selectedTimeBlockId !== null) {
+      setSelectedTimeBlock(data.payload);
+    } else {
+      setSelectedTimeBlock(null);
+    }
+  }, [data, selectedTimeBlockId]);
 
   return (
     <MyScheduleContext.Provider
