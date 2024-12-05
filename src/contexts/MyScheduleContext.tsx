@@ -8,12 +8,16 @@ interface MyScheduleContextType {
   selectedTimeBlockId: number | null;
   setSelectedTimeBlockId: React.Dispatch<React.SetStateAction<number | null>>;
   selectedTimeBlock: MyScheduleDetail | null;
+  viewMode: 'timeblock' | 'list';
+  setViewMode: React.Dispatch<React.SetStateAction<'timeblock' | 'list'>>;
 }
 
 export const MyScheduleContext = createContext<MyScheduleContextType>({
   selectedTimeBlockId: null,
   setSelectedTimeBlockId: () => {},
   selectedTimeBlock: null,
+  viewMode: 'timeblock',
+  setViewMode: () => {},
 });
 
 export function MyScheduleContextProvider({
@@ -26,6 +30,7 @@ export function MyScheduleContextProvider({
   );
   const [selectedTimeBlock, setSelectedTimeBlock] =
     useState<MyScheduleDetail | null>(null);
+  const [viewMode, setViewMode] = useState<'timeblock' | 'list'>('timeblock');
 
   const { data } = useQuery({
     queryKey: ['fixed-schedules', selectedTimeBlockId],
@@ -46,7 +51,13 @@ export function MyScheduleContextProvider({
 
   return (
     <MyScheduleContext.Provider
-      value={{ selectedTimeBlockId, setSelectedTimeBlockId, selectedTimeBlock }}
+      value={{
+        selectedTimeBlockId,
+        setSelectedTimeBlockId,
+        selectedTimeBlock,
+        viewMode,
+        setViewMode,
+      }}
     >
       {children}
     </MyScheduleContext.Provider>

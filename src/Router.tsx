@@ -70,11 +70,11 @@ const router = createBrowserRouter([
                 path: 'profile',
                 element: <ProfilePage />,
               },
+              {
+                path: 'schedules',
+                element: <MySchedules />,
+              },
             ],
-          },
-          {
-            path: 'mypage/schedules',
-            element: <MySchedules />,
           },
           {
             path: 'mypage/schedules/new',

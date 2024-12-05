@@ -1,5 +1,6 @@
 import { FooterContextProvider } from './FooterContext';
 import { MyScheduleContextProvider } from './MyScheduleContext';
+import { ScrollContextProvider } from './ScrollContext';
 
 interface ContextProvidersProps {
   children: React.ReactNode;
@@ -8,7 +9,9 @@ interface ContextProvidersProps {
 export default function ContextProviders({ children }: ContextProvidersProps) {
   return (
     <FooterContextProvider>
-      <MyScheduleContextProvider>{children}</MyScheduleContextProvider>
+      <MyScheduleContextProvider>
+        <ScrollContextProvider>{children}</ScrollContextProvider>
+      </MyScheduleContextProvider>
     </FooterContextProvider>
   );
 }
