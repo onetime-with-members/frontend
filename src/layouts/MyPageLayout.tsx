@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { useContext, useEffect, useRef, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import NavBar from '../components/NavBar';
@@ -80,6 +81,9 @@ export default function MyPageLayout() {
 
   return (
     <>
+      <Helmet>
+        <title>마이페이지 | OneTime</title>
+      </Helmet>
       {/* 모바일 */}
       <div className="block md:hidden">
         <header>
