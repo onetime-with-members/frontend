@@ -199,7 +199,7 @@ export default function EventDetail() {
         <div className="mt-4 px-4">
           <div className="mx-auto w-full max-w-screen-md">
             <main className="flex gap-10 pb-16">
-              <div className="hidden flex-1 flex-col gap-10 sm:flex">
+              <div className="hidden flex-1 flex-col gap-10 md:flex">
                 {schedules.length === 0 ? (
                   <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
                 ) : (
@@ -207,6 +207,7 @@ export default function EventDetail() {
                     <ParticipantsDesktop participants={participants} />
                     <RecommendTimeDesktop
                       recommendSchedules={recommendSchedules}
+                      eventCategory={event.category}
                     />
                   </>
                 )}
@@ -226,7 +227,7 @@ export default function EventDetail() {
                       isCreator={event.event_status === 'CREATOR'}
                     />
                   </section>
-                  <section className="block sm:hidden">
+                  <section className="block md:hidden">
                     {schedules.length === 0 ? (
                       <EmptyEventBanner
                         copyEventShareLink={copyEventShareLink}

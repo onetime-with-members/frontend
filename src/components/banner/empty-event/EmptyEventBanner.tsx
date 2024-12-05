@@ -32,14 +32,14 @@ export default function EmptyEventBanner({
 
   return (
     <div className="relative mt-4 overflow-hidden rounded-2xl bg-gray-00 px-6 py-5">
-      <span className="text-lg-300 leading-6 text-primary-50">
+      <span className="leading-6 text-primary-50 text-lg-300 md:text-md-300">
         링크를 공유하고
         <br />
         맞는 시간을 찾으세요!
       </span>
       <button
         className={clsx(
-          'text-sm-300 mt-3 flex items-center gap-1 rounded-full px-3 py-2',
+          'mt-3 flex items-center gap-1 rounded-full px-3 py-2 text-sm-300',
           {
             'bg-primary-40 text-gray-00': isCopied,
             'bg-primary-00 text-primary-50': !isCopied,

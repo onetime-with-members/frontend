@@ -51,7 +51,6 @@ export default function RecommendTime({
           >
             {isAllMembersAvailable ? '모두가 되는 시간' : '가장 많이 되는 시간'}
           </span>
-
           <IconChevronRight
             size={24}
             className={clsx({
@@ -61,7 +60,7 @@ export default function RecommendTime({
           />
         </div>
         <div
-          className={clsx('text-md-300 sm:text-lg-300 mt-2 rounded-2xl p-4', {
+          className={clsx('mt-2 rounded-2xl p-4 text-md-300 sm:text-lg-300', {
             'bg-gray-00 text-success-60': isAllMembersAvailable,
             'bg-primary-00 text-primary-50': !isAllMembersAvailable,
           })}

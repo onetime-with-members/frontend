@@ -1,13 +1,18 @@
+import dayjs from 'dayjs';
+
+import { EventType } from '../../../types/event.type';
 import { RecommendSchedule } from '../../../types/schedule.type';
 import MemberBadge from '../../MemberBadge';
 import ClockIcon from '../../icon/ClockIcon';
 
 interface RecommendTimeDesktopProps {
   recommendSchedules: RecommendSchedule[];
+  eventCategory: EventType['category'];
 }
 
 export default function RecommendTimeDesktop({
   recommendSchedules,
+  eventCategory,
 }: RecommendTimeDesktopProps) {
   return (
     <section className="flex flex-col gap-2">
@@ -23,6 +28,12 @@ export default function RecommendTimeDesktop({
                 <ClockIcon />
               </div>
               <div className="flex-1 text-primary-50 text-lg-300">
+                {eventCategory === 'DATE'
+                  ? dayjs(recommendSchedule.time_point, 'YYYY.MM.DD').format(
+                      'YYYY.MM.DD (dd)',
+                    )
+                  : `${recommendSchedule.time_point}요일`}
+                &nbsp;
                 {recommendSchedule.start_time} - {recommendSchedule.end_time}
               </div>
             </div>
