@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
 import NavBar from '../components/NavBar';
@@ -11,6 +11,7 @@ import TopBannerList from '../components/banner/banner-list/TopBannerList';
 import EmptyEventBanner from '../components/banner/empty-event/EmptyEventBanner';
 import Button from '../components/button/Button';
 import BadgeFloatingBottomButton from '../components/floating-button/BadgeFloatingBottomButton';
+import PenIcon from '../components/icon/PenIcon';
 import SharePopUp from '../components/pop-up/SharePopUp';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { FooterContext } from '../contexts/FooterContext';
@@ -178,38 +179,43 @@ export default function EventDetail() {
         <div>
           <NavBar />
           <div className="rounded-t-3xl bg-primary-40 px-6 py-4">
-            <header className="mx-auto max-w-screen-sm">
+            <header className="mx-auto flex max-w-screen-sm items-center justify-between">
               <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-sm-300">
                 {event.title}
               </h1>
+              <Link to={`/events/${params.eventId}/edit`}>
+                <PenIcon />
+              </Link>
             </header>
           </div>
         </div>
-        <div className="mx-auto mt-4 w-full max-w-screen-sm px-4">
-          <main className="pb-16">
-            <div className="flex flex-col gap-10">
-              <TimeBlockBoard
-                event={event}
-                schedules={schedules}
-                backgroundColor="white"
-                topAction={true}
-                topActionOnClick={{
-                  share: handleShareButtonClick,
-                  delete: handleEventDeleteALertOpen,
-                }}
-                isCreator={event.event_status === 'CREATOR'}
-              />
-              {schedules.length === 0 ? (
-                <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
-              ) : (
-                <TopBannerList
-                  eventCategory={event.category}
-                  recommendSchedules={recommendSchedules}
-                  participants={participants}
+        <div className="mt-4 px-4">
+          <div className="mx-auto w-full max-w-screen-sm">
+            <main className="pb-16">
+              <div className="flex flex-col gap-10">
+                <TimeBlockBoard
+                  event={event}
+                  schedules={schedules}
+                  backgroundColor="white"
+                  topAction={true}
+                  topActionOnClick={{
+                    share: handleShareButtonClick,
+                    delete: handleEventDeleteALertOpen,
+                  }}
+                  isCreator={event.event_status === 'CREATOR'}
                 />
-              )}
-            </div>
-          </main>
+                {schedules.length === 0 ? (
+                  <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
+                ) : (
+                  <TopBannerList
+                    eventCategory={event.category}
+                    recommendSchedules={recommendSchedules}
+                    participants={participants}
+                  />
+                )}
+              </div>
+            </main>
+          </div>
         </div>
         <>
           <div

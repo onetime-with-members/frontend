@@ -6,6 +6,7 @@ import MyPageLayout from './layouts/MyPageLayout';
 import EventCreate from './pages/EventCreate';
 import EventDetail from './pages/EventDetail';
 import EventDetailRedirect from './pages/EventDetailRedirect';
+import EventEdit from './pages/EventEdit';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import MyEvents from './pages/MyEvents';
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
           {
             path: 'schedules/new',
             element: <ScheduleCreate />,
+          },
+          {
+            path: 'edit',
+            element: <EventEdit />,
           },
         ],
       },
