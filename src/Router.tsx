@@ -12,6 +12,8 @@ import MyEvents from './pages/MyEvents';
 import MyScheduleCreate from './pages/MyScheduleCreate';
 import MyScheduleEdit from './pages/MyScheduleEdit';
 import MySchedules from './pages/MySchedules';
+import NotFoundPage from './pages/NotFoundPage';
+import NotFoundRedirect from './pages/NotFoundRedirect';
 import Onboarding from './pages/Onboarding';
 import ProfileEdit from './pages/ProfileEdit';
 import ProfilePage from './pages/ProfilePage';
@@ -96,7 +98,15 @@ const router = createBrowserRouter([
         path: ':shortenEventId',
         element: <EventDetailRedirect />,
       },
+      {
+        path: 'not-found',
+        element: <NotFoundPage />,
+      },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFoundRedirect />,
   },
 ]);
 

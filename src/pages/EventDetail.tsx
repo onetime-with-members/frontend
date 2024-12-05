@@ -32,8 +32,28 @@ export default function EventDetail() {
   const { isPending: isEventPending, data: eventData } = useQuery({
     queryKey: ['events', params.eventId],
     queryFn: async () => {
-      const res = await axios.get(`/events/${params.eventId}`);
-      return res.data;
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_API_URL}/events/${params.eventId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('access-token')}`,
+          },
+        },
+      );
+
+      if (!res.ok) {
+        if (res.status === 400) {
+          navigate('/not-found');
+
+          throw new Error('Event not found');
+        } else {
+          throw new Error('Failed to fetch event data');
+        }
+      }
+
+      return res.json();
     },
   });
 
