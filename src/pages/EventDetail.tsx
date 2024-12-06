@@ -177,12 +177,12 @@ export default function EventDetail() {
       <Helmet>
         <title>{event.title} - OneTime</title>
       </Helmet>
-      <div className="flex flex-col gap-2 bg-gray-05">
-        <div>
-          <NavBar />
+      <div className="flex flex-col">
+        <NavBar />
+        <div className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6">
           <div className="rounded-t-3xl bg-primary-40 px-6 py-4">
             <header className="mx-auto flex max-w-screen-md items-center justify-between">
-              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-sm-300">
+              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-lg-300">
                 {event.title}
               </h1>
               {event.event_status === 'CREATOR' && (
@@ -195,54 +195,54 @@ export default function EventDetail() {
               )}
             </header>
           </div>
-        </div>
-        <div className="mt-4 px-4">
-          <div className="mx-auto w-full max-w-screen-md">
-            <main className="flex gap-10 pb-16">
-              <div className="hidden flex-1 flex-col gap-10 md:flex">
-                {schedules.length === 0 ? (
-                  <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
-                ) : (
-                  <>
-                    <ParticipantsDesktop participants={participants} />
-                    <RecommendTimeDesktop
-                      recommendSchedules={recommendSchedules}
-                      eventCategory={event.category}
-                    />
-                  </>
-                )}
-              </div>
-              <div className="flex-1">
-                <div className="flex flex-col gap-10">
-                  <section>
-                    <TimeBlockBoard
-                      event={event}
-                      schedules={schedules}
-                      backgroundColor="white"
-                      topAction={true}
-                      topActionOnClick={{
-                        share: handleShareButtonClick,
-                        delete: handleEventDeleteALertOpen,
-                      }}
-                      isCreator={event.event_status === 'CREATOR'}
-                    />
-                  </section>
-                  <section className="block md:hidden">
-                    {schedules.length === 0 ? (
-                      <EmptyEventBanner
-                        copyEventShareLink={copyEventShareLink}
-                      />
-                    ) : (
-                      <BannerList
-                        eventCategory={event.category}
+          <div className="bg-gray-05 px-6">
+            <div className="mx-auto w-full max-w-screen-md">
+              <main className="flex gap-10 pb-16">
+                <div className="hidden flex-1 flex-col gap-10 md:flex">
+                  {schedules.length === 0 ? (
+                    <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
+                  ) : (
+                    <>
+                      <ParticipantsDesktop participants={participants} />
+                      <RecommendTimeDesktop
                         recommendSchedules={recommendSchedules}
-                        participants={participants}
+                        eventCategory={event.category}
                       />
-                    )}
-                  </section>
+                    </>
+                  )}
                 </div>
-              </div>
-            </main>
+                <div className="flex-1">
+                  <div className="flex flex-col gap-10">
+                    <section>
+                      <TimeBlockBoard
+                        event={event}
+                        schedules={schedules}
+                        backgroundColor="white"
+                        topAction={true}
+                        topActionOnClick={{
+                          share: handleShareButtonClick,
+                          delete: handleEventDeleteALertOpen,
+                        }}
+                        isCreator={event.event_status === 'CREATOR'}
+                      />
+                    </section>
+                    <section className="block md:hidden">
+                      {schedules.length === 0 ? (
+                        <EmptyEventBanner
+                          copyEventShareLink={copyEventShareLink}
+                        />
+                      ) : (
+                        <BannerList
+                          eventCategory={event.category}
+                          recommendSchedules={recommendSchedules}
+                          participants={participants}
+                        />
+                      )}
+                    </section>
+                  </div>
+                </div>
+              </main>
+            </div>
           </div>
         </div>
         <>

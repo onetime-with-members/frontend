@@ -56,14 +56,6 @@ export default function UserDashboard({ user }: UserDashboardProps) {
   }
 
   useEffect(() => {
-    document.body.style.backgroundColor = '#F6F7F8';
-
-    return () => {
-      document.body.style.backgroundColor = '';
-    };
-  }, []);
-
-  useEffect(() => {
     setIsSelectDisabled(true);
 
     return () => {
@@ -86,27 +78,23 @@ export default function UserDashboard({ user }: UserDashboardProps) {
   }
 
   return (
-    <div className="flex flex-col gap-6 pb-20">
-      <header>
-        <NavBar overlay={selectedTimeBlockId !== null} />
-        <div className="bg-primary-40 py-4 text-gray-00 lg:rounded-t-3xl">
-          <div className="px-4">
-            <div className="mx-auto flex w-full max-w-screen-md items-center justify-between gap-2">
-              <h1 className="flex-1 title-lg-300">
-                안녕하세요, {user.nickname}님
-              </h1>
-              <Link
-                to="/events/new"
-                className="hidden rounded-xl bg-primary-60 px-4 py-2 text-gray-00 lg:flex"
-              >
-                일정 생성하기
-              </Link>
-            </div>
+    <div className="flex flex-col pb-20">
+      <NavBar overlay={selectedTimeBlockId !== null} />
+      <main className="mx-auto w-full max-w-[calc(768px+2rem)]">
+        <div className="rounded-t-3xl bg-primary-40 px-6 py-4 text-gray-00">
+          <div className="mx-auto flex w-full max-w-screen-md items-center justify-between gap-2">
+            <h1 className="flex-1 title-lg-300">
+              안녕하세요, {user.nickname}님
+            </h1>
+            <Link
+              to="/events/new"
+              className="hidden rounded-xl bg-primary-60 px-4 py-2 text-gray-00 lg:flex"
+            >
+              일정 생성하기
+            </Link>
           </div>
         </div>
-      </header>
-      <main className="px-4">
-        <div className="mx-auto flex w-full max-w-screen-md flex-col gap-14">
+        <div className="flex flex-col gap-14 bg-gray-05 px-6 pt-6">
           <section className="flex flex-col gap-3">
             <header className="flex items-center justify-between">
               <h2 className="text-gray-90 title-sm-300">참여한 이벤트</h2>
