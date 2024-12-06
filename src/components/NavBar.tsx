@@ -80,9 +80,6 @@ export default function NavBar({ overlay = false }: NavBarProps) {
           },
         )}
       >
-        {overlay && (
-          <div className="absolute left-0 top-0 h-full w-full bg-gray-90 bg-opacity-30" />
-        )}
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
           <Link to="/">
             <img src={logoBlack} alt="OneTime" className="h-[2rem]" />
@@ -97,6 +94,9 @@ export default function NavBar({ overlay = false }: NavBarProps) {
             <LoginButton />
           )}
         </div>
+        {overlay && (
+          <div className="absolute left-0 top-0 h-full w-full bg-gray-90 bg-opacity-30" />
+        )}
       </div>
     </nav>
   );
