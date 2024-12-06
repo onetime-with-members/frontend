@@ -6,12 +6,15 @@ import MyPageLayout from './layouts/MyPageLayout';
 import EventCreate from './pages/EventCreate';
 import EventDetail from './pages/EventDetail';
 import EventDetailRedirect from './pages/EventDetailRedirect';
-import Landing from './pages/Landing';
+import EventEdit from './pages/EventEdit';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import MyEvents from './pages/MyEvents';
 import MyScheduleCreate from './pages/MyScheduleCreate';
 import MyScheduleEdit from './pages/MyScheduleEdit';
 import MySchedules from './pages/MySchedules';
+import NotFoundPage from './pages/NotFoundPage';
+import NotFoundRedirect from './pages/NotFoundRedirect';
 import Onboarding from './pages/Onboarding';
 import ProfileEdit from './pages/ProfileEdit';
 import ProfilePage from './pages/ProfilePage';
@@ -25,7 +28,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Landing />,
+        element: <Home />,
       },
       {
         path: 'events/new',
@@ -41,6 +44,10 @@ const router = createBrowserRouter([
           {
             path: 'schedules/new',
             element: <ScheduleCreate />,
+          },
+          {
+            path: 'edit',
+            element: <EventEdit />,
           },
         ],
       },
@@ -68,11 +75,11 @@ const router = createBrowserRouter([
                 path: 'profile',
                 element: <ProfilePage />,
               },
+              {
+                path: 'schedules',
+                element: <MySchedules />,
+              },
             ],
-          },
-          {
-            path: 'mypage/schedules',
-            element: <MySchedules />,
           },
           {
             path: 'mypage/schedules/new',
@@ -96,7 +103,15 @@ const router = createBrowserRouter([
         path: ':shortenEventId',
         element: <EventDetailRedirect />,
       },
+      {
+        path: 'not-found',
+        element: <NotFoundPage />,
+      },
     ],
+  },
+  {
+    path: '*',
+    element: <NotFoundRedirect />,
   },
 ]);
 

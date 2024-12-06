@@ -35,6 +35,23 @@ export interface MySchedule {
   }[];
 }
 
+export interface MyScheduleDetail {
+  title: string;
+  start_time: string;
+  end_time: string;
+  schedules: {
+    time_point: string;
+    times: string[];
+  }[];
+}
+
+export interface MyWeekdaySchedule {
+  id: number;
+  title: string;
+  start_time: string;
+  end_time: string;
+}
+
 export interface TimeBlockDragIndex {
   start: number;
   end: number;

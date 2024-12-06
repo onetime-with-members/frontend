@@ -1,29 +1,23 @@
 interface CalendarIconProps {
-  size?: number;
   fill?: string;
   innerFill?: string;
+  size?: number;
 }
 
 export default function CalendarIcon({
-  size = 24,
   fill,
   innerFill,
+  size = 18,
 }: CalendarIconProps) {
   return (
-    <div
+    <span
       className="flex items-center justify-center"
       style={{
-        width: `${size}px`,
-        height: `${size}px`,
+        width: size,
+        height: size,
       }}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="18"
-        height="19"
-        viewBox="0 0 18 19"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 19" fill="none">
         <rect
           x="1"
           y="3"
@@ -47,6 +41,6 @@ export default function CalendarIcon({
           strokeLinecap="round"
         />
       </svg>
-    </div>
+    </span>
   );
 }

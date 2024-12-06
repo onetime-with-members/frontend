@@ -1,29 +1,23 @@
 interface ProfileIconProps {
-  size?: number;
   fill?: string;
   innerFill?: string;
+  size?: number;
 }
 
 export default function ProfileIcon({
-  size = 24,
   fill = '#4C65E5',
   innerFill = '#FFFFFF',
+  size = 20,
 }: ProfileIconProps) {
   return (
-    <div
+    <span
       className="flex items-center justify-center"
       style={{
-        width: `${size}px`,
-        height: `${size}px`,
+        width: size,
+        height: size,
       }}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none">
         <circle cx="10" cy="10" r="10" fill={fill} />
         <mask
           id="mask0_1413_1215"
@@ -46,6 +40,6 @@ export default function ProfileIcon({
           />
         </g>
       </svg>
-    </div>
+    </span>
   );
 }

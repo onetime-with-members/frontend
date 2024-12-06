@@ -27,9 +27,9 @@ export default function MyScheduleActionButton({
     >
       <span>
         {action === 'delete' ? (
-          <TrashIcon fill="#DD3C6C" innerFill="#FBE9EF" />
+          <TrashIcon size={20} fill="#DD3C6C" innerFill="#FBE9EF" />
         ) : (
-          <EditIcon fill="#5D6279" />
+          <EditIcon size={20} fill="#5D6279" />
         )}
       </span>
       <span>{action === 'edit' ? '수정' : '삭제'}</span>

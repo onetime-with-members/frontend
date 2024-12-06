@@ -1,16 +1,19 @@
 import clsx from 'clsx';
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import axios from '../api/axios';
 import NavBar from '../components/NavBar';
 import EventDeleteAlert from '../components/alert/EventDeleteAlert';
 import LoginAlert from '../components/alert/LoginAlert';
-import TopBannerList from '../components/banner/banner-list/TopBannerList';
+import BannerList from '../components/banner/banner-list/BannerList';
 import EmptyEventBanner from '../components/banner/empty-event/EmptyEventBanner';
+import ParticipantsDesktop from '../components/banner/participants/ParticipantsDesktop';
+import RecommendTimeDesktop from '../components/banner/recommend-time/RecommendTimeDesktop';
 import Button from '../components/button/Button';
 import BadgeFloatingBottomButton from '../components/floating-button/BadgeFloatingBottomButton';
+import PenIcon from '../components/icon/PenIcon';
 import SharePopUp from '../components/pop-up/SharePopUp';
 import TimeBlockBoard from '../components/time-block/TimeBlockBoard';
 import { FooterContext } from '../contexts/FooterContext';
@@ -29,11 +32,33 @@ export default function EventDetail() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+  const accessToken = localStorage.getItem('access-token');
+
   const { isPending: isEventPending, data: eventData } = useQuery({
     queryKey: ['events', params.eventId],
     queryFn: async () => {
-      const res = await axios.get(`/events/${params.eventId}`);
-      return res.data;
+      const res = await fetch(
+        `${import.meta.env.VITE_SERVER_API_URL}/events/${params.eventId}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
+          },
+        },
+      );
+
+      if (!res.ok) {
+        if (res.status === 400) {
+          navigate('/not-found', { replace: true });
+
+          throw new Error('Event not found');
+        } else {
+          throw new Error('Failed to fetch event data');
+        }
+      }
+
+      return res.json();
     },
   });
 
@@ -156,38 +181,69 @@ export default function EventDetail() {
         <div>
           <NavBar />
           <div className="rounded-t-3xl bg-primary-40 px-6 py-4">
-            <header className="mx-auto max-w-screen-sm">
+            <header className="mx-auto flex max-w-screen-md items-center justify-between">
               <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-sm-300">
                 {event.title}
               </h1>
+              {event.event_status === 'CREATOR' && (
+                <Link
+                  to={`/events/${params.eventId}/edit`}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-60"
+                >
+                  <PenIcon />
+                </Link>
+              )}
             </header>
           </div>
         </div>
-        <div className="mx-auto mt-4 w-full max-w-screen-sm px-4">
-          <main className="pb-16">
-            <div className="flex flex-col gap-10">
-              <TimeBlockBoard
-                event={event}
-                schedules={schedules}
-                backgroundColor="white"
-                topAction={true}
-                topActionOnClick={{
-                  share: handleShareButtonClick,
-                  delete: handleEventDeleteALertOpen,
-                }}
-                isCreator={event.event_status === 'CREATOR'}
-              />
-              {schedules.length === 0 ? (
-                <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
-              ) : (
-                <TopBannerList
-                  eventCategory={event.category}
-                  recommendSchedules={recommendSchedules}
-                  participants={participants}
-                />
-              )}
-            </div>
-          </main>
+        <div className="mt-4 px-4">
+          <div className="mx-auto w-full max-w-screen-md">
+            <main className="flex gap-10 pb-16">
+              <div className="hidden flex-1 flex-col gap-10 md:flex">
+                {schedules.length === 0 ? (
+                  <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
+                ) : (
+                  <>
+                    <ParticipantsDesktop participants={participants} />
+                    <RecommendTimeDesktop
+                      recommendSchedules={recommendSchedules}
+                      eventCategory={event.category}
+                    />
+                  </>
+                )}
+              </div>
+              <div className="flex-1">
+                <div className="flex flex-col gap-10">
+                  <section>
+                    <TimeBlockBoard
+                      event={event}
+                      schedules={schedules}
+                      backgroundColor="white"
+                      topAction={true}
+                      topActionOnClick={{
+                        share: handleShareButtonClick,
+                        delete: handleEventDeleteALertOpen,
+                      }}
+                      isCreator={event.event_status === 'CREATOR'}
+                    />
+                  </section>
+                  <section className="block md:hidden">
+                    {schedules.length === 0 ? (
+                      <EmptyEventBanner
+                        copyEventShareLink={copyEventShareLink}
+                      />
+                    ) : (
+                      <BannerList
+                        eventCategory={event.category}
+                        recommendSchedules={recommendSchedules}
+                        participants={participants}
+                      />
+                    )}
+                  </section>
+                </div>
+              </div>
+            </main>
+          </div>
         </div>
         <>
           <div

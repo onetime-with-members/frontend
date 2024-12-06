@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -12,11 +13,15 @@ declare global {
 
 interface ShareKakaoButtonProps {
   event: EventType;
+  size?: number;
 }
 
 const { Kakao } = window;
 
-export default function ShareKakaoButton({ event }: ShareKakaoButtonProps) {
+export default function ShareKakaoButton({
+  event,
+  size = 48,
+}: ShareKakaoButtonProps) {
   const params = useParams<{ eventId: string }>();
 
   useEffect(() => {
@@ -52,8 +57,11 @@ export default function ShareKakaoButton({ event }: ShareKakaoButtonProps) {
 
   return (
     <button
-      className="h-12 w-12 overflow-hidden rounded-full bg-[#FFE80F] p-1.5 text-primary-40"
+      className={clsx(
+        'overflow-hidden rounded-full bg-[#FFE80F] p-1.5 text-primary-40',
+      )}
       onClick={handleClick}
+      style={{ width: size, height: size }}
     >
       <img src={kakaoIcon} alt="카카오톡 아이콘" />
     </button>

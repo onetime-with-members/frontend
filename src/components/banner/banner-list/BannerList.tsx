@@ -8,17 +8,17 @@ import Participants from '../participants/Participants';
 import RecommendTime from '../recommend-time/RecommendTime';
 import CircleArrowButton from './CircleArrowButton';
 
-interface TopBannerListProps {
+interface BannerListProps {
   eventCategory: EventType['category'];
   participants: string[];
   recommendSchedules: RecommendSchedule[];
 }
 
-export default function TopBannerList({
+export default function BannerList({
   eventCategory,
   participants,
   recommendSchedules,
-}: TopBannerListProps) {
+}: BannerListProps) {
   const [circleArrowButtonVisible, setCircleArrowButtonVisible] = useState({
     left: false,
     right: true,

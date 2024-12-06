@@ -1,45 +1,29 @@
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 
-import axios from '../api/axios';
-import { MyNewSchedule } from '../types/schedule.type';
+import { MyScheduleContext } from '../contexts/MyScheduleContext';
+import { MyNewSchedule, MySchedule } from '../types/schedule.type';
 import { getBlockTimeList, getLabelTimeList } from '../utils/time-block';
-import MyScheduleBottomSheet from './MyScheduleBottomSheet';
-import { useQuery } from '@tanstack/react-query';
 
 interface MyTimeBlockBoard {
   mode: 'view' | 'create' | 'edit';
-  mySchedules: {
-    id: number;
-    start_time: string;
-    end_time: string;
-    schedules: {
-      time_point: string;
-      times: string[];
-    }[];
-  }[];
+  mySchedules: MySchedule[];
   setMyNewSchedule?: (newSchedule: MyNewSchedule['schedules']) => void;
-  selectedTimeBlockId?: number | null;
-  setSelectedTimeBlockId?: React.Dispatch<React.SetStateAction<number | null>>;
   handleDeleteButtonClick?: () => void;
   handleEditButtonClick?: () => void;
-  setSelectedTimeBlockName?: React.Dispatch<
-    React.SetStateAction<string | null>
-  >;
   editedScheduleId?: number;
+  className?: string;
+  backgroundColor?: 'gray' | 'white';
 }
 
 export default function MyTimeBlockBoard({
   mode,
   mySchedules,
   setMyNewSchedule,
-  selectedTimeBlockId,
-  setSelectedTimeBlockId,
-  handleDeleteButtonClick,
-  handleEditButtonClick,
-  setSelectedTimeBlockName,
   editedScheduleId = -1,
+  className,
+  backgroundColor = 'gray',
 }: MyTimeBlockBoard) {
   const [timeBlockData, setTimeBlockData] = useState(
     mySchedules.flatMap((schedule) =>
@@ -70,21 +54,13 @@ export default function MyTimeBlockBoard({
     }[]
   >([]);
 
+  const { selectedTimeBlockId, setSelectedTimeBlockId, isSelectDisabled } =
+    useContext(MyScheduleContext);
+
   const timeBlockList = getBlockTimeList('00:00', '24:00', '30m');
   const labelTimeList = getLabelTimeList('00:00', '24:00', '1h');
 
   const editedId = mode === 'edit' ? editedScheduleId : -1;
-
-  const { data, isLoading } = useQuery({
-    queryKey: ['fixed-schedules', selectedTimeBlockId],
-    queryFn: async () => {
-      const res = await axios.get(`/fixed-schedules/${selectedTimeBlockId}`);
-      return res.data;
-    },
-    enabled: mode === 'view' && selectedTimeBlockId !== null,
-  });
-
-  const selectedTimeBlock = data?.payload;
 
   function changeTimeBlock(
     weekday: string,
@@ -189,11 +165,19 @@ export default function MyTimeBlockBoard({
   }
 
   function timeBlockStyle(weekday: string, time: string) {
+    const cursorStatus = isSelectDisabled ? 'cursor-default' : 'cursor-pointer';
+
     return clsx(
       'h-[3rem] last:border-b-0',
       {
-        'border-b border-gray-10 bg-gray-05 odd:border-dashed even:border-solid':
+        'border-b border-gray-10 odd:border-dashed even:border-solid':
           !isTimeBlockExist(weekday, time),
+      },
+      {
+        'bg-gray-05':
+          !isTimeBlockExist(weekday, time) && backgroundColor === 'gray',
+        'bg-gray-00':
+          !isTimeBlockExist(weekday, time) && backgroundColor === 'white',
       },
       {
         'rounded-t-lg border-t border-gray-00': isTimeBlockChunkEdge(
@@ -209,7 +193,7 @@ export default function MyTimeBlockBoard({
       },
       mode === 'view'
         ? {
-            'cursor-pointer bg-primary-40': isTimeBlockExist(weekday, time),
+            [`bg-primary-40 ${cursorStatus}`]: isTimeBlockExist(weekday, time),
             'relative z-[100] border-l-2 border-r-2 border-gray-00 bg-primary-40':
               isTimeBlockSelected(weekday, time),
             'border-t-2':
@@ -220,8 +204,8 @@ export default function MyTimeBlockBoard({
               isTimeBlockSelected(weekday, time),
           }
         : {
-            'cursor-pointer': !isTimeBlockExist(weekday, time),
-            'cursor-pointer bg-primary-40 border-gray-00':
+            [cursorStatus]: !isTimeBlockExist(weekday, time),
+            [`${cursorStatus} bg-primary-40 border-gray-00`]:
               isTimeBlockExist(weekday, time) &&
               !isTimeBlockInOtherSchedule(weekday, time),
             'bg-primary-20':
@@ -309,12 +293,6 @@ export default function MyTimeBlockBoard({
     }
   }
 
-  function handleBottomSheetClose() {
-    if (setSelectedTimeBlockId) {
-      setSelectedTimeBlockId(null);
-    }
-  }
-
   useEffect(() => {
     changeTimeBlock(
       drageStatus.weekday,
@@ -375,14 +353,8 @@ export default function MyTimeBlockBoard({
     );
   }, [mySchedules]);
 
-  useEffect(() => {
-    if (selectedTimeBlock && setSelectedTimeBlockName) {
-      setSelectedTimeBlockName(selectedTimeBlock.title);
-    }
-  }, [selectedTimeBlock]);
-
   return (
-    <>
+    <div className={className}>
       {mode === 'view' && selectedTimeBlockId !== null && (
         <div className="fixed left-0 top-0 h-screen w-screen bg-gray-90 bg-opacity-30"></div>
       )}
@@ -445,20 +417,6 @@ export default function MyTimeBlockBoard({
           ))}
         </div>
       </div>
-      {mode === 'view' && selectedTimeBlockId !== null && (
-        <MyScheduleBottomSheet
-          onClose={handleBottomSheetClose}
-          title={
-            isLoading || selectedTimeBlock === undefined
-              ? ''
-              : selectedTimeBlock.title
-          }
-          mode="view"
-          overlay={false}
-          handleDeleteButtonClick={handleDeleteButtonClick}
-          handleEditButtonClick={handleEditButtonClick}
-        />
-      )}
-    </>
+    </div>
   );
 }
