@@ -61,7 +61,7 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
   return (
     <>
       <div
-        className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-8"
+        className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
         onClick={handleSharePopUpClose}
       >
         <div
@@ -85,7 +85,7 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
                 readOnly
               />
             </div>
-            <div className="flex items-center justify-center gap-8">
+            <div className="flex items-center justify-center gap-4 min-[360px]:gap-6 xs:gap-8">
               <ShareButtonWrapper label="링크 복사">
                 <ShareBlueButton onClick={handleCopyLinkButtonClick}>
                   <IconLink size={24} />
