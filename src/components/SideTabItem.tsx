@@ -31,7 +31,9 @@ export default function SideTabItem({
         to={to}
         className="flex w-[10rem] items-center justify-start gap-2 p-3 text-md-300"
       >
-        <span className="h-[24px] w-[24px]">{icon}</span>
+        <span className="flex h-[24px] w-[24px] items-center justify-center">
+          {icon}
+        </span>
         <span>{children}</span>
       </Link>
     </li>

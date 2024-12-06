@@ -4,47 +4,46 @@ interface TrashIconProps {
 }
 
 export default function TrashIcon({
-  fill = '#1B1C23',
-  innerFill = '#FFFFFF',
+  fill = '#DD3C6C',
+  innerFill = '#FBE9EF',
 }: TrashIconProps) {
   return (
-    <svg viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <g id="Trash">
-        <path
-          id="Vector 39"
-          d="M5.5 7.5V15C5.5 16.3807 6.61929 17.5 8 17.5H13C14.3807 17.5 15.5 16.3807 15.5 15V7.5C15.5 6.11929 14.3807 5 13 5H8C6.61929 5 5.5 6.11929 5.5 7.5Z"
-          fill={fill}
-          stroke={fill}
-          strokeWidth="1.66667"
-        />
-        <path
-          id="Vector 43"
-          d="M8.83398 10V13.3333M12.1673 10V13.3333"
-          stroke={innerFill}
-          strokeWidth="1.66667"
-          strokeLinecap="round"
-        />
-        <path
-          id="Vector 40"
-          d="M8 5V4.16667C8 3.24619 8.74619 2.5 9.66667 2.5H11.3333C12.2538 2.5 13 3.24619 13 4.16667V5"
-          stroke={fill}
-          strokeWidth="1.66667"
-        />
-        <path
-          id="Vector 41"
-          d="M4.66602 5.83325L16.3327 5.83325"
-          stroke={fill}
-          strokeWidth="1.66667"
-          strokeLinecap="round"
-        />
-        <path
-          id="Vector 42"
-          d="M4.66602 5.83325V5.83325C4.66602 5.37301 5.03911 4.99992 5.49935 4.99992H15.4993C15.9596 4.99992 16.3327 5.37301 16.3327 5.83325V5.83325"
-          stroke={fill}
-          strokeWidth="1.66667"
-          strokeLinecap="round"
-        />
-      </g>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+    >
+      <path
+        d="M4 6V12C4 13.1046 4.89543 14 6 14H10C11.1046 14 12 13.1046 12 12V6C12 4.89543 11.1046 4 10 4H6C4.89543 4 4 4.89543 4 6Z"
+        fill={fill}
+        stroke={fill}
+        strokeWidth="1.33333"
+      />
+      <path
+        d="M6.66699 8V10.6667M9.33366 8V10.6667"
+        stroke={innerFill}
+        strokeWidth="1.33333"
+        strokeLinecap="round"
+      />
+      <path
+        d="M6 4V3.33333C6 2.59695 6.59695 2 7.33333 2H8.66667C9.40305 2 10 2.59695 10 3.33333V4"
+        stroke={fill}
+        strokeWidth="1.33333"
+      />
+      <path
+        d="M3.33301 4.66663L12.6663 4.66663"
+        stroke={fill}
+        strokeWidth="1.33333"
+        strokeLinecap="round"
+      />
+      <path
+        d="M3.33301 4.66663V4.66663C3.33301 4.29844 3.63148 3.99996 3.99967 3.99996H11.9997C12.3679 3.99996 12.6663 4.29844 12.6663 4.66663V4.66663"
+        stroke={fill}
+        strokeWidth="1.33333"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
