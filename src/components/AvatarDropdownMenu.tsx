@@ -27,7 +27,7 @@ export default function AvatarDropdownMenu({
         내 스케줄
       </AvatarMenuItem>
       <AvatarMenuItem href="/mypage/profile" onClick={handleMenuItemClick}>
-        마이페이지
+        프로필 정보
       </AvatarMenuItem>
       <AvatarMenuItem variant="danger" onClick={handleLogout}>
         로그아웃

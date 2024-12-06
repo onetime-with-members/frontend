@@ -19,12 +19,12 @@ import { IconChevronLeft, IconPlus } from '@tabler/icons-react';
 
 export default function MyPageLayout() {
   const [tabActive, setTabActive] = useState('');
+  const [desktopInnerContentWidth, setDesktopInnerContentWidth] = useState(0);
 
   const { selectedTimeBlockId, viewMode, setViewMode } =
     useContext(MyScheduleContext);
   const { scrollContainerRef } = useContext(ScrollContext);
   const { isFooterShown } = useContext(FooterContext);
-  const [desktopInnerContentWidth, setDesktopInnerContentWidth] = useState(0);
 
   const desktopInnerContentRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +34,7 @@ export default function MyPageLayout() {
   const pageTitle = {
     events: '참여한 이벤트',
     schedules: '내 스케줄',
-    profile: '마이페이지',
+    profile: '프로필 정보',
   }[tabActive];
 
   function handleBackButtonClick() {
@@ -173,7 +173,7 @@ export default function MyPageLayout() {
                       />
                     }
                   >
-                    마이페이지
+                    프로필 정보
                   </SideTabItem>
                 </ul>
               </nav>
