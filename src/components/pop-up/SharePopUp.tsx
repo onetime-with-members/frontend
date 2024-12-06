@@ -18,6 +18,7 @@ interface SharePopUpProps {
 
 export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
   const [currentUrl, setCurrentUrl] = useState('Loading...');
+  const [isQrCodeScreenOpen, setIsQrCodeScreenOpen] = useState(false);
 
   const urlInputRef = useRef<HTMLInputElement>(null);
 
@@ -43,6 +44,14 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
 
   function handleSharePopUpClose() {
     setIsOpen(false);
+  }
+
+  function handleQrCodeButtonClick() {
+    setIsQrCodeScreenOpen(true);
+  }
+
+  function handleQrCodeScreenClose() {
+    setIsQrCodeScreenOpen(false);
   }
 
   useEffect(() => {
@@ -83,12 +92,9 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
                 </ShareBlueButton>
               </ShareButtonWrapper>
               <ShareButtonWrapper label="QR 코드">
-                <button
-                  className="rounded-full bg-primary-00 p-3 text-primary-40"
-                  onClick={handleCopyLinkButtonClick}
-                >
+                <ShareBlueButton onClick={handleQrCodeButtonClick}>
                   <IconQrcode size={24} />
-                </button>
+                </ShareBlueButton>
               </ShareButtonWrapper>
               <ShareButtonWrapper label="카카오톡">
                 <ShareKakaoButton event={event} />
@@ -100,7 +106,11 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
           </div>
         </div>
       </div>
-      <QRCodeScreen visible={true} event={event} />
+      <QRCodeScreen
+        visible={isQrCodeScreenOpen}
+        event={event}
+        onClose={handleQrCodeScreenClose}
+      />
     </>
   );
 }

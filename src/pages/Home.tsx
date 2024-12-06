@@ -26,9 +26,7 @@ export default function Home() {
 
   if (isUserLoading) {
     renderedPage = <></>;
-  }
-
-  if (user && isLoggedIn) {
+  } else if (user && isLoggedIn) {
     renderedPage = <UserDashboard />;
   } else {
     renderedPage = <Landing />;
