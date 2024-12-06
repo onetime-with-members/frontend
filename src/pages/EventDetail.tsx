@@ -185,14 +185,14 @@ export default function EventDetail() {
               <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-sm-300">
                 {event.title}
               </h1>
-              <div className="flex items-center gap-2">
+              {event.event_status === 'CREATOR' && (
                 <Link
                   to={`/events/${params.eventId}/edit`}
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-60"
                 >
                   <PenIcon />
                 </Link>
-              </div>
+              )}
             </header>
           </div>
         </div>
