@@ -23,7 +23,7 @@ export default function MyEventList() {
 
   if (events.length === 0) {
     return (
-      <div className="flex h-full -translate-y-14 flex-col items-center justify-center gap-8">
+      <div className="flex h-full translate-y-14 flex-col items-center justify-center gap-8 md:translate-y-0 md:py-10">
         <div className="text-gray-90 text-lg-200">
           참여한 이벤트가 없습니다.
         </div>

@@ -50,7 +50,7 @@ export default function EventDetail() {
 
       if (!res.ok) {
         if (res.status === 400) {
-          navigate('/not-found');
+          navigate('/not-found', { replace: true });
 
           throw new Error('Event not found');
         } else {

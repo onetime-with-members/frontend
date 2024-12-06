@@ -7,7 +7,7 @@ import EventCreate from './pages/EventCreate';
 import EventDetail from './pages/EventDetail';
 import EventDetailRedirect from './pages/EventDetailRedirect';
 import EventEdit from './pages/EventEdit';
-import Landing from './pages/Landing';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import MyEvents from './pages/MyEvents';
 import MyScheduleCreate from './pages/MyScheduleCreate';
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Landing />,
+        element: <Home />,
       },
       {
         path: 'events/new',

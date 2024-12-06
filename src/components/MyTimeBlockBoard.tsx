@@ -14,6 +14,7 @@ interface MyTimeBlockBoard {
   handleEditButtonClick?: () => void;
   editedScheduleId?: number;
   className?: string;
+  backgroundColor?: 'gray' | 'white';
 }
 
 export default function MyTimeBlockBoard({
@@ -22,6 +23,7 @@ export default function MyTimeBlockBoard({
   setMyNewSchedule,
   editedScheduleId = -1,
   className,
+  backgroundColor = 'gray',
 }: MyTimeBlockBoard) {
   const [timeBlockData, setTimeBlockData] = useState(
     mySchedules.flatMap((schedule) =>
@@ -52,7 +54,7 @@ export default function MyTimeBlockBoard({
     }[]
   >([]);
 
-  const { selectedTimeBlockId, setSelectedTimeBlockId } =
+  const { selectedTimeBlockId, setSelectedTimeBlockId, isSelectDisabled } =
     useContext(MyScheduleContext);
 
   const timeBlockList = getBlockTimeList('00:00', '24:00', '30m');
@@ -163,11 +165,19 @@ export default function MyTimeBlockBoard({
   }
 
   function timeBlockStyle(weekday: string, time: string) {
+    const cursorStatus = isSelectDisabled ? 'cursor-default' : 'cursor-pointer';
+
     return clsx(
       'h-[3rem] last:border-b-0',
       {
-        'border-b border-gray-10 bg-gray-05 odd:border-dashed even:border-solid':
+        'border-b border-gray-10 odd:border-dashed even:border-solid':
           !isTimeBlockExist(weekday, time),
+      },
+      {
+        'bg-gray-05':
+          !isTimeBlockExist(weekday, time) && backgroundColor === 'gray',
+        'bg-gray-00':
+          !isTimeBlockExist(weekday, time) && backgroundColor === 'white',
       },
       {
         'rounded-t-lg border-t border-gray-00': isTimeBlockChunkEdge(
@@ -183,7 +193,7 @@ export default function MyTimeBlockBoard({
       },
       mode === 'view'
         ? {
-            'cursor-pointer bg-primary-40': isTimeBlockExist(weekday, time),
+            [`bg-primary-40 ${cursorStatus}`]: isTimeBlockExist(weekday, time),
             'relative z-[100] border-l-2 border-r-2 border-gray-00 bg-primary-40':
               isTimeBlockSelected(weekday, time),
             'border-t-2':
@@ -194,8 +204,8 @@ export default function MyTimeBlockBoard({
               isTimeBlockSelected(weekday, time),
           }
         : {
-            'cursor-pointer': !isTimeBlockExist(weekday, time),
-            'cursor-pointer bg-primary-40 border-gray-00':
+            [cursorStatus]: !isTimeBlockExist(weekday, time),
+            [`${cursorStatus} bg-primary-40 border-gray-00`]:
               isTimeBlockExist(weekday, time) &&
               !isTimeBlockInOtherSchedule(weekday, time),
             'bg-primary-20':

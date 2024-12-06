@@ -26,7 +26,7 @@ export default function EventDetailRedirect() {
 
       if (!res.ok) {
         if (res.status === 404) {
-          navigate('/not-found');
+          navigate('/not-found', { replace: true });
 
           throw new Error('Shorten URL not found');
         } else {

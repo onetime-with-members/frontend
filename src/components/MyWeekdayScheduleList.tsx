@@ -18,7 +18,7 @@ const MyWeekdayScheduleList = forwardRef<
   HTMLDivElement,
   MyWeekdayScheduleListProps
 >(function MyWeekdayScheduleList({ weekday, className }, ref) {
-  const { selectedTimeBlockId, setSelectedTimeBlockId } =
+  const { selectedTimeBlockId, setSelectedTimeBlockId, isSelectDisabled } =
     useContext(MyScheduleContext);
 
   const { data, isLoading } = useQuery({
@@ -54,9 +54,13 @@ const MyWeekdayScheduleList = forwardRef<
             key={mySchedule.id}
             onClick={() => handleWeekdayListItemClick(mySchedule.id)}
             className={clsx(
-              'flex cursor-pointer items-center justify-between rounded-xl bg-gray-05 p-4',
+              'flex items-center justify-between rounded-xl bg-gray-05 p-4',
               {
                 'relative z-[100]': mySchedule.id === selectedTimeBlockId,
+              },
+              {
+                'cursor-default': isSelectDisabled,
+                'cursor-pointer': !isSelectDisabled,
               },
             )}
           >

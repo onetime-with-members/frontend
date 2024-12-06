@@ -6,10 +6,12 @@ import { useQuery } from '@tanstack/react-query';
 
 interface MyScheduleContextType {
   selectedTimeBlockId: number | null;
-  setSelectedTimeBlockId: React.Dispatch<React.SetStateAction<number | null>>;
+  setSelectedTimeBlockId: (id: number | null) => void;
   selectedTimeBlock: MyScheduleDetail | null;
   viewMode: 'timeblock' | 'list';
   setViewMode: React.Dispatch<React.SetStateAction<'timeblock' | 'list'>>;
+  isSelectDisabled: boolean;
+  setIsSelectDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const MyScheduleContext = createContext<MyScheduleContextType>({
@@ -18,6 +20,8 @@ export const MyScheduleContext = createContext<MyScheduleContextType>({
   selectedTimeBlock: null,
   viewMode: 'timeblock',
   setViewMode: () => {},
+  isSelectDisabled: false,
+  setIsSelectDisabled: () => {},
 });
 
 export function MyScheduleContextProvider({
@@ -25,12 +29,13 @@ export function MyScheduleContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [selectedTimeBlockId, setSelectedTimeBlockId] = useState<number | null>(
-    null,
-  );
+  const [selectedTimeBlockId, _setSelectedTimeBlockId] = useState<
+    number | null
+  >(null);
   const [selectedTimeBlock, setSelectedTimeBlock] =
     useState<MyScheduleDetail | null>(null);
   const [viewMode, setViewMode] = useState<'timeblock' | 'list'>('timeblock');
+  const [isSelectDisabled, setIsSelectDisabled] = useState(false);
 
   const { data } = useQuery({
     queryKey: ['fixed-schedules', selectedTimeBlockId],
@@ -49,6 +54,14 @@ export function MyScheduleContextProvider({
     }
   }, [data, selectedTimeBlockId]);
 
+  function setSelectedTimeBlockId(id: number | null) {
+    if (isSelectDisabled) {
+      return;
+    } else {
+      _setSelectedTimeBlockId(id);
+    }
+  }
+
   return (
     <MyScheduleContext.Provider
       value={{
@@ -57,6 +70,8 @@ export function MyScheduleContextProvider({
         selectedTimeBlock,
         viewMode,
         setViewMode,
+        isSelectDisabled,
+        setIsSelectDisabled,
       }}
     >
       {children}

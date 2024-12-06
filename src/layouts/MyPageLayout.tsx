@@ -18,7 +18,7 @@ import { ScrollContext } from '../contexts/ScrollContext';
 import { IconChevronLeft, IconPlus } from '@tabler/icons-react';
 
 export default function MyPageLayout() {
-  const [tabActive, setTabActive] = useState('events');
+  const [tabActive, setTabActive] = useState('');
 
   const { selectedTimeBlockId, viewMode, setViewMode } =
     useContext(MyScheduleContext);
