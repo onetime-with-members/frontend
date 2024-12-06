@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 export default function Home() {
   const isLoggedIn = !!localStorage.getItem('access-token');
 
-  const { data: user, isLoading: isUserLoading } = useQuery({
+  const { data: userData, isLoading: isUserLoading } = useQuery({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       try {
@@ -22,12 +22,14 @@ export default function Home() {
     enabled: isLoggedIn,
   });
 
+  const user = userData?.payload;
+
   let renderedPage = null;
 
   if (isUserLoading) {
     renderedPage = <></>;
-  } else if (user && isLoggedIn) {
-    renderedPage = <UserDashboard />;
+  } else if (userData && isLoggedIn) {
+    renderedPage = <UserDashboard user={user} />;
   } else {
     renderedPage = <Landing />;
   }
