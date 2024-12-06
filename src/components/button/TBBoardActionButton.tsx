@@ -15,7 +15,7 @@ export default function TBBoardActionButton({
   return (
     <button
       className={clsx(
-        'flex items-center gap-1 rounded-full px-3 py-1.5 text-sm-300',
+        'flex items-center gap-1 rounded-full px-3 py-2 text-sm-300',
         className,
         {
           'bg-primary-40 text-gray-00': mode === 'share',
