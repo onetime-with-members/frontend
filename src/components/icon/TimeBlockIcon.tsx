@@ -15,23 +15,38 @@ export default function TimeBlockIcon({
         height: size,
       }}
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="25"
+        viewBox="0 0 24 25"
+        fill="none"
+      >
         <rect
-          x="13.5"
-          y="21"
-          width="18"
-          height="7.5"
-          rx="2"
-          transform="rotate(-90 13.5 21)"
+          x="13.0273"
+          y="14.5039"
+          width="11.0039"
+          height="7.97266"
+          rx="1.5"
+          transform="rotate(-90 13.0273 14.5039)"
+          fill={fill}
+        />
+        <rect
+          x="13.0273"
+          y="21.4492"
+          width="4.948"
+          height="7.97266"
+          rx="1.5"
+          transform="rotate(-90 13.0273 21.4492)"
           fill={fill}
         />
         <rect
           x="3"
-          y="21"
-          width="18"
-          height="7.5"
-          rx="2"
-          transform="rotate(-90 3 21)"
+          y="21.4441"
+          width="17.9441"
+          height="7.99512"
+          rx="1.5"
+          transform="rotate(-90 3 21.4441)"
           fill={fill}
         />
       </svg>
