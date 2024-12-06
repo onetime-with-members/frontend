@@ -12,10 +12,15 @@ import MyEventItem from '../components/list/my-event/MyEventItem';
 import { FooterContext } from '../contexts/FooterContext';
 import { MyScheduleContext } from '../contexts/MyScheduleContext';
 import { MyEvent } from '../types/event.type';
+import { User } from '../types/user.type';
 import { IconChevronRight, IconPlus } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
-export default function UserDashboard() {
+interface UserDashboardProps {
+  user: User;
+}
+
+export default function UserDashboard({ user }: UserDashboardProps) {
   const {
     setViewMode,
     selectedTimeBlockId,
@@ -87,7 +92,9 @@ export default function UserDashboard() {
         <div className="bg-primary-40 py-4 text-gray-00 lg:rounded-t-3xl">
           <div className="px-4">
             <div className="mx-auto flex w-full max-w-screen-md items-center justify-between gap-2">
-              <h1 className="flex-1 title-lg-300">안녕하세요, 홍민서님</h1>
+              <h1 className="flex-1 title-lg-300">
+                안녕하세요, {user.nickname}님
+              </h1>
               <Link
                 to="/events/new"
                 className="hidden rounded-xl bg-primary-60 px-4 py-2 text-gray-00 lg:flex"
