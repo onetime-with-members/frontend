@@ -183,9 +183,11 @@ export default function EventDetail() {
               <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-sm-300">
                 {event.title}
               </h1>
-              <Link to={`/events/${params.eventId}/edit`}>
-                <PenIcon />
-              </Link>
+              {event.event_status === 'CREATOR' && (
+                <Link to={`/events/${params.eventId}/edit`}>
+                  <PenIcon />
+                </Link>
+              )}
             </header>
           </div>
         </div>
