@@ -17,7 +17,13 @@ export default function TrashIcon({
         height: size,
       }}
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="none"
+      >
         <path
           d="M4 6V12C4 13.1046 4.89543 14 6 14H10C11.1046 14 12 13.1046 12 12V6C12 4.89543 11.1046 4 10 4H6C4.89543 4 4 4.89543 4 6Z"
           fill={fill}
