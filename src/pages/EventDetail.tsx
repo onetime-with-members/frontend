@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import clsx from 'clsx';
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
@@ -30,33 +31,15 @@ export default function EventDetail() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const accessToken = localStorage.getItem('access-token');
-
-  const { isPending: isEventPending, data: eventData } = useQuery({
+  const {
+    isLoading: isEventLoading,
+    data: eventData,
+    error: eventError,
+  } = useQuery({
     queryKey: ['events', params.eventId],
     queryFn: async () => {
-      const res = await fetch(
-        `${import.meta.env.VITE_SERVER_API_URL}/events/${params.eventId}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
-          },
-        },
-      );
-
-      if (!res.ok) {
-        if (res.status === 400) {
-          navigate('/not-found');
-
-          throw new Error('Event not found');
-        } else {
-          throw new Error('Failed to fetch event data');
-        }
-      }
-
-      return res.json();
+      const res = await axios.get(`/events/${params.eventId}`);
+      return res.data;
     },
   });
 
@@ -69,7 +52,7 @@ export default function EventDetail() {
     }
   }
 
-  const { isPending: isSchedulePending, data: scheduleData } = useQuery({
+  const { isLoading: isScheduleLoading, data: scheduleData } = useQuery({
     queryKey: ['schedules', event?.category.toLowerCase(), params.eventId],
     queryFn: async () => {
       const res = await axios.get(
@@ -82,7 +65,7 @@ export default function EventDetail() {
 
   const schedules: Schedule[] = scheduleData?.payload;
 
-  const { isPending: isRecommendPending, data: recommendData } = useQuery({
+  const { isLoading: isRecommendLoading, data: recommendData } = useQuery({
     queryKey: ['events', params.eventId, 'most'],
     queryFn: async () => {
       const res = await axios.get(`/events/${params.eventId}/most`);
@@ -160,10 +143,19 @@ export default function EventDetail() {
     };
   }, [footerRef]);
 
+  useEffect(() => {
+    if (eventError) {
+      const error = eventError as AxiosError;
+      if (error.response?.status === 404 || error.response?.status === 400) {
+        navigate('/not-found');
+      }
+    }
+  }, [eventError]);
+
   if (
-    isEventPending ||
-    isSchedulePending ||
-    isRecommendPending ||
+    isEventLoading ||
+    isScheduleLoading ||
+    isRecommendLoading ||
     event === undefined ||
     schedules === undefined ||
     recommendSchedules === undefined

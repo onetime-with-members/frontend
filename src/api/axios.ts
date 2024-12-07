@@ -42,7 +42,7 @@ axios.interceptors.response.use(
   },
   async (error: AxiosError) => {
     if (error.response?.status === 401) {
-      const originalRequest = { ...error.config };
+      const originalRequest = error.config;
 
       const accessToken = localStorage.getItem('access-token');
       const refreshToken = localStorage.getItem('refresh-token');
@@ -59,11 +59,15 @@ axios.interceptors.response.use(
           localStorage.setItem('refresh-token', res.data.payload.refresh_token);
           location.reload();
 
-          return axios(originalRequest);
+          if (originalRequest) {
+            return axios(originalRequest);
+          }
         } catch (error) {
           removeTokens();
         }
       }
+    } else {
+      return Promise.reject(error);
     }
   },
 );
