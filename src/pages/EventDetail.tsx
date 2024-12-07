@@ -9,8 +9,6 @@ import EventDeleteAlert from '../components/alert/EventDeleteAlert';
 import LoginAlert from '../components/alert/LoginAlert';
 import BannerList from '../components/banner/banner-list/BannerList';
 import EmptyEventBanner from '../components/banner/empty-event/EmptyEventBanner';
-import ParticipantsDesktop from '../components/banner/participants/ParticipantsDesktop';
-import RecommendTimeDesktop from '../components/banner/recommend-time/RecommendTimeDesktop';
 import Button from '../components/button/Button';
 import BadgeFloatingBottomButton from '../components/floating-button/BadgeFloatingBottomButton';
 import PenIcon from '../components/icon/PenIcon';
@@ -50,7 +48,7 @@ export default function EventDetail() {
 
       if (!res.ok) {
         if (res.status === 400) {
-          navigate('/not-found', { replace: true });
+          navigate('/not-found');
 
           throw new Error('Event not found');
         } else {
@@ -177,72 +175,46 @@ export default function EventDetail() {
       <Helmet>
         <title>{event.title} - OneTime</title>
       </Helmet>
-      <div className="flex flex-col">
-        <NavBar />
-        <div className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6">
+      <div className="flex flex-col gap-2 bg-gray-05">
+        <div>
+          <NavBar />
           <div className="rounded-t-3xl bg-primary-40 px-6 py-4">
-            <header className="mx-auto flex max-w-screen-md items-center justify-between">
-              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-lg-300">
+            <header className="mx-auto flex max-w-screen-sm items-center justify-between">
+              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-sm-300">
                 {event.title}
               </h1>
-              {event.event_status === 'CREATOR' && (
-                <Link
-                  to={`/events/${params.eventId}/edit`}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-60"
-                >
-                  <PenIcon />
-                </Link>
-              )}
+              <Link to={`/events/${params.eventId}/edit`}>
+                <PenIcon />
+              </Link>
             </header>
           </div>
-          <div className="bg-gray-05 px-6">
-            <div className="mx-auto w-full max-w-screen-md">
-              <main className="flex gap-10 pb-16">
-                <div className="hidden flex-1 flex-col gap-10 md:flex">
-                  {schedules.length === 0 ? (
-                    <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
-                  ) : (
-                    <>
-                      <ParticipantsDesktop participants={participants} />
-                      <RecommendTimeDesktop
-                        recommendSchedules={recommendSchedules}
-                        eventCategory={event.category}
-                      />
-                    </>
-                  )}
-                </div>
-                <div className="flex-1">
-                  <div className="flex flex-col gap-10">
-                    <section>
-                      <TimeBlockBoard
-                        event={event}
-                        schedules={schedules}
-                        backgroundColor="white"
-                        topAction={true}
-                        topActionOnClick={{
-                          share: handleShareButtonClick,
-                          delete: handleEventDeleteALertOpen,
-                        }}
-                        isCreator={event.event_status === 'CREATOR'}
-                      />
-                    </section>
-                    <section className="block md:hidden">
-                      {schedules.length === 0 ? (
-                        <EmptyEventBanner
-                          copyEventShareLink={copyEventShareLink}
-                        />
-                      ) : (
-                        <BannerList
-                          eventCategory={event.category}
-                          recommendSchedules={recommendSchedules}
-                          participants={participants}
-                        />
-                      )}
-                    </section>
-                  </div>
-                </div>
-              </main>
-            </div>
+        </div>
+        <div className="mt-4 px-4">
+          <div className="mx-auto w-full max-w-screen-sm">
+            <main className="pb-16">
+              <div className="flex flex-col gap-10">
+                <TimeBlockBoard
+                  event={event}
+                  schedules={schedules}
+                  backgroundColor="white"
+                  topAction={true}
+                  topActionOnClick={{
+                    share: handleShareButtonClick,
+                    delete: handleEventDeleteALertOpen,
+                  }}
+                  isCreator={event.event_status === 'CREATOR'}
+                />
+                {schedules.length === 0 ? (
+                  <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
+                ) : (
+                  <BannerList
+                    eventCategory={event.category}
+                    recommendSchedules={recommendSchedules}
+                    participants={participants}
+                  />
+                )}
+              </div>
+            </main>
           </div>
         </div>
         <>

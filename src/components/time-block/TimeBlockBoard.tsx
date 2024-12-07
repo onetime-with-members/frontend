@@ -220,6 +220,7 @@ export default function TimeBlockBoard({
   useEffect(() => {
     function handleResize() {
       setDayLineWidth(dayLineRef.current?.clientWidth || 0);
+      console.log(dayLineRef.current?.clientWidth);
     }
 
     handleResize();
@@ -245,7 +246,7 @@ export default function TimeBlockBoard({
   }, [schedules]);
 
   return (
-    <div>
+    <div className="flex flex-col">
       <div className="flex justify-between">
         {editable ? (
           <PossibleTimeToggle
