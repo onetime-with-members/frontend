@@ -158,7 +158,8 @@ export default function EventDetail() {
     isRecommendLoading ||
     event === undefined ||
     schedules === undefined ||
-    recommendSchedules === undefined
+    recommendSchedules === undefined ||
+    eventError
   )
     return <></>;
 
