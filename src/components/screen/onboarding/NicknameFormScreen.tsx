@@ -118,7 +118,13 @@ export default function NicknameFormScreen({
         </div>
         <div>
           <div className="hidden md:block">
-            <Button variant="black">다음</Button>
+            <Button
+              variant="black"
+              onClick={handleNextButtonClick}
+              disabled={disabled}
+            >
+              다음
+            </Button>
           </div>
           <div className="block md:hidden">
             <FloatingBottomButton
