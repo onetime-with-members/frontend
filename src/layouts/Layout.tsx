@@ -13,7 +13,7 @@ export default function Layout() {
   return (
     <>
       <ScrollToTop />
-      <div className="flex min-h-screen flex-col">
+      <div className="flex min-h-[110vh] flex-col">
         <Outlet />
       </div>
       {isFooterVisible && <Footer />}

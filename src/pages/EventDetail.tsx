@@ -152,6 +152,14 @@ export default function EventDetail() {
     }
   }, [eventError]);
 
+  useEffect(() => {
+    document.body.style.backgroundColor = '#f6f7f8';
+
+    return () => {
+      document.body.style.backgroundColor = '';
+    };
+  }, [event]);
+
   if (
     isEventLoading ||
     isScheduleLoading ||
