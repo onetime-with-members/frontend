@@ -106,9 +106,9 @@ export default function MyPageLayout() {
                     {tabActive === 'schedules' && (
                       <button onClick={handleViewModeButtonClick}>
                         {viewMode === 'timeblock' ? (
-                          <TimeBlockIcon />
+                          <TimeBlockIcon size={24} />
                         ) : (
-                          <ListIcon />
+                          <ListIcon size={24} />
                         )}
                       </button>
                     )}
