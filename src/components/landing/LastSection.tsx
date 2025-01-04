@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import clockImage from '../../../assets/landing/clock.png';
-import ClockPattern from '../../clock-pattern/ClockPattern';
+import clockImage from '../../assets/landing/clock.png';
+import ClockPattern from '../clock-pattern/ClockPattern';
 
 export default function LastSection() {
   return (

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import axios from '../api/axios';
+import logoWhite from '../assets/logo-white.svg';
 import logoBlack from '../assets/logo.svg';
 import AvatarDropdown from './AvatarDropdown';
 import LoginButton from './LoginButton';
@@ -10,9 +11,13 @@ import { useQuery } from '@tanstack/react-query';
 
 interface NavBarProps {
   overlay?: boolean;
+  variant?: 'default' | 'black';
 }
 
-export default function NavBar({ overlay = false }: NavBarProps) {
+export default function NavBar({
+  overlay = false,
+  variant = 'default',
+}: NavBarProps) {
   const [isNavBackground, setIsNavBackground] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userError, setUserError] = useState<unknown>();
@@ -71,8 +76,11 @@ export default function NavBar({ overlay = false }: NavBarProps) {
         className={clsx(
           'fixed left-0 top-0 h-[4rem] w-full p-4 duration-150',
           {
-            'bg-gray-00 text-gray-80': !isNavBackground,
-            'bg-gray-00 text-gray-80 shadow-lg': isNavBackground,
+            'shadow-lg': isNavBackground,
+          },
+          {
+            'bg-gray-00 text-gray-80': variant === 'default',
+            'bg-gray-80 text-gray-00': variant === 'black',
           },
           {
             'z-[9999]': overlay,
@@ -82,7 +90,11 @@ export default function NavBar({ overlay = false }: NavBarProps) {
       >
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
           <Link to="/">
-            <img src={logoBlack} alt="OneTime" className="h-[2rem]" />
+            <img
+              src={variant === 'default' ? logoBlack : logoWhite}
+              alt="OneTime"
+              className="h-[2rem]"
+            />
           </Link>
           {isLoggedIn ? (
             !isUserPending && user ? (

@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import calendarImage from '../../../assets/landing/calendar.png';
+import calendarImage from '../../assets/landing/calendar.png';
 import { IconChevronRight } from '@tabler/icons-react';
 
 export default function FirstSection() {

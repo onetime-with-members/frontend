@@ -90,7 +90,7 @@ export default function UserDashboard({ user }: UserDashboardProps) {
               to="/events/new"
               className="hidden rounded-xl bg-primary-60 px-4 py-2 text-gray-00 lg:flex"
             >
-              일정 생성하기
+              이벤트 생성하기
             </Link>
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function UserDashboard({ user }: UserDashboardProps) {
           <div className="mx-auto w-full max-w-screen-md">
             <Button onClick={handleFloatingBottomButtonClick}>
               <span className="flex items-center justify-center gap-1">
-                <span>일정 생성하기</span>
+                <span>이벤트 생성하기</span>
                 <span>
                   <IconPlus size={24} />
                 </span>

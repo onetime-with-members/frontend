@@ -1,6 +1,6 @@
 import { EventValue } from '../../../types/event.type';
-import EventInputLabel from '../../form-control/input-label/EventInputLabel';
 import Input from '../../form-control/input/Input';
+import EventInputLabel from '../EventInputLabel';
 
 interface TitleSectionProps {
   value: EventValue;

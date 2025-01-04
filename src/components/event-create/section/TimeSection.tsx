@@ -1,6 +1,6 @@
 import { EventType, EventValue } from '../../../types/event.type';
-import TimeDropdown from '../../dropdown/TimeDropdown';
-import EventInputLabel from '../../form-control/input-label/EventInputLabel';
+import EventInputLabel from '../EventInputLabel';
+import TimeDropdown from '../dropdown/TimeDropdown';
 
 interface TimeSectionProps {
   value: EventValue;
