@@ -24,15 +24,13 @@ export default function MySchedules() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery({
+  const { data: mySchedules, isLoading } = useQuery({
     queryKey: ['fixed-schedules'],
     queryFn: async () => {
       const res = await axios.get('/fixed-schedules');
-      return res.data;
+      return res.data.payload;
     },
   });
-
-  const mySchedules = isLoading || data === undefined ? [] : data.payload;
 
   const deleteMySchedule = useMutation({
     mutationFn: async () => {
@@ -77,41 +75,44 @@ export default function MySchedules() {
   }, []);
 
   return (
-    <>
-      <div>
-        <div className="mx-auto w-full max-w-screen-sm pb-32">
-          {
+    !isLoading &&
+    mySchedules && (
+      <>
+        <div>
+          <div className="mx-auto w-full max-w-screen-sm pb-32">
             {
-              timeblock: (
-                <MyTimeBlockBoard
-                  mode="view"
-                  mySchedules={mySchedules}
-                  className="pt-3"
-                />
-              ),
-              list: <MyScheduleList />,
-            }[viewMode]
-          }
+              {
+                timeblock: (
+                  <MyTimeBlockBoard
+                    mode="view"
+                    mySchedules={mySchedules}
+                    className="pt-3"
+                  />
+                ),
+                list: <MyScheduleList />,
+              }[viewMode]
+            }
+          </div>
         </div>
-      </div>
-      {isMyScheduleDeleteAlertOpen && (
-        <MyScheduleDeleteAlert
-          onConfirm={handleMyScheduleDelete}
-          onCancel={handleMyScheduleDeleteAlertClose}
-          onClose={handleMyScheduleDeleteAlertClose}
-          isDeleteLoading={deleteMySchedule.isPending}
-        />
-      )}
-      {selectedTimeBlockId !== null && (
-        <MyScheduleBottomSheet
-          onClose={handleBottomSheetClose}
-          handleDeleteButtonClick={handleBottomSheetDeleteButtonClick}
-          handleEditButtonClick={handleBottomSheetEditButtonClick}
-          title={selectedTimeBlock?.title || ''}
-          mode="view"
-          overlay={false}
-        />
-      )}
-    </>
+        {isMyScheduleDeleteAlertOpen && (
+          <MyScheduleDeleteAlert
+            onConfirm={handleMyScheduleDelete}
+            onCancel={handleMyScheduleDeleteAlertClose}
+            onClose={handleMyScheduleDeleteAlertClose}
+            isDeleteLoading={deleteMySchedule.isPending}
+          />
+        )}
+        {selectedTimeBlockId !== null && (
+          <MyScheduleBottomSheet
+            onClose={handleBottomSheetClose}
+            handleDeleteButtonClick={handleBottomSheetDeleteButtonClick}
+            handleEditButtonClick={handleBottomSheetEditButtonClick}
+            title={selectedTimeBlock?.title || ''}
+            mode="view"
+            overlay={false}
+          />
+        )}
+      </>
+    )
   );
 }

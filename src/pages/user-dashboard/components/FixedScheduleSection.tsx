@@ -56,11 +56,11 @@ export default function FixedScheduleSection() {
           <EmptyUI>스케줄을 불러오는 중입니다.</EmptyUI>
         </div>
       )}
-      {!isMySchedulesPending && (
+      {!isMySchedulesPending && mySchedules && (
         <div className="flex items-start gap-6">
           <MyTimeBlockBoard
             mode="view"
-            mySchedules={mySchedules || []}
+            mySchedules={mySchedules}
             backgroundColor="white"
             className="hidden flex-1 md:block"
           />

@@ -26,15 +26,13 @@ export default function MyScheduleFormScreen({
   const queryClient = useQueryClient();
   const params = useParams<{ myScheduleId: string }>();
 
-  const { data: mySchedulesData, isLoading: isMySchedulesLoading } = useQuery({
+  const { data: mySchedules, isLoading: isMySchedulesLoading } = useQuery({
     queryKey: ['fixed-schedules'],
     queryFn: async () => {
       const res = await axios.get('/fixed-schedules');
-      return res.data;
+      return res.data.payload;
     },
   });
-
-  const mySchedules = mySchedulesData?.payload;
 
   const { data: myScheduleData, isLoading: isMyScheduleLoading } = useQuery({
     queryKey: ['fixed-schedules', params.myScheduleId],

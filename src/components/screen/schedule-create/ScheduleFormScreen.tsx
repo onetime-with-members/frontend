@@ -66,17 +66,15 @@ export default function ScheduleFormScreen({
 
   const mySchedule: Schedule = scheduleData?.payload;
 
-  const { data: myFixedShedulesData, isLoading: isMyFixedSchedulesLoading } =
-    useQuery({
+  const { data: myFixedSchedules, isLoading: isMyFixedSchedulesLoading } =
+    useQuery<MySchedule[]>({
       queryKey: ['fixed-schedules'],
       queryFn: async () => {
         const res = await axios.get('/fixed-schedules');
-        return res.data;
+        return res.data.payload;
       },
       enabled: isLoggedIn,
     });
-
-  const myFixedSchedules: MySchedule[] = myFixedShedulesData?.payload;
 
   const createNewMemberSchedule = useMutation({
     mutationFn: async () => {

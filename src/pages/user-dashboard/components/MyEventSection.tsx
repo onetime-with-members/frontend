@@ -32,17 +32,17 @@ export default function MyEventSection() {
           <EmptyUI>이벤트를 불러오는 중입니다.</EmptyUI>
         </div>
       )}
-      {!isEventsPending && (
+      {!isEventsPending && events && (
         <>
           <ul className="grid grid-cols-1 lg:hidden">
-            {events?.length === 0 && (
+            {events.length === 0 && (
               <div className="rounded-2xl bg-gray-00 py-5">
                 <EmptyUI>아직 참여한 이벤트가 없어요.</EmptyUI>
               </div>
             )}
-            {events?.length !== 0 &&
+            {events.length >= 1 &&
               events
-                ?.slice(0, 1)
+                .slice(0, 1)
                 .map((event) => (
                   <MyEventItem
                     key={event.event_id}
@@ -52,14 +52,14 @@ export default function MyEventSection() {
                 ))}
           </ul>
           <ul className="hidden grid-cols-2 gap-4 lg:grid">
-            {events?.length === 0 && (
+            {events.length === 0 && (
               <div className="rounded-2xl bg-gray-00 py-5">
                 <EmptyUI>아직 참여한 이벤트가 없어요.</EmptyUI>
               </div>
             )}
-            {events?.length !== 0 &&
+            {events.length >= 1 &&
               events
-                ?.slice(0, 2)
+                .slice(0, 2)
                 .map((event) => (
                   <MyEventItem
                     key={event.event_id}
