@@ -24,14 +24,14 @@ export default function Home() {
 
   const user = userData?.payload;
 
-  let renderedPage = null;
+  let content = null;
 
   if (isUserLoading) {
-    renderedPage = <></>;
+    content = <></>;
   } else if (userData && isLoggedIn) {
-    renderedPage = <UserDashboard user={user} />;
+    content = <UserDashboard user={user} />;
   } else {
-    renderedPage = <Landing />;
+    content = <Landing />;
   }
 
   return (
@@ -41,7 +41,7 @@ export default function Home() {
           OneTime | 원타임으로 쉽고 빠르게 모두가 되는 시간을 찾으세요
         </title>
       </Helmet>
-      {renderedPage}
+      {content}
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { EventValue } from '../../types/event.type';
+import { EventValue } from '../../../types/event.type';
 import DateSection from './section/DateSection';
 import TimeSection from './section/TimeSection';
 import TitleSection from './section/TitleSection';

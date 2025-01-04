@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import breakpoint from '../../utils/breakpoint';
-import NavBar from '../NavBar';
+import NavBar from '../../../components/NavBar';
+import breakpoint from '../../../utils/breakpoint';
 
 export default function TopNavBar() {
   const [clientWidth, setClientWidth] = useState(window.innerWidth);

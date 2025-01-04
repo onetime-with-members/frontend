@@ -42,7 +42,7 @@ export default function FirstSection() {
               'linear-gradient(148deg, #8898F2 3.59%, #4C65E5 98.84%)',
           }}
         >
-          일정 생성하기
+          이벤트 생성하기
         </Link>
       </div>
       <div className="mt-10 flex justify-center">

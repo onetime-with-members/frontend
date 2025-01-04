@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
-import axios from '../api/axios';
-import BottomButton from '../components/event-create/BottomButton';
-import InputContentBlock from '../components/event-create/InputContentBlock';
-import TopActionForDesktop from '../components/event-create/TopActionForDesktop';
-import TopNavBar from '../components/event-create/TopNavBar';
-import { EventValue } from '../types/event.type';
-import breakpoint from '../utils/breakpoint';
+import axios from '../../api/axios';
+import { EventValue } from '../../types/event.type';
+import breakpoint from '../../utils/breakpoint';
+import BottomButton from './components/BottomButton';
+import InputContentBlock from './components/InputContentBlock';
+import TopActionForDesktop from './components/TopActionForDesktop';
+import TopNavBar from './components/TopNavBar';
 import { useMutation } from '@tanstack/react-query';
 
 export default function EventCreate() {

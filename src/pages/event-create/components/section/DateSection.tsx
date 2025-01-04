@@ -1,5 +1,5 @@
-import { EventValue } from '../../../types/event.type';
-import Chip from '../../Chip';
+import Chip from '../../../../components/Chip';
+import { EventValue } from '../../../../types/event.type';
 import EventInputLabel from '../EventInputLabel';
 import CalendarSelect from '../select/date-group/CalendarSelect';
 import WeekdaySelect from '../select/date-group/WeekdaySelect';

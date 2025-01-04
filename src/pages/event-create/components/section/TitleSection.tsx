@@ -1,5 +1,5 @@
-import { EventValue } from '../../../types/event.type';
-import Input from '../../form-control/input/Input';
+import Input from '../../../../components/form-control/input/Input';
+import { EventValue } from '../../../../types/event.type';
 import EventInputLabel from '../EventInputLabel';
 
 interface TitleSectionProps {

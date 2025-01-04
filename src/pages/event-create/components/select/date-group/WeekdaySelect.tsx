@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 
-import { EventValue } from '../../../../types/event.type';
+import { EventValue } from '../../../../../types/event.type';
 import DateItem from '../date-item/DateItem';
 
 interface WeekdaySelectProps {
