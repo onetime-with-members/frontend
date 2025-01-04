@@ -10,8 +10,8 @@ interface MyScheduleContextType {
   selectedTimeBlock: MyScheduleDetail | null;
   viewMode: 'timeblock' | 'list';
   setViewMode: React.Dispatch<React.SetStateAction<'timeblock' | 'list'>>;
-  isSelectDisabled: boolean;
-  setIsSelectDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  isSelectTimeBlockDisabled: boolean;
+  setIsSelectTimeBlockDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const MyScheduleContext = createContext<MyScheduleContextType>({
@@ -20,8 +20,8 @@ export const MyScheduleContext = createContext<MyScheduleContextType>({
   selectedTimeBlock: null,
   viewMode: 'timeblock',
   setViewMode: () => {},
-  isSelectDisabled: false,
-  setIsSelectDisabled: () => {},
+  isSelectTimeBlockDisabled: false,
+  setIsSelectTimeBlockDisabled: () => {},
 });
 
 export function MyScheduleContextProvider({
@@ -35,7 +35,8 @@ export function MyScheduleContextProvider({
   const [selectedTimeBlock, setSelectedTimeBlock] =
     useState<MyScheduleDetail | null>(null);
   const [viewMode, setViewMode] = useState<'timeblock' | 'list'>('timeblock');
-  const [isSelectDisabled, setIsSelectDisabled] = useState(false);
+  const [isSelectTimeBlockDisabled, setIsSelectTimeBlockDisabled] =
+    useState(false);
 
   const { data } = useQuery({
     queryKey: ['fixed-schedules', selectedTimeBlockId],
@@ -55,7 +56,7 @@ export function MyScheduleContextProvider({
   }, [data, selectedTimeBlockId]);
 
   function setSelectedTimeBlockId(id: number | null) {
-    if (isSelectDisabled) {
+    if (isSelectTimeBlockDisabled) {
       return;
     } else {
       _setSelectedTimeBlockId(id);
@@ -70,8 +71,8 @@ export function MyScheduleContextProvider({
         selectedTimeBlock,
         viewMode,
         setViewMode,
-        isSelectDisabled,
-        setIsSelectDisabled,
+        isSelectTimeBlockDisabled: isSelectTimeBlockDisabled,
+        setIsSelectTimeBlockDisabled: setIsSelectTimeBlockDisabled,
       }}
     >
       {children}

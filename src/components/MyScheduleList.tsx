@@ -33,15 +33,13 @@ export default function MyScheduleList({
   const weekdayUIHeight = 56;
   const responsiveBreakpoint = 768;
 
-  const { data: mySchedulesData, isLoading: isMySchedulesLoading } = useQuery({
+  const { data: mySchedules, isLoading: isMySchedulesLoading } = useQuery({
     queryKey: ['fixed-schedules'],
     queryFn: async () => {
       const res = await axios.get('/fixed-schedules');
-      return res.data;
+      return res.data.payload;
     },
   });
-
-  const mySchedules = mySchedulesData?.payload;
 
   function handleWeekdayButtonClick(
     weekday: (typeof weekdaysShortLowerEn)[number],

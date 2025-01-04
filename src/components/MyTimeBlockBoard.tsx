@@ -54,8 +54,11 @@ export default function MyTimeBlockBoard({
     }[]
   >([]);
 
-  const { selectedTimeBlockId, setSelectedTimeBlockId, isSelectDisabled } =
-    useContext(MyScheduleContext);
+  const {
+    selectedTimeBlockId,
+    setSelectedTimeBlockId,
+    isSelectTimeBlockDisabled,
+  } = useContext(MyScheduleContext);
 
   const timeBlockList = getBlockTimeList('00:00', '24:00', '30m');
   const labelTimeList = getLabelTimeList('00:00', '24:00', '1h');
@@ -165,7 +168,9 @@ export default function MyTimeBlockBoard({
   }
 
   function timeBlockStyle(weekday: string, time: string) {
-    const cursorStatus = isSelectDisabled ? 'cursor-default' : 'cursor-pointer';
+    const cursorStatus = isSelectTimeBlockDisabled
+      ? 'cursor-default'
+      : 'cursor-pointer';
 
     return clsx(
       'h-[3rem] last:border-b-0',

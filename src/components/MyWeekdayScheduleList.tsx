@@ -18,8 +18,11 @@ const MyWeekdayScheduleList = forwardRef<
   HTMLDivElement,
   MyWeekdayScheduleListProps
 >(function MyWeekdayScheduleList({ weekday, className }, ref) {
-  const { selectedTimeBlockId, setSelectedTimeBlockId, isSelectDisabled } =
-    useContext(MyScheduleContext);
+  const {
+    selectedTimeBlockId,
+    setSelectedTimeBlockId,
+    isSelectTimeBlockDisabled,
+  } = useContext(MyScheduleContext);
 
   const { data, isLoading } = useQuery({
     queryKey: ['fixed-schedules', 'by-day', weekday],
@@ -59,8 +62,8 @@ const MyWeekdayScheduleList = forwardRef<
                 'relative z-[100]': mySchedule.id === selectedTimeBlockId,
               },
               {
-                'cursor-default': isSelectDisabled,
-                'cursor-pointer': !isSelectDisabled,
+                'cursor-default': isSelectTimeBlockDisabled,
+                'cursor-pointer': !isSelectTimeBlockDisabled,
               },
             )}
           >

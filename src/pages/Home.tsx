@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 
 import axios from '../api/axios';
 import Landing from './Landing';
-import UserDashboard from './UserDashboard';
+import UserDashboard from './user-dashboard/UserDashboard';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Home() {
