@@ -12,11 +12,13 @@ import { useQuery } from '@tanstack/react-query';
 interface NavBarProps {
   overlay?: boolean;
   variant?: 'default' | 'black';
+  className?: string;
 }
 
 export default function NavBar({
   overlay = false,
   variant = 'default',
+  className,
 }: NavBarProps) {
   const [isNavBackground, setIsNavBackground] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -71,7 +73,7 @@ export default function NavBar({
   }, [userError]);
 
   return (
-    <nav className="flex h-[4rem] w-full items-center">
+    <nav className={clsx('flex h-[4rem] w-full items-center', className)}>
       <div
         className={clsx(
           'fixed left-0 top-0 h-[4rem] w-full p-4 duration-150',

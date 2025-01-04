@@ -6,5 +6,14 @@ import { MyScheduleContext } from '../../../contexts/MyScheduleContext';
 export default function TopNavBar() {
   const { selectedTimeBlockId } = useContext(MyScheduleContext);
 
-  return <NavBar overlay={selectedTimeBlockId !== null} />;
+  const navbarProps = {
+    overlay: selectedTimeBlockId !== null,
+  };
+
+  return (
+    <>
+      <NavBar variant="default" className="hidden md:flex" {...navbarProps} />
+      <NavBar variant="black" className="flex md:hidden" {...navbarProps} />
+    </>
+  );
 }

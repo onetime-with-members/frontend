@@ -26,7 +26,7 @@ export default function BottomButtonForMobile() {
       )}
     >
       <div className="mx-auto w-full max-w-screen-md">
-        <Button onClick={handleFloatingBottomButtonClick}>
+        <Button variant="black" onClick={handleFloatingBottomButtonClick}>
           <span className="flex items-center justify-center gap-1">
             <span>이벤트 생성하기</span>
             <span>
