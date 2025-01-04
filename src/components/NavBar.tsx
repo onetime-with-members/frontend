@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from '../api/axios';
 import logoWhite from '../assets/logo-white.svg';
 import logoBlack from '../assets/logo.svg';
+import { User } from '../types/user.type';
 import AvatarDropdown from './AvatarDropdown';
 import LoginButton from './LoginButton';
 import { useQuery } from '@tanstack/react-query';
@@ -24,22 +25,19 @@ export default function NavBar({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userError, setUserError] = useState<unknown>();
 
-  const { isPending: isUserPending, data: userData } = useQuery({
+  const { isPending: isUserPending, data: user } = useQuery<User>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       try {
         const res = await axios.get('/users/profile');
-        return res.data;
+        return res.data.payload;
       } catch (error) {
         setUserError(error);
         return null;
       }
     },
     enabled: isLoggedIn,
-    retry: false,
   });
-
-  const user = userData?.payload;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,8 +97,8 @@ export default function NavBar({
             />
           </Link>
           {isLoggedIn ? (
-            !isUserPending && user ? (
-              <AvatarDropdown name={user.nickname} />
+            !isUserPending ? (
+              <AvatarDropdown name={user?.nickname || ''} />
             ) : userError ? (
               <LoginButton />
             ) : null
