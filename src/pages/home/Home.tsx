@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import Landing from '../Landing';
+import Landing from '../landing/Landing';
 import UserDashboard from '../user-dashboard/UserDashboard';
 
 export default function Home() {
