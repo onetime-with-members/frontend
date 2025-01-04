@@ -7,17 +7,15 @@ import { IconPlus } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyEventList() {
-  const { isPending: isEventsPending, data: eventsData } = useQuery({
+  const { isPending: isEventsPending, data: events } = useQuery<MyEvent[]>({
     queryKey: ['events', 'user', 'all'],
     queryFn: async () => {
       const res = await axios.get('/events/user/all');
-      return res.data;
+      return res.data.payload;
     },
   });
 
-  const events: MyEvent[] = eventsData?.payload;
-
-  if (isEventsPending || events === undefined) {
+  if (isEventsPending || !events) {
     return <></>;
   }
 
