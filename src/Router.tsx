@@ -6,7 +6,6 @@ import MyPageLayout from './layouts/MyPageLayout';
 import EventDetail from './pages/EventDetail';
 import EventDetailRedirect from './pages/EventDetailRedirect';
 import EventEdit from './pages/EventEdit';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import MyEvents from './pages/MyEvents';
 import MyScheduleCreate from './pages/MyScheduleCreate';
@@ -20,6 +19,7 @@ import ProfilePage from './pages/ProfilePage';
 import ScheduleCreate from './pages/ScheduleCreate';
 import WithdrawPage from './pages/WithdrawPage';
 import EventCreate from './pages/event-create/EventCreate';
+import Home from './pages/home/Home';
 
 const router = createBrowserRouter([
   {

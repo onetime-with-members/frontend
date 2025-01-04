@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
-import Landing from './Landing';
-import UserDashboard from './user-dashboard/UserDashboard';
+import Landing from '../Landing';
+import UserDashboard from '../user-dashboard/UserDashboard';
 
 export default function Home() {
   const isLoggedIn = !!localStorage.getItem('access-token');
