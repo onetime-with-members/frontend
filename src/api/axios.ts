@@ -1,4 +1,4 @@
-import _axios, { AxiosError } from 'axios';
+import _axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 const axios = _axios.create({
   baseURL: import.meta.env.VITE_SERVER_API_URL,
@@ -23,52 +23,47 @@ function removeTokens() {
 axios.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem('access-token');
-    const refreshToken = localStorage.getItem('refresh-token');
-
-    if (accessToken && refreshToken) {
+    if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
-
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error),
 );
 
 axios.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   async (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      const originalRequest = error.config;
+    const originalRequest = error.config as AxiosRequestConfig & {
+      _retry?: boolean;
+    };
 
-      const accessToken = localStorage.getItem('access-token');
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
       const refreshToken = localStorage.getItem('refresh-token');
-
-      if (accessToken && refreshToken) {
+      if (refreshToken) {
         try {
-          const res = await reissuer.post(
-            '/tokens/action-reissue',
-            { refresh_token: refreshToken },
-            { headers: { Authorization: `Bearer ${accessToken}` } },
-          );
+          const { data } = await reissuer.post('/tokens/action-reissue', {
+            refresh_token: refreshToken,
+          });
 
-          localStorage.setItem('access-token', res.data.payload.access_token);
-          localStorage.setItem('refresh-token', res.data.payload.refresh_token);
-          location.reload();
+          localStorage.setItem('access-token', data.payload.access_token);
+          localStorage.setItem('refresh-token', data.payload.refresh_token);
 
-          if (originalRequest) {
-            return axios(originalRequest);
+          if (originalRequest.headers) {
+            originalRequest.headers.Authorization = `Bearer ${data.payload.access_token}`;
           }
-        } catch (error) {
+
+          return axios(originalRequest);
+        } catch (refreshError) {
           removeTokens();
         }
+      } else {
+        removeTokens();
       }
-    } else {
-      return Promise.reject(error);
     }
+    return Promise.reject(error);
   },
 );
 
