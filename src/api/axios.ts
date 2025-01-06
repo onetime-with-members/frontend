@@ -36,6 +36,8 @@ axios.interceptors.response.use(
         axios.defaults.headers.Authorization = `Bearer ${res.data.payload.access_token}`;
 
         if (originalRequest) {
+          originalRequest.headers.Authorization = `Bearer ${res.data.payload.access_token}`;
+
           return axios(originalRequest);
         }
       } catch (refreshError) {
