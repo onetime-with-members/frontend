@@ -18,14 +18,15 @@ export default function DateItem({
   return (
     <button
       className={clsx(
-        'h-10 w-10 rounded-lg disabled:text-gray-20',
+        'h-10 w-10 rounded-lg',
         {
           'bg-primary-40 text-gray-00': active,
-          'text-gray-70': !active,
+          'text-gray-70': !active && !disabled,
+          'text-gray-20': disabled,
         },
         className,
       )}
-      onClick={!disabled ? onClick : undefined}
+      onClick={onClick}
       disabled={disabled}
     >
       {children}
