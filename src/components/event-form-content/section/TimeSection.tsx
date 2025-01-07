@@ -1,4 +1,4 @@
-import { EventType, EventValue } from '../../../../types/event.type';
+import { EventType, EventValue } from '../../../types/event.type';
 import EventInputLabel from '../EventInputLabel';
 import TimeDropdown from '../dropdown/TimeDropdown';
 
