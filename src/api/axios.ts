@@ -14,35 +14,44 @@ const reissuer = _axios.create({
   },
 });
 
-axios.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem('access-token');
+function removeTokens() {
+  localStorage.removeItem('access-token');
+  localStorage.removeItem('refresh-token');
+  location.reload();
+}
 
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
-  }
-
-  return config;
-});
+axios.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem('access-token');
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
 
 axios.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     if (error.response?.status === 401) {
-      try {
-        const res = await reissuer.post('/tokens/action-reissue', {
-          refresh_token: localStorage.getItem('refresh-token'),
-        });
+      const refreshToken = localStorage.getItem('refresh-token');
+      if (refreshToken) {
+        try {
+          const res = await reissuer.post('/tokens/action-reissue', {
+            refresh_token: refreshToken,
+          });
 
-        localStorage.setItem('access-token', res.data.payload.access_token);
-        localStorage.setItem('refresh-token', res.data.payload.refresh_token);
-        window.location.reload();
-      } catch (refreshError) {
-        localStorage.removeItem('access-token');
-        localStorage.removeItem('refresh-token');
-        window.location.reload();
+          localStorage.setItem('access-token', res.data.payload.access_token);
+          localStorage.setItem('refresh-token', res.data.payload.refresh_token);
+          location.reload();
+        } catch (refreshError) {
+          removeTokens();
+        }
+      } else {
+        removeTokens();
       }
     }
-
     return Promise.reject(error);
   },
 );
