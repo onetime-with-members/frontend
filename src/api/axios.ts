@@ -1,9 +1,12 @@
 import _axios, { AxiosError } from 'axios';
 
+const accessToken = localStorage.getItem('access-token');
+
 const axios = _axios.create({
   baseURL: import.meta.env.VITE_SERVER_API_URL,
   headers: {
     'Content-Type': 'application/json',
+    Authorization: accessToken ? `Bearer ${accessToken}` : '',
   },
 });
 
@@ -12,16 +15,6 @@ const reissuer = _axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-});
-
-axios.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem('access-token');
-
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
-  }
-
-  return config;
 });
 
 axios.interceptors.response.use(
