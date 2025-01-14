@@ -43,10 +43,10 @@ export default function EventDeleteAlert({
       cancelText="취소"
     >
       <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">
-        <h2 className="text-gray-80 title-sm-300">
+        <h2 className="text-gray-80 text-lg-300">
           정말로 이벤트를 삭제하시겠어요?
         </h2>
-        <p className="text-gray-60 text-lg-200">
+        <p className="text-gray-60 text-md-100">
           이벤트를 삭제하면, 해당 이벤트에
           <br />
           등록된 모든 스케줄이 삭제돼요!

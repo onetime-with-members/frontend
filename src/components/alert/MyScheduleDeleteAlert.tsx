@@ -27,10 +27,10 @@ export default function MyScheduleDeleteAlert({
       cancelText="취소"
     >
       <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">
-        <h2 className="text-gray-80 title-sm-300">
+        <h2 className="text-gray-80 text-lg-300">
           '{selectedTimeBlock?.title}' 삭제
         </h2>
-        <p className="text-gray-60 text-lg-200">
+        <p className="text-gray-60 text-md-100">
           정말로 해당 고정 스케줄을 삭제하시겠어요?
         </p>
       </div>

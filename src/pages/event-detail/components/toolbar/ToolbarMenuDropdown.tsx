@@ -6,11 +6,11 @@ import ToolbarMenuItem from './ToolbarMenuItem';
 import { IconDots } from '@tabler/icons-react';
 
 interface ToolbarMenuDropdownProps {
-  setIsDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleDeleteButtonClick: () => void;
 }
 
 export default function ToolbarMenuDropdown({
-  setIsDeleteAlertOpen,
+  handleDeleteButtonClick,
 }: ToolbarMenuDropdownProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -20,9 +20,9 @@ export default function ToolbarMenuDropdown({
     menuRef,
   });
 
-  function handleDeleteButtonClick() {
+  function handleDeleteMenuItemClick() {
     setIsMenuOpen(false);
-    setIsDeleteAlertOpen(true);
+    handleDeleteButtonClick();
   }
 
   return (
@@ -43,7 +43,7 @@ export default function ToolbarMenuDropdown({
               name="삭제"
               icon="delete"
               variant="danger"
-              onClick={handleDeleteButtonClick}
+              onClick={handleDeleteMenuItemClick}
             />
           </ul>
         </div>

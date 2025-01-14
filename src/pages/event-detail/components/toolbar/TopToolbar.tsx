@@ -7,6 +7,7 @@ import useKakaoShare from '../../../../hooks/useKakaoShare';
 import { EventType } from '../../../../types/event.type';
 import ToolbarButton from './ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown';
+import { IconTrashXFilled } from '@tabler/icons-react';
 
 interface TopToolbarProps {
   event: EventType;
@@ -33,6 +34,10 @@ export default function TopToolbar({
     navigate(`/events/${params.eventId}/edit`);
   }
 
+  function handleDeleteButtonClick() {
+    setIsDeleteAlertOpen(true);
+  }
+
   return (
     <div className="mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-80 px-6 py-4 md:rounded-t-3xl">
       <header className="flex items-center justify-between md:h-10">
@@ -44,7 +49,7 @@ export default function TopToolbar({
             {event.event_status === 'CREATOR' && (
               <div className="flex items-center justify-center md:hidden">
                 <ToolbarMenuDropdown
-                  setIsDeleteAlertOpen={setIsDeleteAlertOpen}
+                  handleDeleteButtonClick={handleDeleteButtonClick}
                 />
               </div>
             )}
@@ -56,9 +61,17 @@ export default function TopToolbar({
                 <img src={kakaoIcon} alt="카카오톡 아이콘" />
               </ToolbarButton>
               {event.event_status === 'CREATOR' && (
-                <ToolbarButton variant="gray" onClick={handleEditButtonClick}>
-                  <PenIcon />
-                </ToolbarButton>
+                <>
+                  <ToolbarButton variant="gray" onClick={handleEditButtonClick}>
+                    <PenIcon />
+                  </ToolbarButton>
+                  <ToolbarButton
+                    variant="danger"
+                    onClick={handleDeleteButtonClick}
+                  >
+                    <IconTrashXFilled />
+                  </ToolbarButton>
+                </>
               )}
             </div>
           </>
