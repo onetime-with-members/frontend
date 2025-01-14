@@ -11,7 +11,6 @@ import MyScheduleEdit from './pages/MyScheduleEdit';
 import MySchedules from './pages/MySchedules';
 import NotFoundPage from './pages/NotFoundPage';
 import NotFoundRedirect from './pages/NotFoundRedirect';
-import Onboarding from './pages/Onboarding';
 import ProfileEdit from './pages/ProfileEdit';
 import ProfilePage from './pages/ProfilePage';
 import ScheduleCreate from './pages/ScheduleCreate';
@@ -21,6 +20,7 @@ import EventDetail from './pages/event-detail/EventDetail';
 import EventDetailRedirect from './pages/event-detail/EventDetailRedirect';
 import EventEdit from './pages/event-edit/EventEdit';
 import Home from './pages/home/Home';
+import Onboarding from './pages/onboarding/Onboarding';
 
 const router = createBrowserRouter([
   {

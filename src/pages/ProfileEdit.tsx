@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
-import NicknameFormControl from '../components/NicknameFormControl';
 import FloatingBottomButton from '../components/floating-button/FloatingBottomButton';
+import NicknameFormControl from './onboarding/components/nickname-form/NicknameFormControl';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
