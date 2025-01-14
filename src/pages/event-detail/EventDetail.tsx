@@ -42,19 +42,16 @@ export default function EventDetail() {
     }
   }
 
-  if (isEventPending || !event) {
-    return null;
-  }
-
   return (
     <>
       <Helmet>
-        <title>{event.title} - OneTime</title>
+        <title>{event?.title || ''} - OneTime</title>
       </Helmet>
       <div className="flex flex-col">
         <TopNavBar />
         <TopToolbar
           event={event}
+          isEventPending={isEventPending}
           setIsSharePopUpOpen={setIsSharePopUpOpen}
           setIsDeleteAlertOpen={setIsDeleteAlertOpen}
         />
@@ -67,7 +64,7 @@ export default function EventDetail() {
         />
         <BottomButtonGroup setIsLoginAlertOpen={setIsLoginAlertOpen} />
       </div>
-      {isSharePopUpOpen && (
+      {isSharePopUpOpen && event && (
         <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
       )}
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
