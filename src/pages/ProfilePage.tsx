@@ -4,12 +4,13 @@ import axios from '../api/axios';
 import Avatar from '../components/Avatar';
 import GrayButton from '../components/button/GrayButton';
 import SettingList from '../components/list/setting/SettingList';
+import { User } from '../types/user.type';
 import { useQuery } from '@tanstack/react-query';
 
 export default function ProfilePage() {
   const navigate = useNavigate();
 
-  const { isPending: isUserPending, data: user } = useQuery({
+  const { isPending: isUserPending, data: user } = useQuery<User>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');
@@ -35,7 +36,7 @@ export default function ProfilePage() {
     <div className="flex flex-col gap-7">
       <div className="flex flex-col gap-4 rounded-[1.25rem] border border-gray-10 p-6">
         <div className="flex items-center gap-4">
-          <Avatar size={64} name={user?.nicknamef || ''} />
+          <Avatar size={64} name={user?.nickname || ''} />
           <div className="flex flex-col gap-1">
             <div className="text-gray-80 title-sm-300">{user.nickname}</div>
             <div className="text-gray-40 text-sm-200">{user.email}</div>
