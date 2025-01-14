@@ -17,7 +17,7 @@ import { useQuery } from '@tanstack/react-query';
 export default function EventDetail() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
-  const [isEventDeleteAlertOpen, setIsEventDeleteAlertOpen] = useState(false);
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
   const params = useParams<{ eventId: string }>();
 
@@ -53,12 +53,16 @@ export default function EventDetail() {
       </Helmet>
       <div className="flex flex-col">
         <TopNavBar />
-        <TopToolbar event={event} setIsSharePopUpOpen={setIsSharePopUpOpen} />
+        <TopToolbar
+          event={event}
+          setIsSharePopUpOpen={setIsSharePopUpOpen}
+          setIsDeleteAlertOpen={setIsDeleteAlertOpen}
+        />
         <MainContent
           event={event}
           eventError={eventError}
           isEventPending={isEventPending}
-          setIsEventDeleteAlertOpen={setIsEventDeleteAlertOpen}
+          setIsEventDeleteAlertOpen={setIsDeleteAlertOpen}
           setIsSharePopUpOpen={setIsSharePopUpOpen}
         />
         <BottomButtonGroup setIsLoginAlertOpen={setIsLoginAlertOpen} />
@@ -67,10 +71,8 @@ export default function EventDetail() {
         <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
       )}
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
-      {isEventDeleteAlertOpen && (
-        <EventDeleteAlert
-          setIsEventDeleteAlertOpen={setIsEventDeleteAlertOpen}
-        />
+      {isDeleteAlertOpen && (
+        <EventDeleteAlert setIsEventDeleteAlertOpen={setIsDeleteAlertOpen} />
       )}
     </>
   );

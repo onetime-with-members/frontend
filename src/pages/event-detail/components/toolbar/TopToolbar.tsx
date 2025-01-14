@@ -6,15 +6,18 @@ import PenIcon from '../../../../components/icon/PenIcon';
 import useKakaoShare from '../../../../hooks/useKakaoShare';
 import { EventType } from '../../../../types/event.type';
 import ToolbarButton from './ToolbarButton';
+import ToolbarMenuDropdown from './ToolbarMenuDropdown';
 
 interface TopToolbarProps {
   event: EventType;
   setIsSharePopUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function TopToolbar({
   event,
   setIsSharePopUpOpen,
+  setIsDeleteAlertOpen,
 }: TopToolbarProps) {
   const params = useParams<{ eventId: string }>();
   const navigate = useNavigate();
@@ -33,12 +36,17 @@ export default function TopToolbar({
   }
 
   return (
-    <div className="mx-auto w-full max-w-[calc(768px+2rem)] rounded-t-3xl bg-gray-80 px-4 py-4">
+    <div className="mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-80 px-6 py-4 md:rounded-t-3xl">
       <header className="flex items-center justify-between">
-        <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 title-sm-300">
+        <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
           {event.title}
         </h1>
-        <div className="flex items-center gap-2">
+        {event.event_status === 'CREATOR' && (
+          <div className="flex items-center justify-center md:hidden">
+            <ToolbarMenuDropdown setIsDeleteAlertOpen={setIsDeleteAlertOpen} />
+          </div>
+        )}
+        <div className="hidden items-center gap-2 md:flex">
           <ToolbarButton variant="primary" onClick={handleShareButtonClick}>
             <img src={sendIcon} alt="보내기 아이콘" />
           </ToolbarButton>
