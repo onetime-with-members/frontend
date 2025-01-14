@@ -1,0 +1,120 @@
+import { AxiosError } from 'axios';
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import axios from '../../../api/axios';
+import BannerList from '../../../components/banner/banner-list/BannerList';
+import EmptyEventBanner from '../../../components/banner/empty-event/EmptyEventBanner';
+import TimeBlockBoard from '../../../components/time-block/TimeBlockBoard';
+import { EventType } from '../../../types/event.type';
+import { RecommendSchedule, Schedule } from '../../../types/schedule.type';
+import { useQuery } from '@tanstack/react-query';
+
+interface MainContentProps {
+  event: EventType;
+  eventError: Error | null;
+  isEventPending: boolean;
+  setIsEventDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSharePopUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function MainContent({
+  event,
+  eventError,
+  isEventPending,
+  setIsEventDeleteAlertOpen,
+  setIsSharePopUpOpen,
+}: MainContentProps) {
+  const params = useParams<{ eventId: string }>();
+  const navigate = useNavigate();
+
+  const { isLoading: isScheduleLoading, data: scheduleData } = useQuery({
+    queryKey: ['schedules', event?.category.toLowerCase(), params.eventId],
+    queryFn: async () => {
+      const res = await axios.get(
+        `/schedules/${event?.category.toLowerCase()}/${params.eventId}`,
+      );
+      return res.data;
+    },
+    enabled: !!event,
+  });
+
+  const schedules: Schedule[] = scheduleData?.payload;
+
+  const { isLoading: isRecommendLoading, data: recommendData } = useQuery({
+    queryKey: ['events', params.eventId, 'most'],
+    queryFn: async () => {
+      const res = await axios.get(`/events/${params.eventId}/most`);
+      return res.data;
+    },
+  });
+
+  const recommendSchedules: RecommendSchedule[] = recommendData?.payload;
+
+  const participants: string[] = schedules
+    ?.map((schedule) => schedule.name)
+    .sort();
+
+  function handleEventDeleteALertOpen() {
+    setIsEventDeleteAlertOpen(true);
+  }
+
+  function copyEventShareLink() {
+    navigator.clipboard.writeText(
+      `${window.location.origin}/events/${params.eventId}`,
+    );
+  }
+
+  function handleShareButtonClick() {
+    setIsSharePopUpOpen(true);
+  }
+
+  useEffect(() => {
+    if (eventError) {
+      const error = eventError as AxiosError;
+      if (error.response?.status === 404 || error.response?.status === 400) {
+        navigate('/not-found');
+      }
+    }
+  }, [eventError]);
+
+  if (
+    isEventPending ||
+    isScheduleLoading ||
+    isRecommendLoading ||
+    event === undefined ||
+    schedules === undefined ||
+    recommendSchedules === undefined ||
+    eventError
+  )
+    return <></>;
+
+  return (
+    <div className="mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-05 px-4 pt-6">
+      <main className="pb-16">
+        <div className="flex flex-col gap-10">
+          <TimeBlockBoard
+            event={event}
+            schedules={schedules}
+            backgroundColor="white"
+            topAction={true}
+            topActionOnClick={{
+              share: handleShareButtonClick,
+              delete: handleEventDeleteALertOpen,
+            }}
+            isCreator={event.event_status === 'CREATOR'}
+          />
+          {schedules.length === 0 ? (
+            <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
+          ) : (
+            <BannerList
+              eventCategory={event.category}
+              recommendSchedules={recommendSchedules}
+              participants={participants}
+            />
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}
