@@ -55,6 +55,12 @@ export default function EventEdit() {
   }
 
   useEffect(() => {
+    if (data && data.payload.event_status !== 'CREATOR') {
+      navigate(-1);
+    }
+  }, [data, isLoading]);
+
+  useEffect(() => {
     if (isLoading) return;
     setValue(eventTitle);
   }, [eventTitle]);
