@@ -91,6 +91,7 @@ export default function WithdrawPage() {
               variant="danger"
               disabled={!isChecked}
               onClick={handleWithdrawButtonClick}
+              fullWidth
             >
               탈퇴하기
             </Button>

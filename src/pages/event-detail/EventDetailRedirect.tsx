@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import axios from '../api/axios';
+import axios from '../../api/axios';
 import { useMutation } from '@tanstack/react-query';
 
 export default function EventDetailRedirect() {

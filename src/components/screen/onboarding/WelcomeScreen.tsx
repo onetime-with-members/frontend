@@ -50,7 +50,7 @@ export default function WelcomeScreen({ name, isVisible }: WelcomeScreenProps) {
           </div>
         </div>
         <div className="w-full max-w-[22rem]">
-          <Button variant="black" onClick={handleStartButtonClick}>
+          <Button variant="black" onClick={handleStartButtonClick} fullWidth>
             시작하기
           </Button>
         </div>

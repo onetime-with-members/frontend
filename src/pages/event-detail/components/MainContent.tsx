@@ -22,8 +22,6 @@ export default function MainContent({
   event,
   eventError,
   isEventPending,
-  setIsEventDeleteAlertOpen,
-  setIsSharePopUpOpen,
 }: MainContentProps) {
   const params = useParams<{ eventId: string }>();
   const navigate = useNavigate();
@@ -55,18 +53,10 @@ export default function MainContent({
     ?.map((schedule) => schedule.name)
     .sort();
 
-  function handleEventDeleteALertOpen() {
-    setIsEventDeleteAlertOpen(true);
-  }
-
   function copyEventShareLink() {
     navigator.clipboard.writeText(
       `${window.location.origin}/events/${params.eventId}`,
     );
-  }
-
-  function handleShareButtonClick() {
-    setIsSharePopUpOpen(true);
   }
 
   useEffect(() => {
@@ -90,19 +80,13 @@ export default function MainContent({
     return <></>;
 
   return (
-    <div className="mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-05 px-4 pt-6">
+    <div className="mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-05 px-6 pt-6">
       <main className="pb-16">
         <div className="flex flex-col gap-10">
           <TimeBlockBoard
             event={event}
             schedules={schedules}
             backgroundColor="white"
-            topAction={true}
-            topActionOnClick={{
-              share: handleShareButtonClick,
-              delete: handleEventDeleteALertOpen,
-            }}
-            isCreator={event.event_status === 'CREATOR'}
           />
           {schedules.length === 0 ? (
             <EmptyEventBanner copyEventShareLink={copyEventShareLink} />

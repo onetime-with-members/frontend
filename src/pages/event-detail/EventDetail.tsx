@@ -10,7 +10,8 @@ import { EventType } from '../../types/event.type';
 import { sortWeekdayList } from '../../utils/weekday';
 import MainContent from './components/MainContent';
 import TopNavBar from './components/TopNavBar';
-import BottomButtonGroup from './components/bottom-button/BottomButtonGroup';
+import BottomButtonForDesktop from './components/bottom-button/BottomButtonForDesktop';
+import BottomButtonForMobile from './components/bottom-button/BottomButtonForMobile';
 import TopToolbar from './components/toolbar/TopToolbar';
 import { useQuery } from '@tanstack/react-query';
 
@@ -42,6 +43,18 @@ export default function EventDetail() {
     }
   }
 
+  function handleBottomButtonClick() {
+    if (localStorage.getItem('access-token')) {
+      window.location.href = `/events/${params.eventId}/schedules/new`;
+    } else {
+      setIsLoginAlertOpen(true);
+    }
+  }
+
+  function handleShareButtonClick() {
+    setIsSharePopUpOpen(true);
+  }
+
   return (
     <>
       <Helmet>
@@ -52,8 +65,8 @@ export default function EventDetail() {
         <TopToolbar
           event={event}
           isEventPending={isEventPending}
-          setIsSharePopUpOpen={setIsSharePopUpOpen}
           setIsDeleteAlertOpen={setIsDeleteAlertOpen}
+          handleShareButtonClick={handleShareButtonClick}
         />
         <MainContent
           event={event}
@@ -62,7 +75,15 @@ export default function EventDetail() {
           setIsEventDeleteAlertOpen={setIsDeleteAlertOpen}
           setIsSharePopUpOpen={setIsSharePopUpOpen}
         />
-        <BottomButtonGroup setIsLoginAlertOpen={setIsLoginAlertOpen} />
+        <>
+          <BottomButtonForMobile
+            handleFloatingButtonClick={handleBottomButtonClick}
+            handleShareButtonClick={handleShareButtonClick}
+          />
+          <BottomButtonForDesktop
+            handleFloatingButtonClick={handleBottomButtonClick}
+          />
+        </>
       </div>
       {isSharePopUpOpen && event && (
         <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />

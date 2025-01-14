@@ -84,7 +84,11 @@ export default function MyScheduleBottomSheet({
               )}
             </div>
             {mode === 'new' && (
-              <Button onClick={handleSubmit} disabled={buttonDisabled}>
+              <Button
+                onClick={handleSubmit}
+                disabled={buttonDisabled}
+                fullWidth
+              >
                 저장
               </Button>
             )}

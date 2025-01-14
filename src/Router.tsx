@@ -4,7 +4,6 @@ import ContextProviders from './contexts/ContextProviders';
 import AuthLayout from './layouts/AuthLayout';
 import Layout from './layouts/Layout';
 import MyPageLayout from './layouts/MyPageLayout';
-import EventDetailRedirect from './pages/EventDetailRedirect';
 import Login from './pages/Login';
 import MyEvents from './pages/MyEvents';
 import MyScheduleCreate from './pages/MyScheduleCreate';
@@ -19,6 +18,7 @@ import ScheduleCreate from './pages/ScheduleCreate';
 import WithdrawPage from './pages/WithdrawPage';
 import EventCreate from './pages/event-create/EventCreate';
 import EventDetail from './pages/event-detail/EventDetail';
+import EventDetailRedirect from './pages/event-detail/EventDetailRedirect';
 import EventEdit from './pages/event-edit/EventEdit';
 import Home from './pages/home/Home';
 

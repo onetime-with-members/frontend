@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 import { EventType } from '../../types/event.type';
 import { Schedule, Time, TimeBlockPopUpData } from '../../types/schedule.type';
 import { getBlockTimeList } from '../../utils/time-block';
-import TBBoardActionButton from '../button/TBBoardActionButton';
 import TimeBlockPopUp from '../pop-up/TimeBlockPopUp';
 import PossibleTimeToggle from './PossibleTimeToggle';
 import TBDayLine from './TBDayLine';
@@ -16,12 +15,6 @@ interface TimeBlockBoardProps {
   setSchedules?: React.Dispatch<React.SetStateAction<Schedule[]>>;
   editable?: boolean;
   backgroundColor?: 'white' | 'gray';
-  topAction?: boolean;
-  topActionOnClick?: {
-    share: () => void;
-    delete: () => void;
-  };
-  isCreator?: boolean;
   isPossibleTime?: boolean;
   setIsPossibleTime?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -32,9 +25,6 @@ export default function TimeBlockBoard({
   setSchedules,
   editable,
   backgroundColor = 'gray',
-  topAction = false,
-  topActionOnClick,
-  isCreator,
   isPossibleTime = true,
   setIsPossibleTime,
 }: TimeBlockBoardProps) {
@@ -252,19 +242,6 @@ export default function TimeBlockBoard({
             isPossibleTime={isPossibleTime}
             onToggle={handleAvailableToggle}
           />
-        ) : topAction ? (
-          <div className="flex gap-2">
-            <TBBoardActionButton
-              mode="share"
-              onClick={topActionOnClick?.share}
-            />
-            {isCreator && (
-              <TBBoardActionButton
-                mode="delete"
-                onClick={topActionOnClick?.delete}
-              />
-            )}
-          </div>
         ) : (
           <h2 className="text-gray-90 title-sm-300">가능한 스케줄</h2>
         )}

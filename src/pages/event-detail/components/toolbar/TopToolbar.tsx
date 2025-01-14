@@ -11,15 +11,15 @@ import ToolbarMenuDropdown from './ToolbarMenuDropdown';
 interface TopToolbarProps {
   event: EventType;
   isEventPending: boolean;
-  setIsSharePopUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleShareButtonClick: () => void;
 }
 
 export default function TopToolbar({
   event,
   isEventPending,
-  setIsSharePopUpOpen,
   setIsDeleteAlertOpen,
+  handleShareButtonClick,
 }: TopToolbarProps) {
   const params = useParams<{ eventId: string }>();
   const navigate = useNavigate();
@@ -31,10 +31,6 @@ export default function TopToolbar({
 
   function handleEditButtonClick() {
     navigate(`/events/${params.eventId}/edit`);
-  }
-
-  function handleShareButtonClick() {
-    setIsSharePopUpOpen(true);
   }
 
   return (

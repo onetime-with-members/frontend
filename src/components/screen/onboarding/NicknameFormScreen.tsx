@@ -122,6 +122,7 @@ export default function NicknameFormScreen({
               variant="black"
               onClick={handleNextButtonClick}
               disabled={disabled}
+              fullWidth
             >
               다음
             </Button>
