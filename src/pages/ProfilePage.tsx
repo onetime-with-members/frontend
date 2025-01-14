@@ -9,15 +9,13 @@ import { useQuery } from '@tanstack/react-query';
 export default function ProfilePage() {
   const navigate = useNavigate();
 
-  const { isPending: isUserPending, data: userData } = useQuery({
+  const { isPending: isUserPending, data: user } = useQuery({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');
-      return res.data;
+      return res.data.payload;
     },
   });
-
-  const user = userData?.payload;
 
   function handleProfileEditButtonClick() {
     navigate('/mypage/profile/edit');
@@ -37,7 +35,7 @@ export default function ProfilePage() {
     <div className="flex flex-col gap-7">
       <div className="flex flex-col gap-4 rounded-[1.25rem] border border-gray-10 p-6">
         <div className="flex items-center gap-4">
-          <Avatar size={64} name={user.nickname} />
+          <Avatar size={64} name={user?.nicknamef || ''} />
           <div className="flex flex-col gap-1">
             <div className="text-gray-80 title-sm-300">{user.nickname}</div>
             <div className="text-gray-40 text-sm-200">{user.email}</div>

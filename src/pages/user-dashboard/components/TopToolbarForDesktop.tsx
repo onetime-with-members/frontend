@@ -24,7 +24,7 @@ export default function TopToolbarForDesktop() {
         </h1>
         <Link
           to="/events/new"
-          className="hidden rounded-xl bg-primary-50 px-4 py-2 text-gray-00 lg:flex"
+          className="hidden rounded-xl bg-primary-50 px-4 py-2 text-gray-00 text-md-200 lg:flex"
         >
           이벤트 생성하기
         </Link>

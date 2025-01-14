@@ -23,18 +23,16 @@ export default function NavBar({
 }: NavBarProps) {
   const [isNavBackground, setIsNavBackground] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userError, setUserError] = useState<unknown>();
 
-  const { isPending: isUserPending, data: user } = useQuery<User>({
+  const {
+    isPending: isUserPending,
+    data: user,
+    error: userError,
+  } = useQuery<User>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
-      try {
-        const res = await axios.get('/users/profile');
-        return res.data.payload;
-      } catch (error) {
-        setUserError(error);
-        return null;
-      }
+      const res = await axios.get('/users/profile');
+      return res.data.payload;
     },
     enabled: isLoggedIn,
   });
@@ -63,12 +61,6 @@ export default function NavBar({
       setIsLoggedIn(true);
     }
   }, [isLoggedIn]);
-
-  useEffect(() => {
-    if (userError) {
-      console.log(userError);
-    }
-  }, [userError]);
 
   return (
     <nav className={clsx('flex h-[4rem] w-full items-center', className)}>

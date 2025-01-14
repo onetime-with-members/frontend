@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import axios from '../api/axios';
-import withdrawClockImage from '../assets/withdraw-clock.png';
+import withdrawClockImage from '../assets/withdraw-clock.svg';
 import WithdrawGrayBox from '../components/WithdrawGrayBox';
 import Button from '../components/button/Button';
 import RedCheckbox from '../components/checkbox/RedCheckbox';
