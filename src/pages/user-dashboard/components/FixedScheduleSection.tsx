@@ -64,7 +64,7 @@ export default function FixedScheduleSection() {
             backgroundColor="white"
             className="hidden flex-1 md:block"
           />
-          <div className="mt-8 flex-1 rounded-2xl bg-gray-00 px-5 py-4">
+          <div className="flex-1 rounded-2xl bg-gray-00 px-5 py-4 md:mt-8">
             <MyScheduleList hasWeekdaySelcectUI={false} />
           </div>
         </div>
