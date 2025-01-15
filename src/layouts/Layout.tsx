@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 
@@ -13,7 +14,12 @@ export default function Layout() {
   return (
     <>
       <ScrollToTop />
-      <div className="flex min-h-[110vh] flex-col">
+      <div
+        className={clsx('flex h-full flex-col', {
+          'min-h-[110vh]': isFooterVisible,
+          'min-h-[100vh]': !isFooterVisible,
+        })}
+      >
         <Outlet />
       </div>
       {isFooterVisible && <Footer />}

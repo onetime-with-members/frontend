@@ -27,7 +27,7 @@ export default function MainContent({
   const navigate = useNavigate();
 
   const { isLoading: isScheduleLoading, data: scheduleData } = useQuery({
-    queryKey: ['schedules', event?.category.toLowerCase(), params.eventId],
+    queryKey: ['schedules', event?.category?.toLowerCase(), params.eventId],
     queryFn: async () => {
       const res = await axios.get(
         `/schedules/${event?.category.toLowerCase()}/${params.eventId}`,

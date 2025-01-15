@@ -2,12 +2,11 @@ import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import axios from '../../../api/axios';
-import { GuestValue } from '../../../types/guest.type';
-import FloatingBottomButton from '../../floating-button/FloatingBottomButton';
-import ScheduleInputLabel from '../../form-control/input-label/ScheduleInputLabel';
-import Input from '../../form-control/input/Input';
-import PinPasswordInput from '../../form-control/pin-password/PinPasswordInput';
+import axios from '../../../../api/axios';
+import { GuestValue } from '../../../../types/guest.type';
+import BottomButtonForDesktop from '../member-login/BottomButtonForDesktop';
+import BottomButtonForMobile from '../member-login/BottomButtonForMobile';
+import InputContent from '../member-login/InputContent';
 import { useMutation } from '@tanstack/react-query';
 
 interface MemberLoginProps {
@@ -69,15 +68,6 @@ export default function MemberLoginScreen({
     },
   });
 
-  function handleInputChange<T>(key: keyof GuestValue) {
-    return function (value: T) {
-      setGuestValue((prev) => ({
-        ...prev,
-        [key]: value,
-      }));
-    };
-  }
-
   function handleSubmit() {
     if (disabled) return;
     checkNewGuest.mutate();
@@ -92,41 +82,12 @@ export default function MemberLoginScreen({
   }, [guestValue]);
 
   return (
-    <>
-      <div className="flex flex-col gap-12">
-        <div>
-          <ScheduleInputLabel htmlFor="name" required>
-            이름
-          </ScheduleInputLabel>
-          <Input
-            className="mt-2"
-            id="name"
-            name="name"
-            placeholder="이름"
-            value={guestValue.name}
-            onChange={(e) => handleInputChange('name')(e.target.value)}
-          />
-        </div>
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <ScheduleInputLabel htmlFor="pin" required>
-              비밀번호
-            </ScheduleInputLabel>
-            <PinPasswordInput
-              inputId="pin"
-              pin={guestValue.pin}
-              setPin={handleInputChange('pin')}
-            />
-          </div>
-          <p className="text-primary-40">
-            비밀번호를 설정하면, 같은 이름과 비밀번호를 입력했을 때 스케줄을
-            수정할 수 있어요.
-          </p>
-        </div>
-      </div>
-      <FloatingBottomButton onClick={handleSubmit} disabled={disabled}>
-        다음
-      </FloatingBottomButton>
-    </>
+    <div className="flex flex-col gap-14">
+      <InputContent guestValue={guestValue} setGuestValue={setGuestValue} />
+      <>
+        <BottomButtonForDesktop onClick={handleSubmit} disabled={disabled} />
+        <BottomButtonForMobile onClick={handleSubmit} disabled={disabled} />
+      </>
+    </div>
   );
 }

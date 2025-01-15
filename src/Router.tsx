@@ -13,7 +13,6 @@ import NotFoundPage from './pages/NotFoundPage';
 import NotFoundRedirect from './pages/NotFoundRedirect';
 import ProfileEdit from './pages/ProfileEdit';
 import ProfilePage from './pages/ProfilePage';
-import ScheduleCreate from './pages/ScheduleCreate';
 import WithdrawPage from './pages/WithdrawPage';
 import EventCreate from './pages/event-create/EventCreate';
 import EventDetail from './pages/event-detail/EventDetail';
@@ -21,6 +20,7 @@ import EventDetailRedirect from './pages/event-detail/EventDetailRedirect';
 import EventEdit from './pages/event-edit/EventEdit';
 import Home from './pages/home/Home';
 import Onboarding from './pages/onboarding/Onboarding';
+import ScheduleCreate from './pages/schedule-create/ScheduleCreate';
 
 const router = createBrowserRouter([
   {

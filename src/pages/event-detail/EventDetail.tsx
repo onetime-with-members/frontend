@@ -26,20 +26,20 @@ export default function EventDetail() {
     isPending: isEventPending,
     data: eventData,
     error: eventError,
-  } = useQuery({
+  } = useQuery<EventType>({
     queryKey: ['events', params.eventId],
     queryFn: async () => {
       const res = await axios.get(`/events/${params.eventId}`);
-      return res.data;
+      return res.data.payload;
     },
   });
 
-  let event: EventType = eventData?.payload;
+  let event: EventType = eventData || ({} as EventType);
   if (event) {
     if (event?.category === 'DAY') {
       event.ranges = sortWeekdayList(event.ranges);
     } else {
-      event.ranges = event.ranges.sort();
+      event.ranges = event.ranges?.sort();
     }
   }
 
@@ -57,9 +57,11 @@ export default function EventDetail() {
 
   return (
     <>
-      <Helmet>
-        <title>{event?.title || ''} - OneTime</title>
-      </Helmet>
+      {!isEventPending && event && (
+        <Helmet>
+          <title>{event.title} - OneTime</title>
+        </Helmet>
+      )}
       <div className="flex flex-col">
         <TopNavBar />
         <TopToolbar

@@ -2,62 +2,68 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import axios from '../../../api/axios';
-import { EventType } from '../../../types/event.type';
-import { GuestValue } from '../../../types/guest.type';
-import { MySchedule, Schedule } from '../../../types/schedule.type';
-import { getBlockTimeList } from '../../../utils/time-block';
-import { sortWeekdayList } from '../../../utils/weekday';
-import FloatingBottomButton from '../../floating-button/FloatingBottomButton';
-import TimeBlockBoard from '../../time-block/TimeBlockBoard';
+import axios from '../../../../api/axios';
+import TimeBlockBoard from '../../../../components/time-block/TimeBlockBoard';
+import { EventType } from '../../../../types/event.type';
+import { GuestValue } from '../../../../types/guest.type';
+import { MySchedule, Schedule } from '../../../../types/schedule.type';
+import { getBlockTimeList } from '../../../../utils/time-block';
+import { sortWeekdayList } from '../../../../utils/weekday';
+import BottomButtonForDesktop from '../schedule-form/BottomButtonForDesktop';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface ScheduleFormProps {
   guestId: string;
   isNewGuest: boolean;
   guestValue: GuestValue;
-  schedules: Schedule[];
-  setSchedules: React.Dispatch<React.SetStateAction<Schedule[]>>;
   isLoggedIn: boolean;
+  isTopSubmitButtonClicked: boolean;
+  setIsTopSubmitButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function ScheduleFormScreen({
   guestId,
   isNewGuest,
   guestValue,
-  schedules,
-  setSchedules,
   isLoggedIn,
+  isTopSubmitButtonClicked,
+  setIsTopSubmitButtonClicked,
 }: ScheduleFormProps) {
+  const [schedules, setSchedules] = useState<Schedule[]>([
+    {
+      name: '본인',
+      schedules: [],
+    },
+  ]);
   const [isPossibleTime, setIsPossibleTime] = useState(true);
 
   const navigate = useNavigate();
   const params = useParams();
   const queryClient = useQueryClient();
 
-  const { isLoading: isEventLoading, data: eventData } = useQuery({
+  const { isLoading: isEventLoading, data: eventData } = useQuery<EventType>({
     queryKey: ['events', params.eventId],
     queryFn: async () => {
       const res = await axios.get(`/events/${params.eventId}`);
-      return res.data;
+      return res.data.payload;
     },
   });
+  let event: EventType = eventData || ({} as EventType);
 
-  let event: EventType = eventData?.payload;
-
-  if (event && event.category === 'DAY')
+  if (event && event.category === 'DAY') {
     event.ranges = sortWeekdayList(event.ranges);
+  }
 
   const { isLoading: isScheduleLoading, data: scheduleData } = useQuery({
     queryKey: [
       'schedules',
-      event?.category.toLowerCase(),
+      event?.category?.toLowerCase(),
       params.eventId,
       isLoggedIn ? 'user' : guestId,
     ],
     queryFn: async () => {
       const res = await axios.get(
-        `/schedules/${event?.category.toLowerCase()}/${params.eventId}/${isLoggedIn ? 'user' : guestId}`,
+        `/schedules/${event?.category?.toLowerCase()}/${params.eventId}/${isLoggedIn ? 'user' : guestId}`,
       );
       return res.data;
     },
@@ -96,7 +102,7 @@ export default function ScheduleFormScreen({
   const updateSchedule = useMutation({
     mutationFn: async () => {
       const res = await axios.post(
-        `/schedules/${event?.category.toLowerCase()}`,
+        `/schedules/${event?.category?.toLowerCase()}`,
         {
           event_id: params.eventId,
           member_id: guestId,
@@ -119,6 +125,13 @@ export default function ScheduleFormScreen({
       updateSchedule.mutate();
     }
   }
+
+  useEffect(() => {
+    if (isTopSubmitButtonClicked) {
+      handleSubmit();
+      setIsTopSubmitButtonClicked(false);
+    }
+  }, [isTopSubmitButtonClicked]);
 
   useEffect(() => {
     if (!event) return;
@@ -239,19 +252,19 @@ export default function ScheduleFormScreen({
 
   return (
     <>
-      <div className="mb-40">
-        <TimeBlockBoard
-          schedules={schedules}
-          setSchedules={setSchedules}
-          event={event}
-          isPossibleTime={isPossibleTime}
-          setIsPossibleTime={setIsPossibleTime}
-          editable
-        />
+      <div>
+        {!isEventLoading && event !== undefined && (
+          <TimeBlockBoard
+            schedules={schedules}
+            setSchedules={setSchedules}
+            event={event}
+            isPossibleTime={isPossibleTime}
+            setIsPossibleTime={setIsPossibleTime}
+            editable
+          />
+        )}
       </div>
-      <FloatingBottomButton onClick={handleSubmit}>
-        스케줄 등록
-      </FloatingBottomButton>
+      <BottomButtonForDesktop onClick={handleSubmit} />
     </>
   );
 }
