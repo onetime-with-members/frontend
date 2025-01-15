@@ -27,7 +27,6 @@ export default function TopToolbar({
 
   const { handleKakaoShare } = useKakaoShare({
     event,
-    eventId: params.eventId,
   });
 
   function handleEditButtonClick() {

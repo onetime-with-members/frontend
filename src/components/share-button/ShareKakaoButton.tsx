@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { useParams } from 'react-router-dom';
 
 import kakaoIcon from '../../assets/kakao-icon.svg';
 import useKakaoShare from '../../hooks/useKakaoShare';
@@ -20,11 +19,8 @@ export default function ShareKakaoButton({
   event,
   size = 48,
 }: ShareKakaoButtonProps) {
-  const params = useParams<{ eventId: string }>();
-
   const { handleKakaoShare } = useKakaoShare({
     event,
-    eventId: params.eventId,
   });
 
   return (
