@@ -6,17 +6,16 @@ const { Kakao } = window;
 
 interface useKakaoShareProps {
   event: EventType;
-  eventId: string | undefined;
 }
 
-export default function useKakaoShare({ event, eventId }: useKakaoShareProps) {
+export default function useKakaoShare({ event }: useKakaoShareProps) {
   useEffect(() => {
     Kakao.cleanup();
     Kakao.init(import.meta.env.VITE_KAKAO_JS_KEY);
   }, []);
 
   function handleKakaoShare() {
-    const url = `${import.meta.env.VITE_SITE_DOMAIN}/events/${eventId}`;
+    const url = `${import.meta.env.VITE_SITE_DOMAIN}/events/${event.event_id}`;
 
     Kakao.Share.sendDefault({
       objectType: 'feed',
