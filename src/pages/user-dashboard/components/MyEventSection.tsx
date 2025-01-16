@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
-import axios from '../../../api/axios';
 import EmptyUI from '../../../components/EmptyUI';
 import MyEventItem from '../../../components/list/my-event/MyEventItem';
 import { MyEvent } from '../../../types/event.type';
+import axios from '../../../utils/axios';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 

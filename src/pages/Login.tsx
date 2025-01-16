@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import axios from '../api/axios';
 import logo from '../assets/logo-auth.svg';
 import NavBar from '../components/NavBar';
 import SocialLoginButton from '../components/button/SocialLoginButton';
+import axios from '../utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Login() {

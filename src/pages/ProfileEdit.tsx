@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
-import axios from '../api/axios';
 import FloatingBottomButton from '../components/floating-button/FloatingBottomButton';
+import axios from '../utils/axios';
 import NicknameFormControl from './onboarding/components/nickname-form/NicknameFormControl';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';

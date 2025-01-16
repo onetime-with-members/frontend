@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import axios from '../api/axios';
 import MyScheduleBottomSheet from '../components/MyScheduleBottomSheet';
 import MyScheduleList from '../components/MyScheduleList';
 import MyTimeBlockBoard from '../components/MyTimeBlockBoard';
 import MyScheduleDeleteAlert from '../components/alert/MyScheduleDeleteAlert';
 import { MyScheduleContext } from '../contexts/MyScheduleContext';
+import axios from '../utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function MySchedules() {

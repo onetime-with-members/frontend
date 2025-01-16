@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import axios from '../api/axios';
 import withdrawClockImage from '../assets/withdraw-clock.svg';
 import WithdrawGrayBox from '../components/WithdrawGrayBox';
 import Button from '../components/button/Button';
 import RedCheckbox from '../components/checkbox/RedCheckbox';
+import axios from '../utils/axios';
 import { IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 

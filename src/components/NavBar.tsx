@@ -2,10 +2,10 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import axios from '../api/axios';
 import logoWhite from '../assets/logo-white.svg';
 import logoBlack from '../assets/logo.svg';
 import { User } from '../types/user.type';
+import axios from '../utils/axios';
 import AvatarDropdown from './AvatarDropdown';
 import LoginButton from './LoginButton';
 import { useQuery } from '@tanstack/react-query';

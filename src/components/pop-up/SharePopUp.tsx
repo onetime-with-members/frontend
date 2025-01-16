@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
-import axios from '../../api/axios';
 import { EventType } from '../../types/event.type';
+import axios from '../../utils/axios';
 import QRCodeScreen from '../QRCodeScreen';
 import Input from '../form-control/input/Input';
 import ShareBlueButton from '../share-button/ShareBlueButton';

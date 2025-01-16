@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import axios from '../../../../api/axios';
+import axios from '../../../../utils/axios';
 import BottomButtonForDesktop from '../nickname-form/BottomButtonForDesktop';
 import BottomButtonForMobile from '../nickname-form/BottomButtonForMobile';
 import InputContent from '../nickname-form/InputContent';

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import axios from '../../../api/axios';
 import { User } from '../../../types/user.type';
+import axios from '../../../utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function TopToolbarForDesktop() {

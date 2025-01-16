@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import axios from '../../../api/axios';
 import { MyNewSchedule } from '../../../types/schedule.type';
+import axios from '../../../utils/axios';
 import MyScheduleBottomSheet from '../../MyScheduleBottomSheet';
 import MyTimeBlockBoard from '../../MyTimeBlockBoard';
 import { IconX } from '@tabler/icons-react';

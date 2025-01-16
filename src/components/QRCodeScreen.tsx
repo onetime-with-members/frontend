@@ -2,10 +2,10 @@ import clsx from 'clsx';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import axios from '../api/axios';
 import logoWhite from '../assets/logo-white.svg';
 import ClockPattern from '../pages/landing/components/clock-pattern/ClockPattern';
 import { EventType } from '../types/event.type';
+import axios from '../utils/axios';
 import { IconX } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 

@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { forwardRef, useContext } from 'react';
 
-import axios from '../api/axios';
 import { MyScheduleContext } from '../contexts/MyScheduleContext';
 import { MyWeekdaySchedule } from '../types/schedule.type';
+import axios from '../utils/axios';
 import { weekdaysShortLowerEn } from '../utils/weekday';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';

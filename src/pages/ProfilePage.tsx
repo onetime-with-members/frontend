@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-import axios from '../api/axios';
 import Avatar from '../components/Avatar';
 import GrayButton from '../components/button/GrayButton';
 import SettingList from '../components/list/setting/SettingList';
 import { User } from '../types/user.type';
+import axios from '../utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function ProfilePage() {

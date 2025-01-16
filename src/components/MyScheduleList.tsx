@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useContext, useEffect, useRef, useState } from 'react';
 
-import axios from '../api/axios';
 import { MyScheduleContext } from '../contexts/MyScheduleContext';
 import { ScrollContext } from '../contexts/ScrollContext';
+import axios from '../utils/axios';
 import { weekdaysShortLowerEn } from '../utils/weekday';
 import EmptyUI from './EmptyUI';
 import MyWeekdayScheduleList from './MyWeekdayScheduleList';

@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 
-import axios from '../api/axios';
 import { MyScheduleDetail } from '../types/schedule.type';
+import axios from '../utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 interface MyScheduleContextType {

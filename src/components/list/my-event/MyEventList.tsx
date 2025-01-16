@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
-import axios from '../../../api/axios';
 import { MyEvent } from '../../../types/event.type';
+import axios from '../../../utils/axios';
 import MyEventItem from './MyEventItem';
 import { IconPlus } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
