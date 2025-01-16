@@ -1,7 +1,7 @@
 import NavBar from '../../components/NavBar';
-import CardSection from './components/section/CardSection';
-import FirstSection from './components/section/FirstSection';
+import FeatureSection from './components/section/FeatureSection';
 import LastSection from './components/section/LastSection';
+import TopSection from './components/section/TopSection';
 import TypoSection from './components/section/TypoSection';
 
 export default function Landing() {
@@ -11,9 +11,9 @@ export default function Landing() {
         <NavBar />
       </header>
       <main className="w-full">
-        <FirstSection />
+        <TopSection />
+        <FeatureSection />
         <TypoSection />
-        <CardSection />
         <LastSection />
       </main>
     </>
