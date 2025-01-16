@@ -1,6 +1,14 @@
+import { useNavigate } from 'react-router-dom';
+
 import Button from '../../../../components/button/Button';
 
 export default function BottomContent() {
+  const navigate = useNavigate();
+
+  function handleStartButtonClick() {
+    navigate('/events/new');
+  }
+
   return (
     <>
       <div className="mt-11 flex flex-col items-center gap-3 px-4">
@@ -14,7 +22,11 @@ export default function BottomContent() {
         </p>
       </div>
       <div className="sticky bottom-4 z-30 mx-auto mt-9 flex w-full items-center justify-center px-4">
-        <Button variant="black" className="w-full max-w-80">
+        <Button
+          variant="black"
+          className="w-full max-w-80"
+          onClick={handleStartButtonClick}
+        >
           시작하기
         </Button>
       </div>
