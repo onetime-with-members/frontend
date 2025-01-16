@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import clockImageForPattern from '../../../../assets/landing/clock-for-pattern.svg';
+import clockImageForPattern from '../../assets/landing/clock-for-pattern.svg';
 
 interface ClockPatternLineProps {
   shift?: boolean;

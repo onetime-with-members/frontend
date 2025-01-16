@@ -3,9 +3,9 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import logoWhite from '../assets/logo-white.svg';
-import ClockPattern from '../pages/landing/components/clock-pattern/ClockPattern';
 import { EventType } from '../types/event.type';
 import axios from '../utils/axios';
+import ClockPattern from './clock-pattern/ClockPattern';
 import { IconX } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
