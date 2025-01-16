@@ -1,15 +1,15 @@
-import clockImage from '../../../../assets/landing/clock.png';
+import calendarImage from '../../../../assets/landing/hero-calendar.svg';
 
 export default function TopContent() {
   return (
-    <div className="flex flex-col items-center gap-9">
+    <div className="flex flex-col items-center gap-8">
       <div className="h-[152px] w-[152px]">
-        <img src={clockImage} alt="시계" className="h-full w-full" />
+        <img src={calendarImage} alt="시계" className="h-full w-full" />
       </div>
-      <p className="text-center text-gray-00 title-lg-300">
-        일정을 생성하고 그룹원들과
-        <br />
-        쉽고 빠르게 스케줄을 맞춰봐요
+      <p className="text-center text-gray-00 title-md-300">
+        원타임에서 더 이상 스트레스 없는{' '}
+        <br className="hidden min-[320px]:block" />
+        간편한 일정조율을 경험하세요
       </p>
     </div>
   );
