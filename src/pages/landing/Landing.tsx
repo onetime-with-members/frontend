@@ -1,9 +1,9 @@
 import NavBar from '../../components/NavBar';
-import BottomHeroSection from './components/section/BottomHeroSection';
-import CardSection from './components/section/CardSection';
-import FeatureSection from './components/section/FeatureSection';
-import TopSection from './components/section/TopSection';
-import TypoSection from './components/section/TypoSection';
+import BottomHeroSection from './components/BottomHeroSection';
+import CardSection from './components/CardSection';
+import FeatureSection from './components/FeatureSection';
+import TopSection from './components/TopSection';
+import TypoSection from './components/TypoSection';
 
 export default function Landing() {
   return (
