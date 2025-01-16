@@ -3,13 +3,13 @@ import Button from '../../../../components/button/Button';
 export default function BottomContent() {
   return (
     <>
-      <div className="mt-11 flex flex-col items-center gap-3">
+      <div className="mt-11 flex flex-col items-center gap-3 px-4">
         <h1 className="text-[1.75rem] font-bold leading-normal text-gray-80">
           일정을 쉽고 빠르게
         </h1>
         <p className="text-center text-gray-40 text-md-200">
-          링크 공유 한 번으로 여러 사람과 일정을
-          <br />
+          링크 공유 한 번으로 여러 사람과 일정을{' '}
+          <br className="hidden min-[300px]:block" />
           정리하고, 가장 적합한 시간을 찾아보세요.
         </p>
       </div>
