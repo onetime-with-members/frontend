@@ -6,11 +6,11 @@ import TopToolbarForDesktop from './components/TopToolbarForDesktop';
 
 export default function UserDashboard() {
   return (
-    <div className="flex flex-col pb-20">
+    <div className="flex flex-col">
       <TopNavBar />
       <main className="mx-auto w-full max-w-[calc(768px+2rem)]">
         <TopToolbarForDesktop />
-        <div className="flex flex-col gap-14 bg-gray-05 px-6 pt-6">
+        <div className="flex flex-col gap-14 bg-gray-05 px-6 pb-20 pt-6">
           <MyEventSection />
           <FixedScheduleSection />
         </div>
