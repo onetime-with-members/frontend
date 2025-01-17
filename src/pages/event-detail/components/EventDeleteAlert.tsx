@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import axios from '../../utils/axios';
-import Alert from './Alert';
+import Alert from '../../../components/alert/Alert';
+import axios from '../../../utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface EventDeleteAlertProps {

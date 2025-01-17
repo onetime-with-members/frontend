@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 
-import EventDeleteAlert from '../../components/alert/EventDeleteAlert';
-import LoginAlert from '../../components/alert/LoginAlert';
 import SharePopUp from '../../components/pop-up/SharePopUp';
 import { EventType } from '../../types/event.type';
 import axios from '../../utils/axios';
 import { sortWeekdayList } from '../../utils/weekday';
+import EventDeleteAlert from './components/EventDeleteAlert';
+import LoginAlert from './components/LoginAlert';
 import MainContent from './components/MainContent';
 import TopNavBar from './components/TopNavBar';
 import BottomButtonForDesktop from './components/bottom-button/BottomButtonForDesktop';
