@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import logoWhite from '../assets/logo-white.svg';
 import logoBlack from '../assets/logo.svg';
+import useScroll from '../hooks/useScroll';
 import { User } from '../types/user.type';
 import axios from '../utils/axios';
 import AvatarDropdown from './AvatarDropdown';
@@ -21,8 +22,9 @@ export default function NavBar({
   variant = 'default',
   className,
 }: NavBarProps) {
-  const [isNavBackground, setIsNavBackground] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const { isScrolling } = useScroll();
 
   const {
     isPending: isUserPending,
@@ -36,22 +38,6 @@ export default function NavBar({
     },
     enabled: isLoggedIn,
   });
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsNavBackground(true);
-      } else {
-        setIsNavBackground(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isNavBackground]);
 
   useEffect(() => {
     if (
@@ -68,7 +54,7 @@ export default function NavBar({
         className={clsx(
           'fixed left-0 top-0 h-[4rem] w-full p-4 duration-150',
           {
-            'shadow-lg': isNavBackground,
+            'shadow-lg': isScrolling,
           },
           {
             'bg-gray-00 text-gray-80': variant === 'default',

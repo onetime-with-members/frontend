@@ -1,11 +1,11 @@
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import kakaoIcon from '../../../../assets/kakao-icon.svg';
 import sendIcon from '../../../../assets/send.svg';
 import PenIcon from '../../../../components/icon/PenIcon';
 import useKakaoShare from '../../../../hooks/useKakaoShare';
+import useScroll from '../../../../hooks/useScroll';
 import { EventType } from '../../../../types/event.type';
 import ToolbarButton from './ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown';
@@ -24,14 +24,13 @@ export default function TopToolbar({
   setIsDeleteAlertOpen,
   handleShareButtonClick,
 }: TopToolbarProps) {
-  const [isScrolling, setIsScrolling] = useState(false);
-
-  const params = useParams<{ eventId: string }>();
-  const navigate = useNavigate();
-
+  const { isScrolling } = useScroll();
   const { handleKakaoShare } = useKakaoShare({
     event,
   });
+
+  const params = useParams<{ eventId: string }>();
+  const navigate = useNavigate();
 
   function handleEditButtonClick() {
     navigate(`/events/${params.eventId}/edit`);
@@ -40,20 +39,6 @@ export default function TopToolbar({
   function handleDeleteButtonClick() {
     setIsDeleteAlertOpen(true);
   }
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsScrolling(true);
-      } else {
-        setIsScrolling(false);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isScrolling]);
 
   return (
     <header className="flex h-[59px] w-full justify-center md:h-[72px]">
