@@ -47,7 +47,7 @@ export default function MyEventItem({ event, className }: MyEventItemProps) {
         >
           <div
             className={clsx(
-              'flex items-center gap-2 text-sm-200 xs:text-md-200 sm:text-lg-200',
+              'flex items-center gap-2 text-sm-200 xs:text-md-200',
               {
                 'text-primary-50': isRecommended,
                 'text-gray-40': !isRecommended,
