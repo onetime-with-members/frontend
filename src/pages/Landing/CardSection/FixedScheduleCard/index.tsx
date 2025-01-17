@@ -1,5 +1,5 @@
 import cardImage from '../../../../assets/landing/fixed-schedule.png';
-import Card from './Card';
+import Card from '../Card';
 
 export default function FixedScheduleCard() {
   return (

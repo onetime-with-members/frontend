@@ -1,5 +1,5 @@
 import featureImage from '../../../../assets/landing/recommend-and-participant.png';
-import Feature from './Feature';
+import Feature from '../Feature';
 
 export default function RecommendAndParticipantsFeature() {
   return (

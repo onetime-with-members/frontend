@@ -1,5 +1,5 @@
 import cardImage from '../../../../assets/landing/paper-airplane.svg';
-import Card from './Card';
+import Card from '../Card';
 
 export default function ShareQRCodeCard() {
   return (

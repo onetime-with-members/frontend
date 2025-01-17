@@ -1,5 +1,5 @@
 import featureImage from '../../../../assets/landing/time-block-board.png';
-import Feature from './Feature';
+import Feature from '../Feature';
 
 export default function TimeBlockBoardFeature() {
   return (

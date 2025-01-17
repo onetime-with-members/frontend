@@ -1,5 +1,5 @@
-import RecommendAndParticipantsFeature from './feature-section/RecommendAndParticipantsFeature';
-import TimeBlockBoardFeature from './feature-section/TimeBlockBoardFeature';
+import RecommendAndParticipantsFeature from './RecommendAndParticipantsFeature';
+import TimeBlockBoardFeature from './TimeBlockBoardFeature';
 
 export default function FeatureSection() {
   return (

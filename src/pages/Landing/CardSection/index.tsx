@@ -1,5 +1,5 @@
-import FixedScheduleCard from './card-section/FixedScheduleCard';
-import ShareQRCodeCard from './card-section/ShareQRCodeCard';
+import FixedScheduleCard from './FixedScheduleCard';
+import ShareQRCodeCard from './ShareQRCodeCard';
 
 export default function CardSection() {
   return (
