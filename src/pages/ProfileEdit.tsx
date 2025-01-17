@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 import FloatingBottomButton from '../components/floating-button/FloatingBottomButton';
+import { User } from '../types/user.type';
 import axios from '../utils/axios';
 import NicknameFormControl from './onboarding/components/nickname-form/NicknameFormControl';
 import { IconChevronLeft } from '@tabler/icons-react';
@@ -16,11 +17,11 @@ export default function ProfileEdit() {
 
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery({
+  const { data: user } = useQuery<User>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');
-      return res.data;
+      return res.data.payload;
     },
   });
 
@@ -37,8 +38,6 @@ export default function ProfileEdit() {
     },
   });
 
-  const username = data?.payload.nickname;
-
   function handleBackButtonClick() {
     navigate(-1);
   }
@@ -52,9 +51,10 @@ export default function ProfileEdit() {
   }
 
   useEffect(() => {
-    if (isLoading) return;
-    setValue(username);
-  }, [username]);
+    if (user) {
+      setValue(user.nickname);
+    }
+  }, [user]);
 
   return (
     <>
@@ -76,7 +76,7 @@ export default function ProfileEdit() {
         </div>
       </header>
       <div className="px-4">
-        {!isLoading && (
+        {user && value && (
           <main className="mx-auto max-w-screen-sm pb-40 pt-8">
             <NicknameFormControl
               value={value}
