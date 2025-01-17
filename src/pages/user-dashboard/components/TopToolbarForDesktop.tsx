@@ -24,7 +24,7 @@ export default function TopToolbarForDesktop() {
     <header className="hidden h-[72px] w-full justify-center md:flex">
       <div
         className={clsx(
-          'fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00',
+          'fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150',
           {
             'shadow-lg': isScrolling,
           },
