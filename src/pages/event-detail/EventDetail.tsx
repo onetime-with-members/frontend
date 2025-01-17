@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import SharePopUp from '../../components/pop-up/SharePopUp';
 import { EventType } from '../../types/event.type';
@@ -21,6 +21,7 @@ export default function EventDetail() {
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
   const params = useParams<{ eventId: string }>();
+  const navigate = useNavigate();
 
   const {
     isPending: isEventPending,
@@ -45,7 +46,7 @@ export default function EventDetail() {
 
   function handleBottomButtonClick() {
     if (localStorage.getItem('access-token')) {
-      window.location.href = `/events/${params.eventId}/schedules/new`;
+      navigate(`/events/${params.eventId}/schedules/new`);
     } else {
       setIsLoginAlertOpen(true);
     }
