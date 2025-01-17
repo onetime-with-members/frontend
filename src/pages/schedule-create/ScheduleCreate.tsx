@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useParams } from 'react-router-dom';
 
 import { FooterContext } from '../../contexts/FooterContext';
 import { GuestValue } from '../../types/guest.type';
 import breakpoint from '../../utils/breakpoint';
+import BackButtonAlert from './components/BackButtonAlert';
 import TopAppBarForMobile from './components/TopAppBarForMobile';
 import TopHeaderForDesktop from './components/TopHeaderForDesktop';
 import TopNavBarForDesktop from './components/TopNavBarForDesktop';
@@ -24,20 +24,18 @@ export default function ScheduleCreate() {
   });
   const [isTopSubmitButtonClicked, setIsTopSubmitButtonClicked] =
     useState(false);
+  const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
 
   const { setIsFooterVisible } = useContext(FooterContext);
-
-  const navigate = useNavigate();
-  const params = useParams<{ eventId: string }>();
 
   const isLoggedIn = localStorage.getItem('access-token') !== null;
 
   function handleBackButtonClick() {
     if (pageIndex === 0) {
-      navigate(`/events/${params.eventId}`);
+      setIsBackButtonAlertOpen(true);
     } else if (pageIndex === 1) {
       if (isLoggedIn) {
-        navigate(`/events/${params.eventId}`);
+        setIsBackButtonAlertOpen(true);
       } else {
         setPageIndex((prev) => prev - 1);
       }
@@ -111,6 +109,9 @@ export default function ScheduleCreate() {
           )}
         </main>
       </div>
+      {isBackButtonAlertOpen && (
+        <BackButtonAlert setIsOpen={setIsBackButtonAlertOpen} />
+      )}
     </>
   );
 }
