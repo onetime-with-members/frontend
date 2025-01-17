@@ -20,7 +20,7 @@ export default function TimeBlockBoardFeature() {
         </>
       }
       image={
-        <div className="w-[20rem]">
+        <div className="w-full max-w-[20rem]">
           <img
             src={featureImage}
             alt="타임블록 되는 시간 및 안되는 시간 UI 이미지"
