@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import BottomButtonForDesktop from './BottomButtonForDesktop';
 import BottomButtonForMobile from './BottomButtonForMobile';
@@ -18,6 +18,9 @@ interface NicknameFormProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setName: React.Dispatch<React.SetStateAction<string>>;
   isVisible: boolean;
+  value: NicknameFormType;
+  setValue: React.Dispatch<React.SetStateAction<NicknameFormType>>;
+  registerToken: string;
 }
 
 export default function NicknameFormScreen({
@@ -25,13 +28,11 @@ export default function NicknameFormScreen({
   setPage,
   setName,
   isVisible,
+  value,
+  setValue,
+  registerToken,
 }: NicknameFormProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState<NicknameFormType>({
-    name: '',
-  });
   const [disabled, setDisabled] = useState(true);
-  const [registerToken, setRegisterToken] = useState('');
 
   const navigate = useNavigate();
 
@@ -63,22 +64,6 @@ export default function NicknameFormScreen({
     if (disabled) return;
     registerNickname.mutate();
   }
-
-  useEffect(() => {
-    if (!searchParams.get('register_token') || !searchParams.get('name')) {
-      return navigate('/login');
-    }
-
-    setRegisterToken(searchParams.get('register_token') as string);
-    setValue({
-      name: searchParams.get('name') as string,
-    });
-
-    const newSearchParams = new URLSearchParams();
-    newSearchParams.delete('register_token');
-    newSearchParams.delete('name');
-    setSearchParams(newSearchParams);
-  }, []);
 
   return (
     <div
