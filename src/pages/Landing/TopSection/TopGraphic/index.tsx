@@ -2,9 +2,9 @@ import phoneVideo from '@/assets/video/landing-phone-video.mp4';
 
 export default function TopGraphic() {
   return (
-    <div className="relative flex h-[400px] flex-col items-center justify-center overflow-x-hidden">
+    <div className="relative flex h-[350px] flex-col items-center justify-center overflow-x-hidden">
       <div
-        className="h-[400px] w-[400px]"
+        className="h-[350px] w-[350px]"
         style={{ clipPath: 'circle(50% at 50% 50%)' }}
       >
         <video src={phoneVideo} autoPlay loop muted className="h-full w-full" />
