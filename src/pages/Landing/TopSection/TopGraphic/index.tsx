@@ -1,4 +1,4 @@
-import phoneVideo from '@/assets/video/landing-phone-video.mp4';
+import ReactPlayer from 'react-player';
 
 export default function TopGraphic() {
   return (
@@ -7,7 +7,15 @@ export default function TopGraphic() {
         className="h-[350px] w-[350px]"
         style={{ clipPath: 'circle(50% at 50% 50%)' }}
       >
-        <video src={phoneVideo} autoPlay loop muted className="h-full w-full" />
+        <ReactPlayer
+          url="/videos/landing-phone-video.mp4"
+          playing
+          loop
+          muted
+          width="100%"
+          height="100%"
+          style={{ objectFit: 'cover' }}
+        />
       </div>
       <div className="absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full bg-[#CFD6FA]" />
     </div>
