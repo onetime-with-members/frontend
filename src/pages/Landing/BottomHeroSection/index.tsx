@@ -1,6 +1,6 @@
-import ClockPattern from '../../../components/clock-pattern/ClockPattern';
 import BottomButton from './BottomButton';
 import TopContent from './TopContent';
+import ClockPattern from '@/components/clock-pattern/ClockPattern';
 
 export default function BottomHeroSection() {
   return (

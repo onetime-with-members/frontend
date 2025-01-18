@@ -1,4 +1,4 @@
-import calendarImage from '../../../../assets/landing/calendar.svg';
+import calendarImage from '@/assets/landing/calendar.svg';
 
 export default function TopGraphic() {
   return (

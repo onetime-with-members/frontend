@@ -1,6 +1,6 @@
 import Lottie from 'lottie-react';
 
-import clockLottie from '../../../../assets/lottie/landing-clock.json';
+import clockLottie from '@/assets/lottie/landing-clock.json';
 
 export default function TopContent() {
   return (

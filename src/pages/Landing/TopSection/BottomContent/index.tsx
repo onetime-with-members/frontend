@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import Button from '../../../../components/button/Button';
+import Button from '@/components/button/Button';
 
 export default function BottomContent() {
   const navigate = useNavigate();

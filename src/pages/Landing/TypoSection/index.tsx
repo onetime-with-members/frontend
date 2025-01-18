@@ -1,4 +1,4 @@
-import clockIcon from '../../../assets/landing/typo-clock.svg';
+import clockIcon from '@/assets/landing/typo-clock.svg';
 
 export default function TypoSection() {
   return (
