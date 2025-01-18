@@ -20,7 +20,7 @@ export default function ShareQRCodeCard() {
       }
       image={
         <div className="h-[260px]">
-          <div className="absolute -left-4 bottom-0">
+          <div className="absolute -left-4 bottom-0 pr-4">
             <img src={cardImage} alt="날아가는 종이 비행기 이미지" />
           </div>
         </div>

@@ -19,11 +19,11 @@ export default function FixedScheduleCard() {
         </>
       }
       image={
-        <div>
+        <div className="mx-auto w-full max-w-[20rem]">
           <img
             src={cardImage}
             alt="고정 스케줄 UI 이미지"
-            className="scale-110"
+            className="h-full w-full"
           />
         </div>
       }
