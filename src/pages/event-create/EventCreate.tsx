@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 
-import EventFormContent from '../../components/event-form-content/EventFormContent';
-import { EventValue } from '../../types/event.type';
-import axios from '../../utils/axios';
+import EventFormContent from '@/components/event-form-content/EventFormContent';
+import { EventValue } from '@/types/event.type';
+import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
 
 export default function EventCreate() {
