@@ -2,11 +2,11 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import axios from '../../../../utils/axios';
-import BottomButtonForDesktop from '../nickname-form/BottomButtonForDesktop';
-import BottomButtonForMobile from '../nickname-form/BottomButtonForMobile';
-import InputContent from '../nickname-form/InputContent';
-import TopAppBar from '../nickname-form/TopAppBar';
+import BottomButtonForDesktop from './BottomButtonForDesktop';
+import BottomButtonForMobile from './BottomButtonForMobile';
+import InputContent from './InputContent';
+import TopAppBar from './TopAppBar';
+import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
 
 export interface NicknameFormType {

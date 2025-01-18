@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
-import Input from '../../../../components/form-control/input/Input';
+import Input from '@/components/form-control/input/Input';
 
 interface NicknameFormControlProps {
   value: string;

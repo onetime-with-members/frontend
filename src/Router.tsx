@@ -16,10 +16,10 @@ import MyScheduleEdit from './pages/MyScheduleEdit';
 import MySchedules from './pages/MySchedules';
 import NotFoundPage from './pages/NotFoundPage';
 import NotFoundRedirect from './pages/NotFoundRedirect';
+import Onboarding from './pages/Onboarding';
 import ProfileEdit from './pages/ProfileEdit';
 import ProfilePage from './pages/ProfilePage';
 import WithdrawPage from './pages/WithdrawPage';
-import Onboarding from './pages/onboarding/Onboarding';
 import ScheduleCreate from './pages/schedule-create/ScheduleCreate';
 
 const router = createBrowserRouter([

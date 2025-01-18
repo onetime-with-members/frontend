@@ -1,4 +1,4 @@
-import clock from '../../../../assets/welcome-clock.svg';
+import clock from '@/assets/welcome-clock.svg';
 
 interface WelcomeContentProps {
   name: string;

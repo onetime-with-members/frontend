@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import FloatingBottomButton from '../components/floating-button/FloatingBottomButton';
 import { User } from '../types/user.type';
 import axios from '../utils/axios';
-import NicknameFormControl from './onboarding/components/nickname-form/NicknameFormControl';
+import NicknameFormControl from '@/components/NicknameFormControl';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

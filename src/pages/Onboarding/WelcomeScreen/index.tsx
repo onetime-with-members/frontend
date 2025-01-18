@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
-import StartButton from '../welcome/StartButton';
-import WelcomeContent from '../welcome/WelcomeContent';
+import StartButton from './StartButton';
+import WelcomeContent from './WelcomeContent';
 
 interface WelcomeScreenProps {
   name: string;

@@ -1,5 +1,6 @@
-import { NicknameFormType } from '../screen/NicknameFormScreen';
-import NicknameFormControl from './NicknameFormControl';
+import { NicknameFormType } from '..';
+
+import NicknameFormControl from '@/components/NicknameFormControl';
 
 interface InputContentProps {
   value: NicknameFormType;

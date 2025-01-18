@@ -1,4 +1,4 @@
-import FloatingBottomButton from '../../../../components/floating-button/FloatingBottomButton';
+import FloatingBottomButton from '@/components/floating-button/FloatingBottomButton';
 
 interface BottomButtonForDesktopProps {
   handleNextButtonClick: () => void;
