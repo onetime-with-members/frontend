@@ -5,7 +5,7 @@ import TopSection from './TopSection';
 import TypoSection from './TypoSection';
 import NavBar from '@/components/NavBar';
 
-export default function NewLanding() {
+export default function Landing() {
   return (
     <>
       <header>

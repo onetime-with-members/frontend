@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import NewLanding from '../Landing';
+import Landing from '../Landing';
 import UserDashboard from '../user-dashboard/UserDashboard';
 
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
   if (isLoggedIn) {
     content = <UserDashboard />;
   } else {
-    content = <NewLanding />;
+    content = <Landing />;
   }
 
   return (
