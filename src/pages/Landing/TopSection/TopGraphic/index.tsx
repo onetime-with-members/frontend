@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 export default function TopGraphic() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     const checkDevice = () => {
@@ -18,18 +18,19 @@ export default function TopGraphic() {
   }, []);
 
   return (
-    <div className="relative flex h-[450px] flex-col items-center overflow-x-hidden">
+    <div className="relative flex h-[350px] flex-col items-center justify-center overflow-x-hidden">
       <div
-        className="h-[400px] w-[400px]"
+        className="h-[350px] w-[350px]"
         style={{ clipPath: 'circle(50% at 50% 50%)' }}
       >
-        {isMobile && (
+        {isMobile !== undefined && (
           <video
             src="/videos/landing-phone-video.mp4"
             autoPlay
             loop
             muted
             playsInline
+            className="h-full w-full object-contain"
           />
         )}
       </div>
@@ -37,7 +38,7 @@ export default function TopGraphic() {
         className={clsx(
           'absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full',
           {
-            'bg-[#C8D0F9]': isMobile,
+            'bg-[#C6CCF4]': isMobile,
             'bg-[#CED3F6]': !isMobile,
           },
         )}
