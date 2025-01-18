@@ -44,7 +44,7 @@ export default function TopToolbar({
     <header className="flex h-[59px] w-full justify-center md:h-[72px]">
       <div
         className={clsx(
-          'fixed z-40 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150 md:z-30',
+          'fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150',
           {
             'shadow-lg': isScrolling,
           },

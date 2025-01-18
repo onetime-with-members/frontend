@@ -14,12 +14,14 @@ import { useQuery } from '@tanstack/react-query';
 interface NavBarProps {
   overlay?: boolean;
   variant?: 'default' | 'black';
+  shadow?: boolean;
   className?: string;
 }
 
 export default function NavBar({
   overlay = false,
   variant = 'default',
+  shadow = true,
   className,
 }: NavBarProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,7 +56,7 @@ export default function NavBar({
         className={clsx(
           'fixed left-0 top-0 h-[4rem] w-full p-4 duration-150',
           {
-            'shadow-lg': isScrolling,
+            'shadow-lg': isScrolling && shadow,
           },
           {
             'bg-gray-00 text-gray-80': variant === 'default',
