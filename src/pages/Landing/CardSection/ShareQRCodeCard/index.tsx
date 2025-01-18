@@ -6,7 +6,7 @@ export default function ShareQRCodeCard() {
     <Card
       title={
         <>
-          오프라인에서는 QR코드로 <br className="hidden min-[300px]:block" />
+          오프라인에서는 QR코드로 <br className="hidden min-[350px]:block" />
           쉽고 빠른 일정관리
         </>
       }
@@ -14,7 +14,7 @@ export default function ShareQRCodeCard() {
       description={
         <>
           오프라인에서는 링크 공유 필요 없이{' '}
-          <br className="hidden min-[300px]:block" />
+          <br className="hidden min-[350px]:block" />
           QR코드 하나로 시간을 조율해보세요.
         </>
       }
