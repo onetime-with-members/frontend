@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { EventType } from '../../types/event.type';
-import axios from '../../utils/axios';
-import QRCodeScreen from '../QRCodeScreen';
-import Input from '../form-control/input/Input';
-import ShareBlueButton from '../share-button/ShareBlueButton';
-import ShareButtonWrapper from '../share-button/ShareButtonWrapper';
-import ShareKakaoButton from '../share-button/ShareKakaoButton';
-import ShareMoreButton from '../share-button/ShareMoreButton';
+import QRCodeScreen from '@/components/QRCodeScreen';
+import Input from '@/components/form-control/input/Input';
+import ShareBlueButton from '@/components/share-button/ShareBlueButton';
+import ShareButtonWrapper from '@/components/share-button/ShareButtonWrapper';
+import ShareKakaoButton from '@/components/share-button/ShareKakaoButton';
+import ShareMoreButton from '@/components/share-button/ShareMoreButton';
+import { EventType } from '@/types/event.type';
+import axios from '@/utils/axios';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 

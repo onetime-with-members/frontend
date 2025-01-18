@@ -2,17 +2,17 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import SharePopUp from '../../components/pop-up/SharePopUp';
-import { EventType } from '../../types/event.type';
-import axios from '../../utils/axios';
-import { sortWeekdayList } from '../../utils/weekday';
-import EventDeleteAlert from './components/EventDeleteAlert';
-import LoginAlert from './components/LoginAlert';
-import MainContent from './components/MainContent';
-import TopNavBar from './components/TopNavBar';
-import BottomButtonForDesktop from './components/bottom-button/BottomButtonForDesktop';
-import BottomButtonForMobile from './components/bottom-button/BottomButtonForMobile';
-import TopToolbar from './components/toolbar/TopToolbar';
+import BottomButtonForDesktop from './BottomButtonForDesktop';
+import BottomButtonForMobile from './BottomButtonForMobile';
+import EventDeleteAlert from './EventDeleteAlert';
+import LoginAlert from './LoginAlert';
+import MainContent from './MainContent';
+import SharePopUp from './SharePopUp';
+import TopNavBar from './TopNavBar';
+import TopToolbar from './TopToolbar';
+import { EventType } from '@/types/event.type';
+import axios from '@/utils/axios';
+import { sortWeekdayList } from '@/utils/weekday';
 import { useQuery } from '@tanstack/react-query';
 
 export default function EventDetail() {

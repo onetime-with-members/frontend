@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { useContext } from 'react';
 
-import BadgeFloatingBottomButton from '../../../../components/floating-button/BadgeFloatingBottomButton';
-import { FooterContext } from '../../../../contexts/FooterContext';
+import BadgeFloatingBottomButton from '@/components/floating-button/BadgeFloatingBottomButton';
+import { FooterContext } from '@/contexts/FooterContext';
 
 interface BottomButtonForDesktopProps {
   handleFloatingButtonClick: () => void;

@@ -1,14 +1,14 @@
 import clsx from 'clsx';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import kakaoIcon from '../../../../assets/kakao-icon.svg';
-import sendIcon from '../../../../assets/send.svg';
-import PenIcon from '../../../../components/icon/PenIcon';
-import useKakaoShare from '../../../../hooks/useKakaoShare';
-import useScroll from '../../../../hooks/useScroll';
-import { EventType } from '../../../../types/event.type';
 import ToolbarButton from './ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown';
+import kakaoIcon from '@/assets/kakao-icon.svg';
+import sendIcon from '@/assets/send.svg';
+import PenIcon from '@/components/icon/PenIcon';
+import useKakaoShare from '@/hooks/useKakaoShare';
+import useScroll from '@/hooks/useScroll';
+import { EventType } from '@/types/event.type';
 import { IconTrashXFilled } from '@tabler/icons-react';
 
 interface TopToolbarProps {

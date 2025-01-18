@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
-import EditIcon from '../../../../components/icon/EditIcon';
-import TrashIcon from '../../../../components/icon/TrashIcon';
+import EditIcon from '@/components/icon/EditIcon';
+import TrashIcon from '@/components/icon/TrashIcon';
 
 interface ToolbarMenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
   name: string;

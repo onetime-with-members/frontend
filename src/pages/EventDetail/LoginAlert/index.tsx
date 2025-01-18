@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Alert from '../../../components/alert/Alert';
+import Alert from '@/components/alert/Alert';
 
 interface LoginAlertProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;

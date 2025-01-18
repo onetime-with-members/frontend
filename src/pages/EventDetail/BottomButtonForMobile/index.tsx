@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import { useContext } from 'react';
 
-import sendIcon from '../../../../assets/send.svg';
-import Button from '../../../../components/button/Button';
-import { FooterContext } from '../../../../contexts/FooterContext';
+import sendIcon from '@/assets/send.svg';
+import Button from '@/components/button/Button';
+import { FooterContext } from '@/contexts/FooterContext';
 import { IconPlus } from '@tabler/icons-react';
 
 interface BottomButtonForMobileProps {

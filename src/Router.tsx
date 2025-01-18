@@ -5,6 +5,8 @@ import AuthLayout from './layouts/AuthLayout';
 import Layout from './layouts/Layout';
 import MyPageLayout from './layouts/MyPageLayout';
 import EventCreate from './pages/EventCreate';
+import EventDetail from './pages/EventDetail';
+import EventDetailRedirect from './pages/EventDetailRedirect';
 import EventEdit from './pages/EventEdit';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -17,8 +19,6 @@ import NotFoundRedirect from './pages/NotFoundRedirect';
 import ProfileEdit from './pages/ProfileEdit';
 import ProfilePage from './pages/ProfilePage';
 import WithdrawPage from './pages/WithdrawPage';
-import EventDetail from './pages/event-detail/EventDetail';
-import EventDetailRedirect from './pages/event-detail/EventDetailRedirect';
 import Onboarding from './pages/onboarding/Onboarding';
 import ScheduleCreate from './pages/schedule-create/ScheduleCreate';
 
