@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 
-import kakaoIcon from '../../assets/kakao-icon.svg';
-import useKakaoShare from '../../hooks/useKakaoShare';
-import { EventType } from '../../types/event.type';
+import kakaoIcon from '@/assets/kakao-icon.svg';
+import useKakaoShare from '@/hooks/useKakaoShare';
+import { EventType } from '@/types/event.type';
 
 declare global {
   interface Window {

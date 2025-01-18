@@ -1,4 +1,4 @@
-import { EventType } from '../../types/event.type';
+import { EventType } from '@/types/event.type';
 import { IconDots } from '@tabler/icons-react';
 
 interface ShareMoreButtonProps {

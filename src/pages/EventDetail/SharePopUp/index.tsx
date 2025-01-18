@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
+import ShareBlueButton from './ShareBlueButton';
+import ShareButtonWrapper from './ShareButtonWrapper';
+import ShareKakaoButton from './ShareKakaoButton';
+import ShareMoreButton from './ShareMoreButton';
 import QRCodeScreen from '@/components/QRCodeScreen';
 import Input from '@/components/form-control/input/Input';
-import ShareBlueButton from '@/components/share-button/ShareBlueButton';
-import ShareButtonWrapper from '@/components/share-button/ShareButtonWrapper';
-import ShareKakaoButton from '@/components/share-button/ShareKakaoButton';
-import ShareMoreButton from '@/components/share-button/ShareMoreButton';
 import { EventType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';
