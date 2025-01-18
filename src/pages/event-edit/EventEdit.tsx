@@ -2,9 +2,9 @@ import { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import EventFormContent from '../../components/event-form-content/EventFormContent';
-import { EventType, EventValue } from '../../types/event.type';
-import axios from '../../utils/axios';
+import EventFormContent from '@/components/event-form-content/EventFormContent';
+import { EventType, EventValue } from '@/types/event.type';
+import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function EventEdit() {
