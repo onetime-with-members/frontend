@@ -1,15 +1,25 @@
-import ReactPlayer from 'react-player';
+import { useRef } from 'react';
 
 export default function TopGraphic() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+  };
+
   return (
-    <div className="relative flex h-[350px] flex-col items-center justify-center overflow-x-hidden">
+    <div className="relative flex h-[500px] flex-col items-center justify-center overflow-x-hidden">
+      <button onClick={handlePlay}>button</button>
       <div
         className="h-[350px] w-[350px]"
         style={{ clipPath: 'circle(50% at 50% 50%)' }}
       >
-        <ReactPlayer
-          url="/videos/landing-phone-video.mp4"
-          playing
+        <video
+          ref={videoRef}
+          src="/videos/landing-phone-video.mp4"
+          autoPlay
           loop
           muted
           width="100%"
