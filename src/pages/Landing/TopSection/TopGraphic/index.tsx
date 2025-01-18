@@ -22,6 +22,7 @@ export default function TopGraphic() {
           autoPlay
           loop
           muted
+          playsInline
           width="100%"
           height="100%"
           style={{ objectFit: 'cover' }}
