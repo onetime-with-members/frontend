@@ -1,4 +1,5 @@
 import cardImage from '../../../../assets/landing/paper-airplane.svg';
+import ClockPattern from '../../../../components/clock-pattern/ClockPattern';
 import Card from '../Card';
 
 export default function ShareQRCodeCard() {
@@ -28,6 +29,7 @@ export default function ShareQRCodeCard() {
       style={{
         background: 'linear-gradient(180deg, #8898F2 0%, #4C65E5 100%)',
       }}
+      backgroundPattern={<ClockPattern className="opacity-50" />}
     />
   );
 }
