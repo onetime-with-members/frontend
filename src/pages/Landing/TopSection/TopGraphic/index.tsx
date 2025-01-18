@@ -28,7 +28,7 @@ export default function TopGraphic() {
           style={{ objectFit: 'cover' }}
         />
       </div>
-      <div className="absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full bg-[#CFD6FA]" />
+      <div className="absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full bg-[#CED3F6]" />
     </div>
   );
 }
