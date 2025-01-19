@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { getLabelTimeList } from '../../utils/time-block';
+import { getLabelTimeList } from '../../../utils/time-block';
 
 interface TBLeftLabelLineProps {
   startTime: string;

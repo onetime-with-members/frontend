@@ -2,9 +2,9 @@ import { AxiosError } from 'axios';
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import TimeBlockBoard from '@/components/TimeBlockBoard';
 import BannerList from '@/components/banner/banner-list/BannerList';
 import EmptyEventBanner from '@/components/banner/empty-event/EmptyEventBanner';
-import TimeBlockBoard from '@/components/time-block/TimeBlockBoard';
 import { EventType } from '@/types/event.type';
 import { RecommendSchedule, Schedule } from '@/types/schedule.type';
 import axios from '@/utils/axios';

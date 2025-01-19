@@ -4,7 +4,7 @@ import { EventType } from '../../types/event.type';
 import { Schedule, Time, TimeBlockPopUpData } from '../../types/schedule.type';
 import { getBlockTimeList } from '../../utils/time-block';
 import TimeBlockPopUp from '../pop-up/TimeBlockPopUp';
-import PossibleTimeToggle from './PossibleTimeToggle';
+import PossibleTimeToggle from './PossibleTimeToggle/index.tsx';
 import TBDayLine from './TBDayLine';
 import TBDayTopLabelGroup from './TBDayTopLabelGroup';
 import TBLeftLabelLine from './TBLeftLabelLine';
