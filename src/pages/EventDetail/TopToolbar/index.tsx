@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ToolbarButton from './ToolbarButton';
@@ -7,7 +6,6 @@ import kakaoIcon from '@/assets/kakao-icon.svg';
 import sendIcon from '@/assets/send.svg';
 import PenIcon from '@/components/icon/PenIcon';
 import useKakaoShare from '@/hooks/useKakaoShare';
-import useScroll from '@/hooks/useScroll';
 import { EventType } from '@/types/event.type';
 import { IconTrashXFilled } from '@tabler/icons-react';
 
@@ -24,7 +22,6 @@ export default function TopToolbar({
   setIsDeleteAlertOpen,
   handleShareButtonClick,
 }: TopToolbarProps) {
-  const { isScrolling } = useScroll();
   const { handleKakaoShare } = useKakaoShare({
     event,
   });
@@ -42,14 +39,7 @@ export default function TopToolbar({
 
   return (
     <header className="flex h-[59px] w-full justify-center md:h-[72px]">
-      <div
-        className={clsx(
-          'fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150',
-          {
-            'shadow-lg': isScrolling,
-          },
-        )}
-      >
+      <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
         <div className="bg-gray-80 px-6 py-4 md:rounded-t-3xl">
           <div className="flex items-center justify-between md:h-10">
             <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
