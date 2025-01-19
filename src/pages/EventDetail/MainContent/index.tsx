@@ -78,6 +78,8 @@ export default function MainContent({
 
     window.addEventListener('resize', handleResize);
 
+    handleResize();
+
     return () => {
       window.removeEventListener('resize', handleResize);
     };
