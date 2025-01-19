@@ -4,8 +4,8 @@ import {
   Schedule,
   Time,
   TimeBlockDragIndex,
-} from '../../../types/schedule.type';
-import { getBlockTimeList } from '../../../utils/time-block';
+} from '../../../../types/schedule.type';
+import { getBlockTimeList } from '../../../../utils/time-block';
 import TBItem from './TBItem';
 
 export interface TBDayLineProps {

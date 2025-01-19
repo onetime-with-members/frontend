@@ -1,4 +1,4 @@
-import TBDayLine, { TBDayLineProps } from '../TBDayLine';
+import TBDayLine, { TBDayLineProps } from './TBDayLine';
 import { EventType } from '@/types/event.type';
 
 interface TBBoardContentProps {
