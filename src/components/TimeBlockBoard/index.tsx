@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
 import { EventType } from '../../types/event.type';
@@ -17,6 +18,7 @@ interface TimeBlockBoardProps {
   backgroundColor?: 'white' | 'gray';
   isPossibleTime?: boolean;
   setIsPossibleTime?: React.Dispatch<React.SetStateAction<boolean>>;
+  topLabelOffset?: number;
 }
 
 export default function TimeBlockBoard({
@@ -27,6 +29,7 @@ export default function TimeBlockBoard({
   backgroundColor = 'gray',
   isPossibleTime = true,
   setIsPossibleTime,
+  topLabelOffset,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<TimeBlockPopUpData>({
@@ -255,7 +258,12 @@ export default function TimeBlockBoard({
 
   return (
     <div className="flex flex-col">
-      <div className="sticky top-[123px] z-20 bg-gray-05">
+      <div
+        className={clsx({
+          'sticky z-20 bg-gray-05': topLabelOffset,
+        })}
+        style={{ top: topLabelOffset }}
+      >
         <TBHeader
           editable={editable}
           isPossibleTime={isPossibleTime}
