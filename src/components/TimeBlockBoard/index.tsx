@@ -213,7 +213,7 @@ export default function TimeBlockBoard({
 
   useEffect(() => {
     function handleResize() {
-      setDayLineWidth(dayLineRef.current?.clientWidth || 0);
+      setDayLineWidth(dayLineRef.current?.getBoundingClientRect().width || 0);
     }
 
     handleResize();
