@@ -1,29 +1,21 @@
 import clsx from 'clsx';
 
 import { getLabelTimeList } from '../../utils/time-block';
-import TBDayTopLabel from './TBDayTopLabel';
 
 interface TBLeftLabelLineProps {
   startTime: string;
   endTime: string;
-  category: 'DAY' | 'DATE';
 }
 
 export default function TBLeftLabelLine({
   startTime,
   endTime,
-  category,
 }: TBLeftLabelLineProps) {
   const timeList = getLabelTimeList(startTime, endTime);
 
   return (
-    <div className="flex flex-col items-center gap-2">
-      <TBDayTopLabel
-        category={category}
-        timePoint={category === 'DATE' ? '2024.08.20' : '화'}
-        className="opacity-0"
-      />
-      <div className="flex flex-col">
+    <div className="flex w-[3.5rem] flex-col items-center gap-2">
+      <div className="flex w-full flex-col justify-start">
         {timeList.map((time, index) => (
           <div
             key={time}
@@ -32,7 +24,7 @@ export default function TBLeftLabelLine({
             })}
           >
             <span
-              className={clsx('text-sm-200 text-gray-30', {
+              className={clsx('text-gray-30 text-sm-200', {
                 '-translate-y-1/2': index !== 0,
                 '-translate-y-full': index === timeList.length - 1,
               })}

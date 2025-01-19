@@ -5,26 +5,28 @@ interface TBDayTopLabelProps {
   category: 'DAY' | 'DATE';
   timePoint: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function TBDayTopLabel({
   category,
   timePoint,
   className,
+  style,
 }: TBDayTopLabelProps) {
   return (
-    <div className={clsx('text-center', className)}>
+    <div className={clsx('text-center', className)} style={style}>
       {category === 'DATE' ? (
         <div className="flex flex-col">
-          <span className="text-sm-200 text-gray-20">
+          <span className="text-gray-20 text-sm-200">
             {dayjs(timePoint, 'YYYY.MM.DD').format('dd')}
           </span>
-          <span className="text-md-200 text-gray-30">
+          <span className="text-gray-30 text-md-200">
             {dayjs(timePoint, 'YYYY.MM.DD').format('MM.DD')}
           </span>
         </div>
       ) : (
-        <span className="text-md-200 text-gray-30">{timePoint}</span>
+        <span className="text-gray-30 text-md-200">{timePoint}</span>
       )}
     </div>
   );

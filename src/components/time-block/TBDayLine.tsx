@@ -2,14 +2,12 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 
 import { Schedule, Time, TimeBlockDragIndex } from '../../types/schedule.type';
 import { getBlockTimeList } from '../../utils/time-block';
-import TBDayTopLabel from './TBDayTopLabel';
 import TBItem from './TBItem';
 
 interface TBDayLineProps {
   timePoint: string;
   startTime: string;
   endTime: string;
-  category: 'DAY' | 'DATE';
   schedules: Schedule[];
   changeTimeBlockStatus: (
     day: Time['time_point'],
@@ -35,7 +33,6 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
       timePoint,
       startTime,
       endTime,
-      category,
       schedules,
       changeTimeBlockStatus,
       handleDialogOpen,
@@ -240,9 +237,8 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
 
     return (
       <div className="flex-1" ref={ref} style={{ minWidth }}>
-        <TBDayTopLabel category={category} timePoint={timePoint} />
         <div
-          className="mt-2 flex flex-col overflow-hidden rounded-lg"
+          className="flex flex-col overflow-hidden rounded-lg"
           onMouseUp={handleMouseEnd}
           onMouseLeave={handleMouseEnd}
           onTouchEnd={handleTouchEnd}

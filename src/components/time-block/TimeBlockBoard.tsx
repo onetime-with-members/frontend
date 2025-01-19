@@ -6,6 +6,7 @@ import { getBlockTimeList } from '../../utils/time-block';
 import TimeBlockPopUp from '../pop-up/TimeBlockPopUp';
 import PossibleTimeToggle from './PossibleTimeToggle';
 import TBDayLine from './TBDayLine';
+import TBDayTopLabelGroup from './TBDayTopLabelGroup';
 import TBLeftLabelLine from './TBLeftLabelLine';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
@@ -44,6 +45,7 @@ export default function TimeBlockBoard({
 
   const dayLineRef = useRef<HTMLDivElement>(null);
   const boardContentRef = useRef<HTMLDivElement>(null);
+  const topLabelRef = useRef<HTMLDivElement>(null);
 
   const dayLineGap = 12;
   const timePointChunks = chunkRangeArray(event.ranges, 5);
@@ -234,41 +236,67 @@ export default function TimeBlockBoard({
     );
   }, [schedules]);
 
+  useEffect(() => {
+    function handleScroll() {
+      if (boardContentRef.current && topLabelRef.current) {
+        topLabelRef.current.scrollLeft = boardContentRef.current.scrollLeft;
+      }
+    }
+
+    if (boardContentRef.current && topLabelRef.current) {
+      boardContentRef.current.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (boardContentRef.current && topLabelRef.current) {
+        boardContentRef.current?.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between">
-        {editable ? (
-          <PossibleTimeToggle
-            isPossibleTime={isPossibleTime}
-            onToggle={handleAvailableToggle}
-          />
-        ) : (
-          <h2 className="text-gray-90 title-sm-300">가능한 스케줄</h2>
-        )}
-        {timePointChunks.length !== 1 && (
-          <div className="flex items-center gap-4">
-            <button
-              onClick={handleLeftScroll}
-              className="flex w-6 -rotate-90 items-center justify-center text-gray-90 disabled:text-gray-15"
-              disabled={chunkIndex === 0}
-            >
-              <IconTriangleFilled size={12} />
-            </button>
-            <button
-              onClick={handleRightScroll}
-              className="flex w-6 rotate-90 items-center justify-center disabled:text-gray-15"
-              disabled={chunkIndex === timePointChunks.length - 1}
-            >
-              <IconTriangleFilled size={12} />
-            </button>
-          </div>
-        )}
+      <div className="sticky top-[123px] z-20 bg-gray-05">
+        <div className="flex justify-between">
+          {editable ? (
+            <PossibleTimeToggle
+              isPossibleTime={isPossibleTime}
+              onToggle={handleAvailableToggle}
+            />
+          ) : (
+            <h2 className="py-3 text-gray-90 title-sm-300">가능한 스케줄</h2>
+          )}
+          {timePointChunks.length !== 1 && (
+            <div className="flex items-center gap-4">
+              <button
+                onClick={handleLeftScroll}
+                className="flex w-6 -rotate-90 items-center justify-center text-gray-90 disabled:text-gray-15"
+                disabled={chunkIndex === 0}
+              >
+                <IconTriangleFilled size={12} />
+              </button>
+              <button
+                onClick={handleRightScroll}
+                className="flex w-6 rotate-90 items-center justify-center disabled:text-gray-15"
+                disabled={chunkIndex === timePointChunks.length - 1}
+              >
+                <IconTriangleFilled size={12} />
+              </button>
+            </div>
+          )}
+        </div>
+        <TBDayTopLabelGroup
+          topLabelRef={topLabelRef}
+          dayLineGap={dayLineGap}
+          dayLineWidth={dayLineWidth}
+          timePointChunks={timePointChunks}
+          category={event.category}
+        />
       </div>
-      <div className="mt-3 flex gap-3 overflow-hidden">
+      <div className="flex overflow-hidden">
         <TBLeftLabelLine
           startTime={event.start_time}
           endTime={event.end_time}
-          category={event.category}
         />
         <div
           ref={boardContentRef}
@@ -300,7 +328,6 @@ export default function TimeBlockBoard({
                     timePoint={timePoint}
                     startTime={event.start_time}
                     endTime={event.end_time}
-                    category={event.category}
                     schedules={schedules}
                     changeTimeBlockStatus={changeTimeBlockStatus}
                     handleDialogOpen={handleDialogOpen}
