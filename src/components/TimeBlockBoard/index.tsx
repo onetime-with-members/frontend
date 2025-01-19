@@ -4,11 +4,10 @@ import { EventType } from '../../types/event.type';
 import { Schedule, Time, TimeBlockPopUpData } from '../../types/schedule.type';
 import { getBlockTimeList } from '../../utils/time-block';
 import TimeBlockPopUp from '../pop-up/TimeBlockPopUp';
-import PossibleTimeToggle from './PossibleTimeToggle/index.tsx';
 import TBDayLine from './TBDayLine';
 import TBDayTopLabelGroup from './TBDayTopLabelGroup';
+import TBHeader from './TBHeader/index.tsx';
 import TBLeftLabelLine from './TBLeftLabelLine';
-import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface TimeBlockBoardProps {
   event: EventType;
@@ -257,34 +256,15 @@ export default function TimeBlockBoard({
   return (
     <div className="flex flex-col">
       <div className="sticky top-[123px] z-20 bg-gray-05">
-        <div className="flex justify-between">
-          {editable ? (
-            <PossibleTimeToggle
-              isPossibleTime={isPossibleTime}
-              onToggle={handleAvailableToggle}
-            />
-          ) : (
-            <h2 className="py-3 text-gray-90 title-sm-300">가능한 스케줄</h2>
-          )}
-          {timePointChunks.length !== 1 && (
-            <div className="flex items-center gap-4">
-              <button
-                onClick={handleLeftScroll}
-                className="flex w-6 -rotate-90 items-center justify-center text-gray-90 disabled:text-gray-15"
-                disabled={chunkIndex === 0}
-              >
-                <IconTriangleFilled size={12} />
-              </button>
-              <button
-                onClick={handleRightScroll}
-                className="flex w-6 rotate-90 items-center justify-center disabled:text-gray-15"
-                disabled={chunkIndex === timePointChunks.length - 1}
-              >
-                <IconTriangleFilled size={12} />
-              </button>
-            </div>
-          )}
-        </div>
+        <TBHeader
+          editable={editable}
+          isPossibleTime={isPossibleTime}
+          handleAvailableToggle={handleAvailableToggle}
+          timePointChunks={timePointChunks}
+          chunkIndex={chunkIndex}
+          handleLeftScroll={handleLeftScroll}
+          handleRightScroll={handleRightScroll}
+        />
         <TBDayTopLabelGroup
           topLabelRef={topLabelRef}
           dayLineGap={dayLineGap}
