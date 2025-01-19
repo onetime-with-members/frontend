@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import TimeBlockBoard from '@/components/TimeBlockBoard';
@@ -8,7 +8,6 @@ import EmptyEventBanner from '@/components/banner/empty-event/EmptyEventBanner';
 import { EventType } from '@/types/event.type';
 import { RecommendSchedule, Schedule } from '@/types/schedule.type';
 import axios from '@/utils/axios';
-import breakpoint from '@/utils/breakpoint';
 import { useQuery } from '@tanstack/react-query';
 
 interface MainContentProps {
@@ -24,8 +23,6 @@ export default function MainContent({
   eventError,
   isEventPending,
 }: MainContentProps) {
-  const [isMobile, setIsMobile] = useState(false);
-
   const params = useParams<{ eventId: string }>();
   const navigate = useNavigate();
 
@@ -71,20 +68,6 @@ export default function MainContent({
     }
   }, [eventError]);
 
-  useEffect(() => {
-    function handleResize() {
-      setIsMobile(window.innerWidth <= breakpoint.md);
-    }
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   if (
     isEventPending ||
     isScheduleLoading ||
@@ -104,7 +87,7 @@ export default function MainContent({
             event={event}
             schedules={schedules}
             backgroundColor="white"
-            topLabelOffset={isMobile ? 123 : 136}
+            topContentClassName="top-[123px] z-20 bg-gray-05 md:top-[136px]"
           />
           {schedules.length === 0 ? (
             <EmptyEventBanner copyEventShareLink={copyEventShareLink} />

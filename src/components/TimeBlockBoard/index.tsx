@@ -18,7 +18,8 @@ interface TimeBlockBoardProps {
   backgroundColor?: 'white' | 'gray';
   isPossibleTime?: boolean;
   setIsPossibleTime?: React.Dispatch<React.SetStateAction<boolean>>;
-  topLabelOffset?: number;
+  topContentClassName?: string;
+  bottomContentClassName?: string;
 }
 
 export default function TimeBlockBoard({
@@ -29,7 +30,8 @@ export default function TimeBlockBoard({
   backgroundColor = 'gray',
   isPossibleTime = true,
   setIsPossibleTime,
-  topLabelOffset,
+  topContentClassName,
+  bottomContentClassName,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<TimeBlockPopUpData>({
@@ -258,12 +260,7 @@ export default function TimeBlockBoard({
 
   return (
     <div className="flex flex-col">
-      <div
-        className={clsx({
-          'sticky z-20 bg-gray-05': topLabelOffset,
-        })}
-        style={{ top: topLabelOffset }}
-      >
+      <div className={clsx('sticky', topContentClassName)}>
         <TBHeader
           editable={editable}
           isPossibleTime={isPossibleTime}
@@ -281,7 +278,7 @@ export default function TimeBlockBoard({
           category={event.category}
         />
       </div>
-      <div className="flex overflow-hidden">
+      <div className={clsx('flex overflow-hidden', bottomContentClassName)}>
         <TBLeftLabelLine
           startTime={event.start_time}
           endTime={event.end_time}

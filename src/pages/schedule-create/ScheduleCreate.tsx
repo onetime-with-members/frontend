@@ -57,10 +57,18 @@ export default function ScheduleCreate() {
         document.body.style.backgroundColor = '';
       }
     }
-    updateBackgroundColor();
-    window.addEventListener('resize', updateBackgroundColor);
-    return () => {
+
+    function initBackgroundColor() {
       document.body.style.backgroundColor = '';
+    }
+
+    updateBackgroundColor();
+
+    window.addEventListener('resize', updateBackgroundColor);
+
+    return () => {
+      initBackgroundColor();
+
       window.removeEventListener('resize', updateBackgroundColor);
     };
   }, []);
@@ -70,14 +78,16 @@ export default function ScheduleCreate() {
       <Helmet>
         <title>스케줄 등록 - OneTime</title>
       </Helmet>
-      <TopNavBarForDesktop />
+      <>
+        <TopNavBarForDesktop />
+        <TopAppBarForMobile
+          pageIndex={pageIndex}
+          handleBackButtonClick={handleBackButtonClick}
+          setIsTopSubmitButtonClicked={setIsTopSubmitButtonClicked}
+        />
+      </>
       <div className="md:px-4">
         <>
-          <TopAppBarForMobile
-            pageIndex={pageIndex}
-            handleBackButtonClick={handleBackButtonClick}
-            setIsTopSubmitButtonClicked={setIsTopSubmitButtonClicked}
-          />
           <TopHeaderForDesktop handleBackButtonClick={handleBackButtonClick} />
         </>
         <main

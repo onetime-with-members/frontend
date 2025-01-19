@@ -21,14 +21,14 @@ export default function TBHeader({
   handleRightScroll,
 }: TBHeaderProps) {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between py-3">
       {editable ? (
         <PossibleTimeToggle
           isPossibleTime={isPossibleTime}
           onToggle={handleAvailableToggle}
         />
       ) : (
-        <h2 className="py-3 text-gray-90 title-sm-300">가능한 스케줄</h2>
+        <h2 className="text-gray-90 title-sm-300">가능한 스케줄</h2>
       )}
       {timePointChunks.length !== 1 && (
         <div className="flex items-center gap-4">
