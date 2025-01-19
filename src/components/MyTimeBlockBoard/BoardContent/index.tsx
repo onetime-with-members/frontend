@@ -1,30 +1,26 @@
 import clsx from 'clsx';
 import dayjs from 'dayjs';
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
-import { MyScheduleContext } from '../contexts/MyScheduleContext';
-import { MyNewSchedule, MySchedule } from '../types/schedule.type';
-import { getBlockTimeList, getLabelTimeList } from '../utils/time-block';
+import { MyScheduleContext } from '@/contexts/MyScheduleContext';
+import { MyNewSchedule, MySchedule } from '@/types/schedule.type';
+import { getBlockTimeList } from '@/utils/time-block';
 
-interface MyTimeBlockBoard {
+interface TimeBlockContentProps {
   mode: 'view' | 'create' | 'edit';
   mySchedules: MySchedule[];
   setMyNewSchedule?: (newSchedule: MyNewSchedule['schedules']) => void;
-  handleDeleteButtonClick?: () => void;
-  handleEditButtonClick?: () => void;
   editedScheduleId?: number;
-  className?: string;
   backgroundColor?: 'gray' | 'white';
 }
 
-export default function MyTimeBlockBoard({
+export default function BoardContent({
   mode,
   mySchedules,
   setMyNewSchedule,
   editedScheduleId = -1,
-  className,
   backgroundColor = 'gray',
-}: MyTimeBlockBoard) {
+}: TimeBlockContentProps) {
   const [timeBlockData, setTimeBlockData] = useState(
     mySchedules.flatMap((schedule) =>
       schedule.schedules.map((s) => ({
@@ -61,7 +57,6 @@ export default function MyTimeBlockBoard({
   } = useContext(MyScheduleContext);
 
   const timeBlockList = getBlockTimeList('00:00', '24:00', '30m');
-  const labelTimeList = getLabelTimeList('00:00', '24:00', '1h');
 
   const editedId = mode === 'edit' ? editedScheduleId : -1;
 
@@ -359,69 +354,32 @@ export default function MyTimeBlockBoard({
   }, [mySchedules]);
 
   return (
-    <div className={className}>
-      {mode === 'view' && selectedTimeBlockId !== null && (
-        <div className="fixed left-0 top-0 h-screen w-screen bg-gray-90 bg-opacity-30"></div>
-      )}
-      <div className="flex gap-2">
-        <div className="flex flex-col gap-2">
-          <div className="h-[1.5rem]"></div>
-          <div>
-            {labelTimeList.map((time, index) => (
+    <div className="grid flex-1 grid-cols-7 gap-2">
+      {dayjs.weekdaysMin().map((weekday) => (
+        <div key={weekday} className="flex flex-col gap-2">
+          <div key={weekday} className="text-center text-gray-30 text-md-200">
+            {weekday}
+          </div>
+          <div
+            className="overflow-hidden rounded-lg"
+            onMouseLeave={() => handleTimeBlockDragEnd()}
+          >
+            {timeBlockList.map((time, index) => (
               <div
-                key={time}
-                className={clsx('h-[6rem] text-center', {
-                  'h-0': index === labelTimeList.length - 1,
-                })}
-              >
-                <span
-                  className={clsx(
-                    'block -translate-y-1/2 text-gray-30 text-sm-200',
-                    {
-                      'translate-y-0': index === 0,
-                      '-translate-y-full': index === labelTimeList.length - 1,
-                    },
-                  )}
-                >
-                  {time === '24:00'
-                    ? '24시'
-                    : dayjs(time, 'HH:mm').format('H시')}
-                </span>
-              </div>
+                key={index}
+                ref={(el) => addTimeBlockRefInList(weekday, time, el)}
+                onClick={() => handleTimeBlockClick(weekday, time)}
+                onMouseDown={() => handleTimeBlockDragStart(weekday, time)}
+                onMouseMove={() => handleTimeBlockDragMove(weekday, time)}
+                onMouseUp={handleTimeBlockDragEnd}
+                onTouchStart={() => handleTimeBlockDragStart(weekday, time)}
+                onTouchEnd={handleTimeBlockTouchEnd}
+                className={timeBlockStyle(weekday, time)}
+              />
             ))}
           </div>
         </div>
-        <div className="grid flex-1 grid-cols-7 gap-2">
-          {dayjs.weekdaysMin().map((weekday) => (
-            <div key={weekday} className="flex flex-col gap-2">
-              <div
-                key={weekday}
-                className="text-center text-gray-30 text-md-200"
-              >
-                {weekday}
-              </div>
-              <div
-                className="overflow-hidden rounded-lg"
-                onMouseLeave={() => handleTimeBlockDragEnd()}
-              >
-                {timeBlockList.map((time, index) => (
-                  <div
-                    key={index}
-                    ref={(el) => addTimeBlockRefInList(weekday, time, el)}
-                    onClick={() => handleTimeBlockClick(weekday, time)}
-                    onMouseDown={() => handleTimeBlockDragStart(weekday, time)}
-                    onMouseMove={() => handleTimeBlockDragMove(weekday, time)}
-                    onMouseUp={handleTimeBlockDragEnd}
-                    onTouchStart={() => handleTimeBlockDragStart(weekday, time)}
-                    onTouchEnd={handleTimeBlockTouchEnd}
-                    className={timeBlockStyle(weekday, time)}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
   );
 }
