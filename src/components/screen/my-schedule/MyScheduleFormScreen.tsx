@@ -120,7 +120,7 @@ export default function MyScheduleFormScreen({
     return <></>;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col">
       <nav className="h-[64px]">
         <div className="fixed z-10 flex w-full flex-col justify-center bg-primary-00">
           <div className="flex justify-center px-4 text-center">
@@ -158,6 +158,7 @@ export default function MyScheduleFormScreen({
             mySchedules={mySchedules}
             setMyNewSchedule={setMyNewScheduleDataWithKey('schedules')}
             editedScheduleId={Number(params.myScheduleId)}
+            topDateGroupClassName="sticky top-[64px] z-10 bg-gray-00"
           />
         </div>
         {isBottomSheetOpen && (

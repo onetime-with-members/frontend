@@ -60,7 +60,13 @@ export default function MySchedules() {
   }
 
   function handleBottomSheetEditButtonClick() {
+    initMyScheduleContext();
     navigate(`/mypage/schedules/${selectedTimeBlockId}/edit`);
+
+    function initMyScheduleContext() {
+      setSelectedTimeBlockId(null);
+      setViewMode('timeblock');
+    }
   }
 
   useEffect(() => {
@@ -86,7 +92,7 @@ export default function MySchedules() {
                   <MyTimeBlockBoard
                     mode="view"
                     mySchedules={mySchedules}
-                    className="pt-3"
+                    topDateGroupClassName="sticky z-10 bg-gray-00 top-[64px] md:top-0"
                   />
                 ),
                 list: <MyScheduleList />,

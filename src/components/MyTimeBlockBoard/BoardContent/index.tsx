@@ -194,7 +194,7 @@ export default function BoardContent({
       mode === 'view'
         ? {
             [`bg-primary-40 ${cursorStatus}`]: isTimeBlockExist(weekday, time),
-            'relative z-[100] border-l-2 border-r-2 border-gray-00 bg-primary-40':
+            'relative border-l-2 border-r-2 border-gray-00 bg-primary-40':
               isTimeBlockSelected(weekday, time),
             'border-t-2':
               isTimeBlockChunkEdge(weekday, time, 'start') &&
@@ -356,28 +356,24 @@ export default function BoardContent({
   return (
     <div className="grid flex-1 grid-cols-7 gap-2">
       {dayjs.weekdaysMin().map((weekday) => (
-        <div key={weekday} className="flex flex-col gap-2">
-          <div key={weekday} className="text-center text-gray-30 text-md-200">
-            {weekday}
-          </div>
-          <div
-            className="overflow-hidden rounded-lg"
-            onMouseLeave={() => handleTimeBlockDragEnd()}
-          >
-            {timeBlockList.map((time, index) => (
-              <div
-                key={index}
-                ref={(el) => addTimeBlockRefInList(weekday, time, el)}
-                onClick={() => handleTimeBlockClick(weekday, time)}
-                onMouseDown={() => handleTimeBlockDragStart(weekday, time)}
-                onMouseMove={() => handleTimeBlockDragMove(weekday, time)}
-                onMouseUp={handleTimeBlockDragEnd}
-                onTouchStart={() => handleTimeBlockDragStart(weekday, time)}
-                onTouchEnd={handleTimeBlockTouchEnd}
-                className={timeBlockStyle(weekday, time)}
-              />
-            ))}
-          </div>
+        <div
+          key={weekday}
+          className="overflow-hidden rounded-lg"
+          onMouseLeave={() => handleTimeBlockDragEnd()}
+        >
+          {timeBlockList.map((time, index) => (
+            <div
+              key={index}
+              ref={(el) => addTimeBlockRefInList(weekday, time, el)}
+              onClick={() => handleTimeBlockClick(weekday, time)}
+              onMouseDown={() => handleTimeBlockDragStart(weekday, time)}
+              onMouseMove={() => handleTimeBlockDragMove(weekday, time)}
+              onMouseUp={handleTimeBlockDragEnd}
+              onTouchStart={() => handleTimeBlockDragStart(weekday, time)}
+              onTouchEnd={handleTimeBlockTouchEnd}
+              className={timeBlockStyle(weekday, time)}
+            />
+          ))}
         </div>
       ))}
     </div>
