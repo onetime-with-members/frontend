@@ -4,7 +4,7 @@ import { EventType } from '../../types/event.type';
 import { Schedule, Time, TimeBlockPopUpData } from '../../types/schedule.type';
 import { getBlockTimeList } from '../../utils/time-block';
 import TimeBlockPopUp from '../pop-up/TimeBlockPopUp';
-import TBDayLine from './TBDayLine';
+import TBBoardContent from './TBBoardContent/index.tsx';
 import TBDayTopLabelGroup from './TBDayTopLabelGroup';
 import TBHeader from './TBHeader/index.tsx';
 import TBLeftLabelLine from './TBLeftLabelLine';
@@ -278,53 +278,21 @@ export default function TimeBlockBoard({
           startTime={event.start_time}
           endTime={event.end_time}
         />
-        <div
-          ref={boardContentRef}
-          className="flex flex-1 overflow-hidden"
-          style={{ gap: dayLineGap }}
-        >
-          {timePointChunks.map((timePoints, index) => (
-            <div
-              key={index}
-              className="flex"
-              style={{
-                gap: dayLineGap,
-                minWidth:
-                  index !== timePointChunks.length - 1 ||
-                  timePointChunks.length === 1
-                    ? `${innerContentProportion * 100}%`
-                    : undefined,
-              }}
-            >
-              {timePoints.map((timePoint) => {
-                return (
-                  <TBDayLine
-                    key={timePoint}
-                    ref={
-                      index !== timePointChunks.length - 1
-                        ? dayLineRef
-                        : undefined
-                    }
-                    timePoint={timePoint}
-                    startTime={event.start_time}
-                    endTime={event.end_time}
-                    schedules={schedules}
-                    changeTimeBlockStatus={changeTimeBlockStatus}
-                    handleDialogOpen={handleDialogOpen}
-                    editable={editable}
-                    minWidth={
-                      index === timePointChunks.length - 1
-                        ? dayLineWidth
-                        : undefined
-                    }
-                    isPossibleTime={isPossibleTime}
-                    backgroundColor={backgroundColor}
-                  />
-                );
-              })}
-            </div>
-          ))}
-        </div>
+        <TBBoardContent
+          boardContentRef={boardContentRef}
+          dayLineRef={dayLineRef}
+          dayLineGap={dayLineGap}
+          dayLineWidth={dayLineWidth}
+          timePointChunks={timePointChunks}
+          event={event}
+          schedules={schedules}
+          changeTimeBlockStatus={changeTimeBlockStatus}
+          handleDialogOpen={handleDialogOpen}
+          editable={editable}
+          innerContentProportion={innerContentProportion}
+          isPossibleTime={isPossibleTime}
+          backgroundColor={backgroundColor}
+        />
       </div>
       {isDialogOpen && (
         <TimeBlockPopUp

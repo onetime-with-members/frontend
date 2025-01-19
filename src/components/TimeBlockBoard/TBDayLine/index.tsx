@@ -8,7 +8,7 @@ import {
 import { getBlockTimeList } from '../../../utils/time-block';
 import TBItem from './TBItem';
 
-interface TBDayLineProps {
+export interface TBDayLineProps {
   timePoint: string;
   startTime: string;
   endTime: string;
