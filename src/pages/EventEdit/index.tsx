@@ -13,7 +13,7 @@ export default function EventEdit() {
   const params = useParams<{ eventId: string }>();
 
   const { data, isPending, error } = useQuery<EventType>({
-    queryKey: ['events', params.eventId, '_'],
+    queryKey: ['events', params.eventId],
     queryFn: async () => {
       const res = await axios.get(`/events/${params.eventId}`);
       return res.data.payload;
