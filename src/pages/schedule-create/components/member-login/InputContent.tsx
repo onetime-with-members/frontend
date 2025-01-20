@@ -24,9 +24,7 @@ export default function InputContent({
   return (
     <div className="flex flex-col gap-12">
       <div>
-        <ScheduleInputLabel htmlFor="name" required>
-          이름
-        </ScheduleInputLabel>
+        <ScheduleInputLabel htmlFor="name">이름</ScheduleInputLabel>
         <Input
           className="mt-2"
           id="name"
@@ -38,9 +36,7 @@ export default function InputContent({
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <ScheduleInputLabel htmlFor="pin" required>
-            비밀번호
-          </ScheduleInputLabel>
+          <ScheduleInputLabel htmlFor="pin">비밀번호</ScheduleInputLabel>
           <PinPasswordInput
             inputId="pin"
             pin={guestValue.pin}
