@@ -31,7 +31,7 @@ export default function TBDayTopLabelGroup({
               key={timePoint}
               category={category}
               timePoint={timePoint}
-              className="py-2 text-center"
+              className="flex-1 py-2 text-center"
               style={{
                 minWidth: dayLineWidth,
               }}
