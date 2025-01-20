@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { EventType } from '../../../../types/event.type';
@@ -17,6 +17,10 @@ interface ScheduleFormProps {
   isNewGuest: boolean;
   guestValue: GuestValue;
   isLoggedIn: boolean;
+  schedules: Schedule[];
+  setSchedules: React.Dispatch<React.SetStateAction<Schedule[]>>;
+  isPossibleTime: boolean;
+  setIsPossibleTime: React.Dispatch<React.SetStateAction<boolean>>;
   isTopSubmitButtonClicked: boolean;
   setIsTopSubmitButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -26,17 +30,13 @@ export default function ScheduleFormScreen({
   isNewGuest,
   guestValue,
   isLoggedIn,
+  schedules,
+  setSchedules,
+  isPossibleTime,
+  setIsPossibleTime,
   isTopSubmitButtonClicked,
   setIsTopSubmitButtonClicked,
 }: ScheduleFormProps) {
-  const [schedules, setSchedules] = useState<Schedule[]>([
-    {
-      name: '본인',
-      schedules: [],
-    },
-  ]);
-  const [isPossibleTime, setIsPossibleTime] = useState(true);
-
   const navigate = useNavigate();
   const params = useParams();
   const queryClient = useQueryClient();

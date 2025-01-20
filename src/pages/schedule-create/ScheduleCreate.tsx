@@ -11,6 +11,7 @@ import TopHeaderForDesktop from './components/TopHeaderForDesktop';
 import TopNavBarForDesktop from './components/TopNavBarForDesktop';
 import MemberLoginScreen from './components/screen/MemberLoginScreen';
 import ScheduleFormScreen from './components/screen/ScheduleFormScreen';
+import { Schedule } from '@/types/schedule.type';
 
 export default function ScheduleCreate() {
   const [pageIndex, setPageIndex] = useState(
@@ -22,6 +23,13 @@ export default function ScheduleCreate() {
     name: '',
     pin: '',
   });
+  const [schedules, setSchedules] = useState<Schedule[]>([
+    {
+      name: '본인',
+      schedules: [],
+    },
+  ]);
+  const [isPossibleTime, setIsPossibleTime] = useState(true);
   const [isTopSubmitButtonClicked, setIsTopSubmitButtonClicked] =
     useState(false);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
@@ -113,6 +121,10 @@ export default function ScheduleCreate() {
               isNewGuest={isNewGuest}
               guestValue={guestValue}
               isLoggedIn={isLoggedIn}
+              schedules={schedules}
+              setSchedules={setSchedules}
+              isPossibleTime={isPossibleTime}
+              setIsPossibleTime={setIsPossibleTime}
               isTopSubmitButtonClicked={isTopSubmitButtonClicked}
               setIsTopSubmitButtonClicked={setIsTopSubmitButtonClicked}
             />
