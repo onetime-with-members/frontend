@@ -265,7 +265,7 @@ export default function ScheduleFormScreen({
             isPossibleTime={isPossibleTime}
             setIsPossibleTime={setIsPossibleTime}
             editable
-            topContentClassName="top-[64px] z-50 bg-gray-00"
+            topContentClassName="top-[64px] z-40 bg-gray-00"
             isEdited={isScheduleEdited}
             setIsEdited={setIsScheduleEdited}
           />

@@ -16,8 +16,8 @@ export default function TopAppBarForMobile({
   }
 
   return (
-    <header className="block md:hidden md:h-[67px]">
-      <div className="fixed left-0 top-0 z-40 w-full bg-white px-4">
+    <header className="block h-[67px] md:hidden">
+      <div className="fixed left-0 top-0 z-50 w-full bg-white px-4">
         <div className="mx-auto grid max-w-screen-md grid-cols-3 py-5">
           <div className="flex items-center">
             <button onClick={handleBackButtonClick}>
