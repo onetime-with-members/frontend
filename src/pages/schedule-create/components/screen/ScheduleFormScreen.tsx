@@ -23,6 +23,8 @@ interface ScheduleFormProps {
   setIsPossibleTime: React.Dispatch<React.SetStateAction<boolean>>;
   isTopSubmitButtonClicked: boolean;
   setIsTopSubmitButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  isScheduleEdited: boolean;
+  setIsScheduleEdited: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function ScheduleFormScreen({
@@ -36,6 +38,8 @@ export default function ScheduleFormScreen({
   setIsPossibleTime,
   isTopSubmitButtonClicked,
   setIsTopSubmitButtonClicked,
+  isScheduleEdited,
+  setIsScheduleEdited,
 }: ScheduleFormProps) {
   const navigate = useNavigate();
   const params = useParams();
@@ -262,6 +266,8 @@ export default function ScheduleFormScreen({
             setIsPossibleTime={setIsPossibleTime}
             editable
             topContentClassName="top-[64px] z-50 bg-gray-00"
+            isEdited={isScheduleEdited}
+            setIsEdited={setIsScheduleEdited}
           />
         )}
       </div>

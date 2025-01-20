@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { FooterContext } from '../../contexts/FooterContext';
 import { GuestValue } from '../../types/guest.type';
@@ -33,19 +34,31 @@ export default function ScheduleCreate() {
   const [isTopSubmitButtonClicked, setIsTopSubmitButtonClicked] =
     useState(false);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
+  const [isScheduleEdited, setIsScheduleEdited] = useState(false);
 
   const { setIsFooterVisible } = useContext(FooterContext);
+
+  const navigate = useNavigate();
+  const params = useParams<{ eventId: string }>();
 
   const isLoggedIn = localStorage.getItem('access-token') !== null;
 
   function handleBackButtonClick() {
     if (pageIndex === 0) {
-      setIsBackButtonAlertOpen(true);
+      closePage();
     } else if (pageIndex === 1) {
       if (isLoggedIn) {
-        setIsBackButtonAlertOpen(true);
+        closePage();
       } else {
         setPageIndex((prev) => prev - 1);
+      }
+    }
+
+    function closePage() {
+      if (isScheduleEdited) {
+        setIsBackButtonAlertOpen(true);
+      } else {
+        navigate(`/events/${params.eventId}`);
       }
     }
   }
@@ -127,11 +140,13 @@ export default function ScheduleCreate() {
               setIsPossibleTime={setIsPossibleTime}
               isTopSubmitButtonClicked={isTopSubmitButtonClicked}
               setIsTopSubmitButtonClicked={setIsTopSubmitButtonClicked}
+              isScheduleEdited={isScheduleEdited}
+              setIsScheduleEdited={setIsScheduleEdited}
             />
           )}
         </main>
       </div>
-      {isBackButtonAlertOpen && (
+      {isBackButtonAlertOpen && isScheduleEdited && (
         <BackButtonAlert setIsOpen={setIsBackButtonAlertOpen} />
       )}
     </>

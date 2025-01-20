@@ -20,6 +20,8 @@ interface TimeBlockBoardProps {
   setIsPossibleTime?: React.Dispatch<React.SetStateAction<boolean>>;
   topContentClassName?: string;
   bottomContentClassName?: string;
+  isEdited?: boolean;
+  setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function TimeBlockBoard({
@@ -32,6 +34,8 @@ export default function TimeBlockBoard({
   setIsPossibleTime,
   topContentClassName,
   bottomContentClassName,
+  isEdited,
+  setIsEdited,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<TimeBlockPopUpData>({
@@ -60,29 +64,40 @@ export default function TimeBlockBoard({
     time: Schedule['schedules'][0]['times'][0],
     newStatus: boolean,
   ) {
-    if (!editable || !setSchedules) return;
-    setSchedules((prev) => [
-      {
-        name: prev[0].name,
-        schedules: prev[0].schedules.map((schedule) => {
-          if (schedule.time_point === day) {
-            let newSchedule: Time = {
-              ...schedule,
-              times: schedule.times.filter((t) => t !== time),
-            };
-            if (newStatus) {
-              newSchedule = {
-                ...newSchedule,
-                times: [...newSchedule.times, time],
+    if (!editable) return;
+    editTimeBlock();
+    changeIsEdited();
+
+    function editTimeBlock() {
+      if (!setSchedules) return;
+      setSchedules((prev) => [
+        {
+          name: prev[0].name,
+          schedules: prev[0].schedules.map((schedule) => {
+            if (schedule.time_point === day) {
+              let newSchedule: Time = {
+                ...schedule,
+                times: schedule.times.filter((t) => t !== time),
               };
+              if (newStatus) {
+                newSchedule = {
+                  ...newSchedule,
+                  times: [...newSchedule.times, time],
+                };
+              }
+              return newSchedule;
+            } else {
+              return schedule;
             }
-            return newSchedule;
-          } else {
-            return schedule;
-          }
-        }),
-      },
-    ]);
+          }),
+        },
+      ]);
+    }
+
+    function changeIsEdited() {
+      if (isEdited === undefined || !setIsEdited) return;
+      setIsEdited(true);
+    }
   }
 
   function handleDialogOpen({
