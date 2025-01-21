@@ -35,8 +35,8 @@ export default function ToolbarMenuDropdown({
         <IconDots size={28} />
       </button>
       {isDropdownMenuOpen && (
-        <div className="absolute right-0 top-8 z-30 w-[5.5rem] overflow-hidden rounded-lg bg-gray-00 shadow-lg">
-          <ul className="flex flex-col gap-1">
+        <div className="absolute right-0 top-8 z-30 w-[5.5rem] overflow-hidden rounded-xl bg-gray-00 py-1 shadow-lg">
+          <ul className="flex flex-col">
             <ToolbarMenuItem
               name="수정"
               icon="edit"

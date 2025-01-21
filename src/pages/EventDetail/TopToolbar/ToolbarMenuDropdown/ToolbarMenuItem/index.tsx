@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import EditIcon from '@/components/icon/EditIcon';
 import TrashIcon from '@/components/icon/TrashIcon';
@@ -18,26 +18,31 @@ export default function ToolbarMenuItem({
   variant = 'default',
   ...props
 }: ToolbarMenuItemProps) {
+  const navigate = useNavigate();
+
+  function handleMenuItemClick() {
+    navigate(href);
+  }
+
   return (
-    <li {...props}>
-      <Link
-        to={href}
-        className={clsx(
-          'flex w-full cursor-pointer items-center justify-between py-2 pl-4 pr-5 duration-150 text-md-200 hover:bg-gray-10',
-          {
-            'text-gray-60': variant === 'default',
-            'text-danger-50': variant === 'danger',
-          },
+    <li
+      className={clsx(
+        'flex w-full cursor-pointer items-center justify-between py-1.5 pl-4 pr-5 pt-2 duration-150 text-md-200 first:pt-2 last:pb-2',
+        {
+          'text-gray-60': variant === 'default',
+          'text-danger-50': variant === 'danger',
+        },
+      )}
+      onClick={handleMenuItemClick}
+      {...props}
+    >
+      <span>
+        {icon === 'edit' && <EditIcon size={20} fill="#757A95" />}
+        {icon === 'delete' && (
+          <TrashIcon size={20} fill="#E4678D" innerFill="#FFFFFF" />
         )}
-      >
-        <span>
-          {icon === 'edit' && <EditIcon size={20} fill="#757A95" />}
-          {icon === 'delete' && (
-            <TrashIcon size={20} fill="#E4678D" innerFill="#FFFFFF" />
-          )}
-        </span>
-        <span>{name}</span>
-      </Link>
+      </span>
+      <span>{name}</span>
     </li>
   );
 }
