@@ -1,20 +1,26 @@
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
+type DeviceOS = 'android' | 'iOS' | 'windows' | 'macOS';
+
 export default function TopGraphic() {
-  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
+  const [deviceOS, setDeviceOS] = useState<DeviceOS | undefined>(undefined);
 
   useEffect(() => {
-    const checkDevice = () => {
-      const userAgent = navigator.userAgent;
-      if (/android/i.test(userAgent) || /iPhone|iPad|iPod/i.test(userAgent)) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
-    };
+    let deviceOS: DeviceOS | undefined = undefined;
 
-    checkDevice();
+    const userAgent = window.navigator.userAgent;
+    if (userAgent.match(/Android/i)) {
+      deviceOS = 'android';
+    } else if (userAgent.match(/iPhone|iPad|iPod/i)) {
+      deviceOS = 'iOS';
+    } else if (userAgent.match(/Windows/i)) {
+      deviceOS = 'windows';
+    } else if (userAgent.match(/Mac/i)) {
+      deviceOS = 'macOS';
+    }
+
+    setDeviceOS(deviceOS);
   }, []);
 
   return (
@@ -23,7 +29,7 @@ export default function TopGraphic() {
         className="h-[350px] w-[350px]"
         style={{ clipPath: 'circle(50% at 50% 50%)' }}
       >
-        {isMobile !== undefined && (
+        {deviceOS !== undefined && (
           <video
             src="/videos/landing-phone-video.mp4"
             autoPlay
@@ -38,8 +44,9 @@ export default function TopGraphic() {
         className={clsx(
           'absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full',
           {
-            'bg-[#C6CCF4]': isMobile,
-            'bg-[#CED3F6]': !isMobile,
+            'bg-[#C6CCF4]': deviceOS === 'android' || deviceOS === 'iOS',
+            'bg-[#CED3F6]': deviceOS === 'macOS',
+            'bg-[#C6CBF3]': deviceOS === 'windows',
           },
         )}
       />
