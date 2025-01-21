@@ -1,4 +1,4 @@
-import BottomHeroSection from './BottomHeroSection';
+import BottomSection from './BottomSection';
 import CardSection from './CardSection';
 import FeatureSection from './FeatureSection';
 import TopSection from './TopSection';
@@ -16,7 +16,7 @@ export default function Landing() {
         <FeatureSection />
         <TypoSection />
         <CardSection />
-        <BottomHeroSection />
+        <BottomSection />
       </main>
     </>
   );
