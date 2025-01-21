@@ -58,7 +58,7 @@ export default function TimeDropdown({
         )}
       </div>
       {isDropdownMenuOpen && (
-        <ul className="scrollbar-hidden absolute -bottom-3 max-h-[15.5rem] w-full translate-y-full overflow-y-auto rounded-xl bg-gray-00 py-2 shadow-[0_4px_24px_0_rgba(0,0,0,0.15)]">
+        <ul className="scrollbar-hidden absolute -bottom-3 z-10 max-h-[15.5rem] w-full translate-y-full overflow-y-auto rounded-xl bg-gray-00 py-2 shadow-[0_4px_24px_0_rgba(0,0,0,0.15)]">
           {Array.from({ length: 25 }, (_, index) => index).map((time) => (
             <TimeDropdownItem
               key={time}
