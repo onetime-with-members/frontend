@@ -2,14 +2,14 @@ import dayjs from 'dayjs';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { EventType } from '../../../../types/event.type';
-import { GuestValue } from '../../../../types/guest.type';
-import { MySchedule, Schedule } from '../../../../types/schedule.type';
-import axios from '../../../../utils/axios';
-import { getBlockTimeList } from '../../../../utils/time-block';
-import { sortWeekdayList } from '../../../../utils/weekday';
-import BottomButtonForDesktop from '../schedule-form/BottomButtonForDesktop';
+import BottomButtonForDesktop from './BottomButtonForDesktop';
 import TimeBlockBoard from '@/components/TimeBlockBoard';
+import { EventType } from '@/types/event.type';
+import { GuestValue } from '@/types/guest.type';
+import { MySchedule, Schedule } from '@/types/schedule.type';
+import axios from '@/utils/axios';
+import { getBlockTimeList } from '@/utils/time-block';
+import { sortWeekdayList } from '@/utils/weekday';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface ScheduleFormProps {

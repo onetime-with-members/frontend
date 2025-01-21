@@ -1,19 +1,17 @@
-import Button from '../../../../components/button/Button';
+import FloatingBottomButton from '@/components/floating-button/FloatingBottomButton';
 
 interface BottomButtonForDesktopProps {
   onClick: () => void;
-  disabled: boolean;
 }
 
 export default function BottomButtonForDesktop({
   onClick,
-  disabled,
 }: BottomButtonForDesktopProps) {
   return (
     <div className="hidden md:block">
-      <Button variant="black" onClick={onClick} disabled={disabled} fullWidth>
-        다음
-      </Button>
+      <FloatingBottomButton variant="black" onClick={onClick}>
+        스케줄 등록
+      </FloatingBottomButton>
     </div>
   );
 }

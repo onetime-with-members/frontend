@@ -1,7 +1,7 @@
-import Input from '../../../../components/form-control/input/Input';
-import { GuestValue } from '../../../../types/guest.type';
+import PinPasswordInput from './PinPasswordInput';
 import ScheduleInputLabel from './ScheduleInputLabel';
-import PinPasswordInput from './pin-password/PinPasswordInput';
+import Input from '@/components/form-control/input/Input';
+import { GuestValue } from '@/types/guest.type';
 
 interface InputContentProps {
   guestValue: GuestValue;

@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 
-import { MAX_PIN_LENGTH } from '../../../../../constants/pin-password';
-import { numberRegex } from '../../../../../constants/regex';
 import PinPasswordInputField from './PinPasswordInputField';
+import { MAX_PIN_LENGTH } from '@/constants/pin-password';
+import { numberRegex } from '@/constants/regex';
 
 interface PinPasswordInputProps {
   inputId: string;

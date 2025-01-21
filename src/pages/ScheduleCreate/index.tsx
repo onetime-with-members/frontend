@@ -3,16 +3,16 @@ import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { FooterContext } from '../../contexts/FooterContext';
-import { GuestValue } from '../../types/guest.type';
-import breakpoint from '../../utils/breakpoint';
-import TopAppBarForMobile from './components/TopAppBarForMobile';
-import TopHeaderForDesktop from './components/TopHeaderForDesktop';
-import TopNavBarForDesktop from './components/TopNavBarForDesktop';
-import MemberLoginScreen from './components/screen/MemberLoginScreen';
-import ScheduleFormScreen from './components/screen/ScheduleFormScreen';
+import MemberLoginScreen from './MemberLoginScreen';
+import ScheduleFormScreen from './ScheduleFormScreen';
+import TopAppBarForMobile from './TopAppBarForMobile';
+import TopHeaderForDesktop from './TopHeaderForDesktop';
+import TopNavBarForDesktop from './TopNavBarForDesktop';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
+import { FooterContext } from '@/contexts/FooterContext';
+import { GuestValue } from '@/types/guest.type';
 import { Schedule } from '@/types/schedule.type';
+import breakpoint from '@/utils/breakpoint';
 
 export default function ScheduleCreate() {
   const [pageIndex, setPageIndex] = useState(

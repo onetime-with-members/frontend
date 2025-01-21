@@ -19,8 +19,8 @@ import NotFoundRedirect from './pages/NotFoundRedirect';
 import Onboarding from './pages/Onboarding';
 import ProfileEdit from './pages/ProfileEdit';
 import ProfilePage from './pages/ProfilePage';
+import ScheduleCreate from './pages/ScheduleCreate';
 import WithdrawPage from './pages/WithdrawPage';
-import ScheduleCreate from './pages/schedule-create/ScheduleCreate';
 
 const router = createBrowserRouter([
   {

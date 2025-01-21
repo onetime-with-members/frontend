@@ -2,11 +2,11 @@ import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { GuestValue } from '../../../../types/guest.type';
-import axios from '../../../../utils/axios';
-import BottomButtonForDesktop from '../member-login/BottomButtonForDesktop';
-import BottomButtonForMobile from '../member-login/BottomButtonForMobile';
-import InputContent from '../member-login/InputContent';
+import BottomButtonForDesktop from './BottomButtonForDesktop';
+import BottomButtonForMobile from './BottomButtonForMobile';
+import InputContent from './InputContent';
+import { GuestValue } from '@/types/guest.type';
+import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
 
 interface MemberLoginProps {
