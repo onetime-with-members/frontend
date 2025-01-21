@@ -9,7 +9,7 @@ export default function BottomSection() {
         <TopContent />
         <BottomButton />
       </div>
-      <ClockPattern />
+      <ClockPattern gap={14} />
     </section>
   );
 }
