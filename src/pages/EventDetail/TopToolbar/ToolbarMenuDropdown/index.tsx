@@ -12,25 +12,29 @@ interface ToolbarMenuDropdownProps {
 export default function ToolbarMenuDropdown({
   handleDeleteButtonClick,
 }: ToolbarMenuDropdownProps) {
-  const menuRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const { isMenuOpen, setIsMenuOpen, handleDropdownClick } = useDropdown({
-    menuRef,
-  });
+  const { isDropdownMenuOpen, setIsDropdownMenuOpen, handleDropdownClick } =
+    useDropdown({
+      dropdownRef,
+    });
 
   const params = useParams<{ eventId: string }>();
 
   function handleDeleteMenuItemClick() {
-    setIsMenuOpen(false);
+    setIsDropdownMenuOpen(false);
     handleDeleteButtonClick();
   }
 
   return (
-    <div className="relative flex items-center justify-center" ref={menuRef}>
+    <div
+      className="relative flex items-center justify-center"
+      ref={dropdownRef}
+    >
       <button className="text-gray-00" onClick={handleDropdownClick}>
         <IconDots size={28} />
       </button>
-      {isMenuOpen && (
+      {isDropdownMenuOpen && (
         <div className="absolute right-0 top-8 z-30 w-[5.5rem] overflow-hidden rounded-lg bg-gray-00 shadow-lg">
           <ul className="flex flex-col gap-1">
             <ToolbarMenuItem

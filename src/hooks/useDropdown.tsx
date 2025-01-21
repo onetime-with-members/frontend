@@ -1,29 +1,36 @@
 import { useEffect, useState } from 'react';
 
 interface useDropdownProps {
-  menuRef: React.RefObject<HTMLDivElement>;
+  dropdownRef: React.RefObject<HTMLDivElement>;
 }
 
-export default function useDropdown({ menuRef }: useDropdownProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export default function useDropdown({ dropdownRef }: useDropdownProps) {
+  const [isDropdownMenuOpen, setIsDropdownMenuOpen] = useState(false);
 
   function handleDropdownClick() {
-    setIsMenuOpen((prev) => !prev);
+    setIsDropdownMenuOpen((prev) => !prev);
   }
 
   useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setIsMenuOpen(false);
+    function handleDropdownOutSideClick(e: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
+        setIsDropdownMenuOpen(false);
       }
     }
 
-    document.addEventListener('click', handleClickOutside);
+    document.addEventListener('click', handleDropdownOutSideClick);
 
     return () => {
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('click', handleDropdownOutSideClick);
     };
   }, []);
 
-  return { isMenuOpen, setIsMenuOpen, handleDropdownClick };
+  return {
+    isDropdownMenuOpen,
+    setIsDropdownMenuOpen,
+    handleDropdownClick,
+  };
 }
