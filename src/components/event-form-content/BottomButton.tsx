@@ -15,7 +15,7 @@ export default function BottomButton({
   const { pageMode } = useContext(PageModeContext);
 
   return (
-    <div className="sticky bottom-0 w-full bg-gray-00 px-4 py-4 md:static md:w-[25rem] md:bg-transparent">
+    <div className="sticky bottom-0 left-0 w-full bg-gray-00 px-4 py-4 md:static md:w-[25rem] md:bg-transparent">
       <Button
         onClick={handleSubmit}
         disabled={disabled}
