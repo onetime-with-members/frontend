@@ -14,11 +14,11 @@ export default function ToolbarMenuDropdown({
 }: ToolbarMenuDropdownProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
-  const params = useParams<{ eventId: string }>();
-
   const { isMenuOpen, setIsMenuOpen, handleDropdownClick } = useDropdown({
     menuRef,
   });
+
+  const params = useParams<{ eventId: string }>();
 
   function handleDeleteMenuItemClick() {
     setIsMenuOpen(false);
