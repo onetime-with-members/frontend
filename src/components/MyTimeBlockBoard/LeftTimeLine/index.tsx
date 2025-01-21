@@ -7,11 +7,11 @@ export default function LeftTimeLine() {
   const labelTimeList = getLabelTimeList('00:00', '24:00', '1h');
 
   return (
-    <div className="flex w-[2rem] flex-col items-start">
+    <div className="flex w-[2.5rem] flex-col items-end pr-2">
       {labelTimeList.map((time, index) => (
         <div
           key={time}
-          className={clsx('h-[6rem] text-center', {
+          className={clsx('h-[6rem] text-right', {
             'h-0': index === labelTimeList.length - 1,
           })}
         >

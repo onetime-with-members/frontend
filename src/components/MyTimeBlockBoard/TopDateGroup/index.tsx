@@ -14,7 +14,7 @@ export default function TopDateGroup({ className }: TopDateGroupProps) {
 
   return (
     <div className={clsx('relative', className)}>
-      <div className="grid grid-cols-7 gap-2 pl-[2rem]">
+      <div className="grid grid-cols-7 gap-2 pl-[2.5rem]">
         {dayjs.weekdaysMin().map((weekday) => (
           <div
             key={weekday}
