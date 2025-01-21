@@ -22,7 +22,7 @@ export default function Button({
           'bg-primary-50 text-gray-00': variant === 'primary',
           'bg-primary-00 text-primary-50': variant === 'secondary',
           'bg-danger-50 text-gray-00': variant === 'danger',
-          'bg-gray-80 text-gray-00': variant === 'black',
+          'bg-gray-90 text-gray-00': variant === 'black',
         },
         { 'w-full': fullWidth },
         className,
