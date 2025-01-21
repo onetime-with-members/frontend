@@ -8,7 +8,7 @@ interface InputContentBlockProps {
   setValue: React.Dispatch<React.SetStateAction<EventValue>>;
 }
 
-export default function InputContentBlock({
+export default function InputContent({
   value,
   setValue,
 }: InputContentBlockProps) {

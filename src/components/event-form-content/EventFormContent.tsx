@@ -6,7 +6,7 @@ import { PageModeContext } from '../../contexts/PageModeContext';
 import { EventValue } from '../../types/event.type';
 import breakpoint from '../../utils/breakpoint';
 import BottomButton from './BottomButton';
-import InputContentBlock from './InputContentBlock';
+import InputContent from './InputContent';
 import TopActionForDesktop from './TopActionForDesktop';
 import TopNavBar from './TopNavBar';
 
@@ -85,7 +85,7 @@ export default function EventFormContent({
           <TopNavBar />
           <main className="mx-auto flex w-full max-w-screen-md flex-col items-center justify-center md:pt-6">
             <TopActionForDesktop />
-            <InputContentBlock value={value} setValue={setValue} />
+            <InputContent value={value} setValue={setValue} />
           </main>
         </div>
         <BottomButton disabled={disabled} handleSubmit={handleSubmit} />
