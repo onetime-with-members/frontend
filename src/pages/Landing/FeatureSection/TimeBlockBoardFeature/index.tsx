@@ -11,7 +11,7 @@ export default function TimeBlockBoardFeature() {
           선택은 더 간편하게
         </>
       }
-      badgeTitle="간편한 가능시간 체크"
+      badgeLabel="간편한 가능시간 체크"
       description={
         <>
           가능한 시간을 가늠하기 어려우신가요?{' '}

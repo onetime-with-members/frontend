@@ -11,7 +11,7 @@ export default function RecommendAndParticipantsFeature() {
           간편한 일정 조율
         </>
       }
-      badgeTitle="빠른 현황 확인"
+      badgeLabel="빠른 현황 확인"
       description={
         <>
           이벤트 참여자와 가장 많은 사람들이{' '}
