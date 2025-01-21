@@ -1,8 +1,8 @@
-import BottomButtonForMobile from './components/BottomButtonForMobile';
-import FixedScheduleSection from './components/FixedScheduleSection';
-import MyEventSection from './components/MyEventSection';
-import TopNavBar from './components/TopNavBar';
-import TopToolbarForDesktop from './components/TopToolbarForDesktop';
+import BottomButtonForMobile from './BottomButtonForMobile';
+import FixedScheduleSection from './FixedScheduleSection';
+import MyEventSection from './MyEventSection';
+import TopNavBar from './TopNavBar';
+import TopToolbarForDesktop from './TopToolbarForDesktop';
 
 export default function UserDashboard() {
   return (

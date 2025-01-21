@@ -1,9 +1,9 @@
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
-import useScroll from '../../../hooks/useScroll';
-import { User } from '../../../types/user.type';
-import axios from '../../../utils/axios';
+import useScroll from '@/hooks/useScroll';
+import { User } from '@/types/user.type';
+import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function TopToolbarForDesktop() {

@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Button from '../../../components/button/Button';
-import { FooterContext } from '../../../contexts/FooterContext';
+import Button from '@/components/button/Button';
+import { FooterContext } from '@/contexts/FooterContext';
 import { IconPlus } from '@tabler/icons-react';
 
 export default function BottomButtonForMobile() {
