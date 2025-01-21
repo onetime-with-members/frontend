@@ -1,21 +1,24 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-import Alert from '../../../components/alert/Alert';
+import Alert from '@/components/alert/Alert';
 
 interface BackButtonAlertProps {
+  backHref: string;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function BackButtonAlert({ setIsOpen }: BackButtonAlertProps) {
+export default function BackButtonAlert({
+  setIsOpen,
+  backHref,
+}: BackButtonAlertProps) {
   const navigate = useNavigate();
-  const params = useParams<{ eventId: string }>();
 
   function handleBackButtonConfirm() {
     setIsOpen(false);
   }
 
   function handleBackButtonCancel() {
-    navigate(`/events/${params.eventId}`);
+    navigate(backHref);
   }
 
   function handleBackButtonClose() {

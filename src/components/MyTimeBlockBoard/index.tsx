@@ -17,6 +17,7 @@ interface MyTimeBlockBoard {
   className?: string;
   backgroundColor?: 'gray' | 'white';
   topDateGroupClassName?: string;
+  setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function MyTimeBlockBoard({
@@ -27,6 +28,7 @@ export default function MyTimeBlockBoard({
   className,
   backgroundColor = 'gray',
   topDateGroupClassName,
+  setIsEdited,
 }: MyTimeBlockBoard) {
   const { selectedTimeBlockId } = useContext(MyScheduleContext);
 
@@ -43,6 +45,7 @@ export default function MyTimeBlockBoard({
             setMyNewSchedule={setMyNewSchedule}
             editedScheduleId={editedScheduleId}
             backgroundColor={backgroundColor}
+            setIsEdited={setIsEdited}
           />
         </div>
       </div>

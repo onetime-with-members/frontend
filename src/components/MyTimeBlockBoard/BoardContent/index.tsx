@@ -12,6 +12,7 @@ interface TimeBlockContentProps {
   setMyNewSchedule?: (newSchedule: MyNewSchedule['schedules']) => void;
   editedScheduleId?: number;
   backgroundColor?: 'gray' | 'white';
+  setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function BoardContent({
@@ -20,6 +21,7 @@ export default function BoardContent({
   setMyNewSchedule,
   editedScheduleId = -1,
   backgroundColor = 'gray',
+  setIsEdited,
 }: TimeBlockContentProps) {
   const [timeBlockData, setTimeBlockData] = useState(
     mySchedules.flatMap((schedule) =>
@@ -232,9 +234,7 @@ export default function BoardContent({
   function handleTimeBlockDragStart(weekday: string, time: string) {
     if (mode === 'view') return;
 
-    if (isTimeBlockInOtherSchedule(weekday, time)) {
-      return;
-    }
+    if (isTimeBlockInOtherSchedule(weekday, time)) return;
 
     setDragStatus({
       isDragging: true,
@@ -242,6 +242,8 @@ export default function BoardContent({
       weekday: weekday,
       times: [time],
     });
+
+    setIsEdited && setIsEdited(true);
   }
 
   function handleTimeBlockDragMove(weekday: string, time: string) {

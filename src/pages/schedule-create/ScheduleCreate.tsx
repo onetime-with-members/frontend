@@ -6,12 +6,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FooterContext } from '../../contexts/FooterContext';
 import { GuestValue } from '../../types/guest.type';
 import breakpoint from '../../utils/breakpoint';
-import BackButtonAlert from './components/BackButtonAlert';
 import TopAppBarForMobile from './components/TopAppBarForMobile';
 import TopHeaderForDesktop from './components/TopHeaderForDesktop';
 import TopNavBarForDesktop from './components/TopNavBarForDesktop';
 import MemberLoginScreen from './components/screen/MemberLoginScreen';
 import ScheduleFormScreen from './components/screen/ScheduleFormScreen';
+import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import { Schedule } from '@/types/schedule.type';
 
 export default function ScheduleCreate() {
@@ -147,7 +147,10 @@ export default function ScheduleCreate() {
         </main>
       </div>
       {isBackButtonAlertOpen && isScheduleEdited && (
-        <BackButtonAlert setIsOpen={setIsBackButtonAlertOpen} />
+        <BackButtonAlert
+          backHref={`/events/${params.eventId}`}
+          setIsOpen={setIsBackButtonAlertOpen}
+        />
       )}
     </>
   );

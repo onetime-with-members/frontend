@@ -6,6 +6,7 @@ import { MyNewSchedule } from '../../../types/schedule.type';
 import axios from '../../../utils/axios';
 import MyScheduleBottomSheet from '../../MyScheduleBottomSheet';
 import MyTimeBlockBoard from '../../MyTimeBlockBoard';
+import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import { IconX } from '@tabler/icons-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -21,6 +22,8 @@ export default function MyScheduleFormScreen({
     title: '',
     schedules: [],
   });
+  const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
+  const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -88,7 +91,11 @@ export default function MyScheduleFormScreen({
   }
 
   function handleCloseButtonClick() {
-    navigate(-1);
+    if (isMyScheduleEdited) {
+      setIsBackButtonAlertOpen(true);
+    } else {
+      navigate(`/mypage/schedules`);
+    }
   }
 
   function handleSaveButtonClick() {
@@ -120,58 +127,67 @@ export default function MyScheduleFormScreen({
     return <></>;
 
   return (
-    <div className="flex flex-col">
-      <nav className="h-[64px]">
-        <div className="fixed z-10 flex w-full flex-col justify-center bg-primary-00">
-          <div className="flex justify-center px-4 text-center">
-            <div className="grid h-[4rem] w-full max-w-screen-sm grid-cols-3">
-              <div className="flex items-center justify-start">
-                <button onClick={handleCloseButtonClick}>
-                  <IconX size={24} />
-                </button>
-              </div>
-              <div className="flex items-center justify-center text-gray-90 text-lg-300">
-                내 스케줄
-              </div>
-              <div className="flex items-center justify-end">
-                <button
-                  className={clsx('text-md-300', {
-                    'cursor-default text-gray-40':
-                      myNewScheduleData.schedules.length === 0,
-                    'cursor-pointer text-primary-40':
-                      myNewScheduleData.schedules.length > 0,
-                  })}
-                  onClick={handleBottomSheetOpen}
-                  disabled={myNewScheduleData.schedules.length === 0}
-                >
-                  완료
-                </button>
+    <>
+      <div className="flex flex-col">
+        <nav className="h-[64px]">
+          <div className="fixed z-10 flex w-full flex-col justify-center bg-primary-00">
+            <div className="flex justify-center px-4 text-center">
+              <div className="grid h-[4rem] w-full max-w-screen-sm grid-cols-3">
+                <div className="flex items-center justify-start">
+                  <button onClick={handleCloseButtonClick}>
+                    <IconX size={24} />
+                  </button>
+                </div>
+                <div className="flex items-center justify-center text-gray-90 text-lg-300">
+                  내 스케줄
+                </div>
+                <div className="flex items-center justify-end">
+                  <button
+                    className={clsx('text-md-300', {
+                      'cursor-default text-gray-40':
+                        myNewScheduleData.schedules.length === 0,
+                      'cursor-pointer text-primary-40':
+                        myNewScheduleData.schedules.length > 0,
+                    })}
+                    onClick={handleBottomSheetOpen}
+                    disabled={myNewScheduleData.schedules.length === 0}
+                  >
+                    완료
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </nav>
-      <main className="px-4 pb-24">
-        <div className="mx-auto max-w-screen-sm">
-          <MyTimeBlockBoard
-            mode={mode}
-            mySchedules={mySchedules}
-            setMyNewSchedule={setMyNewScheduleDataWithKey('schedules')}
-            editedScheduleId={Number(params.myScheduleId)}
-            topDateGroupClassName="sticky top-[64px] z-10 bg-gray-00"
-          />
-        </div>
-        {isBottomSheetOpen && (
-          <MyScheduleBottomSheet
-            onClose={handleBottomSheetClose}
-            title={myNewScheduleData.title}
-            setTitle={setMyNewScheduleDataWithKey('title')}
-            mode="new"
-            handleSubmit={handleSaveButtonClick}
-            buttonDisabled={!myNewScheduleData.title}
-          />
-        )}
-      </main>
-    </div>
+        </nav>
+        <main className="px-4 pb-24">
+          <div className="mx-auto max-w-screen-sm">
+            <MyTimeBlockBoard
+              mode={mode}
+              mySchedules={mySchedules}
+              setMyNewSchedule={setMyNewScheduleDataWithKey('schedules')}
+              editedScheduleId={Number(params.myScheduleId)}
+              topDateGroupClassName="sticky top-[64px] z-10 bg-gray-00"
+              setIsEdited={setIsMyScheduleEdited}
+            />
+          </div>
+          {isBottomSheetOpen && (
+            <MyScheduleBottomSheet
+              onClose={handleBottomSheetClose}
+              title={myNewScheduleData.title}
+              setTitle={setMyNewScheduleDataWithKey('title')}
+              mode="new"
+              handleSubmit={handleSaveButtonClick}
+              buttonDisabled={!myNewScheduleData.title}
+            />
+          )}
+        </main>
+      </div>
+      {isBackButtonAlertOpen && (
+        <BackButtonAlert
+          backHref="/mypage/schedules"
+          setIsOpen={setIsBackButtonAlertOpen}
+        />
+      )}
+    </>
   );
 }
