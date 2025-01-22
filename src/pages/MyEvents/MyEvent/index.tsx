@@ -1,17 +1,17 @@
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 
-import alarmIcon from '../../../assets/alarm-icon.svg';
-import { MyEvent } from '../../../types/event.type';
+import alarmIcon from '@/assets/alarm-icon.svg';
+import { MyEventType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 
-interface MyEventItemProps {
-  event: MyEvent;
+interface MyEventProps {
+  event: MyEventType;
   className?: string;
 }
 
-export default function MyEventItem({ event, className }: MyEventItemProps) {
+export default function MyEvent({ event, className }: MyEventProps) {
   const isRecommended =
     event.most_possible_times.length > 0 && event.participant_count >= 1;
 
