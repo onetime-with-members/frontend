@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
 import googleAuthLogo from '../../assets/google-auth-logo.svg';
 import kakaoAuthLogo from '../../assets/kakao-auth-logo.svg';
 import naverAuthLogo from '../../assets/naver-auth-logo.svg';
+import cn from '@/utils/cn';
 
 interface SocialLoginButtonProps
   extends React.DetailedHTMLProps<
@@ -23,7 +23,7 @@ export default function SocialLoginButton({
   return (
     <Link
       to={href}
-      className={clsx(
+      className={cn(
         'flex h-14 w-full items-center justify-center gap-2 rounded-xl',
         {
           'bg-[#03C75A]': social === 'naver',
@@ -57,7 +57,7 @@ export default function SocialLoginButton({
         />
       </div>
       <span
-        className={clsx('text-sm-300', {
+        className={cn('text-sm-300', {
           'text-gray-00': social === 'naver',
           'text-gray-100': social === 'kakao',
           'text-gray-80': social === 'google',

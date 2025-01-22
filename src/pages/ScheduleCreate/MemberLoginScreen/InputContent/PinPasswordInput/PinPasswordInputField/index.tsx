@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@/utils/cn';
 
 interface PinPasswordInputItemProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -14,8 +14,8 @@ export default function PinPasswordInputField({
   return (
     <input
       ref={inputRef}
-      className={clsx(
-        'title-md-200 rounded-xl bg-gray-05 px-5 py-4 text-center text-gray-90 outline-none placeholder:text-gray-30 focus:outline-2 focus:outline-primary-30',
+      className={cn(
+        'rounded-xl bg-gray-05 px-5 py-4 text-center text-gray-90 outline-none title-md-200 placeholder:text-gray-30 focus:outline-2 focus:outline-primary-30',
         className,
       )}
       autoComplete="off"

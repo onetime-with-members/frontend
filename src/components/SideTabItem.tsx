@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+
+import cn from '@/utils/cn';
 
 interface SideTabItemProps extends React.HTMLAttributes<HTMLLIElement> {
   active?: boolean;
@@ -17,11 +18,10 @@ export default function SideTabItem({
 }: SideTabItemProps) {
   return (
     <li
-      className={clsx(
-        'rounded-lg',
+      className={cn(
+        'rounded-lg bg-gray-00 text-gray-40',
         {
           'bg-primary-00 text-primary-50': active,
-          'bg-gray-00 text-gray-40': !active,
         },
         className,
       )}

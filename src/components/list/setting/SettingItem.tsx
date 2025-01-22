@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@/utils/cn';
 
 interface SettingItemProps extends React.HTMLAttributes<HTMLLIElement> {}
 
@@ -9,7 +9,7 @@ export default function SettingItem({
 }: SettingItemProps) {
   return (
     <li
-      className={clsx('flex items-center gap-2 px-6 py-4', className)}
+      className={cn('flex items-center gap-2 px-6 py-4', className)}
       {...rest}
     >
       {children}

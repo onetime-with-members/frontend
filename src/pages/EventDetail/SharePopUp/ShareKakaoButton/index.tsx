@@ -1,8 +1,7 @@
-import clsx from 'clsx';
-
 import kakaoIcon from '@/assets/kakao-icon.svg';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import { EventType } from '@/types/event.type';
+import cn from '@/utils/cn';
 
 declare global {
   interface Window {
@@ -25,7 +24,7 @@ export default function ShareKakaoButton({
 
   return (
     <button
-      className={clsx(
+      className={cn(
         'overflow-hidden rounded-full bg-[#FFE80F] p-1.5 text-primary-40',
       )}
       onClick={handleKakaoShare}

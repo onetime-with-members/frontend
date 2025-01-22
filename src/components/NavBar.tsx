@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
 import logoWhite from '../assets/logo-white.svg';
@@ -8,6 +7,7 @@ import { User } from '../types/user.type';
 import axios from '../utils/axios';
 import AvatarDropdown from './AvatarDropdown';
 import LoginButton from './LoginButton';
+import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 interface NavBarProps {
@@ -18,7 +18,7 @@ interface NavBarProps {
 }
 
 export default function NavBar({
-  overlay = false,
+  overlay,
   variant = 'default',
   shadow = true,
   className,
@@ -39,20 +39,14 @@ export default function NavBar({
   });
 
   return (
-    <nav className={clsx('flex h-[4rem] w-full items-center', className)}>
+    <nav className={cn('flex h-[4rem] w-full items-center', className)}>
       <div
-        className={clsx(
-          'fixed left-0 top-0 h-[4rem] w-full p-4 duration-150',
+        className={cn(
+          'fixed left-0 top-0 z-40 h-[4rem] w-full bg-gray-00 p-4 text-gray-80 duration-150',
           {
             'shadow-lg': isScrolling && shadow,
-          },
-          {
-            'bg-gray-00 text-gray-80': variant === 'default',
             'bg-gray-80 text-gray-00': variant === 'black',
-          },
-          {
             'z-[9999]': overlay,
-            'z-40': !overlay,
           },
         )}
       >

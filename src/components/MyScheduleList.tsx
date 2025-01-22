@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useContext, useEffect, useRef, useState } from 'react';
 
@@ -8,6 +7,7 @@ import axios from '../utils/axios';
 import { weekdaysShortLowerEn } from '../utils/weekday';
 import EmptyUI from './EmptyUI';
 import MyWeekdayScheduleList from './MyWeekdayScheduleList';
+import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 interface MyScheduleListProps {
@@ -135,11 +135,11 @@ export default function MyScheduleList({
   }
 
   return (
-    <div className={clsx('flex flex-col gap-2 bg-gray-00', className)}>
+    <div className={cn('flex flex-col gap-2 bg-gray-00', className)}>
       {hasWeekdaySelcectUI && (
         <div className="h-[56px] w-full">
           <div
-            className={clsx(
+            className={cn(
               'fixed left-0 flex w-full justify-center bg-gray-00 px-4 py-2 md:absolute md:z-30 md:w-full md:px-0',
               {
                 'z-[101]': selectedTimeBlockId,
@@ -154,12 +154,11 @@ export default function MyScheduleList({
                 <button
                   onClick={() => handleWeekdayButtonClick(weekday)}
                   key={weekday}
-                  className={clsx(
-                    'flex h-10 w-10 items-center justify-center',
+                  className={cn(
+                    'flex h-10 w-10 items-center justify-center text-gray-40 text-md-200',
                     {
                       'rounded-full bg-primary-00 text-primary-60 text-md-300':
                         activeWeekday === weekday,
-                      'text-gray-40 text-md-200': activeWeekday !== weekday,
                     },
                   )}
                 >

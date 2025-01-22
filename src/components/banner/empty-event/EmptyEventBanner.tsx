@@ -1,7 +1,7 @@
-import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import clipboardImage from '../../../assets/clipboard.png';
+import cn from '@/utils/cn';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 
 interface EmptyEventBannerProps {
@@ -38,11 +38,10 @@ export default function EmptyEventBanner({
         맞는 시간을 찾으세요!
       </span>
       <button
-        className={clsx(
-          'mt-3 flex items-center gap-1 rounded-full px-3 py-2 text-sm-300',
+        className={cn(
+          'mt-3 flex items-center gap-1 rounded-full bg-primary-00 px-3 py-2 text-primary-50 text-sm-300',
           {
             'bg-primary-40 text-gray-00': isCopied,
-            'bg-primary-00 text-primary-50': !isCopied,
           },
         )}
         onClick={handleCopyButtonClick}

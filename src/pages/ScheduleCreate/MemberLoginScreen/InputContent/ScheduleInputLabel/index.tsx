@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@/utils/cn';
 
 interface ScheduleInputLabelProps extends React.HTMLProps<HTMLLabelElement> {
   children: React.ReactNode;
@@ -12,11 +12,11 @@ export default function ScheduleInputLabel({
   ...rest
 }: ScheduleInputLabelProps) {
   return (
-    <label className={clsx('text-lg-200 text-gray-80', className)} {...rest}>
+    <label className={cn('text-gray-80 text-lg-200', className)} {...rest}>
       {children}
       {required && (
         <>
-          &nbsp;<strong className="text-lg-200 text-primary-40">*</strong>
+          &nbsp;<strong className="text-primary-40 text-lg-200">*</strong>
         </>
       )}
     </label>

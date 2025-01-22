@@ -1,7 +1,6 @@
-import clsx from 'clsx';
-
 import StartButton from './StartButton';
 import WelcomeContent from './WelcomeContent';
+import cn from '@/utils/cn';
 
 interface WelcomeScreenProps {
   name: string;
@@ -11,7 +10,7 @@ interface WelcomeScreenProps {
 export default function WelcomeScreen({ name, isVisible }: WelcomeScreenProps) {
   return (
     <main
-      className={clsx('flex h-screen flex-col items-center justify-center', {
+      className={cn('flex h-screen flex-col items-center justify-center', {
         hidden: !isVisible,
       })}
     >

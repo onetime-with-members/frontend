@@ -1,6 +1,6 @@
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 
+import cn from '@/utils/cn';
 import { getLabelTimeList } from '@/utils/time-block';
 
 export default function LeftTimeLine() {
@@ -11,12 +11,12 @@ export default function LeftTimeLine() {
       {labelTimeList.map((time, index) => (
         <div
           key={time}
-          className={clsx('h-[6rem] text-right', {
+          className={cn('h-[6rem] text-right', {
             'h-0': index === labelTimeList.length - 1,
           })}
         >
           <span
-            className={clsx('block -translate-y-1/2 text-gray-30 text-sm-200', {
+            className={cn('block -translate-y-1/2 text-gray-30 text-sm-200', {
               'translate-y-0': index === 0,
               '-translate-y-full': index === labelTimeList.length - 1,
             })}

@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@/utils/cn';
 
 interface ChipProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
@@ -12,11 +12,10 @@ export default function Chip({
 }: ChipProps) {
   return (
     <button
-      className={clsx(
-        'rounded-full px-6 py-1 text-md-200',
+      className={cn(
+        'rounded-full bg-gray-05 px-6 py-1 text-gray-40 text-md-200',
         {
           'bg-primary-40 text-gray-00': active,
-          'bg-gray-05 text-gray-40': !active,
         },
         className,
       )}

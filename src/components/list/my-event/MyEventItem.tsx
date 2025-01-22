@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 
 import alarmIcon from '../../../assets/alarm-icon.svg';
 import { MyEvent } from '../../../types/event.type';
+import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface MyEventItemProps {
@@ -21,7 +21,7 @@ export default function MyEventItem({ event, className }: MyEventItemProps) {
     <li>
       <Link
         to={`/events/${event.event_id}`}
-        className={clsx(
+        className={cn(
           'flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5',
           className,
         )}
@@ -37,20 +37,18 @@ export default function MyEventItem({ event, className }: MyEventItemProps) {
           </h1>
         </div>
         <div
-          className={clsx(
-            'flex items-center justify-between rounded-lg px-4 py-3',
+          className={cn(
+            'flex items-center justify-between rounded-lg bg-gray-05 px-4 py-3',
             {
               'bg-primary-00': isRecommended,
-              'bg-gray-05': !isRecommended,
             },
           )}
         >
           <div
-            className={clsx(
-              'flex items-center gap-2 text-sm-200 xs:text-md-200',
+            className={cn(
+              'flex items-center gap-2 text-gray-40 text-sm-200 xs:text-md-200',
               {
                 'text-primary-50': isRecommended,
-                'text-gray-40': !isRecommended,
               },
             )}
           >
@@ -81,9 +79,8 @@ export default function MyEventItem({ event, className }: MyEventItemProps) {
           <div>
             <IconChevronRight
               size={20}
-              className={clsx({
+              className={cn('text-gray-30', {
                 'text-primary-20': isRecommended,
-                'text-gray-30': !isRecommended,
               })}
             />
           </div>

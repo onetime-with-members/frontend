@@ -1,8 +1,8 @@
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 
 import { EventValue } from '../../../../types/event.type';
 import DateItem from '../date-item/DateItem';
+import cn from '@/utils/cn';
 
 interface WeekdaySelectProps {
   className?: string;
@@ -25,7 +25,7 @@ export default function WeekdaySelect({
   }
 
   return (
-    <div className={clsx('flex gap-3', className)}>
+    <div className={cn('flex gap-3', className)}>
       {dayjs.weekdaysMin().map((weekday) => (
         <DateItem
           key={weekday}

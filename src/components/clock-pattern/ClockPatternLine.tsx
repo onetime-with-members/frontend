@@ -1,6 +1,5 @@
-import clsx from 'clsx';
-
 import clockImageForPattern from '@/assets/clock-for-pattern.svg';
+import cn from '@/utils/cn';
 
 interface ClockPatternLineProps {
   shift?: boolean;
@@ -13,7 +12,7 @@ export default function ClockPatternLine({
 }: ClockPatternLineProps) {
   return (
     <div
-      className={clsx('flex overflow-hidden', {
+      className={cn('flex overflow-hidden', {
         'translate-x-[61px]': shift,
       })}
       style={{

@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import { useEffect, useState } from 'react';
+
+import cn from '@/utils/cn';
 
 type DeviceOS = 'android' | 'iOS' | 'windows' | 'macOS' | null;
 
@@ -43,12 +44,12 @@ export default function TopGraphic() {
         )}
       </div>
       <div
-        className={clsx(
+        className={cn(
           'absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full',
           {
-            'bg-[#C7D0F9]': deviceOS === 'android' || deviceOS === 'iOS',
-            'bg-[#D0D6FB]': deviceOS === 'macOS',
-            'bg-[#C6CBF3]': deviceOS === 'windows' || deviceOS === null,
+            'bg-[#C6CCF4]': deviceOS === 'android' || deviceOS === 'iOS',
+            'bg-[#CED3F6]': deviceOS === 'macOS' || deviceOS === null,
+            'bg-[#C6CBF3]': deviceOS === 'windows',
           },
         )}
       />

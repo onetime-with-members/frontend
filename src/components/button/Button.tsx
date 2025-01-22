@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@/utils/cn';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -16,7 +16,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className={clsx(
+      className={cn(
         'rounded-2xl px-4 py-4 title-sm-200 disabled:bg-gray-10 disabled:text-gray-30',
         {
           'bg-primary-50 text-gray-00': variant === 'primary',

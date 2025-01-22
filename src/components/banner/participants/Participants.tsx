@@ -1,8 +1,8 @@
-import clsx from 'clsx';
 import { useState } from 'react';
 
 import MemberBadge from '../../MemberBadge';
 import ParticipantsPopUp from '../../pop-up/ParticipantsPopUp';
+import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface ParticipantsProps {
@@ -39,7 +39,7 @@ export default function Participants({ participants }: ParticipantsProps) {
           </span>
           <IconChevronRight size={24} className="text-gray-30" />
         </div>
-        <div className={clsx(style.badgeList, 'hidden min-[440px]:flex')}>
+        <div className={cn(style.badgeList, 'hidden min-[440px]:flex')}>
           {participants.slice(0, 9).map((participant) => (
             <MemberBadge key={participant}>{participant}</MemberBadge>
           ))}
@@ -49,7 +49,7 @@ export default function Participants({ participants }: ParticipantsProps) {
             </MemberBadge>
           )}
         </div>
-        <div className={clsx(style.badgeList, 'flex min-[440px]:hidden')}>
+        <div className={cn(style.badgeList, 'flex min-[440px]:hidden')}>
           {participants.slice(0, 7).map((participant) => (
             <MemberBadge key={participant}>{participant}</MemberBadge>
           ))}

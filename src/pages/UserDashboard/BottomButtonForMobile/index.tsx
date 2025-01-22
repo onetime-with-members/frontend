@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@/components/button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
+import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';
 
 export default function BottomButtonForMobile() {
@@ -17,11 +17,10 @@ export default function BottomButtonForMobile() {
 
   return (
     <div
-      className={clsx(
-        'fixed bottom-0 left-0 w-full bg-gray-00 p-4 shadow-[0px_-4px_32px_0px_rgba(0,0,0,0.05)] transition-opacity duration-150 lg:hidden',
+      className={cn(
+        'fixed bottom-0 left-0 w-full bg-gray-00 p-4 shadow-[0px_-4px_32px_0px_rgba(0,0,0,0.05)] transition-opacity duration-300 lg:hidden',
         {
           'pointer-events-none opacity-0': isFooterShown,
-          'opacity-100': !isFooterShown,
         },
       )}
     >

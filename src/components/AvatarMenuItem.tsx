@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+
+import cn from '@/utils/cn';
 
 interface AvatarMenuItemProps {
   children: React.ReactNode;
@@ -18,8 +19,7 @@ export default function AvatarMenuItem({
     <li onClick={onClick}>
       <Link
         to={href}
-        className={clsx('block px-4 py-2 text-center text-md-200', {
-          'text-gray-60': variant === 'default',
+        className={cn('block px-4 py-2 text-center text-gray-60 text-md-200', {
           'text-danger-50': variant === 'danger',
         })}
       >

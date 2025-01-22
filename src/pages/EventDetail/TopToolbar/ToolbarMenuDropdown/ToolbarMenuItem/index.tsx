@@ -1,8 +1,8 @@
-import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
 
 import EditIcon from '@/components/icon/EditIcon';
 import TrashIcon from '@/components/icon/TrashIcon';
+import cn from '@/utils/cn';
 
 interface ToolbarMenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
   name: string;
@@ -26,10 +26,9 @@ export default function ToolbarMenuItem({
 
   return (
     <li
-      className={clsx(
-        'flex w-full cursor-pointer items-center justify-between py-1.5 pl-4 pr-5 pt-2 duration-150 text-md-200 first:pt-2 last:pb-2',
+      className={cn(
+        'flex w-full cursor-pointer items-center justify-between py-1.5 pl-4 pr-5 pt-2 text-gray-60 duration-150 text-md-200 first:pt-2 last:pb-2',
         {
-          'text-gray-60': variant === 'default',
           'text-danger-50': variant === 'danger',
         },
       )}

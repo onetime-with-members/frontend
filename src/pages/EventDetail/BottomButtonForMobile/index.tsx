@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import { useContext } from 'react';
 
 import sendIcon from '@/assets/send.svg';
 import Button from '@/components/button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
+import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';
 
 interface BottomButtonForMobileProps {
@@ -19,7 +19,7 @@ export default function BottomButtonForMobile({
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'fixed bottom-0 flex w-full items-center justify-center gap-2 bg-gray-00 p-4 duration-150 md:hidden',
         {
           'pointer-events-none opacity-0': isFooterShown,

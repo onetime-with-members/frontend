@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -15,6 +14,7 @@ import TimeBlockIcon from '../components/icon/TimeBlockIcon';
 import { FooterContext } from '../contexts/FooterContext';
 import { MyScheduleContext } from '../contexts/MyScheduleContext';
 import { ScrollContext } from '../contexts/ScrollContext';
+import cn from '@/utils/cn';
 import { IconChevronLeft, IconPlus } from '@tabler/icons-react';
 
 export default function MyPageLayout() {
@@ -126,7 +126,7 @@ export default function MyPageLayout() {
             variant="black"
             name="스케줄 추가"
             onClick={handleMyScheduleCreateButtonClick}
-            className={clsx({
+            className={cn({
               'pointer-events-none opacity-0 duration-150': isFooterShown,
             })}
           />
@@ -201,7 +201,7 @@ export default function MyPageLayout() {
                 </div>
                 {tabActive === 'schedules' && (
                   <div
-                    className={clsx(
+                    className={cn(
                       'fixed bottom-8 hidden w-full items-center justify-center md:flex',
                       {
                         'pointer-events-none opacity-0 duration-150':

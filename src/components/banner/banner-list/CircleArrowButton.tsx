@@ -1,5 +1,4 @@
-import clsx from 'clsx';
-
+import cn from '@/utils/cn';
 import { IconTriangleInvertedFilled } from '@tabler/icons-react';
 
 interface CircleArrowButtonProps
@@ -14,7 +13,7 @@ export default function CircleArrowButton({
 }: CircleArrowButtonProps) {
   return (
     <button
-      className={clsx(
+      className={cn(
         'flex h-6 w-6 items-center justify-center rounded-full bg-gray-00',
         className,
       )}
@@ -22,7 +21,7 @@ export default function CircleArrowButton({
     >
       <IconTriangleInvertedFilled
         size={12}
-        className={clsx({
+        className={cn({
           'rotate-90': direction === 'left',
           '-rotate-90': direction === 'right',
         })}

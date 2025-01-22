@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@/utils/cn';
 
 interface ToolbarButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ export default function ToolbarButton({
 }: ToolbarButtonProps) {
   return (
     <button
-      className={clsx(
+      className={cn(
         'flex h-10 w-10 items-center justify-center overflow-hidden rounded-full p-1.5 text-gray-00',
         {
           'bg-primary-40': variant === 'primary',

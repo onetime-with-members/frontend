@@ -1,10 +1,10 @@
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import { SELECTED_DATE_LIST_FORMAT } from '../../../../constants/date';
 import { EventValue } from '../../../../types/event.type';
 import DateItem from '../date-item/DateItem';
+import cn from '@/utils/cn';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface CalendarSelectProps {
@@ -49,17 +49,19 @@ export default function CalendarSelect({
   }
 
   return (
-    <div className={clsx('flex flex-col gap-3', className)}>
+    <div className={cn('flex flex-col gap-3', className)}>
       <div className="flex justify-between">
         <div className="text-gray-90 text-lg-300">
           {selectedDate.format('YYYY.MM')}
         </div>
         <div className="flex items-center gap-4">
           <button
-            className={clsx('flex w-6 -rotate-90 items-center justify-center', {
-              'text-gray-15': isPrevDisabled,
-              'text-gray-90': !isPrevDisabled,
-            })}
+            className={cn(
+              'flex w-6 -rotate-90 items-center justify-center text-gray-90',
+              {
+                'text-gray-15': isPrevDisabled,
+              },
+            )}
             onClick={handlePrevMonth}
           >
             <IconTriangleFilled size={12} />
