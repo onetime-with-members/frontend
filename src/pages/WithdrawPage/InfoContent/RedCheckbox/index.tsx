@@ -1,6 +1,6 @@
 import React from 'react';
 
-import checkIcon from '../../assets/red-checkbox-check-icon.svg';
+import checkIcon from '@/assets/red-checkbox-check-icon.svg';
 import cn from '@/utils/cn';
 
 interface RedCheckboxProps extends React.HTMLAttributes<HTMLDivElement> {
