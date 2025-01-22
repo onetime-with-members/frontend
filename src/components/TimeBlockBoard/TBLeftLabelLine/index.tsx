@@ -14,7 +14,7 @@ export default function TBLeftLabelLine({
   const timeList = getLabelTimeList(startTime, endTime);
 
   return (
-    <div className="flex w-[3.5rem] flex-col items-center gap-2 pr-4">
+    <div className="flex w-[3.5rem] flex-col items-center pr-4">
       {timeList.map((time, index) => (
         <div
           key={time}
