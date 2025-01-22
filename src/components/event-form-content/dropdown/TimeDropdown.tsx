@@ -3,6 +3,7 @@ import { useRef } from 'react';
 
 import TimeDropdownItem from './TimeDropdownItem';
 import useDropdown from '@/hooks/useDropdown';
+import cn from '@/utils/cn';
 import {
   IconTriangleFilled,
   IconTriangleInvertedFilled,
@@ -44,9 +45,8 @@ export default function TimeDropdown({
         onClick={handleDropdownClick}
       >
         <span
-          className={clsx('text-lg-200', {
+          className={cn('text-gray-70 text-lg-200', {
             'text-gray-00': isDropdownMenuOpen,
-            'text-gray-70': !isDropdownMenuOpen,
           })}
         >
           {time}
