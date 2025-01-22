@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { MyScheduleContext } from '../../contexts/MyScheduleContext';
-import Alert from './Alert';
+import Alert from '@/components/alert/Alert';
+import { MyScheduleContext } from '@/contexts/MyScheduleContext';
 
 interface MyScheduleDeleteAlertProps {
   onConfirm: () => void;
