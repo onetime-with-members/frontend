@@ -275,7 +275,7 @@ export default function TimeBlockBoard({
 
   return (
     <div className="flex flex-col">
-      <div className={cn('sticky', topContentClassName)}>
+      <div className={cn('sticky top-0 z-10 bg-gray-00', topContentClassName)}>
         <TBHeader
           editable={editable}
           isPossibleTime={isPossibleTime}

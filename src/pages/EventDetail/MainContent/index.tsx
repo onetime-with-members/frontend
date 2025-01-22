@@ -87,7 +87,7 @@ export default function MainContent({
             event={event}
             schedules={schedules}
             backgroundColor="white"
-            topContentClassName="top-[123px] z-20 bg-gray-05 md:top-[136px]"
+            topContentClassName="top-[123px] bg-gray-05 md:top-[136px]"
           />
           {schedules.length === 0 ? (
             <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
