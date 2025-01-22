@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-import googleAuthLogo from '../../assets/google-auth-logo.svg';
-import kakaoAuthLogo from '../../assets/kakao-auth-logo.svg';
-import naverAuthLogo from '../../assets/naver-auth-logo.svg';
+import googleAuthLogo from '@/assets/google-auth-logo.svg';
+import kakaoAuthLogo from '@/assets/kakao-auth-logo.svg';
+import naverAuthLogo from '@/assets/naver-auth-logo.svg';
 import cn from '@/utils/cn';
 
 interface SocialLoginButtonProps
