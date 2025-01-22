@@ -25,7 +25,7 @@ export default function NavBar({
 }: NavBarProps) {
   const { isScrolling } = useScroll();
 
-  const isLoggedIn =
+  const hasTokens =
     !!localStorage.getItem('access-token') &&
     !!localStorage.getItem('refresh-token');
 
@@ -35,7 +35,7 @@ export default function NavBar({
       const res = await axios.get('/users/profile');
       return res.data.payload;
     },
-    enabled: isLoggedIn,
+    enabled: hasTokens,
   });
 
   return (

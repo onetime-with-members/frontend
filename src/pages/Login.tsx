@@ -12,16 +12,17 @@ export default function Login() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
+  const hasTokens =
+    !!localStorage.getItem('access-token') &&
+    !!localStorage.getItem('refresh-token');
+
   const { data, isError } = useQuery({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');
-      return res.data;
+      return res.data.payload;
     },
-    enabled: !!(
-      localStorage.getItem('access-token') &&
-      localStorage.getItem('refresh-token')
-    ),
+    enabled: hasTokens,
   });
 
   useEffect(() => {
@@ -46,7 +47,6 @@ export default function Login() {
         ...(registerToken ? [['register_token', registerToken]] : []),
         ...(name ? [['name', name]] : []),
       ]);
-
       navigate(`/onboarding?${urlSearchParams.toString()}`);
     } else if (accessToken && refreshToken) {
       localStorage.setItem('access-token', accessToken);
