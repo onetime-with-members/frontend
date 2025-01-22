@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-import Avatar from './Avatar';
+import Avatar from '../Avatar';
 import AvatarDropdownMenu from './AvatarDropdownMenu';
 
 interface AvatarProps {

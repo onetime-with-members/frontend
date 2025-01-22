@@ -2,19 +2,19 @@ import { Link } from 'react-router-dom';
 
 import cn from '@/utils/cn';
 
-interface AvatarMenuItemProps {
+interface MenuItemProps {
   children: React.ReactNode;
   variant?: 'default' | 'danger';
   href?: string;
   onClick?: () => void;
 }
 
-export default function AvatarMenuItem({
+export default function MenuItem({
   children,
   variant = 'default',
   href = '#',
   onClick,
-}: AvatarMenuItemProps) {
+}: MenuItemProps) {
   return (
     <li onClick={onClick}>
       <Link
