@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
-import FloatingBottomButton from '../components/floating-button/FloatingBottomButton';
-import { User } from '../types/user.type';
-import axios from '../utils/axios';
+import TopAppBar from './TopAppBar';
 import NicknameFormControl from '@/components/NicknameFormControl';
-import { IconChevronLeft } from '@tabler/icons-react';
+import FloatingBottomButton from '@/components/floating-button/FloatingBottomButton';
+import { User } from '@/types/user.type';
+import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function ProfileEdit() {
@@ -38,10 +38,6 @@ export default function ProfileEdit() {
     },
   });
 
-  function handleBackButtonClick() {
-    navigate(-1);
-  }
-
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue(e.target.value);
   }
@@ -61,20 +57,9 @@ export default function ProfileEdit() {
       <Helmet>
         <title>프로필 수정 - OneTime</title>
       </Helmet>
-      <header className="h-[67px]">
-        <div className="fixed left-0 top-0 z-40 w-full bg-white px-4">
-          <div className="mx-auto grid max-w-screen-sm grid-cols-3 py-5">
-            <div className="flex items-center">
-              <button onClick={handleBackButtonClick}>
-                <IconChevronLeft size={24} className="text-gray-80" />
-              </button>
-            </div>
-            <h2 className="text-center text-gray-90 text-lg-300">
-              프로필 수정
-            </h2>
-          </div>
-        </div>
-      </header>
+      <>
+        <TopAppBar />
+      </>
       <div className="px-4">
         {user && value && (
           <main className="mx-auto max-w-screen-sm pb-40 pt-8">
