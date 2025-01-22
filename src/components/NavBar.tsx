@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import logoWhite from '../assets/logo-white.svg';
@@ -24,15 +23,13 @@ export default function NavBar({
   shadow = true,
   className,
 }: NavBarProps) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   const { isScrolling } = useScroll();
 
-  const {
-    isPending: isUserPending,
-    data: user,
-    error: userError,
-  } = useQuery<User>({
+  const isLoggedIn =
+    !!localStorage.getItem('access-token') &&
+    !!localStorage.getItem('refresh-token');
+
+  const { isLoading, data: user } = useQuery<User>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');
@@ -40,15 +37,6 @@ export default function NavBar({
     },
     enabled: isLoggedIn,
   });
-
-  useEffect(() => {
-    if (
-      localStorage.getItem('access-token') &&
-      localStorage.getItem('refresh-token')
-    ) {
-      setIsLoggedIn(true);
-    }
-  }, [isLoggedIn]);
 
   return (
     <nav className={clsx('flex h-[4rem] w-full items-center', className)}>
@@ -76,15 +64,8 @@ export default function NavBar({
               className="h-[2rem]"
             />
           </Link>
-          {isLoggedIn ? (
-            !isUserPending ? (
-              <AvatarDropdown name={user?.nickname || ''} />
-            ) : userError ? (
-              <LoginButton />
-            ) : null
-          ) : (
-            <LoginButton />
-          )}
+          {user && <AvatarDropdown name={user.nickname} />}
+          {!isLoading && !user && <LoginButton />}
         </div>
         {overlay && (
           <div className="absolute left-0 top-0 h-full w-full bg-gray-90 bg-opacity-30" />
