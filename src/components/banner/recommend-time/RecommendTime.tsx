@@ -23,6 +23,7 @@ export default function RecommendTime({
     recommendSchedules[0]?.possible_count > 1;
 
   function handleDialogOpen() {
+    if (recommendSchedules.length === 0) return;
     setIsDialogOpen(true);
   }
 
@@ -62,20 +63,29 @@ export default function RecommendTime({
         <div
           className={clsx('mt-2 rounded-2xl p-4 text-md-300 sm:text-lg-300', {
             'bg-gray-00 text-success-60': isAllMembersAvailable,
-            'bg-primary-00 text-primary-50': !isAllMembersAvailable,
+            'bg-primary-00 text-primary-50':
+              !isAllMembersAvailable && recommendSchedules.length > 0,
+            'bg-gray-05 text-gray-40': recommendSchedules.length === 0,
           })}
         >
-          <span>
-            {eventCategory === 'DATE'
-              ? dayjs(recommendSchedules[0]?.time_point, 'YYYY.MM.DD').format(
-                  'YYYY.MM.DD (dd)',
-                )
-              : `${recommendSchedules[0]?.time_point}요일`}
-          </span>
-          <span className="ml-2">
-            {recommendSchedules[0]?.start_time} -{' '}
-            {recommendSchedules[0]?.end_time}
-          </span>
+          {recommendSchedules.length === 0 ? (
+            <>아무도 스케줄을 등록하지 않았어요.</>
+          ) : (
+            <>
+              <span>
+                {eventCategory === 'DATE'
+                  ? dayjs(
+                      recommendSchedules[0]?.time_point,
+                      'YYYY.MM.DD',
+                    ).format('YYYY.MM.DD (dd)')
+                  : `${recommendSchedules[0]?.time_point}요일`}
+              </span>
+              <span className="ml-2">
+                {recommendSchedules[0]?.start_time} -{' '}
+                {recommendSchedules[0]?.end_time}
+              </span>
+            </>
+          )}
         </div>
       </div>
       {isDialogOpen && (
