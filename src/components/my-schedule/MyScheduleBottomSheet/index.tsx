@@ -1,6 +1,6 @@
-import Input from '../../Input';
-import Button from '../../button/Button';
 import MyScheduleActionButton from './MyScheduleActionButton';
+import Input from '@/components/Input';
+import Button from '@/components/button/Button';
 import { MyNewSchedule } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';

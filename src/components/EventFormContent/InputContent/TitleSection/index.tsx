@@ -1,6 +1,6 @@
-import { EventValue } from '../../../../types/event.type';
-import Input from '../../../Input';
 import EventInputLabel from '../EventInputLabel';
+import Input from '@/components/Input';
+import { EventValue } from '@/types/event.type';
 
 interface TitleSectionProps {
   value: EventValue;

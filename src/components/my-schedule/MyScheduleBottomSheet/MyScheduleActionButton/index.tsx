@@ -1,5 +1,5 @@
-import EditIcon from '../../../icon/EditIcon';
-import TrashIcon from '../../../icon/TrashIcon';
+import EditIcon from '@/components/icon/EditIcon';
+import TrashIcon from '@/components/icon/TrashIcon';
 import cn from '@/utils/cn';
 
 interface MyScheduleActionButtonProps

@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
-import { TimeBlockPopUpData } from '../../../../types/schedule.type';
-import MemberBadge from '../../../MemberBadge';
+import MemberBadge from '@/components/MemberBadge';
+import { TimeBlockPopUpData } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
 

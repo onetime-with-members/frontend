@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import MyTimeBlockBoard from '../../time-block-board/MyTimeBlockBoard';
 import MyScheduleBottomSheet from '../MyScheduleBottomSheet';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
+import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
 import { MyNewSchedule } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';

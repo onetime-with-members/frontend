@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import { useContext, useEffect, useRef, useState } from 'react';
 
-import { MyScheduleContext } from '../../../contexts/MyScheduleContext';
-import { ScrollContext } from '../../../contexts/ScrollContext';
-import axios from '../../../utils/axios';
-import { weekdaysShortLowerEn } from '../../../utils/weekday';
-import EmptyUI from '../../EmptyUI';
 import MyWeekdayScheduleList from './MyWeekdayScheduleList';
+import EmptyUI from '@/components/EmptyUI';
+import { MyScheduleContext } from '@/contexts/MyScheduleContext';
+import { ScrollContext } from '@/contexts/ScrollContext';
+import axios from '@/utils/axios';
 import cn from '@/utils/cn';
+import { weekdaysShortLowerEn } from '@/utils/weekday';
 import { useQuery } from '@tanstack/react-query';
 
 interface MyScheduleListProps {

@@ -1,12 +1,8 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 
-import {
-  Schedule,
-  Time,
-  TimeBlockDragIndex,
-} from '../../../../../types/schedule.type';
-import { getBlockTimeList } from '../../../../../utils/time-block';
 import TBItem from './TBItem';
+import { Schedule, Time, TimeBlockDragIndex } from '@/types/schedule.type';
+import { getBlockTimeList } from '@/utils/time-block';
 
 export interface TBDayLineProps {
   timePoint: string;

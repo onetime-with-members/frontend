@@ -1,5 +1,5 @@
-import { getLabelTimeList } from '../../../../utils/time-block';
 import cn from '@/utils/cn';
+import { getLabelTimeList } from '@/utils/time-block';
 
 interface TBLeftLabelLineProps {
   startTime: string;

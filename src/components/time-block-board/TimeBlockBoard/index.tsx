@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
-import TBBoardContent from './TBBoardContent/index.tsx';
-import TBDayTopLabelGroup from './TBDayTopLabelGroup/index.tsx';
-import TBHeader from './TBHeader/index.tsx';
-import TBLeftLabelLine from './TBLeftLabelLine/index.tsx';
-import TimeBlockPopUp from './TimeBlockPopUp/index.tsx';
+import TBBoardContent from './TBBoardContent';
+import TBDayTopLabelGroup from './TBDayTopLabelGroup';
+import TBHeader from './TBHeader';
+import TBLeftLabelLine from './TBLeftLabelLine';
+import TimeBlockPopUp from './TimeBlockPopUp';
 import { EventType } from '@/types/event.type.ts';
 import { Schedule, Time, TimeBlockPopUpData } from '@/types/schedule.type.ts';
 import cn from '@/utils/cn.ts';
