@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import cn from '@/utils/cn';
 
-type DeviceOS = 'android' | 'iOS' | 'windows' | 'macOS' | null;
+type DeviceOS = 'android' | 'iOS' | 'windows' | 'macOS' | 'etc';
 
 export default function TopGraphic() {
   const [deviceOS, setDeviceOS] = useState<DeviceOS | undefined>(undefined);
@@ -20,7 +20,7 @@ export default function TopGraphic() {
     } else if (userAgent.match(/Mac/i)) {
       deviceOS = 'macOS';
     } else {
-      deviceOS = null;
+      deviceOS = 'etc';
     }
 
     setDeviceOS(deviceOS);
@@ -47,9 +47,9 @@ export default function TopGraphic() {
         className={cn(
           'absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full',
           {
-            'bg-[#C6CCF4]': deviceOS === 'android' || deviceOS === 'iOS',
-            'bg-[#CED3F6]': deviceOS === 'macOS' || deviceOS === null,
-            'bg-[#C6CBF3]': deviceOS === 'windows',
+            'bg-[#C8D0F9]': deviceOS === 'android' || deviceOS === 'iOS',
+            'bg-[#D0D6FB]': deviceOS === 'macOS',
+            'bg-[#C9D0FA]': deviceOS === 'windows' || deviceOS === 'etc',
           },
         )}
       />
