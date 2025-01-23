@@ -1,10 +1,10 @@
 import { forwardRef, useEffect, useRef, useState } from 'react';
 
-import TBItem from './TBItem';
+import TimeBlock from './TimeBlock';
 import { Schedule, Time, TimeBlockDragIndex } from '@/types/schedule.type';
 import { getBlockTimeList } from '@/utils/time-block';
 
-export interface TBDayLineProps {
+export interface TimeBlockLineProps {
   timePoint: string;
   startTime: string;
   endTime: string;
@@ -28,7 +28,7 @@ export interface TBDayLineProps {
   isBoardContentDragging?: boolean;
 }
 
-const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
+const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
   (
     {
       timePoint,
@@ -246,7 +246,7 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
           onTouchEnd={handleTouchEnd}
         >
           {timeList.map((time, index) => (
-            <TBItem
+            <TimeBlock
               key={index}
               ref={(el) => {
                 if (el) {
@@ -284,4 +284,4 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
   },
 );
 
-export default TBDayLine;
+export default TimeBlockLine;

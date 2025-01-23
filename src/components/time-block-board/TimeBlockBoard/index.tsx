@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 
+import BoardContent from './BoardContent';
+import LeftTimeLine from './LeftTimeLine';
 import PossibleTimeToggle from './PossibleTimeToggle';
-import TBBoardContent from './TBBoardContent';
-import TBDayTopLabelGroup from './TBDayTopLabelGroup';
-import TBLeftLabelLine from './TBLeftLabelLine';
 import TimeBlockPopUp from './TimeBlockPopUp';
+import TopDateLabelGroup from './TopDateLabelGroup';
 import { EventType } from '@/types/event.type.ts';
 import { Schedule, Time, TimeBlockPopUpData } from '@/types/schedule.type.ts';
 import cn from '@/utils/cn.ts';
@@ -240,7 +240,7 @@ export default function TimeBlockBoard({
             className="pt-4"
           />
         )}
-        <TBDayTopLabelGroup
+        <TopDateLabelGroup
           topLabelRef={topLabelRef}
           dayLineGap={dayLineGap}
           dayLineWidth={dayLineWidth}
@@ -249,11 +249,8 @@ export default function TimeBlockBoard({
         />
       </div>
       <div className={cn('flex overflow-hidden', bottomContentClassName)}>
-        <TBLeftLabelLine
-          startTime={event.start_time}
-          endTime={event.end_time}
-        />
-        <TBBoardContent
+        <LeftTimeLine startTime={event.start_time} endTime={event.end_time} />
+        <BoardContent
           boardContentRef={boardContentRef}
           dayLineRef={dayLineRef}
           dayLineGap={dayLineGap}

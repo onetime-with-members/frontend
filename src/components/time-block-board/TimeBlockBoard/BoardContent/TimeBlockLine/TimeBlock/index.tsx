@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import cn from '@/utils/cn';
 
-interface TBItemProps extends React.HTMLAttributes<HTMLDivElement> {
+interface TimeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   active?: boolean;
   bgOpacity?: number;
   editable?: boolean;
@@ -12,7 +12,7 @@ interface TBItemProps extends React.HTMLAttributes<HTMLDivElement> {
   backgroundColor: 'white' | 'gray';
 }
 
-const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
+const TimeBlock = forwardRef<HTMLDivElement, TimeBlockProps>(
   (
     {
       active,
@@ -61,4 +61,4 @@ const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
   },
 );
 
-export default TBItem;
+export default TimeBlock;

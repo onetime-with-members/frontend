@@ -1,24 +1,24 @@
-import TBDayLine, { TBDayLineProps } from './TBDayLine';
+import TimeBlockLine, { TimeBlockLineProps } from './TimeBlockLine';
 import useDragScroll from '@/hooks/useDragScroll';
 import { EventType } from '@/types/event.type';
 
-interface TBBoardContentProps {
+interface BoardContentProps {
   boardContentRef: React.RefObject<HTMLDivElement>;
   dayLineRef: React.RefObject<HTMLDivElement>;
   dayLineGap: number;
   dayLineWidth: number;
   timePointChunks: string[][];
   event: EventType;
-  schedules: TBDayLineProps['schedules'];
-  changeTimeBlockStatus: TBDayLineProps['changeTimeBlockStatus'];
-  handleDialogOpen: TBDayLineProps['handleDialogOpen'];
+  schedules: TimeBlockLineProps['schedules'];
+  changeTimeBlockStatus: TimeBlockLineProps['changeTimeBlockStatus'];
+  handleDialogOpen: TimeBlockLineProps['handleDialogOpen'];
   editable: boolean | undefined;
   innerContentProportion: number;
-  isPossibleTime: TBDayLineProps['isPossibleTime'];
-  backgroundColor: TBDayLineProps['backgroundColor'];
+  isPossibleTime: TimeBlockLineProps['isPossibleTime'];
+  backgroundColor: TimeBlockLineProps['backgroundColor'];
 }
 
-export default function TBBoardContent({
+export default function BoardContent({
   boardContentRef,
   dayLineRef,
   dayLineGap,
@@ -32,7 +32,7 @@ export default function TBBoardContent({
   innerContentProportion,
   isPossibleTime,
   backgroundColor,
-}: TBBoardContentProps) {
+}: BoardContentProps) {
   const {
     isDragEvent,
     handleDragStart,
@@ -65,7 +65,7 @@ export default function TBBoardContent({
           }}
         >
           {timePoints.map((timePoint) => (
-            <TBDayLine
+            <TimeBlockLine
               key={timePoint}
               ref={
                 index !== timePointChunks.length - 1 ? dayLineRef : undefined

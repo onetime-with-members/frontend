@@ -1,7 +1,7 @@
-import TBDayTopLabel from './TBDayTopLabel';
+import TopDateLabel from './TopDateLabel';
 import { EventType } from '@/types/event.type';
 
-interface TBDayTopLabelGroupProps {
+interface TopDateLabelGroupProps {
   topLabelRef: React.RefObject<HTMLDivElement>;
   dayLineGap: number;
   dayLineWidth: number;
@@ -9,13 +9,13 @@ interface TBDayTopLabelGroupProps {
   category: EventType['category'];
 }
 
-export default function TBDayTopLabelGroup({
+export default function TopDateLabelGroup({
   topLabelRef,
   dayLineGap,
   dayLineWidth,
   timePointChunks,
   category,
-}: TBDayTopLabelGroupProps) {
+}: TopDateLabelGroupProps) {
   return (
     <div className="pl-[3.5rem]">
       <div
@@ -27,7 +27,7 @@ export default function TBDayTopLabelGroup({
       >
         {timePointChunks.map((timePointChunk) =>
           timePointChunk.map((timePoint) => (
-            <TBDayTopLabel
+            <TopDateLabel
               key={timePoint}
               category={category}
               timePoint={timePoint}

@@ -1,15 +1,15 @@
 import cn from '@/utils/cn';
 import { getLabelTimeList } from '@/utils/time-block';
 
-interface TBLeftLabelLineProps {
+interface LeftTimeLineProps {
   startTime: string;
   endTime: string;
 }
 
-export default function TBLeftLabelLine({
+export default function LeftTimeLine({
   startTime,
   endTime,
-}: TBLeftLabelLineProps) {
+}: LeftTimeLineProps) {
   const timeList = getLabelTimeList(startTime, endTime);
 
   return (

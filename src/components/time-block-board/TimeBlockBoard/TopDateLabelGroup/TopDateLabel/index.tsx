@@ -2,19 +2,19 @@ import dayjs from 'dayjs';
 
 import cn from '@/utils/cn';
 
-interface TBDayTopLabelProps {
+interface TopDateLabelProps {
   category: 'DAY' | 'DATE';
   timePoint: string;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export default function TBDayTopLabel({
+export default function TopDateLabel({
   category,
   timePoint,
   className,
   style,
-}: TBDayTopLabelProps) {
+}: TopDateLabelProps) {
   return (
     <div className={cn('text-center', className)} style={style}>
       {category === 'DATE' ? (
