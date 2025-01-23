@@ -13,11 +13,13 @@ import breakpoint from '@/utils/breakpoint';
 interface EventFormContentProps {
   originData?: EventValue;
   onSubmit: (disabled: boolean, value: EventValue) => void;
+  isPending: boolean;
 }
 
 export default function EventFormContent({
   originData,
   onSubmit,
+  isPending,
 }: EventFormContentProps) {
   const [value, setValue] = useState<EventValue>({
     title: '',
@@ -88,7 +90,11 @@ export default function EventFormContent({
             <InputContent value={value} setValue={setValue} />
           </main>
         </div>
-        <BottomButton disabled={disabled} handleSubmit={handleSubmit} />
+        <BottomButton
+          disabled={disabled}
+          handleSubmit={handleSubmit}
+          isPending={isPending}
+        />
       </div>
     </>
   );

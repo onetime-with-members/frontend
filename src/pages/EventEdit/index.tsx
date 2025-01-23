@@ -50,9 +50,15 @@ export default function EventEdit() {
   });
 
   function handleSubmit(disabled: boolean, value: EventValue) {
-    if (disabled) return;
+    if (disabled || editEvent.isPending) return;
     editEvent.mutate(value);
   }
 
-  return <EventFormContent originData={data} onSubmit={handleSubmit} />;
+  return (
+    <EventFormContent
+      originData={data}
+      onSubmit={handleSubmit}
+      isPending={editEvent.isPending}
+    />
+  );
 }

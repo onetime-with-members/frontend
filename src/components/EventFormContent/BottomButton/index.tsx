@@ -6,11 +6,13 @@ import { PageModeContext } from '@/contexts/PageModeContext';
 interface BottomButtonProps {
   handleSubmit: () => void;
   disabled: boolean;
+  isPending: boolean;
 }
 
 export default function BottomButton({
   handleSubmit,
   disabled,
+  isPending,
 }: BottomButtonProps) {
   const { pageMode } = useContext(PageModeContext);
 
@@ -22,8 +24,10 @@ export default function BottomButton({
         variant="black"
         fullWidth
       >
-        {pageMode === 'create' && '이벤트 생성하기'}
-        {pageMode === 'edit' && '이벤트 수정하기'}
+        {pageMode === 'create' &&
+          (isPending ? '이벤트 생성 중...' : '이벤트 생성하기')}
+        {pageMode === 'edit' &&
+          (isPending ? '이벤트 수정 중...' : '이벤트 수정하기')}
       </Button>
     </div>
   );

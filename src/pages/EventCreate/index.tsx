@@ -18,10 +18,14 @@ export default function EventCreate() {
   });
 
   function handleSubmit(disabled: boolean, value: EventValue) {
-    if (disabled) return;
-
+    if (disabled || createEvent.isPending) return;
     createEvent.mutate(value);
   }
 
-  return <EventFormContent onSubmit={handleSubmit} />;
+  return (
+    <EventFormContent
+      onSubmit={handleSubmit}
+      isPending={createEvent.isPending}
+    />
+  );
 }
