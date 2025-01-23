@@ -1,22 +1,22 @@
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 
-import MainContentForDesktop from './MainContentForDesktop';
-import MainContentForMobile from './MainContentForMobile';
+import HeaderForDesktop from './HeaderForDesktop';
 import SideTabContentForDesktop from './SideTabContentForDesktop';
 import TopAppBarForMobile from './TopAppBarForMobile';
 import NavBar from '@/components/NavBar';
 import { MyScheduleContext } from '@/contexts/MyScheduleContext';
+import { ScrollContext } from '@/contexts/ScrollContext';
 
 export default function MyPageLayout() {
   const [tabActive, setTabActive] = useState('');
 
   const { selectedTimeBlockId, viewMode, setViewMode } =
     useContext(MyScheduleContext);
+  const { scrollContainerRef } = useContext(ScrollContext);
 
   const location = useLocation();
-  const navigate = useNavigate();
 
   const pageTitle = {
     events: '참여한 이벤트',
@@ -30,10 +30,6 @@ export default function MyPageLayout() {
     } else {
       setViewMode('timeblock');
     }
-  }
-
-  function handleMyScheduleCreateButtonClick() {
-    navigate('/mypage/schedules/new');
   }
 
   useEffect(() => {
@@ -59,10 +55,9 @@ export default function MyPageLayout() {
           tabActive={tabActive}
           handleViewModeButtonClick={handleViewModeButtonClick}
         />
-        <MainContentForMobile
-          tabActive={tabActive}
-          handleMyScheduleCreateButtonClick={handleMyScheduleCreateButtonClick}
-        />
+        <main className="px-4 pb-20">
+          <Outlet />
+        </main>
       </div>
 
       {/* Desktop */}
@@ -71,14 +66,17 @@ export default function MyPageLayout() {
         <div className="px-4">
           <div className="mx-auto flex w-full max-w-screen-md gap-10">
             <SideTabContentForDesktop tabActive={tabActive} />
-            <MainContentForDesktop
-              pageTitle={pageTitle}
-              tabActive={tabActive}
-              handleViewModeButtonClick={handleViewModeButtonClick}
-              handleMyScheduleCreateButtonClick={
-                handleMyScheduleCreateButtonClick
-              }
-            />
+            <main className="relative flex flex-1 flex-col gap-2 pb-20 pt-8">
+              <HeaderForDesktop
+                pageTitle={pageTitle}
+                tabActive={tabActive}
+                viewMode={viewMode}
+                handleViewModeButtonClick={handleViewModeButtonClick}
+              />
+              <div ref={scrollContainerRef} className="flex-1">
+                <Outlet />
+              </div>
+            </main>
           </div>
         </div>
       </div>

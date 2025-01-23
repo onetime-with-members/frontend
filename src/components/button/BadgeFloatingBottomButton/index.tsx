@@ -7,6 +7,7 @@ interface BadgeFloatingBottomButtonProps {
   name: string;
   className?: string;
   variant?: 'primary' | 'black';
+  style?: React.CSSProperties;
 }
 
 export default function BadgeFloatingBottomButton({
@@ -14,6 +15,7 @@ export default function BadgeFloatingBottomButton({
   name,
   className,
   variant = 'primary',
+  style,
 }: BadgeFloatingBottomButtonProps) {
   return (
     <>
@@ -22,6 +24,7 @@ export default function BadgeFloatingBottomButton({
           'fixed bottom-8 left-1/2 flex -translate-x-1/2 justify-center',
           className,
         )}
+        style={style}
       >
         <BadgeButton onClick={onClick} variant={variant}>
           <span className="flex items-center justify-center gap-1">
