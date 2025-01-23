@@ -1,4 +1,5 @@
 import TBDayLine, { TBDayLineProps } from './TBDayLine';
+import useDragScroll from '@/hooks/useDragScroll';
 import { EventType } from '@/types/event.type';
 
 interface TBBoardContentProps {
@@ -32,11 +33,23 @@ export default function TBBoardContent({
   isPossibleTime,
   backgroundColor,
 }: TBBoardContentProps) {
+  const {
+    isDragEvent,
+    handleDragStart,
+    handleDragMove,
+    handleDragEnd,
+    handleDragLeave,
+  } = useDragScroll<HTMLDivElement>({ ref: boardContentRef });
+
   return (
     <div
       ref={boardContentRef}
-      className="flex flex-1 overflow-hidden"
+      className="scrollbar-hidden flex flex-1 overflow-x-scroll"
       style={{ gap: dayLineGap }}
+      onMouseDown={handleDragStart}
+      onMouseMove={handleDragMove}
+      onMouseUp={handleDragEnd}
+      onMouseLeave={handleDragLeave}
     >
       {timePointChunks.map((timePoints, index) => (
         <div
@@ -51,30 +64,27 @@ export default function TBBoardContent({
                 : undefined,
           }}
         >
-          {timePoints.map((timePoint) => {
-            return (
-              <TBDayLine
-                key={timePoint}
-                ref={
-                  index !== timePointChunks.length - 1 ? dayLineRef : undefined
-                }
-                timePoint={timePoint}
-                startTime={event.start_time}
-                endTime={event.end_time}
-                schedules={schedules}
-                changeTimeBlockStatus={changeTimeBlockStatus}
-                handleDialogOpen={handleDialogOpen}
-                editable={editable}
-                minWidth={
-                  index === timePointChunks.length - 1
-                    ? dayLineWidth
-                    : undefined
-                }
-                isPossibleTime={isPossibleTime}
-                backgroundColor={backgroundColor}
-              />
-            );
-          })}
+          {timePoints.map((timePoint) => (
+            <TBDayLine
+              key={timePoint}
+              ref={
+                index !== timePointChunks.length - 1 ? dayLineRef : undefined
+              }
+              timePoint={timePoint}
+              startTime={event.start_time}
+              endTime={event.end_time}
+              schedules={schedules}
+              changeTimeBlockStatus={changeTimeBlockStatus}
+              handleDialogOpen={handleDialogOpen}
+              editable={editable}
+              minWidth={
+                index === timePointChunks.length - 1 ? dayLineWidth : undefined
+              }
+              isPossibleTime={isPossibleTime}
+              backgroundColor={backgroundColor}
+              isBoardContentDragging={isDragEvent}
+            />
+          ))}
         </div>
       ))}
     </div>

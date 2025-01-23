@@ -25,6 +25,7 @@ export interface TBDayLineProps {
   minWidth?: number;
   isPossibleTime?: boolean;
   backgroundColor: 'white' | 'gray';
+  isBoardContentDragging?: boolean;
 }
 
 const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
@@ -40,6 +41,7 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
       minWidth,
       isPossibleTime = true,
       backgroundColor,
+      isBoardContentDragging,
     },
     ref,
   ) => {
@@ -263,7 +265,7 @@ const TBDayLine = forwardRef<HTMLDivElement, TBDayLineProps>(
                 editable ? () => handleTouchStart(time, index) : undefined
               }
               onClick={
-                !editable
+                !editable && !isBoardContentDragging
                   ? () => handleDialogOpen({ timePoint, time })
                   : undefined
               }
