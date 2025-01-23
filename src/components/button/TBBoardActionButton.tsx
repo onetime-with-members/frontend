@@ -1,6 +1,5 @@
-import clsx from 'clsx';
-
 import TrashIcon from '../icon/TrashIcon';
+import cn from '@/utils/cn';
 import { IconShare } from '@tabler/icons-react';
 
 interface TBBoardActionButton extends React.HTMLAttributes<HTMLButtonElement> {
@@ -14,7 +13,7 @@ export default function TBBoardActionButton({
 }: TBBoardActionButton) {
   return (
     <button
-      className={clsx(
+      className={cn(
         'flex items-center gap-1 rounded-full px-3 py-2 text-sm-300',
         className,
         {

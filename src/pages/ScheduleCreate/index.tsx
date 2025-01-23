@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -13,6 +12,7 @@ import { FooterContext } from '@/contexts/FooterContext';
 import { GuestValue } from '@/types/guest.type';
 import { Schedule } from '@/types/schedule.type';
 import breakpoint from '@/utils/breakpoint';
+import cn from '@/utils/cn';
 
 export default function ScheduleCreate() {
   const [pageIndex, setPageIndex] = useState(
@@ -112,7 +112,7 @@ export default function ScheduleCreate() {
           <TopHeaderForDesktop handleBackButtonClick={handleBackButtonClick} />
         </>
         <main
-          className={clsx(
+          className={cn(
             'mx-auto flex flex-col bg-gray-00 px-6 py-4 md:h-auto md:max-w-screen-sm md:gap-14 md:rounded-3xl md:px-9 md:py-10',
             {
               'md:mb-28': pageIndex === 1,

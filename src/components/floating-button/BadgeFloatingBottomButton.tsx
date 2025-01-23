@@ -1,6 +1,5 @@
-import clsx from 'clsx';
-
 import BadgeButton from '../button/BadgeButton';
+import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';
 
 interface BadgeFloatingBottomButtonProps {
@@ -19,7 +18,7 @@ export default function BadgeFloatingBottomButton({
   return (
     <>
       <div
-        className={clsx(
+        className={cn(
           'fixed bottom-8 left-1/2 flex -translate-x-1/2 justify-center',
           className,
         )}

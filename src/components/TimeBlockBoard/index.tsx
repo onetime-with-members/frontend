@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
 import { EventType } from '../../types/event.type';
@@ -9,6 +8,7 @@ import TBBoardContent from './TBBoardContent/index.tsx';
 import TBDayTopLabelGroup from './TBDayTopLabelGroup';
 import TBHeader from './TBHeader/index.tsx';
 import TBLeftLabelLine from './TBLeftLabelLine';
+import cn from '@/utils/cn.ts';
 
 interface TimeBlockBoardProps {
   event: EventType;
@@ -275,7 +275,7 @@ export default function TimeBlockBoard({
 
   return (
     <div className="flex flex-col">
-      <div className={clsx('sticky', topContentClassName)}>
+      <div className={cn('sticky top-0 z-10 bg-gray-00', topContentClassName)}>
         <TBHeader
           editable={editable}
           isPossibleTime={isPossibleTime}
@@ -293,7 +293,7 @@ export default function TimeBlockBoard({
           category={event.category}
         />
       </div>
-      <div className={clsx('flex overflow-hidden', bottomContentClassName)}>
+      <div className={cn('flex overflow-hidden', bottomContentClassName)}>
         <TBLeftLabelLine
           startTime={event.start_time}
           endTime={event.end_time}

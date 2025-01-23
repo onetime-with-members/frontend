@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 
 import EmptyUI from '@/components/EmptyUI';
-import MyEventItem from '@/components/list/my-event/MyEventItem';
-import { MyEvent } from '@/types/event.type';
+import MyEvent from '@/pages/MyEvents/MyEvent';
+import { MyEventType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyEventSection() {
-  const { isPending: isEventsPending, data: events } = useQuery<MyEvent[]>({
+  const { isPending: isEventsPending, data: events } = useQuery<MyEventType[]>({
     queryKey: ['events', 'user', 'all'],
     queryFn: async () => {
       const res = await axios.get('/events/user/all');
@@ -44,7 +44,7 @@ export default function MyEventSection() {
               events
                 .slice(0, 1)
                 .map((event) => (
-                  <MyEventItem
+                  <MyEvent
                     key={event.event_id}
                     event={event}
                     className="border-none"
@@ -61,7 +61,7 @@ export default function MyEventSection() {
               events
                 .slice(0, 2)
                 .map((event) => (
-                  <MyEventItem
+                  <MyEvent
                     key={event.event_id}
                     event={event}
                     className="border-none"

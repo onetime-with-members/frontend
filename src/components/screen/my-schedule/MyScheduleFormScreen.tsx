@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -7,6 +6,7 @@ import axios from '../../../utils/axios';
 import MyScheduleBottomSheet from '../../MyScheduleBottomSheet';
 import MyTimeBlockBoard from '../../MyTimeBlockBoard';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
+import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -143,12 +143,13 @@ export default function MyScheduleFormScreen({
                 </div>
                 <div className="flex items-center justify-end">
                   <button
-                    className={clsx('text-md-300', {
-                      'cursor-default text-gray-40':
-                        myNewScheduleData.schedules.length === 0,
-                      'cursor-pointer text-primary-40':
-                        myNewScheduleData.schedules.length > 0,
-                    })}
+                    className={cn(
+                      'cursor-pointer text-primary-40 text-md-300',
+                      {
+                        'cursor-default text-gray-40':
+                          myNewScheduleData.schedules.length === 0,
+                      },
+                    )}
                     onClick={handleBottomSheetOpen}
                     disabled={myNewScheduleData.schedules.length === 0}
                   >

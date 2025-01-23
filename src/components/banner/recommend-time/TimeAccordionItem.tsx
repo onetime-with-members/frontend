@@ -1,7 +1,7 @@
-import clsx from 'clsx';
 import { useState } from 'react';
 
 import MemberBadge from '../../MemberBadge';
+import cn from '@/utils/cn';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 interface TimeAccordionItemProps {
@@ -31,9 +31,8 @@ export default function TimeAccordionItem({
 
   return (
     <li
-      className={clsx('rounded-2xl', {
-        'border border-primary-50 bg-gray-00': isOpen,
-        'border border-gray-05 bg-gray-05': !isOpen,
+      className={cn('rounded-2xl border border-gray-05 bg-gray-05', {
+        'border-primary-50 bg-gray-00': isOpen,
       })}
     >
       <div
@@ -41,9 +40,8 @@ export default function TimeAccordionItem({
         onClick={handleAccordionClick}
       >
         <span
-          className={clsx('flex-1 text-lg-200', {
+          className={cn('flex-1 text-gray-50 text-lg-200', {
             'text-primary-50': isOpen,
-            'text-gray-50': !isOpen,
           })}
         >
           {startTime} - {endTime}
@@ -61,7 +59,7 @@ export default function TimeAccordionItem({
         <div className="flex flex-col gap-5 px-5 pb-4">
           {members.possible.length > 0 && (
             <div>
-              <div className={clsx(style.title, 'text-primary-60')}>가능</div>
+              <div className={cn(style.title, 'text-primary-60')}>가능</div>
               <div className={style.badgeList}>
                 {members.possible.map((member) => (
                   <MemberBadge key={member} variant="primary">
@@ -73,7 +71,7 @@ export default function TimeAccordionItem({
           )}
           {members.impossible.length > 0 && (
             <div>
-              <div className={clsx(style.title, 'text-gray-50')}>불가능</div>
+              <div className={cn(style.title, 'text-gray-50')}>불가능</div>
               <div className={style.badgeList}>
                 {members.impossible.map((member) => (
                   <MemberBadge key={member} variant="gray">

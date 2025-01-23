@@ -1,7 +1,7 @@
-import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
 import Input from '@/components/form-control/input/Input';
+import cn from '@/utils/cn';
 
 interface NicknameFormControlProps {
   value: string;
@@ -49,7 +49,7 @@ export default function NicknameFormControl({
           value={value}
           onChange={onChange}
           placeholder="당신의 이름은 무엇인가요?"
-          className={clsx({
+          className={cn({
             'ring-2 ring-danger-30': invalid.format || invalid.length,
           })}
         />

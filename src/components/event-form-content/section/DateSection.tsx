@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useContext } from 'react';
 
 import { PageModeContext } from '../../../contexts/PageModeContext';
@@ -7,6 +6,7 @@ import Chip from '../../Chip';
 import EventInputLabel from '../EventInputLabel';
 import CalendarSelect from '../select/date-group/CalendarSelect';
 import WeekdaySelect from '../select/date-group/WeekdaySelect';
+import cn from '@/utils/cn';
 
 interface DateSectionProps {
   value: EventValue;
@@ -32,7 +32,7 @@ export default function DateSection({ value, setValue }: DateSectionProps) {
         description="설문할 날짜의 범위를 설정해주세요."
       />
       <div
-        className={clsx('flex flex-col', {
+        className={cn('flex flex-col', {
           'gap-3.5': value.category === 'DAY',
           'gap-6': value.category === 'DATE',
         })}

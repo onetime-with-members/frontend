@@ -1,7 +1,6 @@
-import clsx from 'clsx';
-
 import EditIcon from './icon/EditIcon';
 import TrashIcon from './icon/TrashIcon';
+import cn from '@/utils/cn';
 
 interface MyScheduleActionButtonProps
   extends React.HTMLAttributes<HTMLButtonElement> {
@@ -15,7 +14,7 @@ export default function MyScheduleActionButton({
 }: MyScheduleActionButtonProps) {
   return (
     <button
-      className={clsx(
+      className={cn(
         'flex h-[3rem] flex-1 items-center justify-center gap-1 rounded-lg border px-3 py-2',
         className,
         {

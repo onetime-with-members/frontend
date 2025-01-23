@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import { forwardRef } from 'react';
+
+import cn from '@/utils/cn';
 
 interface TBItemProps extends React.HTMLAttributes<HTMLDivElement> {
   active?: boolean;
@@ -30,7 +31,7 @@ const TBItem = forwardRef<HTMLDivElement, TBItemProps>(
     return (
       <div
         ref={ref}
-        className={clsx(
+        className={cn(
           'h-[2rem] w-full border-b border-gray-10 last:border-b-0 odd:border-dashed even:border-solid',
           className,
           {

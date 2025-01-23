@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
 import useScroll from '@/hooks/useScroll';
 import { User } from '@/types/user.type';
 import axios from '@/utils/axios';
+import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 export default function TopToolbarForDesktop() {
@@ -23,7 +23,7 @@ export default function TopToolbarForDesktop() {
   return (
     <header className="hidden h-[72px] w-full justify-center md:flex">
       <div
-        className={clsx(
+        className={cn(
           'fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150',
           {
             'shadow-lg': isScrolling,

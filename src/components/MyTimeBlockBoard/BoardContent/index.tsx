@@ -1,9 +1,9 @@
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useContext, useEffect, useRef, useState } from 'react';
 
 import { MyScheduleContext } from '@/contexts/MyScheduleContext';
 import { MyNewSchedule, MySchedule } from '@/types/schedule.type';
+import cn from '@/utils/cn';
 import { getBlockTimeList } from '@/utils/time-block';
 
 interface TimeBlockContentProps {
@@ -169,17 +169,15 @@ export default function BoardContent({
       ? 'cursor-default'
       : 'cursor-pointer';
 
-    return clsx(
+    return cn(
       'h-[3rem] last:border-b-0',
       {
         'border-b border-gray-10 odd:border-dashed even:border-solid':
           !isTimeBlockExist(weekday, time),
       },
       {
-        'bg-gray-05':
-          !isTimeBlockExist(weekday, time) && backgroundColor === 'gray',
-        'bg-gray-00':
-          !isTimeBlockExist(weekday, time) && backgroundColor === 'white',
+        'bg-gray-05': backgroundColor === 'gray',
+        'bg-gray-00': backgroundColor === 'white',
       },
       {
         'rounded-t-lg border-t border-gray-00': isTimeBlockChunkEdge(
@@ -198,12 +196,8 @@ export default function BoardContent({
             [`bg-primary-40 ${cursorStatus}`]: isTimeBlockExist(weekday, time),
             'relative border-l-2 border-r-2 border-gray-00 bg-primary-40':
               isTimeBlockSelected(weekday, time),
-            'border-t-2':
-              isTimeBlockChunkEdge(weekday, time, 'start') &&
-              isTimeBlockSelected(weekday, time),
-            'border-b-2':
-              isTimeBlockChunkEdge(weekday, time, 'end') &&
-              isTimeBlockSelected(weekday, time),
+            'border-t-2': isTimeBlockChunkEdge(weekday, time, 'start'),
+            'border-b-2': isTimeBlockChunkEdge(weekday, time, 'end'),
           }
         : {
             [cursorStatus]: !isTimeBlockExist(weekday, time),

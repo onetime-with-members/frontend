@@ -1,8 +1,8 @@
-import clsx from 'clsx';
 import { useRef } from 'react';
 
 import TimeDropdownItem from './TimeDropdownItem';
 import useDropdown from '@/hooks/useDropdown';
+import cn from '@/utils/cn';
 import {
   IconTriangleFilled,
   IconTriangleInvertedFilled,
@@ -32,21 +32,19 @@ export default function TimeDropdown({
   }
 
   return (
-    <div className={clsx('relative', className)} ref={dropdownRef}>
+    <div className={cn('relative', className)} ref={dropdownRef}>
       <div
-        className={clsx(
-          'flex cursor-pointer items-center gap-4 rounded-xl px-5 py-4',
+        className={cn(
+          'flex cursor-pointer items-center gap-4 rounded-xl bg-gray-05 px-5 py-4',
           {
             'bg-primary-40': isDropdownMenuOpen,
-            'bg-gray-05': !isDropdownMenuOpen,
           },
         )}
         onClick={handleDropdownClick}
       >
         <span
-          className={clsx('text-lg-200', {
+          className={cn('text-gray-70 text-lg-200', {
             'text-gray-00': isDropdownMenuOpen,
-            'text-gray-70': !isDropdownMenuOpen,
           })}
         >
           {time}

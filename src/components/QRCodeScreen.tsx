@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -6,6 +5,7 @@ import logoWhite from '../assets/logo-white.svg';
 import { EventType } from '../types/event.type';
 import axios from '../utils/axios';
 import ClockPattern from './clock-pattern/ClockPattern';
+import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
@@ -50,10 +50,9 @@ export default function QRCodeScreen({
 
   return (
     <div
-      className={clsx(
-        'fixed left-0 top-0 z-50 flex h-full w-full flex-col overflow-hidden bg-gray-00 transition-transform duration-300',
+      className={cn(
+        'fixed left-0 top-0 z-50 flex h-full w-full translate-y-full flex-col overflow-hidden bg-gray-00 transition-transform duration-300',
         {
-          'translate-y-full': !visible,
           'translate-y-0': visible,
         },
       )}

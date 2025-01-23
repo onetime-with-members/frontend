@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,6 +6,7 @@ import BottomButtonForMobile from './BottomButtonForMobile';
 import InputContent from './InputContent';
 import TopAppBar from './TopAppBar';
 import axios from '@/utils/axios';
+import cn from '@/utils/cn';
 import { useMutation } from '@tanstack/react-query';
 
 export interface NicknameFormType {
@@ -67,7 +67,7 @@ export default function NicknameFormScreen({
 
   return (
     <div
-      className={clsx({
+      className={cn({
         hidden: !isVisible,
       })}
     >

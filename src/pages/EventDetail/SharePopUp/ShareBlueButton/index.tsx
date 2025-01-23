@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@/utils/cn';
 
 interface ShareBlueButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -11,7 +11,7 @@ export default function ShareBlueButton({
 }: ShareBlueButtonProps) {
   return (
     <button
-      className={clsx(
+      className={cn(
         'rounded-full bg-primary-00 p-3 text-primary-40',
         className,
       )}

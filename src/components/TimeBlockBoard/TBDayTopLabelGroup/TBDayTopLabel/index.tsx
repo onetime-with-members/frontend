@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import dayjs from 'dayjs';
+
+import cn from '@/utils/cn';
 
 interface TBDayTopLabelProps {
   category: 'DAY' | 'DATE';
@@ -15,7 +16,7 @@ export default function TBDayTopLabel({
   style,
 }: TBDayTopLabelProps) {
   return (
-    <div className={clsx('text-center', className)} style={style}>
+    <div className={cn('text-center', className)} style={style}>
       {category === 'DATE' ? (
         <div className="flex flex-col">
           <span className="text-gray-20 text-sm-200">

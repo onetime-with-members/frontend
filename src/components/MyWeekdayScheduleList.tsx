@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { forwardRef, useContext } from 'react';
 
@@ -6,6 +5,7 @@ import { MyScheduleContext } from '../contexts/MyScheduleContext';
 import { MyWeekdaySchedule } from '../types/schedule.type';
 import axios from '../utils/axios';
 import { weekdaysShortLowerEn } from '../utils/weekday';
+import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
@@ -46,7 +46,7 @@ const MyWeekdayScheduleList = forwardRef<
     <section
       id={weekday}
       ref={ref}
-      className={clsx('flex flex-col gap-3 py-2', className)}
+      className={cn('flex flex-col gap-3 py-2', className)}
     >
       <h2 className="text-gray-30 text-sm-200">
         {dayjs.weekdays()[weekdaysShortLowerEn.findIndex((w) => w === weekday)]}
@@ -56,14 +56,11 @@ const MyWeekdayScheduleList = forwardRef<
           <li
             key={mySchedule.id}
             onClick={() => handleWeekdayListItemClick(mySchedule.id)}
-            className={clsx(
-              'flex items-center justify-between rounded-xl bg-gray-05 p-4',
+            className={cn(
+              'flex cursor-pointer items-center justify-between rounded-xl bg-gray-05 p-4',
               {
                 'relative z-[100]': mySchedule.id === selectedTimeBlockId,
-              },
-              {
                 'cursor-default': isSelectTimeBlockDisabled,
-                'cursor-pointer': !isSelectTimeBlockDisabled,
               },
             )}
           >
