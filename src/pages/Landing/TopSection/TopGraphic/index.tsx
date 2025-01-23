@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 
-type DeviceOS = 'android' | 'iOS' | 'windows' | 'macOS' | null;
+type DeviceOS = 'android' | 'iOS' | 'windows' | 'macOS' | 'etc';
 
 export default function TopGraphic() {
   const [deviceOS, setDeviceOS] = useState<DeviceOS | undefined>(undefined);
@@ -19,7 +19,7 @@ export default function TopGraphic() {
     } else if (userAgent.match(/Mac/i)) {
       deviceOS = 'macOS';
     } else {
-      deviceOS = null;
+      deviceOS = 'etc';
     }
 
     setDeviceOS(deviceOS);
@@ -48,7 +48,7 @@ export default function TopGraphic() {
           {
             'bg-[#C7D0F9]': deviceOS === 'android' || deviceOS === 'iOS',
             'bg-[#D0D6FB]': deviceOS === 'macOS',
-            'bg-[#C6CBF3]': deviceOS === 'windows' || deviceOS === null,
+            'bg-[#C9D0FA]': deviceOS === 'windows' || deviceOS === 'etc',
           },
         )}
       />
