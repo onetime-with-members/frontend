@@ -2,8 +2,8 @@ import { useContext } from 'react';
 
 import BoardContent from './BoardContent';
 import LeftTimeLine from './LeftTimeLine';
-import OverlayCover from './OverlayCover';
 import TopDateGroup from './TopDateGroup';
+import Overlay from '@/components/overlay/Overlay';
 import { MyScheduleContext } from '@/contexts/MyScheduleContext';
 import { MyNewSchedule, MySchedule } from '@/types/schedule.type';
 
@@ -34,7 +34,7 @@ export default function MyTimeBlockBoard({
 
   return (
     <div className={className}>
-      {mode === 'view' && selectedTimeBlockId !== null && <OverlayCover />}
+      {mode === 'view' && selectedTimeBlockId !== null && <Overlay />}
       <div className="flex flex-col">
         <TopDateGroup className={topDateGroupClassName} />
         <div className="flex flex-1">

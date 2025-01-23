@@ -59,7 +59,7 @@ const MyWeekdayScheduleList = forwardRef<
             className={cn(
               'flex cursor-pointer items-center justify-between rounded-xl bg-gray-05 p-4',
               {
-                'relative z-[100]': mySchedule.id === selectedTimeBlockId,
+                'z-10': mySchedule.id === selectedTimeBlockId,
                 'cursor-default': isSelectTimeBlockDisabled,
               },
             )}

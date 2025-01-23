@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useContext } from 'react';
 
-import OverlayCover from './OverlayCover';
+import OverlayCover from '@/components/overlay/OverlayCover';
 import { MyScheduleContext } from '@/contexts/MyScheduleContext';
 import cn from '@/utils/cn';
 

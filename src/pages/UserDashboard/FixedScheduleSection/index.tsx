@@ -65,7 +65,7 @@ export default function FixedScheduleSection() {
             className="hidden flex-1 md:block"
           />
           <div className="flex-1 rounded-2xl bg-gray-00 px-5 py-4 md:mt-8">
-            <MyScheduleList hasWeekdaySelcectUI={false} />
+            <MyScheduleList hasWeekdaySelcect={false} />
           </div>
         </div>
       )}
