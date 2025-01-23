@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import Footer from '../components/Footer';
-import ScrollToTop from '../components/ScrollToTop';
-import { FooterContext } from '../contexts/FooterContext';
+import Footer from '@/components/Footer';
+import ScrollToTop from '@/components/ScrollToTop';
+import { FooterContext } from '@/contexts/FooterContext';
 import cn from '@/utils/cn';
 
 export default function Layout() {
