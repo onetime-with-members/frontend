@@ -1,9 +1,8 @@
-import clsx from 'clsx';
-
 import { MyNewSchedule } from '../types/schedule.type';
 import MyScheduleActionButton from './MyScheduleActionButton';
 import Button from './button/Button';
 import Input from './form-control/input/Input';
+import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
 
 interface MyScheduleBottomSheetProps {
@@ -37,10 +36,9 @@ export default function MyScheduleBottomSheet({
 
   return (
     <div
-      className={clsx(
-        'fixed left-0 top-0 z-[999] flex h-screen w-screen flex-col items-center bg-gray-90',
+      className={cn(
+        'fixed left-0 top-0 z-[999] flex h-screen w-screen flex-col items-center bg-gray-90 bg-opacity-30',
         {
-          'bg-opacity-30': overlay,
           'bg-opacity-0': !overlay,
         },
       )}
@@ -84,7 +82,11 @@ export default function MyScheduleBottomSheet({
               )}
             </div>
             {mode === 'new' && (
-              <Button onClick={handleSubmit} disabled={buttonDisabled}>
+              <Button
+                onClick={handleSubmit}
+                disabled={buttonDisabled}
+                fullWidth
+              >
                 저장
               </Button>
             )}

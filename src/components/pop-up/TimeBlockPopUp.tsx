@@ -1,8 +1,8 @@
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 
 import { TimeBlockPopUpData } from '../../types/schedule.type';
 import MemberBadge from '../MemberBadge';
+import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
 
 interface TimeBlockPopUpProps {
@@ -53,7 +53,7 @@ export default function TimeBlockPopUp({
         <div className="flex flex-col gap-5 px-5 pb-6 pt-4">
           {members.possible.length > 0 && (
             <div>
-              <h3 className={clsx(style.title, 'text-primary-60')}>가능</h3>
+              <h3 className={cn(style.title, 'text-primary-60')}>가능</h3>
               <div className={style.memberBadgeList}>
                 {members.possible.map((member) => (
                   <MemberBadge key={member}>{member}</MemberBadge>
@@ -63,7 +63,7 @@ export default function TimeBlockPopUp({
           )}
           {members.impossible.length > 0 && (
             <div>
-              <h3 className={clsx(style.title, 'text-gray-50')}>불가능</h3>
+              <h3 className={cn(style.title, 'text-gray-50')}>불가능</h3>
               <div className={style.memberBadgeList}>
                 {members.impossible.map((member) => (
                   <MemberBadge key={member} variant="gray">

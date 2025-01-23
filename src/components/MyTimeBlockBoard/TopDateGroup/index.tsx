@@ -1,0 +1,30 @@
+import dayjs from 'dayjs';
+import { useContext } from 'react';
+
+import OverlayCover from './OverlayCover';
+import { MyScheduleContext } from '@/contexts/MyScheduleContext';
+import cn from '@/utils/cn';
+
+interface TopDateGroupProps {
+  className?: string;
+}
+
+export default function TopDateGroup({ className }: TopDateGroupProps) {
+  const { selectedTimeBlockId } = useContext(MyScheduleContext);
+
+  return (
+    <div className={cn('relative', className)}>
+      <div className="grid grid-cols-7 gap-2 pl-[2.5rem]">
+        {dayjs.weekdaysMin().map((weekday) => (
+          <div
+            key={weekday}
+            className="py-2 text-center text-gray-30 text-md-200"
+          >
+            {weekday}
+          </div>
+        ))}
+      </div>
+      {selectedTimeBlockId !== null && <OverlayCover />}
+    </div>
+  );
+}

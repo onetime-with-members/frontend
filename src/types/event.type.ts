@@ -1,4 +1,5 @@
 export interface EventType {
+  event_id: string;
   title: string;
   start_time: string;
   end_time: string;
@@ -15,7 +16,7 @@ export interface EventValue {
   ranges: string[];
 }
 
-export interface MyEvent {
+export interface MyEventType {
   title: string;
   participant_count: number;
   created_date: string;

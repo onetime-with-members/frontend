@@ -1,17 +1,23 @@
-import clsx from 'clsx';
-
-import clockImageForPattern from '../../assets/landing/clock-for-pattern.svg';
+import clockImageForPattern from '@/assets/clock-for-pattern.svg';
+import cn from '@/utils/cn';
 
 interface ClockPatternLineProps {
   shift?: boolean;
+  gap: number;
 }
 
-export default function ClockPatternLine({ shift }: ClockPatternLineProps) {
+export default function ClockPatternLine({
+  shift,
+  gap,
+}: ClockPatternLineProps) {
   return (
     <div
-      className={clsx('flex gap-7 overflow-hidden', {
+      className={cn('flex overflow-hidden', {
         'translate-x-[61px]': shift,
       })}
+      style={{
+        gap,
+      }}
     >
       {Array.from({ length: 30 }).map((_, index) => (
         <div key={index} className="h-[92px] w-[102px] shrink-0 grow-0">

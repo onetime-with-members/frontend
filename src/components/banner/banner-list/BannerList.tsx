@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
@@ -7,6 +6,7 @@ import { RecommendSchedule } from '../../../types/schedule.type';
 import Participants from '../participants/Participants';
 import RecommendTime from '../recommend-time/RecommendTime';
 import CircleArrowButton from './CircleArrowButton';
+import cn from '@/utils/cn';
 
 interface BannerListProps {
   eventCategory: EventType['category'];
@@ -92,10 +92,13 @@ export default function BannerList({
       {!isMobile && (
         <CircleArrowButton
           direction="left"
-          className={clsx(style.circleArrowButton, 'left-10 sm:left-16', {
-            'group-hover:opacity-0': !circleArrowButtonVisible.left,
-            'group-hover:opacity-100': circleArrowButtonVisible.left,
-          })}
+          className={cn(
+            style.circleArrowButton,
+            'left-10 group-hover:opacity-0 sm:left-16',
+            {
+              'group-hover:opacity-100': circleArrowButtonVisible.left,
+            },
+          )}
           onClick={handleScrollLeft}
         />
       )}
@@ -113,10 +116,13 @@ export default function BannerList({
       {!isMobile && (
         <CircleArrowButton
           direction="right"
-          className={clsx(style.circleArrowButton, 'right-10 sm:right-16', {
-            'group-hover:opacity-0': !circleArrowButtonVisible.right,
-            'group-hover:opacity-100': circleArrowButtonVisible.right,
-          })}
+          className={cn(
+            style.circleArrowButton,
+            'right-10 group-hover:opacity-0 sm:right-16',
+            {
+              'group-hover:opacity-100': circleArrowButtonVisible.right,
+            },
+          )}
           onClick={handleScrollRight}
         />
       )}

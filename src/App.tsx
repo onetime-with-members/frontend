@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 import { HelmetProvider } from 'react-helmet-async';
 
 import Router from './Router';
-import ContextProviders from './contexts/ContextProviders';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import 'dayjs/locale/ko';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
@@ -41,9 +40,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
-        <ContextProviders>
-          <Router />
-        </ContextProviders>
+        <Router />
       </HelmetProvider>
     </QueryClientProvider>
   );

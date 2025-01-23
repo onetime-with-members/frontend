@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import cn from '@/utils/cn';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   inputRef?: React.Ref<HTMLInputElement>;
@@ -14,14 +14,11 @@ export default function Input({
 }: InputProps) {
   return (
     <div
-      className={clsx(
-        'flex items-center gap-4 rounded-xl bg-gray-05',
-        className,
-      )}
+      className={cn('flex items-center gap-4 rounded-xl bg-gray-05', className)}
     >
       <input
         ref={inputRef}
-        className={clsx(
+        className={cn(
           'flex-1 bg-transparent px-5 py-4 text-gray-70 outline-none placeholder:text-gray-30',
           inputClassName,
         )}

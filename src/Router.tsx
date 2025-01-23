@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+import ContextProviders from './contexts/ContextProviders';
 import AuthLayout from './layouts/AuthLayout';
 import Layout from './layouts/Layout';
 import MyPageLayout from './layouts/MyPageLayout';
@@ -24,7 +25,11 @@ import WithdrawPage from './pages/WithdrawPage';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <ContextProviders>
+        <Layout />
+      </ContextProviders>
+    ),
     children: [
       {
         path: '',
@@ -107,11 +112,11 @@ const router = createBrowserRouter([
         path: 'not-found',
         element: <NotFoundPage />,
       },
+      {
+        path: '*',
+        element: <NotFoundRedirect />,
+      },
     ],
-  },
-  {
-    path: '*',
-    element: <NotFoundRedirect />,
   },
 ]);
 
