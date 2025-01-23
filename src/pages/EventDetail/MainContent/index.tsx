@@ -1,6 +1,4 @@
-import { AxiosError } from 'axios';
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import TimeBlockBoard from '@/components/TimeBlockBoard';
 import BannerList from '@/components/banner/banner-list/BannerList';
@@ -12,19 +10,14 @@ import { useQuery } from '@tanstack/react-query';
 
 interface MainContentProps {
   event: EventType;
-  eventError: Error | null;
   isEventPending: boolean;
-  setIsEventDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsSharePopUpOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function MainContent({
   event,
-  eventError,
   isEventPending,
 }: MainContentProps) {
   const params = useParams<{ eventId: string }>();
-  const navigate = useNavigate();
 
   const { isLoading: isScheduleLoading, data: scheduleData } = useQuery({
     queryKey: ['schedules', event?.category?.toLowerCase(), params.eventId],
@@ -59,23 +52,13 @@ export default function MainContent({
     );
   }
 
-  useEffect(() => {
-    if (eventError) {
-      const error = eventError as AxiosError;
-      if (error.response?.status === 404 || error.response?.status === 400) {
-        navigate('/not-found');
-      }
-    }
-  }, [eventError]);
-
   if (
     isEventPending ||
     isScheduleLoading ||
     isRecommendLoading ||
     event === undefined ||
     schedules === undefined ||
-    recommendSchedules === undefined ||
-    eventError
+    recommendSchedules === undefined
   )
     return <></>;
 
