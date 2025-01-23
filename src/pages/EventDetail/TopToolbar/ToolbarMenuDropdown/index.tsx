@@ -39,7 +39,7 @@ export default function ToolbarMenuDropdown({
       >
         <IconDots size={28} />
       </ToolbarButton>
-      <button className="text-gray-00 md:hidden">
+      <button className="text-gray-00 md:hidden" onClick={handleDropdownClick}>
         <IconDots size={28} />
       </button>
       {isDropdownMenuOpen && (
