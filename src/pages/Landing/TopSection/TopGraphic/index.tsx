@@ -46,7 +46,7 @@ export default function TopGraphic() {
         className={clsx(
           'absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full',
           {
-            'bg-[#C7D0F9]': deviceOS === 'android' || deviceOS === 'iOS',
+            'bg-[#C8D0F9]': deviceOS === 'android' || deviceOS === 'iOS',
             'bg-[#D0D6FB]': deviceOS === 'macOS',
             'bg-[#C9D0FA]': deviceOS === 'windows' || deviceOS === 'etc',
           },
