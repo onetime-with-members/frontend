@@ -3,14 +3,16 @@ import cn from '@/utils/cn';
 interface AvailableToggleProps {
   isPossibleTime: boolean;
   onToggle: () => void;
+  className?: string;
 }
 
 export default function PossibleTimeToggle({
   isPossibleTime,
   onToggle,
+  className,
 }: AvailableToggleProps) {
   return (
-    <div className="flex items-center gap-2">
+    <div className={cn('flex items-center gap-2', className)}>
       <div
         className={cn(
           'flex h-6 w-12 cursor-pointer items-center rounded-full bg-primary-50 px-1 duration-150',

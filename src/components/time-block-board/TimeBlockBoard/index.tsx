@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
+import PossibleTimeToggle from './PossibleTimeToggle';
 import TBBoardContent from './TBBoardContent';
 import TBDayTopLabelGroup from './TBDayTopLabelGroup';
-import TBHeader from './TBHeader';
 import TBLeftLabelLine from './TBLeftLabelLine';
 import TimeBlockPopUp from './TimeBlockPopUp';
 import { EventType } from '@/types/event.type.ts';
@@ -47,7 +47,6 @@ export default function TimeBlockBoard({
     },
   });
   const [dayLineWidth, setDayLineWidth] = useState(0);
-  const [chunkIndex, setChunkIndex] = useState(0);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isFull, setIsFull] = useState(false);
 
@@ -143,48 +142,6 @@ export default function TimeBlockBoard({
     setIsDialogOpen(false);
   }
 
-  function handleLeftScroll() {
-    if (!boardContentRef.current) return;
-    if (chunkIndex - 1 > 0) {
-      boardContentRef.current.scrollBy({
-        left:
-          (-boardContentRef.current.clientWidth - dayLineGap) *
-          innerContentProportion,
-        behavior: 'smooth',
-      });
-    } else {
-      boardContentRef.current.scrollTo({
-        left: 0,
-        behavior: 'smooth',
-      });
-    }
-    setChunkIndex((prev) => {
-      if (prev - 1 < 0) return prev;
-      return prev - 1;
-    });
-  }
-
-  function handleRightScroll() {
-    if (!boardContentRef.current) return;
-    if (chunkIndex + 1 < timePointChunks.length - 1) {
-      boardContentRef.current.scrollBy({
-        left:
-          (boardContentRef.current.clientWidth + dayLineGap) *
-          innerContentProportion,
-        behavior: 'smooth',
-      });
-    } else {
-      boardContentRef.current.scrollTo({
-        left: boardContentRef.current.scrollWidth,
-        behavior: 'smooth',
-      });
-    }
-    setChunkIndex((prev) => {
-      if (prev + 1 >= timePointChunks.length) return prev;
-      return prev + 1;
-    });
-  }
-
   function chunkRangeArray(array: string[], chunkSize: number) {
     const result = [];
     for (let i = 0; i < array.length; i += chunkSize) {
@@ -276,15 +233,13 @@ export default function TimeBlockBoard({
   return (
     <div className="flex flex-col">
       <div className={cn('sticky top-0 z-10 bg-gray-00', topContentClassName)}>
-        <TBHeader
-          editable={editable}
-          isPossibleTime={isPossibleTime}
-          handleAvailableToggle={handleAvailableToggle}
-          timePointChunks={timePointChunks}
-          chunkIndex={chunkIndex}
-          handleLeftScroll={handleLeftScroll}
-          handleRightScroll={handleRightScroll}
-        />
+        {editable && (
+          <PossibleTimeToggle
+            isPossibleTime={isPossibleTime}
+            onToggle={handleAvailableToggle}
+            className="pt-4"
+          />
+        )}
         <TBDayTopLabelGroup
           topLabelRef={topLabelRef}
           dayLineGap={dayLineGap}
