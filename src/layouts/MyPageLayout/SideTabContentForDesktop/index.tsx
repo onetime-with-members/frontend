@@ -11,7 +11,7 @@ export default function SideTabContentForDesktop({
   tabActive,
 }: SideTabContentForDesktopProps) {
   return (
-    <nav className="border-l border-r border-gray-10 px-5 py-7">
+    <nav className="sticky top-[64px] h-screen border-l border-r border-gray-10 px-5 py-7">
       <ul className="flex flex-col gap-3">
         <SideTabItem
           to={'/mypage/events'}

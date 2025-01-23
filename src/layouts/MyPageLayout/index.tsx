@@ -51,7 +51,8 @@ export default function MyPageLayout() {
       <Helmet>
         <title>마이페이지 | OneTime</title>
       </Helmet>
-      {/* 모바일 */}
+
+      {/* Mobile */}
       <div className="block md:hidden">
         <TopAppBarForMobile
           pageTitle={pageTitle}
@@ -63,11 +64,12 @@ export default function MyPageLayout() {
           handleMyScheduleCreateButtonClick={handleMyScheduleCreateButtonClick}
         />
       </div>
-      {/* 데스크탑 */}
+
+      {/* Desktop */}
       <div className="hidden min-h-screen flex-col md:flex">
-        <NavBar overlay={selectedTimeBlockId !== null} />
+        <NavBar overlay={selectedTimeBlockId !== null} shadow={false} />
         <div className="px-4">
-          <div className="mx-auto flex w-full max-w-screen-md gap-4 min-[850px]:gap-10">
+          <div className="mx-auto flex w-full max-w-screen-md gap-10">
             <SideTabContentForDesktop tabActive={tabActive} />
             <MainContentForDesktop
               pageTitle={pageTitle}

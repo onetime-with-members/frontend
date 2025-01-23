@@ -92,7 +92,7 @@ export default function MySchedules() {
                   <MyTimeBlockBoard
                     mode="view"
                     mySchedules={mySchedules}
-                    topDateGroupClassName="sticky z-10 bg-gray-00 top-[64px] md:top-0"
+                    topDateGroupClassName="sticky z-10 bg-gray-00 top-[64px] md:top-[122px]"
                   />
                 ),
                 list: <MyScheduleList />,

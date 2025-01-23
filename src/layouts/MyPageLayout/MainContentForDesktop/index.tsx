@@ -50,9 +50,9 @@ export default function MainContentForDesktop({
   return (
     <main
       ref={desktopInnerContentRef}
-      className="relative flex max-h-screen flex-1 flex-col gap-4 py-10 pb-20"
+      className="relative flex flex-1 flex-col gap-2 pb-20 pt-8"
     >
-      <div className="flex items-center justify-between">
+      <div className="sticky top-[64px] z-10 flex items-center justify-between bg-gray-00 py-2">
         <h1 className="text-[1.75rem] font-semibold">{pageTitle}</h1>
         {tabActive === 'schedules' && (
           <button onClick={handleViewModeButtonClick}>
@@ -60,10 +60,7 @@ export default function MainContentForDesktop({
           </button>
         )}
       </div>
-      <div
-        ref={scrollContainerRef}
-        className="scrollbar-hidden flex-1 overflow-y-auto"
-      >
+      <div ref={scrollContainerRef} className="flex-1">
         <Outlet />
       </div>
       {tabActive === 'schedules' && (
