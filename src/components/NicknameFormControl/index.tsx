@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import Input from '@/components/form-control/input/Input';
+import Input from '@/components/Input';
 import cn from '@/utils/cn';
 
 interface NicknameFormControlProps {

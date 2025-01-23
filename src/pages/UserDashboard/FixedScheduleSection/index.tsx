@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import EmptyUI from '@/components/EmptyUI';
-import MyScheduleList from '@/components/MyScheduleList';
-import MyTimeBlockBoard from '@/components/MyTimeBlockBoard';
+import MyScheduleList from '@/components/my-schedule/MyScheduleList';
+import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
 import { MyScheduleContext } from '@/contexts/MyScheduleContext';
 import { MySchedule } from '@/types/schedule.type';
 import axios from '@/utils/axios';

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import TopAppBar from './TopAppBar';
 import NicknameFormControl from '@/components/NicknameFormControl';
-import FloatingBottomButton from '@/components/floating-button/FloatingBottomButton';
+import FloatingBottomButton from '@/components/button/FloatingBottomButton';
 import { User } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';

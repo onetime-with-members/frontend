@@ -2,10 +2,10 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
+import SideTabItem from './SideTabItem';
 import NavBar from '@/components/NavBar';
-import SideTabItem from '@/components/SideTabItem';
 import BadgeButton from '@/components/button/BadgeButton';
-import BadgeFloatingBottomButton from '@/components/floating-button/BadgeFloatingBottomButton';
+import BadgeFloatingBottomButton from '@/components/button/BadgeFloatingBottomButton';
 import CalendarIcon from '@/components/icon/CalendarIcon';
 import EventIcon from '@/components/icon/EventIcon';
 import ListIcon from '@/components/icon/ListIcon';
