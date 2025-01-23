@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { AxiosError } from 'axios';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -33,6 +34,7 @@ export default function EventDetail() {
       const res = await axios.get(`/events/${params.eventId}`);
       return res.data.payload;
     },
+    retry: false,
   });
 
   let event: EventType = eventData || ({} as EventType);
@@ -56,9 +58,18 @@ export default function EventDetail() {
     setIsSharePopUpOpen(true);
   }
 
+  useEffect(() => {
+    if (eventError) {
+      const error = eventError as AxiosError;
+      if (error.response?.status === 404 || error.response?.status === 400) {
+        navigate('/not-found');
+      }
+    }
+  }, [eventError]);
+
   return (
     <>
-      {!isEventPending && event && (
+      {!isEventPending && event && !eventError && (
         <Helmet>
           <title>{event.title} - OneTime</title>
         </Helmet>
@@ -71,13 +82,7 @@ export default function EventDetail() {
           setIsDeleteAlertOpen={setIsDeleteAlertOpen}
           handleShareButtonClick={handleShareButtonClick}
         />
-        <MainContent
-          event={event}
-          eventError={eventError}
-          isEventPending={isEventPending}
-          setIsEventDeleteAlertOpen={setIsDeleteAlertOpen}
-          setIsSharePopUpOpen={setIsSharePopUpOpen}
-        />
+        <MainContent event={event} isEventPending={isEventPending} />
         <>
           <BottomButtonForMobile
             handleFloatingButtonClick={handleBottomButtonClick}
