@@ -2,7 +2,7 @@ import cn from '@/utils/cn';
 
 interface ToolbarButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  variant?: 'primary' | 'yellow' | 'gray' | 'danger';
+  variant?: 'primary' | 'yellow' | 'gray';
 }
 
 export default function ToolbarButton({
@@ -14,12 +14,10 @@ export default function ToolbarButton({
   return (
     <button
       className={cn(
-        'flex h-10 w-10 items-center justify-center overflow-hidden rounded-full p-1.5 text-gray-00',
+        'flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-primary-40 p-1.5 text-gray-00',
         {
-          'bg-primary-40': variant === 'primary',
           'bg-[#FAE100]': variant === 'yellow',
           'bg-gray-50': variant === 'gray',
-          'bg-danger-50': variant === 'danger',
         },
         className,
       )}

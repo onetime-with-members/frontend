@@ -1,16 +1,17 @@
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
+import ToolbarButton from '../ToolbarButton';
 import ToolbarMenuItem from './ToolbarMenuItem';
 import useDropdown from '@/hooks/useDropdown';
 import { IconDots } from '@tabler/icons-react';
 
 interface ToolbarMenuDropdownProps {
-  handleDeleteButtonClick: () => void;
+  setIsDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function ToolbarMenuDropdown({
-  handleDeleteButtonClick,
+  setIsDeleteAlertOpen,
 }: ToolbarMenuDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +24,7 @@ export default function ToolbarMenuDropdown({
 
   function handleDeleteMenuItemClick() {
     setIsDropdownMenuOpen(false);
-    handleDeleteButtonClick();
+    setIsDeleteAlertOpen(true);
   }
 
   return (
@@ -31,11 +32,18 @@ export default function ToolbarMenuDropdown({
       className="relative flex items-center justify-center"
       ref={dropdownRef}
     >
-      <button className="text-gray-00" onClick={handleDropdownClick}>
+      <ToolbarButton
+        variant="gray"
+        onClick={handleDropdownClick}
+        className="hidden md:flex"
+      >
+        <IconDots size={28} />
+      </ToolbarButton>
+      <button className="text-gray-00 md:hidden">
         <IconDots size={28} />
       </button>
       {isDropdownMenuOpen && (
-        <div className="absolute right-0 top-8 z-30 w-[5.5rem] overflow-hidden rounded-xl bg-gray-00 py-1 shadow-lg">
+        <div className="absolute right-0 top-8 z-30 w-[5.5rem] overflow-hidden rounded-xl bg-gray-00 py-1 shadow-lg md:top-12">
           <ul className="flex flex-col">
             <ToolbarMenuItem
               name="수정"
