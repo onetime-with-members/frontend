@@ -4,6 +4,7 @@ import cn from '@/utils/cn';
 
 interface TimeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   active?: boolean;
+  clickedFirst?: boolean;
   bgOpacity?: number;
   editable?: boolean;
   cursorPointer?: boolean;
@@ -16,6 +17,7 @@ const TimeBlock = forwardRef<HTMLDivElement, TimeBlockProps>(
   (
     {
       active,
+      clickedFirst,
       className,
       bgOpacity = 1,
       style,
@@ -32,18 +34,17 @@ const TimeBlock = forwardRef<HTMLDivElement, TimeBlockProps>(
       <div
         ref={ref}
         className={cn(
-          'h-[2rem] w-full border-b border-gray-10 last:border-b-0 odd:border-dashed even:border-solid',
+          'h-[2rem] w-full border-b border-gray-10 bg-gray-05 last:border-b-0 odd:border-dashed even:border-solid',
           className,
           {
+            'bg-gray-00': backgroundColor === 'white',
             'bg-primary-50': isPossibleTime && active,
+            'bg-primary-30': isPossibleTime && clickedFirst,
             'bg-danger-50': !isPossibleTime && !active,
-            'bg-gray-05': isPossibleTime
-              ? !active && backgroundColor === 'gray'
-              : active && backgroundColor === 'gray',
-            'bg-gray-00': isPossibleTime
-              ? !active && backgroundColor === 'white'
-              : active && backgroundColor === 'white',
+            'bg-danger-30': !isPossibleTime && clickedFirst,
             'bg-success-50': isAllMembersAvailable,
+          },
+          {
             'cursor-pointer': cursorPointer,
           },
         )}
