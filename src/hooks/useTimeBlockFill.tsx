@@ -29,14 +29,12 @@ export default function useTimeBlockFill({
   });
 
   function handleTimeBlockClick({
-    timePoint,
-    time,
+    timePoint: newTimePoint,
+    time: newTime,
   }: {
     timePoint: string;
     time: string;
   }) {
-    setClickedTimeBlock(newClickedTimeBlock());
-
     if (
       newClickedTimeBlock().startTime !== '' &&
       newClickedTimeBlock().endTime !== ''
@@ -52,33 +50,31 @@ export default function useTimeBlockFill({
           timePoint: newClickedTimeBlock().timePoint,
         }),
       });
+
       setClickedTimeBlock({
         startTime: '',
         endTime: '',
         timePoint: '',
       });
+
+      return;
     }
 
+    setClickedTimeBlock(newClickedTimeBlock());
+
     function newClickedTimeBlock(): ClickedTimeBlock {
-      let result: ClickedTimeBlock = {
-        ...clickedTimeBlock,
-      };
-      const newTime = time;
-      if (timePoint !== result.timePoint) {
-        result = {
-          startTime: '',
+      if (newTimePoint !== clickedTimeBlock.timePoint) {
+        return {
+          startTime: newTime,
           endTime: '',
-          timePoint,
+          timePoint: newTimePoint,
         };
       }
-      result = {
-        ...result,
-        startTime:
-          result.startTime === '' ? newTime : minOf(result.startTime, newTime),
-        endTime:
-          result.startTime === '' ? '' : maxOf(result.startTime, newTime),
+      return {
+        startTime: minOf(clickedTimeBlock.startTime, newTime),
+        endTime: maxOf(clickedTimeBlock.startTime, newTime),
+        timePoint: clickedTimeBlock.timePoint,
       };
-      return result;
     }
   }
 
