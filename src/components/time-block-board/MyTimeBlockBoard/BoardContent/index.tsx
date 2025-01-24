@@ -1,7 +1,8 @@
 import dayjs from 'dayjs';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { MyScheduleContext } from '@/contexts/MyScheduleContext';
+import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { MyNewSchedule, MySchedule } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 import { getBlockTimeList } from '@/utils/time-block';
@@ -32,25 +33,6 @@ export default function BoardContent({
       })),
     ),
   );
-  const [drageStatus, setDragStatus] = useState<{
-    isDragging: boolean;
-    isFilling: boolean;
-    weekday: string;
-    times: string[];
-  }>({
-    isDragging: false,
-    isFilling: false,
-    weekday: '',
-    times: [],
-  });
-
-  const timeBlockRefList = useRef<
-    {
-      weekday: string;
-      time: string;
-      ref: HTMLDivElement;
-    }[]
-  >([]);
 
   const {
     selectedTimeBlockId,
@@ -58,9 +40,17 @@ export default function BoardContent({
     isSelectTimeBlockDisabled,
   } = useContext(MyScheduleContext);
 
-  const timeBlockList = getBlockTimeList('00:00', '24:00', '30m');
+  const { clickedTimeBlock, handleTimeBlockClick: handleTimeBlockFill } =
+    useTimeBlockFill({
+      isFilledFor: ({ time, timePoint }) => isFilledFor(timePoint, time),
+      fillTimeBlocks: ({ timePoint, times, isFilling }) => {
+        changeTimeBlock(timePoint, times, isFilling);
+        setIsEdited && setIsEdited(true);
+      },
+    });
 
-  const editedId = mode === 'edit' ? editedScheduleId : -1;
+  const timeBlockList = getBlockTimeList('00:00', '24:00', '30m');
+  const editedId = mode === 'edit' ? editedScheduleId : -2;
 
   function changeTimeBlock(
     weekday: string,
@@ -113,6 +103,19 @@ export default function BoardContent({
         time_point: data.time_point,
         times: data.times,
       }));
+  }
+
+  function isFilledFor(timePoint: string, time: string) {
+    return timeBlockData.some(
+      (r) => r.time_point === timePoint && r.times.includes(time),
+    );
+  }
+
+  function isClickedFirstFor(weekday: string, time: string) {
+    return (
+      clickedTimeBlock.timePoint === weekday &&
+      clickedTimeBlock.startTime === time
+    );
   }
 
   function isTimeBlockExist(weekday: string, time: string) {
@@ -208,134 +211,28 @@ export default function BoardContent({
               isTimeBlockExist(weekday, time) &&
               isTimeBlockInOtherSchedule(weekday, time),
           },
+      {
+        'bg-primary-20': isClickedFirstFor(weekday, time),
+      },
     );
-  }
-
-  function addTimeBlockRefInList(
-    weekday: string,
-    time: string,
-    element: HTMLDivElement | null,
-  ) {
-    if (element) {
-      timeBlockRefList.current.push({
-        weekday: weekday,
-        time: time,
-        ref: element,
-      });
-    }
-  }
-
-  function handleTimeBlockDragStart(weekday: string, time: string) {
-    if (mode === 'view') return;
-
-    if (isTimeBlockInOtherSchedule(weekday, time)) return;
-
-    setDragStatus({
-      isDragging: true,
-      isFilling: !isTimeBlockExist(weekday, time),
-      weekday: weekday,
-      times: [time],
-    });
-
-    setIsEdited && setIsEdited(true);
-  }
-
-  function handleTimeBlockDragMove(weekday: string, time: string) {
-    if (mode === 'view') return;
-
-    if (!drageStatus.isDragging) return;
-
-    if (isTimeBlockInOtherSchedule(weekday, time)) {
-      handleTimeBlockDragEnd();
-      return;
-    }
-
-    setDragStatus({
-      ...drageStatus,
-      times: [...new Set([...drageStatus.times, time])].sort(),
-    });
-  }
-
-  function handleTimeBlockDragEnd() {
-    if (mode === 'view') return;
-
-    if (!drageStatus.isDragging) return;
-
-    setDragStatus({
-      isDragging: false,
-      isFilling: false,
-      weekday: '',
-      times: [],
-    });
-  }
-
-  function handleTimeBlockTouchEnd(e: React.TouchEvent) {
-    if (mode === 'view') return;
-
-    e.preventDefault();
-
-    handleTimeBlockDragEnd();
   }
 
   function handleTimeBlockClick(weekday: string, time: string) {
     if (mode === 'view') {
-      if (setSelectedTimeBlockId) {
-        setSelectedTimeBlockId(
-          timeBlockData.find(
-            (tb) => tb.time_point === weekday && tb.times.includes(time),
-          )?.id || null,
-        );
-      }
+      handleTimeBlockSelect();
+    } else {
+      handleTimeBlockFill({ timePoint: weekday, time });
+    }
+
+    function handleTimeBlockSelect() {
+      if (!setSelectedTimeBlockId) return;
+      setSelectedTimeBlockId(
+        timeBlockData.find(
+          (tb) => tb.time_point === weekday && tb.times.includes(time),
+        )?.id || null,
+      );
     }
   }
-
-  useEffect(() => {
-    changeTimeBlock(
-      drageStatus.weekday,
-      drageStatus.times,
-      drageStatus.isFilling,
-    );
-  }, [drageStatus]);
-
-  useEffect(() => {
-    function handleTimeBlockTouchMove(e: TouchEvent) {
-      if (mode === 'view') return;
-
-      const touchedElement = document.elementFromPoint(
-        e.touches[0].clientX,
-        e.touches[0].clientY,
-      );
-
-      const isInsideBlock = timeBlockRefList.current.some(
-        (block) => block.ref === touchedElement,
-      );
-
-      if (isInsideBlock) {
-        e.preventDefault();
-      }
-
-      let weekday, time;
-
-      timeBlockRefList.current.forEach((block) => {
-        if (block.ref === touchedElement) {
-          weekday = block.weekday;
-          time = block.time;
-        }
-      });
-
-      if (weekday && time) {
-        handleTimeBlockDragMove(weekday, time);
-      }
-    }
-
-    document.addEventListener('touchmove', handleTimeBlockTouchMove, {
-      passive: false,
-    });
-
-    return () => {
-      document.removeEventListener('touchmove', handleTimeBlockTouchMove);
-    };
-  }, [drageStatus]);
 
   useEffect(() => {
     setTimeBlockData(
@@ -352,21 +249,11 @@ export default function BoardContent({
   return (
     <div className="grid flex-1 grid-cols-7 gap-2">
       {dayjs.weekdaysMin().map((weekday) => (
-        <div
-          key={weekday}
-          className="overflow-hidden rounded-lg"
-          onMouseLeave={() => handleTimeBlockDragEnd()}
-        >
+        <div key={weekday} className="overflow-hidden rounded-lg">
           {timeBlockList.map((time, index) => (
             <div
               key={index}
-              ref={(el) => addTimeBlockRefInList(weekday, time, el)}
               onClick={() => handleTimeBlockClick(weekday, time)}
-              onMouseDown={() => handleTimeBlockDragStart(weekday, time)}
-              onMouseMove={() => handleTimeBlockDragMove(weekday, time)}
-              onMouseUp={handleTimeBlockDragEnd}
-              onTouchStart={() => handleTimeBlockDragStart(weekday, time)}
-              onTouchEnd={handleTimeBlockTouchEnd}
               className={timeBlockStyle(weekday, time)}
             />
           ))}

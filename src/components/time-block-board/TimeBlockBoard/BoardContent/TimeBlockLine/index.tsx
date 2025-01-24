@@ -49,9 +49,11 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
     const blockRefList = useRef<HTMLDivElement[]>([]);
 
     const { clickedTimeBlock, handleTimeBlockClick } = useTimeBlockFill({
-      isFilledFor,
-      fillTimeBlock: ({ timePoint, time, isFilling }) =>
-        changeTimeBlockStatus(timePoint, time, isFilling),
+      isFilledFor: ({ time }) => isFilledFor(time),
+      fillTimeBlocks: ({ timePoint, times, isFilling }) =>
+        times.forEach((time) =>
+          changeTimeBlockStatus(timePoint, time, isFilling),
+        ),
     });
 
     const timeList = getBlockTimeList(startTime, endTime);
