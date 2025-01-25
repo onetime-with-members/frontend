@@ -22,20 +22,13 @@ export default function CalendarSelect({
   const [currentDate, setCurrentDate] = useState(dayjs());
 
   const {
-    touchScrollDisableStyle,
+    isFilling,
+    cssStyle,
     handleDragStart,
     handleDragMove,
     handleDragEnd,
-  } = useDragSelect<string>({
-    datasetKey: 'date',
-    selectFn: ({ data: newDate, isFilling }) => {
-      setValue((prev) => ({
-        ...prev,
-        ranges: isFilling
-          ? [...new Set([...prev.ranges, newDate])]
-          : prev.ranges.filter((range) => range !== newDate),
-      }));
-    },
+  } = useDragSelect({
+    onSelect: handleTimeBlockSelect,
   });
 
   const firstWeekdayIndex = currentDate.startOf('month').day();
@@ -63,6 +56,34 @@ export default function CalendarSelect({
 
   function handleNextMonth() {
     setCurrentDate((prev) => prev.add(1, 'month'));
+  }
+
+  function handleTimeBlockSelect(event: React.MouseEvent | React.TouchEvent) {
+    const date = dateFrom(event);
+    if (!date) return;
+    setValue((prev) => ({
+      ...prev,
+      ranges: isFilling
+        ? [...new Set([...prev.ranges, date])]
+        : prev.ranges.filter((range) => range !== date),
+    }));
+
+    function dateFrom(event: React.MouseEvent | React.TouchEvent) {
+      let result;
+      if (event.type.includes('mouse')) {
+        result = (event.currentTarget as HTMLElement).dataset.date;
+      } else if (event.type.includes('touch')) {
+        const { clientX, clientY } = (event as React.TouchEvent).touches[0];
+        const touchedTarget = document.elementFromPoint(
+          clientX,
+          clientY,
+        ) as HTMLElement;
+        if (!touchedTarget) return;
+        result = touchedTarget.dataset.date;
+      }
+      if (!result) return;
+      return result;
+    }
   }
 
   return (
@@ -131,12 +152,8 @@ export default function CalendarSelect({
                     ),
                   })
                 }
-                onMouseMove={(event) =>
-                  handleDragMove({
-                    event,
-                  })
-                }
-                onMouseUp={(event) => handleDragEnd({ event })}
+                onMouseMove={handleDragMove}
+                onMouseUp={handleDragEnd}
                 onTouchStart={() =>
                   handleDragStart({
                     isFilling: !value.ranges.includes(
@@ -148,9 +165,9 @@ export default function CalendarSelect({
                     ),
                   })
                 }
-                onTouchMove={(event) => handleDragMove({ event })}
-                onTouchEnd={(event) => handleDragEnd({ event })}
-                style={touchScrollDisableStyle}
+                onTouchMove={handleDragMove}
+                onTouchEnd={handleDragEnd}
+                style={cssStyle}
               >
                 {date}
               </DateItem>
