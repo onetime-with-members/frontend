@@ -1,10 +1,14 @@
 import { useState } from 'react';
 
 interface useDragSelectProps<T> {
+  datasetKey: string;
   selectFn: (params: { data: T; isFilling: boolean }) => void;
 }
 
-export default function useDragSelect<T>({ selectFn }: useDragSelectProps<T>) {
+export default function useDragSelect<T>({
+  datasetKey,
+  selectFn,
+}: useDragSelectProps<T>) {
   const [isDragging, setIsDragging] = useState(false);
   const [isFilling, setIsFilling] = useState(false);
   const [isMoved, setIsMoved] = useState(false);
@@ -50,7 +54,7 @@ export default function useDragSelect<T>({ selectFn }: useDragSelectProps<T>) {
   }) {
     let result;
     if (event.type === 'mousemove' || event.type === 'mouseup') {
-      result = (event.target as HTMLElement).dataset.date;
+      result = (event.target as HTMLElement).dataset[datasetKey];
       if (!result) return;
     } else if (event.type === 'touchmove') {
       const touch = (event as React.TouchEvent).touches[0];
@@ -59,7 +63,7 @@ export default function useDragSelect<T>({ selectFn }: useDragSelectProps<T>) {
         touch.clientY,
       ) as HTMLElement;
       if (!touchedTarget) return;
-      result = touchedTarget.dataset.date;
+      result = touchedTarget.dataset[datasetKey];
     }
     return result;
   }

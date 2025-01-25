@@ -27,6 +27,7 @@ export default function CalendarSelect({
     handleDragMove,
     handleDragEnd,
   } = useDragSelect<string>({
+    datasetKey: 'date',
     selectFn: ({ data: newDate, isFilling }) => {
       setValue((prev) => ({
         ...prev,
