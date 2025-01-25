@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 
 import TimeBlock from './TimeBlock';
+import useLongPress from '@/hooks/useLongPress';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { Schedule, Time } from '@/types/schedule.type';
 import { getBlockTimeList } from '@/utils/time-block';
@@ -46,12 +47,22 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
     },
     ref,
   ) => {
-    const { clickedTimeBlock, handleTimeBlockClick } = useTimeBlockFill({
-      isFilledFor: ({ time }) => isFilledFor(time),
-      fillTimeBlocks: ({ timePoint, times, isFilling }) =>
-        times.forEach((time) =>
-          changeTimeBlockStatus(timePoint, time, isFilling),
-        ),
+    const { clickedTimeBlock, handleTimeBlockClick: _handleTimeBlockClick } =
+      useTimeBlockFill({
+        isFilledFor: ({ time }) => isFilledFor(time),
+        fillTimeBlocks: ({ timePoint, times, isFilling }) =>
+          times.forEach((time) =>
+            changeTimeBlockStatus(timePoint, time, isFilling),
+          ),
+      });
+    const { handleLongPressStart, handleLongPressEnd } = useLongPress({
+      onClick: (event) => handleTimeBlockClick(event),
+      onLongPressStart: () => {
+        console.log('long press start');
+      },
+      onLongPressEnd: () => {
+        console.log('long press end');
+      },
     });
 
     const timeList = getBlockTimeList(startTime, endTime);
@@ -77,6 +88,19 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
       return clickedTimeBlock.startTime === time;
     }
 
+    function handleTimeBlockClick(event: React.MouseEvent | React.TouchEvent) {
+      if (isBoardContentDragging) return;
+      const target = event.currentTarget as HTMLDivElement;
+      const timePoint = target.dataset.timepoint;
+      const time = target.dataset.time;
+      if (!timePoint || !time) return;
+      if (editable) {
+        _handleTimeBlockClick({ timePoint, time });
+      } else {
+        handleDialogOpen({ timePoint, time });
+      }
+    }
+
     return (
       <div className="flex-1" ref={ref} style={{ minWidth }}>
         <div className="flex flex-col overflow-hidden rounded-lg">
@@ -84,17 +108,12 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
             <TimeBlock
               key={index}
               active={isFilledFor(time)}
+              data-time={time}
+              data-timepoint={timePoint}
               clickedFirst={isClickedFirstFor(time)}
               cursorPointer={schedules.length > 0}
               bgOpacity={
                 timesAllMember().filter((t) => t === time).length / memberCount
-              }
-              onClick={
-                !isBoardContentDragging
-                  ? editable
-                    ? () => handleTimeBlockClick({ timePoint, time })
-                    : () => handleDialogOpen({ timePoint, time })
-                  : undefined
               }
               editable={editable}
               isPossibleTime={isPossibleTime}
@@ -103,6 +122,11 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
                   memberCount && memberCount > 1
               }
               backgroundColor={backgroundColor}
+              onMouseDown={handleLongPressStart}
+              onMouseUp={handleLongPressEnd}
+              onMouseLeave={handleLongPressEnd}
+              onTouchStart={handleLongPressStart}
+              onTouchEnd={handleLongPressEnd}
             />
           ))}
         </div>
