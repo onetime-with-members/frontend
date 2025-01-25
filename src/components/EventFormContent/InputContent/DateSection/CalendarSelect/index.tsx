@@ -59,9 +59,9 @@ export default function CalendarSelect({
   }
 
   function handleTimeBlockSelect(event: React.MouseEvent | React.TouchEvent) {
-    if (event.currentTarget.ariaDisabled === 'true') return;
     const date = dateFrom(event);
     if (!date) return;
+    if (dayjs(date).isBefore(dayjs(), 'date')) return;
     setValue((prev) => ({
       ...prev,
       ranges: isFilling
@@ -74,10 +74,11 @@ export default function CalendarSelect({
       if (event.type.includes('mouse')) {
         result = (event.currentTarget as HTMLElement).dataset.date;
       } else if (event.type.includes('touch')) {
-        const { clientX, clientY } = (event as React.TouchEvent).touches[0];
+        const touch = (event as React.TouchEvent).touches[0];
+        if (!touch) return;
         const touchedTarget = document.elementFromPoint(
-          clientX,
-          clientY,
+          touch.clientX,
+          touch.clientY,
         ) as HTMLElement;
         if (!touchedTarget) return;
         result = touchedTarget.dataset.date;
