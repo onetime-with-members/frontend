@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from 'react';
+import { forwardRef } from 'react';
 
 import TimeBlock from './TimeBlock';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
@@ -46,8 +46,6 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
     },
     ref,
   ) => {
-    const blockRefList = useRef<HTMLDivElement[]>([]);
-
     const { clickedTimeBlock, handleTimeBlockClick } = useTimeBlockFill({
       isFilledFor: ({ time }) => isFilledFor(time),
       fillTimeBlocks: ({ timePoint, times, isFilling }) =>
@@ -85,11 +83,6 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
           {timeList.map((time, index) => (
             <TimeBlock
               key={index}
-              ref={(el) => {
-                if (el) {
-                  blockRefList.current[index] = el;
-                }
-              }}
               active={isFilledFor(time)}
               clickedFirst={isClickedFirstFor(time)}
               cursorPointer={schedules.length > 0}
