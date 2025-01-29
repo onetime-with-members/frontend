@@ -94,7 +94,7 @@ export default function MyScheduleFormScreen({
     if (isMyScheduleEdited) {
       setIsBackButtonAlertOpen(true);
     } else {
-      navigate(`/mypage/schedules`);
+      navigate(-1);
     }
   }
 
@@ -184,10 +184,7 @@ export default function MyScheduleFormScreen({
         </main>
       </div>
       {isBackButtonAlertOpen && (
-        <BackButtonAlert
-          backHref="/mypage/schedules"
-          setIsOpen={setIsBackButtonAlertOpen}
-        />
+        <BackButtonAlert backHref={-1} setIsOpen={setIsBackButtonAlertOpen} />
       )}
     </>
   );
