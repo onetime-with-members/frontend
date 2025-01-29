@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Alert from '@/components/alert/Alert';
 
 interface BackButtonAlertProps {
-  backHref: string;
+  backHref: string | -1;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -18,7 +18,11 @@ export default function BackButtonAlert({
   }
 
   function handleBackButtonCancel() {
-    navigate(backHref);
+    if (backHref === -1) {
+      navigate(-1);
+    } else {
+      navigate(backHref);
+    }
   }
 
   function handleBackButtonClose() {
