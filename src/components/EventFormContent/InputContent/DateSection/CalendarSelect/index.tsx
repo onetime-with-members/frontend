@@ -38,7 +38,7 @@ export default function CalendarSelect({
     .isBefore(dayjs(), 'month');
 
   function currentDateFormat(date: number) {
-    return currentDate.date(date).format('YYYY-MM-DD');
+    return currentDate.date(date).format('YYYY.MM.DD');
   }
 
   function handlePrevMonth() {
