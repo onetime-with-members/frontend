@@ -59,9 +59,9 @@ export default function CalendarSelect({
   }
 
   function handleTimeBlockSelect(event: React.MouseEvent | React.TouchEvent) {
-    const date = dateFrom(event);
+    if (event.currentTarget.getAttribute('disabled') === 'true') return;
+    const date = dateInDatasetFrom(event);
     if (!date) return;
-    if (dayjs(date).isBefore(dayjs(), 'date')) return;
     setValue((prev) => ({
       ...prev,
       ranges: isFilling
@@ -69,7 +69,7 @@ export default function CalendarSelect({
         : prev.ranges.filter((range) => range !== date),
     }));
 
-    function dateFrom(event: React.MouseEvent | React.TouchEvent) {
+    function dateInDatasetFrom(event: React.MouseEvent | React.TouchEvent) {
       let result;
       if (event.type.includes('mouse')) {
         result = (event.currentTarget as HTMLElement).dataset.date;
@@ -143,7 +143,6 @@ export default function CalendarSelect({
                   }),
                 )}
                 disabled={currentDate.date(date).isBefore(dayjs(), 'date')}
-                aria-disabled={currentDate.date(date).isBefore(dayjs(), 'date')}
                 onMouseDown={() =>
                   handleDragStart({
                     isFilling: !value.ranges.includes(
