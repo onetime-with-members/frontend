@@ -5,6 +5,7 @@ import DateItem from '../DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
 import { EventValue } from '@/types/event.type';
 import cn from '@/utils/cn';
+import { eventTarget } from '@/utils/event-target';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface CalendarSelectProps {
@@ -36,18 +37,8 @@ export default function CalendarSelect({
     .subtract(1, 'month')
     .isBefore(dayjs(), 'month');
 
-  const SELECTED_DATE_LIST_FORMAT = 'YYYY-MM-DD';
-
-  function formatFor({
-    year,
-    month,
-    date,
-  }: {
-    year: number;
-    month: number;
-    date: number;
-  }) {
-    return dayjs(new Date(year, month, date)).format(SELECTED_DATE_LIST_FORMAT);
+  function currentDateFormat(date: number) {
+    return currentDate.date(date).format('YYYY-MM-DD');
   }
 
   function handlePrevMonth() {
@@ -60,8 +51,8 @@ export default function CalendarSelect({
   }
 
   function handleTimeBlockSelect(event: React.MouseEvent | React.TouchEvent) {
-    if (event.currentTarget.getAttribute('aria-disabled') === 'true') return;
-    const date = dateInDatasetFrom(event);
+    if (eventTarget(event)?.getAttribute('aria-disabled') === 'true') return;
+    const date = eventTarget(event)?.dataset.date;
     if (!date) return;
     setValue((prev) => ({
       ...prev,
@@ -69,24 +60,6 @@ export default function CalendarSelect({
         ? [...new Set([...prev.ranges, date])]
         : prev.ranges.filter((range) => range !== date),
     }));
-
-    function dateInDatasetFrom(event: React.MouseEvent | React.TouchEvent) {
-      let result;
-      if (event.type.includes('mouse')) {
-        result = (event.currentTarget as HTMLElement).dataset.date;
-      } else if (event.type.includes('touch')) {
-        const touch = (event as React.TouchEvent).touches[0];
-        if (!touch) return;
-        const touchedTarget = document.elementFromPoint(
-          touch.clientX,
-          touch.clientY,
-        ) as HTMLElement;
-        if (!touchedTarget) return;
-        result = touchedTarget.dataset.date;
-      }
-      if (!result) return;
-      return result;
-    }
   }
 
   return (
@@ -131,42 +104,20 @@ export default function CalendarSelect({
             <div key={date} className="flex items-center justify-center">
               <DateItem
                 key={date}
-                data-date={formatFor({
-                  year: currentDate.year(),
-                  month: currentDate.month(),
-                  date,
-                })}
-                active={value.ranges.includes(
-                  formatFor({
-                    year: currentDate.year(),
-                    month: currentDate.month(),
-                    date,
-                  }),
-                )}
+                data-date={currentDateFormat(date)}
+                active={value.ranges.includes(currentDateFormat(date))}
                 disabled={currentDate.date(date).isBefore(dayjs(), 'date')}
                 aria-disabled={currentDate.date(date).isBefore(dayjs(), 'date')}
                 onMouseDown={() =>
                   handleDragStart({
-                    isFilling: !value.ranges.includes(
-                      formatFor({
-                        year: currentDate.year(),
-                        month: currentDate.month(),
-                        date,
-                      }),
-                    ),
+                    isFilling: !value.ranges.includes(currentDateFormat(date)),
                   })
                 }
                 onMouseMove={handleDragMove}
                 onMouseUp={handleDragEnd}
                 onTouchStart={() =>
                   handleDragStart({
-                    isFilling: !value.ranges.includes(
-                      formatFor({
-                        year: currentDate.year(),
-                        month: currentDate.month(),
-                        date,
-                      }),
-                    ),
+                    isFilling: !value.ranges.includes(currentDateFormat(date)),
                   })
                 }
                 onTouchMove={handleDragMove}
