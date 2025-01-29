@@ -4,6 +4,7 @@ import TimeBlock from './TimeBlock';
 import useLongPress from '@/hooks/useLongPress';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { Schedule, Time } from '@/types/schedule.type';
+import { eventTarget } from '@/utils/event-target';
 import { getBlockTimeList } from '@/utils/time-block';
 
 export interface TimeBlockLineProps {
@@ -90,7 +91,8 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
 
     function handleTimeBlockClick(event: React.MouseEvent | React.TouchEvent) {
       if (isBoardContentDragging) return;
-      const target = event.currentTarget as HTMLDivElement;
+      const target = eventTarget(event);
+      if (!target) return;
       const timePoint = target.dataset.timepoint;
       const time = target.dataset.time;
       if (!timePoint || !time) return;
