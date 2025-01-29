@@ -1,8 +1,10 @@
 import dayjs from 'dayjs';
 
 import DateItem from '../DateItem';
+import useDragSelect from '@/hooks/useDragSelect';
 import { EventValue } from '@/types/event.type';
 import cn from '@/utils/cn';
+import { eventTarget } from '@/utils/event-target';
 
 interface WeekdaySelectProps {
   className?: string;
@@ -15,12 +17,26 @@ export default function WeekdaySelect({
   value,
   setValue,
 }: WeekdaySelectProps) {
-  function handleDateItemClick(weekday: string) {
+  const {
+    isFilling,
+    cssStyle,
+    handleDragStart,
+    handleDragMove,
+    handleDragEnd,
+  } = useDragSelect({
+    onSelect: handleDateItemSelect,
+  });
+
+  function handleDateItemSelect(event: React.MouseEvent | React.TouchEvent) {
+    const target = eventTarget(event);
+    if (!target) return;
+    const weekday = target.dataset.weekday;
+    if (!weekday) return;
     setValue((prev) => ({
       ...prev,
-      ranges: prev.ranges.includes(weekday)
-        ? prev.ranges.filter((range) => range !== weekday)
-        : [...prev.ranges, weekday],
+      ranges: isFilling
+        ? [...new Set([...prev.ranges, weekday])]
+        : prev.ranges.filter((range) => range !== weekday),
     }));
   }
 
@@ -29,8 +45,19 @@ export default function WeekdaySelect({
       {dayjs.weekdaysMin().map((weekday) => (
         <DateItem
           key={weekday}
+          data-weekday={weekday}
           active={value.ranges.includes(weekday)}
-          onClick={() => handleDateItemClick(weekday)}
+          onMouseDown={() =>
+            handleDragStart({ isFilling: !value.ranges.includes(weekday) })
+          }
+          onMouseMove={handleDragMove}
+          onMouseUp={handleDragEnd}
+          onTouchStart={() =>
+            handleDragStart({ isFilling: !value.ranges.includes(weekday) })
+          }
+          onTouchMove={handleDragMove}
+          onTouchEnd={handleDragEnd}
+          style={cssStyle}
         >
           {weekday}
         </DateItem>

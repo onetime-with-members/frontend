@@ -28,7 +28,7 @@ export default function CalendarSelect({
     handleDragMove,
     handleDragEnd,
   } = useDragSelect({
-    onSelect: handleTimeBlockSelect,
+    onSelect: handleDateItemSelect,
   });
 
   const firstWeekdayIndex = currentDate.startOf('month').day();
@@ -50,9 +50,11 @@ export default function CalendarSelect({
     setCurrentDate((prev) => prev.add(1, 'month'));
   }
 
-  function handleTimeBlockSelect(event: React.MouseEvent | React.TouchEvent) {
-    if (eventTarget(event)?.getAttribute('aria-disabled') === 'true') return;
-    const date = eventTarget(event)?.dataset.date;
+  function handleDateItemSelect(event: React.MouseEvent | React.TouchEvent) {
+    const target = eventTarget(event);
+    if (!target) return;
+    if (target.getAttribute('aria-disabled') === 'true') return;
+    const date = target.dataset.date;
     if (!date) return;
     setValue((prev) => ({
       ...prev,
