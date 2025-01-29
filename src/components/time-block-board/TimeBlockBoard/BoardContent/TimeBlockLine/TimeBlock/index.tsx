@@ -5,7 +5,6 @@ interface TimeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   clickedFirst?: boolean;
   bgOpacity?: number;
   editable?: boolean;
-  cursorPointer?: boolean;
   isPossibleTime?: boolean;
   isAllMembersAvailable?: boolean;
   backgroundColor: 'white' | 'gray';
@@ -17,7 +16,6 @@ const TimeBlock = ({
   bgOpacity = 1,
   style,
   editable,
-  cursorPointer = true,
   isPossibleTime = true,
   isAllMembersAvailable = false,
   backgroundColor = 'gray',
@@ -27,18 +25,21 @@ const TimeBlock = ({
     <div
       className={cn(
         'h-[2rem] w-full border-b border-gray-10 bg-gray-05 last:border-b-0 odd:border-dashed even:border-solid',
-        className,
         {
           'bg-gray-00': backgroundColor === 'white',
-          'bg-primary-50': isPossibleTime && active,
-          'bg-primary-30': isPossibleTime && clickedFirst,
-          'bg-danger-50': !isPossibleTime && !active,
-          'bg-danger-30': !isPossibleTime && clickedFirst,
-          'bg-success-50': isAllMembersAvailable,
         },
         {
-          'cursor-pointer': cursorPointer,
+          'bg-primary-50': isPossibleTime && active,
+          'bg-danger-50': !isPossibleTime && !active,
         },
+        clickedFirst && {
+          'border border-dashed odd:border-dashed even:border-dashed':
+            clickedFirst,
+          'border-primary-50 bg-primary-10': isPossibleTime,
+          'border-danger-50 bg-danger-10': !isPossibleTime,
+        },
+        { 'bg-success-50': isAllMembersAvailable },
+        className,
       )}
       style={{
         backgroundColor: editable

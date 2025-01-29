@@ -4,6 +4,7 @@ import TimeBlock from './TimeBlock';
 import useLongPress from '@/hooks/useLongPress';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { Schedule, Time } from '@/types/schedule.type';
+import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 import { getBlockTimeList } from '@/utils/time-block';
 
@@ -109,11 +110,13 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
           {timeList.map((time, index) => (
             <TimeBlock
               key={index}
+              className={cn({
+                'cursor-pointer': schedules.length > 0,
+              })}
               active={isFilledFor(time)}
               data-time={time}
               data-timepoint={timePoint}
               clickedFirst={isClickedFirstFor(time)}
-              cursorPointer={schedules.length > 0}
               bgOpacity={
                 timesAllMember().filter((t) => t === time).length / memberCount
               }
