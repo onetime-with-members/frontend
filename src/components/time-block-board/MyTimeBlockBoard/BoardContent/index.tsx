@@ -212,7 +212,8 @@ export default function BoardContent({
               isTimeBlockInOtherSchedule(weekday, time),
           },
       {
-        'bg-primary-20': isClickedFirstFor(weekday, time),
+        'bg-primary-10 border border-dashed border-primary-50 odd:border-dashed even:border-dashed':
+          isClickedFirstFor(weekday, time),
       },
     );
   }
