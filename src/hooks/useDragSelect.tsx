@@ -1,10 +1,7 @@
 import { useState } from 'react';
 
 interface useDragSelectProps {
-  onSelect: (
-    event: React.MouseEvent | React.TouchEvent,
-    ...params: any
-  ) => void;
+  onSelect: (event: React.MouseEvent | React.TouchEvent) => void;
 }
 
 export default function useDragSelect({ onSelect }: useDragSelectProps) {
@@ -21,21 +18,15 @@ export default function useDragSelect({ onSelect }: useDragSelectProps) {
     setIsFilling(isFilling);
   }
 
-  function handleDragMove(
-    event: React.MouseEvent | React.TouchEvent,
-    ...params: any
-  ) {
+  function handleDragMove(event: React.MouseEvent | React.TouchEvent) {
     if (!isDragging) return;
-    onSelect(event, ...params);
+    onSelect(event);
     setIsDragMoved(true);
   }
 
-  function handleDragEnd(
-    event: React.MouseEvent | React.TouchEvent,
-    ...params: any
-  ) {
+  function handleDragEnd(event: React.MouseEvent | React.TouchEvent) {
     if (!isDragMoved) {
-      handleDragMove(event, ...params);
+      handleDragMove(event);
     }
     setIsDragging(false);
     setIsFilling(false);
