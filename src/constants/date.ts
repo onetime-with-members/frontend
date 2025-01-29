@@ -1,1 +1,0 @@
-export const SELECTED_DATE_LIST_FORMAT = 'YYYY.MM.DD';

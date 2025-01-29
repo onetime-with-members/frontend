@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import DateItem from '../DateItem';
-import { SELECTED_DATE_LIST_FORMAT } from '@/constants/date';
 import useDragSelect from '@/hooks/useDragSelect';
 import { EventValue } from '@/types/event.type';
 import cn from '@/utils/cn';
@@ -36,6 +35,8 @@ export default function CalendarSelect({
   const isPrevDisabled = currentDate
     .subtract(1, 'month')
     .isBefore(dayjs(), 'month');
+
+  const SELECTED_DATE_LIST_FORMAT = 'YYYY-MM-DD';
 
   function formatFor({
     year,
