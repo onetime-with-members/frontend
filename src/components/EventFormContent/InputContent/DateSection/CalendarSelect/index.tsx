@@ -58,34 +58,22 @@ export default function CalendarSelect({
     setCurrentDate((prev) => prev.add(1, 'month'));
   }
 
-  function handleTimeBlockSelect(event: React.MouseEvent | React.TouchEvent) {
-    if (event.currentTarget.getAttribute('disabled') === 'true') return;
-    const date = dateInDatasetFrom(event);
-    if (!date) return;
+  function handleTimeBlockSelect(
+    _: React.MouseEvent | React.TouchEvent,
+    date: number,
+  ) {
+    const newDate = formatFor({
+      year: currentDate.year(),
+      month: currentDate.month(),
+      date,
+    });
+    if (dayjs(newDate).isBefore(dayjs(), 'date')) return;
     setValue((prev) => ({
       ...prev,
       ranges: isFilling
-        ? [...new Set([...prev.ranges, date])]
-        : prev.ranges.filter((range) => range !== date),
+        ? [...new Set([...prev.ranges, newDate])]
+        : prev.ranges.filter((range) => range !== newDate),
     }));
-
-    function dateInDatasetFrom(event: React.MouseEvent | React.TouchEvent) {
-      let result;
-      if (event.type.includes('mouse')) {
-        result = (event.currentTarget as HTMLElement).dataset.date;
-      } else if (event.type.includes('touch')) {
-        const touch = (event as React.TouchEvent).touches[0];
-        if (!touch) return;
-        const touchedTarget = document.elementFromPoint(
-          touch.clientX,
-          touch.clientY,
-        ) as HTMLElement;
-        if (!touchedTarget) return;
-        result = touchedTarget.dataset.date;
-      }
-      if (!result) return;
-      return result;
-    }
   }
 
   return (
@@ -130,11 +118,6 @@ export default function CalendarSelect({
             <div key={date} className="flex items-center justify-center">
               <DateItem
                 key={date}
-                data-date={formatFor({
-                  year: currentDate.year(),
-                  month: currentDate.month(),
-                  date,
-                })}
                 active={value.ranges.includes(
                   formatFor({
                     year: currentDate.year(),
@@ -154,8 +137,8 @@ export default function CalendarSelect({
                     ),
                   })
                 }
-                onMouseMove={handleDragMove}
-                onMouseUp={handleDragEnd}
+                onMouseMove={(event) => handleDragMove(event, date)}
+                onMouseUp={(event) => handleDragEnd(event, date)}
                 onTouchStart={() =>
                   handleDragStart({
                     isFilling: !value.ranges.includes(
@@ -167,8 +150,8 @@ export default function CalendarSelect({
                     ),
                   })
                 }
-                onTouchMove={handleDragMove}
-                onTouchEnd={handleDragEnd}
+                onTouchMove={(event) => handleDragMove(event, date)}
+                onTouchEnd={(event) => handleDragEnd(event, date)}
                 style={cssStyle}
               >
                 {date}
