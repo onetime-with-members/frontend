@@ -1,7 +1,6 @@
 import { forwardRef } from 'react';
 
 import TimeBlock from './TimeBlock';
-import useLongPress from '@/hooks/useLongPress';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { Schedule, Time } from '@/types/schedule.type';
 import cn from '@/utils/cn';
@@ -57,15 +56,6 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
             changeTimeBlockStatus(timePoint, time, isFilling),
           ),
       });
-    const { handleLongPressStart, handleLongPressEnd } = useLongPress({
-      onClick: (event) => handleTimeBlockClick(event),
-      onLongPressStart: () => {
-        console.log('long press start');
-      },
-      onLongPressEnd: () => {
-        console.log('long press end');
-      },
-    });
 
     const timeList = getBlockTimeList(startTime, endTime);
     const memberCount = schedules.length || 0;
@@ -87,7 +77,10 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
     }
 
     function isClickedFirstFor(time: Time['times'][0]) {
-      return clickedTimeBlock.startTime === time;
+      return (
+        clickedTimeBlock.startTime === time &&
+        clickedTimeBlock.timePoint === timePoint
+      );
     }
 
     function handleTimeBlockClick(event: React.MouseEvent | React.TouchEvent) {
@@ -127,11 +120,7 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
                   memberCount && memberCount > 1
               }
               backgroundColor={backgroundColor}
-              onMouseDown={handleLongPressStart}
-              onMouseUp={handleLongPressEnd}
-              onMouseLeave={handleLongPressEnd}
-              onTouchStart={handleLongPressStart}
-              onTouchEnd={handleLongPressEnd}
+              onClick={handleTimeBlockClick}
             />
           ))}
         </div>

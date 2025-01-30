@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface useDragScrollProps<T> {
   ref: React.RefObject<T>;
@@ -49,12 +49,15 @@ export default function useDragScroll<T>({ ref }: useDragScrollProps<T>) {
   function handleDragEnd() {
     if (!scrollContainer) return;
     setIsDragging(false);
-    setIsDragEvent(dragX.max - dragX.min >= 10);
   }
 
   function handleDragLeave() {
     handleDragEnd();
   }
+
+  useEffect(() => {
+    setIsDragEvent(dragX.max - dragX.min >= 10);
+  }, [dragX.max, dragX.min]);
 
   return {
     isDragEvent,
