@@ -7,7 +7,7 @@ export default function SettingList() {
     <ul>
       <SettingItem>
         <span className="text-gray-60 text-md-200">버전 정보</span>
-        <span className="text-primary-40 text-md-200">v 1.4.3</span>
+        <span className="text-primary-40 text-md-200">v 1.4.4</span>
       </SettingItem>
       <SettingItem>
         <Link
