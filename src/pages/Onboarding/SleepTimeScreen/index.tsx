@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
 import ScreenLayout from '../ScreenLayout';
-import TimeDropdown from '@/components/EventFormContent/InputContent/TimeSection/TimeDropdown';
+import TimeDropdown from '@/components/TimeDropdown';
 import SleepIcon from '@/components/icon/SleepIcon';
 
 interface SleepTimeScreenProps {

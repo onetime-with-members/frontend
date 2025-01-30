@@ -1,4 +1,4 @@
-import PageIndicatorItem from '../PageIndicatorItem';
+import PageIndicatorItem from './PageIndicatorItem';
 
 interface PageIndicatorProps {
   page: number;

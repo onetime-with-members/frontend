@@ -1,5 +1,5 @@
 import EventInputLabel from '../EventInputLabel';
-import TimeDropdown from './TimeDropdown';
+import TimeDropdown from '@/components/TimeDropdown';
 import { EventType, EventValue } from '@/types/event.type';
 
 interface TimeSectionProps {
