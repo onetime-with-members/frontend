@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import BottomButtonForDesktop from './BottomButtonForDesktop';
-import BottomButtonForMobile from './BottomButtonForMobile';
-import InputContent from './InputContent';
-import TopAppBar from './TopAppBar';
+import ScreenLayout from '../ScreenLayout';
+import NicknameFormControl from '@/components/NicknameFormControl';
 import axios from '@/utils/axios';
-import cn from '@/utils/cn';
 import { useMutation } from '@tanstack/react-query';
 
 export interface NicknameFormType {
@@ -14,7 +11,6 @@ export interface NicknameFormType {
 }
 
 interface NicknameFormProps {
-  page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setName: React.Dispatch<React.SetStateAction<string>>;
   isVisible: boolean;
@@ -24,7 +20,6 @@ interface NicknameFormProps {
 }
 
 export default function NicknameFormScreen({
-  page,
   setPage,
   setName,
   isVisible,
@@ -52,7 +47,7 @@ export default function NicknameFormScreen({
       localStorage.setItem('refresh-token', refreshToken);
 
       setName(value.name);
-      setPage(page + 1);
+      setPage((prevPage) => prevPage + 1);
     },
     onError: () => {
       const redirectUrl = localStorage.getItem('redirect-url');
@@ -60,35 +55,35 @@ export default function NicknameFormScreen({
     },
   });
 
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValue({
+      ...value,
+      [e.target.name]: e.target.value,
+    });
+  }
+
   function handleNextButtonClick() {
     if (disabled) return;
     registerNickname.mutate();
   }
 
   return (
-    <div
-      className={cn({
-        hidden: !isVisible,
-      })}
-    >
-      <TopAppBar />
-      <main className="flex flex-col gap-3">
-        <InputContent
-          value={value}
-          setValue={setValue}
-          setDisabled={setDisabled}
-        />
+    <ScreenLayout
+      isVisible={isVisible}
+      title={
         <>
-          <BottomButtonForMobile
-            disabled={disabled}
-            handleNextButtonClick={handleNextButtonClick}
-          />
-          <BottomButtonForDesktop
-            disabled={disabled}
-            handleNextButtonClick={handleNextButtonClick}
-          />
+          회원님의 <br />
+          이름을 알려주세요
         </>
-      </main>
-    </div>
+      }
+      disabled={disabled}
+      handleNextButtonClick={handleNextButtonClick}
+    >
+      <NicknameFormControl
+        value={value.name}
+        onChange={handleInputChange}
+        setSubmitDisabled={setDisabled}
+      />
+    </ScreenLayout>
   );
 }

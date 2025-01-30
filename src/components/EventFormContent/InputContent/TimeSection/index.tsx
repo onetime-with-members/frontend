@@ -31,7 +31,7 @@ export default function TimeSection({ value, setValue }: TimeSectionProps) {
             time={value.start_time}
             setTime={handleSelectTime('start_time')}
           />
-          <span className="text-gray-70 text-md-300">~</span>
+          <span className="text-gray-70 text-md-300">-</span>
           <TimeDropdown
             className="w-[7.5rem]"
             time={value.end_time}

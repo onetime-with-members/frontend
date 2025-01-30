@@ -2,10 +2,14 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import NicknameFormScreen, { NicknameFormType } from './NicknameFormScreen';
+import PageIndicator from './PageIndicator';
+import PrivacyScreen from './PrivacyScreen';
+import SleepTimeScreen from './SleepTimeScreen';
+import TopAppBar from './TopAppBar';
 import WelcomeScreen from './WelcomeScreen';
 
 export default function Onboarding() {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [name, setName] = useState('');
   const [value, setValue] = useState<NicknameFormType>({
     name: '',
@@ -14,6 +18,14 @@ export default function Onboarding() {
 
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  function handleBackButtonClick() {
+    if (page === 1) {
+      return navigate(-1);
+    } else {
+      setPage((prevPage) => prevPage - 1);
+    }
+  }
 
   useEffect(() => {
     if (!searchParams.get('register_token') || !searchParams.get('name')) {
@@ -40,18 +52,25 @@ export default function Onboarding() {
   }, []);
 
   return (
-    <div className="px-4">
-      <div className="mx-auto flex w-full max-w-screen-sm flex-col gap-6">
-        <NicknameFormScreen
-          isVisible={page === 0}
-          page={page}
-          setPage={setPage}
-          setName={setName}
-          value={value}
-          setValue={setValue}
-          registerToken={registerToken}
-        />
-        <WelcomeScreen isVisible={page === 1} name={name} />
+    <div>
+      <TopAppBar handleBackButtonClick={handleBackButtonClick} />
+      <div className="px-4">
+        <div className="mx-auto w-full max-w-screen-sm">
+          <PageIndicator pageMaxNumber={3} page={page} />
+          <>
+            <PrivacyScreen isVisible={page === 1} setPage={setPage} />
+            <NicknameFormScreen
+              isVisible={page === 2}
+              setPage={setPage}
+              setName={setName}
+              value={value}
+              setValue={setValue}
+              registerToken={registerToken}
+            />
+            <SleepTimeScreen isVisible={page === 3} setPage={setPage} />
+            <WelcomeScreen isVisible={page === 4} name={name} />
+          </>
+        </div>
       </div>
     </div>
   );
