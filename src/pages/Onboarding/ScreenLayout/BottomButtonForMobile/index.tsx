@@ -1,4 +1,4 @@
-import Button from '@/components/button/Button';
+import FloatingBottomButton from '@/components/button/FloatingBottomButton';
 
 interface BottomButtonForMobileProps {
   handleNextButtonClick: () => void;
@@ -10,15 +10,15 @@ export default function BottomButtonForMobile({
   disabled,
 }: BottomButtonForMobileProps) {
   return (
-    <div className="hidden md:block">
-      <Button
+    <div className="block md:hidden">
+      <FloatingBottomButton
         variant="black"
         onClick={handleNextButtonClick}
         disabled={disabled}
         fullWidth
       >
         다음
-      </Button>
+      </FloatingBottomButton>
     </div>
   );
 }

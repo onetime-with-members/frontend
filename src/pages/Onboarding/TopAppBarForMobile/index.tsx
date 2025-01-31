@@ -1,16 +1,19 @@
+import cn from '@/utils/cn';
 import { IconChevronLeft } from '@tabler/icons-react';
 
-interface TopAppBarProps {
+interface TopAppBarForMobileProps {
   pageTitle?: string;
   handleBackButtonClick: () => void;
+  className?: string;
 }
 
-export default function TopAppBar({
+export default function TopAppBarForMobile({
   pageTitle,
   handleBackButtonClick,
-}: TopAppBarProps) {
+  className,
+}: TopAppBarForMobileProps) {
   return (
-    <header className="h-[4rem]">
+    <nav className={cn('block h-[4rem] md:hidden', className)}>
       <div className="fixed left-0 top-0 grid h-[4rem] w-full grid-cols-3 bg-gray-00 p-4">
         <button onClick={handleBackButtonClick}>
           <IconChevronLeft />
@@ -20,6 +23,6 @@ export default function TopAppBar({
         </div>
         <div />
       </div>
-    </header>
+    </nav>
   );
 }

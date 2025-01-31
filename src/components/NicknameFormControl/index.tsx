@@ -53,7 +53,7 @@ export default function NicknameFormControl({
             'ring-2 ring-danger-30': invalid.format || invalid.length,
           })}
         />
-        <ul className="flex flex-col gap-1">
+        <ul className="flex h-4 flex-col gap-1">
           {invalid.format && (
             <li className="text-danger-50 text-sm-200">
               특수문자 및 숫자는 사용할 수 없어요

@@ -72,7 +72,7 @@ export default function NicknameFormScreen({
       isVisible={isVisible}
       title={
         <>
-          회원님의 <br />
+          회원님의 <br className="md:hidden" />
           이름을 알려주세요
         </>
       }

@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import NicknameFormScreen, { NicknameFormType } from './NicknameFormScreen';
 import PageIndicator from './PageIndicator';
 import PrivacyScreen from './PrivacyScreen';
 import SleepTimeScreen from './SleepTimeScreen';
-import TopAppBar from './TopAppBar';
+import TopAppBarForMobile from './TopAppBarForMobile';
+import TopNavBarForDesktop from './TopNavBarForDesktop';
 import WelcomeScreen from './WelcomeScreen';
+import { FooterContext } from '@/contexts/FooterContext';
+import cn from '@/utils/cn';
 
 export default function Onboarding() {
   const [page, setPage] = useState(1);
@@ -15,6 +18,8 @@ export default function Onboarding() {
     name: '',
   });
   const [registerToken, setRegisterToken] = useState('');
+
+  const { setIsFooterVisible } = useContext(FooterContext);
 
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -44,19 +49,33 @@ export default function Onboarding() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
+    setIsFooterVisible(false);
 
     return () => {
-      document.body.style.overflow = 'auto';
+      setIsFooterVisible(true);
     };
   }, []);
 
   return (
-    <div>
-      <TopAppBar handleBackButtonClick={handleBackButtonClick} />
-      <div className="px-4">
-        <div className="mx-auto w-full max-w-screen-sm">
-          <PageIndicator pageMaxNumber={3} page={page} />
+    <div className="flex flex-1 flex-col md:gap-4">
+      <header>
+        <TopAppBarForMobile
+          handleBackButtonClick={handleBackButtonClick}
+          className={cn({
+            hidden: page === 4,
+          })}
+        />
+        <TopNavBarForDesktop />
+      </header>
+      <main className="flex h-full flex-1 flex-col px-4">
+        <div className="mx-auto flex w-full max-w-screen-sm flex-1 flex-col">
+          <PageIndicator
+            pageMaxNumber={3}
+            page={page}
+            className={cn({
+              hidden: page === 4,
+            })}
+          />
           <>
             <PrivacyScreen isVisible={page === 1} setPage={setPage} />
             <NicknameFormScreen
@@ -71,7 +90,7 @@ export default function Onboarding() {
             <WelcomeScreen isVisible={page === 4} name={name} />
           </>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

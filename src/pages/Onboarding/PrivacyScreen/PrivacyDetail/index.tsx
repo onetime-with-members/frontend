@@ -1,10 +1,9 @@
 import { PageDetailType } from '..';
-import { useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
 
-import TopAppBar from '../../TopAppBar';
-import agreementMarkdown from '@/data/markdown/agreement';
-import privacyMarkdown from '@/data/markdown/privacy';
+import TopAppBarForMobile from '../../TopAppBarForMobile';
+import TopNavBarForDesktop from '../../TopNavBarForDesktop';
+import Header from './Header';
+import MarkdownContent from './MarkdownContent';
 
 interface PrivacyDetailProps {
   pageDetail: PageDetailType;
@@ -15,36 +14,30 @@ export default function PrivacyDetail({
   pageDetail,
   setPageDetail,
 }: PrivacyDetailProps) {
+  const pageTitle =
+    pageDetail === 'agreement'
+      ? '서비스 이용약관'
+      : '개인정보 수집 및 이용 동의';
+
   function handlePageDetailClose() {
     setPageDetail(null);
   }
 
-  useEffect(() => {
-    document.body.style.overflow = 'auto';
-
-    return () => {
-      window.scrollTo(0, 0);
-      document.body.style.overflow = 'hidden';
-    };
-  }, []);
-
   return (
-    <div className="absolute left-0 top-0 bg-gray-00">
-      <TopAppBar
-        pageTitle={
-          pageDetail === 'agreement'
-            ? '서비스 이용약관'
-            : '개인정보 수집 및 이용 동의'
-        }
-        handleBackButtonClick={handlePageDetailClose}
-      />
-      <div className="markdown-body px-4">
-        {pageDetail === 'agreement' && (
-          <ReactMarkdown>{agreementMarkdown}</ReactMarkdown>
-        )}
-        {pageDetail === 'privacy' && (
-          <ReactMarkdown>{privacyMarkdown}</ReactMarkdown>
-        )}
+    <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center bg-gray-05">
+      <>
+        <TopAppBarForMobile
+          pageTitle={pageTitle}
+          handleBackButtonClick={handlePageDetailClose}
+        />
+        <TopNavBarForDesktop />
+      </>
+      <div className="mx-auto flex h-[calc(100%-4rem)] w-full max-w-screen-md flex-1 flex-col md:pb-6">
+        <Header
+          handlePageDetailClose={handlePageDetailClose}
+          title={pageTitle}
+        />
+        <MarkdownContent pageDetail={pageDetail} />
       </div>
     </div>
   );
