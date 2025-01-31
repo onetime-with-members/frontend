@@ -1,3 +1,4 @@
+import { OnboardingFormType } from '..';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,17 +7,12 @@ import NicknameFormControl from '@/components/NicknameFormControl';
 import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
 
-export interface NicknameFormType {
-  name: string;
-}
-
 interface NicknameFormProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setName: React.Dispatch<React.SetStateAction<string>>;
   isVisible: boolean;
-  value: NicknameFormType;
-  setValue: React.Dispatch<React.SetStateAction<NicknameFormType>>;
-  registerToken: string;
+  value: OnboardingFormType;
+  setValue: React.Dispatch<React.SetStateAction<OnboardingFormType>>;
 }
 
 export default function NicknameFormScreen({
@@ -25,7 +21,6 @@ export default function NicknameFormScreen({
   isVisible,
   value,
   setValue,
-  registerToken,
 }: NicknameFormProps) {
   const [disabled, setDisabled] = useState(true);
 
@@ -33,10 +28,7 @@ export default function NicknameFormScreen({
 
   const registerNickname = useMutation({
     mutationFn: async () => {
-      const res = await axios.post('/users/onboarding', {
-        nickname: value.name,
-        register_token: registerToken,
-      });
+      const res = await axios.post('/users/onboarding', value);
       return res.data;
     },
     onSuccess: (data) => {
@@ -46,7 +38,7 @@ export default function NicknameFormScreen({
       localStorage.setItem('access-token', accessToken);
       localStorage.setItem('refresh-token', refreshToken);
 
-      setName(value.name);
+      setName(value.nickname);
       setPage((prevPage) => prevPage + 1);
     },
     onError: () => {
@@ -80,7 +72,7 @@ export default function NicknameFormScreen({
       handleNextButtonClick={handleNextButtonClick}
     >
       <NicknameFormControl
-        value={value.name}
+        value={value.nickname}
         onChange={handleInputChange}
         setSubmitDisabled={setDisabled}
       />

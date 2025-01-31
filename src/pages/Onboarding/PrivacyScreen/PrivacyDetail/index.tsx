@@ -15,7 +15,7 @@ export default function PrivacyDetail({
   setPageDetail,
 }: PrivacyDetailProps) {
   const pageTitle =
-    pageDetail === 'agreement'
+    pageDetail === 'privacy_policy_agreement'
       ? '서비스 이용약관'
       : '개인정보 수집 및 이용 동의';
 

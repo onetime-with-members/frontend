@@ -1,35 +1,40 @@
-import { CheckedType, PageDetailType } from '..';
+import { PageDetailType } from '..';
 import clsx from 'clsx';
 
+import { OnboardingFormType } from '../..';
 import Checkbox from '../Checkbox';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface CheckItemProps {
   children: React.ReactNode;
-  checkedKey: keyof CheckedType;
-  checked: CheckedType;
-  setChecked: React.Dispatch<React.SetStateAction<CheckedType>>;
-  setPageDetail?: React.Dispatch<React.SetStateAction<PageDetailType>>;
+  checkedKey: keyof OnboardingFormType;
+  value: OnboardingFormType;
+  setValue: React.Dispatch<React.SetStateAction<OnboardingFormType>>;
+  setPageDetail: React.Dispatch<React.SetStateAction<PageDetailType>>;
+  hasPageDetail?: boolean;
 }
 
 export default function CheckItem({
   children,
   checkedKey,
-  checked,
-  setChecked,
+  value,
+  setValue,
   setPageDetail,
+  hasPageDetail,
 }: CheckItemProps) {
   function handleCheckboxClick(event: React.MouseEvent) {
     event.stopPropagation();
-    setChecked((prevChecked) => ({
-      ...prevChecked,
-      [checkedKey]: !prevChecked[checkedKey],
+    setValue((prevValue) => ({
+      ...prevValue,
+      [checkedKey]: !prevValue[checkedKey],
     }));
   }
 
   function handlePageDetailOpen() {
-    if (!setPageDetail) return;
-    if (checkedKey === 'agreement' || checkedKey === 'privacy') {
+    if (
+      checkedKey === 'service_policy_agreement' ||
+      checkedKey === 'privacy_policy_agreement'
+    ) {
       setPageDetail(checkedKey);
     } else {
       setPageDetail(null);
@@ -39,18 +44,18 @@ export default function CheckItem({
   return (
     <div
       className={clsx('flex items-center justify-between', {
-        'cursor-pointer': setPageDetail,
+        'cursor-pointer': hasPageDetail,
       })}
       onClick={handlePageDetailOpen}
     >
       <div className="flex items-center gap-3">
         <Checkbox
-          checked={checked[checkedKey]}
+          checked={value[checkedKey] as boolean}
           handleCheckboxClick={handleCheckboxClick}
         />
         <span className="text-gray-60 text-md-200">{children}</span>
       </div>
-      {setPageDetail && (
+      {hasPageDetail && (
         <span>
           <IconChevronRight className="text-gray-20" />
         </span>

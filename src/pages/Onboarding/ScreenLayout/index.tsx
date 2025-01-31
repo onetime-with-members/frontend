@@ -6,7 +6,7 @@ interface ScreenLayoutProps {
   children: React.ReactNode;
   isVisible: boolean;
   title: React.ReactNode;
-  disabled: boolean;
+  disabled?: boolean;
   handleNextButtonClick: () => void;
 }
 
@@ -14,7 +14,7 @@ export default function ScreenLayout({
   isVisible,
   children,
   title,
-  disabled,
+  disabled = false,
   handleNextButtonClick,
 }: ScreenLayoutProps) {
   return (
