@@ -65,7 +65,7 @@ export default function PrivacyScreen({
               개인정보 수집 및 이용 동의(필수)
             </CheckItem>
             <CheckItem
-              checkedKey="privacy_policy_agreement"
+              checkedKey="marketing_policy_agreement"
               value={value}
               setValue={setValue}
               setPageDetail={setPageDetail}
