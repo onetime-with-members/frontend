@@ -162,19 +162,19 @@ export default function ScheduleFormScreen({
             times: [],
           }));
 
-          myFixedSchedules.forEach((fixedSchedule) => {
-            fixedSchedule.schedules.forEach((schedule) => {
-              const foundedTimeBlock = convertedMyFixedSchedules.find(
-                (s) => s.time_point === schedule.time_point,
-              );
+          // myFixedSchedules.forEach((fixedSchedule) => {
+          //   fixedSchedule.schedules.forEach((schedule) => {
+          //     const foundedTimeBlock = convertedMyFixedSchedules.find(
+          //       (s) => s.time_point === schedule.time_point,
+          //     );
 
-              if (foundedTimeBlock) {
-                foundedTimeBlock.times = [
-                  ...new Set([...foundedTimeBlock.times, ...schedule.times]),
-                ].sort();
-              }
-            });
-          });
+          //     if (foundedTimeBlock) {
+          //       foundedTimeBlock.times = [
+          //         ...new Set([...foundedTimeBlock.times, ...schedule.times]),
+          //       ].sort();
+          //     }
+          //   });
+          // });
 
           convertedMyFixedSchedules = convertedMyFixedSchedules.map((s) => ({
             time_point: s.time_point,
