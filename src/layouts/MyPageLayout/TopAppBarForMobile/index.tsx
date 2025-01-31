@@ -1,13 +1,19 @@
+import { TabActiveType } from '..';
 import { useNavigate } from 'react-router-dom';
 
+import PenIcon from '@/components/icon/PenIcon';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 interface TopAppBarForMobileProps {
   pageTitle: string | undefined;
+  tabActive: TabActiveType;
+  onMySchedulesEditButtonClick: () => void;
 }
 
 export default function TopAppBarForMobile({
   pageTitle,
+  tabActive,
+  onMySchedulesEditButtonClick,
 }: TopAppBarForMobileProps) {
   const navigate = useNavigate();
 
@@ -17,18 +23,23 @@ export default function TopAppBarForMobile({
 
   return (
     <header>
-      <nav className="flex h-[4rem]">
+      <nav className="h-[4rem]">
         <div className="fixed z-[9999] flex h-[4rem] w-full justify-center bg-gray-00 px-4">
-          <div className="w-full max-w-screen-md">
-            <div className="grid h-[4rem] grid-cols-3">
-              <div className="flex items-center justify-start">
-                <button onClick={handleBackButtonClick}>
-                  <IconChevronLeft size={24} />
+          <div className="mx-auto grid w-full max-w-screen-md grid-cols-3">
+            <div className="flex items-center justify-start">
+              <button onClick={handleBackButtonClick}>
+                <IconChevronLeft size={24} />
+              </button>
+            </div>
+            <div className="flex items-center justify-center text-gray-90 text-lg-300">
+              {pageTitle}
+            </div>
+            <div className="flex items-center justify-end">
+              {tabActive === 'schedules' && (
+                <button onClick={onMySchedulesEditButtonClick}>
+                  <PenIcon fill="#31333F" />
                 </button>
-              </div>
-              <div className="flex items-center justify-center text-gray-90 text-lg-300">
-                {pageTitle}
-              </div>
+              )}
             </div>
           </div>
         </div>
