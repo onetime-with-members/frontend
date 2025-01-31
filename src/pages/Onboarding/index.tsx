@@ -9,9 +9,11 @@ import TopAppBarForMobile from './TopAppBarForMobile';
 import TopNavBarForDesktop from './TopNavBarForDesktop';
 import WelcomeScreen from './WelcomeScreen';
 import { FooterContext } from '@/contexts/FooterContext';
+import axios from '@/utils/axios';
 import cn from '@/utils/cn';
+import { useMutation } from '@tanstack/react-query';
 
-export interface OnboardingFormType {
+export interface OnboardingValueType {
   register_token: string;
   nickname: string;
   service_policy_agreement: boolean;
@@ -23,21 +25,43 @@ export interface OnboardingFormType {
 
 export default function Onboarding() {
   const [page, setPage] = useState(1);
-  const [name, setName] = useState('');
-  const [value, setValue] = useState<OnboardingFormType>({
+  const [value, setValue] = useState<OnboardingValueType>({
     register_token: '',
     nickname: '',
     service_policy_agreement: false,
     privacy_policy_agreement: false,
     marketing_policy_agreement: false,
-    sleep_start_time: '',
-    sleep_end_time: '',
+    sleep_start_time: '23:00',
+    sleep_end_time: '07:00',
   });
 
   const { setIsFooterVisible } = useContext(FooterContext);
 
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const registerNickname = useMutation({
+    mutationFn: async () => {
+      const res = await axios.post('/users/onboarding', value);
+      return res.data;
+    },
+    onSuccess: (data) => {
+      const { access_token: accessToken, refresh_token: refreshToken } =
+        data.payload;
+      localStorage.setItem('access-token', accessToken);
+      localStorage.setItem('refresh-token', refreshToken);
+      setPage((prevPage) => prevPage + 1);
+    },
+    onError: () => {
+      const redirectUrl = localStorage.getItem('redirect-url');
+      navigate(`/login?redirect_url=${redirectUrl}`);
+    },
+  });
+
+  function handleNextButtonClick(disabled: boolean) {
+    if (disabled) return;
+    setPage((prevPage) => prevPage + 1);
+  }
 
   function handleBackButtonClick() {
     if (page === 1) {
@@ -47,17 +71,20 @@ export default function Onboarding() {
     }
   }
 
+  function handleSubmitButtonClick(disabled: boolean) {
+    if (disabled) return;
+    registerNickname.mutate();
+  }
+
   useEffect(() => {
     if (!searchParams.get('register_token') || !searchParams.get('name')) {
       return navigate('/login');
     }
-
     setValue((prevValue) => ({
       ...prevValue,
-      name: searchParams.get('name') as string,
+      nickname: searchParams.get('name') as string,
       register_token: searchParams.get('register_token') as string,
     }));
-
     const newSearchParams = new URLSearchParams();
     newSearchParams.delete('register_token');
     newSearchParams.delete('name');
@@ -66,7 +93,6 @@ export default function Onboarding() {
 
   useEffect(() => {
     setIsFooterVisible(false);
-
     return () => {
       setIsFooterVisible(true);
     };
@@ -98,22 +124,21 @@ export default function Onboarding() {
             isVisible={page === 1}
             value={value}
             setValue={setValue}
-            setPage={setPage}
+            handleNextButtonClick={handleNextButtonClick}
           />
           <NicknameFormScreen
             isVisible={page === 2}
-            setPage={setPage}
-            setName={setName}
             value={value}
             setValue={setValue}
+            handleNextButtonClick={handleNextButtonClick}
           />
           <SleepTimeScreen
             isVisible={page === 3}
             value={value}
             setValue={setValue}
-            setPage={setPage}
+            handleSubmitButtonClick={handleSubmitButtonClick}
           />
-          <WelcomeScreen isVisible={page === 4} name={name} />
+          <WelcomeScreen isVisible={page === 4} value={value} />
         </div>
       </main>
     </div>

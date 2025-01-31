@@ -1,4 +1,4 @@
-import { OnboardingFormType } from '..';
+import { OnboardingValueType } from '..';
 import { useEffect, useState } from 'react';
 
 import ScreenLayout from '../ScreenLayout';
@@ -8,25 +8,21 @@ import PrivacyDetail from './PrivacyDetail';
 
 interface PrivacyScreenProps {
   isVisible: boolean;
-  value: OnboardingFormType;
-  setValue: React.Dispatch<React.SetStateAction<OnboardingFormType>>;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  value: OnboardingValueType;
+  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
+  handleNextButtonClick: (disabled: boolean) => void;
 }
 
-export type PageDetailType = keyof OnboardingFormType | null;
+export type PageDetailType = keyof OnboardingValueType | null;
 
 export default function PrivacyScreen({
   isVisible,
   value,
   setValue,
-  setPage,
+  handleNextButtonClick,
 }: PrivacyScreenProps) {
   const [disabled, setDisabled] = useState(true);
   const [pageDetail, setPageDetail] = useState<PageDetailType>(null);
-
-  function handleNextButtonClick() {
-    setPage((prevPage) => prevPage + 1);
-  }
 
   useEffect(() => {
     setDisabled(
@@ -45,7 +41,7 @@ export default function PrivacyScreen({
           </>
         }
         disabled={disabled}
-        handleNextButtonClick={handleNextButtonClick}
+        handleNextButtonClick={() => handleNextButtonClick(disabled)}
       >
         <div className="flex flex-col gap-6">
           <AllCheckItem value={value} setValue={setValue} />

@@ -1,15 +1,15 @@
 import { PageDetailType } from '..';
 import clsx from 'clsx';
 
-import { OnboardingFormType } from '../..';
+import { OnboardingValueType } from '../..';
 import Checkbox from '../Checkbox';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface CheckItemProps {
   children: React.ReactNode;
-  checkedKey: keyof OnboardingFormType;
-  value: OnboardingFormType;
-  setValue: React.Dispatch<React.SetStateAction<OnboardingFormType>>;
+  checkedKey: keyof OnboardingValueType;
+  value: OnboardingValueType;
+  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
   setPageDetail: React.Dispatch<React.SetStateAction<PageDetailType>>;
   hasPageDetail?: boolean;
 }

@@ -1,4 +1,4 @@
-import { OnboardingFormType } from '..';
+import { OnboardingValueType } from '..';
 
 import ScreenLayout from '../ScreenLayout';
 import TimeDropdown from '@/components/TimeDropdown';
@@ -6,22 +6,18 @@ import SleepIcon from '@/components/icon/SleepIcon';
 
 interface SleepTimeScreenProps {
   isVisible: boolean;
-  value: OnboardingFormType;
-  setValue: React.Dispatch<React.SetStateAction<OnboardingFormType>>;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  value: OnboardingValueType;
+  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
+  handleSubmitButtonClick: (disabled: boolean) => void;
 }
 
 export default function SleepTimeScreen({
   isVisible,
   value,
   setValue,
-  setPage,
+  handleSubmitButtonClick,
 }: SleepTimeScreenProps) {
-  function handleNextButtonClick() {
-    setPage((prevPage) => prevPage + 1);
-  }
-
-  function handleTimeChange(key: keyof OnboardingFormType) {
+  function handleTimeChange(key: keyof OnboardingValueType) {
     return (time: string) => {
       setValue((prevValue) => ({
         ...prevValue,
@@ -39,7 +35,7 @@ export default function SleepTimeScreen({
           수면 시간을 알려주세요
         </>
       }
-      handleNextButtonClick={handleNextButtonClick}
+      handleNextButtonClick={() => handleSubmitButtonClick(false)}
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-1.5">

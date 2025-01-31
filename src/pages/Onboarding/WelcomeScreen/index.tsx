@@ -1,13 +1,18 @@
+import { OnboardingValueType } from '..';
+
 import StartButton from './StartButton';
 import WelcomeContent from './WelcomeContent';
 import cn from '@/utils/cn';
 
 interface WelcomeScreenProps {
-  name: string;
   isVisible: boolean;
+  value: OnboardingValueType;
 }
 
-export default function WelcomeScreen({ name, isVisible }: WelcomeScreenProps) {
+export default function WelcomeScreen({
+  isVisible,
+  value,
+}: WelcomeScreenProps) {
   return (
     <section
       className={cn(
@@ -17,7 +22,7 @@ export default function WelcomeScreen({ name, isVisible }: WelcomeScreenProps) {
         },
       )}
     >
-      <WelcomeContent name={name} />
+      <WelcomeContent name={value.nickname} />
       <StartButton />
     </section>
   );
