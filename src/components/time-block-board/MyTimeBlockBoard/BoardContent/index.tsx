@@ -75,6 +75,7 @@ export default function BoardContent({
           {timeBlockList.map((time) => (
             <TimeBlock
               key={time}
+              mode={mode}
               backgroundColor={backgroundColor}
               filled={isFilled(weekday, time)}
               clickedFirst={isClickedFirst(weekday, time)}

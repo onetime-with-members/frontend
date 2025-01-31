@@ -4,6 +4,7 @@ import cn from '@/utils/cn';
 
 interface TimeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   backgroundColor?: 'gray' | 'white';
+  mode: 'view' | 'create' | 'edit';
   filled?: boolean;
   clickedFirst?: boolean;
   onClick?: () => void;
@@ -11,6 +12,7 @@ interface TimeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function TimeBlock({
   backgroundColor = 'gray',
+  mode,
   filled,
   clickedFirst,
   ...props
@@ -18,16 +20,18 @@ export default function TimeBlock({
   return (
     <div
       className={cn(
-        'h-[3rem] border-b border-gray-10 last:border-b-0 odd:border-dashed even:border-solid',
+        'h-[3rem] border-b border-gray-10 bg-gray-05 last:border-b-0 odd:border-dashed even:border-solid',
         {
-          'bg-gray-05': backgroundColor === 'gray',
           'bg-gray-00': backgroundColor === 'white',
         },
         {
-          'bg-primary-40': filled,
+          'bg-danger-50': filled,
         },
         {
-          'border border-dashed border-primary-50 bg-primary-10 even:border-dashed':
+          'cursor-pointer': mode === 'create' || mode === 'edit',
+        },
+        {
+          'border border-dashed border-danger-50 bg-danger-10 even:border-dashed':
             clickedFirst,
         },
       )}
