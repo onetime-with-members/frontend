@@ -6,14 +6,11 @@ import HeaderForDesktop from './HeaderForDesktop';
 import SideTabContentForDesktop from './SideTabContentForDesktop';
 import TopAppBarForMobile from './TopAppBarForMobile';
 import NavBar from '@/components/NavBar';
-import { MyScheduleContext } from '@/contexts/MyScheduleContext';
 import { ScrollContext } from '@/contexts/ScrollContext';
 
 export default function MyPageLayout() {
   const [tabActive, setTabActive] = useState('');
 
-  const { selectedTimeBlockId, viewMode, setViewMode } =
-    useContext(MyScheduleContext);
   const { scrollContainerRef } = useContext(ScrollContext);
 
   const location = useLocation();
@@ -23,14 +20,6 @@ export default function MyPageLayout() {
     schedules: '내 스케줄',
     profile: '프로필 정보',
   }[tabActive];
-
-  function handleViewModeButtonClick() {
-    if (viewMode === 'timeblock') {
-      setViewMode('list');
-    } else {
-      setViewMode('timeblock');
-    }
-  }
 
   useEffect(() => {
     if (location.pathname.startsWith('/mypage/events')) {
@@ -50,11 +39,7 @@ export default function MyPageLayout() {
 
       {/* Mobile */}
       <div className="block md:hidden">
-        <TopAppBarForMobile
-          pageTitle={pageTitle}
-          tabActive={tabActive}
-          handleViewModeButtonClick={handleViewModeButtonClick}
-        />
+        <TopAppBarForMobile pageTitle={pageTitle} />
         <main className="px-4 pb-20">
           <Outlet />
         </main>
@@ -62,17 +47,12 @@ export default function MyPageLayout() {
 
       {/* Desktop */}
       <div className="hidden min-h-screen flex-col md:flex">
-        <NavBar overlay={selectedTimeBlockId !== null} shadow={false} />
+        <NavBar shadow={false} />
         <div className="px-4">
           <div className="mx-auto flex w-full max-w-screen-md gap-10">
             <SideTabContentForDesktop tabActive={tabActive} />
             <main className="relative flex flex-1 flex-col gap-2 pb-20 pt-8">
-              <HeaderForDesktop
-                pageTitle={pageTitle}
-                tabActive={tabActive}
-                viewMode={viewMode}
-                handleViewModeButtonClick={handleViewModeButtonClick}
-              />
+              <HeaderForDesktop pageTitle={pageTitle} />
               <div ref={scrollContainerRef} className="flex-1">
                 <Outlet />
               </div>

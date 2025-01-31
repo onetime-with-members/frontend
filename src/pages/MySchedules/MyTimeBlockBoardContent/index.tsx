@@ -24,8 +24,8 @@ export default function MyTimeBlockBoardContent({
 
   const navigate = useNavigate();
 
-  function handleCreateButtonClick() {
-    navigate('/mypage/schedules/new');
+  function handleEditButtonClick() {
+    navigate('/mypage/schedules/edit');
   }
 
   useEffect(() => {
@@ -54,8 +54,8 @@ export default function MyTimeBlockBoardContent({
       {desktopInnerContentWidth !== undefined && (
         <BadgeFloatingBottomButton
           variant="black"
-          name="스케줄 추가"
-          onClick={handleCreateButtonClick}
+          name="스케줄 입력"
+          onClick={handleEditButtonClick}
           className={cn('left-auto flex translate-x-0', {
             'pointer-events-none opacity-0 duration-150': isFooterShown,
           })}
