@@ -1,10 +1,20 @@
 import { Link } from 'react-router-dom';
 
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
-import mySchedulesDefault from '@/data/ts/my-schedules';
+import { MySchedule } from '@/types/schedule.type';
+import axios from '@/utils/axios';
 import { IconChevronRight } from '@tabler/icons-react';
+import { useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleSection() {
+  const { data } = useQuery<MySchedule[]>({
+    queryKey: ['fixed-schedules'],
+    queryFn: async () => {
+      const res = await axios.get('/fixed-schedules');
+      return res.data.payload.schedules;
+    },
+  });
+
   return (
     <section className="flex flex-col gap-3">
       <header className="flex items-center justify-between gap-3">
@@ -18,7 +28,7 @@ export default function MyScheduleSection() {
       </header>
       <MyTimeBlockBoard
         mode="view"
-        mySchedules={mySchedulesDefault}
+        mySchedules={data || []}
         backgroundColor="white"
       />
     </section>

@@ -1,5 +1,4 @@
 import BottomButtonForMobile from './BottomButtonForMobile';
-// import FixedScheduleSection from './FixedScheduleSection';
 import MyEventSection from './MyEventSection';
 import MyScheduleSection from './MyScheduleSection';
 import TopNavBar from './TopNavBar';
