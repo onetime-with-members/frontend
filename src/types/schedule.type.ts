@@ -17,10 +17,7 @@ export interface RecommendSchedule {
   impossible_names: string[];
 }
 
-export interface MySchedule {
-  time_point: string;
-  times: string[];
-}
+export interface MyScheduleTime extends Time {}
 
 export interface TimeBlockPopUpData {
   timePoint: string;

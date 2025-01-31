@@ -2,13 +2,13 @@ import dayjs from 'dayjs';
 
 import TimeBlock from './TimeBlock';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
-import { MySchedule } from '@/types/schedule.type';
+import { MyScheduleTime } from '@/types/schedule.type';
 import { getBlockTimeList } from '@/utils/time-block';
 
 interface TimeBlockContentProps {
   mode: 'view' | 'edit';
-  mySchedule: MySchedule[];
-  setMySchedule?: React.Dispatch<React.SetStateAction<MySchedule[]>>;
+  mySchedule: MyScheduleTime[];
+  setMySchedule?: React.Dispatch<React.SetStateAction<MyScheduleTime[]>>;
   backgroundColor?: 'gray' | 'white';
   setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 }

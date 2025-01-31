@@ -1,10 +1,10 @@
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
-import { MySchedule } from '@/types/schedule.type';
+import { MyScheduleTime } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
-export default function MySchedules() {
-  const { data } = useQuery<MySchedule[]>({
+export default function MySchedule() {
+  const { data } = useQuery<MyScheduleTime[]>({
     queryKey: ['fixed-schedules'],
     queryFn: async () => {
       const res = await axios.get('/fixed-schedules');

@@ -4,18 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import TopAppBar from './TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
-import { MySchedule } from '@/types/schedule.type';
+import { MyScheduleTime } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleEdit() {
-  const [mySchedule, setMySchedule] = useState<MySchedule[]>([]);
+  const [mySchedule, setMySchedule] = useState<MyScheduleTime[]>([]);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
 
   const navigate = useNavigate();
 
-  const { data } = useQuery<MySchedule[]>({
+  const { data } = useQuery<MyScheduleTime[]>({
     queryKey: ['fixed-schedules'],
     queryFn: async () => {
       const res = await axios.get('/fixed-schedules');

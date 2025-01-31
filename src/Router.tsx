@@ -12,7 +12,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import MyEvents from './pages/MyEvents';
 import MyScheduleEdit from './pages/MyScheduleEdit';
-import MySchedules from './pages/MySchedules';
+import MySchedule from './pages/MySchedules';
 import NotFoundPage from './pages/NotFoundPage';
 import NotFoundRedirect from './pages/NotFoundRedirect';
 import Onboarding from './pages/Onboarding';
@@ -81,7 +81,7 @@ const router = createBrowserRouter([
               },
               {
                 path: 'schedules',
-                element: <MySchedules />,
+                element: <MySchedule />,
               },
             ],
           },

@@ -36,7 +36,7 @@ export default function MyPageLayout() {
     profile: '프로필 정보',
   }[tabActive];
 
-  function handleMySchedulesEditButtonClick() {
+  function handleMyScheduleEditButtonClick() {
     navigate('/mypage/schedules/edit');
   }
 
@@ -55,7 +55,7 @@ export default function MyPageLayout() {
         <TopAppBarForMobile
           pageTitle={pageTitle}
           tabActive={tabActive}
-          onMySchedulesEditButtonClick={handleMySchedulesEditButtonClick}
+          onMyScheduleEditButtonClick={handleMyScheduleEditButtonClick}
         />
         <main className="px-4 pb-20">
           <Outlet />
@@ -71,7 +71,7 @@ export default function MyPageLayout() {
             <main className="relative flex flex-1 flex-col gap-2 pb-20 pt-8">
               <HeaderForDesktop
                 pageTitle={pageTitle}
-                onMySchedulesEditButtonClick={handleMySchedulesEditButtonClick}
+                onMyScheduleEditButtonClick={handleMyScheduleEditButtonClick}
               />
               <div ref={scrollContainerRef} className="flex-1">
                 <Outlet />

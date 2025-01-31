@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import BottomButtonForDesktop from './BottomButtonForDesktop';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard';
 import { EventType } from '@/types/event.type';
-import { MySchedule, Schedule } from '@/types/schedule.type';
+import { MyScheduleTime, Schedule } from '@/types/schedule.type';
 import { GuestValue } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { getBlockTimeList } from '@/utils/time-block';
@@ -77,7 +77,7 @@ export default function ScheduleFormScreen({
   const mySchedule: Schedule = scheduleData?.payload;
 
   const { data: myFixedSchedules, isLoading: isMyFixedSchedulesLoading } =
-    useQuery<MySchedule[]>({
+    useQuery<MyScheduleTime[]>({
       queryKey: ['fixed-schedules'],
       queryFn: async () => {
         const res = await axios.get('/fixed-schedules');

@@ -7,13 +7,13 @@ import { IconChevronLeft } from '@tabler/icons-react';
 interface TopAppBarForMobileProps {
   pageTitle: string | undefined;
   tabActive: TabActiveType;
-  onMySchedulesEditButtonClick: () => void;
+  onMyScheduleEditButtonClick: () => void;
 }
 
 export default function TopAppBarForMobile({
   pageTitle,
   tabActive,
-  onMySchedulesEditButtonClick,
+  onMyScheduleEditButtonClick,
 }: TopAppBarForMobileProps) {
   const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ export default function TopAppBarForMobile({
             </div>
             <div className="flex items-center justify-end">
               {tabActive === 'schedules' && (
-                <button onClick={onMySchedulesEditButtonClick}>
+                <button onClick={onMyScheduleEditButtonClick}>
                   <PenIcon fill="#31333F" />
                 </button>
               )}

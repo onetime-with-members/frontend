@@ -1,12 +1,12 @@
 import BoardContent from './BoardContent';
 import LeftTimeLine from './LeftTimeLine';
 import TopDateGroup from './TopDateGroup';
-import { MySchedule } from '@/types/schedule.type';
+import { MyScheduleTime } from '@/types/schedule.type';
 
 interface MyTimeBlockBoard {
   mode: 'view' | 'edit';
-  mySchedule: MySchedule[];
-  setMySchedule?: React.Dispatch<React.SetStateAction<MySchedule[]>>;
+  mySchedule: MyScheduleTime[];
+  setMySchedule?: React.Dispatch<React.SetStateAction<MyScheduleTime[]>>;
   className?: string;
   backgroundColor?: 'gray' | 'white';
   topDateGroupClassName?: string;
