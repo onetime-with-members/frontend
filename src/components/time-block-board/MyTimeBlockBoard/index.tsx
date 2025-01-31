@@ -1,16 +1,12 @@
 import BoardContent from './BoardContent';
 import LeftTimeLine from './LeftTimeLine';
 import TopDateGroup from './TopDateGroup';
-import { MyNewSchedule, MySchedule } from '@/types/schedule.type';
+import { MySchedule } from '@/types/schedule.type';
 
 interface MyTimeBlockBoard {
-  mode: 'view' | 'create' | 'edit';
+  mode: 'view' | 'edit';
   mySchedule: MySchedule[];
   setMySchedule?: React.Dispatch<React.SetStateAction<MySchedule[]>>;
-  setMyNewSchedule?: (newSchedule: MyNewSchedule['schedules']) => void;
-  handleDeleteButtonClick?: () => void;
-  handleEditButtonClick?: () => void;
-  editedScheduleId?: number;
   className?: string;
   backgroundColor?: 'gray' | 'white';
   topDateGroupClassName?: string;
@@ -21,8 +17,6 @@ export default function MyTimeBlockBoard({
   mode,
   mySchedule,
   setMySchedule,
-  setMyNewSchedule,
-  editedScheduleId = -1,
   className,
   backgroundColor = 'gray',
   topDateGroupClassName,
@@ -38,8 +32,6 @@ export default function MyTimeBlockBoard({
             mode={mode}
             mySchedule={mySchedule}
             setMySchedule={setMySchedule}
-            setMyNewSchedule={setMyNewSchedule}
-            editedScheduleId={editedScheduleId}
             backgroundColor={backgroundColor}
             setIsEdited={setIsEdited}
           />

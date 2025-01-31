@@ -26,6 +26,7 @@ export default function MyScheduleSection() {
           </span>
         </Link>
       </header>
+
       <MyTimeBlockBoard
         mode="view"
         mySchedule={data || []}

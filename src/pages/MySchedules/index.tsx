@@ -14,13 +14,11 @@ export default function MySchedules() {
 
   return (
     <div className="mx-auto w-full max-w-screen-md pb-32">
-      <div>
-        <MyTimeBlockBoard
-          mode="view"
-          mySchedule={data || []}
-          topDateGroupClassName="sticky z-10 bg-gray-00 top-[64px] md:top-[122px]"
-        />
-      </div>
+      <MyTimeBlockBoard
+        mode="view"
+        mySchedule={data || []}
+        topDateGroupClassName="sticky z-10 bg-gray-00 top-[64px] md:top-[122px]"
+      />
     </div>
   );
 }
