@@ -4,6 +4,7 @@ import EmptyUI from '@/components/EmptyUI';
 import MyEvent from '@/pages/MyEvents/MyEvent';
 import { MyEventType } from '@/types/event.type';
 import axios from '@/utils/axios';
+import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
@@ -51,7 +52,11 @@ export default function MyEventSection() {
                   />
                 ))}
           </ul>
-          <ul className="hidden grid-cols-2 gap-4 lg:grid">
+          <ul
+            className={cn('hidden grid-cols-2 gap-4 lg:grid', {
+              'grid-cols-1': events.length === 0,
+            })}
+          >
             {events.length === 0 && (
               <div className="rounded-2xl bg-gray-00 py-5">
                 <EmptyUI>아직 참여한 이벤트가 없어요.</EmptyUI>

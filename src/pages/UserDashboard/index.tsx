@@ -1,5 +1,5 @@
 import BottomButtonForMobile from './BottomButtonForMobile';
-import FixedScheduleSection from './FixedScheduleSection';
+// import FixedScheduleSection from './FixedScheduleSection';
 import MyEventSection from './MyEventSection';
 import TopNavBar from './TopNavBar';
 import TopToolbarForDesktop from './TopToolbarForDesktop';
@@ -12,7 +12,7 @@ export default function UserDashboard() {
         <TopToolbarForDesktop />
         <div className="flex flex-col gap-14 bg-gray-05 px-6 pb-20 pt-6">
           <MyEventSection />
-          <FixedScheduleSection />
+          {/* <FixedScheduleSection /> */}
         </div>
         <BottomButtonForMobile />
       </main>
