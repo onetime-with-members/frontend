@@ -9,8 +9,8 @@ import TopHeaderForDesktop from './TopHeaderForDesktop';
 import TopNavBarForDesktop from './TopNavBarForDesktop';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import { FooterContext } from '@/contexts/FooterContext';
-import { GuestValue } from '@/types/guest.type';
 import { Schedule } from '@/types/schedule.type';
+import { GuestValue } from '@/types/user.type';
 import breakpoint from '@/utils/breakpoint';
 import cn from '@/utils/cn';
 

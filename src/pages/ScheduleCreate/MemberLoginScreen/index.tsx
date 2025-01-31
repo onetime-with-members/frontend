@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import BottomButtonForDesktop from './BottomButtonForDesktop';
 import BottomButtonForMobile from './BottomButtonForMobile';
 import InputContent from './InputContent';
-import { GuestValue } from '@/types/guest.type';
+import { GuestValue } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
 
