@@ -11,6 +11,7 @@ interface PrivacyScreenProps {
   value: OnboardingValueType;
   setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
   handleNextButtonClick: (disabled: boolean) => void;
+  page: number;
 }
 
 export type PageDetailType = keyof OnboardingValueType | null;
@@ -20,6 +21,7 @@ export default function PrivacyScreen({
   value,
   setValue,
   handleNextButtonClick,
+  page,
 }: PrivacyScreenProps) {
   const [disabled, setDisabled] = useState(true);
   const [pageDetail, setPageDetail] = useState<PageDetailType>(null);
@@ -42,6 +44,7 @@ export default function PrivacyScreen({
         }
         disabled={disabled}
         handleNextButtonClick={() => handleNextButtonClick(disabled)}
+        page={page}
       >
         <div className="flex flex-col gap-6">
           <AllCheckItem value={value} setValue={setValue} />

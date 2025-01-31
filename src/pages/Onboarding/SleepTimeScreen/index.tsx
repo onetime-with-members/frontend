@@ -9,6 +9,7 @@ interface SleepTimeScreenProps {
   value: OnboardingValueType;
   setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
   handleSubmitButtonClick: (disabled: boolean) => void;
+  page: number;
 }
 
 export default function SleepTimeScreen({
@@ -16,6 +17,7 @@ export default function SleepTimeScreen({
   value,
   setValue,
   handleSubmitButtonClick,
+  page,
 }: SleepTimeScreenProps) {
   function handleTimeChange(key: keyof OnboardingValueType) {
     return (time: string) => {
@@ -36,6 +38,7 @@ export default function SleepTimeScreen({
         </>
       }
       handleNextButtonClick={() => handleSubmitButtonClick(false)}
+      page={page}
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-1.5">

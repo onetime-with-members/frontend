@@ -9,6 +9,7 @@ interface NicknameFormProps {
   value: OnboardingValueType;
   setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
   handleNextButtonClick: (disabled: boolean) => void;
+  page: number;
 }
 
 export default function NicknameFormScreen({
@@ -16,6 +17,7 @@ export default function NicknameFormScreen({
   value,
   setValue,
   handleNextButtonClick,
+  page,
 }: NicknameFormProps) {
   const [disabled, setDisabled] = useState(true);
 
@@ -37,6 +39,7 @@ export default function NicknameFormScreen({
       }
       disabled={disabled}
       handleNextButtonClick={() => handleNextButtonClick(disabled)}
+      page={page}
     >
       <NicknameFormControl
         value={value.nickname}

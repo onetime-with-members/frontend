@@ -5,11 +5,13 @@ import Button from '@/components/button/Button';
 interface BottomButtonForDesktopProps {
   handleNextButtonClick: () => void;
   disabled: boolean;
+  page: number;
 }
 
 export default function BottomButtonForDesktop({
   handleNextButtonClick,
   disabled,
+  page,
 }: BottomButtonForDesktopProps) {
   const navigate = useNavigate();
 
@@ -31,7 +33,7 @@ export default function BottomButtonForDesktop({
         className="text-gray-40 text-md-200"
         onClick={handleBackButtonClick}
       >
-        돌아가기
+        {page === 1 ? '돌아가기' : '이전으로'}
       </button>
     </div>
   );

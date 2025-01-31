@@ -8,6 +8,7 @@ interface ScreenLayoutProps {
   title: React.ReactNode;
   disabled?: boolean;
   handleNextButtonClick: () => void;
+  page: number;
 }
 
 export default function ScreenLayout({
@@ -16,6 +17,7 @@ export default function ScreenLayout({
   title,
   disabled = false,
   handleNextButtonClick,
+  page,
 }: ScreenLayoutProps) {
   return (
     <section
@@ -27,17 +29,18 @@ export default function ScreenLayout({
         <h1 className="text-left text-gray-90 title-lg-300 md:text-center">
           {title}
         </h1>
-        <>{children}</>
-        <>
-          <BottomButtonForMobile
-            disabled={disabled}
-            handleNextButtonClick={handleNextButtonClick}
-          />
-          <BottomButtonForDesktop
-            disabled={disabled}
-            handleNextButtonClick={handleNextButtonClick}
-          />
-        </>
+
+        {children}
+
+        <BottomButtonForMobile
+          disabled={disabled}
+          handleNextButtonClick={handleNextButtonClick}
+        />
+        <BottomButtonForDesktop
+          disabled={disabled}
+          handleNextButtonClick={handleNextButtonClick}
+          page={page}
+        />
       </div>
     </section>
   );
