@@ -28,7 +28,7 @@ export default function MyScheduleSection() {
       </header>
       <MyTimeBlockBoard
         mode="view"
-        mySchedules={data || []}
+        mySchedule={data || []}
         backgroundColor="white"
       />
     </section>

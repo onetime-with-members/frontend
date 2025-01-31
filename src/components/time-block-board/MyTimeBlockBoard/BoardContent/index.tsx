@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import { useState } from 'react';
 
 import TimeBlock from './TimeBlock';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
@@ -8,7 +7,8 @@ import { getBlockTimeList } from '@/utils/time-block';
 
 interface TimeBlockContentProps {
   mode: 'view' | 'create' | 'edit';
-  mySchedules: MySchedule[];
+  mySchedule: MySchedule[];
+  setMySchedule?: React.Dispatch<React.SetStateAction<MySchedule[]>>;
   setMyNewSchedule?: (newSchedule: MyNewSchedule['schedules']) => void;
   editedScheduleId?: number;
   backgroundColor?: 'gray' | 'white';
@@ -17,13 +17,11 @@ interface TimeBlockContentProps {
 
 export default function BoardContent({
   mode,
-  mySchedules: originalMySchedules,
+  mySchedule,
+  setMySchedule,
   backgroundColor = 'gray',
   setIsEdited,
 }: TimeBlockContentProps) {
-  const [mySchedules, setMySchedules] =
-    useState<MySchedule[]>(originalMySchedules);
-
   const { handleTimeBlockClick: _handleTimeBlockClick, isClickedFirst } =
     useTimeBlockFill({
       isFilled,
@@ -40,18 +38,22 @@ export default function BoardContent({
     times: string[],
     isFilling: boolean,
   ) {
-    setMySchedules((prevMySchedules) =>
-      prevMySchedules.map((mySchedule) =>
-        mySchedule.time_point === weekday
-          ? {
-              ...mySchedule,
-              times: isFilling
-                ? Array.from(new Set(mySchedule.times.concat(times)))
-                : mySchedule.times.filter((time) => !times.includes(time)),
-            }
-          : mySchedule,
-      ),
+    const newMySchedule = [...mySchedule];
+    const weekdayIndex = newMySchedule.findIndex(
+      (mySchedule) => mySchedule.time_point === weekday,
     );
+
+    if (weekdayIndex === -1) {
+      newMySchedule.push({ time_point: weekday, times });
+    } else {
+      newMySchedule[weekdayIndex].times = isFilling
+        ? Array.from(new Set(newMySchedule[weekdayIndex].times.concat(times)))
+        : newMySchedule[weekdayIndex].times.filter(
+            (time) => !times.includes(time),
+          );
+    }
+
+    setMySchedule && setMySchedule(newMySchedule);
   }
 
   function handleTimeBlockClick(weekday: string, time: string) {
@@ -61,9 +63,8 @@ export default function BoardContent({
 
   function isFilled(weekday: string, time: string): boolean {
     return (
-      mySchedules
-        .find((schedule) => schedule.time_point === weekday)
-        ?.times.includes(time) || false
+      mySchedule.find((s) => s.time_point === weekday)?.times.includes(time) ||
+      false
     );
   }
 

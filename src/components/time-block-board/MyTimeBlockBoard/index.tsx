@@ -5,7 +5,8 @@ import { MyNewSchedule, MySchedule } from '@/types/schedule.type';
 
 interface MyTimeBlockBoard {
   mode: 'view' | 'create' | 'edit';
-  mySchedules: MySchedule[];
+  mySchedule: MySchedule[];
+  setMySchedule?: React.Dispatch<React.SetStateAction<MySchedule[]>>;
   setMyNewSchedule?: (newSchedule: MyNewSchedule['schedules']) => void;
   handleDeleteButtonClick?: () => void;
   handleEditButtonClick?: () => void;
@@ -18,7 +19,8 @@ interface MyTimeBlockBoard {
 
 export default function MyTimeBlockBoard({
   mode,
-  mySchedules,
+  mySchedule,
+  setMySchedule,
   setMyNewSchedule,
   editedScheduleId = -1,
   className,
@@ -34,7 +36,8 @@ export default function MyTimeBlockBoard({
           <LeftTimeLine />
           <BoardContent
             mode={mode}
-            mySchedules={mySchedules}
+            mySchedule={mySchedule}
+            setMySchedule={setMySchedule}
             setMyNewSchedule={setMyNewSchedule}
             editedScheduleId={editedScheduleId}
             backgroundColor={backgroundColor}

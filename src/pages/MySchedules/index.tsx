@@ -17,7 +17,7 @@ export default function MySchedules() {
       <div>
         <MyTimeBlockBoard
           mode="view"
-          mySchedules={data || []}
+          mySchedule={data || []}
           topDateGroupClassName="sticky z-10 bg-gray-00 top-[64px] md:top-[122px]"
         />
       </div>
