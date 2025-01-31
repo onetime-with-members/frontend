@@ -2,7 +2,6 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 
 import TimeBlock from './TimeBlock';
-import mySchedulesDefault from '@/data/ts/my-schedules';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { MyNewSchedule, MySchedule } from '@/types/schedule.type';
 import { getBlockTimeList } from '@/utils/time-block';
@@ -18,11 +17,12 @@ interface TimeBlockContentProps {
 
 export default function BoardContent({
   mode,
+  mySchedules: originalMySchedules,
   backgroundColor = 'gray',
   setIsEdited,
 }: TimeBlockContentProps) {
   const [mySchedules, setMySchedules] =
-    useState<MySchedule[]>(mySchedulesDefault);
+    useState<MySchedule[]>(originalMySchedules);
 
   const { handleTimeBlockClick: _handleTimeBlockClick, isClickedFirst } =
     useTimeBlockFill({
