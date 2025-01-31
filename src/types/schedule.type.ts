@@ -26,13 +26,8 @@ export interface MyNewSchedule {
 }
 
 export interface MySchedule {
-  id: number;
-  start_time: string;
-  end_time: string;
-  schedules: {
-    time_point: string;
-    times: string[];
-  }[];
+  time_point: string;
+  times: string[];
 }
 
 export interface MyScheduleDetail {

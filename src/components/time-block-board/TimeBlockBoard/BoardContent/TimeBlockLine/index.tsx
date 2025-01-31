@@ -50,7 +50,7 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
   ) => {
     const { clickedTimeBlock, handleTimeBlockClick: _handleTimeBlockClick } =
       useTimeBlockFill({
-        isFilledFor: ({ time }) => isFilledFor(time),
+        isFilled: (_, time) => isFilled(time),
         fillTimeBlocks: ({ timePoint, times, isFilling }) =>
           times.forEach((time) =>
             changeTimeBlockStatus(timePoint, time, isFilling),
@@ -72,7 +72,7 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
       return result;
     }
 
-    function isFilledFor(time: Time['times'][0]) {
+    function isFilled(time: Time['times'][0]) {
       return timesAllMember().includes(time);
     }
 
@@ -106,7 +106,7 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
               className={cn({
                 'cursor-pointer': schedules.length > 0,
               })}
-              active={isFilledFor(time)}
+              active={isFilled(time)}
               data-time={time}
               data-timepoint={timePoint}
               clickedFirst={isClickedFirstFor(time)}

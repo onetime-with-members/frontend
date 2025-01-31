@@ -4,7 +4,7 @@ import { maxOf, minOf } from '@/utils/string-min-max';
 import { getLabelTimeList as timeListBetween } from '@/utils/time-block';
 
 interface useTimeBlockFillProps {
-  isFilledFor: (params: { time: string; timePoint: string }) => boolean;
+  isFilled: (timePoint: string, time: string) => boolean;
   fillTimeBlocks: (params: {
     timePoint: string;
     times: string[];
@@ -19,7 +19,7 @@ type ClickedTimeBlock = {
 };
 
 export default function useTimeBlockFill({
-  isFilledFor,
+  isFilled,
   fillTimeBlocks,
 }: useTimeBlockFillProps) {
   const [clickedTimeBlock, setClickedTimeBlock] = useState<ClickedTimeBlock>({
@@ -45,10 +45,10 @@ export default function useTimeBlockFill({
           newClickedTimeBlock().startTime,
           newClickedTimeBlock().endTime,
         ),
-        isFilling: !isFilledFor({
-          time: newClickedTimeBlock().startTime,
-          timePoint: newClickedTimeBlock().timePoint,
-        }),
+        isFilling: !isFilled(
+          newClickedTimeBlock().timePoint,
+          newClickedTimeBlock().startTime,
+        ),
       });
 
       setClickedTimeBlock({
@@ -78,5 +78,12 @@ export default function useTimeBlockFill({
     }
   }
 
-  return { clickedTimeBlock, handleTimeBlockClick };
+  function isClickedFirst(timePoint: string, time: string) {
+    return (
+      clickedTimeBlock.timePoint === timePoint &&
+      clickedTimeBlock.startTime === time
+    );
+  }
+
+  return { clickedTimeBlock, handleTimeBlockClick, isClickedFirst };
 }
