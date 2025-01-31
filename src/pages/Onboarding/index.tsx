@@ -122,24 +122,27 @@ export default function Onboarding() {
 
           <PrivacyScreen
             isVisible={page === 1}
+            page={page}
             value={value}
             setValue={setValue}
             handleNextButtonClick={handleNextButtonClick}
-            page={page}
+            handleBackButtonClick={handleBackButtonClick}
           />
           <NicknameFormScreen
             isVisible={page === 2}
+            page={page}
             value={value}
             setValue={setValue}
             handleNextButtonClick={handleNextButtonClick}
-            page={page}
+            handleBackButtonClick={handleBackButtonClick}
           />
           <SleepTimeScreen
             isVisible={page === 3}
+            page={page}
             value={value}
             setValue={setValue}
             handleSubmitButtonClick={handleSubmitButtonClick}
-            page={page}
+            handleBackButtonClick={handleBackButtonClick}
           />
           <WelcomeScreen isVisible={page === 4} value={value} />
         </div>

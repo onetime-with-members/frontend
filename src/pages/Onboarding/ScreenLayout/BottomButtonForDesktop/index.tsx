@@ -1,24 +1,18 @@
-import { useNavigate } from 'react-router-dom';
-
 import Button from '@/components/button/Button';
 
 interface BottomButtonForDesktopProps {
   handleNextButtonClick: () => void;
+  handleBackButtonClick: () => void;
   disabled: boolean;
   page: number;
 }
 
 export default function BottomButtonForDesktop({
   handleNextButtonClick,
+  handleBackButtonClick,
   disabled,
   page,
 }: BottomButtonForDesktopProps) {
-  const navigate = useNavigate();
-
-  function handleBackButtonClick() {
-    navigate(-1);
-  }
-
   return (
     <div className="hidden flex-col gap-4 md:flex">
       <Button

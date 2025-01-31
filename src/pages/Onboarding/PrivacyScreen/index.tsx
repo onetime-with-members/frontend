@@ -8,20 +8,22 @@ import PrivacyDetail from './PrivacyDetail';
 
 interface PrivacyScreenProps {
   isVisible: boolean;
+  page: number;
   value: OnboardingValueType;
   setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
   handleNextButtonClick: (disabled: boolean) => void;
-  page: number;
+  handleBackButtonClick: () => void;
 }
 
 export type PageDetailType = keyof OnboardingValueType | null;
 
 export default function PrivacyScreen({
   isVisible,
+  page,
   value,
   setValue,
   handleNextButtonClick,
-  page,
+  handleBackButtonClick,
 }: PrivacyScreenProps) {
   const [disabled, setDisabled] = useState(true);
   const [pageDetail, setPageDetail] = useState<PageDetailType>(null);
@@ -36,6 +38,7 @@ export default function PrivacyScreen({
     <>
       <ScreenLayout
         isVisible={isVisible}
+        page={page}
         title={
           <>
             서비스 이용을 위해 <br />
@@ -44,7 +47,7 @@ export default function PrivacyScreen({
         }
         disabled={disabled}
         handleNextButtonClick={() => handleNextButtonClick(disabled)}
-        page={page}
+        handleBackButtonClick={handleBackButtonClick}
       >
         <div className="flex flex-col gap-6">
           <AllCheckItem value={value} setValue={setValue} />

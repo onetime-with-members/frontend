@@ -6,18 +6,20 @@ import NicknameFormControl from '@/components/NicknameFormControl';
 
 interface NicknameFormProps {
   isVisible: boolean;
+  page: number;
   value: OnboardingValueType;
   setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
   handleNextButtonClick: (disabled: boolean) => void;
-  page: number;
+  handleBackButtonClick: () => void;
 }
 
 export default function NicknameFormScreen({
   isVisible,
+  page,
   value,
   setValue,
   handleNextButtonClick,
-  page,
+  handleBackButtonClick,
 }: NicknameFormProps) {
   const [disabled, setDisabled] = useState(true);
 
@@ -31,6 +33,7 @@ export default function NicknameFormScreen({
   return (
     <ScreenLayout
       isVisible={isVisible}
+      page={page}
       title={
         <>
           회원님의 <br className="md:hidden" />
@@ -39,7 +42,7 @@ export default function NicknameFormScreen({
       }
       disabled={disabled}
       handleNextButtonClick={() => handleNextButtonClick(disabled)}
-      page={page}
+      handleBackButtonClick={handleBackButtonClick}
     >
       <NicknameFormControl
         value={value.nickname}

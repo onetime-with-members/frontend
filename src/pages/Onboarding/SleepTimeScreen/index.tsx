@@ -6,18 +6,20 @@ import SleepIcon from '@/components/icon/SleepIcon';
 
 interface SleepTimeScreenProps {
   isVisible: boolean;
+  page: number;
   value: OnboardingValueType;
   setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
   handleSubmitButtonClick: (disabled: boolean) => void;
-  page: number;
+  handleBackButtonClick: () => void;
 }
 
 export default function SleepTimeScreen({
   isVisible,
+  page,
   value,
   setValue,
   handleSubmitButtonClick,
-  page,
+  handleBackButtonClick,
 }: SleepTimeScreenProps) {
   function handleTimeChange(key: keyof OnboardingValueType) {
     return (time: string) => {
@@ -31,6 +33,7 @@ export default function SleepTimeScreen({
   return (
     <ScreenLayout
       isVisible={isVisible}
+      page={page}
       title={
         <>
           시작하기 전, <br />
@@ -38,7 +41,7 @@ export default function SleepTimeScreen({
         </>
       }
       handleNextButtonClick={() => handleSubmitButtonClick(false)}
-      page={page}
+      handleBackButtonClick={handleBackButtonClick}
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-1.5">

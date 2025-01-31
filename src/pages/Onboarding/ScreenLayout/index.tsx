@@ -3,21 +3,23 @@ import BottomButtonForMobile from './BottomButtonForMobile';
 import cn from '@/utils/cn';
 
 interface ScreenLayoutProps {
-  children: React.ReactNode;
   isVisible: boolean;
+  page: number;
   title: React.ReactNode;
   disabled?: boolean;
   handleNextButtonClick: () => void;
-  page: number;
+  handleBackButtonClick: () => void;
+  children: React.ReactNode;
 }
 
 export default function ScreenLayout({
   isVisible,
-  children,
+  page,
   title,
   disabled = false,
   handleNextButtonClick,
-  page,
+  handleBackButtonClick,
+  children,
 }: ScreenLayoutProps) {
   return (
     <section
@@ -39,6 +41,7 @@ export default function ScreenLayout({
         <BottomButtonForDesktop
           disabled={disabled}
           handleNextButtonClick={handleNextButtonClick}
+          handleBackButtonClick={handleBackButtonClick}
           page={page}
         />
       </div>
