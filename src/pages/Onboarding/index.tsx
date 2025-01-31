@@ -40,7 +40,7 @@ export default function Onboarding() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const registerNickname = useMutation({
+  const onboarding = useMutation({
     mutationFn: async () => {
       const res = await axios.post('/users/onboarding', value);
       return res.data;
@@ -73,7 +73,7 @@ export default function Onboarding() {
 
   function handleSubmitButtonClick(disabled: boolean) {
     if (disabled) return;
-    registerNickname.mutate();
+    onboarding.mutate();
   }
 
   useEffect(() => {

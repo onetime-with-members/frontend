@@ -16,7 +16,7 @@ export default function WelcomeScreen({
   return (
     <section
       className={cn(
-        'flex flex-1 -translate-y-16 flex-col items-center justify-center gap-12',
+        'flex flex-1 -translate-y-6 flex-col items-center justify-center gap-12 md:-translate-y-16',
         {
           hidden: !isVisible,
         },
