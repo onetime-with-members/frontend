@@ -20,7 +20,6 @@ export default function MyScheduleSection() {
         mode="view"
         mySchedules={mySchedulesDefault}
         backgroundColor="white"
-        className="hidden flex-1 md:block"
       />
     </section>
   );
