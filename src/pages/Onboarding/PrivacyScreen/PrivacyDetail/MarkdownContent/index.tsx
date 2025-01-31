@@ -1,8 +1,8 @@
 import ReactMarkdown from 'react-markdown';
 
 import { PageDetailType } from '../..';
-import agreementMarkdown from '@/data/markdown/agreement';
-import privacyMarkdown from '@/data/markdown/privacy';
+import agreementMarkdown from '@/markdown/agreement';
+import privacyMarkdown from '@/markdown/privacy';
 
 interface MarkdownContentProps {
   pageDetail: PageDetailType;

@@ -11,14 +11,12 @@ import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 interface NavBarProps {
-  overlay?: boolean;
   variant?: 'default' | 'black';
   shadow?: boolean;
   className?: string;
 }
 
 export default function NavBar({
-  overlay,
   variant = 'default',
   shadow = true,
   className,
@@ -46,7 +44,6 @@ export default function NavBar({
           {
             'shadow-lg': isScrolling && shadow,
             'bg-gray-80 text-gray-00': variant === 'black',
-            'z-[9999]': overlay,
           },
         )}
       >
@@ -61,9 +58,6 @@ export default function NavBar({
           {user && <AvatarDropdown name={user.nickname} />}
           {!isLoading && !user && <LoginButton />}
         </div>
-        {overlay && (
-          <div className="absolute left-0 top-0 h-full w-full bg-gray-90 bg-opacity-30" />
-        )}
       </div>
     </nav>
   );
