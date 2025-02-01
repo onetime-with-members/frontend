@@ -60,14 +60,15 @@ export default function MyScheduleEdit() {
           onSubmitButtonClick={handleSubmitButtonClick}
         />
 
-        <main className="px-4 pb-24">
+        <main className="pb-24">
           <div className="mx-auto max-w-screen-sm">
             <SleepTimeUI />
             <MyTimeBlockBoard
               mode="edit"
               mySchedule={mySchedule}
               setMySchedule={setMySchedule}
-              topDateGroupClassName="sticky top-[120px] z-10 bg-gray-00"
+              className="pb-16 pl-2 pr-3"
+              topDateGroupClassName="sticky  top-[120px] z-10 bg-gray-00"
               setIsEdited={setIsMyScheduleEdited}
             />
           </div>
