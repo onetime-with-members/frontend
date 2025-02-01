@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import SleepTimeUI from './SleepTimeUI';
 import TopAppBar from './TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
@@ -61,11 +62,12 @@ export default function MyScheduleEdit() {
 
         <main className="px-4 pb-24">
           <div className="mx-auto max-w-screen-sm">
+            <SleepTimeUI />
             <MyTimeBlockBoard
               mode="edit"
               mySchedule={mySchedule}
               setMySchedule={setMySchedule}
-              topDateGroupClassName="sticky top-[64px] z-10 bg-gray-00"
+              topDateGroupClassName="sticky top-[120px] z-10 bg-gray-00"
               setIsEdited={setIsMyScheduleEdited}
             />
           </div>
