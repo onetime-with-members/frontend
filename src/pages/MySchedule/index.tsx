@@ -20,7 +20,7 @@ export default function MySchedule() {
         mode="view"
         backgroundColor="white"
         mySchedule={data || []}
-        className="bg-gray-05 pr-3"
+        className="bg-gray-05 pb-16 pr-3"
         topDateGroupClassName="sticky z-10 bg-gray-05 top-[120px] md:top-[178px]"
       />
     </div>
