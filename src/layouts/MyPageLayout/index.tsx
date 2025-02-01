@@ -57,7 +57,7 @@ export default function MyPageLayout() {
           tabActive={tabActive}
           onMyScheduleEditButtonClick={handleMyScheduleEditButtonClick}
         />
-        <main className="px-4 pb-20">
+        <main className="pb-20">
           <Outlet />
         </main>
       </div>

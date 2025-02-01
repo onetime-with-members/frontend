@@ -22,7 +22,7 @@ export default function MyEvents() {
   }
 
   return (
-    <ul className="flex flex-col gap-5">
+    <ul className="flex flex-col gap-5 px-4">
       {events.map((event) => (
         <MyEvent key={event.event_id} event={event} />
       ))}

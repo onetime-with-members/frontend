@@ -18,9 +18,9 @@ export default function ProfilePage() {
   }
 
   return (
-    <main className="flex flex-col gap-7">
+    <div className="flex flex-col gap-7 px-4">
       <ProfileSection user={user} />
       <SettingSection />
-    </main>
+    </div>
   );
 }
