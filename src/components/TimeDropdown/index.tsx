@@ -12,12 +12,14 @@ interface TimeDropdownProps {
   time: string;
   setTime: (time: string) => void;
   className?: string;
+  variant?: 'default' | 'white';
 }
 
 export default function TimeDropdown({
   time,
   setTime,
   className,
+  variant = 'default',
 }: TimeDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -35,8 +37,9 @@ export default function TimeDropdown({
     <div className={cn('relative', className)} ref={dropdownRef}>
       <div
         className={cn(
-          'flex cursor-pointer items-center justify-between gap-4 rounded-xl bg-gray-05 px-5 py-4',
+          'flex cursor-pointer items-center justify-between gap-4 rounded-xl bg-gray-05 px-4 py-3',
           {
+            'bg-gray-00': variant === 'white',
             'bg-primary-40': isDropdownMenuOpen,
           },
         )}

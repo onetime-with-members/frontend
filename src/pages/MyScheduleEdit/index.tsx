@@ -7,10 +7,12 @@ import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
 import { MyScheduleTime } from '@/types/schedule.type';
 import axios from '@/utils/axios';
+import cn from '@/utils/cn';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleEdit() {
   const [mySchedule, setMySchedule] = useState<MyScheduleTime[]>([]);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
 
@@ -62,13 +64,18 @@ export default function MyScheduleEdit() {
 
         <main className="pb-24">
           <div className="mx-auto max-w-screen-sm">
-            <SleepTimeUI />
+            <SleepTimeUI
+              isAccordionOpen={isAccordionOpen}
+              setIsAccordionOpen={setIsAccordionOpen}
+            />
             <MyTimeBlockBoard
               mode="edit"
               mySchedule={mySchedule}
               setMySchedule={setMySchedule}
               className="pb-16 pl-2 pr-3"
-              topDateGroupClassName="sticky  top-[120px] z-10 bg-gray-00"
+              topDateGroupClassName={cn('sticky top-[120px] z-10 bg-gray-00', {
+                'top-[183px] ': isAccordionOpen,
+              })}
               setIsEdited={setIsMyScheduleEdited}
             />
           </div>
