@@ -13,7 +13,7 @@ export type SleepTime = {
   end: string;
 };
 
-export default function SleepTimeUI({
+export default function SleepTimeAccordion({
   isAccordionOpen,
   setIsAccordionOpen,
 }: SleepTimeUIProps) {

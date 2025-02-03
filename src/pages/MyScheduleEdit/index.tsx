@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import SleepTimeUI from './SleepTimeUI';
+import SleepTimeAccordion from './SleepTimeAccordion';
 import TopAppBar from './TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
@@ -12,7 +12,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleEdit() {
   const [mySchedule, setMySchedule] = useState<MyScheduleTime[]>([]);
-  const [isAccordionOpen, setIsAccordionOpen] = useState(true);
+  const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
 
@@ -64,7 +64,7 @@ export default function MyScheduleEdit() {
 
         <main className="pb-24">
           <div className="mx-auto max-w-screen-sm">
-            <SleepTimeUI
+            <SleepTimeAccordion
               isAccordionOpen={isAccordionOpen}
               setIsAccordionOpen={setIsAccordionOpen}
             />
