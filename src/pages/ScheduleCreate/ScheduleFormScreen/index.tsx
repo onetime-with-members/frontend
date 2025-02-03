@@ -81,7 +81,7 @@ export default function ScheduleFormScreen({
       queryKey: ['fixed-schedules'],
       queryFn: async () => {
         const res = await axios.get('/fixed-schedules');
-        return res.data.payload;
+        return res.data.payload.schedules;
       },
       enabled: isLoggedIn,
     });
