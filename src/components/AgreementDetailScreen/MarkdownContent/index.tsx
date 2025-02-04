@@ -1,11 +1,11 @@
 import ReactMarkdown from 'react-markdown';
 
-import { PageDetailType } from '../..';
 import agreementMarkdown from '@/markdown/agreement';
 import privacyMarkdown from '@/markdown/privacy';
+import { AgreementKeyType } from '@/types/user.type';
 
 interface MarkdownContentProps {
-  pageDetail: PageDetailType;
+  pageDetail: AgreementKeyType;
 }
 
 export default function MarkdownContent({ pageDetail }: MarkdownContentProps) {

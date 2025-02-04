@@ -1,5 +1,5 @@
-import { OnboardingValueType } from '../..';
 import Checkbox from '../Checkbox';
+import { OnboardingValueType } from '@/types/user.type';
 
 interface CheckItemProps {
   value: OnboardingValueType;

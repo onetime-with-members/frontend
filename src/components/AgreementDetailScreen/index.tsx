@@ -1,19 +1,18 @@
-import { PageDetailType } from '..';
-
-import TopAppBarForMobile from '../../TopAppBarForMobile';
-import TopNavBarForDesktop from '../../TopNavBarForDesktop';
 import Header from './Header';
 import MarkdownContent from './MarkdownContent';
+import TopAppBarForMobile from './TopAppBarForMobile';
+import TopNavBarForDesktop from './TopNavBarForDesktop';
+import { AgreementKeyType } from '@/types/user.type';
 
-interface PrivacyDetailProps {
-  pageDetail: PageDetailType;
-  setPageDetail: React.Dispatch<React.SetStateAction<PageDetailType>>;
+interface AgreementDetailScreenProps {
+  pageDetail: AgreementKeyType;
+  setPageDetail: React.Dispatch<React.SetStateAction<AgreementKeyType>>;
 }
 
-export default function PrivacyDetail({
+export default function AgreementDetailScreen({
   pageDetail,
   setPageDetail,
-}: PrivacyDetailProps) {
+}: AgreementDetailScreenProps) {
   const pageTitle =
     pageDetail === 'service_policy_agreement'
       ? '서비스 이용약관'

@@ -1,8 +1,8 @@
-import { OnboardingValueType } from '..';
 import { useState } from 'react';
 
 import ScreenLayout from '../ScreenLayout';
 import NicknameFormControl from '@/components/NicknameFormControl';
+import { OnboardingValueType } from '@/types/user.type';
 
 interface NicknameFormProps {
   isVisible: boolean;

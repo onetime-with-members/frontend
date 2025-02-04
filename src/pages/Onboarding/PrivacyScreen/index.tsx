@@ -1,10 +1,10 @@
-import { OnboardingValueType } from '..';
 import { useEffect, useState } from 'react';
 
 import ScreenLayout from '../ScreenLayout';
 import AllCheckItem from './AllCheckItem';
 import CheckItem from './CheckItem';
-import PrivacyDetail from './PrivacyDetail';
+import AgreementDetailScreen from '@/components/AgreementDetailScreen';
+import { AgreementKeyType, OnboardingValueType } from '@/types/user.type';
 
 interface PrivacyScreenProps {
   isVisible: boolean;
@@ -15,8 +15,6 @@ interface PrivacyScreenProps {
   handleBackButtonClick: () => void;
 }
 
-export type PageDetailType = keyof OnboardingValueType | null;
-
 export default function PrivacyScreen({
   isVisible,
   page,
@@ -26,7 +24,7 @@ export default function PrivacyScreen({
   handleBackButtonClick,
 }: PrivacyScreenProps) {
   const [disabled, setDisabled] = useState(true);
-  const [pageDetail, setPageDetail] = useState<PageDetailType>(null);
+  const [pageDetail, setPageDetail] = useState<AgreementKeyType>(null);
 
   useEffect(() => {
     setDisabled(
@@ -83,7 +81,10 @@ export default function PrivacyScreen({
       </ScreenLayout>
 
       {pageDetail && (
-        <PrivacyDetail pageDetail={pageDetail} setPageDetail={setPageDetail} />
+        <AgreementDetailScreen
+          pageDetail={pageDetail}
+          setPageDetail={setPageDetail}
+        />
       )}
     </>
   );

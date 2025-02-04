@@ -1,8 +1,7 @@
-import { OnboardingValueType } from '..';
-
 import ScreenLayout from '../ScreenLayout';
 import TimeDropdown from '@/components/TimeDropdown';
 import SleepIcon from '@/components/icon/SleepIcon';
+import { OnboardingValueType } from '@/types/user.type';
 
 interface SleepTimeScreenProps {
   isVisible: boolean;

@@ -1,8 +1,7 @@
-import { PageDetailType } from '..';
 import clsx from 'clsx';
 
-import { OnboardingValueType } from '../..';
 import Checkbox from '../Checkbox';
+import { AgreementKeyType, OnboardingValueType } from '@/types/user.type';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface CheckItemProps {
@@ -10,7 +9,7 @@ interface CheckItemProps {
   checkedKey: keyof OnboardingValueType;
   value: OnboardingValueType;
   setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
-  setPageDetail: React.Dispatch<React.SetStateAction<PageDetailType>>;
+  setPageDetail: React.Dispatch<React.SetStateAction<AgreementKeyType>>;
   hasPageDetail?: boolean;
 }
 

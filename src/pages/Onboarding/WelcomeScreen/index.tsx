@@ -1,7 +1,6 @@
-import { OnboardingValueType } from '..';
-
 import StartButton from './StartButton';
 import WelcomeContent from './WelcomeContent';
+import { OnboardingValueType } from '@/types/user.type';
 import cn from '@/utils/cn';
 
 interface WelcomeScreenProps {

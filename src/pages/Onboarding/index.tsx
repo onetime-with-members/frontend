@@ -9,19 +9,10 @@ import TopAppBarForMobile from './TopAppBarForMobile';
 import TopNavBarForDesktop from './TopNavBarForDesktop';
 import WelcomeScreen from './WelcomeScreen';
 import { FooterContext } from '@/contexts/FooterContext';
+import { OnboardingValueType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useMutation } from '@tanstack/react-query';
-
-export interface OnboardingValueType {
-  register_token: string;
-  nickname: string;
-  service_policy_agreement: boolean;
-  privacy_policy_agreement: boolean;
-  marketing_policy_agreement: boolean;
-  sleep_start_time: string;
-  sleep_end_time: string;
-}
 
 export default function Onboarding() {
   const [page, setPage] = useState(1);
