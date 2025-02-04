@@ -42,16 +42,6 @@ export default function ScheduleFormScreen({
   const params = useParams();
   const queryClient = useQueryClient();
 
-  // const { data: myFixedSchedules, isLoading: isMyFixedSchedulesLoading } =
-  //   useQuery<MyScheduleTime[]>({
-  //     queryKey: ['fixed-schedules'],
-  //     queryFn: async () => {
-  //       const res = await axios.get('/fixed-schedules');
-  //       return res.data.payload.schedules;
-  //     },
-  //     enabled: isLoggedIn,
-  //   });
-
   const createNewMemberSchedule = useMutation({
     mutationFn: async () => {
       const res = await axios.post(`/members/action-register`, {

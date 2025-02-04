@@ -8,12 +8,14 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localeData from 'dayjs/plugin/localeData';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
+import weekday from 'dayjs/plugin/weekday';
 
 dayjs.locale('ko');
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
 dayjs.extend(relativeTime);
 dayjs.extend(updateLocale);
+dayjs.extend(weekday);
 
 dayjs.updateLocale('ko', {
   relativeTime: {

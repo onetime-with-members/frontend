@@ -1,3 +1,4 @@
+import dayjs, { weekdaysMin } from 'dayjs';
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -11,10 +12,11 @@ import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import { FooterContext } from '@/contexts/FooterContext';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import { EventType } from '@/types/event.type';
-import { Schedule } from '@/types/schedule.type';
+import { MyScheduleTime, Schedule } from '@/types/schedule.type';
 import { GuestValue } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
+import { getBlockTimeList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
 
 export default function ScheduleCreate() {
@@ -56,7 +58,7 @@ export default function ScheduleCreate() {
     },
   });
 
-  const { data: scheduleData } = useQuery({
+  const { data: scheduleData } = useQuery<Schedule>({
     queryKey: [
       'schedules',
       event?.category?.toLowerCase(),
@@ -70,6 +72,15 @@ export default function ScheduleCreate() {
       return res.data.payload;
     },
     enabled: event && !isNewGuest,
+  });
+
+  const { data: fixedScheduleData } = useQuery<MyScheduleTime[]>({
+    queryKey: ['fixed-schedules'],
+    queryFn: async () => {
+      const res = await axios.get('/fixed-schedules');
+      return res.data.payload.schedules;
+    },
+    enabled: isLoggedIn,
   });
 
   function handleBackButtonClick() {
@@ -100,9 +111,73 @@ export default function ScheduleCreate() {
   });
 
   useEffect(() => {
-    if (!scheduleData) return;
-    setSchedules([scheduleData]);
-  }, [scheduleData]);
+    if (!scheduleData || !fixedScheduleData) return;
+    const isScheduleEmpty =
+      scheduleData.schedules.length === 0 ||
+      scheduleData.schedules.every((schedule) => schedule.times.length === 0);
+    const isFixedScheduleEmpty = fixedScheduleData.every(
+      (fixedSchedule) => fixedSchedule.times.length === 0,
+    );
+    if (isScheduleEmpty) {
+      setSchedules([
+        {
+          name: scheduleData.name,
+          schedules: isFixedScheduleEmpty ? [] : initSchedule() || [],
+        },
+      ]);
+    } else {
+      setSchedules([scheduleData]);
+    }
+
+    function initSchedule() {
+      if (!event) return;
+      return (
+        event.ranges.map((time_point) => ({
+          time_point,
+          times: convertedTimeBlockList(
+            event.start_time,
+            event.end_time,
+            fixedSchedule(time_point, event.category),
+          ),
+        })) || []
+      );
+
+      function weekdayIndex(
+        timePoint: string,
+        category: 'DATE' | 'DAY' = 'DAY',
+      ) {
+        return dayjs
+          .weekdaysMin()
+          .findIndex(
+            (w) =>
+              w ===
+              (category === 'DATE'
+                ? dayjs(timePoint).format('ddd')
+                : timePoint),
+          );
+      }
+
+      function fixedSchedule(timePoint: string, category: 'DATE' | 'DAY') {
+        return (
+          fixedScheduleData?.find(
+            (fixedSchedule) =>
+              weekdayIndex(timePoint, category) ===
+              weekdayIndex(fixedSchedule.time_point, 'DAY'),
+          )?.times || []
+        );
+      }
+
+      function convertedTimeBlockList(
+        startTime: string,
+        endTime: string,
+        fixedScheduleTimes: string[],
+      ) {
+        return getBlockTimeList(startTime, endTime).filter(
+          (time) => !fixedScheduleTimes.includes(time),
+        );
+      }
+    }
+  }, [scheduleData, fixedScheduleData, weekdaysMin]);
 
   return (
     <>
