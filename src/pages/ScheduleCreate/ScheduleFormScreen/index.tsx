@@ -1,22 +1,19 @@
-import dayjs from 'dayjs';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import BottomButtonForDesktop from './BottomButtonForDesktop';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard';
 import { EventType } from '@/types/event.type';
-import { MyScheduleTime, Schedule } from '@/types/schedule.type';
+import { Schedule } from '@/types/schedule.type';
 import { GuestValue } from '@/types/user.type';
 import axios from '@/utils/axios';
-import { getBlockTimeList } from '@/utils/time-block';
-import { sortWeekdayList } from '@/utils/weekday';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface ScheduleFormProps {
+  event: EventType;
   guestId: string;
   isNewGuest: boolean;
   guestValue: GuestValue;
-  isLoggedIn: boolean;
   schedules: Schedule[];
   setSchedules: React.Dispatch<React.SetStateAction<Schedule[]>>;
   isPossibleTime: boolean;
@@ -28,10 +25,10 @@ interface ScheduleFormProps {
 }
 
 export default function ScheduleFormScreen({
+  event,
   guestId,
   isNewGuest,
   guestValue,
-  isLoggedIn,
   schedules,
   setSchedules,
   isPossibleTime,
@@ -45,46 +42,15 @@ export default function ScheduleFormScreen({
   const params = useParams();
   const queryClient = useQueryClient();
 
-  const { isLoading: isEventLoading, data: eventData } = useQuery<EventType>({
-    queryKey: ['events', params.eventId],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${params.eventId}`);
-      return res.data.payload;
-    },
-  });
-  let event: EventType = eventData || ({} as EventType);
-
-  if (event && event.category === 'DAY') {
-    event.ranges = sortWeekdayList(event.ranges);
-  }
-
-  const { isLoading: isScheduleLoading, data: scheduleData } = useQuery({
-    queryKey: [
-      'schedules',
-      event?.category?.toLowerCase(),
-      params.eventId,
-      isLoggedIn ? 'user' : guestId,
-    ],
-    queryFn: async () => {
-      const res = await axios.get(
-        `/schedules/${event?.category?.toLowerCase()}/${params.eventId}/${isLoggedIn ? 'user' : guestId}`,
-      );
-      return res.data;
-    },
-    enabled: event !== undefined && !isNewGuest,
-  });
-
-  const mySchedule: Schedule = scheduleData?.payload;
-
-  const { data: myFixedSchedules, isLoading: isMyFixedSchedulesLoading } =
-    useQuery<MyScheduleTime[]>({
-      queryKey: ['fixed-schedules'],
-      queryFn: async () => {
-        const res = await axios.get('/fixed-schedules');
-        return res.data.payload.schedules;
-      },
-      enabled: isLoggedIn,
-    });
+  // const { data: myFixedSchedules, isLoading: isMyFixedSchedulesLoading } =
+  //   useQuery<MyScheduleTime[]>({
+  //     queryKey: ['fixed-schedules'],
+  //     queryFn: async () => {
+  //       const res = await axios.get('/fixed-schedules');
+  //       return res.data.payload.schedules;
+  //     },
+  //     enabled: isLoggedIn,
+  //   });
 
   const createNewMemberSchedule = useMutation({
     mutationFn: async () => {
@@ -137,140 +103,19 @@ export default function ScheduleFormScreen({
     }
   }, [isTopSubmitButtonClicked]);
 
-  useEffect(() => {
-    if (!event) return;
-    if (isNewGuest) {
-      setSchedules([
-        {
-          name: guestValue.name,
-          schedules: event.ranges.map((timePoint) => ({
-            time_point: timePoint,
-            times:
-              schedules[0].schedules.find((s) => s.time_point === timePoint)
-                ?.times || [],
-          })),
-        },
-      ]);
-    } else if (!isScheduleLoading && mySchedule) {
-      if (mySchedule.schedules.length === 0) {
-        if (!isMyFixedSchedulesLoading && myFixedSchedules) {
-          let convertedMyFixedSchedules: {
-            time_point: string;
-            times: string[];
-          }[] = dayjs.weekdaysMin().map((weekday) => ({
-            time_point: weekday,
-            times: [],
-          }));
-
-          // myFixedSchedules.forEach((fixedSchedule) => {
-          //   fixedSchedule.schedules.forEach((schedule) => {
-          //     const foundedTimeBlock = convertedMyFixedSchedules.find(
-          //       (s) => s.time_point === schedule.time_point,
-          //     );
-
-          //     if (foundedTimeBlock) {
-          //       foundedTimeBlock.times = [
-          //         ...new Set([...foundedTimeBlock.times, ...schedule.times]),
-          //       ].sort();
-          //     }
-          //   });
-          // });
-
-          convertedMyFixedSchedules = convertedMyFixedSchedules.map((s) => ({
-            time_point: s.time_point,
-            times: getBlockTimeList(event.start_time, event.end_time).filter(
-              (time) => !s.times.includes(time),
-            ),
-          }));
-
-          let newSchedules: Schedule[] = [];
-
-          if (
-            convertedMyFixedSchedules.every(
-              (s) =>
-                JSON.stringify(s.times) ===
-                JSON.stringify(
-                  getBlockTimeList(event.start_time, event.end_time),
-                ),
-            )
-          ) {
-            newSchedules = [
-              {
-                name: guestValue.name,
-                schedules: event.ranges.map((timePoint) => ({
-                  time_point: timePoint,
-                  times: [],
-                })),
-              },
-            ];
-            setIsPossibleTime(true);
-          } else {
-            newSchedules = [
-              {
-                name: guestValue.name,
-                schedules: event.ranges.map((timePoint) => ({
-                  time_point: timePoint,
-                  times:
-                    convertedMyFixedSchedules.find((s) =>
-                      event.category === 'DATE'
-                        ? s.time_point ===
-                          dayjs(timePoint, 'YYYY.MM.DD').format('dd')
-                        : s.time_point === timePoint,
-                    )?.times || [],
-                })),
-              },
-            ];
-            setIsPossibleTime(false);
-          }
-
-          setSchedules(newSchedules);
-        }
-      } else {
-        setSchedules([
-          {
-            name: guestValue.name,
-            schedules: event.ranges.map((timePoint) => ({
-              time_point: timePoint,
-              times:
-                mySchedule.schedules.find((s) => s.time_point === timePoint)
-                  ?.times || [],
-            })),
-          },
-        ]);
-      }
-    }
-  }, [
-    event,
-    isNewGuest,
-    isScheduleLoading,
-    mySchedule,
-    isMyFixedSchedulesLoading,
-    myFixedSchedules,
-  ]);
-
-  if (isNewGuest) {
-    if (isEventLoading || isMyFixedSchedulesLoading) return <></>;
-  } else if (isEventLoading || isScheduleLoading) {
-    return <></>;
-  }
-
   return (
     <>
-      <div>
-        {!isEventLoading && event !== undefined && (
-          <TimeBlockBoard
-            schedules={schedules}
-            setSchedules={setSchedules}
-            event={event}
-            isPossibleTime={isPossibleTime}
-            setIsPossibleTime={setIsPossibleTime}
-            editable
-            topContentClassName="top-[64px]"
-            isEdited={isScheduleEdited}
-            setIsEdited={setIsScheduleEdited}
-          />
-        )}
-      </div>
+      <TimeBlockBoard
+        schedules={schedules}
+        setSchedules={setSchedules}
+        event={event}
+        isPossibleTime={isPossibleTime}
+        setIsPossibleTime={setIsPossibleTime}
+        editable
+        topContentClassName="top-[64px]"
+        isEdited={isScheduleEdited}
+        setIsEdited={setIsScheduleEdited}
+      />
       <BottomButtonForDesktop onClick={handleSubmit} />
     </>
   );

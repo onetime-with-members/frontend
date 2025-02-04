@@ -9,10 +9,13 @@ import TopHeaderForDesktop from './TopHeaderForDesktop';
 import TopNavBarForDesktop from './TopNavBarForDesktop';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import { FooterContext } from '@/contexts/FooterContext';
+import useGrayBackground from '@/hooks/useGrayBackground';
+import { EventType } from '@/types/event.type';
 import { Schedule } from '@/types/schedule.type';
 import { GuestValue } from '@/types/user.type';
-import breakpoint from '@/utils/breakpoint';
+import axios from '@/utils/axios';
 import cn from '@/utils/cn';
+import { useQuery } from '@tanstack/react-query';
 
 export default function ScheduleCreate() {
   const [pageIndex, setPageIndex] = useState(
@@ -38,10 +41,36 @@ export default function ScheduleCreate() {
 
   const { setIsFooterVisible } = useContext(FooterContext);
 
+  useGrayBackground();
+
   const navigate = useNavigate();
   const params = useParams<{ eventId: string }>();
 
   const isLoggedIn = localStorage.getItem('access-token') !== null;
+
+  const { data: event } = useQuery<EventType>({
+    queryKey: ['events', params.eventId],
+    queryFn: async () => {
+      const res = await axios.get(`/events/${params.eventId}`);
+      return res.data.payload;
+    },
+  });
+
+  const { data: scheduleData } = useQuery({
+    queryKey: [
+      'schedules',
+      event?.category?.toLowerCase(),
+      params.eventId,
+      isLoggedIn ? 'user' : guestId,
+    ],
+    queryFn: async () => {
+      const res = await axios.get(
+        `/schedules/${event?.category?.toLowerCase()}/${params.eventId}/${isLoggedIn ? 'user' : guestId}`,
+      );
+      return res.data.payload;
+    },
+    enabled: event && !isNewGuest,
+  });
 
   function handleBackButtonClick() {
     if (pageIndex === 0) {
@@ -71,28 +100,9 @@ export default function ScheduleCreate() {
   });
 
   useEffect(() => {
-    function updateBackgroundColor() {
-      if (window.innerWidth >= breakpoint.md) {
-        document.body.style.backgroundColor = '#F9F9F9';
-      } else {
-        document.body.style.backgroundColor = '';
-      }
-    }
-
-    function initBackgroundColor() {
-      document.body.style.backgroundColor = '';
-    }
-
-    updateBackgroundColor();
-
-    window.addEventListener('resize', updateBackgroundColor);
-
-    return () => {
-      initBackgroundColor();
-
-      window.removeEventListener('resize', updateBackgroundColor);
-    };
-  }, []);
+    if (!scheduleData) return;
+    setSchedules([scheduleData]);
+  }, [scheduleData]);
 
   return (
     <>
@@ -128,12 +138,12 @@ export default function ScheduleCreate() {
               setIsNewGuest={setIsNewGuest}
             />
           )}
-          {pageIndex === 1 && (
+          {pageIndex === 1 && event && (
             <ScheduleFormScreen
+              event={event}
               guestId={guestId}
               isNewGuest={isNewGuest}
               guestValue={guestValue}
-              isLoggedIn={isLoggedIn}
               schedules={schedules}
               setSchedules={setSchedules}
               isPossibleTime={isPossibleTime}

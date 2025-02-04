@@ -64,8 +64,30 @@ export default function TimeBlockBoard({
     newStatus: boolean,
   ) {
     if (!editable) return;
+    initSchedule();
     editTimeBlock();
     changeIsEdited();
+
+    function initSchedule() {
+      if (!setSchedules) return;
+      const targetIndex = schedules[0].schedules.findIndex(
+        (s) => s.time_point === day,
+      );
+      if (targetIndex === -1) {
+        setSchedules((prev) => [
+          {
+            name: prev[0].name,
+            schedules: [
+              ...prev[0].schedules,
+              {
+                time_point: day,
+                times: newStatus ? [time] : [],
+              },
+            ],
+          },
+        ]);
+      }
+    }
 
     function editTimeBlock() {
       if (!setSchedules) return;

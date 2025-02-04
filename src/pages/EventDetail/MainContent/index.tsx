@@ -19,18 +19,18 @@ export default function MainContent({
 }: MainContentProps) {
   const params = useParams<{ eventId: string }>();
 
-  const { isLoading: isScheduleLoading, data: scheduleData } = useQuery({
+  const { isLoading: isScheduleLoading, data: schedules } = useQuery<
+    Schedule[]
+  >({
     queryKey: ['schedules', event?.category?.toLowerCase(), params.eventId],
     queryFn: async () => {
       const res = await axios.get(
         `/schedules/${event?.category.toLowerCase()}/${params.eventId}`,
       );
-      return res.data;
+      return res.data.payload;
     },
     enabled: !!event,
   });
-
-  const schedules: Schedule[] = scheduleData?.payload;
 
   const { isLoading: isRecommendLoading, data: recommendData } = useQuery({
     queryKey: ['events', params.eventId, 'most'],
@@ -42,9 +42,8 @@ export default function MainContent({
 
   const recommendSchedules: RecommendSchedule[] = recommendData?.payload;
 
-  const participants: string[] = schedules
-    ?.map((schedule) => schedule.name)
-    .sort();
+  const participants: string[] =
+    schedules?.map((schedule) => schedule.name).sort() || [];
 
   function copyEventShareLink() {
     navigator.clipboard.writeText(
