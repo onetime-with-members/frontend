@@ -10,7 +10,7 @@ export default function EditButtonGroup({
   onCancel,
 }: EditButtonGroupProps) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center justify-end gap-2">
       <SmallButton variant="primary" onClick={onSubmit}>
         완료
       </SmallButton>

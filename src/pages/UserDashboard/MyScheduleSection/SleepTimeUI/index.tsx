@@ -6,6 +6,7 @@ import PenIcon from '@/components/icon/PenIcon';
 import SleepIcon from '@/components/icon/SleepIcon';
 import { SleepTime } from '@/types/user.type';
 import axios from '@/utils/axios';
+import cn from '@/utils/cn';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function SleepTimeUI() {
@@ -54,7 +55,11 @@ export default function SleepTimeUI() {
   }, [data]);
 
   return (
-    <div className="flex items-center justify-between px-6 pb-4 pt-5">
+    <div
+      className={cn('flex items-stretch justify-between gap-3 px-6 pb-4 pt-5', {
+        'flex-col sm:flex-row sm:items-center': isEditing,
+      })}
+    >
       <div className="flex items-center gap-1.5">
         <span>
           <SleepIcon fill="#31333F" size={20} />
