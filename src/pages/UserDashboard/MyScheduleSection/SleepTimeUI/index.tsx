@@ -9,12 +9,14 @@ import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
+const defaultSleepTime: SleepTime = {
+  sleep_start_time: '00:00',
+  sleep_end_time: '00:00',
+};
+
 export default function SleepTimeUI() {
   const [isEditing, setIsEditing] = useState(false);
-  const [sleepTime, setSleepTime] = useState<SleepTime>({
-    sleep_start_time: '00:00',
-    sleep_end_time: '00:00',
-  });
+  const [sleepTime, setSleepTime] = useState<SleepTime>(defaultSleepTime);
 
   const queryClient = useQueryClient();
 
@@ -47,6 +49,7 @@ export default function SleepTimeUI() {
 
   function handleCancelButtonClick() {
     setIsEditing(false);
+    setSleepTime(data || defaultSleepTime);
   }
 
   useEffect(() => {
