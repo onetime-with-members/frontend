@@ -1,20 +1,39 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import EditButtonGroup from './EditButtonGroup';
 import EditDropdownContent from './EditDropdownContent';
 import PenIcon from '@/components/icon/PenIcon';
 import SleepIcon from '@/components/icon/SleepIcon';
-
-export type SleepTime = {
-  start: string;
-  end: string;
-};
+import { SleepTime } from '@/types/user.type';
+import axios from '@/utils/axios';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function SleepTimeUI() {
   const [isEditing, setIsEditing] = useState(false);
   const [sleepTime, setSleepTime] = useState<SleepTime>({
-    start: '03:00',
-    end: '10:00',
+    sleep_start_time: '00:00',
+    sleep_end_time: '00:00',
+  });
+
+  const queryClient = useQueryClient();
+
+  const { data } = useQuery<SleepTime>({
+    queryKey: ['users', 'sleep-time'],
+    queryFn: async () => {
+      const res = await axios.get('/users/sleep-time');
+      return res.data.payload;
+    },
+  });
+
+  const editSleepTime = useMutation({
+    mutationFn: async () => {
+      const res = await axios.put('/users/sleep-time', sleepTime);
+      return res.data.payload;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+      setIsEditing(false);
+    },
   });
 
   function handleEditButtonClick() {
@@ -22,12 +41,17 @@ export default function SleepTimeUI() {
   }
 
   function handleSubmitButtonClick() {
-    setIsEditing(false);
+    editSleepTime.mutate();
   }
 
   function handleCancelButtonClick() {
     setIsEditing(false);
   }
+
+  useEffect(() => {
+    if (!data) return;
+    setSleepTime(data);
+  }, [data]);
 
   return (
     <div className="flex items-center justify-between px-6 pb-4 pt-5">
@@ -41,7 +65,9 @@ export default function SleepTimeUI() {
             setSleepTime={setSleepTime}
           />
         ) : (
-          <span className="text-gray-80 text-lg-200">03:00 - 10:00</span>
+          <span className="text-gray-80 text-lg-200">
+            {data?.sleep_start_time} - {data?.sleep_end_time}
+          </span>
         )}
       </div>
       {isEditing ? (
