@@ -18,7 +18,7 @@ export default function ScheduleCreate() {
   const [pageIndex, setPageIndex] = useState(
     localStorage.getItem('access-token') !== null ? 1 : 0,
   );
-  const [isNewGuest, setIsNewGuest] = useState(false);
+  const [isNewGuest, setIsNewGuest] = useState(true);
   const [guestId, setGuestId] = useState('');
   const [guestValue, setGuestValue] = useState<GuestValue>({
     name: '',

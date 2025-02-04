@@ -49,7 +49,8 @@ export default function useScheduleEdit({
       );
       return res.data.payload;
     },
-    enabled: event && !isNewGuest,
+    enabled:
+      event !== undefined && !isNewGuest && (isLoggedIn || guestId !== ''),
   });
 
   const { data: fixedScheduleData } = useQuery<MyScheduleTime[]>({
@@ -62,13 +63,14 @@ export default function useScheduleEdit({
   });
 
   useEffect(() => {
-    if (!scheduleData || !fixedScheduleData) return;
+    if (!scheduleData) return;
     const isScheduleEmpty =
       scheduleData.schedules.length === 0 ||
       scheduleData.schedules.every((schedule) => schedule.times.length === 0);
-    const isFixedScheduleEmpty = fixedScheduleData.every(
-      (fixedSchedule) => fixedSchedule.times.length === 0,
-    );
+    const isFixedScheduleEmpty =
+      fixedScheduleData?.every(
+        (fixedSchedule) => fixedSchedule.times.length === 0,
+      ) || true;
     if (isScheduleEmpty) {
       setSchedules([
         {
@@ -85,40 +87,15 @@ export default function useScheduleEdit({
       return (
         event.ranges.map((time_point) => ({
           time_point,
-          times: convertedTimeBlockList(
+          times: newTimes(
             event.start_time,
             event.end_time,
-            fixedSchedule(time_point, event.category),
+            fixedScheduleTimes(time_point, event.category),
           ),
         })) || []
       );
 
-      function weekdayIndex(
-        timePoint: string,
-        category: 'DATE' | 'DAY' = 'DAY',
-      ) {
-        return dayjs
-          .weekdaysMin()
-          .findIndex(
-            (w) =>
-              w ===
-              (category === 'DATE'
-                ? dayjs(timePoint).format('ddd')
-                : timePoint),
-          );
-      }
-
-      function fixedSchedule(timePoint: string, category: 'DATE' | 'DAY') {
-        return (
-          fixedScheduleData?.find(
-            (fixedSchedule) =>
-              weekdayIndex(timePoint, category) ===
-              weekdayIndex(fixedSchedule.time_point, 'DAY'),
-          )?.times || []
-        );
-      }
-
-      function convertedTimeBlockList(
+      function newTimes(
         startTime: string,
         endTime: string,
         fixedScheduleTimes: string[],
@@ -127,8 +104,33 @@ export default function useScheduleEdit({
           (time) => !fixedScheduleTimes.includes(time),
         );
       }
+
+      function fixedScheduleTimes(timePoint: string, category: 'DATE' | 'DAY') {
+        return (
+          fixedScheduleData?.find(
+            (fixedSchedule) =>
+              weekdayIndex(timePoint, category) ===
+              weekdayIndex(fixedSchedule.time_point, 'DAY'),
+          )?.times || []
+        );
+
+        function weekdayIndex(
+          timePoint: string,
+          category: 'DATE' | 'DAY' = 'DAY',
+        ) {
+          return dayjs
+            .weekdaysMin()
+            .findIndex(
+              (w) =>
+                w ===
+                (category === 'DATE'
+                  ? dayjs(timePoint).format('ddd')
+                  : timePoint),
+            );
+        }
+      }
     }
-  }, [scheduleData, fixedScheduleData]);
+  }, [scheduleData, fixedScheduleData, isNewGuest, guestId]);
 
   return { schedules, setSchedules, event };
 }
