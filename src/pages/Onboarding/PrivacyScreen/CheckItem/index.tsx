@@ -9,7 +9,7 @@ interface CheckItemProps {
   checkedKey: keyof OnboardingValueType;
   value: OnboardingValueType;
   setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
-  setPageDetail: React.Dispatch<React.SetStateAction<AgreementKeyType>>;
+  setPageDetail: React.Dispatch<React.SetStateAction<AgreementKeyType | null>>;
   hasPageDetail?: boolean;
 }
 

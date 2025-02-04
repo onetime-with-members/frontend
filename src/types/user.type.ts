@@ -19,7 +19,7 @@ export interface AgreementType {
   marketing_policy_agreement: boolean;
 }
 
-export type AgreementKeyType = keyof AgreementType | null;
+export type AgreementKeyType = keyof AgreementType;
 
 export interface OnboardingValueType extends AgreementType, SleepTime {
   register_token: string;

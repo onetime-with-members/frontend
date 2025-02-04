@@ -5,16 +5,16 @@ import privacyMarkdown from '@/markdown/privacy';
 import { AgreementKeyType } from '@/types/user.type';
 
 interface MarkdownContentProps {
-  pageDetail: AgreementKeyType;
+  page: AgreementKeyType;
 }
 
-export default function MarkdownContent({ pageDetail }: MarkdownContentProps) {
+export default function MarkdownContent({ page }: MarkdownContentProps) {
   return (
     <div className="markdown-body scrollbar-hidden flex-1 overflow-scroll px-4 md:rounded-2xl md:p-8">
-      {pageDetail === 'service_policy_agreement' && (
+      {page === 'service_policy_agreement' && (
         <ReactMarkdown>{agreementMarkdown}</ReactMarkdown>
       )}
-      {pageDetail === 'privacy_policy_agreement' && (
+      {page === 'privacy_policy_agreement' && (
         <ReactMarkdown>{privacyMarkdown}</ReactMarkdown>
       )}
     </div>

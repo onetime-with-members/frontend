@@ -24,7 +24,11 @@ export default function PrivacyScreen({
   handleBackButtonClick,
 }: PrivacyScreenProps) {
   const [disabled, setDisabled] = useState(true);
-  const [pageDetail, setPageDetail] = useState<AgreementKeyType>(null);
+  const [pageDetail, setPageDetail] = useState<AgreementKeyType | null>(null);
+
+  function handlePageDetailClose() {
+    setPageDetail(null);
+  }
 
   useEffect(() => {
     setDisabled(
@@ -82,8 +86,8 @@ export default function PrivacyScreen({
 
       {pageDetail && (
         <AgreementDetailScreen
-          pageDetail={pageDetail}
-          setPageDetail={setPageDetail}
+          page={pageDetail}
+          onClose={handlePageDetailClose}
         />
       )}
     </>
