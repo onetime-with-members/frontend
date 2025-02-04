@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import SleepTimeUI from './SleepTimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
 import { MyScheduleTime } from '@/types/schedule.type';
 import axios from '@/utils/axios';
@@ -27,11 +28,14 @@ export default function MyScheduleSection() {
         </Link>
       </header>
 
-      <MyTimeBlockBoard
-        mode="view"
-        mySchedule={data || []}
-        backgroundColor="white"
-      />
+      <div className="rounded-2xl bg-gray-00">
+        <SleepTimeUI />
+        <MyTimeBlockBoard
+          mode="view"
+          mySchedule={data || []}
+          className="pl-3 pr-6"
+        />
+      </div>
     </section>
   );
 }

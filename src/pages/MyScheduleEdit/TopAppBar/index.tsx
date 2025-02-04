@@ -1,3 +1,4 @@
+import SmallButton from '@/components/button/SmallButton';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 interface TopAppBarProps {
@@ -22,12 +23,7 @@ export default function TopAppBar({
             스케줄 입력
           </div>
           <div className="flex items-center justify-end">
-            <button
-              className="rounded-lg bg-primary-00 px-3 py-1.5 text-primary-40 text-sm-200"
-              onClick={onSubmitButtonClick}
-            >
-              완료
-            </button>
+            <SmallButton onClick={onSubmitButtonClick}>완료</SmallButton>
           </div>
         </div>
       </div>
