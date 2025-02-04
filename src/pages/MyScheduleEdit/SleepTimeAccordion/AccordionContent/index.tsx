@@ -1,9 +1,8 @@
-import { SleepTime } from '..';
-
 import TimeDropdown from '@/components/TimeDropdown';
+import { SleepTime } from '@/types/user.type';
 
 interface AccordionContentProps {
-  sleepTime: { start: string; end: string };
+  sleepTime: SleepTime;
   setSleepTime: React.Dispatch<React.SetStateAction<SleepTime>>;
 }
 
@@ -22,15 +21,15 @@ export default function AccordionContent({
     <div className="flex items-center gap-2.5">
       <TimeDropdown
         variant="white"
-        time={sleepTime.start}
-        setTime={(time) => handleSleepTimeChange('start', time)}
+        time={sleepTime.sleep_start_time}
+        setTime={(time) => handleSleepTimeChange('sleep_start_time', time)}
         className="flex-1"
       />
       <span className="text-gray-40 text-md-300">-</span>
       <TimeDropdown
         variant="white"
-        time={sleepTime.end}
-        setTime={(time) => handleSleepTimeChange('end', time)}
+        time={sleepTime.sleep_end_time}
+        setTime={(time) => handleSleepTimeChange('sleep_end_time', time)}
         className="flex-1"
       />
     </div>

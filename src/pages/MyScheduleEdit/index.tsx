@@ -6,17 +6,23 @@ import TopAppBar from './TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
 import { MyScheduleTime } from '@/types/schedule.type';
+import { SleepTime } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function MyScheduleEdit() {
   const [mySchedule, setMySchedule] = useState<MyScheduleTime[]>([]);
+  const [sleepTime, setSleepTime] = useState<SleepTime>({
+    sleep_start_time: '00:00',
+    sleep_end_time: '00:00',
+  });
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data } = useQuery<MyScheduleTime[]>({
     queryKey: ['fixed-schedules'],
@@ -33,8 +39,19 @@ export default function MyScheduleEdit() {
       });
       return res.data.payload;
     },
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
       navigate(-1);
+    },
+  });
+
+  const editSleepTime = useMutation({
+    mutationFn: async () => {
+      const res = await axios.put('/users/sleep-time', sleepTime);
+      return res.data.payload;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
     },
   });
 
@@ -46,8 +63,9 @@ export default function MyScheduleEdit() {
     }
   }
 
-  function handleSubmitButtonClick() {
+  async function handleSubmitButtonClick() {
     editMySchedule.mutate();
+    editSleepTime.mutate();
   }
 
   useEffect(() => {
@@ -65,6 +83,8 @@ export default function MyScheduleEdit() {
         <main className="pb-24">
           <div className="mx-auto max-w-screen-sm">
             <SleepTimeAccordion
+              sleepTime={sleepTime}
+              setSleepTime={setSleepTime}
               isAccordionOpen={isAccordionOpen}
               setIsAccordionOpen={setIsAccordionOpen}
             />
