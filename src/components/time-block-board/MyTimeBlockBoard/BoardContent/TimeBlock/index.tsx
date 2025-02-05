@@ -31,7 +31,7 @@ export default function TimeBlock({
           'cursor-pointer': mode === 'create' || mode === 'edit',
         },
         {
-          'border border-dashed border-danger-50 bg-danger-10 even:border-dashed':
+          'border border-dashed border-danger-50 bg-danger-10 last:border-b even:border-dashed':
             clickedFirst,
         },
       )}

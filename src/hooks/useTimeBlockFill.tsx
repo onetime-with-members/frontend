@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { maxOf, minOf } from '@/utils/string-min-max';
-import { getLabelTimeList as timeListBetween } from '@/utils/time-block';
+import { timeLabelList as timeListBetween } from '@/utils/time-block';
 
 interface useTimeBlockFillProps {
   isFilled: (timePoint: string, time: string) => boolean;

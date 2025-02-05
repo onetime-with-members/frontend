@@ -17,7 +17,7 @@ export default function MyScheduleSection() {
   return (
     <section className="flex flex-col gap-3">
       <Header />
-      <div className="rounded-2xl bg-gray-00">
+      <div className="rounded-2xl bg-gray-00 pb-12">
         <SleepTimeUI />
         <MyTimeBlockBoard
           mode="view"

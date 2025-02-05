@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
 
 import TimeBlock from './TimeBlock';
+import useSleepTime from '@/hooks/useSleepTime';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { MyScheduleTime } from '@/types/schedule.type';
-import { timeBlockList } from '@/utils/time-block';
+import { timeBlockList as _timeBlockList } from '@/utils/time-block';
 
 interface TimeBlockContentProps {
   mode: 'view' | 'edit';
@@ -28,6 +29,7 @@ export default function BoardContent({
         setIsEdited && setIsEdited(true);
       },
     });
+  const { timesGroupList } = useSleepTime();
 
   function changeTimeBlock(
     weekday: string,
@@ -67,16 +69,23 @@ export default function BoardContent({
   return (
     <div className="grid flex-1 grid-cols-7 gap-2">
       {dayjs.weekdaysMin().map((weekday) => (
-        <div key={weekday} className="overflow-hidden rounded-lg">
-          {timeBlockList('00:00', '24:00').map((time) => (
-            <TimeBlock
-              key={time}
-              mode={mode}
-              backgroundColor={backgroundColor}
-              filled={isFilled(weekday, time)}
-              clickedFirst={isClickedFirst(weekday, time)}
-              onClick={() => handleTimeBlockClick(weekday, time)}
-            />
+        <div
+          key={weekday}
+          className="flex flex-col gap-2 overflow-hidden rounded-lg"
+        >
+          {timesGroupList('timeBlock').map((timesGroup, index) => (
+            <div key={index}>
+              {timesGroup.map((time) => (
+                <TimeBlock
+                  key={time}
+                  mode={mode}
+                  backgroundColor={backgroundColor}
+                  filled={isFilled(weekday, time)}
+                  clickedFirst={isClickedFirst(weekday, time)}
+                  onClick={() => handleTimeBlockClick(weekday, time)}
+                />
+              ))}
+            </div>
           ))}
         </div>
       ))}

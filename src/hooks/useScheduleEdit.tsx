@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import useSleepTime from './useSleepTime';
 import { EventType } from '@/types/event.type';
 import { MyScheduleTime, Schedule } from '@/types/schedule.type';
-import { SleepTime } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
@@ -24,6 +24,10 @@ export default function useScheduleEdit({
       schedules: [],
     },
   ]);
+
+  const { sleepTimes } = useSleepTime({
+    type: 'timeLabel',
+  });
 
   const params = useParams<{ eventId: string }>();
 
@@ -63,15 +67,6 @@ export default function useScheduleEdit({
     enabled: isLoggedIn,
   });
 
-  const { data: sleepTimeData } = useQuery<SleepTime>({
-    queryKey: ['users', 'sleep-time'],
-    queryFn: async () => {
-      const res = await axios.get('/users/sleep-time');
-      return res.data.payload;
-    },
-    enabled: isLoggedIn,
-  });
-
   useEffect(() => {
     if (!scheduleData) return;
     const isScheduleEmpty =
@@ -102,7 +97,7 @@ export default function useScheduleEdit({
             event.start_time,
             event.end_time,
             fixedScheduleTimes(time_point, event.category),
-            sleepTimes(),
+            sleepTimes,
           ),
         })) || []
       );
@@ -150,30 +145,6 @@ export default function useScheduleEdit({
                   ? dayjs(timePoint).format('ddd')
                   : timePoint),
             );
-        }
-      }
-
-      function sleepTimes() {
-        const { sleep_start_time: startTime, sleep_end_time: endTime } =
-          sleepTimeData || {
-            sleep_start_time: '00:00',
-            sleep_end_time: '00:00',
-          };
-        return isSame(startTime, endTime)
-          ? []
-          : isBefore(startTime, endTime)
-            ? timeBlockList(startTime, endTime)
-            : [
-                ...timeBlockList(startTime, '24:00'),
-                ...timeBlockList('00:00', endTime),
-              ];
-
-        function isSame(time1: string, time2: string) {
-          return dayjs(time1, 'HH:mm').isSame(dayjs(time2, 'HH:mm'));
-        }
-
-        function isBefore(time1: string, time2: string) {
-          return dayjs(time1, 'HH:mm').isBefore(dayjs(time2, 'HH:mm'));
         }
       }
     }

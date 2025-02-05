@@ -1,5 +1,5 @@
 import cn from '@/utils/cn';
-import { getLabelTimeList } from '@/utils/time-block';
+import { timeLabelList } from '@/utils/time-block';
 
 interface LeftTimeLineProps {
   startTime: string;
@@ -10,7 +10,7 @@ export default function LeftTimeLine({
   startTime,
   endTime,
 }: LeftTimeLineProps) {
-  const timeList = getLabelTimeList(startTime, endTime);
+  const timeList = timeLabelList(startTime, endTime);
 
   return (
     <div className="flex w-[3.5rem] flex-col items-center pr-4">
