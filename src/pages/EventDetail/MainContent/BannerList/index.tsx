@@ -5,13 +5,13 @@ import CircleArrowButton from './CircleArrowButton';
 import Participants from './Participants';
 import RecommendTime from './RecommendTime';
 import { EventType } from '@/types/event.type';
-import { RecommendSchedule } from '@/types/schedule.type';
+import { RecommendScheduleType } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 
 interface BannerListProps {
   eventCategory: EventType['category'];
   participants: string[];
-  recommendSchedules: RecommendSchedule[];
+  recommendSchedules: RecommendScheduleType[];
 }
 
 export default function BannerList({

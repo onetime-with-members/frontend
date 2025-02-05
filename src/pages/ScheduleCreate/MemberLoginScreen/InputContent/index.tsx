@@ -1,18 +1,18 @@
 import PinPasswordInput from './PinPasswordInput';
 import ScheduleInputLabel from './ScheduleInputLabel';
 import Input from '@/components/Input';
-import { GuestValue } from '@/types/user.type';
+import { GuestValueType } from '@/types/user.type';
 
 interface InputContentProps {
-  guestValue: GuestValue;
-  setGuestValue: React.Dispatch<React.SetStateAction<GuestValue>>;
+  guestValue: GuestValueType;
+  setGuestValue: React.Dispatch<React.SetStateAction<GuestValueType>>;
 }
 
 export default function InputContent({
   guestValue,
   setGuestValue,
 }: InputContentProps) {
-  function handleInputChange<T>(key: keyof GuestValue) {
+  function handleInputChange<T>(key: keyof GuestValueType) {
     return function (value: T) {
       setGuestValue((prev) => ({
         ...prev,

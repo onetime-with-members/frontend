@@ -1,16 +1,16 @@
 import TimeDropdown from '@/components/TimeDropdown';
-import { SleepTime } from '@/types/user.type';
+import { SleepTimeType } from '@/types/user.type';
 
 interface AccordionContentProps {
-  sleepTime: SleepTime;
-  setSleepTime: React.Dispatch<React.SetStateAction<SleepTime>>;
+  sleepTime: SleepTimeType;
+  setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
 }
 
 export default function AccordionContent({
   sleepTime,
   setSleepTime,
 }: AccordionContentProps) {
-  function handleSleepTimeChange(key: keyof SleepTime, time: string) {
+  function handleSleepTimeChange(key: keyof SleepTimeType, time: string) {
     setSleepTime((prev) => ({
       ...prev,
       [key]: time,

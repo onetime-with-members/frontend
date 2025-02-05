@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import EventFormContent from '@/components/EventFormContent';
-import { EventValue } from '@/types/event.type';
+import { EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
 
@@ -9,7 +9,7 @@ export default function EventCreate() {
   const navigate = useNavigate();
 
   const createEvent = useMutation({
-    mutationFn: (value: EventValue) => {
+    mutationFn: (value: EventValueType) => {
       return axios.post('/events', value);
     },
     onSuccess: (data) => {
@@ -17,7 +17,7 @@ export default function EventCreate() {
     },
   });
 
-  function handleSubmit(disabled: boolean, value: EventValue) {
+  function handleSubmit(disabled: boolean, value: EventValueType) {
     if (disabled || createEvent.isPending) return;
     createEvent.mutate(value);
   }

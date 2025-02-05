@@ -3,13 +3,13 @@ import { useState } from 'react';
 
 import RecommendTimePopUp from './RecommendTimePopUp';
 import { EventType } from '@/types/event.type';
-import { RecommendSchedule } from '@/types/schedule.type';
+import { RecommendScheduleType } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface RecommendTimeProps {
   eventCategory: EventType['category'];
-  recommendSchedules: RecommendSchedule[];
+  recommendSchedules: RecommendScheduleType[];
 }
 
 export default function RecommendTime({

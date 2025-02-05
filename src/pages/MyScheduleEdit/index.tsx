@@ -6,13 +6,13 @@ import TopAppBar from './TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
 import useSleepTime from '@/hooks/useSleepTime';
-import { MyScheduleTime } from '@/types/schedule.type';
+import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function MyScheduleEdit() {
-  const [mySchedule, setMySchedule] = useState<MyScheduleTime[]>([]);
+  const [mySchedule, setMySchedule] = useState<MyScheduleTimeType[]>([]);
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
@@ -22,7 +22,7 @@ export default function MyScheduleEdit() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data } = useQuery<MyScheduleTime[]>({
+  const { data } = useQuery<MyScheduleTimeType[]>({
     queryKey: ['fixed-schedules'],
     queryFn: async () => {
       const res = await axios.get('/fixed-schedules');

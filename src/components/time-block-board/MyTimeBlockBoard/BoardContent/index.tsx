@@ -3,15 +3,15 @@ import dayjs from 'dayjs';
 import TimeBlock from './TimeBlock';
 import useSleepTime from '@/hooks/useSleepTime';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
-import { MyScheduleTime } from '@/types/schedule.type';
-import { SleepTime } from '@/types/user.type';
+import { MyScheduleTimeType } from '@/types/schedule.type';
+import { SleepTimeType } from '@/types/user.type';
 import { timeBlockList as _timeBlockList } from '@/utils/time-block';
 
 interface TimeBlockContentProps {
   mode: 'view' | 'edit';
-  mySchedule: MyScheduleTime[];
-  setMySchedule?: React.Dispatch<React.SetStateAction<MyScheduleTime[]>>;
-  sleepTime?: SleepTime;
+  mySchedule: MyScheduleTimeType[];
+  setMySchedule?: React.Dispatch<React.SetStateAction<MyScheduleTimeType[]>>;
+  sleepTime?: SleepTimeType;
   backgroundColor?: 'gray' | 'white';
   setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 }

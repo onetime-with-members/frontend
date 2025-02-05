@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import useScroll from '@/hooks/useScroll';
-import { User } from '@/types/user.type';
+import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
@@ -11,7 +11,7 @@ export default function TopToolbarForDesktop() {
 
   const isLoggedIn = !!localStorage.getItem('access-token');
 
-  const { data: user, isLoading: isUserLoading } = useQuery<User>({
+  const { data: user, isLoading: isUserLoading } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');

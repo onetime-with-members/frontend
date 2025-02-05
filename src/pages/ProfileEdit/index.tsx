@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import TopAppBar from './TopAppBar';
 import NicknameFormControl from '@/components/NicknameFormControl';
 import FloatingBottomButton from '@/components/button/FloatingBottomButton';
-import { User } from '@/types/user.type';
+import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -17,7 +17,7 @@ export default function ProfileEdit() {
 
   const navigate = useNavigate();
 
-  const { data: user } = useQuery<User>({
+  const { data: user } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');

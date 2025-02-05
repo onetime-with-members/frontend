@@ -2,14 +2,14 @@ import dayjs from 'dayjs';
 
 import DateItem from '../DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
-import { EventValue } from '@/types/event.type';
+import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 
 interface WeekdaySelectProps {
   className?: string;
-  value: EventValue;
-  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
+  value: EventValueType;
+  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
 }
 
 export default function WeekdaySelect({

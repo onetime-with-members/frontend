@@ -5,15 +5,15 @@ import { useParams } from 'react-router-dom';
 import BottomButtonForDesktop from './BottomButtonForDesktop';
 import BottomButtonForMobile from './BottomButtonForMobile';
 import InputContent from './InputContent';
-import { GuestValue } from '@/types/user.type';
+import { GuestValueType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
 
 interface MemberLoginProps {
   setPageIndex: React.Dispatch<React.SetStateAction<number>>;
   setGuestId: React.Dispatch<React.SetStateAction<string>>;
-  guestValue: GuestValue;
-  setGuestValue: React.Dispatch<React.SetStateAction<GuestValue>>;
+  guestValue: GuestValueType;
+  setGuestValue: React.Dispatch<React.SetStateAction<GuestValueType>>;
   setIsNewGuest: React.Dispatch<React.SetStateAction<boolean>>;
 }
 

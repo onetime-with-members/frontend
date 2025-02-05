@@ -1,14 +1,14 @@
 import BoardContent from './BoardContent';
 import LeftTimeLine from './LeftTimeLine';
 import TopDateGroup from './TopDateGroup';
-import { MyScheduleTime } from '@/types/schedule.type';
-import { SleepTime } from '@/types/user.type';
+import { MyScheduleTimeType } from '@/types/schedule.type';
+import { SleepTimeType } from '@/types/user.type';
 
 interface MyTimeBlockBoard {
   mode: 'view' | 'edit';
-  mySchedule: MyScheduleTime[];
-  setMySchedule?: React.Dispatch<React.SetStateAction<MyScheduleTime[]>>;
-  sleepTime?: SleepTime;
+  mySchedule: MyScheduleTimeType[];
+  setMySchedule?: React.Dispatch<React.SetStateAction<MyScheduleTimeType[]>>;
+  sleepTime?: SleepTimeType;
   className?: string;
   backgroundColor?: 'gray' | 'white';
   topDateGroupClassName?: string;

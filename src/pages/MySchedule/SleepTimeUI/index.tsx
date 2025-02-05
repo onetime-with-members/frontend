@@ -1,10 +1,10 @@
 import SleepIcon from '@/components/icon/SleepIcon';
-import { SleepTime } from '@/types/user.type';
+import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function SleepTimeUI() {
-  const { data } = useQuery<SleepTime>({
+  const { data } = useQuery<SleepTimeType>({
     queryKey: ['users', 'sleep-time'],
     queryFn: async () => {
       const res = await axios.get('/users/sleep-time');

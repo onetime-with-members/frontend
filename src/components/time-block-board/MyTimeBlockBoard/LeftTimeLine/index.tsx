@@ -1,11 +1,11 @@
 import dayjs from 'dayjs';
 
 import useSleepTime from '@/hooks/useSleepTime';
-import { SleepTime } from '@/types/user.type';
+import { SleepTimeType } from '@/types/user.type';
 import cn from '@/utils/cn';
 
 interface LeftTimeLineProps {
-  sleepTime?: SleepTime;
+  sleepTime?: SleepTimeType;
 }
 
 export default function LeftTimeLine({ sleepTime }: LeftTimeLineProps) {

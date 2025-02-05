@@ -7,12 +7,12 @@ import InputContent from './InputContent';
 import TopActionForDesktop from './TopActionForDesktop';
 import TopNavBar from './TopNavBar';
 import { PageModeContext } from '@/contexts/PageModeContext';
-import { EventValue } from '@/types/event.type';
+import { EventValueType } from '@/types/event.type';
 import breakpoint from '@/utils/breakpoint';
 
 interface EventFormContentProps {
-  originData?: EventValue;
-  onSubmit: (disabled: boolean, value: EventValue) => void;
+  originData?: EventValueType;
+  onSubmit: (disabled: boolean, value: EventValueType) => void;
   isPending: boolean;
 }
 
@@ -21,7 +21,7 @@ export default function EventFormContent({
   onSubmit,
   isPending,
 }: EventFormContentProps) {
-  const [value, setValue] = useState<EventValue>({
+  const [value, setValue] = useState<EventValueType>({
     title: '',
     start_time: '09:00',
     end_time: '24:00',

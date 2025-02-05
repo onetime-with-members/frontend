@@ -4,7 +4,7 @@ import EmptyEventBanner from './EmptyEventBanner';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard';
 import BannerList from '@/pages/EventDetail/MainContent/BannerList';
 import { EventType } from '@/types/event.type';
-import { RecommendSchedule, Schedule } from '@/types/schedule.type';
+import { RecommendScheduleType, ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
@@ -20,7 +20,7 @@ export default function MainContent({
   const params = useParams<{ eventId: string }>();
 
   const { isLoading: isScheduleLoading, data: schedules } = useQuery<
-    Schedule[]
+    ScheduleType[]
   >({
     queryKey: ['schedules', event?.category?.toLowerCase(), params.eventId],
     queryFn: async () => {
@@ -40,7 +40,7 @@ export default function MainContent({
     },
   });
 
-  const recommendSchedules: RecommendSchedule[] = recommendData?.payload;
+  const recommendSchedules: RecommendScheduleType[] = recommendData?.payload;
 
   const participants: string[] =
     schedules?.map((schedule) => schedule.name).sort() || [];

@@ -1,11 +1,11 @@
 import ProfileSection from './ProfileSection';
 import SettingSection from './SettingSection';
-import { User } from '@/types/user.type';
+import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function ProfilePage() {
-  const { isPending: isUserPending, data: user } = useQuery<User>({
+  const { isPending: isUserPending, data: user } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');

@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import useSleepTime from './useSleepTime';
 import { EventType } from '@/types/event.type';
-import { MyScheduleTime, Schedule } from '@/types/schedule.type';
+import { MyScheduleTimeType, ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
@@ -18,7 +18,7 @@ export default function useScheduleEdit({
   isNewGuest,
   guestId,
 }: UseScheduleEditProps) {
-  const [schedules, setSchedules] = useState<Schedule[]>([
+  const [schedules, setSchedules] = useState<ScheduleType[]>([
     {
       name: '본인',
       schedules: [],
@@ -39,7 +39,7 @@ export default function useScheduleEdit({
     },
   });
 
-  const { data: scheduleData } = useQuery<Schedule>({
+  const { data: scheduleData } = useQuery<ScheduleType>({
     queryKey: [
       'schedules',
       event?.category?.toLowerCase(),
@@ -56,7 +56,7 @@ export default function useScheduleEdit({
       event !== undefined && !isNewGuest && (isLoggedIn || guestId !== ''),
   });
 
-  const { data: fixedScheduleData } = useQuery<MyScheduleTime[]>({
+  const { data: fixedScheduleData } = useQuery<MyScheduleTimeType[]>({
     queryKey: ['fixed-schedules'],
     queryFn: async () => {
       const res = await axios.get('/fixed-schedules');

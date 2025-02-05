@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 
 import TimeBlock from './TimeBlock';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
-import { Schedule, Time } from '@/types/schedule.type';
+import { ScheduleType, TimeType } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 import { timeBlockList } from '@/utils/time-block';
@@ -11,10 +11,10 @@ export interface TimeBlockLineProps {
   timePoint: string;
   startTime: string;
   endTime: string;
-  schedules: Schedule[];
+  schedules: ScheduleType[];
   changeTimeBlockStatus: (
-    day: Time['time_point'],
-    time: Time['times'][0],
+    day: TimeType['time_point'],
+    time: TimeType['times'][0],
     newStatus: boolean,
   ) => void;
   handleDialogOpen: ({
@@ -72,11 +72,11 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
       return result;
     }
 
-    function isFilled(time: Time['times'][0]) {
+    function isFilled(time: TimeType['times'][0]) {
       return timesAllMember().includes(time);
     }
 
-    function isClickedFirstFor(time: Time['times'][0]) {
+    function isClickedFirstFor(time: TimeType['times'][0]) {
       return (
         clickedTimeBlock.startTime === time &&
         clickedTimeBlock.timePoint === timePoint

@@ -1,14 +1,14 @@
-export interface Time {
+export interface TimeType {
   time_point: string;
   times: string[];
 }
 
-export interface Schedule {
+export interface ScheduleType {
   name: string;
-  schedules: Time[];
+  schedules: TimeType[];
 }
 
-export interface RecommendSchedule {
+export interface RecommendScheduleType {
   time_point: string;
   start_time: string;
   end_time: string;
@@ -17,9 +17,9 @@ export interface RecommendSchedule {
   impossible_names: string[];
 }
 
-export interface MyScheduleTime extends Time {}
+export interface MyScheduleTimeType extends TimeType {}
 
-export interface TimeBlockPopUpData {
+export interface TimeBlockPopUpDataType {
   timePoint: string;
   time: string;
   members: { possible: string[]; impossible: string[] };

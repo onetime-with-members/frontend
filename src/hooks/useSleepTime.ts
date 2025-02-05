@@ -1,16 +1,16 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
-import { SleepTime } from '@/types/user.type';
+import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
 
 interface UseSleepTimeProps {
-  sleepTime?: SleepTime;
+  sleepTime?: SleepTimeType;
 }
 
-const defaultSleepTime: SleepTime = {
+const defaultSleepTime: SleepTimeType = {
   sleep_start_time: '00:00',
   sleep_end_time: '00:00',
 };
@@ -18,13 +18,13 @@ const defaultSleepTime: SleepTime = {
 export default function useSleepTime({
   sleepTime: _sleepTime,
 }: UseSleepTimeProps = {}) {
-  const [sleepTime, setSleepTime] = useState<SleepTime>(
+  const [sleepTime, setSleepTime] = useState<SleepTimeType>(
     _sleepTime || defaultSleepTime,
   );
 
   const isLoggedIn = localStorage.getItem('access-token') !== null;
 
-  const { data: sleepTimeData } = useQuery<SleepTime>({
+  const { data: sleepTimeData } = useQuery<SleepTimeType>({
     queryKey: ['users', 'sleep-time'],
     queryFn: async () => {
       const res = await axios.get('/users/sleep-time');

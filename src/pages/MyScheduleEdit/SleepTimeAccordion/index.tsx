@@ -1,10 +1,10 @@
 import AccordionContent from './AccordionContent';
 import AccordionMain from './AccordionMain';
-import { SleepTime } from '@/types/user.type';
+import { SleepTimeType } from '@/types/user.type';
 
 interface SleepTimeUIProps {
-  sleepTime: SleepTime;
-  setSleepTime: React.Dispatch<React.SetStateAction<SleepTime>>;
+  sleepTime: SleepTimeType;
+  setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
   isAccordionOpen: boolean;
   setIsAccordionOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

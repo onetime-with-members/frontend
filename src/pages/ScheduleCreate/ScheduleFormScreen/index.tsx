@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import BottomButtonForDesktop from './BottomButtonForDesktop';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard';
 import { EventType } from '@/types/event.type';
-import { Schedule } from '@/types/schedule.type';
-import { GuestValue } from '@/types/user.type';
+import { ScheduleType } from '@/types/schedule.type';
+import { GuestValueType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -13,9 +13,9 @@ interface ScheduleFormProps {
   event: EventType;
   guestId: string;
   isNewGuest: boolean;
-  guestValue: GuestValue;
-  schedules: Schedule[];
-  setSchedules: React.Dispatch<React.SetStateAction<Schedule[]>>;
+  guestValue: GuestValueType;
+  schedules: ScheduleType[];
+  setSchedules: React.Dispatch<React.SetStateAction<ScheduleType[]>>;
   isPossibleTime: boolean;
   setIsPossibleTime: React.Dispatch<React.SetStateAction<boolean>>;
   isTopSubmitButtonClicked: boolean;

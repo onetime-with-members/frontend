@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import EventFormContent from '@/components/EventFormContent';
-import { EventType, EventValue } from '@/types/event.type';
+import { EventType, EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -39,7 +39,7 @@ export default function EventEdit() {
   }, [data, isPending]);
 
   const editEvent = useMutation({
-    mutationFn: async (value: EventValue) => {
+    mutationFn: async (value: EventValueType) => {
       const res = await axios.patch(`/events/${params.eventId}`, value);
       return res.data;
     },
@@ -49,7 +49,7 @@ export default function EventEdit() {
     },
   });
 
-  function handleSubmit(disabled: boolean, value: EventValue) {
+  function handleSubmit(disabled: boolean, value: EventValueType) {
     if (disabled || editEvent.isPending) return;
     editEvent.mutate(value);
   }

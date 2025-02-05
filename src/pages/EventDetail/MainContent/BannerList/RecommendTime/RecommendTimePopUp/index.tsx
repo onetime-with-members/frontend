@@ -2,12 +2,12 @@ import dayjs from 'dayjs';
 
 import TimeAccordionItem from './TimeAccordionItem';
 import { EventType } from '@/types/event.type';
-import { RecommendSchedule } from '@/types/schedule.type';
+import { RecommendScheduleType } from '@/types/schedule.type';
 import { IconX } from '@tabler/icons-react';
 
 interface RecommendTimeDialogProps {
   onClose: () => void;
-  recommendSchedules: RecommendSchedule[];
+  recommendSchedules: RecommendScheduleType[];
   eventCategory: EventType['category'];
 }
 

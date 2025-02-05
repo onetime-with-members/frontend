@@ -5,7 +5,7 @@ import LoginButton from './LoginButton';
 import logoWhite from '@/assets/logo-white.svg';
 import logoBlack from '@/assets/logo.svg';
 import useScroll from '@/hooks/useScroll';
-import { User } from '@/types/user.type';
+import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
@@ -27,7 +27,7 @@ export default function NavBar({
     !!localStorage.getItem('access-token') &&
     !!localStorage.getItem('refresh-token');
 
-  const { isLoading, data: user } = useQuery<User>({
+  const { isLoading, data: user } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');

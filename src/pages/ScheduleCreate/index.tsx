@@ -11,7 +11,7 @@ import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import { FooterContext } from '@/contexts/FooterContext';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleEdit from '@/hooks/useScheduleEdit';
-import { GuestValue } from '@/types/user.type';
+import { GuestValueType } from '@/types/user.type';
 import cn from '@/utils/cn';
 
 export default function ScheduleCreate() {
@@ -20,7 +20,7 @@ export default function ScheduleCreate() {
   );
   const [isNewGuest, setIsNewGuest] = useState(false);
   const [guestId, setGuestId] = useState('');
-  const [guestValue, setGuestValue] = useState<GuestValue>({
+  const [guestValue, setGuestValue] = useState<GuestValueType>({
     name: '',
     pin: '',
   });

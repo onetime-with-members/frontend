@@ -1,12 +1,12 @@
 import Header from './Header';
 import SleepTimeUI from './SleepTimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
-import { MyScheduleTime } from '@/types/schedule.type';
+import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleSection() {
-  const { data } = useQuery<MyScheduleTime[]>({
+  const { data } = useQuery<MyScheduleTimeType[]>({
     queryKey: ['fixed-schedules'],
     queryFn: async () => {
       const res = await axios.get('/fixed-schedules');

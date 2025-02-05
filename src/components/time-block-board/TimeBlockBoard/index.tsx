@@ -6,14 +6,18 @@ import PossibleTimeToggle from './PossibleTimeToggle';
 import TimeBlockPopUp from './TimeBlockPopUp';
 import TopDateLabelGroup from './TopDateLabelGroup';
 import { EventType } from '@/types/event.type.ts';
-import { Schedule, Time, TimeBlockPopUpData } from '@/types/schedule.type.ts';
+import {
+  ScheduleType,
+  TimeBlockPopUpDataType,
+  TimeType,
+} from '@/types/schedule.type.ts';
 import cn from '@/utils/cn.ts';
 import { timeBlockList } from '@/utils/time-block.ts';
 
 interface TimeBlockBoardProps {
   event: EventType;
-  schedules: Schedule[];
-  setSchedules?: React.Dispatch<React.SetStateAction<Schedule[]>>;
+  schedules: ScheduleType[];
+  setSchedules?: React.Dispatch<React.SetStateAction<ScheduleType[]>>;
   editable?: boolean;
   backgroundColor?: 'white' | 'gray';
   isPossibleTime?: boolean;
@@ -38,7 +42,7 @@ export default function TimeBlockBoard({
   setIsEdited,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [dialogData, setDialogData] = useState<TimeBlockPopUpData>({
+  const [dialogData, setDialogData] = useState<TimeBlockPopUpDataType>({
     timePoint: '',
     time: '',
     members: {
@@ -60,7 +64,7 @@ export default function TimeBlockBoard({
 
   function changeTimeBlockStatus(
     day: string,
-    time: Schedule['schedules'][0]['times'][0],
+    time: ScheduleType['schedules'][0]['times'][0],
     newStatus: boolean,
   ) {
     if (!editable) return;
@@ -96,7 +100,7 @@ export default function TimeBlockBoard({
           name: prev[0].name,
           schedules: prev[0].schedules.map((schedule) => {
             if (schedule.time_point === day) {
-              let newSchedule: Time = {
+              let newSchedule: TimeType = {
                 ...schedule,
                 times: schedule.times.filter((t) => t !== time),
               };
@@ -130,7 +134,7 @@ export default function TimeBlockBoard({
   }) {
     if (schedules.length === 0) return;
 
-    let members: TimeBlockPopUpData['members'] = {
+    let members: TimeBlockPopUpDataType['members'] = {
       possible: [],
       impossible: [],
     };
