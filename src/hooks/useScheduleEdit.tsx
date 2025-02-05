@@ -25,9 +25,7 @@ export default function useScheduleEdit({
     },
   ]);
 
-  const { sleepTimes } = useSleepTime({
-    type: 'timeLabel',
-  });
+  const { sleepTimes } = useSleepTime();
 
   const params = useParams<{ eventId: string }>();
 
