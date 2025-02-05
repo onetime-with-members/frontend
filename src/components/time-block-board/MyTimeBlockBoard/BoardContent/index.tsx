@@ -29,8 +29,6 @@ export default function BoardContent({
       },
     });
 
-  const timeBlockList = timeBlockList('00:00', '24:00', '30m');
-
   function changeTimeBlock(
     weekday: string,
     times: string[],
@@ -70,7 +68,7 @@ export default function BoardContent({
     <div className="grid flex-1 grid-cols-7 gap-2">
       {dayjs.weekdaysMin().map((weekday) => (
         <div key={weekday} className="overflow-hidden rounded-lg">
-          {timeBlockList.map((time) => (
+          {timeBlockList('00:00', '24:00').map((time) => (
             <TimeBlock
               key={time}
               mode={mode}
