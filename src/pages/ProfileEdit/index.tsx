@@ -61,7 +61,7 @@ export default function ProfileEdit() {
         <TopAppBar />
       </>
       <div className="px-4">
-        {user && value && (
+        {user && (
           <main className="mx-auto max-w-screen-sm pb-40 pt-8">
             <NicknameFormControl
               value={value}
