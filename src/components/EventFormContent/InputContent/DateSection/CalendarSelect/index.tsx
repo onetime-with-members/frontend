@@ -65,7 +65,10 @@ export default function CalendarSelect({
   }
 
   return (
-    <div className={cn('flex flex-col gap-3', className)}>
+    <div
+      className={cn('flex flex-col gap-3', className)}
+      onMouseLeave={handleDragEnd}
+    >
       <div className="flex justify-between">
         <div className="text-gray-90 text-lg-300">
           {currentDate.format('YYYY.MM')}
