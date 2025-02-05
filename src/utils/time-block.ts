@@ -42,7 +42,7 @@ export function getLabelTimeList(
   return timeList;
 }
 
-export function getBlockTimeList(
+export function timeBlockList(
   startTime: string,
   endTime: string,
   unit: TimeBlockUnit = '30m',

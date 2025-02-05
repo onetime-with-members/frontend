@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 import TimeBlock from './TimeBlock';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { MyScheduleTime } from '@/types/schedule.type';
-import { getBlockTimeList } from '@/utils/time-block';
+import { timeBlockList } from '@/utils/time-block';
 
 interface TimeBlockContentProps {
   mode: 'view' | 'edit';
@@ -29,7 +29,7 @@ export default function BoardContent({
       },
     });
 
-  const timeBlockList = getBlockTimeList('00:00', '24:00', '30m');
+  const timeBlockList = timeBlockList('00:00', '24:00', '30m');
 
   function changeTimeBlock(
     weekday: string,

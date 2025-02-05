@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { EventType } from '@/types/event.type';
 import { MyScheduleTime, Schedule } from '@/types/schedule.type';
 import axios from '@/utils/axios';
-import { getBlockTimeList } from '@/utils/time-block';
+import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
 
 interface UseScheduleEditProps {
@@ -50,7 +50,7 @@ export default function useScheduleEdit({
       return res.data.payload;
     },
     enabled:
-      event !== undefined && !isNewGuest && (isLoggedIn || guestId !== ''),
+      event !== undefined || !isNewGuest || !isLoggedIn || guestId !== '',
   });
 
   const { data: fixedScheduleData } = useQuery<MyScheduleTime[]>({
@@ -67,20 +67,21 @@ export default function useScheduleEdit({
     const isScheduleEmpty =
       scheduleData.schedules.length === 0 ||
       scheduleData.schedules.every((schedule) => schedule.times.length === 0);
-    const isFixedScheduleEmpty =
-      fixedScheduleData?.every(
-        (fixedSchedule) => fixedSchedule.times.length === 0,
-      ) || true;
-    if (isScheduleEmpty) {
-      setSchedules([
-        {
-          name: scheduleData.name,
-          schedules: isFixedScheduleEmpty ? [] : initSchedule() || [],
-        },
-      ]);
-    } else {
-      setSchedules([scheduleData]);
-    }
+    const isFixedScheduleEmpty = fixedScheduleData
+      ? fixedScheduleData.every(
+          (fixedSchedule) => fixedSchedule.times.length === 0,
+        )
+      : true;
+    setSchedules([
+      {
+        name: scheduleData.name,
+        schedules: isScheduleEmpty
+          ? isFixedScheduleEmpty
+            ? []
+            : initSchedule() || []
+          : scheduleData.schedules,
+      },
+    ]);
 
     function initSchedule() {
       if (!event) return;
@@ -91,6 +92,7 @@ export default function useScheduleEdit({
             event.start_time,
             event.end_time,
             fixedScheduleTimes(time_point, event.category),
+            sleepTimes('23:00', '23:00'),
           ),
         })) || []
       );
@@ -99,10 +101,21 @@ export default function useScheduleEdit({
         startTime: string,
         endTime: string,
         fixedScheduleTimes: string[],
+        sleepTimes: string[],
       ) {
-        return getBlockTimeList(startTime, endTime).filter(
-          (time) => !fixedScheduleTimes.includes(time),
+        return timeBlockList(startTime, endTime).filter(
+          (time) =>
+            !unavailableTimes(fixedScheduleTimes, sleepTimes).includes(time),
         );
+
+        function unavailableTimes(
+          fixedScheduleTimes: string[],
+          sleepTimes: string[],
+        ) {
+          return Array.from(
+            new Set([...fixedScheduleTimes, ...sleepTimes]),
+          ).sort();
+        }
       }
 
       function fixedScheduleTimes(timePoint: string, category: 'DATE' | 'DAY') {
@@ -127,6 +140,25 @@ export default function useScheduleEdit({
                   ? dayjs(timePoint).format('ddd')
                   : timePoint),
             );
+        }
+      }
+
+      function sleepTimes(startTime: string, endTime: string) {
+        return isSame(startTime, endTime)
+          ? []
+          : isBefore(startTime, endTime)
+            ? timeBlockList(startTime, endTime)
+            : [
+                ...timeBlockList(startTime, '24:00'),
+                ...timeBlockList('00:00', endTime),
+              ];
+
+        function isSame(time1: string, time2: string) {
+          return dayjs(time1, 'HH:mm').isSame(dayjs(time2, 'HH:mm'));
+        }
+
+        function isBefore(time1: string, time2: string) {
+          return dayjs(time1, 'HH:mm').isBefore(dayjs(time2, 'HH:mm'));
         }
       }
     }

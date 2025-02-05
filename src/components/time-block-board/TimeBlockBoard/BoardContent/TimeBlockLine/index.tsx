@@ -5,7 +5,7 @@ import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { Schedule, Time } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
-import { getBlockTimeList } from '@/utils/time-block';
+import { timeBlockList } from '@/utils/time-block';
 
 export interface TimeBlockLineProps {
   timePoint: string;
@@ -57,7 +57,7 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
           ),
       });
 
-    const timeList = getBlockTimeList(startTime, endTime);
+    const timeList = timeBlockList(startTime, endTime);
     const memberCount = schedules.length || 0;
 
     function timesAllMember() {

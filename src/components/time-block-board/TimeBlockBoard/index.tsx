@@ -8,7 +8,7 @@ import TopDateLabelGroup from './TopDateLabelGroup';
 import { EventType } from '@/types/event.type.ts';
 import { Schedule, Time, TimeBlockPopUpData } from '@/types/schedule.type.ts';
 import cn from '@/utils/cn.ts';
-import { getBlockTimeList } from '@/utils/time-block.ts';
+import { timeBlockList } from '@/utils/time-block.ts';
 
 interface TimeBlockBoardProps {
   event: EventType;
@@ -188,7 +188,7 @@ export default function TimeBlockBoard({
           ...schedule,
           schedules: schedule.schedules.map((daySchedule) => ({
             ...daySchedule,
-            times: getBlockTimeList(event.start_time, event.end_time),
+            times: timeBlockList(event.start_time, event.end_time),
           })),
         })),
       );
@@ -227,7 +227,7 @@ export default function TimeBlockBoard({
     setIsFull(
       schedules[0].schedules.every(
         (s) =>
-          getBlockTimeList(event.start_time, event.end_time).filter(
+          timeBlockList(event.start_time, event.end_time).filter(
             (time) => !s.times.includes(time),
           ).length === 0,
       ),
