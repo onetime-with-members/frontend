@@ -36,7 +36,7 @@ export default function useSleepTime({
   const { sleep_start_time: startSleepTime, sleep_end_time: endSleepTime } =
     sleepTime || defaultSleepTime;
 
-  const sleepTimes = isSame(startSleepTime, endSleepTime)
+  const sleepTimesList = isSame(startSleepTime, endSleepTime)
     ? []
     : isBefore(startSleepTime, endSleepTime)
       ? timeBlockList(startSleepTime, endSleepTime)
@@ -57,7 +57,7 @@ export default function useSleepTime({
     return startSleepTime >= endSleepTime
       ? [
           timeBlockList('00:00', '24:00', type === 'timeBlock' ? '30m' : '1h')
-            .filter((timeLabel) => !sleepTimes.includes(timeLabel))
+            .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
             .concat(
               type === 'timeLabel'
                 ? [startSleepTime === endSleepTime ? '24:00' : startSleepTime]
@@ -70,14 +70,14 @@ export default function useSleepTime({
             startSleepTime,
             type === 'timeBlock' ? '30m' : '1h',
           )
-            .filter((timeLabel) => !sleepTimes.includes(timeLabel))
+            .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
             .concat(type === 'timeLabel' ? [startSleepTime] : []),
           timeBlockList(
             endSleepTime,
             '24:00',
             type === 'timeBlock' ? '30m' : '1h',
           )
-            .filter((timeLabel) => !sleepTimes.includes(timeLabel))
+            .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
             .concat(type === 'timeLabel' ? ['24:00'] : []),
         ];
   }
@@ -93,7 +93,7 @@ export default function useSleepTime({
   }, [_sleepTime]);
 
   return {
-    sleepTimes,
+    sleepTimesList,
     startSleepTime,
     endSleepTime,
     timesGroupList,

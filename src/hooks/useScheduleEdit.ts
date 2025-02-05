@@ -25,7 +25,7 @@ export default function useScheduleEdit({
     },
   ]);
 
-  const { sleepTimes } = useSleepTime();
+  const { sleepTimesList } = useSleepTime();
 
   const params = useParams<{ eventId: string }>();
 
@@ -95,7 +95,7 @@ export default function useScheduleEdit({
             event.start_time,
             event.end_time,
             fixedScheduleTimes(time_point, event.category),
-            sleepTimes,
+            sleepTimesList,
           ),
         })) || []
       );
