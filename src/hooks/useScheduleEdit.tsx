@@ -51,7 +51,7 @@ export default function useScheduleEdit({
       return res.data.payload;
     },
     enabled:
-      event !== undefined || !isNewGuest || !isLoggedIn || guestId !== '',
+      event !== undefined && !isNewGuest && (isLoggedIn || guestId !== ''),
   });
 
   const { data: fixedScheduleData } = useQuery<MyScheduleTime[]>({
