@@ -3,12 +3,8 @@ import SettingItem from './SettingItem';
 export default function SettingList() {
   return (
     <ul>
-      <SettingItem href="/mypage/agreements/service">
-        서비스이용약관
-      </SettingItem>
-      <SettingItem href="/mypage/agreements/privacy">
-        개인정보처리방침
-      </SettingItem>
+      <SettingItem href="/agreements/service">서비스이용약관</SettingItem>
+      <SettingItem href="/agreements/privacy">개인정보처리방침</SettingItem>
       <SettingItem>
         <span>버전 정보</span>
         <span className="text-primary-40">v 1.4.4</span>

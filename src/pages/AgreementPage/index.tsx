@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import AgreementDetailScreen from '@/components/AgreementDetailScreen';
+import AgreementDetailScreen from '@/components/agreement/AgreementDetailScreen';
 import { AgreementKeyType } from '@/types/user.type';
 
 interface AgreementPageProps {

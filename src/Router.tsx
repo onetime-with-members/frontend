@@ -5,6 +5,7 @@ import AuthLayout from './layouts/AuthLayout';
 import Layout from './layouts/Layout';
 import MyPageLayout from './layouts/MyPageLayout';
 import AgreementPage from './pages/AgreementPage';
+import AgreementsEditPage from './pages/AgreementsEditPage';
 import EventCreate from './pages/EventCreate';
 import EventDetail from './pages/EventDetail';
 import EventDetailRedirect from './pages/EventDetailRedirect';
@@ -95,12 +96,21 @@ const router = createBrowserRouter([
             element: <ProfileEdit />,
           },
           {
-            path: 'mypage/agreements/service',
-            element: <AgreementPage page="service_policy_agreement" />,
-          },
-          {
-            path: 'mypage/agreements/privacy',
-            element: <AgreementPage page="privacy_policy_agreement" />,
+            path: 'agreements',
+            children: [
+              {
+                path: 'service',
+                element: <AgreementPage page="service_policy_agreement" />,
+              },
+              {
+                path: 'privacy',
+                element: <AgreementPage page="privacy_policy_agreement" />,
+              },
+              {
+                path: 'edit',
+                element: <AgreementsEditPage />,
+              },
+            ],
           },
           {
             path: 'withdraw',
