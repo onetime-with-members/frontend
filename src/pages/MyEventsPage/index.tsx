@@ -1,5 +1,5 @@
 import EmptyMyEvent from './EmptyMyEvent';
-import MyEvent from '@/pages/MyEventsPage/MyEvent';
+import MyEvent from '@/components/MyEvent';
 import { MyEventType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';

@@ -10,7 +10,7 @@ export default function UserDashboardPage() {
       <TopNavBar />
       <main className="mx-auto w-full max-w-[calc(768px+2rem)]">
         <TopToolbarForDesktop />
-        <div className="flex flex-col gap-14 bg-gray-05 px-6 pb-20 pt-6">
+        <div className="flex flex-col gap-14 bg-gray-05 px-4 pb-20 pt-6 md:px-6">
           <MyEventSection />
           <MyScheduleSection />
         </div>
