@@ -45,7 +45,7 @@ export default function NicknameFormControl({
       <label className="pl-1 text-gray-90 text-lg-200">이름</label>
       <div className="flex flex-col gap-2">
         <Input
-          name="name"
+          name="nickname"
           value={value}
           onChange={onChange}
           placeholder="당신의 이름은 무엇인가요?"

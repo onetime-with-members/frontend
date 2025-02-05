@@ -3,7 +3,11 @@ import React, { useEffect, useState } from 'react';
 import ScreenLayout from '../ScreenLayout';
 import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent';
 import PolicyDetailScreen from '@/components/policy/PolicyDetailScreen';
-import { OnboardingValueType, PolicyKeyType } from '@/types/user.type';
+import {
+  OnboardingValueType,
+  PolicyKeyType,
+  PolicyType,
+} from '@/types/user.type';
 
 interface PrivacyScreenProps {
   isVisible: boolean;
@@ -24,6 +28,11 @@ export default function PrivacyScreen({
 }: PrivacyScreenProps) {
   const [disabled, setDisabled] = useState(true);
   const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
+  const [policyValue, setPolicyValue] = useState<PolicyType>({
+    service_policy_agreement: false,
+    privacy_policy_agreement: false,
+    marketing_policy_agreement: false,
+  });
 
   function handlePageDetailClose() {
     setPageDetail(null);
@@ -34,6 +43,13 @@ export default function PrivacyScreen({
       !value.service_policy_agreement || !value.privacy_policy_agreement,
     );
   }, [value]);
+
+  useEffect(() => {
+    setValue((prevValue) => ({
+      ...prevValue,
+      ...policyValue,
+    }));
+  }, [policyValue]);
 
   return (
     <>
@@ -51,10 +67,8 @@ export default function PrivacyScreen({
         handleBackButtonClick={handleBackButtonClick}
       >
         <PolicyCheckboxContent
-          value={value}
-          setValue={(value) =>
-            setValue((prevValue) => ({ ...prevValue, ...value }))
-          }
+          value={policyValue}
+          setValue={setPolicyValue}
           setPageDetail={setPageDetail}
         />
       </ScreenLayout>
