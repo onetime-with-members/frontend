@@ -1,15 +1,15 @@
 import clsx from 'clsx';
 
 import Checkbox from '../Checkbox';
-import { AgreementKeyType, AgreementType } from '@/types/user.type';
+import { PolicyKeyType, PolicyType } from '@/types/user.type';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface CheckItemProps {
   children: React.ReactNode;
-  checkedKey: keyof AgreementType;
-  value: AgreementType;
-  setValue: React.Dispatch<React.SetStateAction<AgreementType>>;
-  setPageDetail: React.Dispatch<React.SetStateAction<AgreementKeyType | null>>;
+  checkedKey: keyof PolicyType;
+  value: PolicyType;
+  setValue: React.Dispatch<React.SetStateAction<PolicyType>>;
+  setPageDetail: React.Dispatch<React.SetStateAction<PolicyKeyType | null>>;
   hasPageDetail?: boolean;
 }
 

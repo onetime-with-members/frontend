@@ -5,17 +5,17 @@ import NavBar from '@/components/NavBar';
 import Button from '@/components/button/Button';
 import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent';
 import usePolicy from '@/hooks/usePolicy';
-import { AgreementKeyType, AgreementType } from '@/types/user.type';
+import { PolicyKeyType, PolicyType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function PolicyEditPage() {
-  const [value, setValue] = useState<AgreementType>({
+  const [value, setValue] = useState<PolicyType>({
     service_policy_agreement: false,
     privacy_policy_agreement: false,
     marketing_policy_agreement: false,
   });
-  const [pageDetail, setPageDetail] = useState<AgreementKeyType | null>(null);
+  const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
 
   const { policyData, isLoggedIn } = usePolicy();
 

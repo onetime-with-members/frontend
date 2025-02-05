@@ -13,15 +13,15 @@ export interface SleepTime {
   sleep_end_time: string;
 }
 
-export interface AgreementType {
+export interface PolicyType {
   service_policy_agreement: boolean;
   privacy_policy_agreement: boolean;
   marketing_policy_agreement: boolean;
 }
 
-export type AgreementKeyType = keyof AgreementType;
+export type PolicyKeyType = keyof PolicyType;
 
-export interface OnboardingValueType extends AgreementType, SleepTime {
+export interface OnboardingValueType extends PolicyType, SleepTime {
   register_token: string;
   nickname: string;
 }

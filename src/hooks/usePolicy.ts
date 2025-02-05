@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { AgreementType } from '@/types/user.type';
+import { PolicyType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
@@ -11,7 +11,7 @@ export default function usePolicy() {
 
   const isLoggedIn = localStorage.getItem('access-token') !== null;
 
-  const { data: policyData } = useQuery<AgreementType>({
+  const { data: policyData } = useQuery<PolicyType>({
     queryKey: ['users', 'policy'],
     queryFn: async () => {
       const res = await axios.get('/users/policy');

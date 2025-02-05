@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ScreenLayout from '../ScreenLayout';
 import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent';
 import PolicyDetailScreen from '@/components/policy/PolicyDetailScreen';
-import { AgreementKeyType, OnboardingValueType } from '@/types/user.type';
+import { OnboardingValueType, PolicyKeyType } from '@/types/user.type';
 
 interface PrivacyScreenProps {
   isVisible: boolean;
@@ -23,7 +23,7 @@ export default function PrivacyScreen({
   handleBackButtonClick,
 }: PrivacyScreenProps) {
   const [disabled, setDisabled] = useState(true);
-  const [pageDetail, setPageDetail] = useState<AgreementKeyType | null>(null);
+  const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
 
   function handlePageDetailClose() {
     setPageDetail(null);

@@ -1,4 +1,4 @@
-const agreementMarkdown = `
+const serviceMarkdown = `
 # **약관 - 25년 2월 1일**
 
 ## **Onetime 약관**
@@ -182,4 +182,4 @@ const agreementMarkdown = `
 
 `;
 
-export default agreementMarkdown;
+export default serviceMarkdown;

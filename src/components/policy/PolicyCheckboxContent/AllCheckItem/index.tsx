@@ -1,9 +1,9 @@
 import Checkbox from '../Checkbox';
-import { AgreementType } from '@/types/user.type';
+import { PolicyType } from '@/types/user.type';
 
 interface CheckItemProps {
-  value: AgreementType;
-  setValue: React.Dispatch<React.SetStateAction<AgreementType>>;
+  value: PolicyType;
+  setValue: React.Dispatch<React.SetStateAction<PolicyType>>;
 }
 
 export default function AllCheckItem({ value, setValue }: CheckItemProps) {

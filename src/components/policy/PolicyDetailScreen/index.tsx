@@ -2,10 +2,10 @@ import Header from './Header';
 import MarkdownContent from './MarkdownContent';
 import TopAppBarForMobile from './TopAppBarForMobile';
 import TopNavBarForDesktop from './TopNavBarForDesktop';
-import { AgreementKeyType } from '@/types/user.type';
+import { PolicyKeyType } from '@/types/user.type';
 
 interface PolicyDetailScreenProps {
-  page: AgreementKeyType;
+  page: PolicyKeyType;
   onClose: () => void;
 }
 
