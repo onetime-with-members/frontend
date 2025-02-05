@@ -4,8 +4,6 @@ import ContextProviders from './contexts/ContextProviders';
 import AuthLayout from './layouts/AuthLayout';
 import Layout from './layouts/Layout';
 import MyPageLayout from './layouts/MyPageLayout';
-import AgreementPage from './pages/AgreementPage';
-import AgreementsEditPage from './pages/AgreementsEditPage';
 import EventCreate from './pages/EventCreate';
 import EventDetail from './pages/EventDetail';
 import EventDetailRedirect from './pages/EventDetailRedirect';
@@ -18,6 +16,8 @@ import MyScheduleEdit from './pages/MyScheduleEdit';
 import NotFoundPage from './pages/NotFoundPage';
 import NotFoundRedirect from './pages/NotFoundRedirect';
 import Onboarding from './pages/Onboarding';
+import PolicyEditPage from './pages/PolicyEditPage';
+import PolicyPage from './pages/PolicyPage';
 import ProfileEdit from './pages/ProfileEdit';
 import ProfilePage from './pages/ProfilePage';
 import ScheduleCreate from './pages/ScheduleCreate';
@@ -96,19 +96,19 @@ const router = createBrowserRouter([
             element: <ProfileEdit />,
           },
           {
-            path: 'agreements',
+            path: 'policy',
             children: [
               {
                 path: 'service',
-                element: <AgreementPage page="service_policy_agreement" />,
+                element: <PolicyPage page="service_policy_agreement" />,
               },
               {
                 path: 'privacy',
-                element: <AgreementPage page="privacy_policy_agreement" />,
+                element: <PolicyPage page="privacy_policy_agreement" />,
               },
               {
                 path: 'edit',
-                element: <AgreementsEditPage />,
+                element: <PolicyEditPage />,
               },
             ],
           },

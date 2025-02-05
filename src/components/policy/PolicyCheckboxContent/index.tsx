@@ -2,17 +2,17 @@ import AllCheckItem from './AllCheckItem';
 import CheckItem from './CheckItem';
 import { AgreementKeyType, AgreementType } from '@/types/user.type';
 
-interface AgreementsContentProps {
+interface PolicyCheckboxContentProps {
   value: AgreementType;
   setValue: React.Dispatch<React.SetStateAction<AgreementType>>;
   setPageDetail: React.Dispatch<React.SetStateAction<AgreementKeyType | null>>;
 }
 
-export default function AgreementsContent({
+export default function PolicyCheckboxContent({
   value,
   setValue,
   setPageDetail,
-}: AgreementsContentProps) {
+}: PolicyCheckboxContentProps) {
   return (
     <div className="flex flex-col gap-6">
       <AllCheckItem value={value} setValue={setValue} />

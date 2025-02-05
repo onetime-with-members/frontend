@@ -4,15 +4,15 @@ import TopAppBarForMobile from './TopAppBarForMobile';
 import TopNavBarForDesktop from './TopNavBarForDesktop';
 import { AgreementKeyType } from '@/types/user.type';
 
-interface AgreementDetailScreenProps {
+interface PolicyDetailScreenProps {
   page: AgreementKeyType;
   onClose: () => void;
 }
 
-export default function AgreementDetailScreen({
+export default function PolicyDetailScreen({
   page,
   onClose,
-}: AgreementDetailScreenProps) {
+}: PolicyDetailScreenProps) {
   const pageTitle =
     page === 'service_policy_agreement'
       ? '서비스 이용약관'

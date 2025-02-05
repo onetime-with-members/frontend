@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import ScreenLayout from '../ScreenLayout';
-import AgreementDetailScreen from '@/components/agreement/AgreementDetailScreen';
-import AgreementsContent from '@/components/agreement/AgreementsContent';
+import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent';
+import PolicyDetailScreen from '@/components/policy/PolicyDetailScreen';
 import { AgreementKeyType, OnboardingValueType } from '@/types/user.type';
 
 interface PrivacyScreenProps {
@@ -50,7 +50,7 @@ export default function PrivacyScreen({
         handleNextButtonClick={() => handleNextButtonClick(disabled)}
         handleBackButtonClick={handleBackButtonClick}
       >
-        <AgreementsContent
+        <PolicyCheckboxContent
           value={value}
           setValue={(value) =>
             setValue((prevValue) => ({ ...prevValue, ...value }))
@@ -60,10 +60,7 @@ export default function PrivacyScreen({
       </ScreenLayout>
 
       {pageDetail && (
-        <AgreementDetailScreen
-          page={pageDetail}
-          onClose={handlePageDetailClose}
-        />
+        <PolicyDetailScreen page={pageDetail} onClose={handlePageDetailClose} />
       )}
     </>
   );

@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import NavBar from '@/components/NavBar';
-import AgreementsContent from '@/components/agreement/AgreementsContent';
 import Button from '@/components/button/Button';
+import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent';
 import usePolicy from '@/hooks/usePolicy';
 import { AgreementKeyType, AgreementType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export default function AgreementsEditPage() {
+export default function PolicyEditPage() {
   const [value, setValue] = useState<AgreementType>({
     service_policy_agreement: false,
     privacy_policy_agreement: false,
@@ -52,9 +52,9 @@ export default function AgreementsEditPage() {
 
   useEffect(() => {
     if (pageDetail === 'service_policy_agreement') {
-      navigate('/agreements/service');
+      navigate('/policy/service');
     } else if (pageDetail === 'privacy_policy_agreement') {
-      navigate('/agreements/privacy');
+      navigate('/policy/privacy');
     }
   }, [pageDetail]);
 
@@ -67,7 +67,7 @@ export default function AgreementsEditPage() {
             서비스 이용을 위해 <br />
             약관에 동의해주세요
           </h1>
-          <AgreementsContent
+          <PolicyCheckboxContent
             value={value}
             setValue={setValue}
             setPageDetail={setPageDetail}

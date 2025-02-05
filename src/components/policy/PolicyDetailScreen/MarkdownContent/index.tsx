@@ -1,7 +1,7 @@
 import ReactMarkdown from 'react-markdown';
 
-import agreementMarkdown from '@/markdown/agreement';
 import privacyMarkdown from '@/markdown/privacy';
+import agreementMarkdown from '@/markdown/service';
 import { AgreementKeyType } from '@/types/user.type';
 
 interface MarkdownContentProps {

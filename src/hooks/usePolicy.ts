@@ -27,10 +27,10 @@ export default function usePolicy() {
       !policyData.privacy_policy_agreement
     ) {
       if (
-        !location.pathname.startsWith('/agreements') &&
+        !location.pathname.startsWith('/policy') &&
         location.pathname !== '/withdraw'
       ) {
-        navigate('/agreements/edit');
+        navigate('/policy/edit');
       }
     }
   }, [location, policyData, isLoggedIn]);
