@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { EventType } from '@/types/event.type';
 import { MyScheduleTime, Schedule } from '@/types/schedule.type';
+import { SleepTime } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
@@ -62,6 +63,15 @@ export default function useScheduleEdit({
     enabled: isLoggedIn,
   });
 
+  const { data: sleepTimeData } = useQuery<SleepTime>({
+    queryKey: ['users', 'sleep-time'],
+    queryFn: async () => {
+      const res = await axios.get('/users/sleep-time');
+      return res.data.payload;
+    },
+    enabled: isLoggedIn,
+  });
+
   useEffect(() => {
     if (!scheduleData) return;
     const isScheduleEmpty =
@@ -92,7 +102,7 @@ export default function useScheduleEdit({
             event.start_time,
             event.end_time,
             fixedScheduleTimes(time_point, event.category),
-            sleepTimes('23:00', '23:00'),
+            sleepTimes(),
           ),
         })) || []
       );
@@ -143,7 +153,12 @@ export default function useScheduleEdit({
         }
       }
 
-      function sleepTimes(startTime: string, endTime: string) {
+      function sleepTimes() {
+        const { sleep_start_time: startTime, sleep_end_time: endTime } =
+          sleepTimeData || {
+            sleep_start_time: '00:00',
+            sleep_end_time: '00:00',
+          };
         return isSame(startTime, endTime)
           ? []
           : isBefore(startTime, endTime)
