@@ -1,11 +1,27 @@
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 
 import { SleepTime } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
 
-export default function useSleepTime() {
+interface UseSleepTimeProps {
+  sleepTime?: SleepTime;
+}
+
+const defaultSleepTime: SleepTime = {
+  sleep_start_time: '00:00',
+  sleep_end_time: '00:00',
+};
+
+export default function useSleepTime({
+  sleepTime: _sleepTime,
+}: UseSleepTimeProps = {}) {
+  const [sleepTime, setSleepTime] = useState<SleepTime>(
+    _sleepTime || defaultSleepTime,
+  );
+
   const isLoggedIn = localStorage.getItem('access-token') !== null;
 
   const { data: sleepTimeData } = useQuery<SleepTime>({
@@ -18,10 +34,7 @@ export default function useSleepTime() {
   });
 
   const { sleep_start_time: startSleepTime, sleep_end_time: endSleepTime } =
-    sleepTimeData || {
-      sleep_start_time: '00:00',
-      sleep_end_time: '00:00',
-    };
+    sleepTime || defaultSleepTime;
 
   const sleepTimes = isSame(startSleepTime, endSleepTime)
     ? []
@@ -31,6 +44,14 @@ export default function useSleepTime() {
           ...timeBlockList(startSleepTime, '24:00'),
           ...timeBlockList('00:00', endSleepTime),
         ];
+
+  function isSame(time1: string, time2: string) {
+    return dayjs(time1, 'HH:mm').isSame(dayjs(time2, 'HH:mm'));
+  }
+
+  function isBefore(time1: string, time2: string) {
+    return dayjs(time1, 'HH:mm').isBefore(dayjs(time2, 'HH:mm'));
+  }
 
   function timesGroupList(type: 'timeBlock' | 'timeLabel') {
     return startSleepTime >= endSleepTime
@@ -61,18 +82,22 @@ export default function useSleepTime() {
         ];
   }
 
-  function isSame(time1: string, time2: string) {
-    return dayjs(time1, 'HH:mm').isSame(dayjs(time2, 'HH:mm'));
-  }
+  useEffect(() => {
+    if (!sleepTimeData) return;
+    setSleepTime && setSleepTime(sleepTimeData);
+  }, [sleepTimeData]);
 
-  function isBefore(time1: string, time2: string) {
-    return dayjs(time1, 'HH:mm').isBefore(dayjs(time2, 'HH:mm'));
-  }
+  useEffect(() => {
+    if (!_sleepTime) return;
+    setSleepTime(_sleepTime);
+  }, [_sleepTime]);
 
   return {
     sleepTimes,
     startSleepTime,
     endSleepTime,
     timesGroupList,
+    sleepTime,
+    setSleepTime,
   };
 }

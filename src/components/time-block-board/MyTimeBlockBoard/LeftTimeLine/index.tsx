@@ -1,10 +1,15 @@
 import dayjs from 'dayjs';
 
 import useSleepTime from '@/hooks/useSleepTime';
+import { SleepTime } from '@/types/user.type';
 import cn from '@/utils/cn';
 
-export default function LeftTimeLine() {
-  const { timesGroupList } = useSleepTime();
+interface LeftTimeLineProps {
+  sleepTime?: SleepTime;
+}
+
+export default function LeftTimeLine({ sleepTime }: LeftTimeLineProps) {
+  const { timesGroupList } = useSleepTime({ sleepTime });
 
   return (
     <div className="flex w-[2.5rem] flex-col items-end gap-2 pr-2">

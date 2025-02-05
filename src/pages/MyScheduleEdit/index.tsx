@@ -5,21 +5,19 @@ import SleepTimeAccordion from './SleepTimeAccordion';
 import TopAppBar from './TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
+import useSleepTime from '@/hooks/useSleepTime';
 import { MyScheduleTime } from '@/types/schedule.type';
-import { SleepTime } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function MyScheduleEdit() {
   const [mySchedule, setMySchedule] = useState<MyScheduleTime[]>([]);
-  const [sleepTime, setSleepTime] = useState<SleepTime>({
-    sleep_start_time: '00:00',
-    sleep_end_time: '00:00',
-  });
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
+
+  const { sleepTime, setSleepTime } = useSleepTime();
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -92,6 +90,7 @@ export default function MyScheduleEdit() {
               mode="edit"
               mySchedule={mySchedule}
               setMySchedule={setMySchedule}
+              sleepTime={sleepTime}
               className="pb-16 pl-2 pr-3"
               topDateGroupClassName={cn('sticky top-[120px] z-10 bg-gray-00', {
                 'top-[183px] ': isAccordionOpen,
