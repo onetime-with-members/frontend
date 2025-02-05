@@ -50,7 +50,7 @@ export default function CheckItem({
       <div className="flex items-center gap-3">
         <Checkbox
           checked={value[checkedKey] as boolean}
-          handleCheckboxClick={handleCheckboxClick}
+          onCheck={handleCheckboxClick}
         />
         <span className="text-gray-60 text-md-200">{children}</span>
       </div>

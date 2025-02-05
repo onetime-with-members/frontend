@@ -3,13 +3,10 @@ import cn from '@/utils/cn';
 
 interface CheckboxProps {
   checked: boolean;
-  handleCheckboxClick: (event: React.MouseEvent) => void;
+  onCheck?: (event: React.MouseEvent) => void;
 }
 
-export default function Checkbox({
-  checked,
-  handleCheckboxClick,
-}: CheckboxProps) {
+export default function Checkbox({ checked, onCheck }: CheckboxProps) {
   return (
     <div
       className={cn(
@@ -18,7 +15,7 @@ export default function Checkbox({
           'bg-primary-40': checked,
         },
       )}
-      onClick={handleCheckboxClick}
+      onClick={onCheck}
     >
       <CheckIcon />
     </div>
