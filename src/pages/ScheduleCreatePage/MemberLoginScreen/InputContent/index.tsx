@@ -1,16 +1,18 @@
 import PinPasswordInput from './PinPasswordInput';
 import ScheduleInputLabel from './ScheduleInputLabel';
-import Input from '@/components/Input';
+import NicknameFormControl from '@/components/NicknameFormControl';
 import { GuestValueType } from '@/types/user.type';
 
 interface InputContentProps {
   guestValue: GuestValueType;
   setGuestValue: React.Dispatch<React.SetStateAction<GuestValueType>>;
+  setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function InputContent({
   guestValue,
   setGuestValue,
+  setDisabled,
 }: InputContentProps) {
   function handleInputChange<T>(key: keyof GuestValueType) {
     return function (value: T) {
@@ -23,17 +25,11 @@ export default function InputContent({
 
   return (
     <div className="flex flex-col gap-12">
-      <div>
-        <ScheduleInputLabel htmlFor="name">이름</ScheduleInputLabel>
-        <Input
-          className="mt-2"
-          id="name"
-          name="name"
-          placeholder="이름"
-          value={guestValue.name}
-          onChange={(e) => handleInputChange('name')(e.target.value)}
-        />
-      </div>
+      <NicknameFormControl
+        value={guestValue.name}
+        onChange={(e) => handleInputChange('name')(e.target.value)}
+        setSubmitDisabled={setDisabled}
+      />
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <ScheduleInputLabel htmlFor="pin">비밀번호</ScheduleInputLabel>

@@ -83,7 +83,11 @@ export default function MemberLoginScreen({
 
   return (
     <div className="flex flex-col gap-14">
-      <InputContent guestValue={guestValue} setGuestValue={setGuestValue} />
+      <InputContent
+        guestValue={guestValue}
+        setGuestValue={setGuestValue}
+        setDisabled={setDisabled}
+      />
       <>
         <BottomButtonForDesktop onClick={handleSubmit} disabled={disabled} />
         <BottomButtonForMobile onClick={handleSubmit} disabled={disabled} />
