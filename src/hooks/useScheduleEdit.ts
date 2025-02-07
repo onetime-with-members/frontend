@@ -25,7 +25,7 @@ export default function useScheduleEdit({
     },
   ]);
 
-  const { sleepTimesList } = useSleepTime();
+  const { sleepTimesList, sleepTimeData } = useSleepTime();
 
   const params = useParams<{ eventId: string }>();
 
@@ -75,11 +75,14 @@ export default function useScheduleEdit({
           (fixedSchedule) => fixedSchedule.times.length === 0,
         )
       : true;
+    const isSleepTimeEmpty = sleepTimeData
+      ? sleepTimeData.sleep_end_time === sleepTimeData.sleep_start_time
+      : true;
     setSchedules([
       {
         name: scheduleData.name,
         schedules: isScheduleEmpty
-          ? isFixedScheduleEmpty
+          ? isFixedScheduleEmpty && isSleepTimeEmpty
             ? []
             : initSchedule() || []
           : scheduleData.schedules,
