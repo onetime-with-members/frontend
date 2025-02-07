@@ -18,10 +18,6 @@ const defaultSleepTime: SleepTimeType = {
 export default function useSleepTime({
   sleepTime: _sleepTime,
 }: UseSleepTimeProps = {}) {
-  const [sleepTime, setSleepTime] = useState<SleepTimeType>(
-    _sleepTime || defaultSleepTime,
-  );
-
   const isLoggedIn = localStorage.getItem('access-token') !== null;
 
   const { data: sleepTimeData } = useQuery<SleepTimeType>({
@@ -33,8 +29,12 @@ export default function useSleepTime({
     enabled: isLoggedIn,
   });
 
+  const [sleepTime, setSleepTime] = useState<SleepTimeType>(
+    _sleepTime || sleepTimeData || defaultSleepTime,
+  );
+
   const { sleep_start_time: startSleepTime, sleep_end_time: endSleepTime } =
-    sleepTimeData || defaultSleepTime;
+    sleepTime || defaultSleepTime;
 
   const sleepTimesList = isSame(startSleepTime, endSleepTime)
     ? []
