@@ -34,7 +34,7 @@ export default function useSleepTime({
   });
 
   const { sleep_start_time: startSleepTime, sleep_end_time: endSleepTime } =
-    sleepTime || defaultSleepTime;
+    sleepTimeData || defaultSleepTime;
 
   const sleepTimesList = isSame(startSleepTime, endSleepTime)
     ? []
