@@ -76,26 +76,27 @@ export default function TimeBlockBoard({
       if (!setSchedules) return;
 
       setSchedules((prevSchedules) => {
-        const targetIndex = prevSchedules[0].schedules.findIndex(
-          (s) => s.time_point === day,
-        );
+        const newSchedules = [...prevSchedules[0].schedules];
 
-        if (targetIndex === -1) {
-          return [
-            {
-              name: prevSchedules[0].name,
-              schedules: [
-                ...prevSchedules[0].schedules,
-                {
-                  time_point: day,
-                  times: [],
-                },
-              ],
-            },
-          ];
-        }
+        event.ranges.forEach((range) => {
+          const targetIndex = newSchedules.findIndex(
+            (s) => s.time_point === range,
+          );
 
-        return prevSchedules;
+          if (targetIndex === -1) {
+            newSchedules.push({
+              time_point: range,
+              times: [],
+            });
+          }
+        });
+
+        return [
+          {
+            name: prevSchedules[0].name,
+            schedules: newSchedules,
+          },
+        ];
       });
     }
 
