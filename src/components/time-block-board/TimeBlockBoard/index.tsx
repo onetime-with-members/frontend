@@ -74,23 +74,29 @@ export default function TimeBlockBoard({
 
     function initSchedule() {
       if (!setSchedules) return;
-      const targetIndex = schedules[0].schedules.findIndex(
-        (s) => s.time_point === day,
-      );
-      if (targetIndex === -1) {
-        setSchedules((prev) => [
-          {
-            name: prev[0].name,
-            schedules: [
-              ...prev[0].schedules,
-              {
-                time_point: day,
-                times: newStatus ? [time] : [],
-              },
-            ],
-          },
-        ]);
-      }
+
+      setSchedules((prevSchedules) => {
+        const targetIndex = prevSchedules[0].schedules.findIndex(
+          (s) => s.time_point === day,
+        );
+
+        if (targetIndex === -1) {
+          return [
+            {
+              name: prevSchedules[0].name,
+              schedules: [
+                ...prevSchedules[0].schedules,
+                {
+                  time_point: day,
+                  times: [],
+                },
+              ],
+            },
+          ];
+        }
+
+        return prevSchedules;
+      });
     }
 
     function editTimeBlock() {
