@@ -25,6 +25,7 @@ export default function MemberLoginScreen({
   setIsNewGuest,
 }: MemberLoginProps) {
   const [disabled, setDisabled] = useState(true);
+  const [nicknameDisabled, setNicknameDisabled] = useState(true);
 
   const params = useParams();
 
@@ -77,16 +78,17 @@ export default function MemberLoginScreen({
     setDisabled(
       guestValue.name === '' ||
         guestValue.pin.length !== 4 ||
-        guestValue.pin.includes('-'),
+        guestValue.pin.includes('-') ||
+        nicknameDisabled,
     );
-  }, [guestValue]);
+  }, [guestValue, nicknameDisabled]);
 
   return (
     <div className="flex flex-col gap-14">
       <InputContent
         guestValue={guestValue}
         setGuestValue={setGuestValue}
-        setDisabled={setDisabled}
+        setNicknameDisabled={setNicknameDisabled}
       />
       <>
         <BottomButtonForDesktop onClick={handleSubmit} disabled={disabled} />

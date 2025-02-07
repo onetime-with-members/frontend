@@ -6,13 +6,13 @@ import { GuestValueType } from '@/types/user.type';
 interface InputContentProps {
   guestValue: GuestValueType;
   setGuestValue: React.Dispatch<React.SetStateAction<GuestValueType>>;
-  setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setNicknameDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function InputContent({
   guestValue,
   setGuestValue,
-  setDisabled,
+  setNicknameDisabled,
 }: InputContentProps) {
   function handleInputChange<T>(key: keyof GuestValueType) {
     return function (value: T) {
@@ -28,7 +28,7 @@ export default function InputContent({
       <NicknameFormControl
         value={guestValue.name}
         onChange={(e) => handleInputChange('name')(e.target.value)}
-        setSubmitDisabled={setDisabled}
+        setSubmitDisabled={setNicknameDisabled}
       />
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
