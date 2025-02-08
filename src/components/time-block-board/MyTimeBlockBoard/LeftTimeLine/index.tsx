@@ -9,11 +9,13 @@ interface LeftTimeLineProps {
 }
 
 export default function LeftTimeLine({ sleepTime }: LeftTimeLineProps) {
-  const { timesGroupList } = useSleepTime({ sleepTime });
+  const { timesGroupForSplittedTimeBlock } = useSleepTime({
+    sleepTime,
+  });
 
   return (
     <div className="flex w-[2.5rem] flex-col items-end gap-2 pr-2">
-      {timesGroupList('timeLabel').map((timesGroup, index) => (
+      {timesGroupForSplittedTimeBlock('timeLabel').map((timesGroup, index) => (
         <div key={index}>
           {timesGroup.map((time, index) => (
             <div

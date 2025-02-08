@@ -32,7 +32,9 @@ export default function BoardContent({
         setIsEdited && setIsEdited(true);
       },
     });
-  const { timesGroupList } = useSleepTime({ sleepTime });
+  const { timesGroupForSplittedTimeBlock } = useSleepTime({
+    sleepTime,
+  });
 
   function changeTimeBlock(
     weekday: string,
@@ -76,20 +78,22 @@ export default function BoardContent({
           key={weekday}
           className="flex flex-col gap-2 overflow-hidden rounded-lg"
         >
-          {timesGroupList('timeBlock').map((timesGroup, index) => (
-            <div key={index}>
-              {timesGroup.map((time) => (
-                <TimeBlock
-                  key={time}
-                  mode={mode}
-                  backgroundColor={backgroundColor}
-                  filled={isFilled(weekday, time)}
-                  clickedFirst={isClickedFirst(weekday, time)}
-                  onClick={() => handleTimeBlockClick(weekday, time)}
-                />
-              ))}
-            </div>
-          ))}
+          {timesGroupForSplittedTimeBlock('timeBlock').map(
+            (timesGroup, index) => (
+              <div key={index}>
+                {timesGroup.map((time) => (
+                  <TimeBlock
+                    key={time}
+                    mode={mode}
+                    backgroundColor={backgroundColor}
+                    filled={isFilled(weekday, time)}
+                    clickedFirst={isClickedFirst(weekday, time)}
+                    onClick={() => handleTimeBlockClick(weekday, time)}
+                  />
+                ))}
+              </div>
+            ),
+          )}
         </div>
       ))}
     </div>

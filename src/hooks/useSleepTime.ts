@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
+import { DEFAULT_SLEEP_TIME } from '@/constants/sleep-time';
 import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
@@ -9,11 +10,6 @@ import { useQuery } from '@tanstack/react-query';
 interface UseSleepTimeProps {
   sleepTime?: SleepTimeType;
 }
-
-const defaultSleepTime: SleepTimeType = {
-  sleep_start_time: '00:00',
-  sleep_end_time: '00:00',
-};
 
 export default function useSleepTime({
   sleepTime: _sleepTime,
@@ -30,11 +26,21 @@ export default function useSleepTime({
   });
 
   const [sleepTime, setSleepTime] = useState<SleepTimeType>(
-    _sleepTime || sleepTimeData || defaultSleepTime,
+    _sleepTime || sleepTimeData || DEFAULT_SLEEP_TIME,
   );
 
   const { sleep_start_time: startSleepTime, sleep_end_time: endSleepTime } =
-    sleepTime || defaultSleepTime;
+    sleepTime || DEFAULT_SLEEP_TIME;
+
+  useEffect(() => {
+    if (!sleepTimeData) return;
+    setSleepTime && setSleepTime(sleepTimeData);
+  }, [sleepTimeData]);
+
+  useEffect(() => {
+    if (!_sleepTime) return;
+    setSleepTime(_sleepTime);
+  }, [_sleepTime]);
 
   const sleepTimesList = isSame(startSleepTime, endSleepTime)
     ? []
@@ -53,7 +59,7 @@ export default function useSleepTime({
     return dayjs(time1, 'HH:mm').isBefore(dayjs(time2, 'HH:mm'));
   }
 
-  function timesGroupList(type: 'timeBlock' | 'timeLabel') {
+  function timesGroupForSplittedTimeBlock(type: 'timeBlock' | 'timeLabel') {
     return startSleepTime >= endSleepTime
       ? [
           timeBlockList('00:00', '24:00', type === 'timeBlock' ? '30m' : '1h')
@@ -82,24 +88,11 @@ export default function useSleepTime({
         ];
   }
 
-  useEffect(() => {
-    if (!sleepTimeData) return;
-    setSleepTime && setSleepTime(sleepTimeData);
-  }, [sleepTimeData]);
-
-  useEffect(() => {
-    if (!_sleepTime) return;
-    setSleepTime(_sleepTime);
-  }, [_sleepTime]);
-
   return {
     sleepTimesList,
-    startSleepTime,
-    endSleepTime,
-    timesGroupList,
+    timesGroupForSplittedTimeBlock,
     sleepTime,
     setSleepTime,
     sleepTimeData,
-    defaultSleepTime,
   };
 }

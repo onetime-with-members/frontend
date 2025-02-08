@@ -4,6 +4,7 @@ import EditButtonGroup from './EditButtonGroup';
 import EditDropdownContent from './EditDropdownContent';
 import PenIcon from '@/components/icon/PenIcon';
 import SleepIcon from '@/components/icon/SleepIcon';
+import { DEFAULT_SLEEP_TIME } from '@/constants/sleep-time';
 import useSleepTime from '@/hooks/useSleepTime';
 import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
@@ -21,7 +22,7 @@ export default function SleepTimeUI({
 }: SleepTimeUIProps) {
   const [isEditing, setIsEditing] = useState(false);
 
-  const { sleepTimeData, defaultSleepTime } = useSleepTime();
+  const { sleepTimeData } = useSleepTime();
 
   const queryClient = useQueryClient();
 
@@ -46,7 +47,7 @@ export default function SleepTimeUI({
 
   function handleCancelButtonClick() {
     setIsEditing(false);
-    setSleepTime(sleepTimeData || defaultSleepTime);
+    setSleepTime(sleepTimeData || DEFAULT_SLEEP_TIME);
   }
 
   return (
