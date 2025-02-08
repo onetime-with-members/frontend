@@ -9,15 +9,15 @@ import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
 
-interface UseScheduleEditProps {
+interface UseScheduleCreateProps {
   isNewGuest: boolean;
   guestId: string;
 }
 
-export default function useScheduleEdit({
+export default function useScheduleCreate({
   isNewGuest,
   guestId,
-}: UseScheduleEditProps) {
+}: UseScheduleCreateProps) {
   const [schedules, setSchedules] = useState<ScheduleType[]>([
     {
       name: '본인',

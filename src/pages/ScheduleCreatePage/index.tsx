@@ -10,7 +10,7 @@ import TopNavBarForDesktop from './TopNavBarForDesktop';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import { FooterContext } from '@/contexts/FooterContext';
 import useGrayBackground from '@/hooks/useGrayBackground';
-import useScheduleEdit from '@/hooks/useScheduleEdit';
+import useScheduleCreate from '@/hooks/useScheduleCreate';
 import { GuestValueType } from '@/types/user.type';
 import cn from '@/utils/cn';
 
@@ -24,7 +24,6 @@ export default function ScheduleCreatePage() {
     name: '',
     pin: '',
   });
-
   const [isPossibleTime, setIsPossibleTime] = useState(true);
   const [isTopSubmitButtonClicked, setIsTopSubmitButtonClicked] =
     useState(false);
@@ -33,7 +32,7 @@ export default function ScheduleCreatePage() {
 
   const { setIsFooterVisible } = useContext(FooterContext);
 
-  const { schedules, setSchedules, event } = useScheduleEdit({
+  const { schedules, setSchedules, event } = useScheduleCreate({
     isNewGuest,
     guestId,
   });
