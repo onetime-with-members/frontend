@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import MyScheduleDeleteAlert from './MyScheduleDeleteAlert';
-import MyScheduleBottomSheet from '@/components/MyScheduleBottomSheet';
-import MyScheduleList from '@/components/MyScheduleList';
-import MyTimeBlockBoard from '@/components/MyTimeBlockBoard';
+import MyTimeBlockBoardContent from './MyTimeBlockBoardContent';
+import MyScheduleBottomSheet from '@/components/my-schedule/MyScheduleBottomSheet';
+import MyScheduleList from '@/components/my-schedule/MyScheduleList';
 import { MyScheduleContext } from '@/contexts/MyScheduleContext';
 import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -89,11 +89,7 @@ export default function MySchedules() {
             {
               {
                 timeblock: (
-                  <MyTimeBlockBoard
-                    mode="view"
-                    mySchedules={mySchedules}
-                    topDateGroupClassName="sticky z-10 bg-gray-00 top-[64px] md:top-0"
-                  />
+                  <MyTimeBlockBoardContent mySchedules={mySchedules} />
                 ),
                 list: <MyScheduleList />,
               }[viewMode]

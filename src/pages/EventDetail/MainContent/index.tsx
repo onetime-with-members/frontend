@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 
-import TimeBlockBoard from '@/components/TimeBlockBoard';
-import BannerList from '@/components/banner/banner-list/BannerList';
-import EmptyEventBanner from '@/components/banner/empty-event/EmptyEventBanner';
+import EmptyEventBanner from './EmptyEventBanner';
+import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard';
+import BannerList from '@/pages/EventDetail/MainContent/BannerList';
 import { EventType } from '@/types/event.type';
 import { RecommendSchedule, Schedule } from '@/types/schedule.type';
 import axios from '@/utils/axios';
@@ -63,7 +63,7 @@ export default function MainContent({
     return <></>;
 
   return (
-    <div className="mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-05 px-6">
+    <div className="mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-05 px-6 pt-3">
       <main className="pb-16">
         <div className="flex flex-col gap-10">
           <TimeBlockBoard

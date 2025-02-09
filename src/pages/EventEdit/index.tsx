@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import EventFormContent from '@/components/event-form-content/EventFormContent';
+import EventFormContent from '@/components/EventFormContent';
 import { EventType, EventValue } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -50,9 +50,15 @@ export default function EventEdit() {
   });
 
   function handleSubmit(disabled: boolean, value: EventValue) {
-    if (disabled) return;
+    if (disabled || editEvent.isPending) return;
     editEvent.mutate(value);
   }
 
-  return <EventFormContent originData={data} onSubmit={handleSubmit} />;
+  return (
+    <EventFormContent
+      originData={data}
+      onSubmit={handleSubmit}
+      isPending={editEvent.isPending}
+    />
+  );
 }

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import EventFormContent from '@/components/event-form-content/EventFormContent';
+import EventFormContent from '@/components/EventFormContent';
 import { EventValue } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
@@ -18,10 +18,14 @@ export default function EventCreate() {
   });
 
   function handleSubmit(disabled: boolean, value: EventValue) {
-    if (disabled) return;
-
+    if (disabled || createEvent.isPending) return;
     createEvent.mutate(value);
   }
 
-  return <EventFormContent onSubmit={handleSubmit} />;
+  return (
+    <EventFormContent
+      onSubmit={handleSubmit}
+      isPending={createEvent.isPending}
+    />
+  );
 }

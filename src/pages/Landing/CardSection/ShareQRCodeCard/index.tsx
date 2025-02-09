@@ -1,6 +1,6 @@
 import Card from '../Card';
 import cardImage from '@/assets/landing/paper-airplane.svg';
-import ClockPattern from '@/components/clock-pattern/ClockPattern';
+import ClockPattern from '@/components/ClockPattern';
 
 export default function ShareQRCodeCard() {
   return (

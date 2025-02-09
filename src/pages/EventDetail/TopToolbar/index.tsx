@@ -1,13 +1,9 @@
-import { useNavigate, useParams } from 'react-router-dom';
-
 import ToolbarButton from './ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown';
 import kakaoIcon from '@/assets/kakao-icon.svg';
 import sendIcon from '@/assets/send.svg';
-import PenIcon from '@/components/icon/PenIcon';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import { EventType } from '@/types/event.type';
-import { IconTrashXFilled } from '@tabler/icons-react';
 
 interface TopToolbarProps {
   event: EventType;
@@ -26,17 +22,6 @@ export default function TopToolbar({
     event,
   });
 
-  const params = useParams<{ eventId: string }>();
-  const navigate = useNavigate();
-
-  function handleEditButtonClick() {
-    navigate(`/events/${params.eventId}/edit`);
-  }
-
-  function handleDeleteButtonClick() {
-    setIsDeleteAlertOpen(true);
-  }
-
   return (
     <header className="flex h-[59px] w-full justify-center md:h-[72px]">
       <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
@@ -47,38 +32,25 @@ export default function TopToolbar({
             </h1>
             {!isEventPending && event && (
               <>
-                {event.event_status === 'CREATOR' && (
-                  <div className="flex items-center justify-center md:hidden">
-                    <ToolbarMenuDropdown
-                      handleDeleteButtonClick={handleDeleteButtonClick}
-                    />
-                  </div>
-                )}
-                <div className="hidden items-center gap-2 md:flex">
+                <div className="flex items-center gap-2">
                   <ToolbarButton
                     variant="primary"
                     onClick={handleShareButtonClick}
+                    className="hidden md:flex"
                   >
                     <img src={sendIcon} alt="보내기 아이콘" />
                   </ToolbarButton>
-                  <ToolbarButton variant="yellow" onClick={handleKakaoShare}>
+                  <ToolbarButton
+                    variant="yellow"
+                    onClick={handleKakaoShare}
+                    className="hidden md:flex"
+                  >
                     <img src={kakaoIcon} alt="카카오톡 아이콘" />
                   </ToolbarButton>
                   {event.event_status === 'CREATOR' && (
-                    <>
-                      <ToolbarButton
-                        variant="gray"
-                        onClick={handleEditButtonClick}
-                      >
-                        <PenIcon />
-                      </ToolbarButton>
-                      <ToolbarButton
-                        variant="danger"
-                        onClick={handleDeleteButtonClick}
-                      >
-                        <IconTrashXFilled />
-                      </ToolbarButton>
-                    </>
+                    <ToolbarMenuDropdown
+                      setIsDeleteAlertOpen={setIsDeleteAlertOpen}
+                    />
                   )}
                 </div>
               </>

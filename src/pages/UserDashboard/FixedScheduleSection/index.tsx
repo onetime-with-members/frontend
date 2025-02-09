@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import EmptyUI from '@/components/EmptyUI';
-import MyScheduleList from '@/components/MyScheduleList';
-import MyTimeBlockBoard from '@/components/MyTimeBlockBoard';
+import MyScheduleList from '@/components/my-schedule/MyScheduleList';
+import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
 import { MyScheduleContext } from '@/contexts/MyScheduleContext';
 import { MySchedule } from '@/types/schedule.type';
 import axios from '@/utils/axios';
@@ -65,7 +65,7 @@ export default function FixedScheduleSection() {
             className="hidden flex-1 md:block"
           />
           <div className="flex-1 rounded-2xl bg-gray-00 px-5 py-4 md:mt-8">
-            <MyScheduleList hasWeekdaySelcectUI={false} />
+            <MyScheduleList hasWeekdaySelcect={false} />
           </div>
         </div>
       )}

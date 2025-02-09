@@ -1,8 +1,7 @@
 import { useRef } from 'react';
 
 import PinPasswordInputField from './PinPasswordInputField';
-import { MAX_PIN_LENGTH } from '@/constants/pin-password';
-import { numberRegex } from '@/constants/regex';
+import { isNumber } from '@/utils/validation';
 
 interface PinPasswordInputProps {
   inputId: string;
@@ -17,11 +16,13 @@ export default function PinPasswordInput({
 }: PinPasswordInputProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
+  const MAX_PIN_LENGTH = 4;
+
   function handleInputChange(
     e: React.ChangeEvent<HTMLInputElement>,
     index: number,
   ) {
-    if (!numberRegex.test(e.target.value)) {
+    if (!isNumber(e.target.value)) {
       e.target.value = '';
       return;
     }
