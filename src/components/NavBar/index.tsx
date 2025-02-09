@@ -15,6 +15,7 @@ interface NavBarProps {
   shadow?: boolean;
   className?: string;
   disabled?: boolean;
+  isAuthHidden?: boolean;
 }
 
 export default function NavBar({
@@ -22,6 +23,7 @@ export default function NavBar({
   shadow = true,
   className,
   disabled,
+  isAuthHidden = false,
 }: NavBarProps) {
   const { isScrolling } = useScroll();
 
@@ -62,8 +64,14 @@ export default function NavBar({
               className="h-[2rem]"
             />
           </Link>
-          {user && <AvatarDropdown name={user.nickname} disabled={disabled} />}
-          {!isLoading && !user && <LoginButton />}
+          {!isAuthHidden && (
+            <>
+              {user && (
+                <AvatarDropdown name={user.nickname} disabled={disabled} />
+              )}
+              {!isLoading && !user && <LoginButton />}
+            </>
+          )}
         </div>
       </div>
     </nav>
