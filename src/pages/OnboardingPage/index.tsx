@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import NicknameFormScreen from './NicknameFormScreen';
@@ -92,54 +93,60 @@ export default function OnboardingPage() {
   }, []);
 
   return (
-    <div className="flex flex-1 flex-col md:gap-4">
-      <header>
-        <TopAppBarForMobile
-          handleBackButtonClick={handleBackButtonClick}
-          className={cn({
-            hidden: page === 4,
-          })}
-        />
-        <TopNavBarForDesktop />
-      </header>
+    <>
+      <Helmet>
+        <title>회원가입 | OneTime</title>
+      </Helmet>
 
-      <main className="flex h-full flex-1 flex-col px-4">
-        <div className="mx-auto flex w-full max-w-screen-sm flex-1 flex-col">
-          <PageIndicator
-            pageMaxNumber={3}
-            page={page}
+      <div className="flex flex-1 flex-col md:gap-4">
+        <header>
+          <TopAppBarForMobile
+            handleBackButtonClick={handleBackButtonClick}
             className={cn({
               hidden: page === 4,
             })}
           />
+          <TopNavBarForDesktop />
+        </header>
 
-          <PrivacyScreen
-            isVisible={page === 1}
-            page={page}
-            value={value}
-            setValue={setValue}
-            handleNextButtonClick={handleNextButtonClick}
-            handleBackButtonClick={handleBackButtonClick}
-          />
-          <NicknameFormScreen
-            isVisible={page === 2}
-            page={page}
-            value={value}
-            setValue={setValue}
-            handleNextButtonClick={handleNextButtonClick}
-            handleBackButtonClick={handleBackButtonClick}
-          />
-          <SleepTimeScreen
-            isVisible={page === 3}
-            page={page}
-            value={value}
-            setValue={setValue}
-            handleSubmitButtonClick={handleSubmitButtonClick}
-            handleBackButtonClick={handleBackButtonClick}
-          />
-          <WelcomeScreen isVisible={page === 4} value={value} />
-        </div>
-      </main>
-    </div>
+        <main className="flex h-full flex-1 flex-col px-4">
+          <div className="mx-auto flex w-full max-w-screen-sm flex-1 flex-col">
+            <PageIndicator
+              pageMaxNumber={3}
+              page={page}
+              className={cn({
+                hidden: page === 4,
+              })}
+            />
+
+            <PrivacyScreen
+              isVisible={page === 1}
+              page={page}
+              value={value}
+              setValue={setValue}
+              handleNextButtonClick={handleNextButtonClick}
+              handleBackButtonClick={handleBackButtonClick}
+            />
+            <NicknameFormScreen
+              isVisible={page === 2}
+              page={page}
+              value={value}
+              setValue={setValue}
+              handleNextButtonClick={handleNextButtonClick}
+              handleBackButtonClick={handleBackButtonClick}
+            />
+            <SleepTimeScreen
+              isVisible={page === 3}
+              page={page}
+              value={value}
+              setValue={setValue}
+              handleSubmitButtonClick={handleSubmitButtonClick}
+              handleBackButtonClick={handleBackButtonClick}
+            />
+            <WelcomeScreen isVisible={page === 4} value={value} />
+          </div>
+        </main>
+      </div>
+    </>
   );
 }

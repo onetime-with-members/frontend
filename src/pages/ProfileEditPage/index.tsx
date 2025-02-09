@@ -55,7 +55,7 @@ export default function ProfileEditPage() {
   return (
     <>
       <Helmet>
-        <title>프로필 수정 - OneTime</title>
+        <title>프로필 수정 | OneTime</title>
       </Helmet>
       <>
         <TopAppBar />

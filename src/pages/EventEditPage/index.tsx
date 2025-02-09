@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import EventFormContent from '@/components/EventFormContent';
@@ -55,10 +56,17 @@ export default function EventEditPage() {
   }
 
   return (
-    <EventFormContent
-      originData={data}
-      onSubmit={handleSubmit}
-      isPending={editEvent.isPending}
-    />
+    <>
+      {data && (
+        <Helmet>
+          <title>{data.title} 수정 | OneTime</title>
+        </Helmet>
+      )}
+      <EventFormContent
+        originData={data}
+        onSubmit={handleSubmit}
+        isPending={editEvent.isPending}
+      />
+    </>
   );
 }

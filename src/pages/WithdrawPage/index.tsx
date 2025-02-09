@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import InfoContent from './InfoContent';
 import TopAppBar from './TopAppBar';
@@ -28,6 +29,10 @@ export default function WithdrawPage() {
 
   return (
     <>
+      <Helmet>
+        <title>회원 탈퇴 | OneTime</title>
+      </Helmet>
+
       <TopAppBar />
       <main className="px-4 pb-24">
         <div className="mx-auto flex w-full max-w-screen-sm flex-col items-center gap-10">

@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 import EventFormContent from '@/components/EventFormContent';
@@ -23,9 +24,14 @@ export default function EventCreatePage() {
   }
 
   return (
-    <EventFormContent
-      onSubmit={handleSubmit}
-      isPending={createEvent.isPending}
-    />
+    <>
+      <Helmet>
+        <title>이벤트 생성 | OneTime</title>
+      </Helmet>
+      <EventFormContent
+        onSubmit={handleSubmit}
+        isPending={createEvent.isPending}
+      />
+    </>
   );
 }

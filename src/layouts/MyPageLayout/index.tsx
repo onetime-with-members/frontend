@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import HeaderForDesktop from './HeaderForDesktop';
@@ -46,10 +45,6 @@ export default function MyPageLayout() {
 
   return (
     <>
-      <Helmet>
-        <title>마이페이지 | OneTime</title>
-      </Helmet>
-
       {/* Mobile */}
       <div className="block md:hidden">
         <TopAppBarForMobile

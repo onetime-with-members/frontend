@@ -6,18 +6,15 @@ import { PolicyKeyType } from '@/types/user.type';
 
 interface PolicyDetailScreenProps {
   page: PolicyKeyType;
+  pageTitle: string;
   onClose: () => void;
 }
 
 export default function PolicyDetailScreen({
   page,
+  pageTitle,
   onClose,
 }: PolicyDetailScreenProps) {
-  const pageTitle =
-    page === 'service_policy_agreement'
-      ? '서비스 이용약관'
-      : '개인정보 수집 및 이용 동의';
-
   return (
     <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center bg-gray-05">
       <>
