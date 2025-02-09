@@ -1,8 +1,7 @@
 import { forwardRef } from 'react';
 
 import TimeBlock from './TimeBlock';
-import useTimeBlockFill from '@/hooks/useTimeBlockFill';
-import { ScheduleType, TimeType } from '@/types/schedule.type';
+import { ScheduleType } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 import { timeBlockList } from '@/utils/time-block';
@@ -12,18 +11,23 @@ export interface TimeBlockLineProps {
   startTime: string;
   endTime: string;
   schedules: ScheduleType[];
-  changeTimeBlockStatus: (
-    day: TimeType['time_point'],
-    time: TimeType['times'][0],
-    newStatus: boolean,
-  ) => void;
-  handleDialogOpen: ({
+  onTimeBlockClick: ({
     timePoint,
     time,
   }: {
     timePoint: string;
     time: string;
   }) => void;
+  onDialogOpen: ({
+    timePoint,
+    time,
+  }: {
+    timePoint: string;
+    time: string;
+  }) => void;
+  isFilled: (timePoint: string, time: string) => boolean;
+  isClickedFirstFor: (timePoint: string, time: string) => boolean;
+  timesAllMember: (timePoint: string) => string[];
   editable?: boolean;
   minWidth?: number;
   isPossibleTime?: boolean;
@@ -38,8 +42,11 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
       startTime,
       endTime,
       schedules,
-      changeTimeBlockStatus,
-      handleDialogOpen,
+      onTimeBlockClick,
+      onDialogOpen,
+      isFilled,
+      isClickedFirstFor,
+      timesAllMember,
       editable,
       minWidth,
       isPossibleTime = true,
@@ -48,40 +55,8 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
     },
     ref,
   ) => {
-    const { clickedTimeBlock, handleTimeBlockClick: _handleTimeBlockClick } =
-      useTimeBlockFill({
-        isFilled: (_, time) => isFilled(time),
-        fillTimeBlocks: ({ timePoint, times, isFilling }) =>
-          times.forEach((time) =>
-            changeTimeBlockStatus(timePoint, time, isFilling),
-          ),
-      });
-
     const timeList = timeBlockList(startTime, endTime);
     const memberCount = schedules.length || 0;
-
-    function timesAllMember() {
-      let result: string[] = [];
-      schedules.forEach((schedule) => {
-        schedule.schedules.forEach((daySchedule) => {
-          if (daySchedule.time_point === timePoint) {
-            result = [...result, ...daySchedule.times];
-          }
-        });
-      });
-      return result;
-    }
-
-    function isFilled(time: TimeType['times'][0]) {
-      return timesAllMember().includes(time);
-    }
-
-    function isClickedFirstFor(time: TimeType['times'][0]) {
-      return (
-        clickedTimeBlock.startTime === time &&
-        clickedTimeBlock.timePoint === timePoint
-      );
-    }
 
     function handleTimeBlockClick(event: React.MouseEvent | React.TouchEvent) {
       if (isBoardContentDragging) return;
@@ -91,9 +66,9 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
       const time = target.dataset.time;
       if (!timePoint || !time) return;
       if (editable) {
-        _handleTimeBlockClick({ timePoint, time });
+        onTimeBlockClick({ timePoint, time });
       } else {
-        handleDialogOpen({ timePoint, time });
+        onDialogOpen({ timePoint, time });
       }
     }
 
@@ -106,17 +81,18 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
               className={cn({
                 'cursor-pointer': schedules.length > 0,
               })}
-              active={isFilled(time)}
+              active={isFilled(timePoint, time)}
               data-time={time}
               data-timepoint={timePoint}
-              clickedFirst={isClickedFirstFor(time)}
+              clickedFirst={isClickedFirstFor(timePoint, time)}
               bgOpacity={
-                timesAllMember().filter((t) => t === time).length / memberCount
+                timesAllMember(timePoint).filter((t) => t === time).length /
+                memberCount
               }
               editable={editable}
               isPossibleTime={isPossibleTime}
               isAllMembersAvailable={
-                timesAllMember().filter((t) => t === time).length ===
+                timesAllMember(timePoint).filter((t) => t === time).length ===
                   memberCount && memberCount > 1
               }
               backgroundColor={backgroundColor}
