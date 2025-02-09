@@ -40,23 +40,19 @@ export default function Participants({ participants }: ParticipantsProps) {
           <IconChevronRight size={24} className="text-gray-30" />
         </div>
         <div className={cn(style.badgeList, 'hidden min-[440px]:flex')}>
-          {participants.slice(0, 9).map((participant) => (
-            <MemberBadge key={participant}>{participant}</MemberBadge>
+          {participants.slice(0, 9).map((participant, index) => (
+            <MemberBadge key={index}>{participant}</MemberBadge>
           ))}
           {participants.length > 9 && (
-            <MemberBadge variant="gray" className="">
-              ...
-            </MemberBadge>
+            <MemberBadge variant="gray">...</MemberBadge>
           )}
         </div>
         <div className={cn(style.badgeList, 'flex min-[440px]:hidden')}>
-          {participants.slice(0, 7).map((participant) => (
-            <MemberBadge key={participant}>{participant}</MemberBadge>
+          {participants.slice(0, 7).map((participant, index) => (
+            <MemberBadge key={index}>{participant}</MemberBadge>
           ))}
           {participants.length > 7 && (
-            <MemberBadge variant="gray" className="">
-              ...
-            </MemberBadge>
+            <MemberBadge variant="gray">...</MemberBadge>
           )}
         </div>
       </div>
