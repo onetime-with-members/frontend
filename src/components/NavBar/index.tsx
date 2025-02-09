@@ -14,12 +14,14 @@ interface NavBarProps {
   variant?: 'default' | 'black';
   shadow?: boolean;
   className?: string;
+  disabled?: boolean;
 }
 
 export default function NavBar({
   variant = 'default',
   shadow = true,
   className,
+  disabled,
 }: NavBarProps) {
   const { isScrolling } = useScroll();
 
@@ -48,14 +50,19 @@ export default function NavBar({
         )}
       >
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
-          <Link to="/">
+          <Link
+            to={disabled ? '#' : '/'}
+            className={cn({
+              'cursor-default': disabled,
+            })}
+          >
             <img
               src={variant === 'default' ? logoBlack : logoWhite}
               alt="OneTime"
               className="h-[2rem]"
             />
           </Link>
-          {user && <AvatarDropdown name={user.nickname} />}
+          {user && <AvatarDropdown name={user.nickname} disabled={disabled} />}
           {!isLoading && !user && <LoginButton />}
         </div>
       </div>

@@ -60,7 +60,7 @@ export default function PolicyEditPage() {
 
   return (
     <>
-      <NavBar />
+      <NavBar disabled />
       <div className="px-4 py-12">
         <div className="mx-auto flex w-full max-w-screen-xs flex-col gap-12">
           <h1 className="text-center text-gray-90 title-lg-300">
