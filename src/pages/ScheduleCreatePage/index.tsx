@@ -89,9 +89,10 @@ export default function ScheduleCreatePage() {
         </>
         <main
           className={cn(
-            'mx-auto flex flex-col bg-gray-00 px-6 py-4 md:h-auto md:max-w-screen-sm md:gap-14 md:rounded-3xl md:px-9 md:py-10',
+            'mx-auto flex flex-col bg-gray-00 px-6 md:h-auto md:max-w-screen-sm md:gap-14 md:rounded-3xl md:px-9',
             {
-              'md:mb-28': pageIndex === 1,
+              'py-4 md:py-10': pageIndex === 0,
+              'md:mb-28 md:py-6': pageIndex === 1,
             },
           )}
         >
