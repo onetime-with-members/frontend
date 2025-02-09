@@ -1,30 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import NavBar from '@/components/NavBar';
 import Button from '@/components/button/Button';
 import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent';
-import usePolicy from '@/hooks/usePolicy';
-import { PolicyKeyType, PolicyType } from '@/types/user.type';
+import { PolicyContext } from '@/contexts/PolicyContext';
+import { PolicyKeyType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function PolicyEditPage() {
-  const [value, setValue] = useState<PolicyType>({
-    service_policy_agreement: false,
-    privacy_policy_agreement: false,
-    marketing_policy_agreement: false,
-  });
-  const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
+  const { policyValue, setPolicyValue } = useContext(PolicyContext);
 
-  const { policyData, isLoggedIn } = usePolicy();
+  const isLoggedIn = localStorage.getItem('access-token') !== null;
 
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate(-1);
+    }
+  }, []);
 
   const agreePolicies = useMutation({
     mutationFn: async () => {
-      const res = await axios.put('/users/policy', value);
+      const res = await axios.put('/users/policy', policyValue);
       return res.data.payload;
     },
     onSuccess: async () => {
@@ -37,18 +35,19 @@ export default function PolicyEditPage() {
     agreePolicies.mutate();
   }
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate(-1);
-    }
-  }, []);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    if (!policyData) return;
-    setValue({
-      ...policyData,
-    });
-  }, [policyData]);
+    setDisabled(
+      !policyValue.privacy_policy_agreement ||
+        !policyValue.service_policy_agreement,
+    );
+  }, [policyValue]);
+
+  const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
+
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (pageDetail === 'service_policy_agreement') {
@@ -68,12 +67,17 @@ export default function PolicyEditPage() {
             약관에 동의해주세요
           </h1>
           <PolicyCheckboxContent
-            value={value}
-            setValue={setValue}
+            value={policyValue}
+            setValue={setPolicyValue}
             setPageDetail={setPageDetail}
           />
           <div className="flex flex-col items-center gap-3">
-            <Button variant="black" onClick={handleSubmitButtonClick} fullWidth>
+            <Button
+              variant="black"
+              onClick={handleSubmitButtonClick}
+              fullWidth
+              disabled={disabled}
+            >
               확인
             </Button>
             <div className="flex items-center gap-1.5 px-4 text-gray-50 text-sm-200">
