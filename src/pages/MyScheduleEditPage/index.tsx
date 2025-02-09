@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
 import SleepTimeAccordion from './SleepTimeAccordion';
@@ -72,6 +73,10 @@ export default function MyScheduleEditPage() {
 
   return (
     <>
+      <Helmet>
+        <title>내 스케줄 수정 | OneTime</title>
+      </Helmet>
+
       <div className="flex flex-col">
         <TopAppBar
           onBackButtonClick={handleCloseButtonClick}

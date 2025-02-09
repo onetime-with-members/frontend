@@ -71,7 +71,7 @@ export default function EventDetailPage() {
     <>
       {!isEventPending && event && !eventError && (
         <Helmet>
-          <title>{event.title} - OneTime</title>
+          <title>{event.title} | OneTime</title>
         </Helmet>
       )}
       <div className="flex flex-col">

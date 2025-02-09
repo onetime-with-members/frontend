@@ -1,3 +1,5 @@
+import { Helmet } from 'react-helmet-async';
+
 import ProfileSection from './ProfileSection';
 import SettingSection from './SettingSection';
 import { UserType } from '@/types/user.type';
@@ -18,9 +20,14 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="flex flex-col gap-7 px-4">
-      <ProfileSection user={user} />
-      <SettingSection />
-    </div>
+    <>
+      <Helmet>
+        <title>프로필 정보 | OneTime</title>
+      </Helmet>
+      <div className="flex flex-col gap-7 px-4">
+        <ProfileSection user={user} />
+        <SettingSection />
+      </div>
+    </>
   );
 }

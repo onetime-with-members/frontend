@@ -7,7 +7,7 @@ export default function NotFoundPage() {
   return (
     <>
       <Helmet>
-        <title>404 | OneTime</title>
+        <title>페이지를 찾을 수 없습니다 | OneTime</title>
       </Helmet>
       <div className="flex flex-1 flex-col">
         <NavBar />
