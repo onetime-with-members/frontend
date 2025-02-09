@@ -34,6 +34,11 @@ export default function PrivacyScreen({
     marketing_policy_agreement: false,
   });
 
+  const pageTitle =
+    pageDetail === 'service_policy_agreement'
+      ? '서비스 이용약관'
+      : '개인정보 수집 및 이용 동의';
+
   function handlePageDetailClose() {
     setPageDetail(null);
   }
@@ -74,7 +79,11 @@ export default function PrivacyScreen({
       </ScreenLayout>
 
       {pageDetail && (
-        <PolicyDetailScreen page={pageDetail} onClose={handlePageDetailClose} />
+        <PolicyDetailScreen
+          page={pageDetail}
+          pageTitle={pageTitle}
+          onClose={handlePageDetailClose}
+        />
       )}
     </>
   );
