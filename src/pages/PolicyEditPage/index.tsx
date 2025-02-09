@@ -10,15 +10,15 @@ import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function PolicyEditPage() {
+  const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
+  const [disabled, setDisabled] = useState(false);
+
   const { policyValue, setPolicyValue } = useContext(PolicyContext);
 
   const isLoggedIn = localStorage.getItem('access-token') !== null;
 
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate(-1);
-    }
-  }, []);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const agreePolicies = useMutation({
     mutationFn: async () => {
@@ -35,7 +35,11 @@ export default function PolicyEditPage() {
     agreePolicies.mutate();
   }
 
-  const [disabled, setDisabled] = useState(false);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate(-1);
+    }
+  }, []);
 
   useEffect(() => {
     setDisabled(
@@ -43,11 +47,6 @@ export default function PolicyEditPage() {
         !policyValue.service_policy_agreement,
     );
   }, [policyValue]);
-
-  const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
-
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (pageDetail === 'service_policy_agreement') {
