@@ -45,7 +45,7 @@ export default function NicknameFormControl({
       <label className="pl-1 text-gray-90 text-lg-200">이름</label>
       <div className="flex flex-col gap-2">
         <Input
-          name="name"
+          name="nickname"
           value={value}
           onChange={onChange}
           placeholder="당신의 이름은 무엇인가요?"
@@ -53,7 +53,7 @@ export default function NicknameFormControl({
             'ring-2 ring-danger-30': invalid.format || invalid.length,
           })}
         />
-        <ul className="flex flex-col gap-1">
+        <ul className="flex h-4 flex-col gap-1">
           {invalid.format && (
             <li className="text-danger-50 text-sm-200">
               특수문자 및 숫자는 사용할 수 없어요

@@ -5,12 +5,12 @@ import CalendarSelect from './CalendarSelect';
 import Chip from './Chip';
 import WeekdaySelect from './WeekdaySelect';
 import { PageModeContext } from '@/contexts/PageModeContext';
-import { EventValue } from '@/types/event.type';
+import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 
 interface DateSectionProps {
-  value: EventValue;
-  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
+  value: EventValueType;
+  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
 }
 
 export default function DateSection({ value, setValue }: DateSectionProps) {

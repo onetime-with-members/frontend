@@ -1,18 +1,52 @@
-import { useContext } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import Footer from './Footer';
 import ScrollToTop from './ScrollToTop';
 import { FooterContext } from '@/contexts/FooterContext';
+import { PolicyType } from '@/types/user.type';
+import axios from '@/utils/axios';
 import cn from '@/utils/cn';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Layout() {
-  const footerContext = useContext(FooterContext);
+  const { isFooterVisible } = useContext(FooterContext);
 
-  const { isFooterVisible } = footerContext!;
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isLoggedIn = localStorage.getItem('access-token') !== null;
+
+  const { data: policyData } = useQuery<PolicyType>({
+    queryKey: ['users', 'policy'],
+    queryFn: async () => {
+      const res = await axios.get('/users/policy');
+      return res.data.payload;
+    },
+    enabled: isLoggedIn,
+  });
+
+  useEffect(() => {
+    if (!policyData || !isLoggedIn) return;
+    if (
+      !policyData.service_policy_agreement ||
+      !policyData.privacy_policy_agreement
+    ) {
+      if (
+        !location.pathname.startsWith('/policy') &&
+        location.pathname !== '/withdraw'
+      ) {
+        navigate('/policy/edit');
+      }
+    }
+  }, [location, policyData, isLoggedIn]);
 
   return (
     <>
+      <Helmet>
+        <title>약관 동의 | OneTime</title>
+      </Helmet>
       <ScrollToTop />
       <div
         className={cn('flex h-full min-h-[100vh] flex-col', {

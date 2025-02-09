@@ -1,10 +1,10 @@
 import EventInputLabel from '../EventInputLabel';
-import TimeDropdown from './TimeDropdown';
-import { EventType, EventValue } from '@/types/event.type';
+import TimeDropdown from '@/components/TimeDropdown';
+import { EventType, EventValueType } from '@/types/event.type';
 
 interface TimeSectionProps {
-  value: EventValue;
-  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
+  value: EventValueType;
+  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
 }
 
 export default function TimeSection({ value, setValue }: TimeSectionProps) {
@@ -31,7 +31,7 @@ export default function TimeSection({ value, setValue }: TimeSectionProps) {
             time={value.start_time}
             setTime={handleSelectTime('start_time')}
           />
-          <span className="text-gray-70 text-md-300">~</span>
+          <span className="text-gray-70 text-md-300">-</span>
           <TimeDropdown
             className="w-[7.5rem]"
             time={value.end_time}

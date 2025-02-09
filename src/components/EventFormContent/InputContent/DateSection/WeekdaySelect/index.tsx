@@ -2,14 +2,14 @@ import dayjs from 'dayjs';
 
 import DateItem from '../DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
-import { EventValue } from '@/types/event.type';
+import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 
 interface WeekdaySelectProps {
   className?: string;
-  value: EventValue;
-  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
+  value: EventValueType;
+  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
 }
 
 export default function WeekdaySelect({
@@ -41,7 +41,7 @@ export default function WeekdaySelect({
   }
 
   return (
-    <div className={cn('flex gap-3', className)}>
+    <div className={cn('flex gap-3', className)} onMouseLeave={handleDragEnd}>
       {dayjs.weekdaysMin().map((weekday) => (
         <DateItem
           key={weekday}

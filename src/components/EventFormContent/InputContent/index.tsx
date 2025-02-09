@@ -1,11 +1,11 @@
 import DateSection from './DateSection';
 import TimeSection from './TimeSection';
 import TitleSection from './TitleSection';
-import { EventValue } from '@/types/event.type';
+import { EventValueType } from '@/types/event.type';
 
 interface InputContentBlockProps {
-  value: EventValue;
-  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
+  value: EventValueType;
+  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
 }
 
 export default function InputContent({

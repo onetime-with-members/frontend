@@ -1,10 +1,12 @@
+import { TabActiveType } from '..';
+
 import SideTabItem from './SideTabItem';
 import CalendarIcon from '@/components/icon/CalendarIcon';
 import EventIcon from '@/components/icon/EventIcon';
 import ProfileIcon from '@/components/icon/ProfileIcon';
 
 interface SideTabContentForDesktopProps {
-  tabActive: string;
+  tabActive: TabActiveType;
 }
 
 export default function SideTabContentForDesktop({

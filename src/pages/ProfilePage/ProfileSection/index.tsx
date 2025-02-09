@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@/components/avatar/Avatar';
 import GrayButton from '@/pages/ProfilePage/ProfileSection/GrayButton';
-import { User } from '@/types/user.type';
+import { UserType } from '@/types/user.type';
 
 interface ProfileSectionProps {
-  user: User;
+  user: UserType;
 }
 
 export default function ProfileSection({ user }: ProfileSectionProps) {

@@ -4,22 +4,23 @@ import ContextProviders from './contexts/ContextProviders';
 import AuthLayout from './layouts/AuthLayout';
 import Layout from './layouts/Layout';
 import MyPageLayout from './layouts/MyPageLayout';
-import EventCreate from './pages/EventCreate';
-import EventDetail from './pages/EventDetail';
-import EventDetailRedirect from './pages/EventDetailRedirect';
-import EventEdit from './pages/EventEdit';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import MyEvents from './pages/MyEvents';
-import MyScheduleCreate from './pages/MyScheduleCreate';
-import MyScheduleEdit from './pages/MyScheduleEdit';
-import MySchedules from './pages/MySchedules';
+import EventCreatePage from './pages/EventCreatePage';
+import EventDetailPage from './pages/EventDetailPage';
+import EventDetailPageRedirect from './pages/EventDetailPageRedirect';
+import EventEditPage from './pages/EventEditPage';
+import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import MyEventsPage from './pages/MyEventsPage';
+import MyScheduleEditPage from './pages/MyScheduleEditPage';
+import MySchedulePage from './pages/MySchedulePage';
 import NotFoundPage from './pages/NotFoundPage';
-import NotFoundRedirect from './pages/NotFoundRedirect';
-import Onboarding from './pages/Onboarding';
-import ProfileEdit from './pages/ProfileEdit';
+import NotFoundPageRedirect from './pages/NotFoundPageRedirect';
+import OnboardingPage from './pages/OnboardingPage';
+import PolicyEditPage from './pages/PolicyEditPage';
+import PolicyPage from './pages/PolicyPage';
+import ProfileEditPage from './pages/ProfileEditPage';
 import ProfilePage from './pages/ProfilePage';
-import ScheduleCreate from './pages/ScheduleCreate';
+import ScheduleCreatePage from './pages/ScheduleCreatePage';
 import WithdrawPage from './pages/WithdrawPage';
 
 const router = createBrowserRouter([
@@ -33,36 +34,36 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Home />,
+        element: <HomePage />,
       },
       {
         path: 'events/new',
-        element: <EventCreate />,
+        element: <EventCreatePage />,
       },
       {
         path: 'events/:eventId',
         children: [
           {
             path: '',
-            element: <EventDetail />,
+            element: <EventDetailPage />,
           },
           {
             path: 'schedules/new',
-            element: <ScheduleCreate />,
+            element: <ScheduleCreatePage />,
           },
           {
             path: 'edit',
-            element: <EventEdit />,
+            element: <EventEditPage />,
           },
         ],
       },
       {
         path: 'login',
-        element: <Login />,
+        element: <LoginPage />,
       },
       {
         path: 'onboarding',
-        element: <Onboarding />,
+        element: <OnboardingPage />,
       },
       {
         path: '',
@@ -74,7 +75,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: 'events',
-                element: <MyEvents />,
+                element: <MyEventsPage />,
               },
               {
                 path: 'profile',
@@ -82,21 +83,34 @@ const router = createBrowserRouter([
               },
               {
                 path: 'schedules',
-                element: <MySchedules />,
+                element: <MySchedulePage />,
               },
             ],
           },
           {
-            path: 'mypage/schedules/new',
-            element: <MyScheduleCreate />,
-          },
-          {
-            path: 'mypage/schedules/:myScheduleId/edit',
-            element: <MyScheduleEdit />,
+            path: 'mypage/schedules/edit',
+            element: <MyScheduleEditPage />,
           },
           {
             path: 'mypage/profile/edit',
-            element: <ProfileEdit />,
+            element: <ProfileEditPage />,
+          },
+          {
+            path: 'policy',
+            children: [
+              {
+                path: 'service',
+                element: <PolicyPage page="service_policy_agreement" />,
+              },
+              {
+                path: 'privacy',
+                element: <PolicyPage page="privacy_policy_agreement" />,
+              },
+              {
+                path: 'edit',
+                element: <PolicyEditPage />,
+              },
+            ],
           },
           {
             path: 'withdraw',
@@ -106,7 +120,7 @@ const router = createBrowserRouter([
       },
       {
         path: ':shortenEventId',
-        element: <EventDetailRedirect />,
+        element: <EventDetailPageRedirect />,
       },
       {
         path: 'not-found',
@@ -114,7 +128,7 @@ const router = createBrowserRouter([
       },
       {
         path: '*',
-        element: <NotFoundRedirect />,
+        element: <NotFoundPageRedirect />,
       },
     ],
   },

@@ -2,19 +2,19 @@ import { forwardRef } from 'react';
 
 import TimeBlock from './TimeBlock';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
-import { Schedule, Time } from '@/types/schedule.type';
+import { ScheduleType, TimeType } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
-import { getBlockTimeList } from '@/utils/time-block';
+import { timeBlockList } from '@/utils/time-block';
 
 export interface TimeBlockLineProps {
   timePoint: string;
   startTime: string;
   endTime: string;
-  schedules: Schedule[];
+  schedules: ScheduleType[];
   changeTimeBlockStatus: (
-    day: Time['time_point'],
-    time: Time['times'][0],
+    day: TimeType['time_point'],
+    time: TimeType['times'][0],
     newStatus: boolean,
   ) => void;
   handleDialogOpen: ({
@@ -50,14 +50,14 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
   ) => {
     const { clickedTimeBlock, handleTimeBlockClick: _handleTimeBlockClick } =
       useTimeBlockFill({
-        isFilledFor: ({ time }) => isFilledFor(time),
+        isFilled: (_, time) => isFilled(time),
         fillTimeBlocks: ({ timePoint, times, isFilling }) =>
           times.forEach((time) =>
             changeTimeBlockStatus(timePoint, time, isFilling),
           ),
       });
 
-    const timeList = getBlockTimeList(startTime, endTime);
+    const timeList = timeBlockList(startTime, endTime);
     const memberCount = schedules.length || 0;
 
     function timesAllMember() {
@@ -72,11 +72,11 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
       return result;
     }
 
-    function isFilledFor(time: Time['times'][0]) {
+    function isFilled(time: TimeType['times'][0]) {
       return timesAllMember().includes(time);
     }
 
-    function isClickedFirstFor(time: Time['times'][0]) {
+    function isClickedFirstFor(time: TimeType['times'][0]) {
       return (
         clickedTimeBlock.startTime === time &&
         clickedTimeBlock.timePoint === timePoint
@@ -106,7 +106,7 @@ const TimeBlockLine = forwardRef<HTMLDivElement, TimeBlockLineProps>(
               className={cn({
                 'cursor-pointer': schedules.length > 0,
               })}
-              active={isFilledFor(time)}
+              active={isFilled(time)}
               data-time={time}
               data-timepoint={timePoint}
               clickedFirst={isClickedFirstFor(time)}

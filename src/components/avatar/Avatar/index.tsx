@@ -1,8 +1,11 @@
+import cn from '@/utils/cn';
+
 interface AvatarProps {
   size?: number;
   name: string;
   imageUrl?: string;
   onClick?: () => void;
+  className?: string;
 }
 
 export default function Avatar({
@@ -10,11 +13,15 @@ export default function Avatar({
   name,
   imageUrl,
   onClick,
+  className,
 }: AvatarProps) {
   return (
     <div>
       <div
-        className="flex cursor-pointer items-center justify-center rounded-full bg-primary-50 text-gray-00 title-sm-300"
+        className={cn(
+          'flex cursor-pointer items-center justify-center rounded-full bg-primary-50 text-gray-00 title-sm-300',
+          className,
+        )}
         style={{
           width: size,
           height: size,

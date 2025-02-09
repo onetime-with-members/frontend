@@ -1,6 +1,6 @@
 import { FooterContextProvider } from './FooterContext';
-import { MyScheduleContextProvider } from './MyScheduleContext';
 import { PageModeContextProvider } from './PageModeContext';
+import PolicyContextProvider from './PolicyContext';
 import { ScrollContextProvider } from './ScrollContext';
 
 interface ContextProvidersProps {
@@ -11,9 +11,9 @@ export default function ContextProviders({ children }: ContextProvidersProps) {
   return (
     <PageModeContextProvider>
       <FooterContextProvider>
-        <MyScheduleContextProvider>
-          <ScrollContextProvider>{children}</ScrollContextProvider>
-        </MyScheduleContextProvider>
+        <ScrollContextProvider>
+          <PolicyContextProvider>{children}</PolicyContextProvider>
+        </ScrollContextProvider>
       </FooterContextProvider>
     </PageModeContextProvider>
   );

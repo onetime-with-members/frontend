@@ -33,14 +33,17 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (response) => response,
-  async (error: AxiosError) => {
-    const originalRequest = error.config as AxiosRequestConfig & {
-      _retry?: boolean;
+  async (_error: AxiosError) => {
+    const error = _error as AxiosError & {
+      response: {
+        status: number;
+        data: { code: string };
+      };
     };
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
+    const originalRequest = error.config as AxiosRequestConfig;
 
+    if (error.response.status === 401) {
       const refreshToken = localStorage.getItem('refresh-token');
       if (refreshToken) {
         try {
@@ -62,7 +65,13 @@ axios.interceptors.response.use(
       } else {
         removeTokens();
       }
+    } else if (
+      error.response.status === 404 &&
+      error.response.data.code === 'USER-001'
+    ) {
+      removeTokens();
     }
+
     return Promise.reject(error);
   },
 );

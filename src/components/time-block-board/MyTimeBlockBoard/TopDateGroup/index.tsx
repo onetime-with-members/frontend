@@ -1,8 +1,5 @@
 import dayjs from 'dayjs';
-import { useContext } from 'react';
 
-import OverlayCover from '@/components/overlay/OverlayCover';
-import { MyScheduleContext } from '@/contexts/MyScheduleContext';
 import cn from '@/utils/cn';
 
 interface TopDateGroupProps {
@@ -10,8 +7,6 @@ interface TopDateGroupProps {
 }
 
 export default function TopDateGroup({ className }: TopDateGroupProps) {
-  const { selectedTimeBlockId } = useContext(MyScheduleContext);
-
   return (
     <div className={cn('relative', className)}>
       <div className="grid grid-cols-7 gap-2 pl-[2.5rem]">
@@ -24,7 +19,6 @@ export default function TopDateGroup({ className }: TopDateGroupProps) {
           </div>
         ))}
       </div>
-      {selectedTimeBlockId !== null && <OverlayCover />}
     </div>
   );
 }

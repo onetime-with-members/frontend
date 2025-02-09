@@ -3,15 +3,15 @@ import { useState } from 'react';
 
 import DateItem from '../DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
-import { EventValue } from '@/types/event.type';
+import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface CalendarSelectProps {
   className?: string;
-  value: EventValue;
-  setValue: React.Dispatch<React.SetStateAction<EventValue>>;
+  value: EventValueType;
+  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
 }
 
 export default function CalendarSelect({
@@ -65,7 +65,10 @@ export default function CalendarSelect({
   }
 
   return (
-    <div className={cn('flex flex-col gap-3', className)}>
+    <div
+      className={cn('flex flex-col gap-3', className)}
+      onMouseLeave={handleDragEnd}
+    >
       <div className="flex justify-between">
         <div className="text-gray-90 text-lg-300">
           {currentDate.format('YYYY.MM')}

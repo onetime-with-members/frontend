@@ -1,15 +1,15 @@
 import dayjs from 'dayjs';
 
 import MemberBadge from '@/components/MemberBadge';
-import { TimeBlockPopUpData } from '@/types/schedule.type';
+import { TimeBlockPopUpDataType } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
 
 interface TimeBlockPopUpProps {
   onClose: () => void;
-  timePoint: TimeBlockPopUpData['timePoint'];
-  time: TimeBlockPopUpData['time'];
-  members: TimeBlockPopUpData['members'];
+  timePoint: TimeBlockPopUpDataType['timePoint'];
+  time: TimeBlockPopUpDataType['time'];
+  members: TimeBlockPopUpDataType['members'];
   category: 'DAY' | 'DATE';
 }
 

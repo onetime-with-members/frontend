@@ -1,19 +1,14 @@
-import { useContext } from 'react';
-
 import BoardContent from './BoardContent';
 import LeftTimeLine from './LeftTimeLine';
 import TopDateGroup from './TopDateGroup';
-import Overlay from '@/components/overlay/Overlay';
-import { MyScheduleContext } from '@/contexts/MyScheduleContext';
-import { MyNewSchedule, MySchedule } from '@/types/schedule.type';
+import { MyScheduleTimeType } from '@/types/schedule.type';
+import { SleepTimeType } from '@/types/user.type';
 
 interface MyTimeBlockBoard {
-  mode: 'view' | 'create' | 'edit';
-  mySchedules: MySchedule[];
-  setMyNewSchedule?: (newSchedule: MyNewSchedule['schedules']) => void;
-  handleDeleteButtonClick?: () => void;
-  handleEditButtonClick?: () => void;
-  editedScheduleId?: number;
+  mode: 'view' | 'edit';
+  mySchedule: MyScheduleTimeType[];
+  setMySchedule?: React.Dispatch<React.SetStateAction<MyScheduleTimeType[]>>;
+  sleepTime?: SleepTimeType;
   className?: string;
   backgroundColor?: 'gray' | 'white';
   topDateGroupClassName?: string;
@@ -22,28 +17,25 @@ interface MyTimeBlockBoard {
 
 export default function MyTimeBlockBoard({
   mode,
-  mySchedules,
-  setMyNewSchedule,
-  editedScheduleId = -1,
+  mySchedule,
+  setMySchedule,
+  sleepTime,
   className,
   backgroundColor = 'gray',
   topDateGroupClassName,
   setIsEdited,
 }: MyTimeBlockBoard) {
-  const { selectedTimeBlockId } = useContext(MyScheduleContext);
-
   return (
     <div className={className}>
-      {mode === 'view' && selectedTimeBlockId !== null && <Overlay />}
       <div className="flex flex-col">
         <TopDateGroup className={topDateGroupClassName} />
         <div className="flex flex-1">
-          <LeftTimeLine />
+          <LeftTimeLine sleepTime={sleepTime} />
           <BoardContent
             mode={mode}
-            mySchedules={mySchedules}
-            setMyNewSchedule={setMyNewSchedule}
-            editedScheduleId={editedScheduleId}
+            mySchedule={mySchedule}
+            setMySchedule={setMySchedule}
+            sleepTime={sleepTime}
             backgroundColor={backgroundColor}
             setIsEdited={setIsEdited}
           />

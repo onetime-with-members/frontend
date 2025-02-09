@@ -5,23 +5,25 @@ import LoginButton from './LoginButton';
 import logoWhite from '@/assets/logo-white.svg';
 import logoBlack from '@/assets/logo.svg';
 import useScroll from '@/hooks/useScroll';
-import { User } from '@/types/user.type';
+import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 interface NavBarProps {
-  overlay?: boolean;
   variant?: 'default' | 'black';
   shadow?: boolean;
   className?: string;
+  disabled?: boolean;
+  isAuthHidden?: boolean;
 }
 
 export default function NavBar({
-  overlay,
   variant = 'default',
   shadow = true,
   className,
+  disabled,
+  isAuthHidden = false,
 }: NavBarProps) {
   const { isScrolling } = useScroll();
 
@@ -29,7 +31,7 @@ export default function NavBar({
     !!localStorage.getItem('access-token') &&
     !!localStorage.getItem('refresh-token');
 
-  const { isLoading, data: user } = useQuery<User>({
+  const { isLoading, data: user } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');
@@ -46,24 +48,31 @@ export default function NavBar({
           {
             'shadow-lg': isScrolling && shadow,
             'bg-gray-80 text-gray-00': variant === 'black',
-            'z-[9999]': overlay,
           },
         )}
       >
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
-          <Link to="/">
+          <Link
+            to={disabled ? '#' : '/'}
+            className={cn({
+              'cursor-default': disabled,
+            })}
+          >
             <img
               src={variant === 'default' ? logoBlack : logoWhite}
               alt="OneTime"
               className="h-[2rem]"
             />
           </Link>
-          {user && <AvatarDropdown name={user.nickname} />}
-          {!isLoading && !user && <LoginButton />}
+          {!isAuthHidden && (
+            <>
+              {user && (
+                <AvatarDropdown name={user.nickname} disabled={disabled} />
+              )}
+              {!isLoading && !user && <LoginButton />}
+            </>
+          )}
         </div>
-        {overlay && (
-          <div className="absolute left-0 top-0 h-full w-full bg-gray-90 bg-opacity-30" />
-        )}
       </div>
     </nav>
   );

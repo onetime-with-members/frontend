@@ -1,22 +1,34 @@
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import HeaderForDesktop from './HeaderForDesktop';
 import SideTabContentForDesktop from './SideTabContentForDesktop';
 import TopAppBarForMobile from './TopAppBarForMobile';
 import NavBar from '@/components/NavBar';
-import { MyScheduleContext } from '@/contexts/MyScheduleContext';
 import { ScrollContext } from '@/contexts/ScrollContext';
 
-export default function MyPageLayout() {
-  const [tabActive, setTabActive] = useState('');
+export type TabActiveType = 'events' | 'schedules' | 'profile';
 
-  const { selectedTimeBlockId, viewMode, setViewMode } =
-    useContext(MyScheduleContext);
+function currentTabActive(pathname: string): TabActiveType {
+  if (pathname.startsWith('/mypage/events')) {
+    return 'events';
+  }
+  if (pathname.startsWith('/mypage/schedules')) {
+    return 'schedules';
+  }
+  return 'profile';
+}
+
+export default function MyPageLayout() {
+  const [tabActive, setTabActive] = useState<TabActiveType>(
+    currentTabActive(window.location.pathname),
+  );
+
   const { scrollContainerRef } = useContext(ScrollContext);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const pageTitle = {
     events: '참여한 이벤트',
@@ -24,22 +36,12 @@ export default function MyPageLayout() {
     profile: '프로필 정보',
   }[tabActive];
 
-  function handleViewModeButtonClick() {
-    if (viewMode === 'timeblock') {
-      setViewMode('list');
-    } else {
-      setViewMode('timeblock');
-    }
+  function handleMyScheduleEditButtonClick() {
+    navigate('/mypage/schedules/edit');
   }
 
   useEffect(() => {
-    if (location.pathname.startsWith('/mypage/events')) {
-      setTabActive('events');
-    } else if (location.pathname.startsWith('/mypage/schedules')) {
-      setTabActive('schedules');
-    } else if (location.pathname.startsWith('/mypage/profile')) {
-      setTabActive('profile');
-    }
+    setTabActive(currentTabActive(location.pathname));
   }, [location]);
 
   return (
@@ -53,25 +55,23 @@ export default function MyPageLayout() {
         <TopAppBarForMobile
           pageTitle={pageTitle}
           tabActive={tabActive}
-          handleViewModeButtonClick={handleViewModeButtonClick}
+          onMyScheduleEditButtonClick={handleMyScheduleEditButtonClick}
         />
-        <main className="px-4 pb-20">
+        <main className="pb-20">
           <Outlet />
         </main>
       </div>
 
       {/* Desktop */}
       <div className="hidden min-h-screen flex-col md:flex">
-        <NavBar overlay={selectedTimeBlockId !== null} shadow={false} />
+        <NavBar shadow={false} />
         <div className="px-4">
           <div className="mx-auto flex w-full max-w-screen-md gap-10">
             <SideTabContentForDesktop tabActive={tabActive} />
             <main className="relative flex flex-1 flex-col gap-2 pb-20 pt-8">
               <HeaderForDesktop
                 pageTitle={pageTitle}
-                tabActive={tabActive}
-                viewMode={viewMode}
-                handleViewModeButtonClick={handleViewModeButtonClick}
+                onMyScheduleEditButtonClick={handleMyScheduleEditButtonClick}
               />
               <div ref={scrollContainerRef} className="flex-1">
                 <Outlet />
