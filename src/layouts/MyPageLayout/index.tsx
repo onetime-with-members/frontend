@@ -71,6 +71,7 @@ export default function MyPageLayout() {
             <main className="relative flex flex-1 flex-col gap-2 pb-20 pt-8">
               <HeaderForDesktop
                 pageTitle={pageTitle}
+                tabActive={tabActive}
                 onMyScheduleEditButtonClick={handleMyScheduleEditButtonClick}
               />
               <div ref={scrollContainerRef} className="flex-1">
