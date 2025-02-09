@@ -1,3 +1,5 @@
+import { Helmet } from 'react-helmet-async';
+
 import SleepTimeUI from './SleepTimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
 import { MyScheduleTimeType } from '@/types/schedule.type';
@@ -14,15 +16,21 @@ export default function MySchedulePage() {
   });
 
   return (
-    <div className="mx-auto w-full max-w-screen-md pb-32">
-      <SleepTimeUI />
-      <MyTimeBlockBoard
-        mode="view"
-        backgroundColor="white"
-        mySchedule={data || []}
-        className="bg-gray-05 pb-16 pl-2 pr-3"
-        topDateGroupClassName="sticky z-10 bg-gray-05 top-[120px] md:top-[178px]"
-      />
-    </div>
+    <>
+      <Helmet>
+        <title>내 스케줄 | OneTime</title>
+      </Helmet>
+
+      <div className="mx-auto w-full max-w-screen-md pb-32">
+        <SleepTimeUI />
+        <MyTimeBlockBoard
+          mode="view"
+          backgroundColor="white"
+          mySchedule={data || []}
+          className="bg-gray-05 pb-16 pl-2 pr-3"
+          topDateGroupClassName="sticky z-10 bg-gray-05 top-[120px] md:top-[178px]"
+        />
+      </div>
+    </>
   );
 }

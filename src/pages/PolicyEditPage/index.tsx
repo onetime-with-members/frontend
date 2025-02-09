@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 
 import NavBar from '@/components/NavBar';
@@ -58,6 +59,10 @@ export default function PolicyEditPage() {
 
   return (
     <>
+      <Helmet>
+        <title>약관 동의 | OneTime</title>
+      </Helmet>
+
       <NavBar disabled />
       <div className="px-4 py-12">
         <div className="mx-auto flex w-full max-w-screen-xs flex-col gap-12">
