@@ -2,8 +2,8 @@ import { useContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import Footer from './Footer';
-import ScrollToTop from './ScrollToTop';
+import Footer from './Footer/Footer';
+import ScrollToTop from './ScrollToTop/ScrollToTop';
 import { FooterContext } from '@/contexts/FooterContext';
 import { PolicyType } from '@/types/user.type';
 import axios from '@/utils/axios';

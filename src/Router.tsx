@@ -1,9 +1,9 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import ContextProviders from './contexts/ContextProviders';
-import AuthLayout from './layouts/AuthLayout';
-import Layout from './layouts/Layout';
-import MyPageLayout from './layouts/MyPageLayout';
+import AuthLayout from './layouts/AuthLayout/AuthLayout';
+import Layout from './layouts/Layout/Layout';
+import MyPageLayout from './layouts/MyPageLayout/MyPageLayout';
 import EventCreatePage from './pages/EventCreatePage';
 import EventDetailPage from './pages/EventDetailPage';
 import EventDetailPageRedirect from './pages/EventDetailPageRedirect';

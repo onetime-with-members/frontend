@@ -1,5 +1,4 @@
-import { TabActiveType } from '..';
-
+import { TabActiveType } from '../MyPageLayout';
 import PenIcon from '@/components/icon/PenIcon';
 
 interface HeaderForDesktopProps {

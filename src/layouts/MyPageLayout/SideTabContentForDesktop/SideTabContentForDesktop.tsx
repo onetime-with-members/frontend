@@ -1,6 +1,5 @@
-import { TabActiveType } from '..';
-
-import SideTabItem from './SideTabItem';
+import { TabActiveType } from '../MyPageLayout';
+import SideTabItem from './SideTabItem/SideTabItem';
 import CalendarIcon from '@/components/icon/CalendarIcon';
 import EventIcon from '@/components/icon/EventIcon';
 import ProfileIcon from '@/components/icon/ProfileIcon';

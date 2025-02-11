@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
-import HeaderForDesktop from './HeaderForDesktop';
-import SideTabContentForDesktop from './SideTabContentForDesktop';
-import TopAppBarForMobile from './TopAppBarForMobile';
+import HeaderForDesktop from './HeaderForDesktop/HeaderForDesktop';
+import SideTabContentForDesktop from './SideTabContentForDesktop/SideTabContentForDesktop';
+import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
 import NavBar from '@/components/NavBar/NavBar';
 import { ScrollContext } from '@/contexts/ScrollContext';
 

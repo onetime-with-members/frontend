@@ -1,6 +1,6 @@
-import { TabActiveType } from '..';
 import { useNavigate } from 'react-router-dom';
 
+import { TabActiveType } from '../MyPageLayout';
 import PenIcon from '@/components/icon/PenIcon';
 import { IconChevronLeft } from '@tabler/icons-react';
 
