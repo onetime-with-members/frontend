@@ -8,11 +8,7 @@ import TopAppBar from './TopAppBar/TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
 import { AppDispatch } from '@/store';
-import {
-  cleanUpSleepTime,
-  editSleepTime,
-  getSleepTime,
-} from '@/store/sleep-time';
+import { editSleepTime } from '@/store/sleep-time';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
@@ -66,14 +62,6 @@ export default function MyScheduleEditPage() {
   useEffect(() => {
     setMySchedule(data || []);
   }, [data]);
-
-  useEffect(() => {
-    dispatch(getSleepTime());
-
-    return () => {
-      dispatch(cleanUpSleepTime());
-    };
-  }, []);
 
   return (
     <>

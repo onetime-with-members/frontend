@@ -1,25 +1,10 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-
 import BottomButtonForMobile from './BottomButtonForMobile/BottomButtonForMobile';
 import MyEventSection from './MyEventSection/MyEventSection';
 import MyScheduleSection from './MyScheduleSection/MyScheduleSection';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbarForDesktop from './TopToolbarForDesktop/TopToolbarForDesktop';
-import { AppDispatch } from '@/store';
-import { cleanUpSleepTime, getSleepTime } from '@/store/sleep-time';
 
 export default function UserDashboardPage() {
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(getSleepTime());
-
-    return () => {
-      dispatch(cleanUpSleepTime());
-    };
-  }, []);
-
   return (
     <div className="flex flex-col">
       <TopNavBar />
