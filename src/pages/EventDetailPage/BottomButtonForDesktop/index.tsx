@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import BadgeFloatingBottomButton from '@/components/button/BadgeFloatingBottomButton';
+import BadgeFloatingBottomButton from '@/components/button/BadgeFloatingBottomButton/BadgeFloatingBottomButton';
 import { FooterContext } from '@/contexts/FooterContext';
 import cn from '@/utils/cn';
 

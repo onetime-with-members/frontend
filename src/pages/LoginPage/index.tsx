@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import ButtonGroup from './ButtonGroup';
 import LogoContent from './LogoContent';
-import NavBar from '@/components/NavBar';
+import NavBar from '@/components/NavBar/NavBar';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 

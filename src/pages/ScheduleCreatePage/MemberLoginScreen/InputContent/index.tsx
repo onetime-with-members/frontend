@@ -1,6 +1,6 @@
 import PinPasswordInput from './PinPasswordInput';
 import ScheduleInputLabel from './ScheduleInputLabel';
-import NicknameFormControl from '@/components/NicknameFormControl';
+import NicknameFormControl from '@/components/NicknameFormControl/NicknameFormControl';
 import { GuestValueType } from '@/types/user.type';
 
 interface InputContentProps {

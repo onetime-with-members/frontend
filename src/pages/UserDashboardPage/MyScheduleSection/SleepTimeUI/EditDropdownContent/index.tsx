@@ -1,4 +1,4 @@
-import TimeDropdown from '@/components/TimeDropdown';
+import TimeDropdown from '@/components/TimeDropdown/TimeDropdown';
 import { SleepTimeType } from '@/types/user.type';
 
 interface EditDropdownContentProps {

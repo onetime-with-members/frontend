@@ -5,7 +5,7 @@ import ShareBlueButton from './ShareBlueButton';
 import ShareButtonWrapper from './ShareButtonWrapper';
 import ShareKakaoButton from './ShareKakaoButton';
 import ShareMoreButton from './ShareMoreButton';
-import Input from '@/components/Input';
+import Input from '@/components/Input/Input';
 import { EventType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';

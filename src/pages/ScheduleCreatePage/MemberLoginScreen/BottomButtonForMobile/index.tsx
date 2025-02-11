@@ -1,4 +1,4 @@
-import FloatingBottomButton from '@/components/button/FloatingBottomButton';
+import FloatingBottomButton from '@/components/button/FloatingBottomButton/FloatingBottomButton';
 
 interface BottomButtonForMobileProps {
   onClick: () => void;

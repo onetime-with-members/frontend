@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 import MainContent from './MainContent';
-import NavBar from '@/components/NavBar';
+import NavBar from '@/components/NavBar/NavBar';
 
 export default function NotFoundPage() {
   return (

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import MemberBadge from '@/components/MemberBadge';
+import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import cn from '@/utils/cn';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 

@@ -1,4 +1,4 @@
-import SmallButton from '@/components/button/SmallButton';
+import SmallButton from '@/components/button/SmallButton/SmallButton';
 
 interface EditButtonGroupProps {
   onSubmit: () => void;

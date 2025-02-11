@@ -7,7 +7,7 @@ import ScheduleFormScreen from './ScheduleFormScreen';
 import TopAppBarForMobile from './TopAppBarForMobile';
 import TopHeaderForDesktop from './TopHeaderForDesktop';
 import TopNavBarForDesktop from './TopNavBarForDesktop';
-import BackButtonAlert from '@/components/alert/BackButtonAlert';
+import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
 import { FooterContext } from '@/contexts/FooterContext';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleCreate from '@/hooks/useScheduleCreate';

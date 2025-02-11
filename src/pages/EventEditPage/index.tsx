@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import EventFormContent from '@/components/EventFormContent';
+import EventFormContent from '@/components/EventFormContent/EventFormContent';
 import { EventType, EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';

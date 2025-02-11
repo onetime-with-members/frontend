@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import logoWhite from '@/assets/logo-white.svg';
-import ClockPattern from '@/components/ClockPattern';
+import ClockPattern from '@/components/ClockPattern/ClockPattern';
 import { EventType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';

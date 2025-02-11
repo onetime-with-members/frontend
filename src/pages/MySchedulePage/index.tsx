@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 import SleepTimeUI from './SleepTimeUI';
-import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
+import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';

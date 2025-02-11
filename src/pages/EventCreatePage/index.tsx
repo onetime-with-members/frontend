@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
-import EventFormContent from '@/components/EventFormContent';
+import EventFormContent from '@/components/EventFormContent/EventFormContent';
 import { EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';

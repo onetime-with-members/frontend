@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import BottomButtonForDesktop from './BottomButtonForDesktop';
-import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard';
+import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
 import { EventType } from '@/types/event.type';
 import { ScheduleType } from '@/types/schedule.type';
 import { GuestValueType } from '@/types/user.type';

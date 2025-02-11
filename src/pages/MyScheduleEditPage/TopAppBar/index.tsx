@@ -1,4 +1,4 @@
-import SmallButton from '@/components/button/SmallButton';
+import SmallButton from '@/components/button/SmallButton/SmallButton';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 interface TopAppBarProps {

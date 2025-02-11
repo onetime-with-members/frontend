@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import sendIcon from '@/assets/send.svg';
-import Button from '@/components/button/Button';
+import Button from '@/components/button/Button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
 import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';

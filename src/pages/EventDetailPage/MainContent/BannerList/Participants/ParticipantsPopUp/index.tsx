@@ -1,4 +1,4 @@
-import MemberBadge from '@/components/MemberBadge';
+import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import { IconX } from '@tabler/icons-react';
 
 interface ParticipantsPopUpProps {

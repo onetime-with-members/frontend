@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import SleepTimeAccordion from './SleepTimeAccordion';
 import TopAppBar from './TopAppBar';
-import BackButtonAlert from '@/components/alert/BackButtonAlert';
-import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
+import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
+import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
 import useSleepTime from '@/hooks/useSleepTime';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';

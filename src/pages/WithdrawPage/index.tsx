@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 import InfoContent from './InfoContent';
 import TopAppBar from './TopAppBar';
-import Button from '@/components/button/Button';
+import Button from '@/components/button/Button/Button';
 import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
 

@@ -1,5 +1,5 @@
 import ScreenLayout from '../ScreenLayout';
-import TimeDropdown from '@/components/TimeDropdown';
+import TimeDropdown from '@/components/TimeDropdown/TimeDropdown';
 import SleepIcon from '@/components/icon/SleepIcon';
 import { OnboardingValueType } from '@/types/user.type';
 

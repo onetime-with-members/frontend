@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import ScreenLayout from '../ScreenLayout';
-import NicknameFormControl from '@/components/NicknameFormControl';
+import NicknameFormControl from '@/components/NicknameFormControl/NicknameFormControl';
 import { OnboardingValueType } from '@/types/user.type';
 
 interface NicknameFormProps {

@@ -4,7 +4,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import HeaderForDesktop from './HeaderForDesktop';
 import SideTabContentForDesktop from './SideTabContentForDesktop';
 import TopAppBarForMobile from './TopAppBarForMobile';
-import NavBar from '@/components/NavBar';
+import NavBar from '@/components/NavBar/NavBar';
 import { ScrollContext } from '@/contexts/ScrollContext';
 
 export type TabActiveType = 'events' | 'schedules' | 'profile';

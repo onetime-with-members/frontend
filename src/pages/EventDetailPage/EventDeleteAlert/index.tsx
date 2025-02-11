@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Alert from '@/components/alert/Alert';
+import Alert from '@/components/alert/Alert/Alert';
 import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 

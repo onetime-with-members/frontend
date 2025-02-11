@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import Avatar from '@/components/avatar/Avatar';
+import Avatar from '@/components/avatar/Avatar/Avatar';
 import GrayButton from '@/pages/ProfilePage/ProfileSection/GrayButton';
 import { UserType } from '@/types/user.type';
 

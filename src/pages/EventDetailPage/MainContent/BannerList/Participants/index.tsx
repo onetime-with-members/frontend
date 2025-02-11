@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import ParticipantsPopUp from './ParticipantsPopUp';
-import MemberBadge from '@/components/MemberBadge';
+import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 

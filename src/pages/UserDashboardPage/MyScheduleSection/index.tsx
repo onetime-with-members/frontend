@@ -1,6 +1,6 @@
 import Header from './Header';
 import SleepTimeUI from './SleepTimeUI';
-import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
+import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
 import useSleepTime from '@/hooks/useSleepTime';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';

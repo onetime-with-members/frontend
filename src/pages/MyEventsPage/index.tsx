@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 import EmptyMyEvent from './EmptyMyEvent';
-import MyEvent from '@/components/MyEvent';
+import MyEvent from '@/components/MyEvent/MyEvent';
 import { MyEventType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';

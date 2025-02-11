@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import EmptyEventBanner from './EmptyEventBanner';
-import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard';
+import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
 import BannerList from '@/pages/EventDetailPage/MainContent/BannerList';
 import { EventType } from '@/types/event.type';
 import { RecommendScheduleType, ScheduleType } from '@/types/schedule.type';

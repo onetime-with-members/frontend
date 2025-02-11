@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import ScreenLayout from '../ScreenLayout';
-import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent';
-import PolicyDetailScreen from '@/components/policy/PolicyDetailScreen';
+import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent/PolicyCheckboxContent';
+import PolicyDetailScreen from '@/components/policy/PolicyDetailScreen/PolicyDetailScreen';
 import {
   OnboardingValueType,
   PolicyKeyType,

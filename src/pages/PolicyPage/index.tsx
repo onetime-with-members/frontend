@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
-import PolicyDetailScreen from '@/components/policy/PolicyDetailScreen';
+import PolicyDetailScreen from '@/components/policy/PolicyDetailScreen/PolicyDetailScreen';
 import { PolicyKeyType } from '@/types/user.type';
 
 interface PolicyPageProps {

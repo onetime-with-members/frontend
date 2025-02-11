@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 
-import NavBar from '@/components/NavBar';
-import Button from '@/components/button/Button';
-import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent';
+import NavBar from '@/components/NavBar/NavBar';
+import Button from '@/components/button/Button/Button';
+import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent/PolicyCheckboxContent';
 import { PolicyContext } from '@/contexts/PolicyContext';
 import { PolicyKeyType } from '@/types/user.type';
 import axios from '@/utils/axios';

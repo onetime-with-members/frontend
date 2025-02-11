@@ -3,7 +3,7 @@ import CardSection from './CardSection';
 import FeatureSection from './FeatureSection';
 import TopSection from './TopSection';
 import TypoSection from './TypoSection';
-import NavBar from '@/components/NavBar';
+import NavBar from '@/components/NavBar/NavBar';
 
 export default function LandingPage() {
   return (
