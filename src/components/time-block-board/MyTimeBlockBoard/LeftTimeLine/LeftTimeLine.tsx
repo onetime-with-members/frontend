@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 
-import { RootState } from '@/store';
+import { RootState } from '@/store/store';
 import cn from '@/utils/cn';
 
 export default function LeftTimeLine() {

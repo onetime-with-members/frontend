@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import TimeDropdown from '@/components/TimeDropdown/TimeDropdown';
-import { AppDispatch, RootState } from '@/store';
 import { changeSleepTime } from '@/store/sleep-time';
+import { AppDispatch, RootState } from '@/store/store';
 
 export default function AccordionContent() {
   const { sleepTime } = useSelector((state: RootState) => state.sleepTime);

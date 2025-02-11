@@ -5,8 +5,8 @@ import EditButtonGroup from './EditButtonGroup/EditButtonGroup';
 import EditDropdownContent from './EditDropdownContent/EditDropdownContent';
 import PenIcon from '@/components/icon/PenIcon';
 import SleepIcon from '@/components/icon/SleepIcon';
-import { AppDispatch, RootState } from '@/store';
 import { changeSleepTime, editSleepTime } from '@/store/sleep-time';
+import { AppDispatch, RootState } from '@/store/store';
 import cn from '@/utils/cn';
 
 export default function SleepTimeUI() {

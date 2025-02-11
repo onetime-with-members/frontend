@@ -1,21 +1,16 @@
 import { useContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useDispatch } from 'react-redux';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import Footer from './Footer/Footer';
 import ScrollToTop from './ScrollToTop/ScrollToTop';
 import { FooterContext } from '@/contexts/FooterContext';
-import { AppDispatch } from '@/store';
-import { cleanUpSleepTime, getSleepTime } from '@/store/sleep-time';
 import { PolicyType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 export default function Layout() {
-  const dispatch = useDispatch<AppDispatch>();
-
   const { isFooterVisible } = useContext(FooterContext);
 
   const navigate = useNavigate();
@@ -46,14 +41,6 @@ export default function Layout() {
       }
     }
   }, [location, policyData, isLoggedIn]);
-
-  useEffect(() => {
-    dispatch(getSleepTime());
-
-    return () => {
-      dispatch(cleanUpSleepTime());
-    };
-  }, [location.pathname]);
 
   return (
     <>

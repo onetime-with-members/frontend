@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { RootState } from '@/store';
+import { RootState } from '@/store/store';
 import { EventType } from '@/types/event.type';
-import { MyScheduleTimeType, ScheduleType } from '@/types/schedule.type';
+import { ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
@@ -26,6 +26,9 @@ export default function useScheduleCreate({
     },
   ]);
 
+  const { originalFixedSchedules } = useSelector(
+    (state: RootState) => state.fixedSchedules,
+  );
   const { originalSleepTime, sleepTimesList } = useSelector(
     (state: RootState) => state.sleepTime,
   );
@@ -59,23 +62,14 @@ export default function useScheduleCreate({
       event !== undefined && !isNewGuest && (isLoggedIn || guestId !== ''),
   });
 
-  const { data: fixedScheduleData } = useQuery<MyScheduleTimeType[]>({
-    queryKey: ['fixed-schedules'],
-    queryFn: async () => {
-      const res = await axios.get('/fixed-schedules');
-      return res.data.payload.schedules;
-    },
-    enabled: isLoggedIn,
-  });
-
   useEffect(() => {
     if (!scheduleData) return;
 
     const isScheduleEmpty =
       scheduleData.schedules.length === 0 ||
       scheduleData.schedules.every((schedule) => schedule.times.length === 0);
-    const isFixedScheduleEmpty = fixedScheduleData
-      ? fixedScheduleData.every(
+    const isFixedScheduleEmpty = originalFixedSchedules
+      ? originalFixedSchedules.every(
           (fixedSchedule) => fixedSchedule.times.length === 0,
         )
       : true;
@@ -129,7 +123,7 @@ export default function useScheduleCreate({
 
       function fixedScheduleTimes(timePoint: string, category: 'DATE' | 'DAY') {
         return (
-          fixedScheduleData?.find(
+          originalFixedSchedules.find(
             (fixedSchedule) =>
               weekdayIndex(timePoint, category) ===
               weekdayIndex(fixedSchedule.time_point, 'DAY'),
@@ -152,7 +146,7 @@ export default function useScheduleCreate({
         }
       }
     }
-  }, [scheduleData, fixedScheduleData, isNewGuest, guestId]);
+  }, [scheduleData, originalFixedSchedules, isNewGuest, guestId]);
 
   return { schedules, setSchedules, event };
 }

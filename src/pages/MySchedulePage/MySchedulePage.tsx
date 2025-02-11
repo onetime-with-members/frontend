@@ -1,19 +1,20 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useDispatch } from 'react-redux';
 
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
-import { MyScheduleTimeType } from '@/types/schedule.type';
-import axios from '@/utils/axios';
-import { useQuery } from '@tanstack/react-query';
+import { getFixedSchedules } from '@/store/fixed-schedules';
+import { getSleepTime } from '@/store/sleep-time';
+import { AppDispatch } from '@/store/store';
 
 export default function MySchedulePage() {
-  const { data } = useQuery<MyScheduleTimeType[]>({
-    queryKey: ['fixed-schedules'],
-    queryFn: async () => {
-      const res = await axios.get('/fixed-schedules');
-      return res.data.payload.schedules;
-    },
-  });
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getFixedSchedules());
+    dispatch(getSleepTime());
+  }, []);
 
   return (
     <>
@@ -26,7 +27,6 @@ export default function MySchedulePage() {
         <MyTimeBlockBoard
           mode="view"
           backgroundColor="white"
-          mySchedule={data || []}
           className="bg-gray-05 pb-16 pl-2 pr-3"
           topDateGroupClassName="sticky z-10 bg-gray-05 top-[120px] md:top-[178px]"
         />
