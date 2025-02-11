@@ -1,35 +1,30 @@
+import { useDispatch, useSelector } from 'react-redux';
+
 import TimeDropdown from '@/components/TimeDropdown/TimeDropdown';
-import { SleepTimeType } from '@/types/user.type';
+import { AppDispatch, RootState } from '@/store';
+import { changeSleepTime } from '@/store/sleep-time';
 
-interface AccordionContentProps {
-  sleepTime: SleepTimeType;
-  setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
-}
+export default function AccordionContent() {
+  const { sleepTime } = useSelector((state: RootState) => state.sleepTime);
+  const dispatch = useDispatch<AppDispatch>();
 
-export default function AccordionContent({
-  sleepTime,
-  setSleepTime,
-}: AccordionContentProps) {
-  function handleSleepTimeChange(key: keyof SleepTimeType, time: string) {
-    setSleepTime((prev) => ({
-      ...prev,
-      [key]: time,
-    }));
+  function handleSleepTimeChange(key: keyof typeof sleepTime, time: string) {
+    dispatch(changeSleepTime({ ...sleepTime, [key]: time }));
   }
 
   return (
     <div className="flex items-center gap-2.5">
       <TimeDropdown
         variant="white"
-        time={sleepTime.sleep_start_time}
-        setTime={(time) => handleSleepTimeChange('sleep_start_time', time)}
+        time={sleepTime.start}
+        setTime={(time) => handleSleepTimeChange('start', time)}
         className="flex-1"
       />
       <span className="text-gray-40 text-md-300">-</span>
       <TimeDropdown
         variant="white"
-        time={sleepTime.sleep_end_time}
-        setTime={(time) => handleSleepTimeChange('sleep_end_time', time)}
+        time={sleepTime.end}
+        setTime={(time) => handleSleepTimeChange('end', time)}
         className="flex-1"
       />
     </div>

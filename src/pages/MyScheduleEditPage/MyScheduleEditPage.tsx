@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import SleepTimeAccordion from './SleepTimeAccordion/SleepTimeAccordion';
 import TopAppBar from './TopAppBar/TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
-import useSleepTime from '@/hooks/useSleepTime';
+import { AppDispatch } from '@/store';
+import {
+  cleanUpSleepTime,
+  editSleepTime,
+  getSleepTime,
+} from '@/store/sleep-time';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
@@ -18,7 +24,7 @@ export default function MyScheduleEditPage() {
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
 
-  const { sleepTime, setSleepTime } = useSleepTime();
+  const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -44,16 +50,6 @@ export default function MyScheduleEditPage() {
     },
   });
 
-  const editSleepTime = useMutation({
-    mutationFn: async () => {
-      const res = await axios.put('/users/sleep-time', sleepTime);
-      return res.data.payload;
-    },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['users'] });
-    },
-  });
-
   function handleCloseButtonClick() {
     if (isMyScheduleEdited) {
       setIsBackButtonAlertOpen(true);
@@ -63,13 +59,21 @@ export default function MyScheduleEditPage() {
   }
 
   async function handleSubmitButtonClick() {
+    await dispatch(editSleepTime());
     editMySchedule.mutate();
-    editSleepTime.mutate();
   }
 
   useEffect(() => {
     setMySchedule(data || []);
   }, [data]);
+
+  useEffect(() => {
+    dispatch(getSleepTime());
+
+    return () => {
+      dispatch(cleanUpSleepTime());
+    };
+  }, []);
 
   return (
     <>
@@ -86,8 +90,6 @@ export default function MyScheduleEditPage() {
         <main className="pb-24">
           <div className="mx-auto max-w-screen-sm">
             <SleepTimeAccordion
-              sleepTime={sleepTime}
-              setSleepTime={setSleepTime}
               isAccordionOpen={isAccordionOpen}
               setIsAccordionOpen={setIsAccordionOpen}
             />
@@ -95,7 +97,6 @@ export default function MyScheduleEditPage() {
               mode="edit"
               mySchedule={mySchedule}
               setMySchedule={setMySchedule}
-              sleepTime={sleepTime}
               className="pb-16 pl-2 pr-3"
               topDateGroupClassName={cn('sticky top-[120px] z-10 bg-gray-00', {
                 'top-[183px] ': isAccordionOpen,

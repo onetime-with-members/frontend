@@ -1,17 +1,16 @@
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
 
 import TimeBlock from './TimeBlock/TimeBlock';
-import useSleepTime from '@/hooks/useSleepTime';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
+import { RootState } from '@/store';
 import { MyScheduleTimeType } from '@/types/schedule.type';
-import { SleepTimeType } from '@/types/user.type';
 import { timeBlockList as _timeBlockList } from '@/utils/time-block';
 
 interface TimeBlockContentProps {
   mode: 'view' | 'edit';
   mySchedule: MyScheduleTimeType[];
   setMySchedule?: React.Dispatch<React.SetStateAction<MyScheduleTimeType[]>>;
-  sleepTime?: SleepTimeType;
   backgroundColor?: 'gray' | 'white';
   setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -20,10 +19,11 @@ export default function BoardContent({
   mode,
   mySchedule,
   setMySchedule,
-  sleepTime,
   backgroundColor = 'gray',
   setIsEdited,
 }: TimeBlockContentProps) {
+  const { timeBlockGroup } = useSelector((state: RootState) => state.sleepTime);
+
   const { handleTimeBlockClick: _handleTimeBlockClick, isClickedFirst } =
     useTimeBlockFill({
       isFilled,
@@ -32,9 +32,6 @@ export default function BoardContent({
         setIsEdited && setIsEdited(true);
       },
     });
-  const { timesGroupForSplittedTimeBlock } = useSleepTime({
-    sleepTime,
-  });
 
   function changeTimeBlock(
     weekday: string,
@@ -78,22 +75,20 @@ export default function BoardContent({
           key={weekday}
           className="flex flex-col gap-2 overflow-hidden rounded-lg"
         >
-          {timesGroupForSplittedTimeBlock('timeBlock').map(
-            (timesGroup, index) => (
-              <div key={index}>
-                {timesGroup.map((time) => (
-                  <TimeBlock
-                    key={time}
-                    mode={mode}
-                    backgroundColor={backgroundColor}
-                    filled={isFilled(weekday, time)}
-                    clickedFirst={isClickedFirst(weekday, time)}
-                    onClick={() => handleTimeBlockClick(weekday, time)}
-                  />
-                ))}
-              </div>
-            ),
-          )}
+          {timeBlockGroup.map((timesGroup, index) => (
+            <div key={index}>
+              {timesGroup.map((time) => (
+                <TimeBlock
+                  key={time}
+                  mode={mode}
+                  backgroundColor={backgroundColor}
+                  filled={isFilled(weekday, time)}
+                  clickedFirst={isClickedFirst(weekday, time)}
+                  onClick={() => handleTimeBlockClick(weekday, time)}
+                />
+              ))}
+            </div>
+          ))}
         </div>
       ))}
     </div>

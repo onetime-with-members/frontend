@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import useSleepTime from './useSleepTime';
+import { RootState } from '@/store';
 import { EventType } from '@/types/event.type';
 import { MyScheduleTimeType, ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
@@ -25,7 +26,9 @@ export default function useScheduleCreate({
     },
   ]);
 
-  const { sleepTimesList, sleepTimeData } = useSleepTime();
+  const { originalSleepTime, sleepTimesList } = useSelector(
+    (state: RootState) => state.sleepTime,
+  );
 
   const params = useParams<{ eventId: string }>();
 
@@ -67,6 +70,7 @@ export default function useScheduleCreate({
 
   useEffect(() => {
     if (!scheduleData) return;
+
     const isScheduleEmpty =
       scheduleData.schedules.length === 0 ||
       scheduleData.schedules.every((schedule) => schedule.times.length === 0);
@@ -75,9 +79,8 @@ export default function useScheduleCreate({
           (fixedSchedule) => fixedSchedule.times.length === 0,
         )
       : true;
-    const isSleepTimeEmpty = sleepTimeData
-      ? sleepTimeData.sleep_end_time === sleepTimeData.sleep_start_time
-      : true;
+    const isSleepTimeEmpty = originalSleepTime.start === originalSleepTime.end;
+
     setSchedules([
       {
         name: scheduleData.name,

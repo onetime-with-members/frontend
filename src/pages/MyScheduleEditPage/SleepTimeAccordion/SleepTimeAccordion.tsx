@@ -1,17 +1,12 @@
 import AccordionContent from './AccordionContent/AccordionContent';
 import AccordionMain from './AccordionMain/AccordionMain';
-import { SleepTimeType } from '@/types/user.type';
 
 interface SleepTimeUIProps {
-  sleepTime: SleepTimeType;
-  setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
   isAccordionOpen: boolean;
   setIsAccordionOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function SleepTimeAccordion({
-  sleepTime,
-  setSleepTime,
   isAccordionOpen,
   setIsAccordionOpen,
 }: SleepTimeUIProps) {
@@ -21,9 +16,7 @@ export default function SleepTimeAccordion({
         isAccordionOpen={isAccordionOpen}
         setIsAccordionOpen={setIsAccordionOpen}
       />
-      {isAccordionOpen && (
-        <AccordionContent sleepTime={sleepTime} setSleepTime={setSleepTime} />
-      )}
+      {isAccordionOpen && <AccordionContent />}
     </div>
   );
 }

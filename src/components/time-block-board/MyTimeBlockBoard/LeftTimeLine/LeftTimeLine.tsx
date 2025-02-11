@@ -1,25 +1,19 @@
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
 
-import useSleepTime from '@/hooks/useSleepTime';
-import { SleepTimeType } from '@/types/user.type';
+import { RootState } from '@/store';
 import cn from '@/utils/cn';
 
-interface LeftTimeLineProps {
-  sleepTime?: SleepTimeType;
-}
-
-export default function LeftTimeLine({ sleepTime }: LeftTimeLineProps) {
-  const { timesGroupForSplittedTimeBlock } = useSleepTime({
-    sleepTime,
-  });
+export default function LeftTimeLine() {
+  const { timeLabelGroup } = useSelector((state: RootState) => state.sleepTime);
 
   return (
     <div className="flex w-[2.5rem] flex-col items-end gap-2 pr-2">
-      {timesGroupForSplittedTimeBlock('timeLabel').map((timesGroup, index) => (
+      {timeLabelGroup.map((timesGroup, index) => (
         <div key={index}>
           {timesGroup.map((time, index) => (
             <div
-              key={time}
+              key={index}
               className={cn('h-[6rem] text-right', {
                 'h-0': index === timesGroup.length - 1,
               })}
