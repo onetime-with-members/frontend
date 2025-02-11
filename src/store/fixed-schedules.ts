@@ -43,10 +43,6 @@ const fixedSchedulesSlice = createSlice({
 
       state.isEdited = true;
     },
-    cleanUpFixedSchedules(state) {
-      state.fixedSchedules = state.originalFixedSchedules;
-      state.isEdited = false;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -83,7 +79,6 @@ export const editFixedSchedules = createAsyncThunk(
   },
 );
 
-export const { changeTimeBlock, cleanUpFixedSchedules } =
-  fixedSchedulesSlice.actions;
+export const { changeTimeBlock } = fixedSchedulesSlice.actions;
 
 export default fixedSchedulesSlice.reducer;

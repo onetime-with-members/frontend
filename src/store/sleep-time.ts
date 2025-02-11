@@ -36,20 +36,6 @@ const sleepTimeSlice = createSlice({
   name: 'sleepTime',
   initialState,
   reducers: {
-    cleanUpSleepTime(state) {
-      state.sleepTime = state.originalSleepTime;
-      state.sleepTimesList = sleepTimesList(state.originalSleepTime);
-      state.timeBlockGroup = timesGroupForSplittedTimeBlock(
-        state.originalSleepTime,
-        state.sleepTimesList,
-        'timeBlock',
-      );
-      state.timeLabelGroup = timesGroupForSplittedTimeBlock(
-        state.originalSleepTime,
-        state.sleepTimesList,
-        'timeLabel',
-      );
-    },
     changeSleepTime(state, action: PayloadAction<SleepTime>) {
       state.sleepTime = action.payload;
       state.sleepTimesList = sleepTimesList(action.payload);
@@ -199,6 +185,6 @@ function timesGroupForSplittedTimeBlock(
   return result;
 }
 
-export const { cleanUpSleepTime, changeSleepTime } = sleepTimeSlice.actions;
+export const { changeSleepTime } = sleepTimeSlice.actions;
 
 export default sleepTimeSlice.reducer;
