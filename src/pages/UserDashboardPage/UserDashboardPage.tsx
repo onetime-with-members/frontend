@@ -1,5 +1,5 @@
-import BottomButtonForMobile from './BottomButtonForMobile';
-import MyEventSection from './MyEventSection';
+import BottomButtonForMobile from './BottomButtonForMobile/BottomButtonForMobile';
+import MyEventSection from './MyEventSection/MyEventSection';
 import MyScheduleSection from './MyScheduleSection/MyScheduleSection';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbarForDesktop from './TopToolbarForDesktop/TopToolbarForDesktop';

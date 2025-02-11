@@ -9,7 +9,7 @@ import EventDeleteAlert from './EventDeleteAlert/EventDeleteAlert';
 import LoginAlert from './LoginAlert/LoginAlert';
 import MainContent from './MainContent/MainContent';
 import SharePopUp from './SharePopUp/SharePopUp';
-import TopNavBar from './TopNavBar';
+import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbar from './TopToolbar/TopToolbar';
 import { EventType } from '@/types/event.type';
 import axios from '@/utils/axios';

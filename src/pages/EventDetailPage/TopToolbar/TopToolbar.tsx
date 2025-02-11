@@ -1,4 +1,4 @@
-import ToolbarButton from './ToolbarButton';
+import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
 import kakaoIcon from '@/assets/kakao-icon.svg';
 import sendIcon from '@/assets/send.svg';

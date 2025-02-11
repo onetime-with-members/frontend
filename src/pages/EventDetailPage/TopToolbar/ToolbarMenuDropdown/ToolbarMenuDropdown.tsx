@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 
-import ToolbarButton from '../ToolbarButton';
+import ToolbarButton from '../ToolbarButton/ToolbarButton';
 import ToolbarMenuItem from './ToolbarMenuItem/ToolbarMenuItem';
 import useDropdown from '@/hooks/useDropdown';
 import { IconDots } from '@tabler/icons-react';
