@@ -12,7 +12,7 @@ import SharePopUp from './SharePopUp/SharePopUp';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbar from './TopToolbar/TopToolbar';
 import { AppDispatch, RootState } from '@/store';
-import { getEvent, resetEvent, resetEventValue } from '@/store/eventSlice';
+import { getEvent, resetEventValue } from '@/store/eventSlice';
 
 export default function EventDetailPage() {
   const { event, isNotFound } = useSelector((state: RootState) => state.event);
@@ -43,7 +43,6 @@ export default function EventDetailPage() {
     }
 
     return () => {
-      dispatch(resetEvent());
       dispatch(resetEventValue());
     };
   }, [params.eventId]);
