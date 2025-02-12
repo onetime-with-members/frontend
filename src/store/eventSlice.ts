@@ -1,7 +1,7 @@
 import { RootState } from '.';
 import { AxiosError } from 'axios';
 
-import { EventType, EventValueType } from '@/types/event.type';
+import { EventType, EventValueType, MyEventType } from '@/types/event.type';
 import { RecommendTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { sortWeekdayList } from '@/utils/weekday';
@@ -13,10 +13,12 @@ export interface EventState {
   qrImageUrl: string;
   recommendedTimes: RecommendTimeType[];
   isNotFound: boolean;
+  myEvents: MyEventType[];
   status: {
     create: 'idle' | 'pending' | 'fulfilled' | 'rejected';
     edit: 'idle' | 'pending' | 'fulfilled' | 'rejected';
     delete: 'idle' | 'pending' | 'fulfilled' | 'rejected';
+    myEvents: 'idle' | 'pending' | 'fulfilled' | 'rejected';
   };
 }
 
@@ -40,10 +42,12 @@ const initialState: EventState = {
   qrImageUrl: '',
   recommendedTimes: [],
   isNotFound: false,
+  myEvents: [],
   status: {
     create: 'idle',
     edit: 'idle',
     delete: 'idle',
+    myEvents: 'idle',
   },
 };
 
@@ -117,6 +121,13 @@ const eventSlice = createSlice({
         state.status.delete = 'fulfilled';
         state.event = initialState.event;
         state.eventValue = initialState.eventValue;
+      })
+      .addCase(getMyEvents.pending, (state) => {
+        state.status.myEvents = 'pending';
+      })
+      .addCase(getMyEvents.fulfilled, (state, action) => {
+        state.myEvents = action.payload;
+        state.status.myEvents = 'fulfilled';
       });
   },
 });
@@ -169,6 +180,11 @@ export const deleteEvent = createAsyncThunk(
     return res.data.payload;
   },
 );
+
+export const getMyEvents = createAsyncThunk('event/getMyEvents', async () => {
+  const res = await axios.get('/events/user/all');
+  return res.data.payload;
+});
 
 export const { changeEventValue, resetEventValue, resetEvent } =
   eventSlice.actions;
