@@ -1,13 +1,14 @@
 import { AxiosError } from 'axios';
 
-import { EventType } from '@/types/event.type';
+import { EventType, EventValueType } from '@/types/event.type';
 import { RecommendTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { sortWeekdayList } from '@/utils/weekday';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface EventState {
   event: EventType;
+  eventValue: EventValueType;
   recommendedTimes: RecommendTimeType[];
   isNotFound: boolean;
   status: {
@@ -25,6 +26,13 @@ const initialState: EventState = {
     ranges: [],
     event_status: 'PARTICIPANT',
   },
+  eventValue: {
+    title: '',
+    start_time: '',
+    end_time: '',
+    category: 'DATE',
+    ranges: [],
+  },
   recommendedTimes: [],
   isNotFound: false,
   status: {
@@ -35,11 +43,16 @@ const initialState: EventState = {
 const eventSlice = createSlice({
   name: 'event',
   initialState,
-  reducers: {},
+  reducers: {
+    changeEvent: (state, action: PayloadAction<EventValueType>) => {
+      state.eventValue = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getEvent.fulfilled, (state, action) => {
         state.event = action.payload.event;
+        state.eventValue = action.payload.event;
         state.event.ranges =
           state.event.category === 'DAY'
             ? sortWeekdayList(state.event.ranges)
@@ -59,6 +72,7 @@ const eventSlice = createSlice({
       .addCase(deleteEvent.fulfilled, (state) => {
         state.status.delete = 'fulfilled';
         state.event = initialState.event;
+        state.eventValue = initialState.eventValue;
       });
   },
 });
@@ -88,6 +102,6 @@ export const deleteEvent = createAsyncThunk(
   },
 );
 
-export const {} = eventSlice.actions;
+export const { changeEvent } = eventSlice.actions;
 
 export default eventSlice.reducer;

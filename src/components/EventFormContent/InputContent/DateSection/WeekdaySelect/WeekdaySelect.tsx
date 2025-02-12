@@ -1,22 +1,21 @@
 import dayjs from 'dayjs';
+import { useDispatch, useSelector } from 'react-redux';
 
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
-import { EventValueType } from '@/types/event.type';
+import { AppDispatch, RootState } from '@/store';
+import { changeEvent } from '@/store/eventSlice';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 
 interface WeekdaySelectProps {
   className?: string;
-  value: EventValueType;
-  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
 }
 
-export default function WeekdaySelect({
-  className,
-  value,
-  setValue,
-}: WeekdaySelectProps) {
+export default function WeekdaySelect({ className }: WeekdaySelectProps) {
+  const { eventValue } = useSelector((state: RootState) => state.event);
+  const dispatch = useDispatch<AppDispatch>();
+
   const {
     isFilling,
     cssStyle,
@@ -27,17 +26,19 @@ export default function WeekdaySelect({
     onSelect: handleDateItemSelect,
   });
 
-  function handleDateItemSelect(event: React.MouseEvent | React.TouchEvent) {
-    const target = eventTarget(event);
+  function handleDateItemSelect(e: React.MouseEvent | React.TouchEvent) {
+    const target = eventTarget(e);
     if (!target) return;
     const weekday = target.dataset.weekday;
     if (!weekday) return;
-    setValue((prev) => ({
-      ...prev,
-      ranges: isFilling
-        ? [...new Set([...prev.ranges, weekday])]
-        : prev.ranges.filter((range) => range !== weekday),
-    }));
+    dispatch(
+      changeEvent({
+        ...eventValue,
+        ranges: isFilling
+          ? [...new Set([...eventValue.ranges, weekday])]
+          : eventValue.ranges.filter((range) => range !== weekday),
+      }),
+    );
   }
 
   return (
@@ -46,14 +47,14 @@ export default function WeekdaySelect({
         <DateItem
           key={weekday}
           data-weekday={weekday}
-          active={value.ranges.includes(weekday)}
+          active={eventValue.ranges.includes(weekday)}
           onMouseDown={() =>
-            handleDragStart({ isFilling: !value.ranges.includes(weekday) })
+            handleDragStart({ isFilling: !eventValue.ranges.includes(weekday) })
           }
           onMouseMove={handleDragMove}
           onMouseUp={handleDragEnd}
           onTouchStart={() =>
-            handleDragStart({ isFilling: !value.ranges.includes(weekday) })
+            handleDragStart({ isFilling: !eventValue.ranges.includes(weekday) })
           }
           onTouchMove={handleDragMove}
           onTouchEnd={handleDragEnd}

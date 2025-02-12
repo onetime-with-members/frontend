@@ -1,27 +1,23 @@
 import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import CalendarSelect from './CalendarSelect/CalendarSelect';
 import Chip from './Chip/Chip';
 import WeekdaySelect from './WeekdaySelect/WeekdaySelect';
 import { PageModeContext } from '@/contexts/PageModeContext';
-import { EventValueType } from '@/types/event.type';
+import { AppDispatch, RootState } from '@/store';
+import { changeEvent } from '@/store/eventSlice';
 import cn from '@/utils/cn';
 
-interface DateSectionProps {
-  value: EventValueType;
-  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
-}
+export default function DateSection() {
+  const { eventValue } = useSelector((state: RootState) => state.event);
+  const dispatch = useDispatch<AppDispatch>();
 
-export default function DateSection({ value, setValue }: DateSectionProps) {
   const { pageMode } = useContext(PageModeContext);
 
   function handleSelectChip(chip: 'DATE' | 'DAY') {
-    setValue((prev) => ({
-      ...prev,
-      category: chip,
-      ranges: [],
-    }));
+    dispatch(changeEvent({ ...eventValue, ranges: [], category: chip }));
   }
 
   return (
@@ -33,32 +29,30 @@ export default function DateSection({ value, setValue }: DateSectionProps) {
       />
       <div
         className={cn('flex flex-col', {
-          'gap-3.5': value.category === 'DAY',
-          'gap-6': value.category === 'DATE',
+          'gap-3.5': eventValue.category === 'DAY',
+          'gap-6': eventValue.category === 'DATE',
         })}
       >
         {pageMode === 'create' && (
           <div className="flex gap-2">
             <Chip
-              active={value.category === 'DATE'}
+              active={eventValue.category === 'DATE'}
               onClick={() => handleSelectChip('DATE')}
             >
               날짜
             </Chip>
             <Chip
-              active={value.category === 'DAY'}
+              active={eventValue.category === 'DAY'}
               onClick={() => handleSelectChip('DAY')}
             >
               요일
             </Chip>
           </div>
         )}
-        {value.category === 'DAY' ? (
-          <WeekdaySelect value={value} setValue={setValue} />
+        {eventValue.category === 'DAY' ? (
+          <WeekdaySelect />
         ) : (
-          value.category === 'DATE' && (
-            <CalendarSelect value={value} setValue={setValue} />
-          )
+          eventValue.category === 'DATE' && <CalendarSelect />
         )}
       </div>
     </div>

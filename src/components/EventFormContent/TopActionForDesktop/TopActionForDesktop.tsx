@@ -5,7 +5,7 @@ import { IconChevronLeft } from '@tabler/icons-react';
 export default function TopActionForDesktop() {
   const navigate = useNavigate();
 
-  function handleBackButtonClick() {
+  async function handleBackButtonClick() {
     navigate(-1);
   }
 

@@ -1,43 +1,21 @@
-import { AxiosError } from 'axios';
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import EventFormContent from '@/components/EventFormContent/EventFormContent';
-import { EventType, EventValueType } from '@/types/event.type';
+import { AppDispatch, RootState } from '@/store';
+import { getEvent } from '@/store/eventSlice';
+import { EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function EventEditPage() {
+  const { event, isNotFound } = useSelector((state: RootState) => state.event);
+  const dispatch = useDispatch<AppDispatch>();
+
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const params = useParams<{ eventId: string }>();
-
-  const { data, isPending, error } = useQuery<EventType>({
-    queryKey: ['events', params.eventId],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${params.eventId}`);
-      return res.data.payload;
-    },
-    retry: false,
-  });
-
-  useEffect(() => {
-    const axiosError = error as AxiosError;
-
-    if (
-      axiosError?.response?.status === 404 ||
-      axiosError?.response?.status === 400
-    ) {
-      navigate('/not-found');
-    }
-  }, [error]);
-
-  useEffect(() => {
-    if (!isPending && data && data.event_status !== 'CREATOR') {
-      navigate(-1);
-    }
-  }, [data, isPending]);
 
   const editEvent = useMutation({
     mutationFn: async (value: EventValueType) => {
@@ -55,18 +33,25 @@ export default function EventEditPage() {
     editEvent.mutate(value);
   }
 
+  useEffect(() => {
+    if (params.eventId) {
+      dispatch(getEvent(params.eventId));
+    }
+  }, [params.eventId]);
+
+  useEffect(() => {
+    if (isNotFound) {
+      navigate('/not-found');
+    }
+  }, [isNotFound]);
+
+  useEffect(() => {
+    if (event.event_status !== 'CREATOR') {
+      navigate(-1);
+    }
+  }, [event]);
+
   return (
-    <>
-      {data && (
-        <Helmet>
-          <title>{data.title} 수정 | OneTime</title>
-        </Helmet>
-      )}
-      <EventFormContent
-        originData={data}
-        onSubmit={handleSubmit}
-        isPending={editEvent.isPending}
-      />
-    </>
+    <EventFormContent onSubmit={handleSubmit} isPending={editEvent.isPending} />
   );
 }

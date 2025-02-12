@@ -1,19 +1,18 @@
+import { useDispatch, useSelector } from 'react-redux';
+
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import TimeDropdown from '@/components/TimeDropdown/TimeDropdown';
-import { EventType, EventValueType } from '@/types/event.type';
+import { AppDispatch, RootState } from '@/store';
+import { changeEvent } from '@/store/eventSlice';
+import { EventType } from '@/types/event.type';
 
-interface TimeSectionProps {
-  value: EventValueType;
-  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
-}
+export default function TimeSection() {
+  const { eventValue } = useSelector((state: RootState) => state.event);
+  const dispatch = useDispatch<AppDispatch>();
 
-export default function TimeSection({ value, setValue }: TimeSectionProps) {
   function handleSelectTime(key: keyof EventType) {
     return function (time: string) {
-      setValue((prev) => ({
-        ...prev,
-        [key]: time,
-      }));
+      dispatch(changeEvent({ ...eventValue, [key]: time }));
     };
   }
 
@@ -28,13 +27,13 @@ export default function TimeSection({ value, setValue }: TimeSectionProps) {
         <div className="flex items-center gap-3">
           <TimeDropdown
             className="w-[7.5rem]"
-            time={value.start_time}
+            time={eventValue.start_time}
             setTime={handleSelectTime('start_time')}
           />
           <span className="text-gray-70 text-md-300">-</span>
           <TimeDropdown
             className="w-[7.5rem]"
-            time={value.end_time}
+            time={eventValue.end_time}
             setTime={handleSelectTime('end_time')}
           />
         </div>
