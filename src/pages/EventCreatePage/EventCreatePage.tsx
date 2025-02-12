@@ -1,26 +1,21 @@
 import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import EventFormContent from '@/components/EventFormContent/EventFormContent';
-import { EventValueType } from '@/types/event.type';
-import axios from '@/utils/axios';
-import { useMutation } from '@tanstack/react-query';
+import { AppDispatch, RootState } from '@/store';
+import { createEvent } from '@/store/eventSlice';
 
 export default function EventCreatePage() {
+  const { event, status } = useSelector((state: RootState) => state.event);
+  const dispatch = useDispatch<AppDispatch>();
+
   const navigate = useNavigate();
 
-  const createEvent = useMutation({
-    mutationFn: (value: EventValueType) => {
-      return axios.post('/events', value);
-    },
-    onSuccess: (data) => {
-      navigate(`/events/${data.data.payload.event_id}`);
-    },
-  });
-
-  function handleSubmit(disabled: boolean, value: EventValueType) {
-    if (disabled || createEvent.isPending) return;
-    createEvent.mutate(value);
+  async function handleSubmit(disabled: boolean) {
+    if (disabled || status.create === 'pending') return;
+    await dispatch(createEvent());
+    navigate(`/events/${event.event_id}`);
   }
 
   return (
@@ -28,10 +23,7 @@ export default function EventCreatePage() {
       <Helmet>
         <title>이벤트 생성 | OneTime</title>
       </Helmet>
-      <EventFormContent
-        onSubmit={handleSubmit}
-        isPending={createEvent.isPending}
-      />
+      <EventFormContent onSubmit={handleSubmit} />
     </>
   );
 }

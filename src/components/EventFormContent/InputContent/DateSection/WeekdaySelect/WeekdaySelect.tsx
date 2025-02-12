@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
 import { AppDispatch, RootState } from '@/store';
-import { changeEvent } from '@/store/eventSlice';
+import { changeEventValue } from '@/store/eventSlice';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 
@@ -32,7 +32,7 @@ export default function WeekdaySelect({ className }: WeekdaySelectProps) {
     const weekday = target.dataset.weekday;
     if (!weekday) return;
     dispatch(
-      changeEvent({
+      changeEventValue({
         ...eventValue,
         ranges: isFilling
           ? [...new Set([...eventValue.ranges, weekday])]

@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import Input from '@/components/Input/Input';
 import { AppDispatch, RootState } from '@/store';
-import { changeEvent } from '@/store/eventSlice';
+import { changeEventValue } from '@/store/eventSlice';
 
 export default function TitleSection() {
   const { eventValue } = useSelector((state: RootState) => state.event);
   const dispatch = useDispatch<AppDispatch>();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(changeEvent({ ...eventValue, title: e.target.value }));
+    dispatch(changeEventValue({ ...eventValue, title: e.target.value }));
   }
 
   return (

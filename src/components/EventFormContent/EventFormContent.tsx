@@ -9,42 +9,34 @@ import TopActionForDesktop from './TopActionForDesktop/TopActionForDesktop';
 import TopNavBar from './TopNavBar/TopNavBar';
 import { PageModeContext } from '@/contexts/PageModeContext';
 import { RootState } from '@/store';
-import { EventValueType } from '@/types/event.type';
 import breakpoint from '@/utils/breakpoint';
 
 interface EventFormContentProps {
-  onSubmit: (disabled: boolean, value: EventValueType) => void;
-  isPending: boolean;
+  onSubmit: (disabled: boolean) => void;
 }
 
-export default function EventFormContent({
-  onSubmit,
-  isPending,
-}: EventFormContentProps) {
-  const { event } = useSelector((state: RootState) => state.event);
+export default function EventFormContent({ onSubmit }: EventFormContentProps) {
+  const { eventValue } = useSelector((state: RootState) => state.event);
 
   const [disabled, setDisabled] = useState(true);
 
   const { pageMode } = useContext(PageModeContext);
 
   function handleSubmit() {
-    onSubmit(disabled, {
-      ...event,
-      title: event.title.trim(),
-    });
+    onSubmit(disabled);
   }
 
   useEffect(() => {
-    const startTime = dayjs(event.start_time, 'HH:mm');
-    const endTime = dayjs(event.end_time, 'HH:mm');
+    const startTime = dayjs(eventValue.start_time, 'HH:mm');
+    const endTime = dayjs(eventValue.end_time, 'HH:mm');
 
     setDisabled(
-      event.title.trim() === '' ||
-        event.ranges.length === 0 ||
+      eventValue.title.trim() === '' ||
+        eventValue.ranges.length === 0 ||
         startTime.isAfter(endTime) ||
         startTime.isSame(endTime),
     );
-  }, [event]);
+  }, [eventValue]);
 
   useEffect(() => {
     function updateBackgroundColor() {
@@ -79,11 +71,7 @@ export default function EventFormContent({
             <InputContent />
           </main>
         </div>
-        <BottomButton
-          disabled={disabled}
-          handleSubmit={handleSubmit}
-          isPending={isPending}
-        />
+        <BottomButton disabled={disabled} handleSubmit={handleSubmit} />
       </div>
     </>
   );

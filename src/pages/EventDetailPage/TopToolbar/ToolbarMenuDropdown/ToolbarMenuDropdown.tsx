@@ -1,9 +1,12 @@
 import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import ToolbarButton from '../ToolbarButton/ToolbarButton';
 import ToolbarMenuItem from './ToolbarMenuItem/ToolbarMenuItem';
 import useDropdown from '@/hooks/useDropdown';
+import { AppDispatch } from '@/store';
+import { getEvent } from '@/store/eventSlice';
 import { IconDots } from '@tabler/icons-react';
 
 interface ToolbarMenuDropdownProps {
@@ -13,6 +16,8 @@ interface ToolbarMenuDropdownProps {
 export default function ToolbarMenuDropdown({
   setIsDeleteAlertOpen,
 }: ToolbarMenuDropdownProps) {
+  const dispatch = useDispatch<AppDispatch>();
+
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { isDropdownMenuOpen, setIsDropdownMenuOpen, handleDropdownClick } =
@@ -21,6 +26,12 @@ export default function ToolbarMenuDropdown({
     });
 
   const params = useParams<{ eventId: string }>();
+
+  async function handleEditMenuItemClick() {
+    if (params.eventId) {
+      await dispatch(getEvent(params.eventId));
+    }
+  }
 
   function handleDeleteMenuItemClick() {
     setIsDropdownMenuOpen(false);
@@ -50,6 +61,7 @@ export default function ToolbarMenuDropdown({
               icon="edit"
               variant="default"
               href={`/events/${params.eventId}/edit`}
+              onClick={handleEditMenuItemClick}
             />
             <ToolbarMenuItem
               name="삭제"

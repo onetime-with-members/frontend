@@ -4,33 +4,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import EventFormContent from '@/components/EventFormContent/EventFormContent';
 import { AppDispatch, RootState } from '@/store';
-import { getEvent } from '@/store/eventSlice';
-import { EventValueType } from '@/types/event.type';
-import axios from '@/utils/axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { editEvent, getEvent } from '@/store/eventSlice';
 
 export default function EventEditPage() {
-  const { event, isNotFound } = useSelector((state: RootState) => state.event);
+  const { event, isNotFound, status } = useSelector(
+    (state: RootState) => state.event,
+  );
   const dispatch = useDispatch<AppDispatch>();
 
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const params = useParams<{ eventId: string }>();
 
-  const editEvent = useMutation({
-    mutationFn: async (value: EventValueType) => {
-      const res = await axios.patch(`/events/${params.eventId}`, value);
-      return res.data;
-    },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
-      navigate(-1);
-    },
-  });
-
-  function handleSubmit(disabled: boolean, value: EventValueType) {
-    if (disabled || editEvent.isPending) return;
-    editEvent.mutate(value);
+  async function handleSubmit(disabled: boolean) {
+    if (disabled || status.edit === 'pending' || !params.eventId) return;
+    await dispatch(editEvent(params.eventId));
+    navigate(`/events/${params.eventId}`);
   }
 
   useEffect(() => {
@@ -51,7 +39,5 @@ export default function EventEditPage() {
     }
   }, [event]);
 
-  return (
-    <EventFormContent onSubmit={handleSubmit} isPending={editEvent.isPending} />
-  );
+  return <EventFormContent onSubmit={handleSubmit} />;
 }

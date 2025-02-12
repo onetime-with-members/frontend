@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
 import { AppDispatch, RootState } from '@/store';
-import { changeEvent } from '@/store/eventSlice';
+import { changeEventValue } from '@/store/eventSlice';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 import { IconTriangleFilled } from '@tabler/icons-react';
@@ -56,7 +56,7 @@ export default function CalendarSelect({ className }: CalendarSelectProps) {
     const date = target.dataset.date;
     if (!date) return;
     dispatch(
-      changeEvent({
+      changeEventValue({
         ...eventValue,
         ranges: isFilling
           ? [...new Set([...eventValue.ranges, date])]

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import TimeDropdown from '@/components/TimeDropdown/TimeDropdown';
 import { AppDispatch, RootState } from '@/store';
-import { changeEvent } from '@/store/eventSlice';
+import { changeEventValue } from '@/store/eventSlice';
 import { EventType } from '@/types/event.type';
 
 export default function TimeSection() {
@@ -12,7 +12,7 @@ export default function TimeSection() {
 
   function handleSelectTime(key: keyof EventType) {
     return function (time: string) {
-      dispatch(changeEvent({ ...eventValue, [key]: time }));
+      dispatch(changeEventValue({ ...eventValue, [key]: time }));
     };
   }
 

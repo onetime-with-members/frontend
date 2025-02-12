@@ -7,7 +7,7 @@ import Chip from './Chip/Chip';
 import WeekdaySelect from './WeekdaySelect/WeekdaySelect';
 import { PageModeContext } from '@/contexts/PageModeContext';
 import { AppDispatch, RootState } from '@/store';
-import { changeEvent } from '@/store/eventSlice';
+import { changeEventValue } from '@/store/eventSlice';
 import cn from '@/utils/cn';
 
 export default function DateSection() {
@@ -17,7 +17,7 @@ export default function DateSection() {
   const { pageMode } = useContext(PageModeContext);
 
   function handleSelectChip(chip: 'DATE' | 'DAY') {
-    dispatch(changeEvent({ ...eventValue, ranges: [], category: chip }));
+    dispatch(changeEventValue({ ...eventValue, ranges: [], category: chip }));
   }
 
   return (
