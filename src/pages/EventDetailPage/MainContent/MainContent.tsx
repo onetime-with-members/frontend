@@ -5,7 +5,7 @@ import EmptyEventBanner from './EmptyEventBanner/EmptyEventBanner';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
 import BannerList from '@/pages/EventDetailPage/MainContent/BannerList/BannerList';
 import { RootState } from '@/store';
-import { RecommendScheduleType, ScheduleType } from '@/types/schedule.type';
+import { ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
@@ -27,16 +27,6 @@ export default function MainContent() {
     enabled: !!event,
   });
 
-  const { isLoading: isRecommendLoading, data: recommendData } = useQuery({
-    queryKey: ['events', params.eventId, 'most'],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${params.eventId}/most`);
-      return res.data;
-    },
-  });
-
-  const recommendSchedules: RecommendScheduleType[] = recommendData?.payload;
-
   const participants: string[] =
     schedules?.map((schedule) => schedule.name).sort() || [];
 
@@ -46,13 +36,7 @@ export default function MainContent() {
     );
   }
 
-  if (
-    isScheduleLoading ||
-    isRecommendLoading ||
-    event === undefined ||
-    schedules === undefined ||
-    recommendSchedules === undefined
-  )
+  if (isScheduleLoading || event === undefined || schedules === undefined)
     return <></>;
 
   return (
@@ -68,11 +52,7 @@ export default function MainContent() {
           {schedules.length === 0 ? (
             <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
           ) : (
-            <BannerList
-              eventCategory={event.category}
-              recommendSchedules={recommendSchedules}
-              participants={participants}
-            />
+            <BannerList participants={participants} />
           )}
         </div>
       </main>

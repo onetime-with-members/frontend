@@ -8,7 +8,7 @@ export interface ScheduleType {
   schedules: TimeType[];
 }
 
-export interface RecommendScheduleType {
+export interface RecommendTimeType {
   time_point: string;
   start_time: string;
   end_time: string;

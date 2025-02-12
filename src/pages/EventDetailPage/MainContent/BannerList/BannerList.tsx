@@ -4,21 +4,13 @@ import { isMobile } from 'react-device-detect';
 import CircleArrowButton from './CircleArrowButton/CircleArrowButton';
 import Participants from './Participants/Participants';
 import RecommendTime from './RecommendTime/RecommendTime';
-import { EventType } from '@/types/event.type';
-import { RecommendScheduleType } from '@/types/schedule.type';
 import cn from '@/utils/cn';
 
 interface BannerListProps {
-  eventCategory: EventType['category'];
   participants: string[];
-  recommendSchedules: RecommendScheduleType[];
 }
 
-export default function BannerList({
-  eventCategory,
-  participants,
-  recommendSchedules,
-}: BannerListProps) {
+export default function BannerList({ participants }: BannerListProps) {
   const [circleArrowButtonVisible, setCircleArrowButtonVisible] = useState({
     left: false,
     right: true,
@@ -107,10 +99,7 @@ export default function BannerList({
         className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
         style={{ scrollSnapType: 'x mandatory' }}
       >
-        <RecommendTime
-          recommendSchedules={recommendSchedules}
-          eventCategory={eventCategory}
-        />
+        <RecommendTime />
         <Participants participants={participants} />
       </div>
       {!isMobile && (
