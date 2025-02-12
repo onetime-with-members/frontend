@@ -1,6 +1,6 @@
-import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import BottomButtonForDesktop from './BottomButtonForDesktop/BottomButtonForDesktop';
@@ -11,40 +11,19 @@ import MainContent from './MainContent/MainContent';
 import SharePopUp from './SharePopUp/SharePopUp';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbar from './TopToolbar/TopToolbar';
-import { EventType } from '@/types/event.type';
-import axios from '@/utils/axios';
-import { sortWeekdayList } from '@/utils/weekday';
-import { useQuery } from '@tanstack/react-query';
+import { AppDispatch, RootState } from '@/store';
+import { getEvent } from '@/store/eventSlice';
 
 export default function EventDetailPage() {
+  const { event, isNotFound } = useSelector((state: RootState) => state.event);
+  const dispatch = useDispatch<AppDispatch>();
+
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
   const params = useParams<{ eventId: string }>();
   const navigate = useNavigate();
-
-  const {
-    isPending: isEventPending,
-    data: eventData,
-    error: eventError,
-  } = useQuery<EventType>({
-    queryKey: ['events', params.eventId],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${params.eventId}`);
-      return res.data.payload;
-    },
-    retry: false,
-  });
-
-  let event: EventType = eventData || ({} as EventType);
-  if (event) {
-    if (event?.category === 'DAY') {
-      event.ranges = sortWeekdayList(event.ranges);
-    } else {
-      event.ranges = event.ranges?.sort();
-    }
-  }
 
   function handleBottomButtonClick() {
     if (localStorage.getItem('access-token')) {
@@ -59,30 +38,29 @@ export default function EventDetailPage() {
   }
 
   useEffect(() => {
-    if (eventError) {
-      const error = eventError as AxiosError;
-      if (error.response?.status === 404 || error.response?.status === 400) {
-        navigate('/not-found');
-      }
+    if (params.eventId) {
+      dispatch(getEvent(params.eventId));
     }
-  }, [eventError]);
+  }, [params.eventId]);
+
+  useEffect(() => {
+    if (isNotFound) {
+      navigate('/not-found');
+    }
+  }, [isNotFound]);
 
   return (
     <>
-      {!isEventPending && event && !eventError && (
-        <Helmet>
-          <title>{event.title} | OneTime</title>
-        </Helmet>
-      )}
+      <Helmet>
+        <title>{event.title} | OneTime</title>
+      </Helmet>
       <div className="flex flex-col">
         <TopNavBar />
         <TopToolbar
-          event={event}
-          isEventPending={isEventPending}
           setIsDeleteAlertOpen={setIsDeleteAlertOpen}
           handleShareButtonClick={handleShareButtonClick}
         />
-        <MainContent event={event} isEventPending={isEventPending} />
+        <MainContent />
         <>
           <BottomButtonForMobile
             handleFloatingButtonClick={handleBottomButtonClick}
@@ -94,7 +72,7 @@ export default function EventDetailPage() {
         </>
       </div>
       {isSharePopUpOpen && event && (
-        <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
+        <SharePopUp setIsOpen={setIsSharePopUpOpen} />
       )}
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
       {isDeleteAlertOpen && (

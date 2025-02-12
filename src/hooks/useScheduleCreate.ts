@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { RootState } from '@/store';
-import { EventType } from '@/types/event.type';
 import { ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
@@ -19,13 +18,7 @@ export default function useScheduleCreate({
   isNewGuest,
   guestId,
 }: UseScheduleCreateProps) {
-  const [schedules, setSchedules] = useState<ScheduleType[]>([
-    {
-      name: '본인',
-      schedules: [],
-    },
-  ]);
-
+  const { event } = useSelector((state: RootState) => state.event);
   const { originalFixedSchedules } = useSelector(
     (state: RootState) => state.fixedSchedules,
   );
@@ -33,17 +26,16 @@ export default function useScheduleCreate({
     (state: RootState) => state.sleepTime,
   );
 
+  const [schedules, setSchedules] = useState<ScheduleType[]>([
+    {
+      name: '본인',
+      schedules: [],
+    },
+  ]);
+
   const params = useParams<{ eventId: string }>();
 
   const isLoggedIn = localStorage.getItem('access-token') !== null;
-
-  const { data: event } = useQuery<EventType>({
-    queryKey: ['events', params.eventId],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${params.eventId}`);
-      return res.data.payload;
-    },
-  });
 
   const { data: scheduleData } = useQuery<ScheduleType>({
     queryKey: [

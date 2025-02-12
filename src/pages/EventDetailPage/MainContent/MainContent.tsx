@@ -1,22 +1,17 @@
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import EmptyEventBanner from './EmptyEventBanner/EmptyEventBanner';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
 import BannerList from '@/pages/EventDetailPage/MainContent/BannerList/BannerList';
-import { EventType } from '@/types/event.type';
+import { RootState } from '@/store';
 import { RecommendScheduleType, ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
-interface MainContentProps {
-  event: EventType;
-  isEventPending: boolean;
-}
+export default function MainContent() {
+  const { event } = useSelector((state: RootState) => state.event);
 
-export default function MainContent({
-  event,
-  isEventPending,
-}: MainContentProps) {
   const params = useParams<{ eventId: string }>();
 
   const { isLoading: isScheduleLoading, data: schedules } = useQuery<
@@ -52,7 +47,6 @@ export default function MainContent({
   }
 
   if (
-    isEventPending ||
     isScheduleLoading ||
     isRecommendLoading ||
     event === undefined ||

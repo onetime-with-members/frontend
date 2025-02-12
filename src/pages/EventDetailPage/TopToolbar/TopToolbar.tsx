@@ -1,23 +1,23 @@
+import { useSelector } from 'react-redux';
+
 import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
 import kakaoIcon from '@/assets/kakao-icon.svg';
 import sendIcon from '@/assets/send.svg';
 import useKakaoShare from '@/hooks/useKakaoShare';
-import { EventType } from '@/types/event.type';
+import { RootState } from '@/store';
 
 interface TopToolbarProps {
-  event: EventType;
-  isEventPending: boolean;
   setIsDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleShareButtonClick: () => void;
 }
 
 export default function TopToolbar({
-  event,
-  isEventPending,
   setIsDeleteAlertOpen,
   handleShareButtonClick,
 }: TopToolbarProps) {
+  const { event } = useSelector((state: RootState) => state.event);
+
   const { handleKakaoShare } = useKakaoShare({
     event,
   });
@@ -30,7 +30,7 @@ export default function TopToolbar({
             <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
               {event?.title || <>&nbsp;</>}
             </h1>
-            {!isEventPending && event && (
+            {event && (
               <>
                 <div className="flex items-center gap-2">
                   <ToolbarButton

@@ -1,11 +1,13 @@
+import eventReducer from './eventSlice';
 import fixedSchedulesReducer from './fixedSchedulesSlice';
 import sleepTimeReducer from './sleepTimeSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({
   reducer: {
-    sleepTime: sleepTimeReducer,
+    event: eventReducer,
     fixedSchedules: fixedSchedulesReducer,
+    sleepTime: sleepTimeReducer,
   },
 });
 
