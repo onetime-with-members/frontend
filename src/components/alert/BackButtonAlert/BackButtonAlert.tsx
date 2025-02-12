@@ -1,6 +1,9 @@
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Alert from '@/components/alert/Alert/Alert';
+import { getFixedSchedules, resetIsEdited } from '@/store/fixed-schedules';
+import { AppDispatch } from '@/store/store';
 
 interface BackButtonAlertProps {
   backHref: string | -1;
@@ -11,14 +14,18 @@ export default function BackButtonAlert({
   setIsOpen,
   backHref,
 }: BackButtonAlertProps) {
+  const dispatch = useDispatch<AppDispatch>();
+
   const navigate = useNavigate();
 
   function handleBackButtonConfirm() {
     setIsOpen(false);
   }
 
-  function handleBackButtonCancel() {
+  async function handleBackButtonCancel() {
     if (backHref === -1) {
+      dispatch(resetIsEdited());
+      await dispatch(getFixedSchedules());
       navigate(-1);
     } else {
       navigate(backHref);
