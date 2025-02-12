@@ -12,7 +12,7 @@ import SharePopUp from './SharePopUp/SharePopUp';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbar from './TopToolbar/TopToolbar';
 import { AppDispatch, RootState } from '@/store';
-import { getEvent, resetEventValue } from '@/store/eventSlice';
+import { getEvent, resetEvent, resetEventValue } from '@/store/eventSlice';
 
 export default function EventDetailPage() {
   const { event, isNotFound } = useSelector((state: RootState) => state.event);
@@ -41,6 +41,11 @@ export default function EventDetailPage() {
     if (params.eventId) {
       dispatch(getEvent(params.eventId));
     }
+
+    return () => {
+      dispatch(resetEvent());
+      dispatch(resetEventValue());
+    };
   }, [params.eventId]);
 
   useEffect(() => {
@@ -48,12 +53,6 @@ export default function EventDetailPage() {
       navigate('/not-found');
     }
   }, [isNotFound]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(resetEventValue());
-    };
-  }, []);
 
   return (
     <>

@@ -57,6 +57,13 @@ const eventSlice = createSlice({
     resetEventValue: (state) => {
       state.eventValue = initialState.eventValue;
     },
+    resetEvent: (state) => {
+      state.event = initialState.event;
+      state.eventValue = initialState.eventValue;
+      state.qrImageUrl = initialState.qrImageUrl;
+      state.recommendedTimes = initialState.recommendedTimes;
+      state.isNotFound = initialState.isNotFound;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -163,6 +170,7 @@ export const deleteEvent = createAsyncThunk(
   },
 );
 
-export const { changeEventValue, resetEventValue } = eventSlice.actions;
+export const { changeEventValue, resetEventValue, resetEvent } =
+  eventSlice.actions;
 
 export default eventSlice.reducer;
