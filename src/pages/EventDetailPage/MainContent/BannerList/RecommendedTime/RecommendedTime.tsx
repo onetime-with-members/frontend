@@ -2,12 +2,12 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import RecommendTimePopUp from './RecommendTimePopUp/RecommendTimePopUp';
+import RecommendedTimePopUp from './RecommendedTimePopUp/RecommendTimePopUp';
 import { RootState } from '@/store';
 import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 
-export default function RecommendTime() {
+export default function RecommendedTime() {
   const { event } = useSelector((state: RootState) => state.event);
   const { recommendedTimes } = useSelector((state: RootState) => state.event);
 
@@ -80,7 +80,7 @@ export default function RecommendTime() {
           )}
         </div>
       </div>
-      {isDialogOpen && <RecommendTimePopUp onClose={handleDialogClose} />}
+      {isDialogOpen && <RecommendedTimePopUp onClose={handleDialogClose} />}
     </>
   );
 }

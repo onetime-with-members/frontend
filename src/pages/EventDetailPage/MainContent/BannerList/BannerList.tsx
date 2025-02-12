@@ -3,7 +3,7 @@ import { isMobile } from 'react-device-detect';
 
 import CircleArrowButton from './CircleArrowButton/CircleArrowButton';
 import Participants from './Participants/Participants';
-import RecommendTime from './RecommendTime/RecommendTime';
+import RecommendedTime from './RecommendedTime/RecommendedTime';
 import cn from '@/utils/cn';
 
 interface BannerListProps {
@@ -99,7 +99,7 @@ export default function BannerList({ participants }: BannerListProps) {
         className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
         style={{ scrollSnapType: 'x mandatory' }}
       >
-        <RecommendTime />
+        <RecommendedTime />
         <Participants participants={participants} />
       </div>
       {!isMobile && (

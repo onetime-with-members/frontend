@@ -5,13 +5,13 @@ import TimeAccordionItem from './TimeAccordionItem/TimeAccordionItem';
 import { RootState } from '@/store';
 import { IconX } from '@tabler/icons-react';
 
-interface RecommendTimeDialogProps {
+interface RecommendedTimePopUpProps {
   onClose: () => void;
 }
 
-export default function RecommendTimePopUp({
+export default function RecommendedTimePopUp({
   onClose,
-}: RecommendTimeDialogProps) {
+}: RecommendedTimePopUpProps) {
   const { event } = useSelector((state: RootState) => state.event);
   const { recommendedTimes: recommendedSchedules } = useSelector(
     (state: RootState) => state.event,
