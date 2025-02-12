@@ -123,7 +123,9 @@ const eventSlice = createSlice({
         state.eventValue = initialState.eventValue;
       })
       .addCase(getMyEvents.pending, (state) => {
-        state.status.myEvents = 'pending';
+        if (state.status.myEvents !== 'fulfilled') {
+          state.status.myEvents = 'pending';
+        }
       })
       .addCase(getMyEvents.fulfilled, (state, action) => {
         state.myEvents = action.payload;

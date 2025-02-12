@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -9,6 +10,10 @@ import { IconChevronRight } from '@tabler/icons-react';
 
 export default function MyEventSection() {
   const { myEvents, status } = useSelector((state: RootState) => state.event);
+
+  useEffect(() => {
+    console.log('myEvents:', myEvents);
+  }, [myEvents]);
 
   return (
     <section className="flex flex-col gap-3">
