@@ -109,7 +109,6 @@ export default function SharePopUp({ setIsOpen }: SharePopUpProps) {
       </div>
       <QRCodeScreen
         visible={isQrCodeScreenOpen}
-        event={event}
         onClose={handleQrCodeScreenClose}
       />
     </>

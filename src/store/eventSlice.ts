@@ -10,6 +10,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 export interface EventState {
   event: EventType;
   eventValue: EventValueType;
+  qrImageUrl: string;
   recommendedTimes: RecommendTimeType[];
   isNotFound: boolean;
   status: {
@@ -36,6 +37,7 @@ const initialState: EventState = {
     category: 'DATE',
     ranges: [],
   },
+  qrImageUrl: '',
   recommendedTimes: [],
   isNotFound: false,
   status: {
@@ -65,6 +67,7 @@ const eventSlice = createSlice({
           state.event.category === 'DAY'
             ? sortWeekdayList(state.event.ranges)
             : state.event.ranges.sort();
+        state.qrImageUrl = action.payload.qrImageUrl;
         state.recommendedTimes = action.payload.recommendedTimes;
         state.isNotFound = false;
       })
@@ -117,10 +120,12 @@ export const getEvent = createAsyncThunk(
     try {
       const eventRes = await axios.get(`/events/${eventId}`);
       const recommendedTimesRes = await axios.get(`/events/${eventId}/most`);
+      const qrImageUrlRes = await axios.get(`/events/qr/${eventId}`);
 
       return {
         event: eventRes.data.payload,
         recommendedTimes: recommendedTimesRes.data.payload,
+        qrImageUrl: qrImageUrlRes.data.payload.qr_code_img_url,
       };
     } catch (error) {
       return rejectWithValue(error);
