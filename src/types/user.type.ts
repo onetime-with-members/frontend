@@ -21,7 +21,12 @@ export interface SleepTime {
   end: string;
 }
 
-export interface OnboardingValueType extends PolicyType, SleepTime {
+interface SleepTimeValueType {
+  sleep_start_time: string;
+  sleep_end_time: string;
+}
+
+export interface OnboardingValueType extends PolicyType, SleepTimeValueType {
   register_token: string;
   nickname: string;
 }
