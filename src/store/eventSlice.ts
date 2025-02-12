@@ -8,6 +8,9 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 export interface EventState {
   event: EventType;
   isNotFound: boolean;
+  status: {
+    delete: 'idle' | 'pending' | 'fulfilled' | 'rejected';
+  };
 }
 
 const initialState: EventState = {
@@ -21,6 +24,9 @@ const initialState: EventState = {
     event_status: 'PARTICIPANT',
   },
   isNotFound: false,
+  status: {
+    delete: 'idle',
+  },
 };
 
 const eventSlice = createSlice({
@@ -42,6 +48,13 @@ const eventSlice = createSlice({
         if (error.response?.status === 404 || error.response?.status === 400) {
           state.isNotFound = true;
         }
+      })
+      .addCase(deleteEvent.pending, (state) => {
+        state.status.delete = 'pending';
+      })
+      .addCase(deleteEvent.fulfilled, (state) => {
+        state.status.delete = 'fulfilled';
+        state.event = initialState.event;
       });
   },
 });
@@ -55,6 +68,14 @@ export const getEvent = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error);
     }
+  },
+);
+
+export const deleteEvent = createAsyncThunk(
+  'event/deleteEvent',
+  async (eventId: string) => {
+    const res = await axios.delete(`/events/${eventId}`);
+    return res.data.payload;
   },
 );
 
