@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { RootState } from '@/store/store';
+import { RootState } from '@/store';
 import { EventType } from '@/types/event.type';
 import { ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';

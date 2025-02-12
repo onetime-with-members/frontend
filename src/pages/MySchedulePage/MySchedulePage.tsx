@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
-import { getFixedSchedules } from '@/store/fixed-schedules';
-import { getSleepTime } from '@/store/sleep-time';
-import { AppDispatch } from '@/store/store';
+import { AppDispatch } from '@/store';
+import { getFixedSchedules } from '@/store/fixedSchedulesSlice';
+import { getSleepTime } from '@/store/sleepTimeSlice';
 
 export default function MySchedulePage() {
   const dispatch = useDispatch<AppDispatch>();

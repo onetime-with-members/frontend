@@ -1,6 +1,6 @@
+import { RootState } from '.';
 import dayjs from 'dayjs';
 
-import { RootState } from './store';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';

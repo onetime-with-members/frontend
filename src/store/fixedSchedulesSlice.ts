@@ -1,4 +1,5 @@
-import { RootState } from './store';
+import { RootState } from '.';
+
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';

@@ -1,5 +1,5 @@
-import fixedSchedulesReducer from './fixed-schedules';
-import sleepTimeReducer from './sleep-time';
+import fixedSchedulesReducer from './fixedSchedulesSlice';
+import sleepTimeReducer from './sleepTimeSlice';
 import { configureStore } from '@reduxjs/toolkit';
 
 export const store = configureStore({

@@ -7,9 +7,12 @@ import SleepTimeAccordion from './SleepTimeAccordion/SleepTimeAccordion';
 import TopAppBar from './TopAppBar/TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
-import { editFixedSchedules, getFixedSchedules } from '@/store/fixed-schedules';
-import { editSleepTime, getSleepTime } from '@/store/sleep-time';
-import { AppDispatch, RootState } from '@/store/store';
+import { AppDispatch, RootState } from '@/store';
+import {
+  editFixedSchedules,
+  getFixedSchedules,
+} from '@/store/fixedSchedulesSlice';
+import { editSleepTime, getSleepTime } from '@/store/sleepTimeSlice';
 import cn from '@/utils/cn';
 
 export default function MyScheduleEditPage() {

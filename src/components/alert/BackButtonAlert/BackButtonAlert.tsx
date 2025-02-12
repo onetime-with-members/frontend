@@ -2,8 +2,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Alert from '@/components/alert/Alert/Alert';
-import { getFixedSchedules, resetIsEdited } from '@/store/fixed-schedules';
-import { AppDispatch } from '@/store/store';
+import { AppDispatch } from '@/store';
+import { getFixedSchedules, resetIsEdited } from '@/store/fixedSchedulesSlice';
 
 interface BackButtonAlertProps {
   backHref: string | -1;

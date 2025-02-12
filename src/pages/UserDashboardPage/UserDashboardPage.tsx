@@ -6,9 +6,9 @@ import MyEventSection from './MyEventSection/MyEventSection';
 import MyScheduleSection from './MyScheduleSection/MyScheduleSection';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbarForDesktop from './TopToolbarForDesktop/TopToolbarForDesktop';
-import { getFixedSchedules } from '@/store/fixed-schedules';
-import { getSleepTime } from '@/store/sleep-time';
-import { AppDispatch } from '@/store/store';
+import { AppDispatch } from '@/store';
+import { getFixedSchedules } from '@/store/fixedSchedulesSlice';
+import { getSleepTime } from '@/store/sleepTimeSlice';
 
 export default function UserDashboardPage() {
   const dispatch = useDispatch<AppDispatch>();

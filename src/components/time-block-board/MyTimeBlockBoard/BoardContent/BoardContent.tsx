@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import TimeBlock from './TimeBlock/TimeBlock';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
-import { changeTimeBlock } from '@/store/fixed-schedules';
-import { AppDispatch, RootState } from '@/store/store';
+import { AppDispatch, RootState } from '@/store';
+import { changeTimeBlock } from '@/store/fixedSchedulesSlice';
 import { timeBlockList as _timeBlockList } from '@/utils/time-block';
 
 interface TimeBlockContentProps {

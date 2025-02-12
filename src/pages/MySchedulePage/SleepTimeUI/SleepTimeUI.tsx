@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import SleepIcon from '@/components/icon/SleepIcon';
-import { RootState } from '@/store/store';
+import { RootState } from '@/store';
 
 export default function SleepTimeUI() {
   const { sleepTime } = useSelector((state: RootState) => state.sleepTime);
