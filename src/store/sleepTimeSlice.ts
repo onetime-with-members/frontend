@@ -1,14 +1,10 @@
 import { RootState } from '.';
 import dayjs from 'dayjs';
 
+import { SleepTime } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-export interface SleepTime {
-  start: string;
-  end: string;
-}
 
 export interface SleepTimeState {
   sleepTime: SleepTime;
