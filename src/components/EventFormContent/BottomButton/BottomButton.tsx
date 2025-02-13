@@ -1,21 +1,19 @@
 import { useContext } from 'react';
-import { useSelector } from 'react-redux';
 
 import Button from '@/components/button/Button/Button';
 import { PageModeContext } from '@/contexts/PageModeContext';
-import { RootState } from '@/store';
 
 interface BottomButtonProps {
   handleSubmit: () => void;
   disabled: boolean;
+  isPending: boolean;
 }
 
 export default function BottomButton({
   handleSubmit,
   disabled,
+  isPending,
 }: BottomButtonProps) {
-  const { status } = useSelector((state: RootState) => state.event);
-
   const { pageMode } = useContext(PageModeContext);
 
   return (
@@ -27,11 +25,9 @@ export default function BottomButton({
         fullWidth
       >
         {pageMode === 'create' &&
-          (status.create === 'pending'
-            ? '이벤트 생성 중...'
-            : '이벤트 생성하기')}
+          (isPending ? '이벤트 생성 중...' : '이벤트 생성하기')}
         {pageMode === 'edit' &&
-          (status.edit === 'pending' ? '이벤트 수정 중...' : '이벤트 수정하기')}
+          (isPending ? '이벤트 수정 중...' : '이벤트 수정하기')}
       </Button>
     </div>
   );

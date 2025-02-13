@@ -1,17 +1,22 @@
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import EmptyEventBanner from './EmptyEventBanner/EmptyEventBanner';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
 import BannerList from '@/pages/EventDetailPage/MainContent/BannerList/BannerList';
-import { RootState } from '@/store';
-import { ScheduleType } from '@/types/schedule.type';
+import { EventType } from '@/types/event.type';
+import { RecommendScheduleType, ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
-export default function MainContent() {
-  const { event } = useSelector((state: RootState) => state.event);
+interface MainContentProps {
+  event: EventType;
+  isEventPending: boolean;
+}
 
+export default function MainContent({
+  event,
+  isEventPending,
+}: MainContentProps) {
   const params = useParams<{ eventId: string }>();
 
   const { isLoading: isScheduleLoading, data: schedules } = useQuery<
@@ -27,6 +32,16 @@ export default function MainContent() {
     enabled: !!event,
   });
 
+  const { isLoading: isRecommendLoading, data: recommendData } = useQuery({
+    queryKey: ['events', params.eventId, 'most'],
+    queryFn: async () => {
+      const res = await axios.get(`/events/${params.eventId}/most`);
+      return res.data;
+    },
+  });
+
+  const recommendSchedules: RecommendScheduleType[] = recommendData?.payload;
+
   const participants: string[] =
     schedules?.map((schedule) => schedule.name).sort() || [];
 
@@ -36,7 +51,14 @@ export default function MainContent() {
     );
   }
 
-  if (isScheduleLoading || event === undefined || schedules === undefined)
+  if (
+    isEventPending ||
+    isScheduleLoading ||
+    isRecommendLoading ||
+    event === undefined ||
+    schedules === undefined ||
+    recommendSchedules === undefined
+  )
     return <></>;
 
   return (
@@ -52,7 +74,11 @@ export default function MainContent() {
           {schedules.length === 0 ? (
             <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
           ) : (
-            <BannerList participants={participants} />
+            <BannerList
+              eventCategory={event.category}
+              recommendSchedules={recommendSchedules}
+              participants={participants}
+            />
           )}
         </div>
       </main>

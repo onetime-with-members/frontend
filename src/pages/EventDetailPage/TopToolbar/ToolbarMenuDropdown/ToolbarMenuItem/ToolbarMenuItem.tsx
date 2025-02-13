@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import EditIcon from '@/components/icon/EditIcon';
@@ -17,15 +16,11 @@ export default function ToolbarMenuItem({
   icon,
   href = '#',
   variant = 'default',
-  onClick,
   ...props
 }: ToolbarMenuItemProps) {
   const navigate = useNavigate();
 
-  function handleMenuItemClick(e: React.MouseEvent<HTMLLIElement>) {
-    if (onClick) {
-      onClick(e);
-    }
+  function handleMenuItemClick() {
     navigate(href);
   }
 

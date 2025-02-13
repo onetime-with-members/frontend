@@ -1,23 +1,24 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
-import { AppDispatch, RootState } from '@/store';
-import { changeEventValue } from '@/store/eventSlice';
+import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface CalendarSelectProps {
   className?: string;
+  value: EventValueType;
+  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
 }
 
-export default function CalendarSelect({ className }: CalendarSelectProps) {
-  const { eventValue } = useSelector((state: RootState) => state.event);
-  const dispatch = useDispatch<AppDispatch>();
-
+export default function CalendarSelect({
+  className,
+  value,
+  setValue,
+}: CalendarSelectProps) {
   const [currentDate, setCurrentDate] = useState(dayjs());
 
   const {
@@ -49,20 +50,18 @@ export default function CalendarSelect({ className }: CalendarSelectProps) {
     setCurrentDate((prev) => prev.add(1, 'month'));
   }
 
-  function handleDateItemSelect(e: React.MouseEvent | React.TouchEvent) {
-    const target = eventTarget(e);
+  function handleDateItemSelect(event: React.MouseEvent | React.TouchEvent) {
+    const target = eventTarget(event);
     if (!target) return;
     if (target.getAttribute('aria-disabled') === 'true') return;
     const date = target.dataset.date;
     if (!date) return;
-    dispatch(
-      changeEventValue({
-        ...eventValue,
-        ranges: isFilling
-          ? [...new Set([...eventValue.ranges, date])]
-          : eventValue.ranges.filter((range) => range !== date),
-      }),
-    );
+    setValue((prev) => ({
+      ...prev,
+      ranges: isFilling
+        ? [...new Set([...prev.ranges, date])]
+        : prev.ranges.filter((range) => range !== date),
+    }));
   }
 
   return (
@@ -111,23 +110,19 @@ export default function CalendarSelect({ className }: CalendarSelectProps) {
               <DateItem
                 key={date}
                 data-date={currentDateFormat(date)}
-                active={eventValue.ranges.includes(currentDateFormat(date))}
+                active={value.ranges.includes(currentDateFormat(date))}
                 disabled={currentDate.date(date).isBefore(dayjs(), 'date')}
                 aria-disabled={currentDate.date(date).isBefore(dayjs(), 'date')}
                 onMouseDown={() =>
                   handleDragStart({
-                    isFilling: !eventValue.ranges.includes(
-                      currentDateFormat(date),
-                    ),
+                    isFilling: !value.ranges.includes(currentDateFormat(date)),
                   })
                 }
                 onMouseMove={handleDragMove}
                 onMouseUp={handleDragEnd}
                 onTouchStart={() =>
                   handleDragStart({
-                    isFilling: !eventValue.ranges.includes(
-                      currentDateFormat(date),
-                    ),
+                    isFilling: !value.ranges.includes(currentDateFormat(date)),
                   })
                 }
                 onTouchMove={handleDragMove}

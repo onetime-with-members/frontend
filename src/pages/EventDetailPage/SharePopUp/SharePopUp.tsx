@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import QRCodeScreen from './QRCodeScreen/QRCodeScreen';
 import ShareBlueButton from './ShareBlueButton/ShareBlueButton';
@@ -7,18 +6,17 @@ import ShareButtonWrapper from './ShareButtonWrapper/ShareButtonWrapper';
 import ShareKakaoButton from './ShareKakaoButton/ShareKakaoButton';
 import ShareMoreButton from './ShareMoreButton/ShareMoreButton';
 import Input from '@/components/Input/Input';
-import { RootState } from '@/store';
+import { EventType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 
 interface SharePopUpProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  event: EventType;
 }
 
-export default function SharePopUp({ setIsOpen }: SharePopUpProps) {
-  const { event } = useSelector((state: RootState) => state.event);
-
+export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
   const [currentUrl, setCurrentUrl] = useState('Loading...');
   const [isQrCodeScreenOpen, setIsQrCodeScreenOpen] = useState(false);
 
@@ -109,6 +107,7 @@ export default function SharePopUp({ setIsOpen }: SharePopUpProps) {
       </div>
       <QRCodeScreen
         visible={isQrCodeScreenOpen}
+        event={event}
         onClose={handleQrCodeScreenClose}
       />
     </>

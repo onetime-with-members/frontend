@@ -1,16 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
-
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import Input from '@/components/Input/Input';
-import { AppDispatch, RootState } from '@/store';
-import { changeEventValue } from '@/store/eventSlice';
+import { EventValueType } from '@/types/event.type';
 
-export default function TitleSection() {
-  const { eventValue } = useSelector((state: RootState) => state.event);
-  const dispatch = useDispatch<AppDispatch>();
+interface TitleSectionProps {
+  value: EventValueType;
+  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
+}
 
+export default function TitleSection({ value, setValue }: TitleSectionProps) {
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(changeEventValue({ ...eventValue, title: e.target.value }));
+    setValue((prev) => ({
+      ...prev,
+      title: e.target.value,
+    }));
   }
 
   return (
@@ -26,7 +28,7 @@ export default function TitleSection() {
         name="title"
         placeholder="어떤 이벤트인가요?"
         maxLength={30}
-        value={eventValue.title}
+        value={value.title}
         onChange={handleChange}
       />
     </div>

@@ -1,9 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Alert from '@/components/alert/Alert/Alert';
-import { AppDispatch, RootState } from '@/store';
-import { deleteEvent } from '@/store/eventSlice';
+import axios from '@/utils/axios';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface EventDeleteAlertProps {
   setIsEventDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,20 +11,27 @@ interface EventDeleteAlertProps {
 export default function EventDeleteAlert({
   setIsEventDeleteAlertOpen,
 }: EventDeleteAlertProps) {
-  const { status } = useSelector((state: RootState) => state.event);
-  const dispatch = useDispatch<AppDispatch>();
-
   const params = useParams<{ eventId: string }>();
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const deleteEvent = useMutation({
+    mutationFn: async () => {
+      const res = await axios.delete(`/events/${params.eventId}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['events'] });
+      navigate('/');
+    },
+  });
 
   function handleEventDeleteALertClose() {
     setIsEventDeleteAlertOpen(false);
   }
 
-  async function handleEventDelete() {
-    if (!params.eventId) return;
-    await dispatch(deleteEvent(params.eventId));
-    navigate('/');
+  function handleEventDelete() {
+    deleteEvent.mutate();
   }
 
   return (
@@ -33,7 +39,7 @@ export default function EventDeleteAlert({
       onConfirm={handleEventDelete}
       onCancel={handleEventDeleteALertClose}
       onClose={handleEventDeleteALertClose}
-      confirmText={status.delete === 'pending' ? '삭제 중...' : '삭제'}
+      confirmText={deleteEvent.isPending ? '삭제 중...' : '삭제'}
       cancelText="취소"
     >
       <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">

@@ -1,10 +1,7 @@
 import dayjs from 'dayjs';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import alarmIcon from '@/assets/alarm-icon.svg';
-import { AppDispatch } from '@/store';
-import { getEvent } from '@/store/eventSlice';
 import { MyEventType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
@@ -15,19 +12,10 @@ interface MyEventProps {
 }
 
 export default function MyEvent({ event, className }: MyEventProps) {
-  const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-
   const isRecommended =
     event.most_possible_times.length > 0 && event.participant_count >= 1;
 
   const recommendedTime = event.most_possible_times[0];
-
-  async function handleMyEventClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    e.preventDefault();
-    await dispatch(getEvent(event.event_id));
-    navigate(`/events/${event.event_id}`);
-  }
 
   return (
     <li>
@@ -37,7 +25,6 @@ export default function MyEvent({ event, className }: MyEventProps) {
           'flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5',
           className,
         )}
-        onClick={handleMyEventClick}
       >
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-1 text-gray-30 text-sm-200">

@@ -1,34 +1,53 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import EditButtonGroup from './EditButtonGroup/EditButtonGroup';
 import EditDropdownContent from './EditDropdownContent/EditDropdownContent';
 import PenIcon from '@/components/icon/PenIcon';
 import SleepIcon from '@/components/icon/SleepIcon';
-import { AppDispatch, RootState } from '@/store';
-import { changeSleepTime, editSleepTime } from '@/store/sleepTimeSlice';
+import { DEFAULT_SLEEP_TIME } from '@/constants/sleep-time';
+import useSleepTime from '@/hooks/useSleepTime';
+import { SleepTimeType } from '@/types/user.type';
+import axios from '@/utils/axios';
 import cn from '@/utils/cn';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export default function SleepTimeUI() {
+interface SleepTimeUIProps {
+  sleepTime: SleepTimeType;
+  setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
+}
+
+export default function SleepTimeUI({
+  sleepTime,
+  setSleepTime,
+}: SleepTimeUIProps) {
   const [isEditing, setIsEditing] = useState(false);
 
-  const { sleepTime, originalSleepTime } = useSelector(
-    (state: RootState) => state.sleepTime,
-  );
-  const dispatch = useDispatch<AppDispatch>();
+  const { sleepTimeData } = useSleepTime();
+
+  const queryClient = useQueryClient();
+
+  const editSleepTime = useMutation({
+    mutationFn: async () => {
+      const res = await axios.put('/users/sleep-time', sleepTime);
+      return res.data.payload;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+      setIsEditing(false);
+    },
+  });
 
   function handleEditButtonClick() {
     setIsEditing(true);
   }
 
-  async function handleSubmitButtonClick() {
-    await dispatch(editSleepTime());
-    setIsEditing(false);
+  function handleSubmitButtonClick() {
+    editSleepTime.mutate();
   }
 
   function handleCancelButtonClick() {
     setIsEditing(false);
-    dispatch(changeSleepTime(originalSleepTime));
+    setSleepTime(sleepTimeData || DEFAULT_SLEEP_TIME);
   }
 
   return (
@@ -42,10 +61,13 @@ export default function SleepTimeUI() {
           <SleepIcon fill="#31333F" size={20} />
         </span>
         {isEditing ? (
-          <EditDropdownContent />
+          <EditDropdownContent
+            sleepTime={sleepTime}
+            setSleepTime={setSleepTime}
+          />
         ) : (
           <span className="text-gray-80 text-lg-200">
-            {sleepTime.start} - {sleepTime.end}
+            {sleepTime.sleep_start_time} - {sleepTime.sleep_end_time}
           </span>
         )}
       </div>

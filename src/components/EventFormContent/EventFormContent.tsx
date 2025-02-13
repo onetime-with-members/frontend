@@ -1,42 +1,61 @@
 import dayjs from 'dayjs';
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useSelector } from 'react-redux';
 
 import BottomButton from './BottomButton/BottomButton';
 import InputContent from './InputContent/InputContent';
 import TopActionForDesktop from './TopActionForDesktop/TopActionForDesktop';
 import TopNavBar from './TopNavBar/TopNavBar';
 import { PageModeContext } from '@/contexts/PageModeContext';
-import { RootState } from '@/store';
+import { EventValueType } from '@/types/event.type';
 import breakpoint from '@/utils/breakpoint';
 
 interface EventFormContentProps {
-  onSubmit: (disabled: boolean) => void;
+  originData?: EventValueType;
+  onSubmit: (disabled: boolean, value: EventValueType) => void;
+  isPending: boolean;
 }
 
-export default function EventFormContent({ onSubmit }: EventFormContentProps) {
-  const { eventValue } = useSelector((state: RootState) => state.event);
-
+export default function EventFormContent({
+  originData,
+  onSubmit,
+  isPending,
+}: EventFormContentProps) {
+  const [value, setValue] = useState<EventValueType>({
+    title: '',
+    start_time: '09:00',
+    end_time: '24:00',
+    category: 'DATE',
+    ranges: [],
+  });
   const [disabled, setDisabled] = useState(true);
 
   const { pageMode } = useContext(PageModeContext);
 
   function handleSubmit() {
-    onSubmit(disabled);
+    onSubmit(disabled, {
+      ...value,
+      title: value.title.trim(),
+    });
   }
 
   useEffect(() => {
-    const startTime = dayjs(eventValue.start_time, 'HH:mm');
-    const endTime = dayjs(eventValue.end_time, 'HH:mm');
+    if (!originData) return;
+
+    setValue(originData);
+  }, [originData]);
+
+  useEffect(() => {
+    const startTime = dayjs(value.start_time, 'HH:mm');
+    const endTime = dayjs(value.end_time, 'HH:mm');
 
     setDisabled(
-      eventValue.title.trim() === '' ||
-        eventValue.ranges.length === 0 ||
+      value.title.trim() === '' ||
+        value.ranges.length === 0 ||
         startTime.isAfter(endTime) ||
         startTime.isSame(endTime),
     );
-  }, [eventValue]);
+  }, [value]);
 
   useEffect(() => {
     function updateBackgroundColor() {
@@ -68,10 +87,14 @@ export default function EventFormContent({ onSubmit }: EventFormContentProps) {
           <TopNavBar />
           <main className="mx-auto flex w-full max-w-screen-md flex-col items-center justify-center md:pt-6">
             <TopActionForDesktop />
-            <InputContent />
+            <InputContent value={value} setValue={setValue} />
           </main>
         </div>
-        <BottomButton disabled={disabled} handleSubmit={handleSubmit} />
+        <BottomButton
+          disabled={disabled}
+          handleSubmit={handleSubmit}
+          isPending={isPending}
+        />
       </div>
     </>
   );

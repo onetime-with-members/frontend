@@ -1,32 +1,31 @@
 import dayjs from 'dayjs';
-import { useSelector } from 'react-redux';
 
 import TimeAccordionItem from './TimeAccordionItem/TimeAccordionItem';
-import { RootState } from '@/store';
+import { EventType } from '@/types/event.type';
+import { RecommendScheduleType } from '@/types/schedule.type';
 import { IconX } from '@tabler/icons-react';
 
-interface RecommendedTimePopUpProps {
+interface RecommendTimeDialogProps {
   onClose: () => void;
+  recommendSchedules: RecommendScheduleType[];
+  eventCategory: EventType['category'];
 }
 
-export default function RecommendedTimePopUp({
+export default function RecommendTimePopUp({
   onClose,
-}: RecommendedTimePopUpProps) {
-  const { event } = useSelector((state: RootState) => state.event);
-  const { recommendedTimes: recommendedSchedules } = useSelector(
-    (state: RootState) => state.event,
-  );
-
+  recommendSchedules,
+  eventCategory,
+}: RecommendTimeDialogProps) {
   const formattedRecommendSchedules = [
     ...new Set(
-      recommendedSchedules.map(
-        (recommendedSchedule) => recommendedSchedule.time_point,
+      recommendSchedules.map(
+        (recommendSchedule) => recommendSchedule.time_point,
       ),
     ),
   ].map((timePoint) => ({
     timePoint,
-    schedules: recommendedSchedules.filter(
-      (recommendedSchedule) => recommendedSchedule.time_point === timePoint,
+    schedules: recommendSchedules.filter(
+      (recommendSchedule) => recommendSchedule.time_point === timePoint,
     ),
   }));
 
@@ -56,7 +55,7 @@ export default function RecommendedTimePopUp({
           {formattedRecommendSchedules.map((recommendSchedule) => (
             <div key={recommendSchedule.timePoint}>
               <h3 className={style.dateTitle}>
-                {event.category === 'DATE'
+                {eventCategory === 'DATE'
                   ? dayjs(recommendSchedule.timePoint, 'YYYY.MM.DD').format(
                       'YYYY.MM.DD (dd)',
                     )

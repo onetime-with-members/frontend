@@ -1,43 +1,72 @@
+import { AxiosError } from 'axios';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import EventFormContent from '@/components/EventFormContent/EventFormContent';
-import { AppDispatch, RootState } from '@/store';
-import { editEvent, getEvent } from '@/store/eventSlice';
+import { EventType, EventValueType } from '@/types/event.type';
+import axios from '@/utils/axios';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function EventEditPage() {
-  const { event, isNotFound, status } = useSelector(
-    (state: RootState) => state.event,
-  );
-  const dispatch = useDispatch<AppDispatch>();
-
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const params = useParams<{ eventId: string }>();
 
-  async function handleSubmit(disabled: boolean) {
-    if (disabled || status.edit === 'pending' || !params.eventId) return;
-    await dispatch(editEvent(params.eventId));
-    navigate(`/events/${params.eventId}`);
-  }
+  const { data, isPending, error } = useQuery<EventType>({
+    queryKey: ['events', params.eventId],
+    queryFn: async () => {
+      const res = await axios.get(`/events/${params.eventId}`);
+      return res.data.payload;
+    },
+    retry: false,
+  });
 
   useEffect(() => {
-    if (params.eventId) {
-      dispatch(getEvent(params.eventId));
-    }
-  }, [params.eventId]);
+    const axiosError = error as AxiosError;
 
-  useEffect(() => {
-    if (isNotFound) {
+    if (
+      axiosError?.response?.status === 404 ||
+      axiosError?.response?.status === 400
+    ) {
       navigate('/not-found');
     }
-  }, [isNotFound]);
+  }, [error]);
 
   useEffect(() => {
-    if (event.event_status !== 'CREATOR') {
+    if (!isPending && data && data.event_status !== 'CREATOR') {
       navigate(-1);
     }
-  }, [event]);
+  }, [data, isPending]);
 
-  return <EventFormContent onSubmit={handleSubmit} />;
+  const editEvent = useMutation({
+    mutationFn: async (value: EventValueType) => {
+      const res = await axios.patch(`/events/${params.eventId}`, value);
+      return res.data;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      navigate(-1);
+    },
+  });
+
+  function handleSubmit(disabled: boolean, value: EventValueType) {
+    if (disabled || editEvent.isPending) return;
+    editEvent.mutate(value);
+  }
+
+  return (
+    <>
+      {data && (
+        <Helmet>
+          <title>{data.title} 수정 | OneTime</title>
+        </Helmet>
+      )}
+      <EventFormContent
+        originData={data}
+        onSubmit={handleSubmit}
+        isPending={editEvent.isPending}
+      />
+    </>
+  );
 }

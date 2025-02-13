@@ -1,22 +1,36 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import logoWhite from '@/assets/logo-white.svg';
 import ClockPattern from '@/components/ClockPattern/ClockPattern';
-import { RootState } from '@/store';
+import { EventType } from '@/types/event.type';
+import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
+import { useQuery } from '@tanstack/react-query';
 
 interface QRCodeScreenProps {
   visible?: boolean;
+  event: EventType;
   onClose?: () => void;
 }
 
 export default function QRCodeScreen({
   visible = false,
+  event,
   onClose,
 }: QRCodeScreenProps) {
-  const { event, qrImageUrl } = useSelector((state: RootState) => state.event);
+  const params = useParams<{ eventId: string }>();
+
+  const { data: qrData, isLoading: isQrLoading } = useQuery({
+    queryKey: ['events', 'qr', params.eventId],
+    queryFn: async () => {
+      const res = await axios.get(`/events/qr/${params.eventId}`);
+      return res.data;
+    },
+  });
+
+  const qr = qrData?.payload;
 
   useEffect(() => {
     if (visible) {
@@ -29,6 +43,10 @@ export default function QRCodeScreen({
       document.body.style.overflow = '';
     };
   }, [visible]);
+
+  if (isQrLoading) {
+    return <></>;
+  }
 
   return (
     <div
@@ -58,7 +76,10 @@ export default function QRCodeScreen({
               />
             </div>
             <div className="h-[230px] w-[230px] overflow-hidden rounded-3xl bg-gray-00 sm:h-[280px] sm:w-[280px]">
-              <img src={qrImageUrl} className="h-full w-full object-cover" />
+              <img
+                src={qr.qr_code_img_url}
+                className="h-full w-full object-cover"
+              />
             </div>
             <p className="text-center text-primary-10 title-sm-300">
               <span className="text-primary-00">{event.title}</span>에<br />

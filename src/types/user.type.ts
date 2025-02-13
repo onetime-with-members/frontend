@@ -8,6 +8,11 @@ export interface GuestValueType {
   pin: string;
 }
 
+export interface SleepTimeType {
+  sleep_start_time: string;
+  sleep_end_time: string;
+}
+
 export interface PolicyType {
   service_policy_agreement: boolean;
   privacy_policy_agreement: boolean;
@@ -16,17 +21,7 @@ export interface PolicyType {
 
 export type PolicyKeyType = keyof PolicyType;
 
-export interface SleepTime {
-  start: string;
-  end: string;
-}
-
-interface SleepTimeValueType {
-  sleep_start_time: string;
-  sleep_end_time: string;
-}
-
-export interface OnboardingValueType extends PolicyType, SleepTimeValueType {
+export interface OnboardingValueType extends PolicyType, SleepTimeType {
   register_token: string;
   nickname: string;
 }
