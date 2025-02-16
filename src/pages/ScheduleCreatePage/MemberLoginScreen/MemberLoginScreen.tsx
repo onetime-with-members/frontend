@@ -84,16 +84,15 @@ export default function MemberLoginScreen({
   }, [guestValue, nicknameDisabled]);
 
   return (
-    <div className="flex flex-col gap-14">
+    <div className="flex flex-col gap-[60px]">
       <InputContent
         guestValue={guestValue}
         setGuestValue={setGuestValue}
         setNicknameDisabled={setNicknameDisabled}
       />
-      <>
-        <BottomButtonForDesktop onClick={handleSubmit} disabled={disabled} />
-        <BottomButtonForMobile onClick={handleSubmit} disabled={disabled} />
-      </>
+
+      <BottomButtonForDesktop onClick={handleSubmit} disabled={disabled} />
+      <BottomButtonForMobile onClick={handleSubmit} disabled={disabled} />
     </div>
   );
 }
