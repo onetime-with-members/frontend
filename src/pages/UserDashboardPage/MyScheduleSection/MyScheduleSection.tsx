@@ -7,7 +7,7 @@ import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleSection() {
-  const { sleepTime, setSleepTime } = useSleepTime();
+  const { sleepTimeData } = useSleepTime();
 
   const { data } = useQuery<MyScheduleTimeType[]>({
     queryKey: ['fixed-schedules'],
@@ -21,11 +21,11 @@ export default function MyScheduleSection() {
     <section className="flex flex-col gap-3">
       <Header />
       <div className="rounded-2xl bg-gray-00 pb-12">
-        <SleepTimeUI sleepTime={sleepTime} setSleepTime={setSleepTime} />
+        <SleepTimeUI />
         <MyTimeBlockBoard
           mode="view"
           mySchedule={data || []}
-          sleepTime={sleepTime}
+          sleepTime={sleepTimeData}
           className="pl-3 pr-6"
         />
       </div>
