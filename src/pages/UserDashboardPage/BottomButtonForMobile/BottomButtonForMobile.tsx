@@ -26,7 +26,7 @@ export default function BottomButtonForMobile() {
     >
       <div className="mx-auto w-full max-w-screen-md">
         <Button
-          variant="black"
+          variant="dark"
           onClick={handleFloatingBottomButtonClick}
           fullWidth
         >
