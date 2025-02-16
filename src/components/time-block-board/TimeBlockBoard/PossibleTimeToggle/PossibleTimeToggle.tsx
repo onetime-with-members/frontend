@@ -15,7 +15,7 @@ export default function PossibleTimeToggle({
     <div className={cn('flex items-center gap-2', className)}>
       <div
         className={cn(
-          'flex h-6 w-12 cursor-pointer items-center rounded-full bg-primary-50 px-1 duration-150',
+          'flex h-6 w-10 cursor-pointer items-center rounded-full bg-primary-50 px-[3px] duration-150',
           {
             'bg-danger-50': !isPossibleTime,
           },
