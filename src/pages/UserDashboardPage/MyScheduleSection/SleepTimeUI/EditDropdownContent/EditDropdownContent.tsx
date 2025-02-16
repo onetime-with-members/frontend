@@ -18,7 +18,7 @@ export default function EditDropdownContent({
   }
 
   return (
-    <div className="flex flex-1 items-center gap-2.5">
+    <div className="flex flex-1 items-center gap-4">
       <TimeDropdown
         time={sleepTime.sleep_start_time}
         setTime={(time) => handleSleepTimeChange('sleep_start_time', time)}

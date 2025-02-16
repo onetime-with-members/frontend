@@ -18,7 +18,7 @@ export default function AccordionContent({
   }
 
   return (
-    <div className="flex items-center gap-2.5">
+    <div className="flex items-center gap-4">
       <TimeDropdown
         variant="white"
         time={sleepTime.sleep_start_time}

@@ -49,7 +49,7 @@ export default function SleepTimeScreen({
           </span>
           <span className="text-gray-80 text-md-300">수면 시간</span>
         </div>
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-4">
           <TimeDropdown
             time={value.sleep_start_time}
             setTime={handleTimeChange('sleep_start_time')}

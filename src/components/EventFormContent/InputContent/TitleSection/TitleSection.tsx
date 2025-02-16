@@ -16,7 +16,7 @@ export default function TitleSection({ value, setValue }: TitleSectionProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2 md:gap-4">
       <EventInputLabel
         labelId="title"
         labelText="이벤트 제목"

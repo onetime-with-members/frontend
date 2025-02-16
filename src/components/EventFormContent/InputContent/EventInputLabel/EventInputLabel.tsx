@@ -10,11 +10,13 @@ export default function EventInputLabel({
   description,
 }: InputLabelProps) {
   return (
-    <div className="flex items-center gap-2">
-      <label htmlFor={labelId} className="text-lg-200">
+    <div className="space-x-2">
+      <label htmlFor={labelId} className="align-baseline text-lg-200">
         {labelText}
       </label>
-      <span className="text-sm-200 text-gray-40">{description}</span>
+      <span className="align-baseline text-gray-40 text-sm-200">
+        {description}
+      </span>
     </div>
   );
 }
