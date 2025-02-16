@@ -1,8 +1,7 @@
-import dayjs from 'dayjs';
-
 import useSleepTime from '@/hooks/useSleepTime';
 import { SleepTimeType } from '@/types/user.type';
 import cn from '@/utils/cn';
+import { leftTimeLabelFormat } from '@/utils/time-block';
 
 interface LeftTimeLineProps {
   sleepTime?: SleepTimeType;
@@ -14,7 +13,7 @@ export default function LeftTimeLine({ sleepTime }: LeftTimeLineProps) {
   });
 
   return (
-    <div className="flex w-[2.5rem] flex-col items-end gap-2 pr-2">
+    <div className="flex w-6 flex-col items-end gap-2 pr-2">
       {timesGroupForSplittedTimeBlock('timeLabel').map((timesGroup, index) => (
         <div key={index}>
           {timesGroup.map((time, index) => (
@@ -33,7 +32,7 @@ export default function LeftTimeLine({ sleepTime }: LeftTimeLineProps) {
                   },
                 )}
               >
-                {time === '24:00' ? '24시' : dayjs(time, 'HH:mm').format('H시')}
+                {leftTimeLabelFormat(time)}
               </span>
             </div>
           ))}

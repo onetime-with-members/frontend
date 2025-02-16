@@ -17,7 +17,7 @@ export default function TopDateLabelGroup({
   category,
 }: TopDateLabelGroupProps) {
   return (
-    <div className="pl-[3.5rem]">
+    <div className="pl-6">
       <div
         ref={topLabelRef}
         className="flex items-center overflow-x-hidden"

@@ -1,7 +1,5 @@
-import dayjs from 'dayjs';
-
 import cn from '@/utils/cn';
-import { timeLabelList } from '@/utils/time-block';
+import { leftTimeLabelFormat, timeLabelList } from '@/utils/time-block';
 
 interface LeftTimeLineProps {
   startTime: string;
@@ -13,12 +11,6 @@ export default function LeftTimeLine({
   endTime,
 }: LeftTimeLineProps) {
   const timeList = timeLabelList(startTime, endTime);
-
-  function timeFormat(time: string) {
-    return time.split(':')[0] === '24'
-      ? '24'
-      : dayjs(time, 'HH:mm').format('H');
-  }
 
   return (
     <div className="flex w-6 flex-col items-center pr-2">
@@ -36,7 +28,7 @@ export default function LeftTimeLine({
               '-translate-y-full': index === timeList.length - 1,
             })}
           >
-            {timeFormat(time)}
+            {leftTimeLabelFormat(time)}
           </span>
         </div>
       ))}

@@ -9,7 +9,7 @@ interface TopDateGroupProps {
 export default function TopDateGroup({ className }: TopDateGroupProps) {
   return (
     <div className={cn('relative', className)}>
-      <div className="grid grid-cols-7 gap-2 pl-[2.5rem]">
+      <div className="grid grid-cols-7 gap-2 pl-6">
         {dayjs.weekdaysMin().map((weekday) => (
           <div
             key={weekday}
