@@ -10,7 +10,12 @@ export default function BottomButton() {
   }
 
   return (
-    <Button variant="black" onClick={handleStartButtonClick}>
+    <Button
+      variant="black"
+      className="w-full max-w-80"
+      onClick={handleStartButtonClick}
+      fullWidth
+    >
       이벤트 생성하기
     </Button>
   );
