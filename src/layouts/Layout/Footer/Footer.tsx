@@ -18,7 +18,7 @@ export default function Footer() {
   }, [footerRef]);
 
   return (
-    <footer ref={footerRef} className="bg-gray-80 px-4 pb-10 pt-8">
+    <footer ref={footerRef} className="bg-gray-80 px-4 pb-20 pt-8">
       <div className="mx-auto flex max-w-screen-sm flex-col gap-2">
         <div className="flex items-center justify-between">
           <div>
