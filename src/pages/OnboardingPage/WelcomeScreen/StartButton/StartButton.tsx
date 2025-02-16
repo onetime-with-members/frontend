@@ -18,7 +18,7 @@ export default function StartButton() {
 
   return (
     <div className="w-full max-w-[22rem]">
-      <Button variant="black" onClick={handleStartButtonClick} fullWidth>
+      <Button variant="dark" onClick={handleStartButtonClick} fullWidth>
         시작하기
       </Button>
     </div>

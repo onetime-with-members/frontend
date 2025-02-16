@@ -34,7 +34,7 @@ export default function BottomButtonForMobile({
       </button>
       <Button
         onClick={handleFloatingButtonClick}
-        variant="black"
+        variant="dark"
         className="flex-1"
       >
         <span className="flex items-center justify-center gap-1">

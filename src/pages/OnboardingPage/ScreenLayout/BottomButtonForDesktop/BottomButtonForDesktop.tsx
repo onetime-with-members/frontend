@@ -18,7 +18,7 @@ export default function BottomButtonForDesktop({
       <Button
         onClick={handleNextButtonClick}
         disabled={disabled}
-        variant="black"
+        variant="dark"
         fullWidth
       >
         다음

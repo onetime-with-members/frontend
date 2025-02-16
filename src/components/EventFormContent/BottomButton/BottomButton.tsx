@@ -21,7 +21,7 @@ export default function BottomButton({
       <Button
         onClick={handleSubmit}
         disabled={disabled}
-        variant="black"
+        variant="dark"
         fullWidth
       >
         {pageMode === 'create' &&
