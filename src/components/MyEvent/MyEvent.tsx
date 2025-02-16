@@ -9,21 +9,26 @@ import { IconChevronRight } from '@tabler/icons-react';
 interface MyEventProps {
   event: MyEventType;
   className?: string;
+  innerClassName?: string;
 }
 
-export default function MyEvent({ event, className }: MyEventProps) {
+export default function MyEvent({
+  event,
+  className,
+  innerClassName,
+}: MyEventProps) {
   const isRecommended =
     event.most_possible_times.length > 0 && event.participant_count >= 1;
 
   const recommendedTime = event.most_possible_times[0];
 
   return (
-    <li>
+    <li className={className}>
       <Link
         to={`/events/${event.event_id}`}
         className={cn(
           'flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5',
-          className,
+          innerClassName,
         )}
       >
         <div className="flex flex-col gap-1">

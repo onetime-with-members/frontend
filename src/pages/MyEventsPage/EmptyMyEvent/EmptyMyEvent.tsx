@@ -4,7 +4,7 @@ import { IconPlus } from '@tabler/icons-react';
 
 export default function EmptyMyEvent() {
   return (
-    <div className="flex h-full translate-y-14 flex-col items-center justify-center gap-8 md:translate-y-0 md:py-10">
+    <div className="flex h-full translate-y-14 flex-col items-center justify-center gap-8 md:translate-y-0 md:justify-start md:py-12">
       <div className="text-gray-90 text-lg-200">참여한 이벤트가 없습니다.</div>
       <Link
         to="/events/new"

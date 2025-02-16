@@ -48,7 +48,7 @@ export default function MyEventSection() {
                   <MyEvent
                     key={event.event_id}
                     event={event}
-                    className="border-none"
+                    innerClassName="border-none"
                   />
                 ))}
           </ul>
@@ -69,7 +69,7 @@ export default function MyEventSection() {
                   <MyEvent
                     key={event.event_id}
                     event={event}
-                    className="border-none"
+                    innerClassName="border-none"
                   />
                 ))}
           </ul>
