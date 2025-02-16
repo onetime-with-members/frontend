@@ -12,7 +12,7 @@ export default function useGrayBackground({
   useEffect(() => {
     function updateBackgroundColor() {
       if (breakpointCondition()) {
-        document.body.style.backgroundColor = '#F9F9F9';
+        document.body.style.backgroundColor = '#F6F7F8';
       } else {
         document.body.style.backgroundColor = '';
       }

@@ -2,19 +2,27 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 
-import TopAppBar from './TopAppBar/TopAppBar';
+import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
+import TopHeaderForDesktop from './TopHeaderForDesktop/TopHeaderForDesktop';
+import TopNavBarForDesktop from './TopNavBarForDesktop/TopNavBarForDesktop';
 import NicknameFormControl from '@/components/NicknameFormControl/NicknameFormControl';
+import Button from '@/components/button/Button/Button';
 import FloatingBottomButton from '@/components/button/FloatingBottomButton/FloatingBottomButton';
+import useGrayBackground from '@/hooks/useGrayBackground';
 import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
+import breakpoint from '@/utils/breakpoint';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function ProfileEditPage() {
   const [value, setValue] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
 
-  const queryClient = useQueryClient();
+  useGrayBackground({
+    breakpointCondition: () => window.innerWidth >= breakpoint.sm,
+  });
 
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { data: user } = useQuery<UserType>({
@@ -57,23 +65,38 @@ export default function ProfileEditPage() {
       <Helmet>
         <title>프로필 수정 | OneTime</title>
       </Helmet>
-      <>
-        <TopAppBar />
-      </>
-      <div className="px-4">
-        {user && (
-          <main className="mx-auto max-w-screen-sm pb-40 pt-8">
-            <NicknameFormControl
-              value={value}
-              onChange={handleInputChange}
-              setSubmitDisabled={setIsDisabled}
-            />
-            <FloatingBottomButton onClick={handleSubmit} disabled={isDisabled}>
-              확인
-            </FloatingBottomButton>
-          </main>
-        )}
-      </div>
+
+      <TopNavBarForDesktop />
+      <TopAppBarForMobile />
+
+      <main>
+        <TopHeaderForDesktop />
+
+        <div className="mx-auto flex flex-col gap-[3.75rem] bg-gray-00 px-4 pb-40 pt-8 sm:max-w-[480px] sm:rounded-3xl sm:px-9 sm:py-10">
+          <NicknameFormControl
+            value={value}
+            onChange={handleInputChange}
+            setSubmitDisabled={setIsDisabled}
+          />
+          <Button
+            variant="dark"
+            onClick={handleSubmit}
+            className="hidden sm:flex"
+            fullWidth
+          >
+            저장
+          </Button>
+        </div>
+
+        <FloatingBottomButton
+          variant="dark"
+          className="sm:hidden"
+          onClick={handleSubmit}
+          disabled={isDisabled}
+        >
+          저장
+        </FloatingBottomButton>
+      </main>
     </>
   );
 }

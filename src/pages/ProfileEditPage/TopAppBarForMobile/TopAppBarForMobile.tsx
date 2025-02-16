@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { IconChevronLeft } from '@tabler/icons-react';
 
-export default function TopAppBar() {
+export default function TopAppBarForMobile() {
   const navigate = useNavigate();
 
   function handleBackButtonClick() {
@@ -10,7 +10,7 @@ export default function TopAppBar() {
   }
 
   return (
-    <header className="h-[67px]">
+    <header className="block h-[67px] sm:hidden">
       <div className="fixed left-0 top-0 z-40 w-full bg-white px-4">
         <div className="mx-auto grid max-w-screen-sm grid-cols-3 py-5">
           <div className="flex items-center">
