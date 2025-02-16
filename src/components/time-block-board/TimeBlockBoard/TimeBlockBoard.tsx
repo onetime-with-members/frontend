@@ -58,7 +58,7 @@ export default function TimeBlockBoard({
   const boardContentRef = useRef<HTMLDivElement>(null);
   const topLabelRef = useRef<HTMLDivElement>(null);
 
-  const dayLineGap = 12;
+  const dayLineGap = 8;
   const timePointChunks = chunkRangeArray(event.ranges, 5);
   const innerContentProportion = timePointChunks.length >= 2 ? 0.9 : 1;
 

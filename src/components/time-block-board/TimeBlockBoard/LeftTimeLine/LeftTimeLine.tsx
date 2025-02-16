@@ -13,12 +13,13 @@ export default function LeftTimeLine({
   const timeList = timeLabelList(startTime, endTime);
 
   return (
-    <div className="flex w-[3.5rem] flex-col items-center pr-4">
+    <div className="flex w-[3.5rem] flex-col pr-2">
       {timeList.map((time, index) => (
         <div
           key={time}
           className={cn('flex h-[2rem] items-start justify-end', {
             'opacity-0': index % 2 && index !== timeList.length - 1,
+            'h-0': index === timeList.length - 1,
           })}
         >
           <span

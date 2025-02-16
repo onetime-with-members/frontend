@@ -64,7 +64,7 @@ export default function MainContent({
   return (
     <div className="mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-05 px-6 pt-3">
       <main className="pb-16">
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-6">
           <TimeBlockBoard
             event={event}
             schedules={schedules}
