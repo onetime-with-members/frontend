@@ -9,7 +9,7 @@ export default function LandingPage() {
   return (
     <>
       <header>
-        <NavBar />
+        <NavBar variant="transparent" heightZero />
       </header>
       <main className="w-full">
         <TopSection />

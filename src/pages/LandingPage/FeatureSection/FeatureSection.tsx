@@ -3,7 +3,7 @@ import TimeBlockBoardFeature from './TimeBlockBoardFeature/TimeBlockBoardFeature
 
 export default function FeatureSection() {
   return (
-    <section className="flex flex-col gap-4 px-4 pt-20">
+    <section className="flex flex-col gap-14 px-4 pt-[4.5rem]">
       <RecommendAndParticipantsFeature />
       <TimeBlockBoardFeature />
     </section>

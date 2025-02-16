@@ -12,7 +12,7 @@ export default function Feature({
   image,
 }: FeatureProps) {
   return (
-    <div className="mx-auto flex w-full max-w-[20rem] flex-col items-center py-10 md:max-w-max">
+    <div className="mx-auto flex w-full max-w-[20rem] flex-col items-center md:max-w-max">
       <div className="flex flex-col items-center gap-10">
         <div className="flex flex-col items-center gap-7">
           <div className="rounded-xl bg-primary-00 px-5 py-2 text-primary-40 text-md-300">

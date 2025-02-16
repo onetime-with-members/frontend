@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import Button from '@/components/button/Button/Button';
+import CTAButton from '@/components/button/CTAButton/CTAButton';
 
 export default function BottomContent() {
   const navigate = useNavigate();
@@ -22,13 +22,9 @@ export default function BottomContent() {
         </p>
       </div>
       <div className="sticky bottom-4 z-30 mx-auto mt-9 flex w-full items-center justify-center px-4">
-        <Button
-          variant="black"
-          className="w-full max-w-80"
-          onClick={handleStartButtonClick}
-        >
+        <CTAButton variant="black" onClick={handleStartButtonClick}>
           시작하기
-        </Button>
+        </CTAButton>
       </div>
     </>
   );

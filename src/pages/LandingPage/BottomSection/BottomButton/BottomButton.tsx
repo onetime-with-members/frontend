@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import Button from '@/components/button/Button/Button';
+import CTAButton from '@/components/button/CTAButton/CTAButton';
 
 export default function BottomButton() {
   const navigate = useNavigate();
@@ -10,12 +10,8 @@ export default function BottomButton() {
   }
 
   return (
-    <Button
-      variant="black"
-      className="mx-auto w-full max-w-[23rem]"
-      onClick={handleStartButtonClick}
-    >
+    <CTAButton variant="black" onClick={handleStartButtonClick}>
       이벤트 생성하기
-    </Button>
+    </CTAButton>
   );
 }

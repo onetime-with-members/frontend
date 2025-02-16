@@ -21,16 +21,20 @@ export default function Card({
       style={style}
     >
       <div className="relative z-10 flex w-full flex-col gap-10">
-        <div className="flex flex-col items-start gap-4">
+        <div className="flex flex-col items-start gap-6">
           <div className="rounded-full bg-gray-00 px-5 py-2 text-primary-50 text-md-300">
             {badgeTitle}
           </div>
-          <h2 className="text-[1.625rem] font-bold leading-[1.4]">{title}</h2>
-          <p className="text-primary-10 text-lg-200">{description}</p>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-[1.625rem] font-bold leading-[1.4]">{title}</h2>
+            <p className="text-primary-10 text-lg-200">{description}</p>
+          </div>
         </div>
-        <>{image}</>
+
+        {image}
       </div>
-      <>{backgroundPattern}</>
+
+      {backgroundPattern}
     </div>
   );
 }

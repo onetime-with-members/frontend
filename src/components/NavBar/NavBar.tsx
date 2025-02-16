@@ -11,11 +11,12 @@ import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 interface NavBarProps {
-  variant?: 'default' | 'black';
+  variant?: 'default' | 'black' | 'transparent';
   shadow?: boolean;
   className?: string;
   disabled?: boolean;
   isAuthHidden?: boolean;
+  heightZero?: boolean;
 }
 
 export default function NavBar({
@@ -24,6 +25,7 @@ export default function NavBar({
   className,
   disabled,
   isAuthHidden = false,
+  heightZero = false,
 }: NavBarProps) {
   const { isScrolling } = useScroll();
 
@@ -41,13 +43,26 @@ export default function NavBar({
   });
 
   return (
-    <nav className={cn('flex h-[4rem] w-full items-center', className)}>
+    <nav
+      className={cn(
+        'flex w-full items-center',
+        {
+          'h-[4rem]': !heightZero,
+        },
+        className,
+      )}
+    >
       <div
         className={cn(
-          'fixed left-0 top-0 z-40 h-[4rem] w-full bg-gray-00 p-4 text-gray-80 duration-150',
+          'fixed left-0 top-0 z-40 w-full bg-gray-00 p-4 text-gray-80 duration-150',
           {
             'shadow-lg': isScrolling && shadow,
             'bg-gray-80 text-gray-00': variant === 'black',
+            'bg-transparent text-gray-80':
+              variant === 'transparent' && !isScrolling,
+          },
+          {
+            'h-[4rem]': !heightZero,
           },
         )}
       >
@@ -59,7 +74,11 @@ export default function NavBar({
             })}
           >
             <img
-              src={variant === 'default' ? logoBlack : logoWhite}
+              src={
+                variant === 'default' || variant === 'transparent'
+                  ? logoBlack
+                  : logoWhite
+              }
               alt="OneTime"
               className="h-[2rem]"
             />

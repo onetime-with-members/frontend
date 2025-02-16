@@ -2,7 +2,7 @@ import clockIcon from '@/assets/landing/typo-clock.svg';
 
 export default function TypoSection() {
   return (
-    <section className="flex flex-col items-center gap-3 py-24">
+    <section className="flex flex-col items-center gap-3 py-[7.5rem]">
       <div>
         <img src={clockIcon} alt="시계 아이콘" />
       </div>

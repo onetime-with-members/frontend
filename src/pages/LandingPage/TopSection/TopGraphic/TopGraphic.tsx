@@ -27,7 +27,7 @@ export default function TopGraphic() {
   }, []);
 
   return (
-    <div className="relative flex h-[350px] flex-col items-center justify-center overflow-x-hidden">
+    <div className="relative flex h-[calc(350px+2.5rem)] flex-col items-center justify-end overflow-x-hidden">
       <div
         className="h-[350px] w-[350px]"
         style={{ clipPath: 'circle(50% at 50% 50%)' }}
