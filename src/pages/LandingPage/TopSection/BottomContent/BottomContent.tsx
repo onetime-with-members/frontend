@@ -22,7 +22,7 @@ export default function BottomContent() {
         </p>
       </div>
       <div className="sticky bottom-4 z-30 mx-auto mt-9 flex w-full items-center justify-center px-4">
-        <Button variant="black" onClick={handleStartButtonClick}>
+        <Button variant="dark" onClick={handleStartButtonClick}>
           시작하기
         </Button>
       </div>
