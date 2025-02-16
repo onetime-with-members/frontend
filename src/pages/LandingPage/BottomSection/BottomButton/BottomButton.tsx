@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import CTAButton from '@/components/button/CTAButton/CTAButton';
+import Button from '@/components/button/Button/Button';
 
 export default function BottomButton() {
   const navigate = useNavigate();
@@ -10,8 +10,8 @@ export default function BottomButton() {
   }
 
   return (
-    <CTAButton variant="black" onClick={handleStartButtonClick}>
+    <Button variant="black" onClick={handleStartButtonClick}>
       이벤트 생성하기
-    </CTAButton>
+    </Button>
   );
 }

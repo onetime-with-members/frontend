@@ -17,7 +17,7 @@ export default function Button({
   return (
     <button
       className={cn(
-        'rounded-2xl px-4 py-4 title-sm-200 disabled:bg-gray-10 disabled:text-gray-30',
+        'flex h-14 items-center justify-center rounded-2xl px-4 text-lg-200 disabled:bg-gray-10 disabled:text-gray-30',
         {
           'bg-primary-50 text-gray-00': variant === 'primary',
           'bg-primary-00 text-primary-50': variant === 'secondary',
