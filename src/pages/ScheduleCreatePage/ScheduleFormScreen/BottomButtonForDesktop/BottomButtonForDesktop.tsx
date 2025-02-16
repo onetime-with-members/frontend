@@ -8,8 +8,8 @@ export default function BottomButtonForDesktop({
   onClick,
 }: BottomButtonForDesktopProps) {
   return (
-    <div className="hidden md:block">
-      <FloatingBottomButton variant="dark" onClick={onClick}>
+    <div className="hidden sm:block">
+      <FloatingBottomButton variant="dark" maxWidth={480} onClick={onClick}>
         스케줄 등록
       </FloatingBottomButton>
     </div>

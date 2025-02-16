@@ -12,11 +12,13 @@ import { FooterContext } from '@/contexts/FooterContext';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleCreate from '@/hooks/useScheduleCreate';
 import { GuestValueType } from '@/types/user.type';
+import breakpoint from '@/utils/breakpoint';
 import cn from '@/utils/cn';
 
 export default function ScheduleCreatePage() {
   const [pageIndex, setPageIndex] = useState(
-    localStorage.getItem('access-token') !== null ? 1 : 0,
+    // localStorage.getItem('access-token') !== null ? 1 : 0,
+    0,
   );
   const [isNewGuest, setIsNewGuest] = useState(false);
   const [guestId, setGuestId] = useState('');
@@ -36,7 +38,9 @@ export default function ScheduleCreatePage() {
     isNewGuest,
     guestId,
   });
-  useGrayBackground();
+  useGrayBackground({
+    breakpointCondition: () => window.innerWidth >= breakpoint.sm,
+  });
 
   const navigate = useNavigate();
   const params = useParams<{ eventId: string }>();
@@ -75,24 +79,23 @@ export default function ScheduleCreatePage() {
       <Helmet>
         <title>스케줄 등록 - OneTime</title>
       </Helmet>
-      <>
-        <TopNavBarForDesktop />
-        <TopAppBarForMobile
-          pageIndex={pageIndex}
-          handleBackButtonClick={handleBackButtonClick}
-          setIsTopSubmitButtonClicked={setIsTopSubmitButtonClicked}
-        />
-      </>
-      <div className="md:px-4">
-        <>
-          <TopHeaderForDesktop handleBackButtonClick={handleBackButtonClick} />
-        </>
+
+      <TopNavBarForDesktop />
+      <TopAppBarForMobile
+        pageIndex={pageIndex}
+        handleBackButtonClick={handleBackButtonClick}
+        setIsTopSubmitButtonClicked={setIsTopSubmitButtonClicked}
+      />
+
+      <div className="sm:px-4">
+        <TopHeaderForDesktop handleBackButtonClick={handleBackButtonClick} />
+
         <main
           className={cn(
-            'mx-auto flex flex-col bg-gray-00 px-6 md:h-auto md:max-w-screen-md md:gap-14 md:rounded-3xl md:px-9',
+            'mx-auto flex flex-col bg-gray-00 px-6 sm:h-auto sm:max-w-[480px] sm:gap-14 sm:rounded-3xl sm:px-9',
             {
-              'py-4 md:py-10': pageIndex === 0,
-              'md:mb-28 md:py-6': pageIndex === 1,
+              'py-4 sm:py-10': pageIndex === 0,
+              'sm:mb-28 sm:py-6': pageIndex === 1,
             },
           )}
         >
@@ -123,6 +126,7 @@ export default function ScheduleCreatePage() {
           )}
         </main>
       </div>
+
       {isBackButtonAlertOpen && isScheduleEdited && (
         <BackButtonAlert
           backHref={`/events/${params.eventId}`}

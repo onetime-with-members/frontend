@@ -16,9 +16,9 @@ export default function TopAppBarForMobile({
   }
 
   return (
-    <header className="block h-[67px] md:hidden">
+    <header className="block h-[67px] sm:hidden">
       <div className="fixed left-0 top-0 z-50 w-full bg-white px-4">
-        <div className="mx-auto grid max-w-screen-md grid-cols-3 py-5">
+        <div className="mx-auto grid max-w-screen-sm grid-cols-3 py-5">
           <div className="flex items-center">
             <button onClick={handleBackButtonClick}>
               <IconChevronLeft size={24} className="text-gray-80" />

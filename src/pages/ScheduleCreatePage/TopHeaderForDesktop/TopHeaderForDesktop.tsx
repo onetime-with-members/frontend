@@ -8,7 +8,7 @@ export default function TopHeaderForDesktop({
   handleBackButtonClick,
 }: TopHeaderForDesktopProps) {
   return (
-    <header className="mx-auto hidden max-w-screen-md items-center py-8 md:flex">
+    <header className="mx-auto hidden max-w-[480px] items-center py-8 sm:flex">
       <button onClick={handleBackButtonClick}>
         <IconChevronLeft size={32} />
       </button>

@@ -10,7 +10,7 @@ export default function BottomButtonForMobile({
   disabled,
 }: BottomButtonForMobileProps) {
   return (
-    <div className="block md:hidden">
+    <div className="block sm:hidden">
       <FloatingBottomButton
         variant="black"
         onClick={onClick}

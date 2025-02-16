@@ -10,7 +10,7 @@ export default function BottomButtonForDesktop({
   disabled,
 }: BottomButtonForDesktopProps) {
   return (
-    <div className="hidden md:block">
+    <div className="hidden sm:block">
       <Button variant="dark" onClick={onClick} disabled={disabled} fullWidth>
         다음
       </Button>
