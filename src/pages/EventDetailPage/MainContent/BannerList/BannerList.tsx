@@ -10,13 +10,11 @@ import cn from '@/utils/cn';
 
 interface BannerListProps {
   eventCategory: EventType['category'];
-  participants: string[];
   recommendSchedules: RecommendScheduleType[];
 }
 
 export default function BannerList({
   eventCategory,
-  participants,
   recommendSchedules,
 }: BannerListProps) {
   const [circleArrowButtonVisible, setCircleArrowButtonVisible] = useState({
@@ -111,7 +109,7 @@ export default function BannerList({
           recommendSchedules={recommendSchedules}
           eventCategory={eventCategory}
         />
-        <Participants participants={participants} />
+        <Participants />
       </div>
       {!isMobile && (
         <CircleArrowButton

@@ -1,15 +1,11 @@
-import { useParams } from 'react-router-dom';
-
-import EmptyEventBanner from './EmptyEventBanner/EmptyEventBanner';
+import BottomContentsForMobile from './BottomContentsForMobile/BottomContentsForMobile';
+import RightContentsForDesktop from './RightContentsForDesktop/RightContentsForDesktop';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
-import BannerList from '@/pages/EventDetailPage/MainContent/BannerList/BannerList';
+import { useScheduleQuery } from '@/queries/schedule.queries';
 import { EventType } from '@/types/event.type';
-import { RecommendScheduleType, ScheduleType } from '@/types/schedule.type';
-import axios from '@/utils/axios';
-import { useQuery } from '@tanstack/react-query';
 
 interface MainContentProps {
-  event: EventType;
+  event: EventType | undefined;
   isEventPending: boolean;
 }
 
@@ -17,71 +13,31 @@ export default function MainContent({
   event,
   isEventPending,
 }: MainContentProps) {
-  const params = useParams<{ eventId: string }>();
-
-  const { isLoading: isScheduleLoading, data: schedules } = useQuery<
-    ScheduleType[]
-  >({
-    queryKey: ['schedules', event?.category?.toLowerCase(), params.eventId],
-    queryFn: async () => {
-      const res = await axios.get(
-        `/schedules/${event?.category.toLowerCase()}/${params.eventId}`,
-      );
-      return res.data.payload;
-    },
-    enabled: !!event,
-  });
-
-  const { isLoading: isRecommendLoading, data: recommendData } = useQuery({
-    queryKey: ['events', params.eventId, 'most'],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${params.eventId}/most`);
-      return res.data;
-    },
-  });
-
-  const recommendSchedules: RecommendScheduleType[] = recommendData?.payload;
-
-  const participants: string[] =
-    schedules?.map((schedule) => schedule.name).sort() || [];
-
-  function copyEventShareLink() {
-    navigator.clipboard.writeText(
-      `${window.location.origin}/events/${params.eventId}`,
-    );
-  }
+  const { isLoading: isScheduleLoading, data: schedules } =
+    useScheduleQuery(event);
 
   if (
     isEventPending ||
     isScheduleLoading ||
-    isRecommendLoading ||
     event === undefined ||
-    schedules === undefined ||
-    recommendSchedules === undefined
+    schedules === undefined
   )
     return <></>;
 
   return (
-    <div className="mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-05 px-6 pt-3">
-      <main className="pb-16">
-        <div className="flex flex-col gap-6">
+    <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6 bg-gray-05 px-6 pb-16 pt-6">
+      <div className="flex gap-6">
+        <div className="w-full md:w-[55%]">
           <TimeBlockBoard
             event={event}
             schedules={schedules}
             backgroundColor="white"
             topContentClassName="top-[123px] bg-gray-05 md:top-[136px]"
           />
-          {schedules.length === 0 ? (
-            <EmptyEventBanner copyEventShareLink={copyEventShareLink} />
-          ) : (
-            <BannerList
-              eventCategory={event.category}
-              recommendSchedules={recommendSchedules}
-              participants={participants}
-            />
-          )}
         </div>
-      </main>
-    </div>
+        <RightContentsForDesktop />
+      </div>
+      <BottomContentsForMobile />
+    </main>
   );
 }

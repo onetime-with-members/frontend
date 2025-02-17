@@ -19,8 +19,10 @@ export default function RecommendTime({
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const isAllMembersAvailable =
-    recommendSchedules[0]?.impossible_names.length === 0 &&
-    recommendSchedules[0]?.possible_count > 1;
+    recommendSchedules.length > 0
+      ? recommendSchedules[0]?.impossible_names.length === 0 &&
+        recommendSchedules[0]?.possible_count > 1
+      : false;
 
   function handleDialogOpen() {
     if (recommendSchedules.length === 0) return;

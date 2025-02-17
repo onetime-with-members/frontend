@@ -6,15 +6,13 @@ import useKakaoShare from '@/hooks/useKakaoShare';
 import { EventType } from '@/types/event.type';
 
 interface TopToolbarProps {
-  event: EventType;
-  isEventPending: boolean;
+  event: EventType | undefined;
   setIsDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleShareButtonClick: () => void;
 }
 
 export default function TopToolbar({
   event,
-  isEventPending,
   setIsDeleteAlertOpen,
   handleShareButtonClick,
 }: TopToolbarProps) {
@@ -30,7 +28,7 @@ export default function TopToolbar({
             <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
               {event?.title || <>&nbsp;</>}
             </h1>
-            {!isEventPending && event && (
+            {event && (
               <>
                 <div className="flex items-center gap-2">
                   <ToolbarButton

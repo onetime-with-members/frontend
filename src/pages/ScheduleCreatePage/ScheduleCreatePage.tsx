@@ -17,8 +17,7 @@ import cn from '@/utils/cn';
 
 export default function ScheduleCreatePage() {
   const [pageIndex, setPageIndex] = useState(
-    // localStorage.getItem('access-token') !== null ? 1 : 0,
-    0,
+    localStorage.getItem('access-token') !== null ? 1 : 0,
   );
   const [isNewGuest, setIsNewGuest] = useState(false);
   const [guestId, setGuestId] = useState('');

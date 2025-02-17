@@ -6,45 +6,32 @@ import { useNavigate, useParams } from 'react-router-dom';
 import BottomButtonForDesktop from './BottomButtonForDesktop/BottomButtonForDesktop';
 import BottomButtonForMobile from './BottomButtonForMobile/BottomButtonForMobile';
 import EventDeleteAlert from './EventDeleteAlert/EventDeleteAlert';
+import { useParticipantsActions } from './EventDetailPage.store';
 import LoginAlert from './LoginAlert/LoginAlert';
 import MainContent from './MainContent/MainContent';
 import SharePopUp from './SharePopUp/SharePopUp';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbar from './TopToolbar/TopToolbar';
-import { EventType } from '@/types/event.type';
-import axios from '@/utils/axios';
-import { sortWeekdayList } from '@/utils/weekday';
-import { useQuery } from '@tanstack/react-query';
+import { useEventQuery } from '@/queries/event.queries';
+import { useScheduleQuery } from '@/queries/schedule.queries';
 
 export default function EventDetailPage() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
+  const { setParticipants } = useParticipantsActions();
+
   const params = useParams<{ eventId: string }>();
   const navigate = useNavigate();
 
   const {
     isPending: isEventPending,
-    data: eventData,
+    data: event,
     error: eventError,
-  } = useQuery<EventType>({
-    queryKey: ['events', params.eventId],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${params.eventId}`);
-      return res.data.payload;
-    },
-    retry: false,
-  });
+  } = useEventQuery(params.eventId);
 
-  let event: EventType = eventData || ({} as EventType);
-  if (event) {
-    if (event?.category === 'DAY') {
-      event.ranges = sortWeekdayList(event.ranges);
-    } else {
-      event.ranges = event.ranges?.sort();
-    }
-  }
+  const { data: schedules } = useScheduleQuery(event);
 
   function handleBottomButtonClick() {
     if (localStorage.getItem('access-token')) {
@@ -67,6 +54,10 @@ export default function EventDetailPage() {
     }
   }, [eventError]);
 
+  useEffect(() => {
+    setParticipants(schedules || []);
+  }, [schedules]);
+
   return (
     <>
       {!isEventPending && event && !eventError && (
@@ -78,20 +69,19 @@ export default function EventDetailPage() {
         <TopNavBar />
         <TopToolbar
           event={event}
-          isEventPending={isEventPending}
           setIsDeleteAlertOpen={setIsDeleteAlertOpen}
           handleShareButtonClick={handleShareButtonClick}
         />
+
         <MainContent event={event} isEventPending={isEventPending} />
-        <>
-          <BottomButtonForMobile
-            handleFloatingButtonClick={handleBottomButtonClick}
-            handleShareButtonClick={handleShareButtonClick}
-          />
-          <BottomButtonForDesktop
-            handleFloatingButtonClick={handleBottomButtonClick}
-          />
-        </>
+
+        <BottomButtonForMobile
+          handleFloatingButtonClick={handleBottomButtonClick}
+          handleShareButtonClick={handleShareButtonClick}
+        />
+        <BottomButtonForDesktop
+          handleFloatingButtonClick={handleBottomButtonClick}
+        />
       </div>
       {isSharePopUpOpen && event && (
         <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />

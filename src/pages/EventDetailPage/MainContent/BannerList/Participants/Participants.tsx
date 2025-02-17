@@ -2,15 +2,14 @@ import { useState } from 'react';
 
 import ParticipantsPopUp from './ParticipantsPopUp/ParticipantsPopUp';
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
+import { useParticipants } from '@/pages/EventDetailPage/EventDetailPage.store';
 import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 
-interface ParticipantsProps {
-  participants: string[];
-}
-
-export default function Participants({ participants }: ParticipantsProps) {
+export default function Participants() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const participants = useParticipants();
 
   const style = {
     badgeList: 'mt-2 flex-wrap gap-x-1 gap-y-2',
