@@ -66,6 +66,23 @@ const router = createBrowserRouter([
         element: <OnboardingPage />,
       },
       {
+        path: 'policy',
+        children: [
+          {
+            path: 'service',
+            element: <PolicyPage page="service_policy_agreement" />,
+          },
+          {
+            path: 'privacy',
+            element: <PolicyPage page="privacy_policy_agreement" />,
+          },
+          {
+            path: 'edit',
+            element: <PolicyEditPage />,
+          },
+        ],
+      },
+      {
         path: '',
         element: <AuthLayout />,
         children: [
@@ -94,23 +111,6 @@ const router = createBrowserRouter([
           {
             path: 'mypage/profile/edit',
             element: <ProfileEditPage />,
-          },
-          {
-            path: 'policy',
-            children: [
-              {
-                path: 'service',
-                element: <PolicyPage page="service_policy_agreement" />,
-              },
-              {
-                path: 'privacy',
-                element: <PolicyPage page="privacy_policy_agreement" />,
-              },
-              {
-                path: 'edit',
-                element: <PolicyEditPage />,
-              },
-            ],
           },
           {
             path: 'withdraw',

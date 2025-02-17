@@ -1,7 +1,7 @@
 import ReactMarkdown from 'react-markdown';
 
-import privacyMarkdown from '@/markdown/privacy';
-import serviceMarkdown from '@/markdown/service';
+import privacyMarkdown from '@/markdowns/privacy-markdown';
+import serviceMarkdown from '@/markdowns/service-markdown';
 import { PolicyKeyType } from '@/types/user.type';
 
 interface MarkdownContentProps {
