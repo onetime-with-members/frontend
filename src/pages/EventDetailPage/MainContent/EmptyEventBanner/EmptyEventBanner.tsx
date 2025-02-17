@@ -1,20 +1,23 @@
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 import emptyEventBannerImage from '@/assets/empty-event-banner.png';
+import { useEventQuery } from '@/queries/event.queries';
 import cn from '@/utils/cn';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 
-interface EmptyEventBannerProps {
-  copyEventShareLink: () => void;
-}
-
-export default function EmptyEventBanner({
-  copyEventShareLink,
-}: EmptyEventBannerProps) {
+export default function EmptyEventBanner() {
   const [isCopied, setIsCopied] = useState(false);
 
+  const params = useParams<{ eventId: string }>();
+
+  const { data: event } = useEventQuery(params.eventId);
+
   const handleCopyButtonClick = () => {
-    copyEventShareLink();
+    if (!event) return;
+    navigator.clipboard.writeText(
+      `${window.location.origin}/events/${event.event_id}`,
+    );
     setIsCopied(true);
   };
 

@@ -1,33 +1,36 @@
 import dayjs from 'dayjs';
+import { useParams } from 'react-router-dom';
 
 import TimeAccordionItem from './TimeAccordionItem/TimeAccordionItem';
-import { EventType } from '@/types/event.type';
-import { RecommendScheduleType } from '@/types/schedule.type';
+import { useEventQuery, useRecommendTimesQuery } from '@/queries/event.queries';
 import { IconX } from '@tabler/icons-react';
 
 interface RecommendTimeDialogProps {
   onClose: () => void;
-  recommendSchedules: RecommendScheduleType[];
-  eventCategory: EventType['category'];
 }
 
 export default function RecommendTimePopUp({
   onClose,
-  recommendSchedules,
-  eventCategory,
 }: RecommendTimeDialogProps) {
-  const formattedRecommendSchedules = [
-    ...new Set(
-      recommendSchedules.map(
-        (recommendSchedule) => recommendSchedule.time_point,
-      ),
-    ),
-  ].map((timePoint) => ({
-    timePoint,
-    schedules: recommendSchedules.filter(
-      (recommendSchedule) => recommendSchedule.time_point === timePoint,
-    ),
-  }));
+  const params = useParams<{ eventId: string }>();
+
+  const { data: event } = useEventQuery(params.eventId);
+  const { data: recommendTimes } = useRecommendTimesQuery(params.eventId);
+
+  const formattedRecommendTimes = recommendTimes
+    ? [
+        ...new Set(
+          recommendTimes.map(
+            (recommendSchedule) => recommendSchedule.time_point,
+          ),
+        ),
+      ].map((timePoint) => ({
+        timePoint,
+        schedules: recommendTimes.filter(
+          (recommendTime) => recommendTime.time_point === timePoint,
+        ),
+      }))
+    : [];
 
   const style = {
     dateTitle: 'text-lg-300 text-gray-60',
@@ -52,30 +55,31 @@ export default function RecommendTimePopUp({
           </button>
         </div>
         <div className="scrollbar-hidden flex max-h-[30rem] flex-col gap-8 overflow-y-auto px-5 pb-7 pt-4">
-          {formattedRecommendSchedules.map((recommendSchedule) => (
-            <div key={recommendSchedule.timePoint}>
-              <h3 className={style.dateTitle}>
-                {eventCategory === 'DATE'
-                  ? dayjs(recommendSchedule.timePoint, 'YYYY.MM.DD').format(
-                      'YYYY.MM.DD (dd)',
-                    )
-                  : `${recommendSchedule.timePoint}요일`}
-              </h3>
-              <ul className={style.timeAccordionList}>
-                {recommendSchedule.schedules.map((schedule, index) => (
-                  <TimeAccordionItem
-                    key={index}
-                    startTime={schedule.start_time}
-                    endTime={schedule.end_time}
-                    members={{
-                      possible: schedule.possible_names,
-                      impossible: schedule.impossible_names,
-                    }}
-                  />
-                ))}
-              </ul>
-            </div>
-          ))}
+          {event &&
+            formattedRecommendTimes.map((recommendSchedule) => (
+              <div key={recommendSchedule.timePoint}>
+                <h3 className={style.dateTitle}>
+                  {event.category === 'DATE'
+                    ? dayjs(recommendSchedule.timePoint, 'YYYY.MM.DD').format(
+                        'YYYY.MM.DD (dd)',
+                      )
+                    : `${recommendSchedule.timePoint}요일`}
+                </h3>
+                <ul className={style.timeAccordionList}>
+                  {recommendSchedule.schedules.map((schedule, index) => (
+                    <TimeAccordionItem
+                      key={index}
+                      startTime={schedule.start_time}
+                      endTime={schedule.end_time}
+                      members={{
+                        possible: schedule.possible_names,
+                        impossible: schedule.impossible_names,
+                      }}
+                    />
+                  ))}
+                </ul>
+              </div>
+            ))}
         </div>
       </div>
     </div>
