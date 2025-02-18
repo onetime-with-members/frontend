@@ -50,17 +50,11 @@ export default function TimeBlockBoard({
       impossible: [],
     },
   });
-  const [dayLineWidth, setDayLineWidth] = useState(0);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isFull, setIsFull] = useState(false);
 
-  const dayLineRef = useRef<HTMLDivElement>(null);
   const boardContentRef = useRef<HTMLDivElement>(null);
   const topLabelRef = useRef<HTMLDivElement>(null);
-
-  const dayLineGap = 8;
-  const timePointChunks = chunkRangeArray(event.ranges, 5);
-  const innerContentProportion = timePointChunks.length >= 2 ? 0.9 : 1;
 
   function changeTimeBlockStatus(
     day: string,
@@ -175,15 +169,6 @@ export default function TimeBlockBoard({
     setIsDialogOpen(false);
   }
 
-  function chunkRangeArray(array: string[], chunkSize: number) {
-    const result = [];
-    for (let i = 0; i < array.length; i += chunkSize) {
-      const chunk = array.slice(i, i + chunkSize);
-      result.push(chunk);
-    }
-    return result;
-  }
-
   function handleAvailableToggle() {
     if (!editable || !setSchedules) return;
 
@@ -219,21 +204,6 @@ export default function TimeBlockBoard({
   }
 
   useEffect(() => {
-    function handleResize() {
-      setDayLineWidth(dayLineRef.current?.getBoundingClientRect().width || 0);
-      console.log(dayLineRef.current?.getBoundingClientRect().width);
-    }
-
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [dayLineRef]);
-
-  useEffect(() => {
     if (!editable || schedules.length === 0) return;
     setIsEmpty(schedules[0].schedules.every((s) => s.times.length === 0));
     setIsFull(
@@ -259,7 +229,7 @@ export default function TimeBlockBoard({
 
     return () => {
       if (boardContentRef.current && topLabelRef.current) {
-        boardContentRef.current?.removeEventListener('scroll', handleScroll);
+        boardContentRef.current.removeEventListener('scroll', handleScroll);
       }
     };
   }, []);
@@ -276,27 +246,18 @@ export default function TimeBlockBoard({
         )}
         <TopDateLabelGroup
           topLabelRef={topLabelRef}
-          dayLineGap={dayLineGap}
-          dayLineWidth={dayLineWidth}
-          timePointChunks={timePointChunks}
           category={event.category}
-          innerContentProportion={innerContentProportion}
         />
       </div>
       <div className={cn('flex overflow-hidden', bottomContentClassName)}>
         <LeftTimeLine startTime={event.start_time} endTime={event.end_time} />
         <BoardContent
           boardContentRef={boardContentRef}
-          dayLineRef={dayLineRef}
-          dayLineGap={dayLineGap}
-          dayLineWidth={dayLineWidth}
-          timePointChunks={timePointChunks}
           event={event}
           schedules={schedules}
           changeTimeBlockStatus={changeTimeBlockStatus}
           handleDialogOpen={handleDialogOpen}
           editable={editable}
-          innerContentProportion={innerContentProportion}
           isPossibleTime={isPossibleTime}
           backgroundColor={backgroundColor}
         />
