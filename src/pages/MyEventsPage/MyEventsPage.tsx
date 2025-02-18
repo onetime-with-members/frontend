@@ -39,7 +39,7 @@ export default function MyEventsPage() {
           <MyEvent
             key={event.event_id}
             event={event}
-            innerClassName="border-none"
+            innerClassName="border-0 md:border"
           />
         ))}
       </ul>
