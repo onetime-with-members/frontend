@@ -7,6 +7,7 @@ interface TopDateLabelGroupProps {
   dayLineWidth: number;
   timePointChunks: string[][];
   category: EventType['category'];
+  innerContentProportion: number;
 }
 
 export default function TopDateLabelGroup({
@@ -15,6 +16,7 @@ export default function TopDateLabelGroup({
   dayLineWidth,
   timePointChunks,
   category,
+  innerContentProportion,
 }: TopDateLabelGroupProps) {
   return (
     <div className="pl-6">
@@ -25,19 +27,32 @@ export default function TopDateLabelGroup({
           gap: dayLineGap,
         }}
       >
-        {timePointChunks.map((timePointChunk) =>
-          timePointChunk.map((timePoint) => (
-            <TopDateLabel
-              key={timePoint}
-              category={category}
-              timePoint={timePoint}
-              className="flex-1 py-2 text-center"
-              style={{
-                minWidth: dayLineWidth,
-              }}
-            />
-          )),
-        )}
+        {timePointChunks.map((timePointChunk, index) => (
+          <div
+            key={index}
+            className="flex"
+            style={{
+              gap: dayLineGap,
+              minWidth:
+                index !== timePointChunks.length - 1 ||
+                timePointChunks.length === 1
+                  ? `${innerContentProportion * 100}%`
+                  : undefined,
+            }}
+          >
+            {timePointChunk.map((timePoint) => (
+              <TopDateLabel
+                key={timePoint}
+                category={category}
+                timePoint={timePoint}
+                className="flex-1 py-2 text-center"
+                style={{
+                  minWidth: dayLineWidth,
+                }}
+              />
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

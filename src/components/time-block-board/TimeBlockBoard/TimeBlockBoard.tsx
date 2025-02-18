@@ -221,6 +221,7 @@ export default function TimeBlockBoard({
   useEffect(() => {
     function handleResize() {
       setDayLineWidth(dayLineRef.current?.getBoundingClientRect().width || 0);
+      console.log(dayLineRef.current?.getBoundingClientRect().width);
     }
 
     handleResize();
@@ -279,6 +280,7 @@ export default function TimeBlockBoard({
           dayLineWidth={dayLineWidth}
           timePointChunks={timePointChunks}
           category={event.category}
+          innerContentProportion={innerContentProportion}
         />
       </div>
       <div className={cn('flex overflow-hidden', bottomContentClassName)}>
