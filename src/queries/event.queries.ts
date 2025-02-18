@@ -23,7 +23,7 @@ export const useEventQuery = (eventId: string | undefined) =>
     enabled: !!eventId,
   });
 
-export const useRecommendTimesQuery = (eventId: string | undefined) =>
+export const useRecommendedTimesQuery = (eventId: string | undefined) =>
   useQuery<RecommendScheduleType[]>({
     queryKey: ['events', eventId, 'most'],
     queryFn: async () => {

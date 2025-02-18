@@ -3,7 +3,10 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import RecommendTimePopUp from './RecommendTimePopUp/RecommendTimePopUp';
-import { useEventQuery, useRecommendTimesQuery } from '@/queries/event.queries';
+import {
+  useEventQuery,
+  useRecommendedTimesQuery,
+} from '@/queries/event.queries';
 import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 
@@ -13,7 +16,7 @@ export default function RecommendTime() {
   const params = useParams<{ eventId: string }>();
 
   const { data: event } = useEventQuery(params.eventId);
-  const { data: recommendTimes } = useRecommendTimesQuery(params.eventId);
+  const { data: recommendTimes } = useRecommendedTimesQuery(params.eventId);
 
   const isAllMembersAvailable =
     recommendTimes && recommendTimes.length > 0

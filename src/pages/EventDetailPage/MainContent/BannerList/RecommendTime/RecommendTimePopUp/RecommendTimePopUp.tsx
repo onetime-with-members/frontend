@@ -2,7 +2,10 @@ import dayjs from 'dayjs';
 import { useParams } from 'react-router-dom';
 
 import TimeAccordionItem from './TimeAccordionItem/TimeAccordionItem';
-import { useEventQuery, useRecommendTimesQuery } from '@/queries/event.queries';
+import {
+  useEventQuery,
+  useRecommendedTimesQuery,
+} from '@/queries/event.queries';
 import { IconX } from '@tabler/icons-react';
 
 interface RecommendTimeDialogProps {
@@ -15,7 +18,7 @@ export default function RecommendTimePopUp({
   const params = useParams<{ eventId: string }>();
 
   const { data: event } = useEventQuery(params.eventId);
-  const { data: recommendTimes } = useRecommendTimesQuery(params.eventId);
+  const { data: recommendTimes } = useRecommendedTimesQuery(params.eventId);
 
   const formattedRecommendTimes = recommendTimes
     ? [
