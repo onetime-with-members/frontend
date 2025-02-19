@@ -139,6 +139,10 @@ export default function useScheduleCreate({
               'weekdayIndex(timePoint, category)',
               weekdayIndex(timePoint, category),
             );
+            console.log(
+              'weekdayIndex(fixedSchedule.time_point, DAY)',
+              weekdayIndex(fixedSchedule.time_point, 'DAY'),
+            );
             return (
               weekdayIndex(timePoint, category) ===
               weekdayIndex(fixedSchedule.time_point, 'DAY')
@@ -156,7 +160,7 @@ export default function useScheduleCreate({
               (w) =>
                 w ===
                 (category === 'DATE'
-                  ? dayjs(timePoint).format('ddd')
+                  ? dayjs(timePoint, 'YYYY.MM.DD').format('ddd')
                   : timePoint),
             );
         }
