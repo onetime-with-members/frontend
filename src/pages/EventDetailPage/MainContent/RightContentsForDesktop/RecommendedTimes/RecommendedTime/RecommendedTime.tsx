@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
@@ -14,6 +15,7 @@ export default function RecommendedTime({
   recommendedTime,
 }: RecommendedTimeProps) {
   const params = useParams<{ eventId: string }>();
+  const { t } = useTranslation();
 
   const { data: event } = useEventQuery(params.eventId);
 
@@ -40,7 +42,7 @@ export default function RecommendedTime({
         {recommendedTime.possible_names.length > 0 && (
           <div className="flex flex-col gap-2">
             <h4 className="flex items-center gap-1 text-primary-50 text-md-300">
-              <span>가능</span>
+              <span>{t('eventDetail.available')}</span>
               <span>{recommendedTime.possible_names.length}</span>
             </h4>
             <div className="flex flex-wrap gap-2">
@@ -53,7 +55,7 @@ export default function RecommendedTime({
         {recommendedTime.impossible_names.length > 0 && (
           <div className="flex flex-col gap-2">
             <h4 className="flex items-center gap-1 text-gray-50 text-md-300">
-              <span>불가능</span>
+              <span>{t('eventDetail.unavailable')}</span>
               <span>{recommendedTime.impossible_names.length}</span>
             </h4>
             <div className="flex flex-wrap gap-2">

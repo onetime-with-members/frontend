@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import ToolbarButton from '../ToolbarButton/ToolbarButton';
@@ -21,6 +22,7 @@ export default function ToolbarMenuDropdown({
     });
 
   const params = useParams<{ eventId: string }>();
+  const { t } = useTranslation();
 
   function handleDeleteMenuItemClick() {
     setIsDropdownMenuOpen(false);
@@ -46,13 +48,13 @@ export default function ToolbarMenuDropdown({
         <div className="absolute right-0 top-8 z-30 w-[5.5rem] overflow-hidden rounded-xl bg-gray-00 py-1 shadow-lg md:top-12">
           <ul className="flex flex-col">
             <ToolbarMenuItem
-              name="수정"
+              name={t('eventDetail.edit')}
               icon="edit"
               variant="default"
               href={`/events/${params.eventId}/edit`}
             />
             <ToolbarMenuItem
-              name="삭제"
+              name={t('eventDetail.delete')}
               icon="delete"
               variant="danger"
               onClick={handleDeleteMenuItemClick}

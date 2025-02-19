@@ -1,0 +1,11 @@
+{
+  "eventDetail": {
+    "participants": "Participant",
+    "mostAvailableTimes": "Most Available Times",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "edit": "Edit",
+    "delete": "Delete",
+    "addSchedule": "Add Schedule"
+  }
+}

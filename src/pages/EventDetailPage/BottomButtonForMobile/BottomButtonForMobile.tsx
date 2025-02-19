@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import sendIcon from '@/assets/send.svg';
 import Button from '@/components/button/Button/Button';
@@ -16,6 +17,8 @@ export default function BottomButtonForMobile({
   handleShareButtonClick,
 }: BottomButtonForMobileProps) {
   const { isFooterShown } = useContext(FooterContext);
+
+  const { t } = useTranslation();
 
   return (
     <div
@@ -38,7 +41,7 @@ export default function BottomButtonForMobile({
         className="flex-1"
       >
         <span className="flex items-center justify-center gap-1">
-          <span>스케줄 추가</span>
+          <span>{t('eventDetail.addSchedule')}</span>
           <span>
             <IconPlus size={24} />
           </span>

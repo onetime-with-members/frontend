@@ -1,0 +1,11 @@
+{
+  "eventDetail": {
+    "participants": "참여자",
+    "mostAvailableTimes": "가장 많이 되는 시간대",
+    "available": "가능",
+    "unavailable": "불가능",
+    "edit": "수정",
+    "delete": "삭제",
+    "addSchedule": "스케줄 추가"
+  }
+}

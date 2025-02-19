@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { useParticipants } from '../../../EventDetailPage.store';
 import Header from '../Header/Header';
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
@@ -5,11 +7,13 @@ import MemberBadge from '@/components/MemberBadge/MemberBadge';
 export default function Participants() {
   const participants = useParticipants();
 
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col gap-1">
       <Header>
         <span className="flex items-center gap-2">
-          <span>참여자</span>
+          <span>{t('eventDetail.participants')}</span>
           <span className="text-primary-50">{participants.length}</span>
         </span>
       </Header>

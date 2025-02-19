@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import BadgeFloatingBottomButton from '@/components/button/BadgeFloatingBottomButton/BadgeFloatingBottomButton';
 import { FooterContext } from '@/contexts/FooterContext';
@@ -13,9 +14,11 @@ export default function BottomButtonForDesktop({
 }: BottomButtonForDesktopProps) {
   const { isFooterShown } = useContext(FooterContext);
 
+  const { t } = useTranslation();
+
   return (
     <BadgeFloatingBottomButton
-      name="스케줄 추가"
+      name={t('eventDetail.addSchedule')}
       variant="black"
       onClick={handleFloatingButtonClick}
       className={cn('hidden duration-150 md:block', {
