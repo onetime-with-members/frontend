@@ -89,8 +89,16 @@ export default function useScheduleCreate({
       },
     ]);
 
+    console.log('initSchedule', initSchedule());
+
     function initSchedule() {
       if (!event) return;
+      console.log(
+        'fixedScheduleTimes',
+        fixedScheduleTimes('2025.02.19', event.category),
+        fixedScheduleTimes('2025.02.20', event.category),
+        fixedScheduleTimes('2025.02.21', event.category),
+      );
       return (
         event.ranges.map((time_point) => ({
           time_point,
