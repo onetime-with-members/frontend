@@ -143,7 +143,7 @@ export default function useScheduleCreate({
               (w) =>
                 w ===
                 (category === 'DATE'
-                  ? dayjs(timePoint).format('ddd')
+                  ? dayjs(timePoint, 'YYYY.MM.DD').format('ddd')
                   : timePoint),
             );
         }
