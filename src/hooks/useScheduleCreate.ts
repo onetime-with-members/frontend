@@ -97,12 +97,6 @@ export default function useScheduleCreate({
 
     function initSchedule() {
       if (!event) return;
-      console.log(
-        'fixedScheduleTimes',
-        fixedScheduleTimes('2025.02.19', event.category),
-        fixedScheduleTimes('2025.02.20', event.category),
-        fixedScheduleTimes('2025.02.21', event.category),
-      );
       return (
         event.ranges.map((time_point) => ({
           time_point,
@@ -137,12 +131,19 @@ export default function useScheduleCreate({
       }
 
       function fixedScheduleTimes(timePoint: string, category: 'DATE' | 'DAY') {
+        console.log('fixedScheduleData', fixedScheduleData);
         return (
-          fixedScheduleData?.find(
-            (fixedSchedule) =>
+          fixedScheduleData?.find((fixedSchedule) => {
+            console.log('fixedSchedule', fixedSchedule);
+            console.log(
+              'weekdayIndex(timePoint, category)',
+              weekdayIndex(timePoint, category),
+            );
+            return (
               weekdayIndex(timePoint, category) ===
-              weekdayIndex(fixedSchedule.time_point, 'DAY'),
-          )?.times || []
+              weekdayIndex(fixedSchedule.time_point, 'DAY')
+            );
+          })?.times || []
         );
 
         function weekdayIndex(
