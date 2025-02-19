@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import ToolbarButton from '../ToolbarButton/ToolbarButton';
 import ToolbarMenuItem from './ToolbarMenuItem/ToolbarMenuItem';
 import useDropdown from '@/hooks/useDropdown';
+import cn from '@/utils/cn';
 import { IconDots } from '@tabler/icons-react';
 
 interface ToolbarMenuDropdownProps {
@@ -22,7 +23,7 @@ export default function ToolbarMenuDropdown({
     });
 
   const params = useParams<{ eventId: string }>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   function handleDeleteMenuItemClick() {
     setIsDropdownMenuOpen(false);
@@ -45,7 +46,14 @@ export default function ToolbarMenuDropdown({
         <IconDots size={28} />
       </button>
       {isDropdownMenuOpen && (
-        <div className="absolute right-0 top-8 z-30 w-[6.5rem] overflow-hidden rounded-xl bg-gray-00 py-1 shadow-lg md:top-12">
+        <div
+          className={cn(
+            'absolute right-0 top-8 z-30 w-[6.5rem] overflow-hidden rounded-xl bg-gray-00 py-1 shadow-lg md:top-12',
+            {
+              'w-[5.5rem]': i18n.language === 'ko',
+            },
+          )}
+        >
           <ul className="flex flex-col">
             <ToolbarMenuItem
               name={t('eventDetail.edit')}

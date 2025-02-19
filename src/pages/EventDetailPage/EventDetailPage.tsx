@@ -65,6 +65,7 @@ export default function EventDetailPage() {
           <title>{event.title} | OneTime</title>
         </Helmet>
       )}
+
       <div className="flex flex-col">
         <TopNavBar />
         <TopToolbar
@@ -83,6 +84,7 @@ export default function EventDetailPage() {
           handleFloatingButtonClick={handleBottomButtonClick}
         />
       </div>
+
       {isSharePopUpOpen && event && (
         <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
       )}

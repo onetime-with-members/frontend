@@ -13,6 +13,9 @@
     "peopleWhoAddedSchedules": "People who added schedules",
     "whenAvailableTimes": "When are the available times?",
     "participantCount_one": "{{count}} person",
-    "participantCount_other": "{{count}} people"
+    "participantCount_other": "{{count}} people",
+    "emptyEventBanner": "Share the link <br />and find the right time!",
+    "copyLink": "Copy Link",
+    "copied": "Copied"
   }
 }

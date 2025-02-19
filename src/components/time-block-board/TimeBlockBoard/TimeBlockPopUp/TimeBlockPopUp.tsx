@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import { TimeBlockPopUpDataType } from '@/types/schedule.type';
@@ -20,6 +21,8 @@ export default function TimeBlockPopUp({
   members,
   category,
 }: TimeBlockPopUpProps) {
+  const { t } = useTranslation();
+
   const startTime = time;
   let endTime = dayjs(time, 'HH:mm').add(30, 'minute').format('HH:mm');
   endTime = endTime === '00:00' ? '24:00' : endTime;
@@ -53,7 +56,9 @@ export default function TimeBlockPopUp({
         <div className="flex flex-col gap-5 px-5 pb-6 pt-4">
           {members.possible.length > 0 && (
             <div>
-              <h3 className={cn(style.title, 'text-primary-60')}>가능</h3>
+              <h3 className={cn(style.title, 'text-primary-60')}>
+                {t('eventDetail.available')}
+              </h3>
               <div className={style.memberBadgeList}>
                 {members.possible.map((member) => (
                   <MemberBadge key={member}>{member}</MemberBadge>
@@ -63,7 +68,9 @@ export default function TimeBlockPopUp({
           )}
           {members.impossible.length > 0 && (
             <div>
-              <h3 className={cn(style.title, 'text-gray-50')}>불가능</h3>
+              <h3 className={cn(style.title, 'text-gray-50')}>
+                {t('eventDetail.unavailable')}
+              </h3>
               <div className={style.memberBadgeList}>
                 {members.impossible.map((member) => (
                   <MemberBadge key={member} variant="gray">
