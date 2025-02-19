@@ -66,7 +66,8 @@ export default function useScheduleCreate({
   });
 
   useEffect(() => {
-    if (!scheduleData) return;
+    if (!scheduleData || !event) return;
+    if (isLoggedIn && (!fixedScheduleData || !sleepTimeData)) return;
     const isScheduleEmpty =
       scheduleData.schedules.length === 0 ||
       scheduleData.schedules.every((schedule) => schedule.times.length === 0);
