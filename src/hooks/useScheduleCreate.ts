@@ -149,7 +149,7 @@ export default function useScheduleCreate({
         }
       }
     }
-  }, [scheduleData, fixedScheduleData, isNewGuest, guestId]);
+  }, [event, scheduleData, fixedScheduleData, sleepTimeData]);
 
   return { schedules, setSchedules, event };
 }
