@@ -62,8 +62,11 @@ export default function useScheduleCreate({
       const res = await axios.get('/fixed-schedules');
       return res.data.payload.schedules;
     },
-    enabled: isLoggedIn,
   });
+
+  useEffect(() => {
+    console.log('fixedScheduleData', fixedScheduleData);
+  }, [fixedScheduleData]);
 
   useEffect(() => {
     if (!scheduleData || !event) return;
