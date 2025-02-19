@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import cn from '@/utils/cn';
@@ -19,6 +20,8 @@ export default function TimeAccordionItem({
   members,
 }: TimeAccordionItemProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { t } = useTranslation();
 
   const style = {
     title: 'text-md-300',
@@ -47,7 +50,9 @@ export default function TimeAccordionItem({
           {startTime} - {endTime}
         </span>
         <div className="rounded-full bg-primary-50 px-3 py-1 text-gray-00 text-sm-300">
-          {members.possible.length}명
+          {t('eventDetail.participantCount', {
+            count: members.possible.length,
+          })}
         </div>
         {isOpen ? (
           <IconChevronUp size={24} className="text-primary-50" />
@@ -59,7 +64,9 @@ export default function TimeAccordionItem({
         <div className="flex flex-col gap-5 px-5 pb-4">
           {members.possible.length > 0 && (
             <div>
-              <div className={cn(style.title, 'text-primary-60')}>가능</div>
+              <div className={cn(style.title, 'text-primary-60')}>
+                {t('eventDetail.available')}
+              </div>
               <div className={style.badgeList}>
                 {members.possible.map((member) => (
                   <MemberBadge key={member} variant="primary">
@@ -71,7 +78,9 @@ export default function TimeAccordionItem({
           )}
           {members.impossible.length > 0 && (
             <div>
-              <div className={cn(style.title, 'text-gray-50')}>불가능</div>
+              <div className={cn(style.title, 'text-gray-50')}>
+                {t('eventDetail.unavailable')}
+              </div>
               <div className={style.badgeList}>
                 {members.impossible.map((member) => (
                   <MemberBadge key={member} variant="gray">

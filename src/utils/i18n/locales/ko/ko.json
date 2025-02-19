@@ -1,11 +1,18 @@
 {
   "eventDetail": {
-    "participants": "참여자",
+    "participant_one": "참여자",
+    "participant_other": "참여자",
     "mostAvailableTimes": "가장 많이 되는 시간대",
     "available": "가능",
     "unavailable": "불가능",
     "edit": "수정",
     "delete": "삭제",
-    "addSchedule": "스케줄 추가"
+    "addSchedule": "스케줄 추가",
+    "noOneSchedule": "아무도 스케줄을 등록하지 않았어요.",
+    "allAvailable": "모두가 되는 시간",
+    "peopleWhoAddedSchedules": "스케줄을 추가한 사람들",
+    "whenAvailableTimes": "가능한 시간은 언제일까요?",
+    "participantCount_one": "{{count}}명",
+    "participantCount_other": "{{count}}명"
   }
 }

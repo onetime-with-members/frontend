@@ -27,7 +27,7 @@ export default function ToolbarMenuItem({
   return (
     <li
       className={cn(
-        'flex w-full cursor-pointer items-center justify-between py-1.5 pl-4 pr-5 pt-2 text-gray-60 duration-150 text-md-200 first:pt-2 last:pb-2',
+        'flex w-full cursor-pointer items-center gap-1 py-1.5 pl-4 pr-5 pt-2 text-gray-60 duration-150 text-md-200 first:pt-2 last:pb-2',
         {
           'text-danger-50': variant === 'danger',
         },

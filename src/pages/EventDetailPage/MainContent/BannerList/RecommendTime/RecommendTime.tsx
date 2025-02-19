@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import RecommendTimePopUp from './RecommendTimePopUp/RecommendTimePopUp';
@@ -14,6 +15,7 @@ export default function RecommendTime() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const params = useParams<{ eventId: string }>();
+  const { t } = useTranslation();
 
   const { data: event } = useEventQuery(params.eventId);
   const { data: recommendTimes } = useRecommendedTimesQuery(params.eventId);
@@ -50,7 +52,9 @@ export default function RecommendTime() {
               'text-gray-00': isAllMembersAvailable,
             })}
           >
-            {isAllMembersAvailable ? '모두가 되는 시간' : '가장 많이 되는 시간'}
+            {isAllMembersAvailable
+              ? t('eventDetail.allAvailable')
+              : t('eventDetail.mostAvailable')}
           </span>
           <IconChevronRight
             size={24}
@@ -71,7 +75,7 @@ export default function RecommendTime() {
           {recommendTimes &&
             event &&
             (recommendTimes.length === 0 ? (
-              <>아무도 스케줄을 등록하지 않았어요.</>
+              <>{t('eventDetail.noOneSchedule')}</>
             ) : (
               <>
                 <span>

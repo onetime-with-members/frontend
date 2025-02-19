@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import TimeAccordionItem from './TimeAccordionItem/TimeAccordionItem';
@@ -16,6 +17,7 @@ export default function RecommendTimePopUp({
   onClose,
 }: RecommendTimeDialogProps) {
   const params = useParams<{ eventId: string }>();
+  const { t } = useTranslation();
 
   const { data: event } = useEventQuery(params.eventId);
   const { data: recommendTimes } = useRecommendedTimesQuery(params.eventId);
@@ -51,7 +53,7 @@ export default function RecommendTimePopUp({
       >
         <div className="flex items-center justify-between px-5 pb-3 pt-4">
           <h2 className="text-gray-80 text-lg-300">
-            가능한 시간은 언제일까요?
+            {t('eventDetail.whenAvailableTimes')}
           </h2>
           <button className="text-gray-40" onClick={onClose}>
             <IconX size={24} />

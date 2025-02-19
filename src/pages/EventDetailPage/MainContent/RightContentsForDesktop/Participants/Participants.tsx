@@ -13,7 +13,11 @@ export default function Participants() {
     <div className="flex flex-col gap-1">
       <Header>
         <span className="flex items-center gap-2">
-          <span>{t('eventDetail.participants')}</span>
+          <span>
+            {t('eventDetail.participant', {
+              count: participants.length,
+            })}
+          </span>
           <span className="text-primary-50">{participants.length}</span>
         </span>
       </Header>

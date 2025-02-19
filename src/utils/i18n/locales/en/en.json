@@ -1,11 +1,18 @@
 {
   "eventDetail": {
-    "participants": "Participant",
-    "mostAvailableTimes": "Most Available Times",
+    "participant_one": "Participant",
+    "participant_other": "Participants",
     "available": "Available",
     "unavailable": "Unavailable",
     "edit": "Edit",
     "delete": "Delete",
-    "addSchedule": "Add Schedule"
+    "addSchedule": "Add Schedule",
+    "noOneSchedule": "No one has added a schedule.",
+    "mostAvailable": "Most Available Times",
+    "allAvailable": "All Available Times",
+    "peopleWhoAddedSchedules": "People who added schedules",
+    "whenAvailableTimes": "When are the available times?",
+    "participantCount_one": "{{count}} person",
+    "participantCount_other": "{{count}} people"
   }
 }

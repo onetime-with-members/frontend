@@ -13,7 +13,7 @@ export default function RecommendedTimes() {
 
   return (
     <div className="flex flex-col gap-1">
-      <Header>{t('eventDetail.mostAvailableTimes')}</Header>
+      <Header>{t('eventDetail.mostAvailable')}</Header>
       <div className="flex flex-col gap-6">
         {recommendedTimes?.map((recommendedTime, index) => (
           <RecommendedTime key={index} recommendedTime={recommendedTime} />

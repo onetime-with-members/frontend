@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import ParticipantsPopUp from './ParticipantsPopUp/ParticipantsPopUp';
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
@@ -10,6 +11,8 @@ export default function Participants() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const participants = useParticipants();
+
+  const { t } = useTranslation();
 
   const style = {
     badgeList: 'mt-2 flex-wrap gap-x-1 gap-y-2',
@@ -31,7 +34,9 @@ export default function Participants() {
       >
         <div className="ml-1 flex items-center justify-between">
           <span className="text-gray-60 text-md-300">
-            참여자{' '}
+            {t('eventDetail.participant', {
+              count: participants.length,
+            })}{' '}
             <strong className="text-primary-50 text-md-300">
               {participants.length}
             </strong>

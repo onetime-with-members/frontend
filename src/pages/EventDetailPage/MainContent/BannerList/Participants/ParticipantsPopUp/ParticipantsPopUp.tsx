@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import { IconX } from '@tabler/icons-react';
 
@@ -10,6 +12,8 @@ export default function ParticipantsPopUp({
   onClose,
   participants,
 }: ParticipantsPopUpProps) {
+  const { t } = useTranslation();
+
   return (
     <div
       className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
@@ -21,7 +25,9 @@ export default function ParticipantsPopUp({
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            <h2 className="text-gray-80 text-lg-300">스케줄을 추가한 사람들</h2>
+            <h2 className="text-gray-80 text-lg-300">
+              {t('eventDetail.peopleWhoAddedSchedules')}
+            </h2>
             <span className="text-primary-50 text-lg-300">
               {participants.length}
             </span>
