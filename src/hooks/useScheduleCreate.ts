@@ -62,15 +62,11 @@ export default function useScheduleCreate({
       const res = await axios.get('/fixed-schedules');
       return res.data.payload.schedules;
     },
+    enabled: isLoggedIn,
   });
 
   useEffect(() => {
-    console.log('fixedScheduleData', fixedScheduleData);
-  }, [fixedScheduleData]);
-
-  useEffect(() => {
-    if (!scheduleData || !event) return;
-    if (isLoggedIn && (!fixedScheduleData || !sleepTimeData)) return;
+    if (!scheduleData) return;
     const isScheduleEmpty =
       scheduleData.schedules.length === 0 ||
       scheduleData.schedules.every((schedule) => schedule.times.length === 0);
@@ -92,8 +88,6 @@ export default function useScheduleCreate({
           : scheduleData.schedules,
       },
     ]);
-
-    console.log('initSchedule', initSchedule());
 
     function initSchedule() {
       if (!event) return;
@@ -131,23 +125,12 @@ export default function useScheduleCreate({
       }
 
       function fixedScheduleTimes(timePoint: string, category: 'DATE' | 'DAY') {
-        console.log('fixedScheduleData', fixedScheduleData);
         return (
-          fixedScheduleData?.find((fixedSchedule) => {
-            console.log('fixedSchedule', fixedSchedule);
-            console.log(
-              'weekdayIndex(timePoint, category)',
-              weekdayIndex(timePoint, category),
-            );
-            console.log(
-              'weekdayIndex(fixedSchedule.time_point, DAY)',
-              weekdayIndex(fixedSchedule.time_point, 'DAY'),
-            );
-            return (
+          fixedScheduleData?.find(
+            (fixedSchedule) =>
               weekdayIndex(timePoint, category) ===
-              weekdayIndex(fixedSchedule.time_point, 'DAY')
-            );
-          })?.times || []
+              weekdayIndex(fixedSchedule.time_point, 'DAY'),
+          )?.times || []
         );
 
         function weekdayIndex(
