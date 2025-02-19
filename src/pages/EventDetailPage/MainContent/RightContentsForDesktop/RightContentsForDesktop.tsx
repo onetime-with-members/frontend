@@ -13,7 +13,7 @@ export default function RightContentsForDesktop() {
   const { data: schedules } = useScheduleQuery(event);
 
   return (
-    <div className="hidden flex-col gap-10 md:flex md:w-[45%]">
+    <div className="hidden flex-col md:flex md:w-[45%]">
       {schedules &&
         (schedules.length === 0 ? (
           <EmptyEventBanner />

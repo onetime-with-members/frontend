@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 
+import Header from '../Header/Header';
 import RecommendedTime from './RecommendedTime/RecommendedTime';
 import { useRecommendedTimesQuery } from '@/queries/event.queries';
 
@@ -9,8 +10,8 @@ export default function RecommendedTimes() {
   const { data: recommendedTimes } = useRecommendedTimesQuery(params.eventId);
 
   return (
-    <div className="flex flex-col gap-2">
-      <h2 className="text-gray-90 text-lg-300">가장 많이 되는 시간대</h2>
+    <div className="flex flex-col gap-1">
+      <Header>가장 많이 되는 시간대</Header>
       <div className="flex flex-col gap-6">
         {recommendedTimes?.map((recommendedTime, index) => (
           <RecommendedTime key={index} recommendedTime={recommendedTime} />
