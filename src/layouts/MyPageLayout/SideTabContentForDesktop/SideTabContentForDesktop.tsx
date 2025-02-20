@@ -26,7 +26,7 @@ export default function SideTabContentForDesktop({
           className="w-[10rem]"
           active={tabActive === 'events'}
         >
-          {t('common.joinedEvents')}
+          {t('mypage.joinedEvents')}
         </SideTabItem>
         <SideTabItem
           active={tabActive === 'schedules'}
@@ -38,7 +38,7 @@ export default function SideTabContentForDesktop({
             />
           }
         >
-          {t('common.mySchedule')}
+          {t('mypage.mySchedule')}
         </SideTabItem>
         <SideTabItem
           active={tabActive === 'profile'}
@@ -49,7 +49,7 @@ export default function SideTabContentForDesktop({
             />
           }
         >
-          {t('common.profileInfo')}
+          {t('mypage.profile')}
         </SideTabItem>
       </ul>
     </nav>

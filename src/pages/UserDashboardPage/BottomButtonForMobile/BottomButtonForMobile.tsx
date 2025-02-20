@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@/components/button/Button/Button';
@@ -10,6 +11,7 @@ export default function BottomButtonForMobile() {
   const { isFooterShown } = useContext(FooterContext);
 
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   function handleFloatingBottomButtonClick() {
     navigate('/events/new');
@@ -31,7 +33,7 @@ export default function BottomButtonForMobile() {
           fullWidth
         >
           <span className="flex items-center justify-center gap-1">
-            <span>이벤트 생성하기</span>
+            <span>{t('userDashboard.createEvent')}</span>
             <span>
               <IconPlus size={24} />
             </span>

@@ -32,9 +32,9 @@ export default function MyPageLayout() {
   const { t } = useTranslation();
 
   const pageTitle = {
-    events: t('common.joinedEvents'),
-    schedules: t('common.mySchedule'),
-    profile: t('common.profileInfo'),
+    events: t('mypage.joinedEvents'),
+    schedules: t('mypage.mySchedule'),
+    profile: t('mypage.profile'),
   }[tabActive];
 
   function handleMyScheduleEditButtonClick() {

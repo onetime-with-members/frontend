@@ -2,10 +2,14 @@
   "common": {
     "noOneSchedule": "No one has added a schedule.",
     "participantCount_one": "{{count}} person",
-    "participantCount_other": "{{count}} people",
-    "joinedEvents": "Events",
+    "participantCount_other": "{{count}} people"
+  },
+  "navbar": {
+    "login": "Login",
+    "logout": "Logout",
+    "events": "Joined Events",
     "mySchedule": "My Schedule",
-    "profileInfo": "Profile"
+    "profile": "Profile"
   },
   "eventDetail": {
     "participant_one": "Participant",
@@ -41,7 +45,14 @@
   "userDashboard": {
     "more": "More",
     "hello": "Hello, {{name}}",
-    "createEvent": "Create Event"
+    "createEvent": "Create Event",
+    "joinedEvents": "Joined Events",
+    "mySchedule": "My Schedule"
+  },
+  "mypage": {
+    "joinedEvents": "Joined Events",
+    "mySchedule": "My Schedule",
+    "profile": "Profile"
   },
   "myScheduleEdit": {
     "editMySchedule": "Edit My Schedule",

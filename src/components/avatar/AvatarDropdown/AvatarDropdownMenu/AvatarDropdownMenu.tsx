@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import MenuItem from './MenuItem/MenuItem';
 
 interface AvatarDropdownMenuProps {
@@ -7,6 +9,8 @@ interface AvatarDropdownMenuProps {
 export default function AvatarDropdownMenu({
   setIsMenuOpen,
 }: AvatarDropdownMenuProps) {
+  const { t } = useTranslation();
+
   function handleLogout() {
     localStorage.removeItem('access-token');
     localStorage.removeItem('refresh-token');
@@ -19,18 +23,18 @@ export default function AvatarDropdownMenu({
   }
 
   return (
-    <ul className="absolute -bottom-4 right-0 w-[8rem] translate-y-full rounded-xl bg-gray-00 py-1 shadow-[0_0_30px_0_rgba(0,0,0,0.15)]">
+    <ul className="absolute -bottom-4 right-0 w-[8.5rem] translate-y-full rounded-xl bg-gray-00 py-1 shadow-[0_0_30px_0_rgba(0,0,0,0.15)]">
       <MenuItem href="/mypage/events" onClick={handleMenuItemClick}>
-        참여한 이벤트
+        {t('navbar.events')}
       </MenuItem>
       <MenuItem href="/mypage/schedules" onClick={handleMenuItemClick}>
-        내 스케줄
+        {t('navbar.mySchedule')}
       </MenuItem>
       <MenuItem href="/mypage/profile" onClick={handleMenuItemClick}>
-        프로필 정보
+        {t('navbar.profile')}
       </MenuItem>
       <MenuItem variant="danger" onClick={handleLogout}>
-        로그아웃
+        {t('navbar.logout')}
       </MenuItem>
     </ul>
   );

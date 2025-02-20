@@ -21,7 +21,9 @@ export default function MyEventSection() {
 
   return (
     <section className="flex flex-col gap-3">
-      <Header moreHref="/mypage/events">{t('common.joinedEvents')}</Header>
+      <Header moreHref="/mypage/events">
+        {t('userDashboard.joinedEvents')}
+      </Header>
       {isEventsPending && (
         <div className="rounded-2xl py-5">
           <EmptyUI>이벤트를 불러오는 중입니다.</EmptyUI>

@@ -23,7 +23,7 @@ export default function MyScheduleSection() {
 
   return (
     <section className="flex flex-col gap-3">
-      <Header hasMore={false}>{t('common.mySchedule')}</Header>
+      <Header hasMore={false}>{t('userDashboard.mySchedule')}</Header>
       <div className="rounded-2xl bg-gray-00 pb-12">
         <SleepTimeUI />
         <MyTimeBlockBoard

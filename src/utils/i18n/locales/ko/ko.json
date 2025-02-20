@@ -2,10 +2,14 @@
   "common": {
     "noOneSchedule": "아무도 스케줄을 등록하지 않았어요.",
     "participantCount_one": "{{count}}명",
-    "participantCount_other": "{{count}}명",
-    "joinedEvents": "참여한 이벤트",
+    "participantCount_other": "{{count}}명"
+  },
+  "navbar": {
+    "login": "로그인",
+    "logout": "로그아웃",
+    "events": "참여한 이벤트",
     "mySchedule": "내 스케줄",
-    "profileInfo": "프로필 정보"
+    "profile": "프로필 정보"
   },
   "eventDetail": {
     "participant_one": "참여자",
@@ -41,7 +45,14 @@
   "userDashboard": {
     "more": "더 보기",
     "hello": "안녕하세요, {{name}}님",
-    "createEvent": "이벤트 생성하기"
+    "createEvent": "이벤트 생성하기",
+    "joinedEvents": "참여한 이벤트",
+    "mySchedule": "내 스케줄"
+  },
+  "mypage": {
+    "joinedEvents": "참여한 이벤트",
+    "mySchedule": "내 스케줄",
+    "profile": "프로필 정보"
   },
   "myScheduleEdit": {
     "editMySchedule": "스케줄 입력",
