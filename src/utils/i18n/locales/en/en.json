@@ -11,6 +11,10 @@
     "mySchedule": "My Schedule",
     "profile": "Profile"
   },
+  "footer": {
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy"
+  },
   "eventDetail": {
     "participant_one": "Participant",
     "participant_other": "Participants",

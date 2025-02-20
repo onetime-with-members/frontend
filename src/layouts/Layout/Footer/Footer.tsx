@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import logoWhite from '@/assets/logo-white.svg';
@@ -8,9 +9,9 @@ import { IconBrandInstagram } from '@tabler/icons-react';
 export default function Footer() {
   const footerRef = useRef<HTMLDivElement>(null);
 
-  const footerContext = useContext(FooterContext);
+  const { setFooterRef } = useContext(FooterContext);
 
-  const { setFooterRef } = footerContext;
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (footerRef && footerRef.current) {
@@ -40,9 +41,9 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex items-center gap-2 text-gray-40">
-          <Link to="/policy/privacy">개인정보처리방침</Link>
+          <Link to="/policy/privacy">{t('footer.privacyPolicy')}</Link>
           <span>|</span>
-          <Link to="/policy/service">서비스 이용 약관</Link>
+          <Link to="/policy/service">{t('footer.termsOfService')}</Link>
         </div>
       </div>
     </footer>
