@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
@@ -30,6 +31,8 @@ export default function CalendarSelect({
   } = useDragSelect({
     onSelect: handleDateItemSelect,
   });
+
+  const { i18n } = useTranslation();
 
   const firstWeekdayIndex = currentDate.startOf('month').day();
   const lastDate = currentDate.endOf('month').date();
@@ -71,7 +74,7 @@ export default function CalendarSelect({
     >
       <div className="flex justify-between">
         <div className="text-gray-90 text-lg-300">
-          {currentDate.format('YYYY.MM')}
+          {currentDate.format(i18n.language === 'ko' ? 'YYYY.MM' : 'MMMM YYYY')}
         </div>
         <div className="flex items-center gap-4">
           <button
@@ -94,7 +97,7 @@ export default function CalendarSelect({
         </div>
       </div>
       <div className="grid grid-cols-7 gap-3">
-        {dayjs.weekdaysMin().map((weekday) => (
+        {dayjs.weekdaysShort().map((weekday) => (
           <div key={weekday} className="text-center text-gray-30 text-md-200">
             {weekday}
           </div>

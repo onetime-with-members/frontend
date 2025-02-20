@@ -43,7 +43,7 @@ export default function TopToolbarForDesktop() {
               to="/events/new"
               className="hidden rounded-xl bg-primary-50 px-4 py-2 text-gray-00 text-md-200 lg:flex"
             >
-              {t('common.createEvent')}
+              {t('userDashboard.createEvent')}
             </Link>
           </div>
         </div>

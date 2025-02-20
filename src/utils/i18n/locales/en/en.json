@@ -1,7 +1,7 @@
 {
   "common": {
     "noOneSchedule": "No one has added a schedule.",
-    "createEvent": "Create Event",
+
     "participantCount_one": "{{count}} person",
     "participantCount_other": "{{count}} people",
     "joinedEvents": "Events",
@@ -27,20 +27,22 @@
   "eventForm": {
     "eventName": "Event Name",
     "max30Characters": "Max 30 characters",
-    "enterEventName": "Please enter the event name",
+    "enterEventName": "Enter the event name",
     "timeRange": "Time",
     "selectTimeRange": "Select the time range for the event.",
     "dateRange": "Date",
     "selectDateRange": "Select the date range for the event.",
     "date": "Date",
     "weekday": "Weekday",
+    "createEvent": "Create Event",
     "editEvent": "Edit Event",
     "creatingEvent": "Creating Event...",
     "editingEvent": "Editing Event..."
   },
   "userDashboard": {
     "more": "More",
-    "hello": "Hello, {{name}}"
+    "hello": "Hello, {{name}}",
+    "createEvent": "Create Event"
   },
   "myScheduleEdit": {
     "editMySchedule": "Edit My Schedule",
