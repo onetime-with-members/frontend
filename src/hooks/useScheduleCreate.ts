@@ -138,7 +138,7 @@ export default function useScheduleCreate({
           category: 'DATE' | 'DAY' = 'DAY',
         ) {
           return dayjs
-            .weekdaysMin()
+            .weekdaysShort()
             .findIndex(
               (w) =>
                 w ===

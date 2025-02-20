@@ -75,7 +75,7 @@ export default function RecommendTime() {
           {recommendTimes &&
             event &&
             (recommendTimes.length === 0 ? (
-              <>{t('eventDetail.noOneSchedule')}</>
+              <>{t('common.noOneSchedule')}</>
             ) : (
               <>
                 <span>

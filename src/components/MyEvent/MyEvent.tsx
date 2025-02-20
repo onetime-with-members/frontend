@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import alarmIcon from '@/assets/alarm-icon.svg';
@@ -17,6 +18,8 @@ export default function MyEvent({
   className,
   innerClassName,
 }: MyEventProps) {
+  const { t } = useTranslation();
+
   const isRecommended =
     event.most_possible_times.length > 0 && event.participant_count >= 1;
 
@@ -35,7 +38,11 @@ export default function MyEvent({
           <div className="flex items-center gap-1 text-gray-30 text-sm-200">
             <span>{dayjs(event.created_date).fromNow()}</span>
             <span>·</span>
-            <span>{event.participant_count}명</span>
+            <span>
+              {t('common.participantCount', {
+                count: event.participant_count,
+              })}
+            </span>
           </div>
           <h1 className="overflow-hidden text-ellipsis whitespace-nowrap text-gray-80 text-md-300 sm:text-lg-300">
             {event.title}
@@ -66,7 +73,7 @@ export default function MyEvent({
                   {event.category === 'DATE' ? (
                     <span>
                       {dayjs(recommendedTime.time_point, 'YYYY.MM.DD').format(
-                        'YYYY.MM.DD (dd)',
+                        'YYYY.MM.DD (ddd)',
                       )}
                     </span>
                   ) : (
@@ -78,7 +85,7 @@ export default function MyEvent({
                 </>
               )
             ) : (
-              <span>아무도 스케줄을 등록하지 않았어요.</span>
+              <span>{t('common.noOneSchedule')}</span>
             )}
           </div>
           <div>

@@ -1,4 +1,10 @@
 {
+  "common": {
+    "noOneSchedule": "아무도 스케줄을 등록하지 않았어요.",
+    "createEvent": "이벤트 생성하기",
+    "participantCount_one": "{{count}}명",
+    "participantCount_other": "{{count}}명"
+  },
   "eventDetail": {
     "participant_one": "참여자",
     "participant_other": "참여자",
@@ -7,13 +13,10 @@
     "edit": "수정",
     "delete": "삭제",
     "addSchedule": "스케줄 추가",
-    "noOneSchedule": "아무도 스케줄을 등록하지 않았어요.",
     "mostAvailable": "가장 많이 되는 시간대",
     "allAvailable": "모두가 되는 시간",
     "peopleWhoAddedSchedules": "스케줄을 추가한 사람들",
     "whenAvailableTimes": "가능한 시간은 언제일까요?",
-    "participantCount_one": "{{count}}명",
-    "participantCount_other": "{{count}}명",
     "emptyEventBanner": "링크를 공유하고 <br />맞는 시간을 찾으세요!",
     "copyLink": "링크 복사",
     "copied": "복사 완료"
@@ -28,9 +31,14 @@
     "selectDateRange": "설문할 날짜의 범위를 설정해주세요.",
     "date": "날짜",
     "weekday": "요일",
-    "createEvent": "이벤트 생성하기",
     "editEvent": "이벤트 수정하기",
     "creatingEvent": "이벤트 생성 중...",
     "editingEvent": "이벤트 수정 중..."
+  },
+  "userDashboard": {
+    "joinedEvents": "참여한 이벤트",
+    "mySchedule": "내 스케줄",
+    "more": "더 보기",
+    "hello": "안녕하세요, {{name}}님"
   }
 }

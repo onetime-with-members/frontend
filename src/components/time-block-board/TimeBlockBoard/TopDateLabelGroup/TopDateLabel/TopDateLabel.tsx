@@ -20,7 +20,7 @@ export default function TopDateLabel({
       {category === 'DATE' ? (
         <div className="flex flex-col">
           <span className="text-gray-20 text-sm-200">
-            {dayjs(timePoint, 'YYYY.MM.DD').format('dd')}
+            {dayjs(timePoint, 'YYYY.MM.DD').format('ddd')}
           </span>
           <span className="text-gray-30 text-sm-200">
             {dayjs(timePoint, 'YYYY.MM.DD').format('MM.DD')}

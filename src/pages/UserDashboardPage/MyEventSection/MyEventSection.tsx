@@ -1,14 +1,16 @@
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
+import Header from '../Header/Header';
 import EmptyUI from '@/components/EmptyUI/EmptyUI';
 import MyEvent from '@/components/MyEvent/MyEvent';
 import { MyEventType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
-import { IconChevronRight } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyEventSection() {
+  const { t } = useTranslation();
+
   const { isPending: isEventsPending, data: events } = useQuery<MyEventType[]>({
     queryKey: ['events', 'user', 'all'],
     queryFn: async () => {
@@ -19,15 +21,9 @@ export default function MyEventSection() {
 
   return (
     <section className="flex flex-col gap-3">
-      <header className="flex items-center justify-between">
-        <h2 className="text-gray-90 title-sm-300">참여한 이벤트</h2>
-        <Link to="/mypage/events" className="flex items-center text-gray-50">
-          <span>더 보기</span>
-          <span>
-            <IconChevronRight />
-          </span>
-        </Link>
-      </header>
+      <Header moreHref="/mypage/events">
+        {t('userDashboard.joinedEvents')}
+      </Header>
       {isEventsPending && (
         <div className="rounded-2xl py-5">
           <EmptyUI>이벤트를 불러오는 중입니다.</EmptyUI>

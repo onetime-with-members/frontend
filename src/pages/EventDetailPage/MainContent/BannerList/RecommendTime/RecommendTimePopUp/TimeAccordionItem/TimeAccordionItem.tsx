@@ -50,7 +50,7 @@ export default function TimeAccordionItem({
           {startTime} - {endTime}
         </span>
         <div className="rounded-full bg-primary-50 px-3 py-1 text-gray-00 text-sm-300">
-          {t('eventDetail.participantCount', {
+          {t('common.participantCount', {
             count: members.possible.length,
           })}
         </div>

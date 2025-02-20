@@ -1,11 +1,10 @@
-import dayjs from 'dayjs';
-
 import TimeBlock from './TimeBlock/TimeBlock';
 import useSleepTime from '@/hooks/useSleepTime';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import { SleepTimeType } from '@/types/user.type';
 import { timeBlockList as _timeBlockList } from '@/utils/time-block';
+import { weekdaysShortKo } from '@/utils/weekday';
 
 interface TimeBlockContentProps {
   mode: 'view' | 'edit';
@@ -73,7 +72,7 @@ export default function BoardContent({
 
   return (
     <div className="grid flex-1 grid-cols-7 gap-2">
-      {dayjs.weekdaysMin().map((weekday) => (
+      {weekdaysShortKo.map((weekday) => (
         <div
           key={weekday}
           className="flex flex-col gap-2 overflow-hidden rounded-lg"

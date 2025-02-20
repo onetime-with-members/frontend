@@ -1,4 +1,10 @@
 {
+  "common": {
+    "noOneSchedule": "No one has added a schedule.",
+    "createEvent": "Create Event",
+    "participantCount_one": "{{count}} person",
+    "participantCount_other": "{{count}} people"
+  },
   "eventDetail": {
     "participant_one": "Participant",
     "participant_other": "Participants",
@@ -7,13 +13,10 @@
     "edit": "Edit",
     "delete": "Delete",
     "addSchedule": "Add Schedule",
-    "noOneSchedule": "No one has added a schedule.",
     "mostAvailable": "Most Available Times",
     "allAvailable": "All Available Times",
     "peopleWhoAddedSchedules": "People who added schedules",
     "whenAvailableTimes": "When are the available times?",
-    "participantCount_one": "{{count}} person",
-    "participantCount_other": "{{count}} people",
     "emptyEventBanner": "Share the link <br />and find the right time!",
     "copyLink": "Copy Link",
     "copied": "Copied"
@@ -28,9 +31,14 @@
     "selectDateRange": "Select the date range for the event.",
     "date": "Date",
     "weekday": "Weekday",
-    "createEvent": "Create Event",
     "editEvent": "Edit Event",
     "creatingEvent": "Creating Event...",
     "editingEvent": "Editing Event..."
+  },
+  "userDashboard": {
+    "joinedEvents": "Joined Events",
+    "mySchedule": "My Schedule",
+    "more": "More",
+    "hello": "Hello, {{name}}"
   }
 }

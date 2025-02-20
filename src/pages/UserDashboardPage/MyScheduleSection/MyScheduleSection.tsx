@@ -1,4 +1,6 @@
-import Header from './Header/Header';
+import { useTranslation } from 'react-i18next';
+
+import Header from '../Header/Header';
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
 import useSleepTime from '@/hooks/useSleepTime';
@@ -8,6 +10,8 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleSection() {
   const { sleepTimeData } = useSleepTime();
+
+  const { t } = useTranslation();
 
   const { data } = useQuery<MyScheduleTimeType[]>({
     queryKey: ['fixed-schedules'],
@@ -19,7 +23,7 @@ export default function MyScheduleSection() {
 
   return (
     <section className="flex flex-col gap-3">
-      <Header hasMore={false} />
+      <Header hasMore={false}>{t('userDashboard.mySchedule')}</Header>
       <div className="rounded-2xl bg-gray-00 pb-12">
         <SleepTimeUI />
         <MyTimeBlockBoard

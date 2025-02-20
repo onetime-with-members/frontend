@@ -28,9 +28,7 @@ export default function BottomButton({
         fullWidth
       >
         {pageMode === 'create' &&
-          (isPending
-            ? t('eventForm.creatingEvent')
-            : t('eventForm.createEvent'))}
+          (isPending ? t('eventForm.creatingEvent') : t('common.createEvent'))}
         {pageMode === 'edit' &&
           (isPending ? t('eventForm.editingEvent') : t('eventForm.editEvent'))}
       </Button>

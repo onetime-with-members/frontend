@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import useScroll from '@/hooks/useScroll';
@@ -8,6 +9,8 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function TopToolbarForDesktop() {
   const { isScrolling } = useScroll();
+
+  const { t } = useTranslation();
 
   const isLoggedIn = !!localStorage.getItem('access-token');
 
@@ -33,13 +36,14 @@ export default function TopToolbarForDesktop() {
         <div className="flex h-[72px] items-center rounded-t-3xl bg-gray-80 px-6 text-gray-00">
           <div className="mx-auto flex w-full max-w-screen-md items-center justify-between gap-2">
             <h1 className="flex-1 title-lg-300">
-              {!isUserLoading && `안녕하세요, ${user?.nickname}님`}
+              {!isUserLoading &&
+                t('userDashboard.hello', { name: user?.nickname })}
             </h1>
             <Link
               to="/events/new"
               className="hidden rounded-xl bg-primary-50 px-4 py-2 text-gray-00 text-md-200 lg:flex"
             >
-              이벤트 생성하기
+              {t('common.createEvent')}
             </Link>
           </div>
         </div>
