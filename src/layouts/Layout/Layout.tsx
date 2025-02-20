@@ -1,5 +1,7 @@
+import dayjs from 'dayjs';
 import { useContext, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import Footer from './Footer/Footer';
@@ -12,6 +14,8 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function Layout() {
   const { isFooterVisible } = useContext(FooterContext);
+
+  const { i18n } = useTranslation();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -41,6 +45,20 @@ export default function Layout() {
       }
     }
   }, [location, policyData, isLoggedIn]);
+
+  useEffect(() => {
+    dayjs.locale(i18n.language);
+
+    function handleLanguageChange(language: string) {
+      dayjs.locale(language);
+    }
+
+    i18n.on('languageChanged', handleLanguageChange);
+
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
 
   return (
     <>
