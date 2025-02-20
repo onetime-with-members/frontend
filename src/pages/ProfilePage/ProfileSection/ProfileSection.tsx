@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@/components/avatar/Avatar/Avatar';
@@ -10,6 +11,7 @@ interface ProfileSectionProps {
 
 export default function ProfileSection({ user }: ProfileSectionProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   function handleProfileEditButtonClick() {
     navigate('/mypage/profile/edit');
@@ -32,9 +34,11 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
       </div>
       <div className="flex items-center gap-4">
         <GrayButton onClick={handleProfileEditButtonClick}>
-          프로필 수정
+          {t('profile.editProfile')}
         </GrayButton>
-        <GrayButton onClick={handleLogoutButtonClick}>로그아웃</GrayButton>
+        <GrayButton onClick={handleLogoutButtonClick}>
+          {t('profile.logout')}
+        </GrayButton>
       </div>
     </section>
   );

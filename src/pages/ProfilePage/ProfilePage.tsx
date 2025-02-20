@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 
 import ProfileSection from './ProfileSection/ProfileSection';
 import SettingSection from './SettingSection/SettingSection';
@@ -7,6 +8,8 @@ import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function ProfilePage() {
+  const { t } = useTranslation();
+
   const { isPending: isUserPending, data: user } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
@@ -22,7 +25,7 @@ export default function ProfilePage() {
   return (
     <>
       <Helmet>
-        <title>프로필 정보 | OneTime</title>
+        <title>{t('profile.profile')} | OneTime</title>
       </Helmet>
       <div className="flex flex-col gap-7 px-4">
         <ProfileSection user={user} />

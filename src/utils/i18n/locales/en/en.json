@@ -46,5 +46,15 @@
     "editMySchedule": "Edit My Schedule",
     "sleepTime": "Sleep Time",
     "done": "Done"
+  },
+  "profile": {
+    "profile": "Profile",
+    "editProfile": "Edit Profile",
+    "logout": "Logout",
+    "service": "Service",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "version": "Version",
+    "withdraw": "Delete account"
   }
 }

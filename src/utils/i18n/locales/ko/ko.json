@@ -46,5 +46,15 @@
     "editMySchedule": "스케줄 입력",
     "sleepTime": "수면 시간",
     "done": "완료"
+  },
+  "profile": {
+    "profile": "프로필 정보",
+    "editProfile": "프로필 수정",
+    "logout": "로그아웃",
+    "service": "서비스",
+    "termsOfService": "서비스이용약관",
+    "privacyPolicy": "개인정보처리방침",
+    "version": "버전 정보",
+    "withdraw": "서비스 탈퇴하기"
   }
 }
