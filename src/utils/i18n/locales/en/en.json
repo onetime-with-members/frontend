@@ -17,5 +17,20 @@
     "emptyEventBanner": "Share the link <br />and find the right time!",
     "copyLink": "Copy Link",
     "copied": "Copied"
+  },
+  "eventForm": {
+    "eventName": "Event Name",
+    "max30Characters": "Max 30 characters",
+    "enterEventName": "Please enter the event name",
+    "timeRange": "Time",
+    "selectTimeRange": "Select the time range for the event.",
+    "dateRange": "Date",
+    "selectDateRange": "Select the date range for the event.",
+    "date": "Date",
+    "weekday": "Weekday",
+    "createEvent": "Create Event",
+    "editEvent": "Edit Event",
+    "creatingEvent": "Creating Event...",
+    "editingEvent": "Editing Event..."
   }
 }

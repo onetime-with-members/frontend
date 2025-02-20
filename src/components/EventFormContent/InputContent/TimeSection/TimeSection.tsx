@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import TimeDropdown from '@/components/TimeDropdown/TimeDropdown';
 import { EventType, EventValueType } from '@/types/event.type';
@@ -8,6 +10,8 @@ interface TimeSectionProps {
 }
 
 export default function TimeSection({ value, setValue }: TimeSectionProps) {
+  const { t } = useTranslation();
+
   function handleSelectTime(key: keyof EventType) {
     return function (time: string) {
       setValue((prev) => ({
@@ -21,8 +25,8 @@ export default function TimeSection({ value, setValue }: TimeSectionProps) {
     <div className="flex flex-col gap-2 md:gap-4">
       <EventInputLabel
         labelId="time"
-        labelText="시간"
-        description="설문할 시간의 범위를 설정해주세요."
+        labelText={t('eventForm.timeRange')}
+        description={t('eventForm.selectTimeRange')}
       />
       <div className="flex gap-4">
         <div className="flex items-center gap-4">

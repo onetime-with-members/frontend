@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import Input from '@/components/Input/Input';
 import { EventValueType } from '@/types/event.type';
@@ -8,6 +10,8 @@ interface TitleSectionProps {
 }
 
 export default function TitleSection({ value, setValue }: TitleSectionProps) {
+  const { t } = useTranslation();
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValue((prev) => ({
       ...prev,
@@ -19,14 +23,14 @@ export default function TitleSection({ value, setValue }: TitleSectionProps) {
     <div className="flex flex-col gap-2 md:gap-4">
       <EventInputLabel
         labelId="title"
-        labelText="이벤트 제목"
-        description="최대 30자"
+        labelText={t('eventForm.eventName')}
+        description={t('eventForm.max30Characters')}
       />
       <Input
         type="text"
         id="title"
         name="title"
-        placeholder="어떤 이벤트인가요?"
+        placeholder={t('eventForm.enterEventName')}
         maxLength={30}
         value={value.title}
         onChange={handleChange}

@@ -17,5 +17,20 @@
     "emptyEventBanner": "링크를 공유하고 <br />맞는 시간을 찾으세요!",
     "copyLink": "링크 복사",
     "copied": "복사 완료"
+  },
+  "eventForm": {
+    "eventName": "이벤트 제목",
+    "max30Characters": "최대 30자",
+    "enterEventName": "어떤 이벤트인가요?",
+    "timeRange": "시간",
+    "selectTimeRange": "설문할 시간의 범위를 설정해주세요.",
+    "dateRange": "설문 범위",
+    "selectDateRange": "설문할 날짜의 범위를 설정해주세요.",
+    "date": "날짜",
+    "weekday": "요일",
+    "createEvent": "이벤트 생성하기",
+    "editEvent": "이벤트 수정하기",
+    "creatingEvent": "이벤트 생성 중...",
+    "editingEvent": "이벤트 수정 중..."
   }
 }

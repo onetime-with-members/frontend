@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import CalendarSelect from './CalendarSelect/CalendarSelect';
@@ -16,6 +17,8 @@ interface DateSectionProps {
 export default function DateSection({ value, setValue }: DateSectionProps) {
   const { pageMode } = useContext(PageModeContext);
 
+  const { t } = useTranslation();
+
   function handleSelectChip(chip: 'DATE' | 'DAY') {
     setValue((prev) => ({
       ...prev,
@@ -28,8 +31,8 @@ export default function DateSection({ value, setValue }: DateSectionProps) {
     <div className="flex flex-col gap-4">
       <EventInputLabel
         labelId="date-range"
-        labelText="설문 범위"
-        description="설문할 날짜의 범위를 설정해주세요."
+        labelText={t('eventForm.dateRange')}
+        description={t('eventForm.selectDateRange')}
       />
       <div
         className={cn('flex flex-col', {
@@ -43,13 +46,13 @@ export default function DateSection({ value, setValue }: DateSectionProps) {
               active={value.category === 'DATE'}
               onClick={() => handleSelectChip('DATE')}
             >
-              날짜
+              {t('eventForm.date')}
             </Chip>
             <Chip
               active={value.category === 'DAY'}
               onClick={() => handleSelectChip('DAY')}
             >
-              요일
+              {t('eventForm.weekday')}
             </Chip>
           </div>
         )}
