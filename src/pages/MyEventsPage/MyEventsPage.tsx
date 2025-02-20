@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 
 import EmptyMyEvent from './EmptyMyEvent/EmptyMyEvent';
 import MyEvent from '@/components/MyEvent/MyEvent';
@@ -9,6 +10,8 @@ import breakpoint from '@/utils/breakpoint';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyEventsPage() {
+  const { t } = useTranslation();
+
   const { isPending: isEventsPending, data: events } = useQuery<MyEventType[]>({
     queryKey: ['events', 'user', 'all'],
     queryFn: async () => {
@@ -32,7 +35,7 @@ export default function MyEventsPage() {
   return (
     <>
       <Helmet>
-        <title>참여한 이벤트 - OneTime</title>
+        <title>{t('common.joinedEvents')} - OneTime</title>
       </Helmet>
       <ul className="flex flex-col gap-5 px-4 py-5">
         {events.map((event) => (

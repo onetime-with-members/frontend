@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import HeaderForDesktop from './HeaderForDesktop/HeaderForDesktop';
@@ -28,11 +29,12 @@ export default function MyPageLayout() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const pageTitle = {
-    events: '참여한 이벤트',
-    schedules: '내 스케줄',
-    profile: '프로필 정보',
+    events: t('common.joinedEvents'),
+    schedules: t('common.mySchedule'),
+    profile: t('common.profileInfo'),
   }[tabActive];
 
   function handleMyScheduleEditButtonClick() {

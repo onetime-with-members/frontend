@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import alarmIcon from '@/assets/alarm-icon.svg';
 import { MyEventType } from '@/types/event.type';
 import cn from '@/utils/cn';
+import { weekdaysShortKo } from '@/utils/weekday';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface MyEventProps {
@@ -77,7 +78,15 @@ export default function MyEvent({
                       )}
                     </span>
                   ) : (
-                    <span>{recommendedTime.time_point}요일</span>
+                    <span>
+                      {dayjs()
+                        .day(
+                          weekdaysShortKo.findIndex(
+                            (weekday) => weekday === recommendedTime.time_point,
+                          ),
+                        )
+                        .format('dddd')}
+                    </span>
                   )}
                   <span>
                     {recommendedTime.start_time} - {recommendedTime.end_time}

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import { TabActiveType } from '../MyPageLayout';
 import SideTabItem from './SideTabItem/SideTabItem';
 import CalendarIcon from '@/components/icon/CalendarIcon';
@@ -11,6 +13,8 @@ interface SideTabContentForDesktopProps {
 export default function SideTabContentForDesktop({
   tabActive,
 }: SideTabContentForDesktopProps) {
+  const { t } = useTranslation();
+
   return (
     <nav className="sticky top-[64px] h-screen border-l border-r border-gray-10 px-5 py-7">
       <ul className="flex flex-col gap-3">
@@ -22,7 +26,7 @@ export default function SideTabContentForDesktop({
           className="w-[10rem]"
           active={tabActive === 'events'}
         >
-          참여한 이벤트
+          {t('common.joinedEvents')}
         </SideTabItem>
         <SideTabItem
           active={tabActive === 'schedules'}
@@ -34,7 +38,7 @@ export default function SideTabContentForDesktop({
             />
           }
         >
-          내 스케줄
+          {t('common.mySchedule')}
         </SideTabItem>
         <SideTabItem
           active={tabActive === 'profile'}
@@ -45,7 +49,7 @@ export default function SideTabContentForDesktop({
             />
           }
         >
-          프로필 정보
+          {t('common.profileInfo')}
         </SideTabItem>
       </ul>
     </nav>

@@ -1,14 +1,14 @@
 import dayjs from 'dayjs';
 
-export const weekdaysShortKo = ['월', '화', '수', '목', '금', '토', '일'];
+export const weekdaysShortKo = ['일', '월', '화', '수', '목', '금', '토'];
 export const weekdaysShortEn = [
+  'Sun',
   'Mon',
   'Tue',
   'Wed',
   'Thu',
   'Fri',
   'Sat',
-  'Sun',
 ];
 
 export function sortWeekdayList(weekdayList: string[]) {
