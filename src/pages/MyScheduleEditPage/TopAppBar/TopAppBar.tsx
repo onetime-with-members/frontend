@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import SmallButton from '@/components/button/SmallButton/SmallButton';
 import { IconChevronLeft } from '@tabler/icons-react';
 
@@ -10,6 +12,8 @@ export default function TopAppBar({
   onBackButtonClick,
   onSubmitButtonClick,
 }: TopAppBarProps) {
+  const { t } = useTranslation();
+
   return (
     <nav className="h-[64px]">
       <div className="fixed z-10 flex h-[4rem] w-full justify-center bg-gray-00 px-4">
@@ -20,10 +24,12 @@ export default function TopAppBar({
             </button>
           </div>
           <div className="flex items-center justify-center text-gray-90 text-lg-300">
-            스케줄 입력
+            {t('myScheduleEdit.editMySchedule')}
           </div>
           <div className="flex items-center justify-end">
-            <SmallButton onClick={onSubmitButtonClick}>완료</SmallButton>
+            <SmallButton onClick={onSubmitButtonClick}>
+              {t('myScheduleEdit.done')}
+            </SmallButton>
           </div>
         </div>
       </div>

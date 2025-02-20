@@ -41,5 +41,10 @@
   "userDashboard": {
     "more": "More",
     "hello": "Hello, {{name}}"
+  },
+  "myScheduleEdit": {
+    "editMySchedule": "Edit My Schedule",
+    "sleepTime": "Sleep Time",
+    "done": "Done"
   }
 }

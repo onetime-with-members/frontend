@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import SleepIcon from '@/components/icon/SleepIcon';
 import cn from '@/utils/cn';
 import { IconChevronDown } from '@tabler/icons-react';
@@ -11,6 +13,8 @@ export default function AccordionMain({
   isAccordionOpen,
   setIsAccordionOpen,
 }: AccordionMainProps) {
+  const { t } = useTranslation();
+
   function handleAccordionClick() {
     setIsAccordionOpen((prev) => !prev);
   }
@@ -24,7 +28,9 @@ export default function AccordionMain({
         <span>
           <SleepIcon fill="#5D6279" size={20} />
         </span>
-        <span className="text-gray-80 text-md-300">수면 시간</span>
+        <span className="text-gray-80 text-md-300">
+          {t('myScheduleEdit.sleepTime')}
+        </span>
       </div>
       <div>
         <IconChevronDown

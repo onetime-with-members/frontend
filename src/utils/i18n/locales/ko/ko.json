@@ -41,5 +41,10 @@
   "userDashboard": {
     "more": "더 보기",
     "hello": "안녕하세요, {{name}}님"
+  },
+  "myScheduleEdit": {
+    "editMySchedule": "스케줄 입력",
+    "sleepTime": "수면 시간",
+    "done": "완료"
   }
 }
