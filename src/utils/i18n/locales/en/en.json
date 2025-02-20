@@ -72,5 +72,12 @@
     "notFound": "Page Not Found",
     "title": "The Page You Requested Cannot Be Found",
     "description": "The URL you entered may be incorrect, <2 />or the page may have been changed or deleted. <5 />Please check that the address is entered correctly."
+  },
+  "login": {
+    "login": "Login",
+    "logoTitle": "For The Perfect Time,",
+    "kakao": "Continue with KakaoTalk",
+    "naver": "Continue with Naver",
+    "google": "Continue with Google"
   }
 }

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import ButtonGroup from './ButtonGroup/ButtonGroup';
@@ -11,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 export default function LoginPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const hasTokens =
     !!localStorage.getItem('access-token') &&
@@ -61,7 +63,7 @@ export default function LoginPage() {
   return (
     <>
       <Helmet>
-        <title>로그인 | OneTime</title>
+        <title>{t('login.login')} | OneTime</title>
       </Helmet>
       <div className="flex h-screen flex-col">
         <NavBar />

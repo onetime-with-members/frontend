@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import googleAuthLogo from '@/assets/google-auth-logo.svg';
@@ -20,6 +21,8 @@ export default function SocialLoginButton({
   className,
   ...rest
 }: SocialLoginButtonProps) {
+  const { t } = useTranslation();
+
   return (
     <Link
       to={href}
@@ -64,13 +67,12 @@ export default function SocialLoginButton({
         })}
       >
         {social === 'naver'
-          ? '네이버'
+          ? t('login.naver')
           : social === 'kakao'
-            ? '카카오'
+            ? t('login.kakao')
             : social === 'google'
-              ? 'Google 계정으로'
+              ? t('login.google')
               : ''}{' '}
-        로그인
       </span>
     </Link>
   );
