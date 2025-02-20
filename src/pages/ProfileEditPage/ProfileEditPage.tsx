@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
@@ -24,6 +25,7 @@ export default function ProfileEditPage() {
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const { data: user } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
@@ -63,7 +65,7 @@ export default function ProfileEditPage() {
   return (
     <>
       <Helmet>
-        <title>프로필 수정 | OneTime</title>
+        <title>{t('profileEdit.editProfile')} | OneTime</title>
       </Helmet>
 
       <TopNavBarForDesktop />
@@ -84,7 +86,7 @@ export default function ProfileEditPage() {
             className="hidden sm:flex"
             fullWidth
           >
-            저장
+            {t('profileEdit.save')}
           </Button>
         </div>
 

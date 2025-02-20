@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Input from '@/components/Input/Input';
 import cn from '@/utils/cn';
@@ -20,10 +21,12 @@ export default function NicknameFormControl({
     empty: false,
   });
 
+  const { t } = useTranslation();
+
   const isInvalid = invalid.format || invalid.length || invalid.empty;
 
   useEffect(() => {
-    const lettersOnly = /^[\p{L}]+$/u;
+    const lettersOnly = /^[\p{L} ]+$/u;
 
     setInvalid({
       format: !lettersOnly.test(value) && value !== '',
@@ -42,13 +45,15 @@ export default function NicknameFormControl({
 
   return (
     <div className="flex flex-col gap-2">
-      <label className="pl-1 text-gray-90 text-lg-200">이름</label>
+      <label className="pl-1 text-gray-90 text-lg-200">
+        {t('nickname.name')}
+      </label>
       <div className="flex flex-col gap-2">
         <Input
           name="nickname"
           value={value}
           onChange={onChange}
-          placeholder="당신의 이름은 무엇인가요?"
+          placeholder={t('nickname.enterName')}
           className={cn({
             'ring-2 ring-danger-30': invalid.format || invalid.length,
           })}
@@ -56,12 +61,12 @@ export default function NicknameFormControl({
         <ul className="flex h-4 flex-col gap-1">
           {invalid.format && (
             <li className="text-danger-50 text-sm-200">
-              특수문자 및 숫자는 사용할 수 없어요
+              {t('nickname.noSpecialCharactersAndNumbers')}
             </li>
           )}
           {invalid.length && (
             <li className="text-danger-50 text-sm-200">
-              10자 이내로 입력해주세요
+              {t('nickname.maxCharacters')}
             </li>
           )}
         </ul>

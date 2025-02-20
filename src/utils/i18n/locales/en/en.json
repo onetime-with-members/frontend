@@ -1,7 +1,6 @@
 {
   "common": {
     "noOneSchedule": "No one has added a schedule.",
-
     "participantCount_one": "{{count}} person",
     "participantCount_other": "{{count}} people",
     "joinedEvents": "Events",
@@ -58,5 +57,15 @@
     "privacyPolicy": "Privacy Policy",
     "version": "Version",
     "withdraw": "Delete account"
+  },
+  "nickname": {
+    "name": "Name",
+    "noSpecialCharactersAndNumbers": "Special characters and numbers cannot be used.",
+    "maxCharacters": "Up to 10 characters can be entered.",
+    "enterName": "Enter your name"
+  },
+  "profileEdit": {
+    "editProfile": "Edit Profile",
+    "save": "Save"
   }
 }

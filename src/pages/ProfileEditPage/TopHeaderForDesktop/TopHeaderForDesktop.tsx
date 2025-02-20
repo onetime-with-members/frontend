@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function TopHeaderForDesktop() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   function handleBackButtonClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
@@ -19,7 +21,7 @@ export default function TopHeaderForDesktop() {
       >
         <IconChevronLeft size={32} />
       </Link>
-      <h1 className="title-lg-300">프로필 수정</h1>
+      <h1 className="title-lg-300">{t('profileEdit.editProfile')}</h1>
     </div>
   );
 }

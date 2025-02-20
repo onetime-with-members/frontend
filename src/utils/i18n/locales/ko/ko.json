@@ -57,5 +57,15 @@
     "privacyPolicy": "개인정보처리방침",
     "version": "버전 정보",
     "withdraw": "서비스 탈퇴하기"
+  },
+  "nickname": {
+    "name": "이름",
+    "noSpecialCharactersAndNumbers": "특수문자 및 숫자는 사용할 수 없어요.",
+    "max10Characters": "10자 이내로 입력해주세요.",
+    "enterName": "당신의 이름은 무엇인가요?"
+  },
+  "profileEdit": {
+    "editProfile": "프로필 수정",
+    "save": "저장"
   }
 }
