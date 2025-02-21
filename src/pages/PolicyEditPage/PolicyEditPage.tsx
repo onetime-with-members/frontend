@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Trans, useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 
 import NavBar from '@/components/NavBar/NavBar';
 import Button from '@/components/button/Button/Button';
 import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent/PolicyCheckboxContent';
 import { PolicyContext } from '@/contexts/PolicyContext';
-import { PolicyKeyType } from '@/types/user.type';
+import { PolicyKeyType, PolicyType } from '@/types/user.type';
 import axios from '@/utils/axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function PolicyEditPage() {
   const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
@@ -20,6 +21,16 @@ export default function PolicyEditPage() {
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
+
+  const { data: policyData } = useQuery<PolicyType>({
+    queryKey: ['users', 'policy'],
+    queryFn: async () => {
+      const res = await axios.get('/users/policy');
+      return res.data.payload;
+    },
+    enabled: isLoggedIn,
+  });
 
   const agreePolicies = useMutation({
     mutationFn: async () => {
@@ -43,6 +54,16 @@ export default function PolicyEditPage() {
   }, []);
 
   useEffect(() => {
+    if (!policyData) return;
+    if (
+      policyData.privacy_policy_agreement &&
+      policyData.service_policy_agreement
+    ) {
+      navigate(-1);
+    }
+  }, [policyData]);
+
+  useEffect(() => {
     setDisabled(
       !policyValue.privacy_policy_agreement ||
         !policyValue.service_policy_agreement,
@@ -60,15 +81,17 @@ export default function PolicyEditPage() {
   return (
     <>
       <Helmet>
-        <title>약관 동의 | OneTime</title>
+        <title>{t('policyEdit.agreeToTerms')} | OneTime</title>
       </Helmet>
 
       <NavBar disabled />
       <div className="px-4 py-12">
         <div className="mx-auto flex w-full max-w-screen-xs flex-col gap-12">
           <h1 className="text-center text-gray-90 title-lg-300">
-            서비스 이용을 위해 <br />
-            약관에 동의해주세요
+            <Trans i18nKey="policyEdit.title">
+              서비스 이용을 위해 <br />
+              약관에 동의해주세요
+            </Trans>
           </h1>
           <PolicyCheckboxContent
             value={policyValue}
@@ -82,12 +105,12 @@ export default function PolicyEditPage() {
               fullWidth
               disabled={disabled}
             >
-              확인
+              {t('policyEdit.submit')}
             </Button>
             <div className="flex items-center gap-1.5 px-4 text-gray-50 text-sm-200">
-              <span>약관에 동의하지 않으시나요?</span>
+              <span>{t('policyEdit.toWithdrawText')}</span>
               <Link to="/withdraw" className="text-danger-50 text-sm-200">
-                탈퇴 페이지로 이동
+                {t('policyEdit.toWithdrawLink')}
               </Link>
             </div>
           </div>

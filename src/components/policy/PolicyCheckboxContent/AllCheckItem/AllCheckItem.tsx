@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import Checkbox from '../Checkbox/Checkbox';
 import { PolicyType } from '@/types/user.type';
 
@@ -7,6 +9,8 @@ interface CheckItemProps {
 }
 
 export default function AllCheckItem({ value, setValue }: CheckItemProps) {
+  const { t } = useTranslation();
+
   function handleAllCheckboxClick() {
     const isNewAllChecked =
       !value.service_policy_agreement ||
@@ -33,7 +37,7 @@ export default function AllCheckItem({ value, setValue }: CheckItemProps) {
           value.marketing_policy_agreement
         }
       />
-      <span className="text-gray-90 text-md-300">전체 동의</span>
+      <span className="text-gray-90 text-md-300">{t('policyEdit.all')}</span>
     </div>
   );
 }

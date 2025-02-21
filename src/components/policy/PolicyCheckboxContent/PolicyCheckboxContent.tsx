@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import AllCheckItem from './AllCheckItem/AllCheckItem';
 import CheckItem from './CheckItem/CheckItem';
 import { PolicyKeyType, PolicyType } from '@/types/user.type';
@@ -13,6 +15,8 @@ export default function PolicyCheckboxContent({
   setValue,
   setPageDetail,
 }: PolicyCheckboxContentProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col gap-6">
       <AllCheckItem value={value} setValue={setValue} />
@@ -24,7 +28,7 @@ export default function PolicyCheckboxContent({
           setPageDetail={setPageDetail}
           hasPageDetail
         >
-          서비스 이용약관(필수)
+          {t('policyEdit.termsOfService')}
         </CheckItem>
         <CheckItem
           checkedKey="privacy_policy_agreement"
@@ -33,7 +37,7 @@ export default function PolicyCheckboxContent({
           setPageDetail={setPageDetail}
           hasPageDetail
         >
-          개인정보 수집 및 이용 동의(필수)
+          {t('policyEdit.privacyPolicy')}
         </CheckItem>
         <CheckItem
           checkedKey="marketing_policy_agreement"
@@ -41,7 +45,7 @@ export default function PolicyCheckboxContent({
           setValue={setValue}
           setPageDetail={setPageDetail}
         >
-          마케팅 정보 수신 동의(선택)
+          {t('policyEdit.marketing')}
         </CheckItem>
       </div>
     </div>

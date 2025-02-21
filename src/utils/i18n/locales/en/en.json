@@ -15,6 +15,13 @@
     "termsOfService": "Terms of Service",
     "privacyPolicy": "Privacy Policy"
   },
+  "login": {
+    "login": "Login",
+    "logoTitle": "For The Perfect Time,",
+    "kakao": "Continue with KakaoTalk",
+    "naver": "Continue with Naver",
+    "google": "Continue with Google"
+  },
   "eventDetail": {
     "participant_one": "Participant",
     "participant_other": "Participants",
@@ -120,16 +127,20 @@
     "editProfile": "Edit Profile",
     "save": "Save"
   },
+  "policyEdit": {
+    "agreeToTerms": "Agree to Terms",
+    "title": "Please agree to the terms <br />to use the service",
+    "all": "Agree to all",
+    "termsOfService": "Terms of Service (Required)",
+    "privacyPolicy": "Privacy Policy (Required)",
+    "marketing": "Receive marketing information (Optional)",
+    "submit": "Submit",
+    "toWithdrawText": "Do you not agree to the terms?",
+    "toWithdrawLink": "Go to withdraw"
+  },
   "404": {
     "notFound": "Page Not Found",
     "title": "The Page You Requested Cannot Be Found",
     "description": "The URL you entered may be incorrect, <2 />or the page may have been changed or deleted. <5 />Please check that the address is entered correctly."
-  },
-  "login": {
-    "login": "Login",
-    "logoTitle": "For The Perfect Time,",
-    "kakao": "Continue with KakaoTalk",
-    "naver": "Continue with Naver",
-    "google": "Continue with Google"
   }
 }
