@@ -2,6 +2,7 @@ import Header from './Header/Header';
 import MarkdownContent from './MarkdownContent/MarkdownContent';
 import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
 import TopNavBarForDesktop from './TopNavBarForDesktop/TopNavBarForDesktop';
+import useGrayBackground from '@/hooks/useGrayBackground';
 import { PolicyKeyType } from '@/types/user.type';
 
 interface PolicyDetailScreenProps {
@@ -15,8 +16,10 @@ export default function PolicyDetailScreen({
   pageTitle,
   onClose,
 }: PolicyDetailScreenProps) {
+  useGrayBackground();
+
   return (
-    <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center bg-gray-05">
+    <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center">
       <>
         <TopAppBarForMobile
           pageTitle={pageTitle}

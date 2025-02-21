@@ -9,7 +9,7 @@ import {
   PolicyType,
 } from '@/types/user.type';
 
-interface PrivacyScreenProps {
+interface PolicyScreenProps {
   isVisible: boolean;
   page: number;
   value: OnboardingValueType;
@@ -18,14 +18,14 @@ interface PrivacyScreenProps {
   handleBackButtonClick: () => void;
 }
 
-export default function PrivacyScreen({
+export default function PolicyScreen({
   isVisible,
   page,
   value,
   setValue,
   handleNextButtonClick,
   handleBackButtonClick,
-}: PrivacyScreenProps) {
+}: PolicyScreenProps) {
   const [disabled, setDisabled] = useState(true);
   const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
   const [policyValue, setPolicyValue] = useState<PolicyType>({

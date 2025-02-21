@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import NicknameFormScreen from './NicknameFormScreen/NicknameFormScreen';
 import PageIndicator from './PageIndicator/PageIndicator';
-import PrivacyScreen from './PrivacyScreen/PrivacyScreen';
+import PolicyScreen from './PolicyScreen/PolicyScreen';
 import SleepTimeScreen from './SleepTimeScreen/SleepTimeScreen';
 import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
 import TopNavBarForDesktop from './TopNavBarForDesktop/TopNavBarForDesktop';
@@ -119,7 +119,7 @@ export default function OnboardingPage() {
               })}
             />
 
-            <PrivacyScreen
+            <PolicyScreen
               isVisible={page === 1}
               page={page}
               value={value}

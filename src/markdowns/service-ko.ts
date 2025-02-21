@@ -1,4 +1,4 @@
-const serviceMarkdown = `
+const serviceMarkdownKO = `
 ### **제1조(목적)**
 
 본 약관은 Onetime(이하 “원타임”이라 합니다)이 Onetime 웹페이지를 통해(이하 “서비스 페이지”라 합니다) 제공하는 되는 시간 및 되는 시간 관련 제반 서비스(이하 “서비스”라 합니다)의 이용과 관련하여, 원타임과 회원과의 권리, 의무 및 책임 사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
@@ -185,4 +185,4 @@ const serviceMarkdown = `
 개정일 : 2025.01.26
 `;
 
-export default serviceMarkdown;
+export default serviceMarkdownKO;
