@@ -31,7 +31,7 @@ export default function TopAppBarForMobile({
                 <IconChevronLeft size={24} />
               </button>
             </div>
-            <div className="flex items-center justify-center text-gray-90 text-lg-300">
+            <div className="flex items-center justify-center whitespace-nowrap text-gray-90 text-lg-300">
               {pageTitle}
             </div>
             <div className="flex items-center justify-end">

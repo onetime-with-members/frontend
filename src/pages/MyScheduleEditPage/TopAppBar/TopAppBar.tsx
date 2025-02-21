@@ -23,7 +23,7 @@ export default function TopAppBar({
               <IconChevronLeft size={24} />
             </button>
           </div>
-          <div className="flex items-center justify-center text-gray-90 text-lg-300">
+          <div className="flex items-center justify-center whitespace-nowrap text-gray-90 text-lg-300">
             {t('myScheduleEdit.editMySchedule')}
           </div>
           <div className="flex items-center justify-end">

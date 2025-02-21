@@ -27,7 +27,7 @@ export default function TopAppBarForMobile({
               <IconChevronLeft size={24} className="text-gray-80" />
             </button>
           </div>
-          <h2 className="text-center text-gray-90 text-lg-300">
+          <h2 className="flex items-center justify-center whitespace-nowrap text-center text-gray-90 text-lg-300">
             {t('scheduleAdd.enterSchedule')}
           </h2>
           {pageIndex === 1 && (
