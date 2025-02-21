@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 
 import InfoContent from './InfoContent/InfoContent';
 import TopAppBar from './TopAppBar/TopAppBar';
@@ -9,6 +10,8 @@ import { useMutation } from '@tanstack/react-query';
 
 export default function WithdrawPage() {
   const [isChecked, setIsChecked] = useState(false);
+
+  const { t } = useTranslation();
 
   const withdrawUser = useMutation({
     mutationFn: async () => {
@@ -30,7 +33,7 @@ export default function WithdrawPage() {
   return (
     <>
       <Helmet>
-        <title>회원 탈퇴 | OneTime</title>
+        <title>{t('withdraw.deleteAccount')} | OneTime</title>
       </Helmet>
 
       <TopAppBar />
@@ -43,7 +46,7 @@ export default function WithdrawPage() {
             onClick={handleWithdrawButtonClick}
             fullWidth
           >
-            탈퇴하기
+            {t('withdraw.withdraw')}
           </Button>
         </div>
       </main>

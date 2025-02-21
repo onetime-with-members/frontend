@@ -35,7 +35,7 @@
     "peopleWhoAddedSchedules_one": "Person who added schedule",
     "peopleWhoAddedSchedules_other": "People who added schedules",
     "whenAvailableTimes": "When are the available times?",
-    "emptyEventBanner": "Share the link <br />and find the right time!",
+    "emptyEventBanner": "Share the link <br />and find the perfect time!",
     "copyLink": "Copy Link",
     "copied": "Copied"
   },
@@ -137,6 +137,16 @@
     "submit": "Submit",
     "toWithdrawText": "Do you not agree to the terms?",
     "toWithdrawLink": "Go to withdraw"
+  },
+  "withdraw": {
+    "deleteAccount": "Delete account",
+    "mainTitle": "Do you really want to delete your account?",
+    "title1": "Your account will be deleted immediately",
+    "description1": "The information of the deleted account cannot be recovered. After deletion, your account will be deleted immediately.",
+    "title2": "All your event and schedule data will be deleted",
+    "description2": "All content written in OneTime, such as the schedules registered for events, will be deleted.",
+    "agreeText": "Yes, I have confirmed the above.",
+    "withdraw": "Delete account"
   },
   "404": {
     "notFound": "Page Not Found",
