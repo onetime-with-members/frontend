@@ -70,6 +70,19 @@
     "creatingEvent": "Creating Event...",
     "editingEvent": "Editing Event..."
   },
+  "scheduleAdd": {
+    "enterSchedule": "Enter Schedule",
+    "addSchedule": "Add Schedule",
+    "addingSchedule": "Adding Schedule...",
+    "password": "Password",
+    "next": "Next",
+    "done": "Done",
+    "doing": "Doing..."
+  },
+  "timeBlockBoard": {
+    "availableToggleText": "Available",
+    "unavailableToggleText": "Unavailable"
+  },
   "userDashboard": {
     "more": "More",
     "hello": "Hello, {{name}}",

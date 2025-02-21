@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import useSleepTime from './useSleepTime';
-import { EventType } from '@/types/event.type';
+import { useEventQuery } from '@/queries/event.queries';
+import { useScheduleDetailQuery } from '@/queries/schedule.queries';
 import { MyScheduleTimeType, ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
@@ -31,31 +32,13 @@ export default function useScheduleCreate({
 
   const isLoggedIn = localStorage.getItem('access-token') !== null;
 
-  const { data: event } = useQuery<EventType>({
-    queryKey: ['events', params.eventId],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${params.eventId}`);
-      return res.data.payload;
-    },
+  const { data: event } = useEventQuery(params.eventId);
+  const { data: scheduleData } = useScheduleDetailQuery({
+    event,
+    guestId,
+    isNewGuest,
+    isLoggedIn,
   });
-
-  const { data: scheduleData } = useQuery<ScheduleType>({
-    queryKey: [
-      'schedules',
-      event?.category?.toLowerCase(),
-      params.eventId,
-      isLoggedIn ? 'user' : guestId,
-    ],
-    queryFn: async () => {
-      const res = await axios.get(
-        `/schedules/${event?.category?.toLowerCase()}/${params.eventId}/${isLoggedIn ? 'user' : guestId}`,
-      );
-      return res.data.payload;
-    },
-    enabled:
-      event !== undefined && !isNewGuest && (isLoggedIn || guestId !== ''),
-  });
-
   const { data: fixedScheduleData } = useQuery<MyScheduleTimeType[]>({
     queryKey: ['fixed-schedules'],
     queryFn: async () => {

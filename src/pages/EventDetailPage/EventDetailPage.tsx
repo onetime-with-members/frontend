@@ -30,7 +30,6 @@ export default function EventDetailPage() {
     data: event,
     error: eventError,
   } = useEventQuery(params.eventId);
-
   const { data: schedules } = useScheduleQuery(event);
 
   function handleBottomButtonClick() {

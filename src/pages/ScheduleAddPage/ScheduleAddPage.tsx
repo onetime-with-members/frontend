@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import MemberLoginScreen from './MemberLoginScreen/MemberLoginScreen';
@@ -11,9 +12,15 @@ import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert'
 import { FooterContext } from '@/contexts/FooterContext';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleCreate from '@/hooks/useScheduleCreate';
+import {
+  useScheduleAndNewMemberCreate,
+  useScheduleQuery,
+  useScheduleUpdateMutation,
+} from '@/queries/schedule.queries';
 import { GuestValueType } from '@/types/user.type';
 import breakpoint from '@/utils/breakpoint';
 import cn from '@/utils/cn';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function ScheduleCreatePage() {
   const [pageIndex, setPageIndex] = useState(
@@ -26,12 +33,15 @@ export default function ScheduleCreatePage() {
     pin: '',
   });
   const [isPossibleTime, setIsPossibleTime] = useState(true);
-  const [isTopSubmitButtonClicked, setIsTopSubmitButtonClicked] =
-    useState(false);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isScheduleEdited, setIsScheduleEdited] = useState(false);
 
   const { setIsFooterVisible } = useContext(FooterContext);
+
+  const navigate = useNavigate();
+  const params = useParams<{ eventId: string }>();
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const { schedules, setSchedules, event } = useScheduleCreate({
     isNewGuest,
@@ -41,10 +51,47 @@ export default function ScheduleCreatePage() {
     breakpointCondition: () => window.innerWidth >= breakpoint.sm,
   });
 
-  const navigate = useNavigate();
-  const params = useParams<{ eventId: string }>();
+  const { refetch: refetchScheduleQuery } = useScheduleQuery(event);
+
+  const {
+    mutate: createNewMemberSchedule,
+    isPending: isCreateNewMemberSchedulePending,
+  } = useScheduleAndNewMemberCreate({
+    event,
+    guestValue,
+    schedules: schedules[0].schedules,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+      await refetchScheduleQuery();
+      navigate(`/events/${event?.event_id}`);
+    },
+  });
+  const { mutate: updateSchedule, isPending: isUpdateSchedulePending } =
+    useScheduleUpdateMutation({
+      event,
+      guestId,
+      schedules: schedules[0].schedules,
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['events'] });
+        await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+        await refetchScheduleQuery();
+        navigate(`/events/${event?.event_id}`);
+      },
+    });
 
   const isLoggedIn = localStorage.getItem('access-token') !== null;
+  const isSubmitting =
+    isCreateNewMemberSchedulePending || isUpdateSchedulePending;
+
+  function handleSubmit() {
+    if (pageIndex !== 1) return;
+    if (isNewGuest) {
+      createNewMemberSchedule();
+    } else {
+      updateSchedule();
+    }
+  }
 
   function handleBackButtonClick() {
     if (pageIndex === 0) {
@@ -76,14 +123,15 @@ export default function ScheduleCreatePage() {
   return (
     <>
       <Helmet>
-        <title>스케줄 등록 - OneTime</title>
+        <title>{t('scheduleAdd.addSchedule')} - OneTime</title>
       </Helmet>
 
       <TopNavBarForDesktop />
       <TopAppBarForMobile
         pageIndex={pageIndex}
-        handleBackButtonClick={handleBackButtonClick}
-        setIsTopSubmitButtonClicked={setIsTopSubmitButtonClicked}
+        onBackButtonClick={handleBackButtonClick}
+        onSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
       />
 
       <div className="sm:px-4">
@@ -110,17 +158,14 @@ export default function ScheduleCreatePage() {
           {pageIndex === 1 && event && (
             <ScheduleFormScreen
               event={event}
-              guestId={guestId}
-              isNewGuest={isNewGuest}
-              guestValue={guestValue}
               schedules={schedules}
               setSchedules={setSchedules}
               isPossibleTime={isPossibleTime}
               setIsPossibleTime={setIsPossibleTime}
-              isTopSubmitButtonClicked={isTopSubmitButtonClicked}
-              setIsTopSubmitButtonClicked={setIsTopSubmitButtonClicked}
               isScheduleEdited={isScheduleEdited}
               setIsScheduleEdited={setIsScheduleEdited}
+              onSubmit={handleSubmit}
+              isSubmitting={isSubmitting}
             />
           )}
         </main>

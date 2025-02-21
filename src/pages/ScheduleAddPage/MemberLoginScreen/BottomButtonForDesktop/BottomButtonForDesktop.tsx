@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import Button from '@/components/button/Button/Button';
 
 interface BottomButtonForDesktopProps {
@@ -9,10 +11,12 @@ export default function BottomButtonForDesktop({
   onClick,
   disabled,
 }: BottomButtonForDesktopProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="hidden sm:block">
       <Button variant="dark" onClick={onClick} disabled={disabled} fullWidth>
-        다음
+        {t('scheduleAdd.next')}
       </Button>
     </div>
   );

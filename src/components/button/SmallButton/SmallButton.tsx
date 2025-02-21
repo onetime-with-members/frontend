@@ -1,6 +1,7 @@
 import cn from '@/utils/cn';
 
-interface SmallButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface SmallButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'gray';
 }
 

@@ -70,6 +70,19 @@
     "creatingEvent": "이벤트 생성 중...",
     "editingEvent": "이벤트 수정 중..."
   },
+  "scheduleAdd": {
+    "enterSchedule": "스케줄 입력",
+    "addSchedule": "스케줄 등록",
+    "addingSchedule": "스케줄 등록 중...",
+    "password": "비밀번호",
+    "next": "다음",
+    "done": "완료",
+    "doing": "진행 중..."
+  },
+  "timeBlockBoard": {
+    "availableToggleText": "되는 시간 체크",
+    "unavailableToggleText": "안되는 시간 체크"
+  },
   "userDashboard": {
     "more": "더 보기",
     "hello": "안녕하세요, {{name}}님",

@@ -1,38 +1,44 @@
+import { useTranslation } from 'react-i18next';
+
+import SmallButton from '@/components/button/SmallButton/SmallButton';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 interface TopAppBarForMobileProps {
   pageIndex: number;
-  handleBackButtonClick: () => void;
-  setIsTopSubmitButtonClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  onBackButtonClick: () => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
 }
 
 export default function TopAppBarForMobile({
   pageIndex,
-  handleBackButtonClick,
-  setIsTopSubmitButtonClicked,
+  onBackButtonClick,
+  onSubmit,
+  isSubmitting,
 }: TopAppBarForMobileProps) {
-  function handleSubmitButtonClick() {
-    setIsTopSubmitButtonClicked(true);
-  }
+  const { t } = useTranslation();
 
   return (
     <header className="block h-[67px] sm:hidden">
       <div className="fixed left-0 top-0 z-50 w-full bg-white px-4">
         <div className="mx-auto grid max-w-screen-sm grid-cols-3 py-5">
           <div className="flex items-center">
-            <button onClick={handleBackButtonClick}>
+            <button onClick={onBackButtonClick}>
               <IconChevronLeft size={24} className="text-gray-80" />
             </button>
           </div>
-          <h2 className="text-center text-gray-90 text-lg-300">스케줄 입력</h2>
+          <h2 className="text-center text-gray-90 text-lg-300">
+            {t('scheduleAdd.enterSchedule')}
+          </h2>
           {pageIndex === 1 && (
             <div className="flex items-center justify-end">
-              <button
-                className="rounded-lg bg-primary-00 px-3 py-1.5 text-primary-50 text-sm-200"
-                onClick={handleSubmitButtonClick}
+              <SmallButton
+                variant={isSubmitting ? 'gray' : 'primary'}
+                onClick={onSubmit}
+                disabled={isSubmitting}
               >
-                완료
-              </button>
+                {isSubmitting ? t('scheduleAdd.doing') : t('scheduleAdd.done')}
+              </SmallButton>
             </div>
           )}
         </div>

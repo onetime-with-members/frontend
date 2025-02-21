@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import PinPasswordInput from './PinPasswordInput/PinPasswordInput';
 import ScheduleInputLabel from './ScheduleInputLabel/ScheduleInputLabel';
 import NicknameFormControl from '@/components/NicknameFormControl/NicknameFormControl';
@@ -14,6 +16,8 @@ export default function InputContent({
   setGuestValue,
   setNicknameDisabled,
 }: InputContentProps) {
+  const { t } = useTranslation();
+
   function handleInputChange<T>(key: keyof GuestValueType) {
     return function (value: T) {
       setGuestValue((prev) => ({
@@ -31,7 +35,9 @@ export default function InputContent({
         setSubmitDisabled={setNicknameDisabled}
       />
       <div className="flex flex-col gap-2">
-        <ScheduleInputLabel htmlFor="pin">비밀번호</ScheduleInputLabel>
+        <ScheduleInputLabel htmlFor="pin">
+          {t('scheduleAdd.password')}
+        </ScheduleInputLabel>
         <PinPasswordInput
           inputId="pin"
           pin={guestValue.pin}

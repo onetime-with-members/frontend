@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import cn from '@/utils/cn';
 
 interface AvailableToggleProps {
@@ -11,6 +13,8 @@ export default function PossibleTimeToggle({
   onToggle,
   className,
 }: AvailableToggleProps) {
+  const { t } = useTranslation();
+
   return (
     <div className={cn('flex items-center gap-2', className)}>
       <div
@@ -32,7 +36,9 @@ export default function PossibleTimeToggle({
         ></div>
       </div>
       <span className="text-gray-60 text-md-200">
-        {isPossibleTime ? '되는' : '안되는'} 시간 체크
+        {isPossibleTime
+          ? t('timeBlockBoard.availableToggleText')
+          : t('timeBlockBoard.unavailableToggleText')}
       </span>
     </div>
   );
