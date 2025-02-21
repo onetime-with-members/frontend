@@ -123,7 +123,7 @@ export default function ScheduleCreatePage() {
   return (
     <>
       <Helmet>
-        <title>{t('scheduleAdd.addSchedule')} - OneTime</title>
+        <title>{t('scheduleAdd.addSchedule')} | OneTime</title>
       </Helmet>
 
       <TopNavBarForDesktop />

@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import EventFormContent from '@/components/EventFormContent/EventFormContent';
@@ -8,6 +9,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export default function EventCreatePage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const createEvent = useMutation({
     mutationFn: (value: EventValueType) => {
@@ -26,7 +28,7 @@ export default function EventCreatePage() {
   return (
     <>
       <Helmet>
-        <title>이벤트 생성 | OneTime</title>
+        <title>{t('createEvent.createEvent')} | OneTime</title>
       </Helmet>
       <EventFormContent
         onSubmit={handleSubmit}

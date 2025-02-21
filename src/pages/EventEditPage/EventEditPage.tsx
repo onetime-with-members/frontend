@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import EventFormContent from '@/components/EventFormContent/EventFormContent';
@@ -12,6 +13,7 @@ export default function EventEditPage() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const params = useParams<{ eventId: string }>();
+  const { i18n } = useTranslation();
 
   const { data, isPending, error } = useQuery<EventType>({
     queryKey: ['events', params.eventId],
@@ -59,7 +61,12 @@ export default function EventEditPage() {
     <>
       {data && (
         <Helmet>
-          <title>{data.title} 수정 | OneTime</title>
+          <title>
+            {i18n.language === 'ko'
+              ? `${data.title} 수정`
+              : `Edit ${data.title}`}{' '}
+            | OneTime
+          </title>
         </Helmet>
       )}
       <EventFormContent

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import SleepTimeAccordion from './SleepTimeAccordion/SleepTimeAccordion';
@@ -22,6 +23,7 @@ export default function MyScheduleEditPage() {
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const { data } = useQuery<MyScheduleTimeType[]>({
     queryKey: ['fixed-schedules'],
@@ -74,7 +76,7 @@ export default function MyScheduleEditPage() {
   return (
     <>
       <Helmet>
-        <title>내 스케줄 수정 | OneTime</title>
+        <title>{t('myScheduleEdit.myScheduleEdit')} | OneTime</title>
       </Helmet>
 
       <div className="flex flex-col">

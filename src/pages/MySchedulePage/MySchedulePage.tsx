@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
@@ -7,6 +8,8 @@ import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MySchedulePage() {
+  const { t } = useTranslation();
+
   const { data } = useQuery<MyScheduleTimeType[]>({
     queryKey: ['fixed-schedules'],
     queryFn: async () => {
@@ -18,7 +21,7 @@ export default function MySchedulePage() {
   return (
     <>
       <Helmet>
-        <title>내 스케줄 | OneTime</title>
+        <title>{t('mypage.mySchedule')} | OneTime</title>
       </Helmet>
 
       <div className="mx-auto w-full max-w-screen-md pb-32">

@@ -2,7 +2,8 @@
   "common": {
     "noOneSchedule": "No one has added a schedule.",
     "participantCount_one": "{{count}} person",
-    "participantCount_other": "{{count}} people"
+    "participantCount_other": "{{count}} people",
+    "title": "Find The Perfect Time Easily And Quickly"
   },
   "navbar": {
     "login": "Login",
@@ -78,6 +79,12 @@
     "backButtonConfirm": "Continue",
     "backButtonCancel": "Leave"
   },
+  "createEvent": {
+    "createEvent": "Create Event"
+  },
+  "editEvent": {
+    "editEvent": "Edit {{eventName}}"
+  },
   "eventForm": {
     "eventName": "Event Name",
     "max30Characters": "Max 30 characters",
@@ -121,6 +128,7 @@
     "profile": "Profile"
   },
   "myScheduleEdit": {
+    "myScheduleEdit": "Edit My Schedule",
     "editMySchedule": "Edit My Schedule",
     "sleepTime": "Sleep Time",
     "done": "Done"
