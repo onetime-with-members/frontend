@@ -1,3 +1,4 @@
+import { Trans, useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Alert from '@/components/alert/Alert/Alert';
@@ -9,6 +10,7 @@ interface LoginAlertProps {
 export default function LoginAlert({ setIsOpen }: LoginAlertProps) {
   const navigate = useNavigate();
   const params = useParams<{ eventId: string }>();
+  const { t } = useTranslation();
 
   function handleLoginAlertClose() {
     setIsOpen(false);
@@ -27,15 +29,16 @@ export default function LoginAlert({ setIsOpen }: LoginAlertProps) {
       onConfirm={handleLoginAlertConfirm}
       onCancel={handleLoginAlertCancel}
       onClose={handleLoginAlertClose}
-      confirmText="로그인"
-      cancelText="다음에 할게요"
+      confirmText={t('alert.loginConfirm')}
+      cancelText={t('alert.loginCancel')}
     >
       <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">
-        <h2 className="text-gray-80 text-lg-300">로그인 하시겠어요?</h2>
+        <h2 className="text-gray-80 text-lg-300">{t('alert.loginTitle')}</h2>
         <p className="text-gray-60 text-md-100">
-          로그인하면 정보가 자동으로 입력되고,
-          <br />
-          스케줄을 저장할 수 있어요!
+          <Trans i18nKey="alert.loginDescription">
+            로그인하면 정보가 자동으로 입력되고, <br />
+            스케줄을 저장할 수 있어요!
+          </Trans>
         </p>
       </div>
     </Alert>

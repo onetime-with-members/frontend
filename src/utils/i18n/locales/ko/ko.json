@@ -40,6 +40,21 @@
     "more": "더 보기",
     "qrCodeScreen": "<0>{{eventName}}</0>에 <br />스케줄을 등록해 주세요!"
   },
+  "alert": {
+    "loginTitle": "로그인 하시겠어요?",
+    "loginDescription": "로그인하면 정보가 자동으로 입력되고, <br />스케줄을 저장할 수 있어요!",
+    "loginConfirm": "로그인",
+    "loginCancel": "다음에 할게요",
+    "deleteEventTitle": "정말로 이벤트를 삭제하시겠어요?",
+    "deleteEventDescription": "이벤트를 삭제하면, 해당 이벤트에 <br />등록된 모든 스케줄이 삭제돼요!",
+    "deleteEventConfirm": "삭제",
+    "deleteEventCancel": "취소",
+    "deleteEventConfirming": "삭제 중...",
+    "backButtonTitle": "페이지를 나가시겠어요?",
+    "backButtonDescription": "스케줄을 등록하지 않고 페이지를 벗어날 경우, <br />지금까지 입력한 내용이 사라져요!",
+    "backButtonConfirm": "계속 입력하기",
+    "backButtonCancel": "나가기"
+  },
   "eventForm": {
     "eventName": "이벤트 제목",
     "max30Characters": "최대 30자",

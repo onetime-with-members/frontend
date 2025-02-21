@@ -40,6 +40,21 @@
     "more": "More",
     "qrCodeScreen": "Please add your schedule <br />to <0>{{eventName}}</0>!"
   },
+  "alert": {
+    "loginTitle": "Would you like to log in?",
+    "loginDescription": "If you log in, your information is automatically entered, and you can save your schedule!",
+    "loginConfirm": "Login",
+    "loginCancel": "Not now",
+    "deleteEventTitle": "Do you really want to delete the event?",
+    "deleteEventDescription": "If you delete the event, all schedules added to it will be removed!",
+    "deleteEventConfirm": "Delete",
+    "deleteEventCancel": "Cancel",
+    "deleteEventConfirming": "Deleting...",
+    "backButtonTitle": "Do you want to leave the page?",
+    "backButtonDescription": "If you leave the page without adding a schedule, all the information you entered will disappear!",
+    "backButtonConfirm": "Continue",
+    "backButtonCancel": "Leave"
+  },
   "eventForm": {
     "eventName": "Event Name",
     "max30Characters": "Max 30 characters",

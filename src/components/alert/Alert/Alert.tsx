@@ -24,7 +24,7 @@ export default function Alert({
         className="flex w-full max-w-[23rem] cursor-auto flex-col overflow-hidden rounded-2xl bg-gray-00"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex-1">{children}</div>
+        <div className="flex-1 px-4">{children}</div>
         <div className="flex items-center">
           <button
             className="flex-1 bg-gray-05 px-3 py-4 text-gray-40 text-lg-200"
