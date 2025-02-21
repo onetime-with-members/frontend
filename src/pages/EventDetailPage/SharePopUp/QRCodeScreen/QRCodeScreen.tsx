@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
+import { Trans } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 import logoWhite from '@/assets/logo-white.svg';
 import ClockPattern from '@/components/ClockPattern/ClockPattern';
-import { EventType } from '@/types/event.type';
+import { useEventQuery } from '@/queries/event.queries';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
@@ -11,16 +12,16 @@ import { useQuery } from '@tanstack/react-query';
 
 interface QRCodeScreenProps {
   visible?: boolean;
-  event: EventType;
   onClose?: () => void;
 }
 
 export default function QRCodeScreen({
   visible = false,
-  event,
   onClose,
 }: QRCodeScreenProps) {
   const params = useParams<{ eventId: string }>();
+
+  const { data: event } = useEventQuery(params.eventId);
 
   const { data: qrData, isLoading: isQrLoading } = useQuery({
     queryKey: ['events', 'qr', params.eventId],
@@ -82,8 +83,13 @@ export default function QRCodeScreen({
               />
             </div>
             <p className="text-center text-primary-10 title-sm-300">
-              <span className="text-primary-00">{event.title}</span>에<br />
-              스케줄을 등록해 주세요!
+              <Trans
+                i18nKey="sharePopUp.qrCodeScreen"
+                values={{ eventName: event?.title }}
+              >
+                <span className="text-primary-00">{event?.title}</span>에<br />
+                스케줄을 등록해 주세요!
+              </Trans>
             </p>
           </div>
         </div>

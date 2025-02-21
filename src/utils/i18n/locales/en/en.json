@@ -32,6 +32,14 @@
     "copyLink": "Copy Link",
     "copied": "Copied"
   },
+  "sharePopUp": {
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "qrCode": "QR Code",
+    "kakao": "KakaoTalk",
+    "more": "More",
+    "qrCodeScreen": "Please add your schedule <br />to <0>{{eventName}}</0>!"
+  },
   "eventForm": {
     "eventName": "Event Name",
     "max30Characters": "Max 30 characters",

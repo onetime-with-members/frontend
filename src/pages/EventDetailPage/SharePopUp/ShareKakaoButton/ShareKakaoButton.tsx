@@ -1,6 +1,8 @@
+import { useParams } from 'react-router-dom';
+
 import kakaoIcon from '@/assets/kakao-icon.svg';
 import useKakaoShare from '@/hooks/useKakaoShare';
-import { EventType } from '@/types/event.type';
+import { useEventQuery } from '@/queries/event.queries';
 import cn from '@/utils/cn';
 
 declare global {
@@ -10,14 +12,14 @@ declare global {
 }
 
 interface ShareKakaoButtonProps {
-  event: EventType;
   size?: number;
 }
 
-export default function ShareKakaoButton({
-  event,
-  size = 48,
-}: ShareKakaoButtonProps) {
+export default function ShareKakaoButton({ size = 48 }: ShareKakaoButtonProps) {
+  const params = useParams<{ eventId: string }>();
+
+  const { data: event } = useEventQuery(params.eventId);
+
   const { handleKakaoShare } = useKakaoShare({
     event,
   });

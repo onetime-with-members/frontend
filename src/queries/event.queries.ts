@@ -19,6 +19,11 @@ export const useEventQuery = (eventId: string | undefined) =>
         event.ranges = event.ranges.sort();
       }
 
+      const shortenActionRes = await axios.post('/urls/action-shorten', {
+        original_url: window.location.href,
+      });
+      event.shortenUrl = shortenActionRes.data.payload.shorten_url;
+
       return event;
     },
     retry: false,

@@ -32,6 +32,14 @@
     "copyLink": "링크 복사",
     "copied": "복사 완료"
   },
+  "sharePopUp": {
+    "share": "공유하기",
+    "copyLink": "링크 복사",
+    "qrCode": "QR 코드",
+    "kakao": "카카오톡",
+    "more": "더 보기",
+    "qrCodeScreen": "<0>{{eventName}}</0>에 <br />스케줄을 등록해 주세요!"
+  },
   "eventForm": {
     "eventName": "이벤트 제목",
     "max30Characters": "최대 30자",

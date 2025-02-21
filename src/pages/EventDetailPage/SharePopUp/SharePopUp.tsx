@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 import QRCodeScreen from './QRCodeScreen/QRCodeScreen';
 import ShareBlueButton from './ShareBlueButton/ShareBlueButton';
@@ -6,36 +8,25 @@ import ShareButtonWrapper from './ShareButtonWrapper/ShareButtonWrapper';
 import ShareKakaoButton from './ShareKakaoButton/ShareKakaoButton';
 import ShareMoreButton from './ShareMoreButton/ShareMoreButton';
 import Input from '@/components/Input/Input';
-import { EventType } from '@/types/event.type';
-import axios from '@/utils/axios';
+import { useEventQuery } from '@/queries/event.queries';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';
-import { useMutation } from '@tanstack/react-query';
 
 interface SharePopUpProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  event: EventType;
 }
 
-export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
-  const [currentUrl, setCurrentUrl] = useState('Loading...');
+export default function SharePopUp({ setIsOpen }: SharePopUpProps) {
   const [isQrCodeScreenOpen, setIsQrCodeScreenOpen] = useState(false);
 
   const urlInputRef = useRef<HTMLInputElement>(null);
 
-  const makeShortenUrl = useMutation({
-    mutationFn: async () => {
-      const res = await axios.post('/urls/action-shorten', {
-        original_url: window.location.href,
-      });
-      return res.data;
-    },
-    onSuccess: (data) => {
-      setCurrentUrl(data.payload.shorten_url);
-    },
-  });
+  const params = useParams<{ eventId: string }>();
+  const { t } = useTranslation();
+
+  const { data: event } = useEventQuery(params.eventId);
 
   function handleCopyLinkButtonClick() {
-    navigator.clipboard.writeText(currentUrl);
+    navigator.clipboard.writeText(event?.shortenUrl || '');
     if (urlInputRef.current) {
       urlInputRef.current.select();
     }
@@ -53,10 +44,6 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
     setIsQrCodeScreenOpen(false);
   }
 
-  useEffect(() => {
-    makeShortenUrl.mutate();
-  }, [event]);
-
   return (
     <>
       <div
@@ -68,7 +55,9 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between px-5 pb-3 pt-4">
-            <h2 className="text-gray-80 text-lg-300">공유하기</h2>
+            <h2 className="text-gray-80 text-lg-300">
+              {t('sharePopUp.share')}
+            </h2>
             <button className="text-gray-40" onClick={handleSharePopUpClose}>
               <IconX size={24} />
             </button>
@@ -77,7 +66,7 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
             <div className="flex flex-col gap-3">
               <Input
                 inputRef={urlInputRef}
-                value={currentUrl}
+                value={event?.shortenUrl || 'Loading...'}
                 className="overflow-hidden text-sm-100"
                 inputClassName="pr-0"
                 inputMode="none"
@@ -85,21 +74,21 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
               />
             </div>
             <div className="flex items-center justify-center gap-4 min-[360px]:gap-6 xs:gap-8">
-              <ShareButtonWrapper label="링크 복사">
+              <ShareButtonWrapper label={t('sharePopUp.copyLink')}>
                 <ShareBlueButton onClick={handleCopyLinkButtonClick}>
                   <IconLink size={24} />
                 </ShareBlueButton>
               </ShareButtonWrapper>
-              <ShareButtonWrapper label="QR 코드">
+              <ShareButtonWrapper label={t('sharePopUp.qrCode')}>
                 <ShareBlueButton onClick={handleQrCodeButtonClick}>
                   <IconQrcode size={24} />
                 </ShareBlueButton>
               </ShareButtonWrapper>
-              <ShareButtonWrapper label="카카오톡">
-                <ShareKakaoButton event={event} />
+              <ShareButtonWrapper label={t('sharePopUp.kakao')}>
+                <ShareKakaoButton />
               </ShareButtonWrapper>
-              <ShareButtonWrapper label="더보기">
-                <ShareMoreButton event={event} currentUrl={currentUrl} />
+              <ShareButtonWrapper label={t('sharePopUp.more')}>
+                <ShareMoreButton />
               </ShareButtonWrapper>
             </div>
           </div>
@@ -107,7 +96,6 @@ export default function SharePopUp({ event, setIsOpen }: SharePopUpProps) {
       </div>
       <QRCodeScreen
         visible={isQrCodeScreenOpen}
-        event={event}
         onClose={handleQrCodeScreenClose}
       />
     </>

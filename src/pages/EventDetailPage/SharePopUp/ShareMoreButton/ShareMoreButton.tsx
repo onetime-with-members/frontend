@@ -1,20 +1,18 @@
-import { EventType } from '@/types/event.type';
+import { useParams } from 'react-router-dom';
+
+import { useEventQuery } from '@/queries/event.queries';
 import { IconDots } from '@tabler/icons-react';
 
-interface ShareMoreButtonProps {
-  event: EventType;
-  currentUrl: string;
-}
+export default function ShareMoreButton() {
+  const params = useParams<{ eventId: string }>();
 
-export default function ShareMoreButton({
-  event,
-  currentUrl,
-}: ShareMoreButtonProps) {
+  const { data: event } = useEventQuery(params.eventId);
+
   function handleClick() {
     let shareData = {
-      title: `${event.title} - OneTime`,
+      title: `${event?.title} - OneTime`,
       text: '스케줄 등록 요청이 도착했습니다.',
-      url: currentUrl,
+      url: event?.shortenUrl,
     };
 
     if (navigator.share) {

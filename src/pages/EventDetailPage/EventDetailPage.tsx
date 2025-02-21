@@ -58,10 +58,6 @@ export default function EventDetailPage() {
     setParticipants(schedules || []);
   }, [schedules]);
 
-  useEffect(() => {
-    console.log(event);
-  }, [event]);
-
   return (
     <>
       {!isEventPending && event && !eventError && (
@@ -90,7 +86,7 @@ export default function EventDetailPage() {
       </div>
 
       {isSharePopUpOpen && event && (
-        <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
+        <SharePopUp setIsOpen={setIsSharePopUpOpen} />
       )}
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
       {isDeleteAlertOpen && (
