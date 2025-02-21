@@ -111,7 +111,9 @@
     "hello": "Hello, {{name}}",
     "createEvent": "Create Event",
     "joinedEvents": "Joined Events",
-    "mySchedule": "My Schedule"
+    "mySchedule": "My Schedule",
+    "loadingEvents": "Loading events...",
+    "noEvent": "You haven't joined any events yet."
   },
   "mypage": {
     "joinedEvents": "Joined Events",

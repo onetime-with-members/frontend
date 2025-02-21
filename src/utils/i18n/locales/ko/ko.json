@@ -111,7 +111,9 @@
     "hello": "안녕하세요, {{name}}님",
     "createEvent": "이벤트 생성하기",
     "joinedEvents": "참여한 이벤트",
-    "mySchedule": "내 스케줄"
+    "mySchedule": "내 스케줄",
+    "loadingEvents": "이벤트를 불러오는 중입니다...",
+    "noEvent": "아직 참여한 이벤트가 없어요."
   },
   "mypage": {
     "joinedEvents": "참여한 이벤트",

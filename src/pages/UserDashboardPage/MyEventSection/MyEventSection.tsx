@@ -26,7 +26,7 @@ export default function MyEventSection() {
       </Header>
       {isEventsPending && (
         <div className="rounded-2xl py-5">
-          <EmptyUI>이벤트를 불러오는 중입니다.</EmptyUI>
+          <EmptyUI>{t('userDashboard.loadingEvents')}</EmptyUI>
         </div>
       )}
       {!isEventsPending && events && (
@@ -34,7 +34,7 @@ export default function MyEventSection() {
           <ul className="grid grid-cols-1 md:hidden">
             {events.length === 0 && (
               <div className="rounded-2xl bg-gray-00 py-5">
-                <EmptyUI>아직 참여한 이벤트가 없어요.</EmptyUI>
+                <EmptyUI>{t('userDashboard.noEvent')}</EmptyUI>
               </div>
             )}
             {events.length >= 1 &&
@@ -55,7 +55,7 @@ export default function MyEventSection() {
           >
             {events.length === 0 && (
               <div className="rounded-2xl bg-gray-00 py-5">
-                <EmptyUI>아직 참여한 이벤트가 없어요.</EmptyUI>
+                <EmptyUI>{t('userDashboard.noEvent')}</EmptyUI>
               </div>
             )}
             {events.length >= 1 &&
