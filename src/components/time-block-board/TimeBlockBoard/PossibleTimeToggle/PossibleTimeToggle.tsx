@@ -26,7 +26,7 @@ export default function PossibleTimeToggle({
           className={cn(
             'h-[18px] w-[18px] translate-x-0 rounded-full bg-white duration-150',
             {
-              'translate-x-[22px]': !isPossibleTime,
+              'translate-x-[16.5px]': !isPossibleTime,
             },
           )}
         ></div>

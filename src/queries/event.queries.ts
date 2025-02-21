@@ -20,7 +20,7 @@ export const useEventQuery = (eventId: string | undefined) =>
       }
 
       const shortenActionRes = await axios.post('/urls/action-shorten', {
-        original_url: window.location.href,
+        original_url: `${window.location.origin}/events/${event.event_id}`,
       });
       event.shortenUrl = shortenActionRes.data.payload.shorten_url;
 

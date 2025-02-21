@@ -20,7 +20,7 @@ import PolicyEditPage from './pages/PolicyEditPage/PolicyEditPage';
 import PolicyPage from './pages/PolicyPage/PolicyPage';
 import ProfileEditPage from './pages/ProfileEditPage/ProfileEditPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
-import ScheduleCreatePage from './pages/ScheduleCreatePage/ScheduleCreatePage';
+import ScheduleCreatePage from './pages/ScheduleAddPage/ScheduleAddPage';
 import WithdrawPage from './pages/WithdrawPage/WithdrawPage';
 
 const router = createBrowserRouter([
