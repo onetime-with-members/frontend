@@ -42,7 +42,7 @@ export default function WeekdaySelect({
 
   return (
     <div className={cn('flex gap-3', className)} onMouseLeave={handleDragEnd}>
-      {dayjs.weekdaysMin().map((weekday) => (
+      {dayjs.weekdaysShort().map((weekday) => (
         <DateItem
           key={weekday}
           data-weekday={weekday}
