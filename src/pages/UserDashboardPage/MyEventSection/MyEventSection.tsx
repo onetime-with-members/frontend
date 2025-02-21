@@ -31,7 +31,7 @@ export default function MyEventSection() {
       )}
       {!isEventsPending && events && (
         <>
-          <ul className="grid grid-cols-1 lg:hidden">
+          <ul className="grid grid-cols-1 md:hidden">
             {events.length === 0 && (
               <div className="rounded-2xl bg-gray-00 py-5">
                 <EmptyUI>아직 참여한 이벤트가 없어요.</EmptyUI>
@@ -49,7 +49,7 @@ export default function MyEventSection() {
                 ))}
           </ul>
           <ul
-            className={cn('hidden grid-cols-2 gap-4 lg:grid', {
+            className={cn('hidden grid-cols-2 gap-4 md:grid', {
               'grid-cols-1': events.length === 0,
             })}
           >

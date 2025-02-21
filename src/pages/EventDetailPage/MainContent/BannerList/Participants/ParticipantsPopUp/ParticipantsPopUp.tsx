@@ -26,7 +26,9 @@ export default function ParticipantsPopUp({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <h2 className="text-gray-80 text-lg-300">
-              {t('eventDetail.peopleWhoAddedSchedules')}
+              {t('eventDetail.peopleWhoAddedSchedules', {
+                count: participants.length,
+              })}
             </h2>
             <span className="text-primary-50 text-lg-300">
               {participants.length}

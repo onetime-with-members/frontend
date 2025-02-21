@@ -58,6 +58,10 @@ export default function EventDetailPage() {
     setParticipants(schedules || []);
   }, [schedules]);
 
+  useEffect(() => {
+    console.log(event);
+  }, [event]);
+
   return (
     <>
       {!isEventPending && event && !eventError && (

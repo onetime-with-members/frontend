@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 
 import cn from '@/utils/cn';
+import { weekdaysShortKo } from '@/utils/weekday';
 
 interface TopDateLabelProps {
   category: 'DAY' | 'DATE';
@@ -27,7 +28,11 @@ export default function TopDateLabel({
           </span>
         </div>
       ) : (
-        <span className="text-gray-30 text-md-200">{timePoint}</span>
+        <span className="text-gray-30 text-md-200">
+          {dayjs()
+            .day(weekdaysShortKo.findIndex((weekday) => weekday === timePoint))
+            .format('ddd')}
+        </span>
       )}
     </div>
   );

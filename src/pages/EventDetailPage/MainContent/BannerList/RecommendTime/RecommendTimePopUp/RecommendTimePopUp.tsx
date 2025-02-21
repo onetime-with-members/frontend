@@ -7,6 +7,7 @@ import {
   useEventQuery,
   useRecommendedTimesQuery,
 } from '@/queries/event.queries';
+import { weekdaysShortKo } from '@/utils/weekday';
 import { IconX } from '@tabler/icons-react';
 
 interface RecommendTimeDialogProps {
@@ -66,9 +67,16 @@ export default function RecommendTimePopUp({
                 <h3 className={style.dateTitle}>
                   {event.category === 'DATE'
                     ? dayjs(recommendSchedule.timePoint, 'YYYY.MM.DD').format(
-                        'YYYY.MM.DD (dd)',
+                        'YYYY.MM.DD (ddd)',
                       )
-                    : `${recommendSchedule.timePoint}요일`}
+                    : dayjs()
+                        .day(
+                          weekdaysShortKo.findIndex(
+                            (weekday) =>
+                              weekday === recommendSchedule.timePoint,
+                          ),
+                        )
+                        .format('dddd')}
                 </h3>
                 <ul className={style.timeAccordionList}>
                   {recommendSchedule.schedules.map((schedule, index) => (

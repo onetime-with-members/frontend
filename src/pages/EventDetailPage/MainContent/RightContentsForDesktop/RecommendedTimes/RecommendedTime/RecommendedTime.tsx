@@ -6,6 +6,7 @@ import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import ClockIcon from '@/components/icon/ClockIcon';
 import { useEventQuery } from '@/queries/event.queries';
 import { RecommendScheduleType } from '@/types/schedule.type';
+import { weekdaysShortKo } from '@/utils/weekday';
 
 interface RecommendedTimeProps {
   recommendedTime: RecommendScheduleType;
@@ -29,9 +30,15 @@ export default function RecommendedTime({
           <span>
             {event && event.category === 'DATE'
               ? dayjs(recommendedTime.time_point, 'YYYY.MM.DD').format(
-                  'YYYY.MM.DD (dd)',
+                  'YYYY.MM.DD (ddd)',
                 )
-              : `${recommendedTime.time_point}요일`}
+              : dayjs()
+                  .day(
+                    weekdaysShortKo.findIndex(
+                      (weekday) => weekday === recommendedTime.time_point,
+                    ),
+                  )
+                  .format('dddd')}
           </span>
           <span>
             {recommendedTime.start_time} - {recommendedTime.end_time}

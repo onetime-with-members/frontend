@@ -9,6 +9,7 @@ import {
   useRecommendedTimesQuery,
 } from '@/queries/event.queries';
 import cn from '@/utils/cn';
+import { weekdaysShortKo } from '@/utils/weekday';
 import { IconChevronRight } from '@tabler/icons-react';
 
 export default function RecommendTime() {
@@ -81,9 +82,16 @@ export default function RecommendTime() {
                 <span>
                   {event.category === 'DATE'
                     ? dayjs(recommendTimes[0].time_point, 'YYYY.MM.DD').format(
-                        'YYYY.MM.DD (dd)',
+                        'YYYY.MM.DD (ddd)',
                       )
-                    : `${recommendTimes[0].time_point}요일`}
+                    : dayjs()
+                        .day(
+                          weekdaysShortKo.findIndex(
+                            (weekday) =>
+                              weekday === recommendTimes[0].time_point,
+                          ),
+                        )
+                        .format('dddd')}
                 </span>
                 <span className="ml-2">
                   {recommendTimes[0].start_time} - {recommendTimes[0].end_time}

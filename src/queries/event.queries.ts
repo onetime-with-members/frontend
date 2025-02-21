@@ -1,7 +1,7 @@
 import { EventType } from '@/types/event.type';
 import { RecommendScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
-import { sortWeekdayList } from '@/utils/weekday';
+import { weekdaysShortKo } from '@/utils/weekday';
 import { useQuery } from '@tanstack/react-query';
 
 export const useEventQuery = (eventId: string | undefined) =>
@@ -12,9 +12,11 @@ export const useEventQuery = (eventId: string | undefined) =>
       const event = res.data.payload;
 
       if (event.category === 'DAY') {
-        event.ranges = sortWeekdayList(event.ranges);
+        event.ranges = weekdaysShortKo.filter((weekday) =>
+          event.ranges.includes(weekday),
+        );
       } else {
-        event.ranges = event.ranges?.sort();
+        event.ranges = event.ranges.sort();
       }
 
       return event;

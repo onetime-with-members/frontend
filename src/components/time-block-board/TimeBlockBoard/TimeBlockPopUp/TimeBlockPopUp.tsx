@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import { TimeBlockPopUpDataType } from '@/types/schedule.type';
 import cn from '@/utils/cn';
+import { weekdaysShortKo } from '@/utils/weekday';
 import { IconX } from '@tabler/icons-react';
 
 interface TimeBlockPopUpProps {
@@ -42,8 +43,14 @@ export default function TimeBlockPopUp({
           <div className="text-gray-00 text-lg-300">
             <span>
               {category === 'DATE'
-                ? dayjs(timePoint, 'YYYY.MM.DD').format('YYYY.MM.DD (dd)')
-                : `${timePoint}요일`}
+                ? dayjs(timePoint, 'YYYY.MM.DD').format('YYYY.MM.DD (ddd)')
+                : dayjs()
+                    .day(
+                      weekdaysShortKo.findIndex(
+                        (weekday) => weekday === timePoint,
+                      ),
+                    )
+                    .format('dddd')}
             </span>
             <span className="ml-2">
               {startTime} - {endTime}
