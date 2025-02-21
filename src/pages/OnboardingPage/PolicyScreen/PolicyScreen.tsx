@@ -66,7 +66,7 @@ export default function PolicyScreen({
         page={page}
         title={
           <Trans i18nKey="onboarding.title1">
-            서비스 이용을 위해 <br />
+            서비스 이용을 위해 <br className="hidden xs:block" />
             약관에 동의해주세요
           </Trans>
         }
