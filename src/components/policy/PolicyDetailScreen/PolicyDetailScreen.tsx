@@ -19,7 +19,7 @@ export default function PolicyDetailScreen({
   useGrayBackground();
 
   return (
-    <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center">
+    <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center bg-gray-05">
       <>
         <TopAppBarForMobile
           pageTitle={pageTitle}

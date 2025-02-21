@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import NicknameFormScreen from './NicknameFormScreen/NicknameFormScreen';
@@ -31,6 +32,7 @@ export default function OnboardingPage() {
 
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation();
 
   const onboarding = useMutation({
     mutationFn: async () => {
@@ -95,7 +97,7 @@ export default function OnboardingPage() {
   return (
     <>
       <Helmet>
-        <title>회원가입 | OneTime</title>
+        <title>{t('onboarding.onboarding')} | OneTime</title>
       </Helmet>
 
       <div className="flex flex-1 flex-col md:gap-4">

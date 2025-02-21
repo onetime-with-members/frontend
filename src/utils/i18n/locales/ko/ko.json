@@ -22,6 +22,22 @@
     "naver": "네이버 로그인",
     "google": "Google 계정으로 로그인"
   },
+  "onboarding": {
+    "onboarding": "온보딩",
+    "termsOfService": "서비스 이용약관",
+    "privacyPolicy": "개인정보 수집 및 이용 동의",
+    "title1": "서비스 이용을 위해 <1 />약관에 동의해주세요",
+    "title2": "회원님의 <1 />이름을 알려주세요",
+    "title3": "시작하기 전, <1 />수면 시간을 알려주세요",
+    "title4": "환영합니다, <1 />{{name}}님!",
+    "description3": "스케줄 등록 시, 자동으로 수면 시간을 제외할 수 있어요.",
+    "description4": "지금부터 OneTime을 사용해볼까요?",
+    "sleepTime": "수면 시간",
+    "next": "다음",
+    "goBack": "돌아가기",
+    "previous": "이전으로",
+    "start": "시작하기"
+  },
   "eventDetail": {
     "participant_one": "참여자",
     "participant_other": "참여자",

@@ -27,7 +27,7 @@ export default function AllCheckItem({ value, setValue }: CheckItemProps) {
 
   return (
     <div
-      className="flex items-center gap-3 rounded-xl bg-gray-05 p-4"
+      className="flex cursor-pointer items-center gap-3 rounded-xl bg-gray-05 p-4"
       onClick={handleAllCheckboxClick}
     >
       <Checkbox

@@ -1,3 +1,5 @@
+import { Trans, useTranslation } from 'react-i18next';
+
 import clock from '@/assets/welcome-clock.svg';
 
 interface WelcomeContentProps {
@@ -5,6 +7,8 @@ interface WelcomeContentProps {
 }
 
 export default function WelcomeContent({ name }: WelcomeContentProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col items-center gap-6">
       <div>
@@ -12,12 +16,13 @@ export default function WelcomeContent({ name }: WelcomeContentProps) {
       </div>
       <div className="flex flex-col items-center gap-4">
         <h1 className="text-center text-[2rem] font-bold text-gray-90">
-          환영합니다,
-          <br className="block md:hidden" />
-          {name}님!
+          <Trans i18nKey="onboarding.title4" values={{ name }}>
+            환영합니다, <br className="block md:hidden" />
+            {name}님!
+          </Trans>
         </h1>
         <p className="text-gray-90 text-lg-200">
-          지금부터 OneTime을 사용해볼까요?
+          {t('onboarding.description4')}
         </p>
       </div>
     </div>

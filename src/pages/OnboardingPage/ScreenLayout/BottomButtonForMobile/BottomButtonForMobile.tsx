@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import FloatingBottomButton from '@/components/button/FloatingBottomButton/FloatingBottomButton';
 
 interface BottomButtonForMobileProps {
@@ -9,6 +11,8 @@ export default function BottomButtonForMobile({
   handleNextButtonClick,
   disabled,
 }: BottomButtonForMobileProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="block md:hidden">
       <FloatingBottomButton
@@ -17,7 +21,7 @@ export default function BottomButtonForMobile({
         disabled={disabled}
         fullWidth
       >
-        다음
+        {t('onboarding.next')}
       </FloatingBottomButton>
     </div>
   );

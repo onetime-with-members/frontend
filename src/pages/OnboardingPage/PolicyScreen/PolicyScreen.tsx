@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 
 import ScreenLayout from '../ScreenLayout/ScreenLayout';
 import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent/PolicyCheckboxContent';
@@ -34,10 +35,12 @@ export default function PolicyScreen({
     marketing_policy_agreement: false,
   });
 
+  const { t } = useTranslation();
+
   const pageTitle =
     pageDetail === 'service_policy_agreement'
-      ? '서비스 이용약관'
-      : '개인정보 수집 및 이용 동의';
+      ? t('onboarding.termsOfService')
+      : t('onboarding.privacyPolicy');
 
   function handlePageDetailClose() {
     setPageDetail(null);
@@ -62,10 +65,10 @@ export default function PolicyScreen({
         isVisible={isVisible}
         page={page}
         title={
-          <>
+          <Trans i18nKey="onboarding.title1">
             서비스 이용을 위해 <br />
             약관에 동의해주세요
-          </>
+          </Trans>
         }
         disabled={disabled}
         handleNextButtonClick={() => handleNextButtonClick(disabled)}

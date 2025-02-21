@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Trans } from 'react-i18next';
 
 import ScreenLayout from '../ScreenLayout/ScreenLayout';
 import NicknameFormControl from '@/components/NicknameFormControl/NicknameFormControl';
@@ -35,10 +36,10 @@ export default function NicknameFormScreen({
       isVisible={isVisible}
       page={page}
       title={
-        <>
+        <Trans i18nKey="onboarding.title2">
           회원님의 <br className="md:hidden" />
           이름을 알려주세요
-        </>
+        </Trans>
       }
       disabled={disabled}
       handleNextButtonClick={() => handleNextButtonClick(disabled)}

@@ -1,3 +1,5 @@
+import { Trans, useTranslation } from 'react-i18next';
+
 import ScreenLayout from '../ScreenLayout/ScreenLayout';
 import TimeDropdown from '@/components/TimeDropdown/TimeDropdown';
 import SleepIcon from '@/components/icon/SleepIcon';
@@ -20,6 +22,8 @@ export default function SleepTimeScreen({
   handleSubmitButtonClick,
   handleBackButtonClick,
 }: SleepTimeScreenProps) {
+  const { t } = useTranslation();
+
   function handleTimeChange(key: keyof OnboardingValueType) {
     return (time: string) => {
       setValue((prevValue) => ({
@@ -34,10 +38,10 @@ export default function SleepTimeScreen({
       isVisible={isVisible}
       page={page}
       title={
-        <>
+        <Trans i18nKey="onboarding.title3">
           시작하기 전, <br />
           수면 시간을 알려주세요
-        </>
+        </Trans>
       }
       handleNextButtonClick={() => handleSubmitButtonClick(false)}
       handleBackButtonClick={handleBackButtonClick}
@@ -47,7 +51,9 @@ export default function SleepTimeScreen({
           <span>
             <SleepIcon />
           </span>
-          <span className="text-gray-80 text-md-300">수면 시간</span>
+          <span className="text-gray-80 text-md-300">
+            {t('onboarding.sleepTime')}
+          </span>
         </div>
         <div className="flex items-center gap-4">
           <TimeDropdown
@@ -63,7 +69,7 @@ export default function SleepTimeScreen({
           />
         </div>
         <p className="text-gray-40 text-sm-200">
-          스케줄 등록 시, 자동으로 수면 시간을 제외할 수 있어요
+          {t('onboarding.description3')}
         </p>
       </div>
     </ScreenLayout>
