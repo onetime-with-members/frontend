@@ -2,9 +2,9 @@ import { useContext, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import logoWhite from '@/assets/logo-white.svg';
+import LanguageDropdown from './LanguageDropdown/LanguageDropdown';
+import LogoContent from './LogoContent/LogoContent';
 import { FooterContext } from '@/contexts/FooterContext';
-import { IconBrandInstagram } from '@tabler/icons-react';
 
 export default function Footer() {
   const footerRef = useRef<HTMLDivElement>(null);
@@ -21,30 +21,21 @@ export default function Footer() {
 
   return (
     <footer ref={footerRef} className="bg-gray-80 px-4 pb-20 pt-8">
-      <div className="mx-auto flex max-w-screen-sm flex-col gap-4">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between">
-            <div>
-              <img src={logoWhite} alt="원타임 로고" />
-            </div>
-            <a
-              href="https://www.instagram.com/one.time.official/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-gray-70 p-2"
-            >
-              <IconBrandInstagram size={20} className="text-gray-40" />
-            </a>
+      <div className="mx-auto flex w-full max-w-screen-sm flex-col items-start gap-8">
+        <div className="flex w-full flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <LogoContent />
+            <p className="text-gray-20 text-sm-100">
+              ©OneTime. ALL RIGHTS RESERVED
+            </p>
           </div>
-          <p className="text-gray-20 text-sm-100">
-            ©OneTime. ALL RIGHTS RESERVED
-          </p>
+          <div className="flex items-center gap-2 text-gray-40">
+            <Link to="/policy/privacy">{t('footer.privacyPolicy')}</Link>
+            <span>|</span>
+            <Link to="/policy/service">{t('footer.termsOfService')}</Link>
+          </div>
         </div>
-        <div className="flex items-center gap-2 text-gray-40">
-          <Link to="/policy/privacy">{t('footer.privacyPolicy')}</Link>
-          <span>|</span>
-          <Link to="/policy/service">{t('footer.termsOfService')}</Link>
-        </div>
+        <LanguageDropdown />
       </div>
     </footer>
   );
