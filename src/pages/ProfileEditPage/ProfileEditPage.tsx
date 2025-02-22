@@ -85,6 +85,7 @@ export default function ProfileEditPage() {
             onClick={handleSubmit}
             className="hidden sm:flex"
             fullWidth
+            disabled={isDisabled}
           >
             {t('profileEdit.save')}
           </Button>

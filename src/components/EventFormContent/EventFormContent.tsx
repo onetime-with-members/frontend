@@ -47,6 +47,7 @@ export default function EventFormContent({
 
     setDisabled(
       value.title.trim() === '' ||
+        value.title.trim().length > 50 ||
         value.ranges.length === 0 ||
         startTime.isAfter(endTime) ||
         startTime.isSame(endTime),

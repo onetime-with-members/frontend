@@ -87,7 +87,7 @@
   },
   "eventForm": {
     "eventName": "Event Name",
-    "max30Characters": "Max 30 characters",
+    "max50Characters": "Max 50 characters",
     "enterEventName": "Enter the event name",
     "timeRange": "Time",
     "selectTimeRange": "Select the time range for the event.",
@@ -146,7 +146,7 @@
   "nickname": {
     "name": "Name",
     "noSpecialCharactersAndNumbers": "Special characters and numbers cannot be used.",
-    "maxCharacters": "Up to 10 characters can be entered.",
+    "max50Characters": "Up to 50 characters can be entered.",
     "enterName": "Enter your name"
   },
   "profileEdit": {

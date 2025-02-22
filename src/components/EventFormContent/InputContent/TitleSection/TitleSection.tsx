@@ -24,14 +24,14 @@ export default function TitleSection({ value, setValue }: TitleSectionProps) {
       <EventInputLabel
         labelId="title"
         labelText={t('eventForm.eventName')}
-        description={t('eventForm.max30Characters')}
+        description={t('eventForm.max50Characters')}
       />
       <Input
         type="text"
         id="title"
         name="title"
         placeholder={t('eventForm.enterEventName')}
-        maxLength={30}
+        maxLength={50}
         value={value.title}
         onChange={handleChange}
       />

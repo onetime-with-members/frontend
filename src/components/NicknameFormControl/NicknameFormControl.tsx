@@ -30,7 +30,7 @@ export default function NicknameFormControl({
 
     setInvalid({
       format: !lettersOnly.test(value) && value !== '',
-      length: value.length > 10,
+      length: value.length > 50,
       empty: value === '',
     });
   }, [value]);
@@ -66,7 +66,7 @@ export default function NicknameFormControl({
           )}
           {invalid.length && (
             <li className="text-danger-50 text-sm-200">
-              {t('nickname.maxCharacters')}
+              {t('nickname.max50Characters')}
             </li>
           )}
         </ul>

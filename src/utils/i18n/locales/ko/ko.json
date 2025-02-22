@@ -87,7 +87,7 @@
   },
   "eventForm": {
     "eventName": "이벤트 제목",
-    "max30Characters": "최대 30자",
+    "max50Characters": "최대 50자",
     "enterEventName": "어떤 이벤트인가요?",
     "timeRange": "시간",
     "selectTimeRange": "설문할 시간의 범위를 설정해주세요.",
@@ -146,7 +146,7 @@
   "nickname": {
     "name": "이름",
     "noSpecialCharactersAndNumbers": "특수문자 및 숫자는 사용할 수 없어요.",
-    "max10Characters": "10자 이내로 입력해주세요.",
+    "max50Characters": "50자 이내로 입력해주세요.",
     "enterName": "당신의 이름은 무엇인가요?"
   },
   "profileEdit": {
