@@ -63,37 +63,8 @@ export default function TimeBlockBoard({
     newStatus: boolean,
   ) {
     if (!editable) return;
-    initSchedule();
     editTimeBlock();
     changeIsEdited();
-
-    function initSchedule() {
-      if (!setSchedules) return;
-
-      setSchedules((prevSchedules) => {
-        const newSchedules = [...prevSchedules[0].schedules];
-
-        event.ranges.forEach((range) => {
-          const targetIndex = newSchedules.findIndex(
-            (s) => s.time_point === range,
-          );
-
-          if (targetIndex === -1) {
-            newSchedules.push({
-              time_point: range,
-              times: [],
-            });
-          }
-        });
-
-        return [
-          {
-            name: prevSchedules[0].name,
-            schedules: newSchedules,
-          },
-        ];
-      });
-    }
 
     function editTimeBlock() {
       if (!setSchedules) return;
@@ -225,6 +196,34 @@ export default function TimeBlockBoard({
           })),
     );
   }
+
+  useEffect(() => {
+    if (!setSchedules) return;
+
+    setSchedules((prevSchedules) => {
+      const newSchedules = [...prevSchedules[0].schedules];
+
+      event.ranges.forEach((range) => {
+        const targetIndex = newSchedules.findIndex(
+          (s) => s.time_point === range,
+        );
+
+        if (targetIndex === -1) {
+          newSchedules.push({
+            time_point: range,
+            times: [],
+          });
+        }
+      });
+
+      return [
+        {
+          name: prevSchedules[0].name,
+          schedules: newSchedules,
+        },
+      ];
+    });
+  }, []);
 
   useEffect(() => {
     if (!editable || schedules.length === 0) return;
