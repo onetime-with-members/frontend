@@ -35,7 +35,7 @@ export default function Footer() {
             <Link to="/policy/service">{t('footer.termsOfService')}</Link>
           </div>
         </div>
-        <LanguageDropdown />
+        <LanguageDropdown variant="dark" menuPosition="top" />
       </div>
     </footer>
   );

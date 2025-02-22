@@ -3,9 +3,18 @@ import { useTranslation } from 'react-i18next';
 
 import LanguageDropdownMenu from './LanguageDropdownMenu/LanguageDropdownMenu';
 import useDropdown from '@/hooks/useDropdown';
+import cn from '@/utils/cn';
 import { IconLanguage } from '@tabler/icons-react';
 
-export default function LanguageDropdown() {
+interface LanguageDropdownProps {
+  variant?: 'default' | 'dark';
+  menuPosition?: 'top' | 'bottom';
+}
+
+export default function LanguageDropdown({
+  variant = 'default',
+  menuPosition = 'bottom',
+}: LanguageDropdownProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const { isDropdownMenuOpen, handleDropdownClick, setIsDropdownMenuOpen } =
@@ -23,7 +32,13 @@ export default function LanguageDropdown() {
   return (
     <div ref={dropdownRef} className="relative">
       <button
-        className="flex items-center gap-1 rounded-lg bg-gray-70 px-3 py-2 text-gray-00 text-sm-200"
+        className={cn(
+          'flex items-center gap-1 rounded-lg bg-gray-10 px-3 py-2 text-gray-60 text-sm-200',
+          {
+            'bg-gray-70 text-gray-00': variant === 'dark',
+            'bg-primary-40 text-gray-00': isDropdownMenuOpen,
+          },
+        )}
         onClick={handleDropdownClick}
       >
         <span>
@@ -32,7 +47,10 @@ export default function LanguageDropdown() {
         <span>{i18n.language === 'ko' ? '한국어' : 'English'}</span>
       </button>
       {isDropdownMenuOpen && (
-        <LanguageDropdownMenu onMenuItemClick={handleDropdownMenuItemClick} />
+        <LanguageDropdownMenu
+          onMenuItemClick={handleDropdownMenuItemClick}
+          menuPosition={menuPosition}
+        />
       )}
     </div>
   );
