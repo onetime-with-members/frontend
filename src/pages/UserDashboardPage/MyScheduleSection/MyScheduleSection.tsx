@@ -31,6 +31,7 @@ export default function MyScheduleSection() {
           mySchedule={data || []}
           sleepTime={sleepTimeData}
           className="pl-3 pr-6"
+          topDateGroupClassName="sticky bg-gray-00 z-10 top-[64px] md:top-[136px]"
         />
       </div>
     </section>
