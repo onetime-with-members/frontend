@@ -13,12 +13,14 @@ interface SocialLoginButtonProps
   > {
   href: string;
   social: 'naver' | 'kakao' | 'google';
+  lastLogin?: boolean;
 }
 
 export default function SocialLoginButton({
   href,
   social,
   className,
+  lastLogin,
   ...rest
 }: SocialLoginButtonProps) {
   const { t } = useTranslation();
@@ -27,7 +29,7 @@ export default function SocialLoginButton({
     <Link
       to={href}
       className={cn(
-        'flex h-14 w-full items-center justify-center gap-2 rounded-xl',
+        'relative flex h-14 w-full items-center justify-center gap-2 rounded-xl',
         {
           'bg-[#03C75A]': social === 'naver',
           'bg-[#FEE500]': social === 'kakao',
@@ -37,6 +39,11 @@ export default function SocialLoginButton({
       )}
       {...rest}
     >
+      {lastLogin && (
+        <div className="absolute -top-2 right-2.5 rounded-lg rounded-bl-sm bg-gray-90 px-2.5 py-1.5 text-xs font-medium text-gray-00">
+          {t('login.lastLogin')}
+        </div>
+      )}
       <div>
         <img
           src={

@@ -21,7 +21,8 @@
     "logoTitle": "일정을 쉽고 빠르게,",
     "kakao": "카카오 로그인",
     "naver": "네이버 로그인",
-    "google": "Google 계정으로 로그인"
+    "google": "Google 계정으로 로그인",
+    "lastLogin": "마지막 로그인"
   },
   "onboarding": {
     "onboarding": "온보딩",

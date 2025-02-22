@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -9,7 +9,11 @@ import NavBar from '@/components/NavBar/NavBar';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
+export type SocialLoginType = 'naver' | 'kakao' | 'google';
+
 export default function LoginPage() {
+  const [lastLogin, setLastLogin] = useState<SocialLoginType | null>(null);
+
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -58,6 +62,14 @@ export default function LoginPage() {
       localStorage.removeItem('redirect-url');
       location.href = localRedirectUrl || '/';
     }
+
+    if (lastLogin) {
+      localStorage.setItem('last-login', lastLogin);
+    }
+
+    return () => {
+      localStorage.removeItem('redirect-url');
+    };
   }, [searchParams]);
 
   return (
@@ -70,7 +82,7 @@ export default function LoginPage() {
         <div className="flex flex-1 items-center justify-center px-4">
           <div className="mx-auto flex w-full max-w-[22rem] -translate-y-12 flex-col gap-12">
             <LogoContent />
-            <ButtonGroup />
+            <ButtonGroup setLastLogin={setLastLogin} />
           </div>
         </div>
       </div>

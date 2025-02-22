@@ -21,7 +21,8 @@
     "logoTitle": "For The Perfect Time,",
     "kakao": "Continue with KakaoTalk",
     "naver": "Continue with Naver",
-    "google": "Continue with Google"
+    "google": "Continue with Google",
+    "lastLogin": "Last Login"
   },
   "onboarding": {
     "onboarding": "Onboarding",
