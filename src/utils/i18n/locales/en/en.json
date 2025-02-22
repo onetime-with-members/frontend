@@ -111,7 +111,8 @@
   },
   "timeBlockBoard": {
     "availableToggleText": "Available",
-    "unavailableToggleText": "Unavailable"
+    "unavailableToggleText": "Unavailable",
+    "reset": "Reset"
   },
   "userDashboard": {
     "more": "More",

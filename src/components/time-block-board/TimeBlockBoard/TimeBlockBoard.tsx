@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import BoardContent from './BoardContent/BoardContent';
 import LeftTimeLine from './LeftTimeLine/LeftTimeLine';
 import PossibleTimeToggle from './PossibleTimeToggle/PossibleTimeToggle';
+import ResetButton from './ResetButton/ResetButton';
 import TimeBlockPopUp from './TimeBlockPopUp/TimeBlockPopUp';
 import TopDateLabelGroup from './TopDateLabelGroup/TopDateLabelGroup';
 import { EventType } from '@/types/event.type.ts';
@@ -203,6 +204,28 @@ export default function TimeBlockBoard({
     }
   }
 
+  function handleResetButtonClick() {
+    if (!editable || !setSchedules) return;
+
+    setSchedules(
+      isPossibleTime
+        ? schedules.map((schedule) => ({
+            ...schedule,
+            schedules: schedule.schedules.map((daySchedule) => ({
+              ...daySchedule,
+              times: [],
+            })),
+          }))
+        : schedules.map((schedule) => ({
+            ...schedule,
+            schedules: schedule.schedules.map((daySchedule) => ({
+              ...daySchedule,
+              times: timeBlockList(event.start_time, event.end_time),
+            })),
+          })),
+    );
+  }
+
   useEffect(() => {
     if (!editable || schedules.length === 0) return;
     setIsEmpty(schedules[0].schedules.every((s) => s.times.length === 0));
@@ -238,11 +261,13 @@ export default function TimeBlockBoard({
     <div className="flex flex-col">
       <div className={cn('sticky top-0 z-10 bg-gray-00', topContentClassName)}>
         {editable && (
-          <PossibleTimeToggle
-            isPossibleTime={isPossibleTime}
-            onToggle={handleAvailableToggle}
-            className="pt-4"
-          />
+          <div className="flex items-center justify-between pt-4">
+            <PossibleTimeToggle
+              isPossibleTime={isPossibleTime}
+              onToggle={handleAvailableToggle}
+            />
+            <ResetButton onClick={handleResetButtonClick} />
+          </div>
         )}
         <TopDateLabelGroup
           topLabelRef={topLabelRef}
