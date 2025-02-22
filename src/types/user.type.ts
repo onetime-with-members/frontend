@@ -3,6 +3,8 @@ export interface UserType {
   email: string;
 }
 
+export type SocialLoginType = 'naver' | 'kakao' | 'google';
+
 export interface GuestValueType {
   name: string;
   pin: string;

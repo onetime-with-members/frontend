@@ -1,18 +1,14 @@
-import { SocialLoginType } from '../LoginPage';
 import SocialLoginButton from '@/pages/LoginPage/ButtonGroup/SocialLoginButton/SocialLoginButton';
+import { SocialLoginType } from '@/types/user.type';
 
-interface ButtonGroupProps {
-  setLastLogin: React.Dispatch<React.SetStateAction<SocialLoginType | null>>;
-}
-
-export default function ButtonGroup({ setLastLogin }: ButtonGroupProps) {
+export default function ButtonGroup() {
   const lastLoginLocal = localStorage.getItem('last-login');
 
   function handleLoginButtonClick(key: SocialLoginType) {
     return function (e: React.MouseEvent<HTMLAnchorElement>) {
       e.preventDefault();
-      setLastLogin(key);
       location.href = `${import.meta.env.VITE_SERVER_OAUTH2_URL}/${key}`;
+      localStorage.setItem('last-login', key);
     };
   }
 
