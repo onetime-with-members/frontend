@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
-import TimeDropdown from '@/components/TimeDropdown/TimeDropdown';
+import TimeDropdown from '@/components/dropdown/TimeDropdown/TimeDropdown';
 import { EventType, EventValueType } from '@/types/event.type';
 
 interface TimeSectionProps {

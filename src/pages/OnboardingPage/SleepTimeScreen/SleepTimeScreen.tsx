@@ -1,7 +1,7 @@
 import { Trans, useTranslation } from 'react-i18next';
 
 import ScreenLayout from '../ScreenLayout/ScreenLayout';
-import TimeDropdown from '@/components/TimeDropdown/TimeDropdown';
+import TimeDropdown from '@/components/dropdown/TimeDropdown/TimeDropdown';
 import SleepIcon from '@/components/icon/SleepIcon';
 import { OnboardingValueType } from '@/types/user.type';
 

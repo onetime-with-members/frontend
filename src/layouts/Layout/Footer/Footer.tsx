@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
-import LanguageDropdown from './LanguageDropdown/LanguageDropdown';
+import LanguageDropdown from '../../../components/dropdown/LanguageDropdown/LanguageDropdown';
 import LogoContent from './LogoContent/LogoContent';
 import { FooterContext } from '@/contexts/FooterContext';
 

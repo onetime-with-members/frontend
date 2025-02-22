@@ -3,15 +3,13 @@ import { useNavigate } from 'react-router-dom';
 
 import Avatar from '@/components/avatar/Avatar/Avatar';
 import GrayButton from '@/pages/ProfilePage/ProfileSection/GrayButton/GrayButton';
-import { UserType } from '@/types/user.type';
+import { useUserQuery } from '@/queries/user.queries';
 
-interface ProfileSectionProps {
-  user: UserType;
-}
-
-export default function ProfileSection({ user }: ProfileSectionProps) {
+export default function ProfileSection() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const { data: user } = useUserQuery();
 
   function handleProfileEditButtonClick() {
     navigate('/mypage/profile/edit');
@@ -28,8 +26,8 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
       <div className="flex items-center gap-4">
         <Avatar size={64} name={user?.nickname || ''} />
         <div className="flex flex-col gap-1">
-          <div className="text-gray-80 title-sm-300">{user.nickname}</div>
-          <div className="text-gray-40 text-sm-200">{user.email}</div>
+          <div className="text-gray-80 title-sm-300">{user?.nickname}</div>
+          <div className="text-gray-40 text-sm-200">{user?.email}</div>
         </div>
       </div>
       <div className="flex items-center gap-4">
