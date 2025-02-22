@@ -30,7 +30,7 @@ export default function BottomButtonForMobile({
       )}
     >
       <button
-        className="flex h-[62px] w-[62px] items-center justify-center rounded-2xl bg-gray-90"
+        className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-gray-80"
         onClick={handleShareButtonClick}
       >
         <img src={sendIcon} alt="공유 아이콘" className="h-[36px] w-[36px]" />
