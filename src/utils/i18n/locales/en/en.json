@@ -24,6 +24,28 @@
     "google": "Continue with Google",
     "lastLogin": "Last Login"
   },
+  "landing": {
+    "title": {
+      "main": "For The Perfect Time",
+      "feature1": "Simple And Stress-Free <2 />Schedule Coordination",
+      "feature2": "Clearer Display of Available Times, <2 />Easier Selection",
+      "highlight": "Automatically Adjust the Time <2 />According to Your Schedule, <5 />No More Worries!",
+      "last": "Experience Stress-Free <2 />Schedule Coordination with OneTime"
+    },
+    "description": {
+      "main": "Share the link once to organize schedules <2 />with multiple people, and find the most suitable time.",
+      "feature1": "You can easily see the time <2 />when the most people can participate <2 />in the event.",
+      "feature2": "Is it difficult to estimate the available time? <2 />Then try deleting with 'Unavailable Time'."
+    },
+    "badge": {
+      "feature1": "Quick Status Check",
+      "feature2": "Simple Available Time Check"
+    },
+    "button": {
+      "start": "Get Started",
+      "createEvent": "Create Event"
+    }
+  },
   "onboarding": {
     "onboarding": "Onboarding",
     "termsOfService": "Terms of Service",
@@ -121,6 +143,7 @@
     "createEvent": "Create Event",
     "joinedEvents": "Joined Events",
     "mySchedule": "My Schedule",
+    "myScheduleDescription": "It is automatically loaded when you enter a schedule.",
     "loadingEvents": "Loading events...",
     "noEvent": "You haven't joined any events yet."
   },

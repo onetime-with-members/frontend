@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 import Button from '@/components/button/Button/Button';
 
 export default function BottomButton() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   function handleStartButtonClick() {
     navigate('/events/new');
@@ -16,7 +18,7 @@ export default function BottomButton() {
       onClick={handleStartButtonClick}
       fullWidth
     >
-      이벤트 생성하기
+      {t('landing.button.createEvent')}
     </Button>
   );
 }

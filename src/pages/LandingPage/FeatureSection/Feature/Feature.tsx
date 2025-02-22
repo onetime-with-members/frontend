@@ -1,3 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
+import cn from '@/utils/cn';
+
 interface FeatureProps {
   title: React.ReactNode;
   badgeLabel: React.ReactNode;
@@ -11,8 +15,15 @@ export default function Feature({
   description,
   image,
 }: FeatureProps) {
+  const { i18n } = useTranslation();
+
   return (
-    <div className="mx-auto flex w-full max-w-[20rem] flex-col items-center md:max-w-max">
+    <div
+      className={cn('mx-auto flex w-full flex-col items-center md:max-w-max', {
+        'max-w-[30rem]': i18n.language === 'en',
+        'max-w-[20rem]': i18n.language === 'ko',
+      })}
+    >
       <div className="flex flex-col items-center gap-10">
         <div className="flex flex-col items-center gap-7">
           <div className="rounded-xl bg-primary-00 px-5 py-2 text-primary-40 text-md-300">
