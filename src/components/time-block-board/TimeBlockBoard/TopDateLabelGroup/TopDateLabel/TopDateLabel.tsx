@@ -17,18 +17,14 @@ export default function TopDateLabel({
   style,
 }: TopDateLabelProps) {
   return (
-    <div className={cn('text-center', className)} style={style}>
+    <div className={cn('text-center text-gray-30', className)} style={style}>
       {category === 'DATE' ? (
-        <div className="flex flex-col">
-          <span className="text-gray-20 text-sm-200">
-            {dayjs(timePoint, 'YYYY.MM.DD').format('ddd')}
-          </span>
-          <span className="text-gray-30 text-sm-200">
-            {dayjs(timePoint, 'YYYY.MM.DD').format('MM.DD')}
-          </span>
+        <div className="flex flex-col text-sm-200">
+          <span>{dayjs(timePoint, 'YYYY.MM.DD').format('ddd')}</span>
+          <span>{dayjs(timePoint, 'YYYY.MM.DD').format('MM.DD')}</span>
         </div>
       ) : (
-        <span className="text-gray-30 text-md-200">
+        <span className="text-md-200">
           {dayjs()
             .day(weekdaysShortKo.findIndex((weekday) => weekday === timePoint))
             .format('ddd')}
