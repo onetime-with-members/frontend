@@ -26,7 +26,7 @@ export default function SideTabContentForDesktop({
           className="w-[10rem]"
           active={tabActive === 'events'}
         >
-          {t('mypage.joinedEvents')}
+          {t('mypage.allEvents')}
         </SideTabItem>
         <SideTabItem
           active={tabActive === 'schedules'}

@@ -35,7 +35,7 @@ export default function MyEventsPage() {
   return (
     <>
       <Helmet>
-        <title>{t('mypage.joinedEvents')} | OneTime</title>
+        <title>{t('mypage.allEvents')} | OneTime</title>
       </Helmet>
       <ul className="flex flex-col gap-5 px-4 py-5">
         {events.map((event) => (

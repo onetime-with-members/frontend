@@ -59,7 +59,7 @@ export default function MyEvent({
         >
           <div
             className={cn(
-              'flex items-center gap-2 text-gray-40 text-sm-200 xs:text-md-200',
+              'flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap text-gray-40 text-sm-200 xs:text-md-200',
               {
                 'text-primary-50': isRecommended,
               },
