@@ -30,16 +30,22 @@
       "feature1": "Simple And Stress-Free <2 />Schedule Coordination",
       "feature2": "Clearer Display of Available Times, <2 />Easier Selection",
       "highlight": "Automatically Adjust the Time <2 />According to Your Schedule, <5 />No More Worries!",
+      "card1": "Without Repetition, Only One Registration Is All You Need",
+      "card2": "Manage Your Time Easily and Quickly Offline with Just One QR Code",
       "last": "Experience Stress-Free <2 />Schedule Coordination with OneTime"
     },
     "description": {
       "main": "Share the link once to organize schedules <2 />with multiple people, and find the most suitable time.",
       "feature1": "You can easily see the time <2 />when the most people can participate <2 />in the event.",
-      "feature2": "Is it difficult to estimate the available time? <2 />Then try deleting with 'Unavailable Time'."
+      "feature2": "Is it difficult to estimate the available time? <2 />Then try deleting with 'Unavailable Time'.",
+      "card1": "When you pre-register your schedule once, the unavailable time is automatically excluded.",
+      "card2": "In offline, try adjusting the time with just one QR code instead of sharing the link."
     },
     "badge": {
       "feature1": "Quick Status Check",
-      "feature2": "Simple Available Time Check"
+      "feature2": "Simple Available Time Check",
+      "card1": "Register My Schedule",
+      "card2": "Generate QR Code"
     },
     "button": {
       "start": "Get Started",

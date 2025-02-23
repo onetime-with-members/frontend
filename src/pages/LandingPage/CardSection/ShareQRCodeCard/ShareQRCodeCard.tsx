@@ -1,23 +1,27 @@
+import { Trans, useTranslation } from 'react-i18next';
+
 import Card from '../Card/Card';
 import cardImage from '@/assets/landing/paper-airplane.svg';
 import ClockPattern from '@/components/ClockPattern/ClockPattern';
 
 export default function ShareQRCodeCard() {
+  const { t } = useTranslation();
+
   return (
     <Card
       title={
-        <>
+        <Trans i18nKey="landing.title.card2">
           오프라인에서는 QR코드로 <br className="hidden min-[350px]:block" />
           쉽고 빠른 일정관리
-        </>
+        </Trans>
       }
-      badgeTitle="QR 코드 생성"
+      badgeTitle={t('landing.badge.card2')}
       description={
-        <>
+        <Trans i18nKey="landing.description.card2">
           오프라인에서는 링크 공유 필요 없이{' '}
           <br className="hidden min-[350px]:block" />
           QR코드 하나로 시간을 조율해보세요.
-        </>
+        </Trans>
       }
       image={
         <div className="h-[260px]">

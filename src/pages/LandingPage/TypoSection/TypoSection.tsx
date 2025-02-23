@@ -7,7 +7,7 @@ export default function TypoSection() {
   const { i18n } = useTranslation();
 
   return (
-    <section className="flex flex-col items-center gap-3 py-[7.5rem]">
+    <section className="flex flex-col items-center gap-3 px-4 py-[7.5rem]">
       <div>
         <img src={clockIcon} alt="시계 아이콘" />
       </div>
