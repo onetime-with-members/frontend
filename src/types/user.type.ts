@@ -28,4 +28,5 @@ export type PolicyKeyType = keyof PolicyType;
 export interface OnboardingValueType extends PolicyType, SleepTimeType {
   register_token: string;
   nickname: string;
+  language: 'KOR' | 'ENG';
 }

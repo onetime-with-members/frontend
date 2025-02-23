@@ -72,6 +72,7 @@ export default function Layout() {
   useEffect(() => {
     if (!user) return;
     localStorage.setItem('last-login', user.social_platform);
+    i18n.changeLanguage(user.language === 'KOR' ? 'ko' : 'en');
   }, [user]);
 
   return (

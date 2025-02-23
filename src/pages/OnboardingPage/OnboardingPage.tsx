@@ -17,6 +17,8 @@ import cn from '@/utils/cn';
 import { useMutation } from '@tanstack/react-query';
 
 export default function OnboardingPage() {
+  const { t, i18n } = useTranslation();
+
   const [page, setPage] = useState(1);
   const [value, setValue] = useState<OnboardingValueType>({
     register_token: '',
@@ -26,13 +28,13 @@ export default function OnboardingPage() {
     marketing_policy_agreement: false,
     sleep_start_time: '23:00',
     sleep_end_time: '07:00',
+    language: i18n.language === 'ko' ? 'KOR' : 'ENG',
   });
 
   const { setIsFooterVisible } = useContext(FooterContext);
 
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const { t } = useTranslation();
 
   const onboarding = useMutation({
     mutationFn: async () => {

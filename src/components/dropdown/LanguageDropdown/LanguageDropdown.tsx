@@ -3,8 +3,10 @@ import { useTranslation } from 'react-i18next';
 
 import LanguageDropdownMenu from './LanguageDropdownMenu/LanguageDropdownMenu';
 import useDropdown from '@/hooks/useDropdown';
+import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { IconLanguage } from '@tabler/icons-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface LanguageDropdownProps {
   variant?: 'default' | 'dark';
@@ -23,9 +25,27 @@ export default function LanguageDropdown({
     });
 
   const { i18n } = useTranslation();
+  const queryClient = useQueryClient();
+
+  const isLoggedIn = localStorage.getItem('access-token') !== null;
+
+  const { mutate: editUserLanguage } = useMutation({
+    mutationFn: async (language: string) => {
+      const res = await axios.patch('/users/profile/action-update', {
+        language,
+      });
+      return res.data.payload;
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+  });
 
   function handleDropdownMenuItemClick(language: string) {
     i18n.changeLanguage(language);
+    if (isLoggedIn) {
+      editUserLanguage(language === 'ko' ? 'KOR' : 'ENG');
+    }
     setIsDropdownMenuOpen(false);
   }
 
