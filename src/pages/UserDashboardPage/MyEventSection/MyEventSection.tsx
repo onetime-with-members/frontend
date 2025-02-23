@@ -7,6 +7,7 @@ import MyEvent from '@/components/MyEvent/MyEvent';
 import { MyEventType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import breakpoint from '@/utils/breakpoint';
+import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyEventSection() {
@@ -58,7 +59,11 @@ export default function MyEventSection() {
         </div>
       )}
       {!isEventsPending && events && (
-        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <ul
+          className={cn('grid grid-cols-1 gap-4 md:grid-cols-2', {
+            'md:grid-cols-1': events.length === 0,
+          })}
+        >
           {events.length === 0 && (
             <div className="rounded-2xl bg-gray-00 py-5">
               <EmptyUI>{t('userDashboard.noEvent')}</EmptyUI>
