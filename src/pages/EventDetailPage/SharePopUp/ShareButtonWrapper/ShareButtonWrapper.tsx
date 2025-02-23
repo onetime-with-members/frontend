@@ -10,7 +10,9 @@ export default function ShareButtonWrapper({
   return (
     <div className="flex flex-col items-center justify-center gap-2">
       {children}
-      <span className="text-sm-200 text-gray-30">{label}</span>
+      <span className="whitespace-nowrap text-gray-30 text-sm-200">
+        {label}
+      </span>
     </div>
   );
 }
