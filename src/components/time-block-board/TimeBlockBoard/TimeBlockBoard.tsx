@@ -195,6 +195,8 @@ export default function TimeBlockBoard({
             })),
           })),
     );
+
+    setIsEdited && setIsEdited(true);
   }
 
   useEffect(() => {
