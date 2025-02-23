@@ -1,15 +1,11 @@
 import SocialLoginButton from '@/pages/LoginPage/ButtonGroup/SocialLoginButton/SocialLoginButton';
-import { SocialLoginType } from '@/types/user.type';
 
 export default function ButtonGroup() {
   const lastLoginLocal = localStorage.getItem('last-login');
 
-  function handleLoginButtonClick(key: SocialLoginType) {
-    return function (e: React.MouseEvent<HTMLAnchorElement>) {
-      e.preventDefault();
-      location.href = `${import.meta.env.VITE_SERVER_OAUTH2_URL}/${key}`;
-      localStorage.setItem('last-login', key);
-    };
+  function handleLoginButtonClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    location.href = e.currentTarget.href;
   }
 
   return (
@@ -18,19 +14,19 @@ export default function ButtonGroup() {
         href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/naver`}
         social="naver"
         lastLogin={lastLoginLocal === 'naver'}
-        onClick={handleLoginButtonClick('naver')}
+        onClick={handleLoginButtonClick}
       />
       <SocialLoginButton
         href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/kakao`}
         social="kakao"
         lastLogin={lastLoginLocal === 'kakao'}
-        onClick={handleLoginButtonClick('kakao')}
+        onClick={handleLoginButtonClick}
       />
       <SocialLoginButton
         href={`${import.meta.env.VITE_SERVER_OAUTH2_URL}/google`}
         social="google"
         lastLogin={lastLoginLocal === 'google'}
-        onClick={handleLoginButtonClick('google')}
+        onClick={handleLoginButtonClick}
       />
     </div>
   );

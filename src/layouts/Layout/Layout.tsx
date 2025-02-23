@@ -7,7 +7,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Footer from './Footer/Footer';
 import ScrollToTop from './ScrollToTop/ScrollToTop';
 import { FooterContext } from '@/contexts/FooterContext';
-import { PolicyType } from '@/types/user.type';
+import { PolicyType, UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
@@ -21,6 +21,15 @@ export default function Layout() {
   const location = useLocation();
 
   const isLoggedIn = localStorage.getItem('access-token') !== null;
+
+  const { data: user } = useQuery<UserType>({
+    queryKey: ['users', 'profile'],
+    queryFn: async () => {
+      const res = await axios.get('/users/profile');
+      return res.data.payload;
+    },
+    enabled: isLoggedIn,
+  });
 
   const { data: policyData } = useQuery<PolicyType>({
     queryKey: ['users', 'policy'],
@@ -59,6 +68,11 @@ export default function Layout() {
       i18n.off('languageChanged', handleLanguageChange);
     };
   }, [i18n]);
+
+  useEffect(() => {
+    if (!user) return;
+    localStorage.setItem('last-login', user.social_platform);
+  }, [user]);
 
   return (
     <>
