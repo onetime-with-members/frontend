@@ -1,10 +1,8 @@
-import { Trans, useTranslation } from 'react-i18next';
+import { Trans } from 'react-i18next';
 
 import notFound404 from '@/assets/not-found-404.svg';
 
 export default function MainContent() {
-  const { t } = useTranslation();
-
   return (
     <main className="flex flex-1 flex-col px-4">
       <div className="mx-auto flex w-full max-w-screen-md flex-1 items-center justify-center">
@@ -14,7 +12,11 @@ export default function MainContent() {
           </div>
           <div className="flex flex-col items-center gap-3">
             <h1 className="text-center text-primary-50 title-sm-300">
-              {t('404.title')}
+              <Trans i18nKey="404.title">
+                The Page You Requested{' '}
+                <br className="hidden min-[270px]:block min-[430px]:hidden" />
+                Cannot Be Found
+              </Trans>
             </h1>
             <p className="text-center text-gray-40 text-md-200">
               <Trans i18nKey="404.description">
