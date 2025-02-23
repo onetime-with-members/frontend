@@ -28,24 +28,25 @@ export default function MyEventsPage() {
     return <></>;
   }
 
-  if (events.length === 0) {
-    return <EmptyMyEvent />;
-  }
-
   return (
     <>
       <Helmet>
         <title>{t('mypage.allEvents')} | OneTime</title>
       </Helmet>
-      <ul className="flex flex-col gap-5 px-4 py-5">
-        {events.map((event) => (
-          <MyEvent
-            key={event.event_id}
-            event={event}
-            innerClassName="border-0 md:border"
-          />
-        ))}
-      </ul>
+
+      {events.length === 0 ? (
+        <EmptyMyEvent />
+      ) : (
+        <ul className="flex flex-col gap-5 px-4 py-5">
+          {events.map((event) => (
+            <MyEvent
+              key={event.event_id}
+              event={event}
+              innerClassName="border-0 md:border"
+            />
+          ))}
+        </ul>
+      )}
     </>
   );
 }

@@ -159,6 +159,12 @@
     "mySchedule": "My Schedule",
     "profile": "Profile"
   },
+  "myEvents": {
+    "empty": {
+      "title": "You haven't joined any events yet.",
+      "button": "Add Event"
+    }
+  },
   "myScheduleEdit": {
     "myScheduleEdit": "Edit My Schedule",
     "editMySchedule": "Edit My Schedule",

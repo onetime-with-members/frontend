@@ -159,6 +159,12 @@
     "mySchedule": "내 스케줄",
     "profile": "프로필 정보"
   },
+  "myEvents": {
+    "empty": {
+      "title": "참여한 이벤트가 없어요.",
+      "button": "이벤트 추가하기"
+    }
+  },
   "myScheduleEdit": {
     "myScheduleEdit": "내 스케줄 수정",
     "editMySchedule": "스케줄 입력",
