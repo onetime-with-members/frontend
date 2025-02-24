@@ -5,6 +5,7 @@ import useDragSelect from '@/hooks/useDragSelect';
 import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
+import { weekdaysShortKo } from '@/utils/weekday';
 
 interface WeekdaySelectProps {
   className?: string;
@@ -30,8 +31,9 @@ export default function WeekdaySelect({
   function handleDateItemSelect(event: React.MouseEvent | React.TouchEvent) {
     const target = eventTarget(event);
     if (!target) return;
-    const weekday = target.dataset.weekday;
-    if (!weekday) return;
+    const weekdayData = target.dataset.weekday;
+    if (!weekdayData) return;
+    const weekday = weekdayKOR(weekdayData);
     setValue((prev) => ({
       ...prev,
       ranges: isFilling
@@ -40,20 +42,26 @@ export default function WeekdaySelect({
     }));
   }
 
+  function weekdayKOR(weekday: string) {
+    return weekdaysShortKo[dayjs.weekdaysShort().indexOf(weekday)];
+  }
+
+  function isActive(weekday: string) {
+    return value.ranges.includes(weekdayKOR(weekday));
+  }
+
   return (
     <div className={cn('flex gap-3', className)} onMouseLeave={handleDragEnd}>
       {dayjs.weekdaysShort().map((weekday) => (
         <DateItem
           key={weekday}
           data-weekday={weekday}
-          active={value.ranges.includes(weekday)}
-          onMouseDown={() =>
-            handleDragStart({ isFilling: !value.ranges.includes(weekday) })
-          }
+          active={isActive(weekday)}
+          onMouseDown={() => handleDragStart({ isFilling: !isActive(weekday) })}
           onMouseMove={handleDragMove}
           onMouseUp={handleDragEnd}
           onTouchStart={() =>
-            handleDragStart({ isFilling: !value.ranges.includes(weekday) })
+            handleDragStart({ isFilling: !isActive(weekday) })
           }
           onTouchMove={handleDragMove}
           onTouchEnd={handleDragEnd}
