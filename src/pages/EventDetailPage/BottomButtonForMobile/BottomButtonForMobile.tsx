@@ -23,7 +23,7 @@ export default function BottomButtonForMobile({
   return (
     <div
       className={cn(
-        'fixed bottom-0 flex w-full items-center justify-center gap-2 bg-gray-00 p-4 duration-150 md:hidden',
+        'fixed bottom-0 z-10 flex w-full items-center justify-center gap-2 bg-gray-00 p-4 duration-150 md:hidden',
         {
           'pointer-events-none opacity-0': isFooterShown,
         },
