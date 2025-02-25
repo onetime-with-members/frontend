@@ -27,7 +27,7 @@ export default function ScheduleFormScreen({
   isSubmitting,
 }: ScheduleFormProps) {
   return (
-    <>
+    <div>
       <TimeBlockBoard
         schedules={schedules}
         setSchedules={setSchedules}
@@ -40,6 +40,6 @@ export default function ScheduleFormScreen({
         setIsEdited={setIsScheduleEdited}
       />
       <BottomButtonForDesktop onClick={onSubmit} isSubmitting={isSubmitting} />
-    </>
+    </div>
   );
 }

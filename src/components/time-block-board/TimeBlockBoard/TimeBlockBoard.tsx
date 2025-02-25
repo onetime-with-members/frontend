@@ -262,7 +262,7 @@ export default function TimeBlockBoard({
     <div className="flex flex-col">
       <div className={cn('sticky top-0 z-10 bg-gray-00', topContentClassName)}>
         {editable && (
-          <div className="flex items-center justify-between pt-4">
+          <div className="flex items-center justify-between pt-2">
             <PossibleTimeToggle
               isPossibleTime={isPossibleTime}
               onToggle={handleAvailableToggle}

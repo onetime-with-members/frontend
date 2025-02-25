@@ -142,7 +142,7 @@ export default function ScheduleCreatePage() {
             'mx-auto flex flex-col bg-gray-00 px-6 sm:h-auto sm:max-w-[480px] sm:gap-14 sm:rounded-3xl sm:px-9',
             {
               'py-4 sm:py-10': pageIndex === 0,
-              'sm:mb-28 sm:py-6': pageIndex === 1,
+              'pb-16 sm:mb-28 sm:py-6': pageIndex === 1,
             },
           )}
         >
