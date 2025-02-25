@@ -55,7 +55,7 @@ export default function EmptyEventBanner() {
           </span>
         </button>
       </div>
-      <div className="absolute right-0 top-0 h-full">
+      <div className="absolute right-0 top-0 hidden h-full xs:block">
         <img
           src={emptyEventBannerImage}
           alt="클립보드 이미지"
