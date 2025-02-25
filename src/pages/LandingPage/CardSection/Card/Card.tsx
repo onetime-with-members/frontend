@@ -20,7 +20,7 @@ export default function Card({
       className="relative mx-auto flex w-full max-w-[25rem] flex-col items-start overflow-hidden rounded-2xl bg-primary-40 px-6 pt-10 text-gray-00 md:mx-0 md:max-w-full"
       style={style}
     >
-      <div className="relative z-10 flex w-full flex-col gap-10">
+      <div className="z-10 flex w-full flex-col gap-10">
         <div className="flex flex-col items-start gap-6">
           <div className="rounded-full bg-gray-00 px-5 py-2 text-primary-50 text-md-300">
             {badgeTitle}
