@@ -19,7 +19,7 @@ export default function TopAppBarForMobile({
   const { t } = useTranslation();
 
   return (
-    <header className="block h-[67px] sm:hidden">
+    <header className="block h-[69px] sm:hidden">
       <div className="fixed left-0 top-0 z-50 w-full bg-white px-4">
         <div className="mx-auto grid max-w-screen-sm grid-cols-3 py-5">
           <div className="flex items-center">
