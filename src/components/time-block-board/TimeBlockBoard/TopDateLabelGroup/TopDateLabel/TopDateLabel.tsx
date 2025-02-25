@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 
 import cn from '@/utils/cn';
 import { weekdaysShortKo } from '@/utils/weekday';
@@ -10,12 +11,14 @@ interface TopDateLabelProps {
   style?: React.CSSProperties;
 }
 
-export default function TopDateLabel({
+function TopDateLabel({
   category,
   timePoint,
   className,
   style,
 }: TopDateLabelProps) {
+  const { i18n } = useTranslation();
+
   return (
     <div className={cn('text-center text-gray-30', className)} style={style}>
       {category === 'DATE' ? (
@@ -25,11 +28,17 @@ export default function TopDateLabel({
         </div>
       ) : (
         <span className="text-md-200">
-          {dayjs()
-            .day(weekdaysShortKo.findIndex((weekday) => weekday === timePoint))
-            .format('ddd')}
+          {i18n.language === 'ko'
+            ? timePoint
+            : dayjs()
+                .day(
+                  weekdaysShortKo.findIndex((weekday) => weekday === timePoint),
+                )
+                .format('ddd')}
         </span>
       )}
     </div>
   );
 }
+
+export default TopDateLabel;
