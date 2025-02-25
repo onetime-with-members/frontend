@@ -29,7 +29,9 @@ export default function InfoContent({
             className="h-full w-full"
           />
         </div>
-        <h1 className="text-gray-90 title-md-300">{t('withdraw.mainTitle')}</h1>
+        <h1 className="text-center text-gray-90 title-md-300">
+          {t('withdraw.mainTitle')}
+        </h1>
       </div>
       <div className="flex w-full flex-col gap-4">
         <GrayBox
