@@ -36,8 +36,6 @@ export default function OnboardingPage() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const redirectUrl = localStorage.getItem('redirect-url');
-
   const onboarding = useMutation({
     mutationFn: async () => {
       const res = await axios.post('/users/onboarding', value);
@@ -51,6 +49,7 @@ export default function OnboardingPage() {
       setPage((prevPage) => prevPage + 1);
     },
     onError: () => {
+      const redirectUrl = localStorage.getItem('redirect-url');
       navigate(`/login?redirect_url=${redirectUrl}`);
     },
   });
@@ -62,6 +61,7 @@ export default function OnboardingPage() {
 
   function handleBackButtonClick() {
     if (page === 1) {
+      const redirectUrl = localStorage.getItem('redirect-url');
       navigate(`/login?redirect_url=${redirectUrl}`);
     } else {
       setPage((prevPage) => prevPage - 1);
