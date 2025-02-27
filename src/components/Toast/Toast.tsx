@@ -10,33 +10,35 @@ interface ToastProps {
   duration?: number;
 }
 
-export default function Toast({ bottom = 100, duration = 3000 }: ToastProps) {
-  const toast = useToastMessage();
+export default function Toast({ bottom = 140, duration = 3000 }: ToastProps) {
+  const message = useToastMessage();
   const { resetMessage } = useToastActions();
 
   useEffect(() => {
-    if (toast.length === 0) return;
+    if (message.length === 0) return;
 
     const timer = setTimeout(() => {
       resetMessage();
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [toast, duration]);
+  }, [message, duration]);
 
   return createPortal(
     <AnimatePresence>
-      {toast.length > 0 && (
+      {message.length > 0 && (
         <motion.div
           initial={{ opacity: 0, bottom: 0 }}
           animate={{ opacity: 1, bottom }}
           exit={{ opacity: 0, bottom: 0 }}
-          className="fixed bottom-24 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 rounded-full bg-[#31333F] p-2 pr-5"
+          className="fixed left-1/2 z-50 flex -translate-x-1/2 translate-y-full items-center gap-2 rounded-full bg-[#31333F] p-2 pr-5"
         >
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-success-50">
             <CheckIcon fill="#FFFFFF" size={15} />
           </div>
-          <span className="text-gray-00 text-md-200">{toast}</span>
+          <span className="whitespace-nowrap text-gray-00 text-md-200">
+            {message}
+          </span>
         </motion.div>
       )}
     </AnimatePresence>,
