@@ -66,7 +66,7 @@ export default function RecommendTime() {
         </div>
         <div
           className={cn(
-            'mt-2 overflow-hidden text-ellipsis whitespace-nowrap rounded-2xl bg-primary-00 p-4 pr-1 text-primary-50 text-sm-300 xs:text-md-300 sm:text-lg-300',
+            'mt-2 overflow-hidden text-ellipsis whitespace-nowrap rounded-2xl bg-primary-00 p-4 text-primary-50 text-sm-300 xs:text-md-300 sm:text-lg-300',
             {
               'bg-gray-00 text-success-60': isAllMembersAvailable,
               'bg-gray-05 text-gray-40': recommendTimes?.length === 0,
