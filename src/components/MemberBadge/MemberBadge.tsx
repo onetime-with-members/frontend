@@ -12,11 +12,15 @@ export default function MemberBadge({
 }: MemberBadgeProps) {
   return (
     <span
-      className={cn('rounded-full px-3 py-1 text-sm-200', className, {
-        'bg-primary-00 text-primary-60': variant === 'primary',
-        'bg-gray-05 text-gray-40': variant === 'gray',
-        'bg-gray-00 text-gray-60': variant === 'white',
-      })}
+      className={cn(
+        'overflow-hidden text-ellipsis whitespace-nowrap rounded-full px-3 py-1 text-sm-200',
+        className,
+        {
+          'bg-primary-00 text-primary-60': variant === 'primary',
+          'bg-gray-05 text-gray-40': variant === 'gray',
+          'bg-gray-00 text-gray-60': variant === 'white',
+        },
+      )}
       {...rest}
     >
       {children}
