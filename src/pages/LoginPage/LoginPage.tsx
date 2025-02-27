@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 import ButtonGroup from './ButtonGroup/ButtonGroup';
 import LogoContent from './LogoContent/LogoContent';
@@ -12,6 +12,7 @@ import { useQuery } from '@tanstack/react-query';
 export default function LoginPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
 
   const hasTokens =
@@ -56,13 +57,13 @@ export default function LoginPage() {
 
       const localRedirectUrl = localStorage.getItem('redirect-url');
       localStorage.removeItem('redirect-url');
-      location.href = localRedirectUrl || '/';
+      window.location.href = localRedirectUrl || '/';
     }
 
     return () => {
       localStorage.removeItem('redirect-url');
     };
-  }, [searchParams]);
+  }, [searchParams, location]);
 
   return (
     <>
