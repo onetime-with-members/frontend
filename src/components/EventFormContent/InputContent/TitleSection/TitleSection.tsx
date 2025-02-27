@@ -13,6 +13,7 @@ export default function TitleSection({ value, setValue }: TitleSectionProps) {
   const { t } = useTranslation();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (e.target.value.length > 50) return;
     setValue((prev) => ({
       ...prev,
       title: e.target.value,
@@ -31,7 +32,6 @@ export default function TitleSection({ value, setValue }: TitleSectionProps) {
         id="title"
         name="title"
         placeholder={t('eventForm.enterEventName')}
-        maxLength={50}
         value={value.title}
         onChange={handleChange}
       />
