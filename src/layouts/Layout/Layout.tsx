@@ -6,6 +6,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 import Footer from './Footer/Footer';
 import ScrollToTop from './ScrollToTop/ScrollToTop';
+import Toast from '@/components/Toast/Toast';
 import { FooterContext } from '@/contexts/FooterContext';
 import { PolicyType, UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
@@ -80,7 +81,9 @@ export default function Layout() {
       <Helmet>
         <title>OneTime | {t('common.title')}</title>
       </Helmet>
+
       <ScrollToTop />
+
       <div
         className={cn('flex h-full min-h-[100vh] flex-col', {
           'min-h-[110vh]': isFooterVisible,
@@ -88,6 +91,8 @@ export default function Layout() {
       >
         <Outlet />
       </div>
+
+      <Toast />
       {isFooterVisible && <Footer />}
     </>
   );

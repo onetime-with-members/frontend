@@ -1,5 +1,10 @@
+import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import BottomButtonForDesktop from './BottomButtonForDesktop/BottomButtonForDesktop';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
+import useScheduleCreate from '@/hooks/useScheduleCreate';
+import { useToast } from '@/stores/toast';
 import { EventType } from '@/types/event.type';
 import { ScheduleType } from '@/types/schedule.type';
 
@@ -13,6 +18,8 @@ interface ScheduleFormProps {
   setIsScheduleEdited: React.Dispatch<React.SetStateAction<boolean>>;
   onSubmit: () => void;
   isSubmitting: boolean;
+  isNewGuest: boolean;
+  guestId: string;
 }
 
 export default function ScheduleFormScreen({
@@ -25,7 +32,24 @@ export default function ScheduleFormScreen({
   setIsScheduleEdited,
   onSubmit,
   isSubmitting,
+  isNewGuest,
+  guestId,
 }: ScheduleFormProps) {
+  const { t } = useTranslation();
+
+  const toast = useToast();
+  const { isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty } =
+    useScheduleCreate({
+      isNewGuest,
+      guestId,
+    });
+
+  useEffect(() => {
+    if (isScheduleEmpty && (!isFixedScheduleEmpty || !isSleepTimeEmpty)) {
+      toast(t('toast.loadedMySchedule'));
+    }
+  }, [isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty]);
+
   return (
     <div>
       <TimeBlockBoard

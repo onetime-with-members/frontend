@@ -5,6 +5,10 @@
     "participantCount_other": "{{count}} people",
     "title": "Find The Perfect Time Easily And Quickly"
   },
+  "toast": {
+    "copiedLink": "Copied the event link",
+    "loadedMySchedule": "My schedule has been loaded"
+  },
   "navbar": {
     "login": "Login",
     "logout": "Logout",

@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { Trans } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -6,19 +7,14 @@ import logoWhite from '@/assets/logo-white.svg';
 import ClockPattern from '@/components/ClockPattern/ClockPattern';
 import { useEventQuery } from '@/queries/event.queries';
 import axios from '@/utils/axios';
-import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
 interface QRCodeScreenProps {
-  visible?: boolean;
   onClose?: () => void;
 }
 
-export default function QRCodeScreen({
-  visible = false,
-  onClose,
-}: QRCodeScreenProps) {
+export default function QRCodeScreen({ onClose }: QRCodeScreenProps) {
   const params = useParams<{ eventId: string }>();
 
   const { data: event } = useEventQuery(params.eventId);
@@ -34,29 +30,23 @@ export default function QRCodeScreen({
   const qr = qrData?.payload;
 
   useEffect(() => {
-    if (visible) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = 'hidden';
 
     return () => {
       document.body.style.overflow = '';
     };
-  }, [visible]);
+  }, []);
 
   if (isQrLoading) {
     return <></>;
   }
 
   return (
-    <div
-      className={cn(
-        'fixed left-0 top-0 z-50 flex h-full w-full translate-y-full flex-col overflow-hidden bg-gray-00 transition-transform duration-300',
-        {
-          'translate-y-0': visible,
-        },
-      )}
+    <motion.div
+      initial={{ transform: 'translateY(100%)' }}
+      animate={{ transform: 'translateY(0)' }}
+      exit={{ transform: 'translateY(100%)' }}
+      className="fixed left-0 top-0 z-50 flex h-full w-full flex-col overflow-hidden bg-gray-00"
       style={{
         background: 'linear-gradient(180deg, #8898F2 0%, #4C65E5 100%)',
       }}
@@ -95,6 +85,6 @@ export default function QRCodeScreen({
         </div>
       </div>
       <ClockPattern className="opacity-50" />
-    </div>
+    </motion.div>
   );
 }

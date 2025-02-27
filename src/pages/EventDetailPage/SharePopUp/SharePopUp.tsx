@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
@@ -9,6 +10,7 @@ import ShareKakaoButton from './ShareKakaoButton/ShareKakaoButton';
 import ShareMoreButton from './ShareMoreButton/ShareMoreButton';
 import Input from '@/components/Input/Input';
 import { useEventQuery } from '@/queries/event.queries';
+import { useToast } from '@/stores/toast';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';
 
 interface SharePopUpProps {
@@ -20,6 +22,8 @@ export default function SharePopUp({ setIsOpen }: SharePopUpProps) {
 
   const urlInputRef = useRef<HTMLInputElement>(null);
 
+  const toast = useToast();
+
   const params = useParams<{ eventId: string }>();
   const { t } = useTranslation();
 
@@ -30,6 +34,7 @@ export default function SharePopUp({ setIsOpen }: SharePopUpProps) {
     if (urlInputRef.current) {
       urlInputRef.current.select();
     }
+    toast(t('toast.copiedLink'));
   }
 
   function handleSharePopUpClose() {
@@ -73,7 +78,7 @@ export default function SharePopUp({ setIsOpen }: SharePopUpProps) {
                 readOnly
               />
             </div>
-            <div className="flex items-center justify-center gap-4 min-[360px]:gap-6 xs:gap-8">
+            <div className="flex items-center justify-center gap-4 xs:gap-6 sm:gap-8">
               <ShareButtonWrapper label={t('sharePopUp.copyLink')}>
                 <ShareBlueButton onClick={handleCopyLinkButtonClick}>
                   <IconLink size={24} />
@@ -94,10 +99,12 @@ export default function SharePopUp({ setIsOpen }: SharePopUpProps) {
           </div>
         </div>
       </div>
-      <QRCodeScreen
-        visible={isQrCodeScreenOpen}
-        onClose={handleQrCodeScreenClose}
-      />
+
+      <AnimatePresence>
+        {isQrCodeScreenOpen && (
+          <QRCodeScreen onClose={handleQrCodeScreenClose} />
+        )}
+      </AnimatePresence>
     </>
   );
 }

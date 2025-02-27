@@ -166,6 +166,8 @@ export default function ScheduleCreatePage() {
               setIsScheduleEdited={setIsScheduleEdited}
               onSubmit={handleSubmit}
               isSubmitting={isSubmitting}
+              isNewGuest={isNewGuest}
+              guestId={guestId}
             />
           )}
         </main>

@@ -6,6 +6,7 @@ import useSleepTime from './useSleepTime';
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleDetailQuery } from '@/queries/schedule.queries';
 import { MyScheduleTimeType, ScheduleType } from '@/types/schedule.type';
+import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
@@ -15,17 +16,31 @@ interface UseScheduleCreateProps {
   guestId: string;
 }
 
+function isScheduleEmpty(scheduleData: ScheduleType | undefined) {
+  return scheduleData
+    ? scheduleData.schedules.length === 0 ||
+        scheduleData.schedules.every((schedule) => schedule.times.length === 0)
+    : false;
+}
+
+function isFixedScheduleEmpty(
+  fixedScheduleData: MyScheduleTimeType[] | undefined,
+) {
+  return fixedScheduleData
+    ? fixedScheduleData.every((schedule) => schedule.times.length === 0)
+    : true;
+}
+
+function isSleepTimeEmpty(sleepTimeData: SleepTimeType | undefined) {
+  return sleepTimeData
+    ? sleepTimeData.sleep_end_time === sleepTimeData.sleep_start_time
+    : true;
+}
+
 export default function useScheduleCreate({
   isNewGuest,
   guestId,
 }: UseScheduleCreateProps) {
-  const [schedules, setSchedules] = useState<ScheduleType[]>([
-    {
-      name: '본인',
-      schedules: [],
-    },
-  ]);
-
   const { sleepTimesList, sleepTimeData } = useSleepTime();
 
   const params = useParams<{ eventId: string }>();
@@ -48,24 +63,34 @@ export default function useScheduleCreate({
     enabled: isLoggedIn,
   });
 
+  const [schedules, setSchedules] = useState<ScheduleType[]>([
+    {
+      name: '본인',
+      schedules: [],
+    },
+  ]);
+  const [isEmpty, setIsEmpty] = useState({
+    schedule: isScheduleEmpty(scheduleData),
+    fixedSchedule: isFixedScheduleEmpty(fixedScheduleData),
+    sleepTime: isSleepTimeEmpty(sleepTimeData),
+  });
+
+  useEffect(() => {
+    setIsEmpty({
+      schedule: isScheduleEmpty(scheduleData),
+      fixedSchedule: isFixedScheduleEmpty(fixedScheduleData),
+      sleepTime: isSleepTimeEmpty(sleepTimeData),
+    });
+  }, [scheduleData, fixedScheduleData, sleepTimeData]);
+
   useEffect(() => {
     if (!scheduleData) return;
-    const isScheduleEmpty =
-      scheduleData.schedules.length === 0 ||
-      scheduleData.schedules.every((schedule) => schedule.times.length === 0);
-    const isFixedScheduleEmpty = fixedScheduleData
-      ? fixedScheduleData.every(
-          (fixedSchedule) => fixedSchedule.times.length === 0,
-        )
-      : true;
-    const isSleepTimeEmpty = sleepTimeData
-      ? sleepTimeData.sleep_end_time === sleepTimeData.sleep_start_time
-      : true;
+
     setSchedules([
       {
         name: scheduleData.name,
-        schedules: isScheduleEmpty
-          ? isFixedScheduleEmpty && isSleepTimeEmpty
+        schedules: isEmpty.schedule
+          ? isEmpty.fixedSchedule && isEmpty.sleepTime
             ? []
             : initSchedule() || []
           : scheduleData.schedules,
@@ -132,7 +157,14 @@ export default function useScheduleCreate({
         }
       }
     }
-  }, [event, scheduleData, fixedScheduleData, sleepTimeData]);
+  }, [event, scheduleData, fixedScheduleData, sleepTimeData, isEmpty]);
 
-  return { schedules, setSchedules, event };
+  return {
+    schedules,
+    setSchedules,
+    event,
+    isScheduleEmpty: isEmpty.schedule,
+    isFixedScheduleEmpty: isEmpty.fixedSchedule,
+    isSleepTimeEmpty: isEmpty.sleepTime,
+  };
 }
