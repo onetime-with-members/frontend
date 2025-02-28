@@ -17,7 +17,7 @@ export default function SettingList() {
         </SettingItem>
         <SettingItem>
           <span>{t('profile.version')}</span>
-          <span className="text-primary-40">v 1.4.4</span>
+          <span className="text-primary-40">v 1.4.5</span>
         </SettingItem>
         <SettingItem href="/withdraw" className="text-gray-30 text-sm-200">
           {t('profile.withdraw')}
