@@ -37,7 +37,7 @@ function isSleepTimeEmpty(sleepTimeData: SleepTimeType | undefined) {
     : true;
 }
 
-export default function useScheduleCreate({
+export default function useScheduleAdd({
   isNewGuest,
   guestId,
 }: UseScheduleCreateProps) {

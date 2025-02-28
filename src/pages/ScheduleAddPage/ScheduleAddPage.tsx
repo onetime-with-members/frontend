@@ -11,7 +11,7 @@ import TopNavBarForDesktop from './TopNavBarForDesktop/TopNavBarForDesktop';
 import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
 import { FooterContext } from '@/contexts/FooterContext';
 import useGrayBackground from '@/hooks/useGrayBackground';
-import useScheduleCreate from '@/hooks/useScheduleCreate';
+import useScheduleAdd from '@/hooks/useScheduleAdd';
 import {
   useScheduleAndNewMemberCreate,
   useScheduleQuery,
@@ -43,7 +43,7 @@ export default function ScheduleCreatePage() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const { schedules, setSchedules, event } = useScheduleCreate({
+  const { schedules, setSchedules, event } = useScheduleAdd({
     isNewGuest,
     guestId,
   });

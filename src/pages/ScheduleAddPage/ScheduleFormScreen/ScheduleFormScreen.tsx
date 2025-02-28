@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import BottomButtonForDesktop from './BottomButtonForDesktop/BottomButtonForDesktop';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
-import useScheduleCreate from '@/hooks/useScheduleCreate';
+import useScheduleAdd from '@/hooks/useScheduleAdd';
 import { useToast } from '@/stores/toast';
 import { EventType } from '@/types/event.type';
 import { ScheduleType } from '@/types/schedule.type';
@@ -39,7 +39,7 @@ export default function ScheduleFormScreen({
 
   const toast = useToast();
   const { isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty } =
-    useScheduleCreate({
+    useScheduleAdd({
       isNewGuest,
       guestId,
     });
