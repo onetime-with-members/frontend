@@ -55,8 +55,8 @@ export default function TimeBlockPopUp({
             <div>
               <h3 className={cn(style.title, 'text-primary-60')}>가능</h3>
               <div className={style.memberBadgeList}>
-                {members.possible.map((member) => (
-                  <MemberBadge key={member}>{member}</MemberBadge>
+                {members.possible.map((member, index) => (
+                  <MemberBadge key={index}>{member}</MemberBadge>
                 ))}
               </div>
             </div>
@@ -65,8 +65,8 @@ export default function TimeBlockPopUp({
             <div>
               <h3 className={cn(style.title, 'text-gray-50')}>불가능</h3>
               <div className={style.memberBadgeList}>
-                {members.impossible.map((member) => (
-                  <MemberBadge key={member} variant="gray">
+                {members.impossible.map((member, index) => (
+                  <MemberBadge key={index} variant="gray">
                     {member}
                   </MemberBadge>
                 ))}
