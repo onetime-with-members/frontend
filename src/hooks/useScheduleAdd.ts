@@ -9,6 +9,7 @@ import { MyScheduleTimeType, ScheduleType } from '@/types/schedule.type';
 import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
+import { weekdaysShortKo } from '@/utils/weekday';
 import { useQuery } from '@tanstack/react-query';
 
 interface UseScheduleCreateProps {
@@ -145,15 +146,9 @@ export default function useScheduleAdd({
           timePoint: string,
           category: 'DATE' | 'DAY' = 'DAY',
         ) {
-          return dayjs
-            .weekdaysShort()
-            .findIndex(
-              (w) =>
-                w ===
-                (category === 'DATE'
-                  ? dayjs(timePoint, 'YYYY.MM.DD').format('ddd')
-                  : timePoint),
-            );
+          return category === 'DATE'
+            ? dayjs(timePoint, 'YYYY.MM.DD').day()
+            : weekdaysShortKo.indexOf(timePoint);
         }
       }
     }
