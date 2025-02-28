@@ -4,7 +4,6 @@ import { defineConfig } from 'vite';
 import prerender from '@prerenderer/rollup-plugin';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -18,20 +17,20 @@ export default defineConfig({
       ],
       renderer: '@prerenderer/renderer-puppeteer',
       server: {
-        port: 5173,
-        host: 'localhost',
+        port: Number(process.env.PORT) || 5173,
+        host: '0.0.0.0',
       },
       rendererOptions: {
         maxConcurrentRoutes: 1,
         renderAfterTime: 500,
       },
       postProcess(renderedRoute) {
+        const vercelUrl = process.env.VERCEL_URL
+          ? `https://${process.env.VERCEL_URL}`
+          : 'https://onetime-test.vercel.app';
         renderedRoute.html = renderedRoute.html
-          .replace(/http:/i, 'https:')
-          .replace(
-            /(https:\/\/)?(localhost|127\.0\.0\.1):\d*/i,
-            'https://onetime-test.vercel.app/',
-          );
+          .replace(/http:/gi, 'https:')
+          .replace(/(https:\/\/)?(localhost|127\.0\.0\.1):\d+/gi, vercelUrl);
       },
     }),
   ],
