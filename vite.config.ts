@@ -23,6 +23,7 @@ export default defineConfig({
       rendererOptions: {
         maxConcurrentRoutes: 1,
         renderAfterTime: 500,
+        args: ['--no-sandbox', '--disable-setuid-sandbox'],
       },
       postProcess(renderedRoute) {
         const vercelUrl = process.env.VERCEL_URL
