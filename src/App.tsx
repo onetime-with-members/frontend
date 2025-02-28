@@ -10,7 +10,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
 import weekday from 'dayjs/plugin/weekday';
 
-dayjs.locale('ko');
+dayjs.locale('en');
 dayjs.extend(localeData);
 dayjs.extend(customParseFormat);
 dayjs.extend(relativeTime);

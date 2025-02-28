@@ -1,4 +1,5 @@
 const breakpoint = {
+  sm: 640,
   md: 768,
 };
 

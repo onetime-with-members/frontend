@@ -53,3 +53,7 @@ export function timeBlockList(
 
   return timeList;
 }
+
+export function leftTimeLabelFormat(time: string) {
+  return time.split(':')[0] === '24' ? '24' : dayjs(time, 'HH:mm').format('H');
+}
