@@ -67,8 +67,8 @@ export default function TimeBlockPopUp({
                 {t('eventDetail.available')}
               </h3>
               <div className={style.memberBadgeList}>
-                {members.possible.map((member) => (
-                  <MemberBadge key={member}>{member}</MemberBadge>
+                {members.possible.map((member, index) => (
+                  <MemberBadge key={index}>{member}</MemberBadge>
                 ))}
               </div>
             </div>
@@ -79,8 +79,8 @@ export default function TimeBlockPopUp({
                 {t('eventDetail.unavailable')}
               </h3>
               <div className={style.memberBadgeList}>
-                {members.impossible.map((member) => (
-                  <MemberBadge key={member} variant="gray">
+                {members.impossible.map((member, index) => (
+                  <MemberBadge key={index} variant="gray">
                     {member}
                   </MemberBadge>
                 ))}
