@@ -16,7 +16,7 @@ import { useQuery } from '@tanstack/react-query';
 export default function Layout() {
   const { isFooterVisible } = useContext(FooterContext);
 
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -79,7 +79,7 @@ export default function Layout() {
   return (
     <>
       <Helmet>
-        <title>OneTime | {t('common.title')}</title>
+        <title>OneTime</title>
       </Helmet>
 
       <ScrollToTop />

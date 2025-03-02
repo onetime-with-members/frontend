@@ -2,8 +2,7 @@
   "common": {
     "noOneSchedule": "No one has added a schedule.",
     "participantCount_one": "{{count}} person",
-    "participantCount_other": "{{count}} people",
-    "title": "Find The Perfect Time Easily And Quickly"
+    "participantCount_other": "{{count}} people"
   },
   "toast": {
     "copiedLink": "Copied event link",
