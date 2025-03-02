@@ -2,8 +2,7 @@
   "common": {
     "noOneSchedule": "아무도 스케줄을 등록하지 않았어요.",
     "participantCount_one": "{{count}}명",
-    "participantCount_other": "{{count}}명",
-    "title": "원타임으로 쉽고 빠르게 모두가 되는 시간을 찾으세요"
+    "participantCount_other": "{{count}}명"
   },
   "toast": {
     "copiedLink": "링크를 복사했어요",
