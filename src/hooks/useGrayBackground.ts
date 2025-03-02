@@ -2,11 +2,17 @@ import { useEffect } from 'react';
 
 import breakpoint from '@/utils/breakpoint';
 
-export default function useGrayBackground() {
+interface UseGrayBackgroundProps {
+  breakpointCondition?: () => boolean;
+}
+
+export default function useGrayBackground({
+  breakpointCondition = () => window.innerWidth >= breakpoint.md,
+}: UseGrayBackgroundProps = {}) {
   useEffect(() => {
     function updateBackgroundColor() {
-      if (window.innerWidth >= breakpoint.md) {
-        document.body.style.backgroundColor = '#F9F9F9';
+      if (breakpointCondition()) {
+        document.body.style.backgroundColor = '#F6F7F8';
       } else {
         document.body.style.backgroundColor = '';
       }

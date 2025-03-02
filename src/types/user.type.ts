@@ -1,7 +1,11 @@
 export interface UserType {
   nickname: string;
   email: string;
+  language: 'KOR' | 'ENG';
+  social_platform: 'google' | 'naver' | 'kakao';
 }
+
+export type SocialLoginType = 'naver' | 'kakao' | 'google';
 
 export interface GuestValueType {
   name: string;
@@ -24,4 +28,5 @@ export type PolicyKeyType = keyof PolicyType;
 export interface OnboardingValueType extends PolicyType, SleepTimeType {
   register_token: string;
   nickname: string;
+  language: 'KOR' | 'ENG';
 }

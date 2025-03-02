@@ -5,7 +5,7 @@ import { EventType } from '../types/event.type';
 const { Kakao } = window;
 
 interface useKakaoShareProps {
-  event: EventType;
+  event: EventType | undefined;
 }
 
 export default function useKakaoShare({ event }: useKakaoShareProps) {
@@ -15,6 +15,8 @@ export default function useKakaoShare({ event }: useKakaoShareProps) {
   }, []);
 
   function handleKakaoShare() {
+    if (!event) return;
+
     const url = `${import.meta.env.VITE_SITE_DOMAIN}/events/${event.event_id}`;
 
     Kakao.Share.sendDefault({
