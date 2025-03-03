@@ -1,8 +1,7 @@
 {
   "common": {
     "noOneSchedule": "아무도 스케줄을 등록하지 않았어요.",
-    "participantCount_one": "{{count}}명",
-    "participantCount_other": "{{count}}명",
+    "participantCount": "{{count}}명",
     "title": "원타임으로 쉽고 빠르게 모두가 되는 시간을 찾으세요"
   },
   "toast": {
@@ -73,8 +72,7 @@
     "start": "시작하기"
   },
   "eventDetail": {
-    "participant_one": "참여자",
-    "participant_other": "참여자",
+    "participant": "참여자",
     "available": "가능",
     "unavailable": "불가능",
     "edit": "수정",
@@ -82,10 +80,9 @@
     "addSchedule": "스케줄 추가",
     "mostAvailable": "가장 많이 되는 시간대",
     "allAvailable": "모두가 되는 시간",
-    "peopleWhoAddedSchedules_one": "스케줄을 추가한 사람",
-    "peopleWhoAddedSchedules_other": "스케줄을 추가한 사람들",
+    "peopleWhoAddedSchedules": "스케줄을 추가한 사람{count, plural, =1 {} other {들}}",
     "whenAvailableTimes": "가능한 시간은 언제일까요?",
-    "emptyEventBanner": "링크를 공유하고 <br />맞는 시간을 찾으세요!",
+    "emptyEventBanner": "링크를 공유하고 <br></br>맞는 시간을 찾으세요!",
     "copyLink": "링크 복사",
     "copied": "복사 완료"
   },
@@ -95,15 +92,15 @@
     "qrCode": "QR 코드",
     "kakao": "카카오톡",
     "more": "더 보기",
-    "qrCodeScreen": "<0>{{eventName}}</0>에 <br />스케줄을 등록해 주세요!"
+    "qrCodeScreen": "<Name>{{eventName}}</Name>에 <br />스케줄을 등록해 주세요!"
   },
   "alert": {
     "loginTitle": "로그인 하시겠어요?",
-    "loginDescription": "로그인하면 정보가 자동으로 입력되고, <br />스케줄을 저장할 수 있어요!",
+    "loginDescription": "로그인하면 정보가 자동으로 입력되고, <br></br>스케줄을 저장할 수 있어요!",
     "loginConfirm": "로그인",
     "loginCancel": "다음에 할게요",
     "deleteEventTitle": "정말로 이벤트를 삭제하시겠어요?",
-    "deleteEventDescription": "이벤트를 삭제하면, 해당 이벤트에 <br />등록된 모든 스케줄이 삭제돼요!",
+    "deleteEventDescription": "이벤트를 삭제하면, 해당 이벤트에 <br></br>등록된 모든 스케줄이 삭제돼요!",
     "deleteEventConfirm": "삭제",
     "deleteEventCancel": "취소",
     "deleteEventConfirming": "삭제 중...",

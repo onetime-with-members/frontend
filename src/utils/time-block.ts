@@ -1,5 +1,9 @@
 import dayjs from 'dayjs';
 
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+dayjs.extend(customParseFormat);
+
 type TimeBlockUnit = '30m' | '1h';
 
 export function getBlockCount(

@@ -12,19 +12,19 @@ export default function ButtonGroup() {
   return (
     <div className="flex w-full flex-col gap-4">
       <SocialLoginButton
-        href={`${process.env.VITE_SERVER_OAUTH2_URL}/naver`}
+        href={`${process.env.NEXT_PUBLIC_SERVER_OAUTH2_URL}/naver`}
         social="naver"
         lastLogin={lastLoginLocal === 'naver'}
         onClick={handleLoginButtonClick}
       />
       <SocialLoginButton
-        href={`${process.env.VITE_SERVER_OAUTH2_URL}/kakao`}
+        href={`${process.env.NEXT_PUBLIC_SERVER_OAUTH2_URL}/kakao`}
         social="kakao"
         lastLogin={lastLoginLocal === 'kakao'}
         onClick={handleLoginButtonClick}
       />
       <SocialLoginButton
-        href={`${process.env.VITE_SERVER_OAUTH2_URL}/google`}
+        href={`${process.env.NEXT_PUBLIC_SERVER_OAUTH2_URL}/google`}
         social="google"
         lastLogin={lastLoginLocal === 'google'}
         onClick={handleLoginButtonClick}

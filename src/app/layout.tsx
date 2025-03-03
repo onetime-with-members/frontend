@@ -6,6 +6,13 @@ import QueryProvider from './query-provider';
 import ContextProviders from '@/contexts/ContextProviders';
 import { getLocale, getMessages } from 'next-intl/server';
 
+declare global {
+  interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Kakao: any;
+  }
+}
+
 export const metadata: Metadata = {
   title: 'OneTime',
   description: 'Find the perfect time easily and quickly',
@@ -21,7 +28,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body>
+      <body cz-shortcut-listen="true">
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>
             <ContextProviders>{children}</ContextProviders>

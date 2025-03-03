@@ -1,14 +1,16 @@
+'use client';
+
 import _axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 const axios = _axios.create({
-  baseURL: process.env.VITE_SERVER_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_SERVER_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 const reissuer = _axios.create({
-  baseURL: process.env.VITE_SERVER_API_URL,
+  baseURL: process.env.NEXT_PUBLIC_SERVER_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -22,7 +24,10 @@ function removeTokens() {
 
 axios.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('access-token');
+    const accessToken =
+      typeof localStorage !== 'undefined'
+        ? localStorage.getItem('access-token')
+        : null;
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
@@ -43,8 +48,11 @@ axios.interceptors.response.use(
 
     const originalRequest = error.config as AxiosRequestConfig;
 
-    if (error.response.status === 401) {
-      const refreshToken = localStorage.getItem('refresh-token');
+    if (error.response && error.response.status === 401) {
+      const refreshToken =
+        typeof localStorage !== 'undefined'
+          ? localStorage.getItem('refresh-token')
+          : null;
       if (refreshToken) {
         try {
           const { data } = await reissuer.post('/tokens/action-reissue', {
@@ -67,6 +75,7 @@ axios.interceptors.response.use(
         removeTokens();
       }
     } else if (
+      error.response &&
       error.response.status === 404 &&
       error.response.data.code === 'USER-001'
     ) {

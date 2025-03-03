@@ -1,8 +1,7 @@
 {
   "common": {
     "noOneSchedule": "No one has added a schedule.",
-    "participantCount_one": "{{count}} person",
-    "participantCount_other": "{{count}} people",
+    "participantCount": "{count, plural, =1 {# person} other {# people}}",
     "title": "Find The Perfect Time Easily And Quickly"
   },
   "toast": {
@@ -73,8 +72,7 @@
     "start": "Get Started"
   },
   "eventDetail": {
-    "participant_one": "Participant",
-    "participant_other": "Participants",
+    "participant": "Participant{count, plural, =1 {} other {s}}",
     "available": "Available",
     "unavailable": "Unavailable",
     "edit": "Edit",
@@ -82,10 +80,9 @@
     "addSchedule": "Add Schedule",
     "mostAvailable": "Most Available Times",
     "allAvailable": "All Available Times",
-    "peopleWhoAddedSchedules_one": "Person who added schedule",
-    "peopleWhoAddedSchedules_other": "People who added schedules",
+    "peopleWhoAddedSchedules": "Person who added schedule{count, plural, =1 {} other {s}}",
     "whenAvailableTimes": "When are the available times?",
-    "emptyEventBanner": "Share the link <br />and find the perfect time!",
+    "emptyEventBanner": "Share the link <br></br>and find the perfect time!",
     "copyLink": "Copy Link",
     "copied": "Copied"
   },
@@ -95,7 +92,7 @@
     "qrCode": "QR Code",
     "kakao": "KakaoTalk",
     "more": "More",
-    "qrCodeScreen": "Please add your schedule <br />to <0>{{eventName}}</0>!"
+    "qrCodeScreen": "Please add your schedule <br></br>to <Name>{{eventName}}</Name>!"
   },
   "alert": {
     "loginTitle": "Would you like to log in?",
