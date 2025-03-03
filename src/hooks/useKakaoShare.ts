@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { EventType } from '../types/event.type';
 
 interface useKakaoShareProps {
@@ -7,18 +5,10 @@ interface useKakaoShareProps {
 }
 
 export default function useKakaoShare({ event }: useKakaoShareProps) {
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const { Kakao } = window;
-      Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
-    }
-  }, []);
-
   function handleKakaoShare() {
     if (!event) return;
 
     const url = `${process.env.NEXT_PUBLIC_SITE_DOMAIN}/events/${event.event_id}`;
-
     const { Kakao } = window;
 
     Kakao.Share.sendDefault({

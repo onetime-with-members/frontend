@@ -1,4 +1,4 @@
-import LandingPage from './components/LandingPage';
+import LandingPage from './components/LandingPage/LandingPage';
 import { getQueryClient } from './get-query-client';
 // import UserDashboardPage from '@/pages/UserDashboardPage/UserDashboardPage';
 import axios from '@/utils/axios';
