@@ -12,6 +12,7 @@ import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/LoginPage/LoginPage';
 import MyEventsPage from './pages/MyEventsPage/MyEventsPage';
 import MyScheduleEditPage from './pages/MyScheduleEditPage/MyScheduleEditPage';
+import MyScheduleEverytimeEditPage from './pages/MyScheduleEverytimeEditPage/MyScheduleEverytimeEditPage';
 import MySchedulePage from './pages/MySchedulePage/MySchedulePage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import NotFoundPageRedirect from './pages/NotFoundPageRedirect/NotFoundPageRedirect';
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
           {
             path: 'mypage/schedules/edit',
             element: <MyScheduleEditPage />,
+          },
+          {
+            path: 'mypage/schedules/everytime/edit',
+            element: <MyScheduleEverytimeEditPage />,
           },
           {
             path: 'mypage/profile/edit',
