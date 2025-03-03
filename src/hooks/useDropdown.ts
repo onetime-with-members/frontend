@@ -26,7 +26,7 @@ export default function useDropdown({ dropdownRef }: useDropdownProps) {
     return () => {
       document.removeEventListener('click', handleDropdownOutSideClick);
     };
-  }, []);
+  }, [dropdownRef]);
 
   return {
     isDropdownMenuOpen,

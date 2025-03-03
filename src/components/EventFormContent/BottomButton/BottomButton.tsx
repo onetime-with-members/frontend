@@ -1,5 +1,5 @@
+import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import Button from '@/components/button/Button/Button';
 import { PageModeContext } from '@/contexts/PageModeContext';
@@ -17,7 +17,7 @@ export default function BottomButton({
 }: BottomButtonProps) {
   const { pageMode } = useContext(PageModeContext);
 
-  const { t } = useTranslation();
+  const t = useTranslations('eventForm');
 
   return (
     <div className="sticky bottom-0 left-0 w-full bg-gray-00 px-4 py-4 md:static md:w-[25rem] md:bg-transparent">
@@ -28,11 +28,9 @@ export default function BottomButton({
         fullWidth
       >
         {pageMode === 'create' &&
-          (isPending
-            ? t('eventForm.creatingEvent')
-            : t('eventForm.createEvent'))}
+          (isPending ? t('creatingEvent') : t('createEvent'))}
         {pageMode === 'edit' &&
-          (isPending ? t('eventForm.editingEvent') : t('eventForm.editEvent'))}
+          (isPending ? t('editingEvent') : t('editEvent'))}
       </Button>
     </div>
   );

@@ -1,0 +1,224 @@
+{
+  "common": {
+    "noOneSchedule": "아무도 스케줄을 등록하지 않았어요.",
+    "participantCount_one": "{{count}}명",
+    "participantCount_other": "{{count}}명",
+    "title": "원타임으로 쉽고 빠르게 모두가 되는 시간을 찾으세요"
+  },
+  "toast": {
+    "copiedLink": "링크를 복사했어요",
+    "loadedMySchedule": "내 스케줄을 불러왔어요"
+  },
+  "navbar": {
+    "login": "로그인",
+    "logout": "로그아웃",
+    "allEvents": "참여한 이벤트",
+    "mySchedule": "내 스케줄",
+    "profile": "프로필 정보"
+  },
+  "footer": {
+    "termsOfService": "서비스 이용약관",
+    "privacyPolicy": "개인정보처리방침"
+  },
+  "login": {
+    "login": "로그인",
+    "logoTitle": "일정을 쉽고 빠르게,",
+    "kakao": "카카오 로그인",
+    "naver": "네이버 로그인",
+    "google": "Google 계정으로 로그인",
+    "lastLogin": "마지막 로그인"
+  },
+  "landing": {
+    "title": {
+      "main": "일정을 쉽고 빠르게",
+      "feature1": "더 이상 스트레스 없는 <br></br>간편한 일정 조율",
+      "feature2": "가능한 시간은 더 명확하게, <br></br>선택은 더 간편하게",
+      "highlight": "내 일정에 맞게 <br></br>자동으로 시간 조율, <br></br>더 이상 고민하지 마세요!",
+      "card1": "단 한 번 등록으로 <br></br>반복 작업 없이 간편하게",
+      "card2": "오프라인에서는 QR코드로 <br></br>쉽고 빠른 일정관리",
+      "last": "원타임에서 더 이상 스트레스 없는 <br></br>간편한 일정조율을 경험하세요"
+    },
+    "description": {
+      "main": "링크 공유 한 번으로 여러 사람과 일정을 <br></br>정리하고, 가장 적합한 시간을 찾아보세요.",
+      "feature1": "이벤트 참여자와 가장 많은 사람들이 <br></br>되는 시간을 한눈에 확인할 수 있어요.",
+      "feature2": "가능한 시간을 가늠하기 어려우신가요? <br></br>그렇다면 ‘안되는 시간’을 지워보세요.",
+      "card1": "내 스케줄을 미리 등록하면 <br></br>불가능한 시간은 자동으로 제외돼요.",
+      "card2": "오프라인에서는 링크 공유 필요 없이 <br></br>QR코드 하나로 시간을 조율해보세요."
+    },
+    "badge": {
+      "feature1": "빠른 현황 확인",
+      "feature2": "간편한 가능시간 체크",
+      "card1": "내 스케줄 등록",
+      "card2": "QR 코드 생성"
+    },
+    "button": {
+      "start": "시작하기",
+      "createEvent": "이벤트 생성하기"
+    }
+  },
+  "onboarding": {
+    "onboarding": "온보딩",
+    "termsOfService": "서비스 이용약관",
+    "privacyPolicy": "개인정보 수집 및 이용 동의",
+    "title1": "서비스 이용을 위해 <1 />약관에 동의해주세요",
+    "title2": "회원님의 <1 />이름을 알려주세요",
+    "title3": "시작하기 전, <1 />수면 시간을 알려주세요",
+    "title4": "환영합니다, <1 />{{name}}님!",
+    "description3": "스케줄 등록 시, 자동으로 수면 시간을 제외할 수 있어요.",
+    "description4": "지금부터 OneTime을 사용해볼까요?",
+    "sleepTime": "수면 시간",
+    "next": "다음",
+    "goBack": "돌아가기",
+    "previous": "이전으로",
+    "start": "시작하기"
+  },
+  "eventDetail": {
+    "participant_one": "참여자",
+    "participant_other": "참여자",
+    "available": "가능",
+    "unavailable": "불가능",
+    "edit": "수정",
+    "delete": "삭제",
+    "addSchedule": "스케줄 추가",
+    "mostAvailable": "가장 많이 되는 시간대",
+    "allAvailable": "모두가 되는 시간",
+    "peopleWhoAddedSchedules_one": "스케줄을 추가한 사람",
+    "peopleWhoAddedSchedules_other": "스케줄을 추가한 사람들",
+    "whenAvailableTimes": "가능한 시간은 언제일까요?",
+    "emptyEventBanner": "링크를 공유하고 <br />맞는 시간을 찾으세요!",
+    "copyLink": "링크 복사",
+    "copied": "복사 완료"
+  },
+  "sharePopUp": {
+    "share": "공유하기",
+    "copyLink": "링크 복사",
+    "qrCode": "QR 코드",
+    "kakao": "카카오톡",
+    "more": "더 보기",
+    "qrCodeScreen": "<0>{{eventName}}</0>에 <br />스케줄을 등록해 주세요!"
+  },
+  "alert": {
+    "loginTitle": "로그인 하시겠어요?",
+    "loginDescription": "로그인하면 정보가 자동으로 입력되고, <br />스케줄을 저장할 수 있어요!",
+    "loginConfirm": "로그인",
+    "loginCancel": "다음에 할게요",
+    "deleteEventTitle": "정말로 이벤트를 삭제하시겠어요?",
+    "deleteEventDescription": "이벤트를 삭제하면, 해당 이벤트에 <br />등록된 모든 스케줄이 삭제돼요!",
+    "deleteEventConfirm": "삭제",
+    "deleteEventCancel": "취소",
+    "deleteEventConfirming": "삭제 중...",
+    "backButtonTitle": "페이지를 나가시겠어요?",
+    "backButtonDescription": "스케줄을 등록하지 않고 페이지를 벗어날 경우, <br />지금까지 입력한 내용이 사라져요!",
+    "backButtonConfirm": "계속 입력하기",
+    "backButtonCancel": "나가기"
+  },
+  "createEvent": {
+    "createEvent": "이벤트 생성"
+  },
+  "editEvent": {
+    "editEvent": "{{eventName}} 수정"
+  },
+  "eventForm": {
+    "eventName": "이벤트 제목",
+    "max50Characters": "최대 50자",
+    "enterEventName": "어떤 이벤트인가요?",
+    "timeRange": "시간",
+    "selectTimeRange": "설문할 시간의 범위를 설정해주세요.",
+    "dateRange": "설문 범위",
+    "selectDateRange": "설문할 날짜의 범위를 설정해주세요.",
+    "date": "날짜",
+    "weekday": "요일",
+    "createEvent": "이벤트 생성하기",
+    "editEvent": "이벤트 수정하기",
+    "creatingEvent": "이벤트 생성 중...",
+    "editingEvent": "이벤트 수정 중..."
+  },
+  "scheduleAdd": {
+    "enterSchedule": "스케줄 입력",
+    "addSchedule": "스케줄 등록",
+    "addingSchedule": "스케줄 등록 중...",
+    "password": "비밀번호",
+    "next": "다음",
+    "done": "완료",
+    "doing": "진행 중..."
+  },
+  "timeBlockBoard": {
+    "availableToggleText": "되는 시간 체크",
+    "unavailableToggleText": "안되는 시간 체크",
+    "reset": "초기화"
+  },
+  "userDashboard": {
+    "more": "더 보기",
+    "hello": "안녕하세요, {{name}}님",
+    "createEvent": "이벤트 생성하기",
+    "recentEvents_one": "참여한 이벤트",
+    "recentEvents_other": "참여한 이벤트",
+    "mySchedule": "내 스케줄",
+    "myScheduleDescription": "스케줄을 입력할 때 자동으로 불러와져요.",
+    "loadingEvents": "이벤트를 불러오는 중입니다...",
+    "noEvent": "아직 참여한 이벤트가 없어요."
+  },
+  "mypage": {
+    "allEvents": "참여한 이벤트",
+    "mySchedule": "내 스케줄",
+    "profile": "프로필 정보"
+  },
+  "myEvents": {
+    "empty": {
+      "title": "참여한 이벤트가 없어요.",
+      "button": "이벤트 추가하기"
+    }
+  },
+  "myScheduleEdit": {
+    "myScheduleEdit": "내 스케줄 수정",
+    "editMySchedule": "스케줄 입력",
+    "sleepTime": "수면 시간",
+    "done": "완료"
+  },
+  "profile": {
+    "profile": "프로필 정보",
+    "editProfile": "프로필 수정",
+    "logout": "로그아웃",
+    "service": "서비스",
+    "termsOfService": "서비스 이용약관",
+    "privacyPolicy": "개인정보처리방침",
+    "version": "버전 정보",
+    "withdraw": "서비스 탈퇴하기"
+  },
+  "nickname": {
+    "name": "이름",
+    "noSpecialCharactersAndNumbers": "특수문자 및 숫자는 사용할 수 없어요.",
+    "max50Characters": "50자 이내로 입력해주세요.",
+    "enterName": "당신의 이름은 무엇인가요?"
+  },
+  "profileEdit": {
+    "editProfile": "프로필 수정",
+    "save": "저장"
+  },
+  "policyEdit": {
+    "agreeToTerms": "약관 동의",
+    "title": "서비스 이용을 위해 <br />약관에 동의해주세요",
+    "all": "전체 동의",
+    "termsOfService": "서비스 이용약관 (필수)",
+    "privacyPolicy": "개인정보 수집 및 이용 동의 (필수)",
+    "marketing": "마케팅 정보 수신 동의 (선택)",
+    "submit": "확인",
+    "toWithdrawText": "약관에 동의하지 않으시나요?",
+    "toWithdrawLink": "탈퇴 페이지로 이동"
+  },
+  "withdraw": {
+    "deleteAccount": "회원 탈퇴",
+    "mainTitle": "정말 서비스를 탈퇴하시겠어요?",
+    "title1": "회원님의 계정이 즉시 삭제돼요",
+    "description1": "탈퇴한 회원의 정보는 복구할 수 없어요. 탈퇴 후에는 회원님의 계정이 즉시 삭제돼요.",
+    "title2": "회원님의 일정 및 스케줄 데이터가 모두 삭제돼요",
+    "description2": "참여한 이벤트에 등록한 스케줄 등 OneTime에서 작성하신 내용이 모두 삭제돼요.",
+    "agreeText": "상기 내용을 모두 확인했습니다.",
+    "withdraw": "탈퇴하기"
+  },
+  "404": {
+    "notFound": "페이지를 찾을 수 없습니다",
+    "title": "요청하신 페이지를 찾을 수 없어요",
+    "description": "찾으시려는 페이지의 주소가 잘못되었거나 <2 />주소 변경, 삭제로 이용하실 수 없어요. <5 />주소가 올바르게 입력되었는지 확인해주세요."
+  }
+}

@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import AvatarDropdown from '../avatar/AvatarDropdown/AvatarDropdown';
 import LoginButton from './LoginButton/LoginButton';
-import logoWhite from '@/assets/logo-white.svg';
-import logoBlack from '@/assets/logo.svg';
 import useScroll from '@/hooks/useScroll';
 import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import Link from 'next/link';
 
 interface NavBarProps {
   variant?: 'default' | 'black' | 'transparent';
@@ -28,10 +28,16 @@ export default function NavBar({
   heightZero = false,
 }: NavBarProps) {
   const { isScrolling } = useScroll();
+  const [hasTokens, setHasTokens] = useState(false);
 
-  const hasTokens =
-    !!localStorage.getItem('access-token') &&
-    !!localStorage.getItem('refresh-token');
+  useEffect(() => {
+    if (
+      !!localStorage.getItem('access-token') &&
+      !!localStorage.getItem('refresh-token')
+    ) {
+      setHasTokens(true);
+    }
+  }, [hasTokens]);
 
   const { isLoading, data: user } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
@@ -68,18 +74,20 @@ export default function NavBar({
       >
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
           <Link
-            to={disabled ? '#' : '/'}
+            href={disabled ? '#' : '/'}
             className={cn({
               'cursor-default': disabled,
             })}
           >
-            <img
+            <Image
               src={
                 variant === 'default' || variant === 'transparent'
-                  ? logoBlack
-                  : logoWhite
+                  ? '/images/logo.svg'
+                  : '/images/logo-white.svg'
               }
               alt="OneTime"
+              width={148}
+              height={32}
               className="h-[2rem]"
             />
           </Link>

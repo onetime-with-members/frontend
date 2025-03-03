@@ -1,14 +1,14 @@
 import _axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 const axios = _axios.create({
-  baseURL: import.meta.env.VITE_SERVER_API_URL,
+  baseURL: process.env.VITE_SERVER_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 });
 
 const reissuer = _axios.create({
-  baseURL: import.meta.env.VITE_SERVER_API_URL,
+  baseURL: process.env.VITE_SERVER_API_URL,
   headers: {
     'Content-Type': 'application/json',
   },

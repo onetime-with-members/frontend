@@ -1,12 +1,11 @@
-import { useNavigate } from 'react-router-dom';
-
 import { IconChevronLeft } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
 export default function TopActionForDesktop() {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   function handleBackButtonClick() {
-    navigate(-1);
+    router.back();
   }
 
   return (

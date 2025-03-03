@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 import MenuItem from './MenuItem/MenuItem';
 
@@ -9,7 +9,7 @@ interface AvatarDropdownMenuProps {
 export default function AvatarDropdownMenu({
   setIsMenuOpen,
 }: AvatarDropdownMenuProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('navbar');
 
   function handleLogout() {
     localStorage.removeItem('access-token');
@@ -25,16 +25,16 @@ export default function AvatarDropdownMenu({
   return (
     <ul className="absolute -bottom-4 right-0 w-[8.5rem] translate-y-full rounded-xl bg-gray-00 py-1 shadow-[0_0_30px_0_rgba(0,0,0,0.15)]">
       <MenuItem href="/mypage/events" onClick={handleMenuItemClick}>
-        {t('navbar.allEvents')}
+        {t('allEvents')}
       </MenuItem>
       <MenuItem href="/mypage/schedules" onClick={handleMenuItemClick}>
-        {t('navbar.mySchedule')}
+        {t('mySchedule')}
       </MenuItem>
       <MenuItem href="/mypage/profile" onClick={handleMenuItemClick}>
-        {t('navbar.profile')}
+        {t('profile')}
       </MenuItem>
       <MenuItem variant="danger" onClick={handleLogout}>
-        {t('navbar.logout')}
+        {t('logout')}
       </MenuItem>
     </ul>
   );

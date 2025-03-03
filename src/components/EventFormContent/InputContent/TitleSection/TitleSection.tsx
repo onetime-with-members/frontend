@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import Input from '@/components/Input/Input';
@@ -10,7 +10,7 @@ interface TitleSectionProps {
 }
 
 export default function TitleSection({ value, setValue }: TitleSectionProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('eventForm');
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.value.length > 50) return;
@@ -24,14 +24,14 @@ export default function TitleSection({ value, setValue }: TitleSectionProps) {
     <div className="flex flex-col gap-2 md:gap-4">
       <EventInputLabel
         labelId="title"
-        labelText={t('eventForm.eventName')}
-        description={t('eventForm.max50Characters')}
+        labelText={t('eventName')}
+        description={t('max50Characters')}
       />
       <Input
         type="text"
         id="title"
         name="title"
-        placeholder={t('eventForm.enterEventName')}
+        placeholder={t('enterEventName')}
         value={value.title}
         onChange={handleChange}
       />

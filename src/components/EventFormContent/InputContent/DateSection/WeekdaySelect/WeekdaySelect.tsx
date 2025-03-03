@@ -1,11 +1,9 @@
-import dayjs from 'dayjs';
-
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
 import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
-import { weekdaysShortKo } from '@/utils/weekday';
+import { weekdaysShort, weekdaysShortKo } from '@/utils/weekday';
 
 interface WeekdaySelectProps {
   className?: string;
@@ -37,13 +35,13 @@ export default function WeekdaySelect({
     setValue((prev) => ({
       ...prev,
       ranges: isFilling
-        ? [...new Set([...prev.ranges, weekday])]
+        ? Array.from(new Set([...prev.ranges, weekday]))
         : prev.ranges.filter((range) => range !== weekday),
     }));
   }
 
   function weekdayKOR(weekday: string) {
-    return weekdaysShortKo[dayjs.weekdaysShort().indexOf(weekday)];
+    return weekdaysShortKo[weekdaysShort.indexOf(weekday)];
   }
 
   function isActive(weekday: string) {
@@ -52,7 +50,7 @@ export default function WeekdaySelect({
 
   return (
     <div className={cn('flex gap-3', className)} onMouseLeave={handleDragEnd}>
-      {dayjs.weekdaysShort().map((weekday) => (
+      {weekdaysShort.map((weekday) => (
         <DateItem
           key={weekday}
           data-weekday={weekday}

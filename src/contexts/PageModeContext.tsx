@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+
+import { usePathname } from 'next/navigation';
 
 export type PageMode = 'view' | 'create' | 'edit';
 
@@ -18,17 +19,17 @@ export function PageModeContextProvider({
 }) {
   const [pageMode, setPageMode] = useState<PageMode>('view');
 
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (location.pathname.includes('/new')) {
+    if (pathname.includes('/new')) {
       setPageMode('create');
-    } else if (location.pathname.includes('/edit')) {
+    } else if (pathname.includes('/edit')) {
       setPageMode('edit');
     } else {
       setPageMode('view');
     }
-  }, [location]);
+  }, [pathname]);
 
   return (
     <PageModeContext.Provider value={{ pageMode }}>

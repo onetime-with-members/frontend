@@ -1,16 +1,18 @@
-import { useTranslation } from 'react-i18next';
-import { Link, useLocation } from 'react-router-dom';
+import { useTranslations } from 'next-intl';
+
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function LoginButton() {
-  const location = useLocation();
-  const { t } = useTranslation();
+  const pathname = usePathname();
+  const t = useTranslations('navbar');
 
   return (
     <Link
-      to={`/login?redirect_url=${location.pathname}`}
+      href={`/login?redirect_url=${pathname}`}
       className="flex items-center text-lg-200"
     >
-      {t('navbar.login')}
+      {t('login')}
     </Link>
   );
 }
