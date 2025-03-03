@@ -1,5 +1,5 @@
+import { getQueryClient } from '../utils/get-query-client';
 import LandingPage from './components/LandingPage/LandingPage';
-import { getQueryClient } from './get-query-client';
 // import UserDashboardPage from '@/pages/UserDashboardPage/UserDashboardPage';
 import axios from '@/utils/axios';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';

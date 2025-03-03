@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 
 import KakaoScript from './components/KakaoScript/KakaoScript';
+import QueryProvider from './components/QueryProvider/QueryProvider';
 import './globals.css';
-import QueryProvider from './query-provider';
 import ContextProviders from '@/contexts/ContextProviders';
 import { getLocale, getMessages } from 'next-intl/server';
 
@@ -29,7 +29,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body cz-shortcut-listen="true">
+      <body>
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>
             <ContextProviders>{children}</ContextProviders>

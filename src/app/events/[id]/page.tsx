@@ -1,8 +1,8 @@
 import EventDetailPage from './components/EventDetailPage';
-import { getQueryClient } from '@/app/get-query-client';
 import { EventType } from '@/types/event.type';
 import { ScheduleType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
+import { getQueryClient } from '@/utils/get-query-client';
 import { weekdaysShortKo } from '@/utils/weekday';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 

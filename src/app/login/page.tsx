@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { getQueryClient } from '../get-query-client';
+import { getQueryClient } from '../../utils/get-query-client';
 import LoginPage from './components/LoginPage';
 import axios from '@/utils/axios';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
