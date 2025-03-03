@@ -85,23 +85,33 @@ export default function useScheduleAdd({
   }, [scheduleData, fixedScheduleData, sleepTimeData]);
 
   useEffect(() => {
-    if (!scheduleData) return;
+    if (!scheduleData || !event) return;
+
+    const initSchedule = event.ranges.map((time_point) => ({
+      time_point,
+      times: [],
+    }));
 
     setSchedules([
       {
         name: scheduleData.name,
         schedules: isEmpty.schedule
           ? isEmpty.fixedSchedule && isEmpty.sleepTime
-            ? []
-            : initSchedule() || []
-          : scheduleData.schedules,
+            ? initSchedule
+            : fixedAndSleepTimeSchedule()
+          : initSchedule.map((schedule) => ({
+              ...schedule,
+              times:
+                scheduleData.schedules.find(
+                  (s) => s.time_point === schedule.time_point,
+                )?.times || [],
+            })),
       },
     ]);
 
-    function initSchedule() {
-      if (!event) return;
+    function fixedAndSleepTimeSchedule() {
       return (
-        event.ranges.map((time_point) => ({
+        event?.ranges.map((time_point) => ({
           time_point,
           times: newTimes(
             event.start_time,
@@ -109,7 +119,7 @@ export default function useScheduleAdd({
             fixedScheduleTimes(time_point, event.category),
             sleepTimesList,
           ),
-        })) || []
+        })) || initSchedule
       );
 
       function newTimes(
