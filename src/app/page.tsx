@@ -1,10 +1,10 @@
+import LandingPage from './components/LandingPage';
 import { getQueryClient } from './get-query-client';
-import LandingPage from '@/app/components/LandingPage/LandingPage';
 // import UserDashboardPage from '@/pages/UserDashboardPage/UserDashboardPage';
 import axios from '@/utils/axios';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 
-export default async function HomePage() {
+export default async function Home() {
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({

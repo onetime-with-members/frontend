@@ -9,7 +9,7 @@ import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function LoginScreen() {
+export default function LoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 

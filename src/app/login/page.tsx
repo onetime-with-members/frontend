@@ -1,8 +1,7 @@
-import { Metadata, ResolvingMetadata } from 'next';
 import { Suspense } from 'react';
 
 import { getQueryClient } from '../get-query-client';
-import LoginScreen from './components/LoginScreen/LoginScreen';
+import LoginPage from './components/LoginPage';
 import axios from '@/utils/axios';
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
@@ -15,7 +14,7 @@ export async function generateMetadata() {
   };
 }
 
-export default async function LoginPage() {
+export default async function Login() {
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({
@@ -29,7 +28,7 @@ export default async function LoginPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Suspense>
-        <LoginScreen />
+        <LoginPage />
       </Suspense>
     </HydrationBoundary>
   );

@@ -1,4 +1,4 @@
-import EventCreateScreen from './components/EventCreateScreen/EventCreateScreen';
+import EventCreatePage from './components/EventCreateScreen';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -9,6 +9,6 @@ export async function generateMetadata() {
   };
 }
 
-export default function EventCreatePage() {
-  return <EventCreateScreen />;
+export default function EventCreate() {
+  return <EventCreatePage />;
 }

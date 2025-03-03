@@ -6,7 +6,7 @@ import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-export default function EventCreateScreen() {
+export default function EventCreatePage() {
   const router = useRouter();
 
   const createEvent = useMutation({
