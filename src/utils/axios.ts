@@ -59,7 +59,8 @@ axios.interceptors.response.use(
           }
 
           return axios(originalRequest);
-        } catch (refreshError) {
+        } catch (error) {
+          console.error(error);
           removeTokens();
         }
       } else {

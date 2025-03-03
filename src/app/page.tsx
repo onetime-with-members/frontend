@@ -15,13 +15,13 @@ export default async function Home() {
     },
   });
 
-  if (typeof window !== 'undefined') {
-    const isLoggedIn = !!localStorage.getItem('access-token');
+  // if (typeof window !== 'undefined') {
+  //   const isLoggedIn = !!localStorage.getItem('access-token');
 
-    // if (isLoggedIn) {
-    //   return <UserDashboardPage />;
-    // }
-  }
+  //   if (isLoggedIn) {
+  //     return <UserDashboardPage />;
+  //   }
+  // }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

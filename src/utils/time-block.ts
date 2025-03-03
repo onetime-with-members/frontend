@@ -35,7 +35,7 @@ export function timeLabelList(
 ) {
   const blockCount = getBlockCount(startTime, endTime, unit) + 1;
 
-  let timeList = getTimeList(blockCount, startTime, unit);
+  const timeList = getTimeList(blockCount, startTime, unit);
 
   if (endTime === '24:00') timeList[timeList.length - 1] = '24:00';
 

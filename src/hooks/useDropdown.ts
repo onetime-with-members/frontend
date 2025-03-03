@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 interface useDropdownProps {
-  dropdownRef: React.RefObject<HTMLDivElement>;
+  dropdownRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export default function useDropdown({ dropdownRef }: useDropdownProps) {
@@ -14,7 +14,7 @@ export default function useDropdown({ dropdownRef }: useDropdownProps) {
   useEffect(() => {
     function handleDropdownOutSideClick(e: MouseEvent) {
       if (
-        dropdownRef.current &&
+        dropdownRef?.current &&
         !dropdownRef.current.contains(e.target as Node)
       ) {
         setIsDropdownMenuOpen(false);

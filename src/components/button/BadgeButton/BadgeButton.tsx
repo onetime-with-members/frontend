@@ -8,7 +8,6 @@ interface BadgeButtonProps
 
 export default function BadgeButton({
   children,
-  className,
   variant = 'primary',
   ...rest
 }: BadgeButtonProps) {

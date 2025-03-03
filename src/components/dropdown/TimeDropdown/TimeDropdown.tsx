@@ -21,7 +21,7 @@ export default function TimeDropdown({
   className,
   variant = 'default',
 }: TimeDropdownProps) {
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const { isDropdownMenuOpen, setIsDropdownMenuOpen, handleDropdownClick } =
     useDropdown({
