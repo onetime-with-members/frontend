@@ -10,8 +10,6 @@ export default function useKakaoShare({ event }: useKakaoShareProps) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const { Kakao } = window;
-
-      Kakao.cleanup();
       Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
     }
   }, []);
