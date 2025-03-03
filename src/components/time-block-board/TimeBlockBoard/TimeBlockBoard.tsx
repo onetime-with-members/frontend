@@ -7,11 +7,7 @@ import ResetButton from './ResetButton/ResetButton';
 import TimeBlockPopUp from './TimeBlockPopUp/TimeBlockPopUp';
 import TopDateLabelGroup from './TopDateLabelGroup/TopDateLabelGroup';
 import { EventType } from '@/types/event.type.ts';
-import {
-  ScheduleType,
-  TimeBlockPopUpDataType,
-  TimeType,
-} from '@/types/schedule.type.ts';
+import { ScheduleType, TimeBlockPopUpDataType } from '@/types/schedule.type.ts';
 import cn from '@/utils/cn.ts';
 import { timeBlockList } from '@/utils/time-block.ts';
 
@@ -71,23 +67,15 @@ export default function TimeBlockBoard({
       setSchedules((prev) => [
         {
           name: prev[0].name,
-          schedules: prev[0].schedules.map((schedule) => {
-            if (schedule.time_point === day) {
-              let newSchedule: TimeType = {
-                ...schedule,
-                times: schedule.times.filter((t) => t !== time),
-              };
-              if (newStatus) {
-                newSchedule = {
-                  ...newSchedule,
-                  times: [...newSchedule.times, time],
-                };
-              }
-              return newSchedule;
-            } else {
-              return schedule;
-            }
-          }),
+          schedules: prev[0].schedules.map((schedule) => ({
+            ...schedule,
+            times:
+              schedule.time_point === day
+                ? newStatus
+                  ? Array.from(new Set([...schedule.times, time])).sort()
+                  : schedule.times.filter((t) => t !== time)
+                : schedule.times,
+          })),
         },
       ]);
     }
@@ -198,34 +186,6 @@ export default function TimeBlockBoard({
 
     setIsEdited && setIsEdited(true);
   }
-
-  useEffect(() => {
-    if (!setSchedules) return;
-
-    setSchedules((prevSchedules) => {
-      const newSchedules = [...prevSchedules[0].schedules];
-
-      event.ranges.forEach((range) => {
-        const targetIndex = newSchedules.findIndex(
-          (s) => s.time_point === range,
-        );
-
-        if (targetIndex === -1) {
-          newSchedules.push({
-            time_point: range,
-            times: [],
-          });
-        }
-      });
-
-      return [
-        {
-          name: prevSchedules[0].name,
-          schedules: newSchedules,
-        },
-      ];
-    });
-  }, []);
 
   useEffect(() => {
     if (!editable || schedules.length === 0) return;
