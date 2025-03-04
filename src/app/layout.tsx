@@ -30,7 +30,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body>
+      <body cz-shortcut-listen="true">
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>
             <ContextProviders>

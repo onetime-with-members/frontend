@@ -92,7 +92,7 @@
     "qrCode": "QR Code",
     "kakao": "KakaoTalk",
     "more": "More",
-    "qrCodeScreen": "Please add your schedule <br></br>to <Name>{{eventName}}</Name>!"
+    "qrCodeScreen": "Please add your schedule <br></br>to <Name>{eventName}</Name>!"
   },
   "alert": {
     "loginTitle": "Would you like to log in?",
