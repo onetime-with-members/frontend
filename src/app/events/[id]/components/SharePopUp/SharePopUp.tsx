@@ -26,6 +26,7 @@ export default function SharePopUp({ setIsOpen }: SharePopUpProps) {
 
   const params = useParams<{ id: string }>();
   const t = useTranslations('sharePopUp');
+  const tToast = useTranslations('toast');
 
   const { data: event } = useEventQuery(params.id);
 
@@ -34,7 +35,7 @@ export default function SharePopUp({ setIsOpen }: SharePopUpProps) {
     if (urlInputRef.current) {
       urlInputRef.current.select();
     }
-    toast(t('toast.copiedLink'));
+    toast(tToast('copiedLink'));
   }
 
   function handleSharePopUpClose() {
