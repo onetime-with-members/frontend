@@ -1,5 +1,6 @@
 'use client';
 
+import { setCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
 import ButtonGroup from './ButtonGroup/ButtonGroup';
@@ -51,12 +52,12 @@ export default function LoginPage() {
       ]);
       router.push(`/onboarding?${urlSearchParams.toString()}`);
     } else if (accessToken && refreshToken) {
-      localStorage.setItem('access-token', accessToken);
-      localStorage.setItem('refresh-token', refreshToken);
+      setCookie('access-token', accessToken);
+      setCookie('refresh-token', refreshToken);
 
       const localRedirectUrl = localStorage.getItem('redirect-url');
       localStorage.removeItem('redirect-url');
-      window.location.href = localRedirectUrl || '/';
+      router.push(localRedirectUrl || '/');
     }
   }, [searchParams, router]);
 
