@@ -9,6 +9,11 @@ import TopAppBar from './TopAppBar/TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
 import useSleepTime from '@/hooks/useSleepTime';
+import {
+  useEverytimeSchedule,
+  useEverytimeScheduleActions,
+} from '@/stores/everytime-schedule';
+import { useToast } from '@/stores/toast';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
@@ -19,6 +24,10 @@ export default function MyScheduleEditPage() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
+
+  const everytimeSchedule = useEverytimeSchedule();
+  const { setEverytimeSchedule } = useEverytimeScheduleActions();
+  const toast = useToast();
 
   const { sleepTime, setSleepTime } = useSleepTime();
 
@@ -71,8 +80,28 @@ export default function MyScheduleEditPage() {
   }
 
   useEffect(() => {
-    setMySchedule(data || []);
+    if (!data) return;
+    setMySchedule(data);
   }, [data]);
+
+  useEffect(() => {
+    if (!data || everytimeSchedule.length === 0) return;
+    setMySchedule(
+      data.map((schedule) => ({
+        ...schedule,
+        times: Array.from(
+          new Set([
+            ...schedule.times,
+            ...(everytimeSchedule.find(
+              (s) => s.time_point === schedule.time_point,
+            )?.times || []),
+          ]),
+        ).sort(),
+      })),
+    );
+    setEverytimeSchedule([]);
+    toast(t('toast.everytime'));
+  }, [everytimeSchedule, data, toast, setEverytimeSchedule, t]);
 
   return (
     <>

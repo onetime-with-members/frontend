@@ -6,7 +6,8 @@
   },
   "toast": {
     "copiedLink": "Copied event link",
-    "loadedMySchedule": "My schedule has been loaded"
+    "loadedMySchedule": "My schedule has been loaded",
+    "everytime": "Everytime timetable has been loaded"
   },
   "navbar": {
     "login": "Login",
@@ -172,12 +173,16 @@
     "myScheduleEdit": "Edit My Schedule",
     "editMySchedule": "Edit My Schedule",
     "sleepTime": "Sleep Time",
+    "everytime": "Register Everytime timetable",
     "done": "Done"
   },
   "MyScheduleEverytimeEditPage": {
-    "title": "Register Your Everytime Timetable",
+    "title": "Register Everytime Timetable",
     "description": "Paste the timetable link copied using the method below.",
-    "placeholder": "Paste link here..."
+    "placeholder": "Paste link here...",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "pendingMessage": "The request is in progress. Please wait a moment."
   },
   "profile": {
     "profile": "Profile",

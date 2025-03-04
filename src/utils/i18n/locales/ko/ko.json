@@ -6,7 +6,8 @@
   },
   "toast": {
     "copiedLink": "링크를 복사했어요",
-    "loadedMySchedule": "내 스케줄을 불러왔어요"
+    "loadedMySchedule": "내 스케줄을 불러왔어요",
+    "everytime": "에브리타임 시간표를 불러왔어요"
   },
   "navbar": {
     "login": "로그인",
@@ -172,12 +173,16 @@
     "myScheduleEdit": "내 스케줄 수정",
     "editMySchedule": "스케줄 입력",
     "sleepTime": "수면 시간",
+    "everytime": "에브리타임 시간표 등록",
     "done": "완료"
   },
   "MyScheduleEverytimeEditPage": {
     "title": "에브리타임 시간표 등록",
     "description": "URL 공유로 복사한 시간표 링크를 붙여주세요.",
-    "placeholder": "링크 붙여넣기..."
+    "placeholder": "링크 붙여넣기...",
+    "submit": "확인",
+    "submitting": "진행 중...",
+    "pendingMessage": "요청을 진행 중입니다. 잠시만 기다려주세요."
   },
   "profile": {
     "profile": "프로필 정보",
