@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import LoginPage from './components/LoginPage';
 import { getTranslations } from 'next-intl/server';
 
@@ -10,5 +12,9 @@ export async function generateMetadata() {
 }
 
 export default async function Login() {
-  return <LoginPage />;
+  return (
+    <Suspense>
+      <LoginPage />
+    </Suspense>
+  );
 }

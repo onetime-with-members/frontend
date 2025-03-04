@@ -1,3 +1,4 @@
+import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 
 import AvatarDropdown from '../avatar/AvatarDropdown/AvatarDropdown';
@@ -31,10 +32,7 @@ export default function NavBar({
   const [hasTokens, setHasTokens] = useState(false);
 
   useEffect(() => {
-    if (
-      !!localStorage.getItem('access-token') &&
-      !!localStorage.getItem('refresh-token')
-    ) {
+    if (getCookie('access-token') && getCookie('refresh-token')) {
       setHasTokens(true);
     }
   }, [hasTokens]);

@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl';
 
-import clockLottie from '@/assets/lottie/landing-clock.json';
+import clockLottie from '@/assets/lotties/landing-clock.json';
 import Lottie from '@/components/Lottie/Lottie';
 import cn from '@/utils/cn';
 

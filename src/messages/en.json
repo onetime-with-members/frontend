@@ -146,10 +146,9 @@
   },
   "userDashboard": {
     "more": "More",
-    "hello": "Hello, {{name}}",
+    "hello": "Hello, {name}",
     "createEvent": "Create Event",
-    "recentEvents_one": "Recent Event",
-    "recentEvents_other": "Recent Events",
+    "recentEvents": "Recent Event{count, plural, =1 {} other {s}}",
     "mySchedule": "My Schedule",
     "myScheduleDescription": "It is automatically loaded when you enter a schedule.",
     "loadingEvents": "Loading events...",
