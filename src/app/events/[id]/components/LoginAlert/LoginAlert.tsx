@@ -33,7 +33,7 @@ export default function LoginAlert({ setIsOpen }: LoginAlertProps) {
       cancelText={t('loginCancel')}
     >
       <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">
-        <h2 className="text-gray-80 text-lg-300">{t('alert.loginTitle')}</h2>
+        <h2 className="text-gray-80 text-lg-300">{t('loginTitle')}</h2>
         <p className="text-gray-60 text-md-100">
           {t.rich('loginDescription', {
             br: () => <br />,
