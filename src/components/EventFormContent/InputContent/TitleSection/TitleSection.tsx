@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
-import Input from '@/components/Input/Input';
+import Input from '@/components/form-control/Input/Input';
 import { EventValueType } from '@/types/event.type';
 
 interface TitleSectionProps {
