@@ -17,10 +17,16 @@ import { useToast } from '@/stores/toast';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
+import { weekdaysShortKo } from '@/utils/weekday';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function MyScheduleEditPage() {
-  const [mySchedule, setMySchedule] = useState<MyScheduleTimeType[]>([]);
+  const [mySchedule, setMySchedule] = useState<MyScheduleTimeType[]>(
+    weekdaysShortKo.map((weekday) => ({
+      time_point: weekday,
+      times: [],
+    })),
+  );
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
@@ -81,13 +87,24 @@ export default function MyScheduleEditPage() {
 
   useEffect(() => {
     if (!data) return;
-    setMySchedule(data);
+    setMySchedule((prevMySchedule) =>
+      prevMySchedule.map((schedule) => ({
+        ...schedule,
+        times: Array.from(
+          new Set([
+            ...schedule.times,
+            ...(data.find((s) => s.time_point === schedule.time_point)?.times ||
+              []),
+          ]),
+        ).sort(),
+      })),
+    );
   }, [data]);
 
   useEffect(() => {
-    if (!data || everytimeSchedule.length === 0) return;
-    setMySchedule(
-      data.map((schedule) => ({
+    if (everytimeSchedule.length === 0) return;
+    setMySchedule((prevMySchedule) =>
+      prevMySchedule.map((schedule) => ({
         ...schedule,
         times: Array.from(
           new Set([
