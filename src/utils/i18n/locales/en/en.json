@@ -182,7 +182,9 @@
     "placeholder": "Paste link here...",
     "submit": "Submit",
     "submitting": "Submitting...",
-    "pendingMessage": "The request is in progress. Please wait a moment."
+    "pendingMessage": "The request is in progress. Please wait a moment.",
+    "invalidURLMessage": "The entered URL is invalid. Please try again with a valid URL.",
+    "serverErrorMessage": "An error occurred while processing the request. Please try again."
   },
   "profile": {
     "profile": "Profile",

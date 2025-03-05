@@ -100,6 +100,7 @@ export default function MyScheduleEditPage() {
       })),
     );
     setEverytimeSchedule([]);
+    setIsMyScheduleEdited(true);
     toast(t('toast.everytime'));
   }, [everytimeSchedule, data, toast, setEverytimeSchedule, t]);
 

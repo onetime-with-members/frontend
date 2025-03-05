@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,27 +12,33 @@ import { useMutation } from '@tanstack/react-query';
 export default function MyScheduleEverytimeEditPage() {
   const [everytimeURL, setEverytimeURL] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(everytimeURL === '');
+  const [isTouched, setIsTouched] = useState(false);
 
   const navigate = useNavigate();
 
   const { setEverytimeSchedule } = useEverytimeScheduleActions();
 
-  const { mutate: submitEverytimeURL, isPending } =
-    useMutation<EverytimeSchedule>({
-      mutationFn: async () => {
-        const res = await axios.get(
-          `${import.meta.env.VITE_CRAWLING_SERVER_API_URL}/schedule?url=${everytimeURL}`,
-        );
-        return res.data.payload.schedules;
-      },
-      onSuccess: (data) => {
-        setEverytimeSchedule(data);
-        navigate('/mypage/schedules/edit');
-      },
-    });
+  const {
+    mutate: submitEverytimeURL,
+    isPending,
+    isError,
+    error,
+  } = useMutation<EverytimeSchedule>({
+    mutationFn: async () => {
+      const res = await axios.get(
+        `${import.meta.env.VITE_CRAWLING_SERVER_API_URL}/schedule?url=${everytimeURL}`,
+      );
+      return res.data.payload.schedules;
+    },
+    onSuccess: (data) => {
+      setEverytimeSchedule(data);
+      navigate(-1);
+    },
+  });
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setEverytimeURL(e.target.value);
+    setIsTouched(true);
     if (e.target.value === '') {
       setButtonDisabled(true);
     } else {
@@ -42,6 +48,7 @@ export default function MyScheduleEverytimeEditPage() {
 
   function handleButtonClick() {
     if (isPending) return;
+    setIsTouched(false);
     submitEverytimeURL();
   }
 
@@ -57,6 +64,9 @@ export default function MyScheduleEverytimeEditPage() {
           disabled={buttonDisabled}
           onClick={handleButtonClick}
           isPending={isPending}
+          isError={isError}
+          error={error as AxiosError}
+          isTouched={isTouched}
         />
       </main>
     </div>
