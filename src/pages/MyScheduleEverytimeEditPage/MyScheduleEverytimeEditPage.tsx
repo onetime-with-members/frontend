@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import BottomButton from './BottomButton/BottomButton';
 import MainContent from './MainContent/MainContent';
@@ -15,6 +15,7 @@ export default function MyScheduleEverytimeEditPage() {
   const [isTouched, setIsTouched] = useState(false);
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const { setEverytimeSchedule } = useEverytimeScheduleActions();
 
@@ -32,7 +33,7 @@ export default function MyScheduleEverytimeEditPage() {
     },
     onSuccess: (data) => {
       setEverytimeSchedule(data);
-      navigate(-1);
+      navigate('/mypage/schedules/edit', { replace: true });
     },
   });
 
@@ -46,15 +47,24 @@ export default function MyScheduleEverytimeEditPage() {
     }
   }
 
-  function handleButtonClick() {
+  function handleSubmitButtonClick() {
     if (isPending) return;
     setIsTouched(false);
     submitEverytimeURL();
   }
 
+  function handleBackButtonClick() {
+    const from = searchParams.get('from');
+    if (from) {
+      navigate(from, { replace: true });
+    } else {
+      navigate(-1);
+    }
+  }
+
   return (
     <div>
-      <TopAppBar />
+      <TopAppBar onBackButtonClick={handleBackButtonClick} />
       <main className="px-4 pb-20 pt-4">
         <MainContent
           everytimeURL={everytimeURL}
@@ -62,7 +72,7 @@ export default function MyScheduleEverytimeEditPage() {
         />
         <BottomButton
           disabled={buttonDisabled}
-          onClick={handleButtonClick}
+          onClick={handleSubmitButtonClick}
           isPending={isPending}
           isError={isError}
           error={error as AxiosError}

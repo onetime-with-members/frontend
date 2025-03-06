@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import EverytimeIcon from '@/components/icon/EverytimeIcon';
 import cn from '@/utils/cn';
@@ -7,10 +7,23 @@ import { IconPlus } from '@tabler/icons-react';
 
 interface EverytimeUIProps {
   className?: string;
+  isFromEditPage?: boolean;
 }
 
-export default function EverytimeUI({ className }: EverytimeUIProps) {
+export default function EverytimeUI({
+  className,
+  isFromEditPage = true,
+}: EverytimeUIProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
+
+  function handleEditButtonClick(e: React.MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    navigate(e.currentTarget.getAttribute('href') || '#', {
+      replace: isFromEditPage,
+    });
+  }
 
   return (
     <div
@@ -23,7 +36,10 @@ export default function EverytimeUI({ className }: EverytimeUIProps) {
         <EverytimeIcon size={20} />
         <span className="text-md-300">{t('myScheduleEdit.everytime')}</span>
       </div>
-      <Link to="/mypage/schedules/everytime/edit">
+      <Link
+        to={`/mypage/schedules/everytime/edit?from=${location.pathname}`}
+        onClick={handleEditButtonClick}
+      >
         <IconPlus size={24} />
       </Link>
     </div>

@@ -1,22 +1,20 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
 import { IconChevronLeft } from '@tabler/icons-react';
 
-export default function TopAppBar() {
-  const navigate = useNavigate();
-  const { t } = useTranslation();
+interface TopAppBarProps {
+  onBackButtonClick: () => void;
+}
 
-  function handleBackButtonClick() {
-    navigate(-1);
-  }
+export default function TopAppBar({ onBackButtonClick }: TopAppBarProps) {
+  const { t } = useTranslation();
 
   return (
     <nav className="h-[64px]">
       <div className="fixed z-10 flex h-[4rem] w-full justify-center bg-gray-00 px-4">
         <div className="relative mx-auto flex w-full max-w-screen-sm">
           <div className="absolute left-0 flex h-full items-center">
-            <button onClick={handleBackButtonClick}>
+            <button onClick={onBackButtonClick}>
               <IconChevronLeft size={24} />
             </button>
           </div>
