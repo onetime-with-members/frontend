@@ -148,8 +148,8 @@ export default function MyScheduleEditPage() {
               setMySchedule={setMySchedule}
               sleepTime={sleepTime}
               className="pb-16 pl-2 pr-3"
-              topDateGroupClassName={cn('sticky top-[120px] z-10 bg-gray-00', {
-                'top-[183px] ': isAccordionOpen,
+              topDateGroupClassName={cn('sticky top-[176px] z-10 bg-gray-00', {
+                'top-[239px] ': isAccordionOpen,
               })}
               setIsEdited={setIsMyScheduleEdited}
             />

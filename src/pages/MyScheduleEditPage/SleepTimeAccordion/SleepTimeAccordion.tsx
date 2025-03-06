@@ -16,7 +16,7 @@ export default function SleepTimeAccordion({
   setIsAccordionOpen,
 }: SleepTimeUIProps) {
   return (
-    <div className="sticky top-[64px] z-20 flex flex-col gap-3 bg-gray-05 px-5 py-4">
+    <div className="sticky top-[120px] z-20 flex flex-col gap-3 bg-gray-05 px-5 py-4">
       <AccordionMain
         isAccordionOpen={isAccordionOpen}
         setIsAccordionOpen={setIsAccordionOpen}

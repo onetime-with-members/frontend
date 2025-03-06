@@ -8,7 +8,7 @@ export default function EverytimeUI() {
   const { t } = useTranslation();
 
   return (
-    <div className="flex items-center justify-between bg-[#FFF3F3] px-5 py-4 text-[#F91F15]">
+    <div className="sticky top-[64px] z-20 flex items-center justify-between bg-[#FFF3F3] px-5 py-4 text-[#F91F15]">
       <div className="flex items-center gap-2.5">
         <EverytimeIcon size={20} />
         <span className="text-md-300">{t('myScheduleEdit.everytime')}</span>
