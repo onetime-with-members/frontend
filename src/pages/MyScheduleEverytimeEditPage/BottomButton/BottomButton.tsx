@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 
 import Button from '@/components/button/Button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
@@ -65,11 +65,27 @@ export default function BottomButton({
                     },
                   )}
                 >
-                  {isPending
-                    ? t('MyScheduleEverytimeEditPage.pendingMessage')
-                    : error?.status === 400
-                      ? t('MyScheduleEverytimeEditPage.invalidURLMessage')
-                      : t('MyScheduleEverytimeEditPage.serverErrorMessage')}
+                  <Trans
+                    i18nKey={
+                      isPending
+                        ? 'MyScheduleEverytimeEditPage.pendingMessage'
+                        : error?.status === 400
+                          ? 'MyScheduleEverytimeEditPage.invalidURLMessage'
+                          : 'MyScheduleEverytimeEditPage.serverErrorMessage'
+                    }
+                  >
+                    The request is in progress.{' '}
+                    <br
+                      className={cn('hidden', {
+                        'min-[250px]:block min-[415px]:hidden': isPending,
+                        'min-[295px]:block min-[495px]:hidden':
+                          !isPending && error?.status === 400,
+                        'min-[405px]:block min-[530px]:hidden':
+                          !isPending && error?.status !== 400,
+                      })}
+                    />
+                    Please wait a moment.
+                  </Trans>
                 </motion.div>
               )}
             </AnimatePresence>
