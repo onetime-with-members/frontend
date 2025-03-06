@@ -105,13 +105,14 @@ export default function MyScheduleEditPage() {
   }, [data, setMySchedule]);
 
   useEffect(() => {
-    if (everytimeSchedule.length === 0) return;
     setMySchedule(
       mySchedule.map((schedule) => ({
         ...schedule,
         times: Array.from(
           new Set([
             ...schedule.times,
+            ...(data?.find((s) => s.time_point === schedule.time_point)
+              ?.times || []),
             ...(everytimeSchedule.find(
               (s) => s.time_point === schedule.time_point,
             )?.times || []),
@@ -119,8 +120,10 @@ export default function MyScheduleEditPage() {
         ).sort(),
       })),
     );
-    setEverytimeSchedule([]);
-    toast(t('toast.everytime'));
+    if (everytimeSchedule.length > 0) {
+      setEverytimeSchedule([]);
+      toast(t('toast.everytime'));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [everytimeSchedule, data, toast, setMySchedule, setEverytimeSchedule, t]);
 
