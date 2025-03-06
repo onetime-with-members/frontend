@@ -1,0 +1,87 @@
+'use client';
+
+import { useTranslations } from 'next-intl';
+import { useContext, useEffect, useState } from 'react';
+
+import HeaderForDesktop from './HeaderForDesktop/HeaderForDesktop';
+import SideTabContentForDesktop from './SideTabContentForDesktop/SideTabContentForDesktop';
+import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
+import NavBar from '@/components/NavBar/NavBar';
+import { ScrollContext } from '@/contexts/ScrollContext';
+import { usePathname, useRouter } from 'next/navigation';
+
+interface MyPageLayoutProps {
+  children: React.ReactNode;
+}
+
+export type TabActiveType = 'events' | 'schedules' | 'profile';
+
+function currentTabActive(pathname: string): TabActiveType {
+  if (pathname.startsWith('/mypage/events')) {
+    return 'events';
+  }
+  if (pathname.startsWith('/mypage/schedules')) {
+    return 'schedules';
+  }
+  return 'profile';
+}
+
+export default function MyPageLayout({ children }: MyPageLayoutProps) {
+  const [tabActive, setTabActive] = useState<TabActiveType>(
+    currentTabActive(window.location.pathname),
+  );
+
+  const { scrollContainerRef } = useContext(ScrollContext);
+
+  const pathname = usePathname();
+  const router = useRouter();
+  const t = useTranslations('mypage');
+
+  const pageTitle = {
+    events: t('allEvents'),
+    schedules: t('mySchedule'),
+    profile: t('profile'),
+  }[tabActive];
+
+  function handleMyScheduleEditButtonClick() {
+    router.push('/mypage/schedules/edit');
+  }
+
+  useEffect(() => {
+    setTabActive(currentTabActive(pathname));
+  }, [pathname]);
+
+  return (
+    <>
+      {/* Mobile */}
+      <div className="block md:hidden">
+        <TopAppBarForMobile
+          pageTitle={pageTitle}
+          tabActive={tabActive}
+          onMyScheduleEditButtonClick={handleMyScheduleEditButtonClick}
+        />
+        <main className="pb-20">{children}</main>
+      </div>
+
+      {/* Desktop */}
+      <div className="hidden min-h-screen flex-col md:flex">
+        <NavBar shadow={false} />
+        <div className="px-4">
+          <div className="mx-auto flex w-full max-w-screen-md gap-10">
+            <SideTabContentForDesktop tabActive={tabActive} />
+            <main className="relative flex flex-1 flex-col gap-2 pb-20 pt-8">
+              <HeaderForDesktop
+                pageTitle={pageTitle}
+                tabActive={tabActive}
+                onMyScheduleEditButtonClick={handleMyScheduleEditButtonClick}
+              />
+              <div ref={scrollContainerRef} className="flex-1">
+                {children}
+              </div>
+            </main>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

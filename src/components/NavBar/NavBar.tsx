@@ -37,7 +37,7 @@ export default function NavBar({
     }
   }, [hasTokens]);
 
-  const { isLoading, data: user } = useQuery<UserType>({
+  const { isPending, data: user } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');
@@ -94,7 +94,7 @@ export default function NavBar({
               {user && (
                 <AvatarDropdown name={user.nickname} disabled={disabled} />
               )}
-              {!isLoading && !user && <LoginButton />}
+              {!isPending && !user && <LoginButton />}
             </>
           )}
         </div>
