@@ -7,22 +7,16 @@ import { IconPlus } from '@tabler/icons-react';
 
 interface EverytimeUIProps {
   className?: string;
-  isFromEditPage?: boolean;
 }
 
-export default function EverytimeUI({
-  className,
-  isFromEditPage = true,
-}: EverytimeUIProps) {
+export default function EverytimeUI({ className }: EverytimeUIProps) {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
 
   function handleEditButtonClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
-    navigate(e.currentTarget.getAttribute('href') || '#', {
-      replace: isFromEditPage,
-    });
+    navigate(e.currentTarget.getAttribute('href') || '#');
   }
 
   return (

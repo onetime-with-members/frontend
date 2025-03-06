@@ -33,7 +33,12 @@ export default function MyScheduleEverytimeEditPage() {
     },
     onSuccess: (data) => {
       setEverytimeSchedule(data);
-      navigate('/mypage/schedules/edit', { replace: true });
+      const editPagePathname = '/mypage/schedules/edit';
+      if (searchParams.get('from') !== editPagePathname) {
+        navigate(editPagePathname, { replace: true });
+      } else {
+        navigate(-1);
+      }
     },
   });
 
@@ -54,12 +59,7 @@ export default function MyScheduleEverytimeEditPage() {
   }
 
   function handleBackButtonClick() {
-    const from = searchParams.get('from');
-    if (from) {
-      navigate(from, { replace: true });
-    } else {
-      navigate(-1);
-    }
+    navigate(-1);
   }
 
   return (

@@ -18,7 +18,7 @@ export default function LeftTimeLine({ sleepTime }: LeftTimeLineProps) {
         <div key={index}>
           {timesGroup.map((time, index) => (
             <div
-              key={time}
+              key={index}
               className={cn('h-[6rem] text-right', {
                 'h-0': index === timesGroup.length - 1,
               })}

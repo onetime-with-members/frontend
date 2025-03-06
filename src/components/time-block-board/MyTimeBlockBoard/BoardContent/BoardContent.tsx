@@ -3,7 +3,6 @@ import useSleepTime from '@/hooks/useSleepTime';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import { SleepTimeType } from '@/types/user.type';
-import { timeBlockList as _timeBlockList } from '@/utils/time-block';
 import { weekdaysShortKo } from '@/utils/weekday';
 
 interface TimeBlockContentProps {

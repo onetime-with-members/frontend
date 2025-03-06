@@ -31,7 +31,7 @@ export default function MyScheduleSection() {
         {t('userDashboard.mySchedule')}
       </Header>
       <div className="rounded-2xl bg-gray-00 pb-12">
-        <EverytimeUI className="rounded-t-2xl px-6" isFromEditPage={false} />
+        <EverytimeUI className="rounded-t-2xl px-6" />
         <SleepTimeUI />
         <MyTimeBlockBoard
           mode="view"
