@@ -51,11 +51,11 @@ export default function EventDetailPage() {
         navigate('/not-found');
       }
     }
-  }, [eventError]);
+  }, [eventError, navigate]);
 
   useEffect(() => {
     setParticipants(schedules || []);
-  }, [schedules]);
+  }, [schedules, setParticipants]);
 
   return (
     <>
