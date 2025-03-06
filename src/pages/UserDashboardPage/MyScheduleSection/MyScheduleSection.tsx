@@ -4,14 +4,11 @@ import Header from '../Header/Header';
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
 import EverytimeUI from '@/components/EverytimeUI/EverytimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
-import useSleepTime from '@/hooks/useSleepTime';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleSection() {
-  const { sleepTimeData } = useSleepTime();
-
   const { t } = useTranslation();
 
   const { data } = useQuery<MyScheduleTimeType[]>({
@@ -36,7 +33,6 @@ export default function MyScheduleSection() {
         <MyTimeBlockBoard
           mode="view"
           mySchedule={data || []}
-          sleepTime={sleepTimeData}
           className="pl-3 pr-6"
           topDateGroupClassName="sticky bg-gray-00 z-10 top-[64px] md:top-[136px]"
         />

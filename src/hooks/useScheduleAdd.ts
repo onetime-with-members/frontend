@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import useSleepTime from './useSleepTime';
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleDetailQuery } from '@/queries/schedule.queries';
+import { useSleepTimeData, useSleepTimesList } from '@/stores/sleep-time';
 import { MyScheduleTimeType, ScheduleType } from '@/types/schedule.type';
 import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
@@ -42,7 +42,8 @@ export default function useScheduleAdd({
   isNewGuest,
   guestId,
 }: UseScheduleCreateProps) {
-  const { sleepTimesList, sleepTimeData } = useSleepTime();
+  const sleepTimeData = useSleepTimeData();
+  const sleepTimesList = useSleepTimesList();
 
   const params = useParams<{ eventId: string }>();
 

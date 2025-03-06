@@ -4,7 +4,7 @@ import { SleepTimeType } from '@/types/user.type';
 
 interface SleepTimeUIProps {
   sleepTime: SleepTimeType;
-  setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
+  setSleepTime: (sleepTime: SleepTimeType) => void;
   isAccordionOpen: boolean;
   setIsAccordionOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }

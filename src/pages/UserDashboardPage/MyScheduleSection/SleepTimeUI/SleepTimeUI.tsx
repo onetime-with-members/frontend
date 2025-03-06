@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom';
 
 import PenIcon from '@/components/icon/PenIcon';
 import SleepIcon from '@/components/icon/SleepIcon';
-import useSleepTime from '@/hooks/useSleepTime';
+import { useSleepTimeData } from '@/stores/sleep-time';
 
 export default function SleepTimeUI() {
-  const { sleepTimeData } = useSleepTime();
+  const sleepTimeData = useSleepTimeData();
 
   return (
     <div className="flex items-stretch justify-between gap-3 px-6 py-3">

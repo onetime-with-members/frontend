@@ -8,6 +8,8 @@ import Footer from './Footer/Footer';
 import ScrollToTop from './ScrollToTop/ScrollToTop';
 import Toast from '@/components/Toast/Toast';
 import { FooterContext } from '@/contexts/FooterContext';
+import useMyScheduleStoreInit from '@/hooks/store/useMyScheduleStoreInit';
+import useSleepTimeInit from '@/hooks/store/useSleepTimeInit';
 import { PolicyType, UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
@@ -16,8 +18,10 @@ import { useQuery } from '@tanstack/react-query';
 export default function Layout() {
   const { isFooterVisible } = useContext(FooterContext);
 
-  const { i18n } = useTranslation();
+  useMyScheduleStoreInit();
+  useSleepTimeInit();
 
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -54,7 +58,7 @@ export default function Layout() {
         navigate('/policy/edit');
       }
     }
-  }, [location, policyData, isLoggedIn]);
+  }, [location, policyData, isLoggedIn, navigate]);
 
   useEffect(() => {
     dayjs.locale(i18n.language);
@@ -74,7 +78,7 @@ export default function Layout() {
     if (!user) return;
     localStorage.setItem('last-login', user.social_platform);
     i18n.changeLanguage(user.language === 'KOR' ? 'ko' : 'en');
-  }, [user]);
+  }, [user, i18n]);
 
   return (
     <>

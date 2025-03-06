@@ -3,7 +3,7 @@ import { SleepTimeType } from '@/types/user.type';
 
 interface AccordionContentProps {
   sleepTime: SleepTimeType;
-  setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
+  setSleepTime: (sleepTime: SleepTimeType) => void;
 }
 
 export default function AccordionContent({
@@ -11,10 +11,10 @@ export default function AccordionContent({
   setSleepTime,
 }: AccordionContentProps) {
   function handleSleepTimeChange(key: keyof SleepTimeType, time: string) {
-    setSleepTime((prev) => ({
-      ...prev,
+    setSleepTime({
+      ...sleepTime,
       [key]: time,
-    }));
+    });
   }
 
   return (

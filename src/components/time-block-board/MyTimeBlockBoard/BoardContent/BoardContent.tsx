@@ -1,24 +1,21 @@
 import TimeBlock from './TimeBlock/TimeBlock';
-import useSleepTime from '@/hooks/useSleepTime';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
+import { useTimesGroupForSplittedTimeBlock } from '@/stores/sleep-time';
 import { MyScheduleTimeType } from '@/types/schedule.type';
-import { SleepTimeType } from '@/types/user.type';
 import { weekdaysShortKo } from '@/utils/weekday';
 
 interface TimeBlockContentProps {
   mode: 'view' | 'edit';
   mySchedule: MyScheduleTimeType[];
-  setMySchedule?: React.Dispatch<React.SetStateAction<MyScheduleTimeType[]>>;
-  sleepTime?: SleepTimeType;
+  setMySchedule?: (mySchedule: MyScheduleTimeType[]) => void;
   backgroundColor?: 'gray' | 'white';
-  setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsEdited?: (isEdited: boolean) => void;
 }
 
 export default function BoardContent({
   mode,
   mySchedule,
   setMySchedule,
-  sleepTime,
   backgroundColor = 'gray',
   setIsEdited,
 }: TimeBlockContentProps) {
@@ -30,9 +27,7 @@ export default function BoardContent({
         setIsEdited && setIsEdited(true);
       },
     });
-  const { timesGroupForSplittedTimeBlock } = useSleepTime({
-    sleepTime,
-  });
+  const timesGroupForSplittedTimeBlock = useTimesGroupForSplittedTimeBlock();
 
   function changeTimeBlock(
     weekday: string,
@@ -76,22 +71,20 @@ export default function BoardContent({
           key={weekday}
           className="flex flex-col gap-2 overflow-hidden rounded-lg"
         >
-          {timesGroupForSplittedTimeBlock('timeBlock').map(
-            (timesGroup, index) => (
-              <div key={index}>
-                {timesGroup.map((time) => (
-                  <TimeBlock
-                    key={time}
-                    mode={mode}
-                    backgroundColor={backgroundColor}
-                    filled={isFilled(weekday, time)}
-                    clickedFirst={isClickedFirst(weekday, time)}
-                    onClick={() => handleTimeBlockClick(weekday, time)}
-                  />
-                ))}
-              </div>
-            ),
-          )}
+          {timesGroupForSplittedTimeBlock.map((timesGroup, index) => (
+            <div key={index}>
+              {timesGroup.map((time) => (
+                <TimeBlock
+                  key={time}
+                  mode={mode}
+                  backgroundColor={backgroundColor}
+                  filled={isFilled(weekday, time)}
+                  clickedFirst={isClickedFirst(weekday, time)}
+                  onClick={() => handleTimeBlockClick(weekday, time)}
+                />
+              ))}
+            </div>
+          ))}
         </div>
       ))}
     </div>
