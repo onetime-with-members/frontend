@@ -1,3 +1,4 @@
+import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
 import kakaoIcon from '@/assets/kakao-icon.svg';
@@ -31,13 +32,24 @@ export default function TopToolbar({
             {event && (
               <>
                 <div className="flex items-center gap-2">
-                  <ToolbarButton
-                    variant="primary"
-                    onClick={handleShareButtonClick}
-                    className="hidden md:flex"
-                  >
-                    <img src={sendIcon} alt="보내기 아이콘" />
-                  </ToolbarButton>
+                  <SpeechBalloon.Container className="hidden md:block">
+                    <SpeechBalloon.Wrapper>
+                      <ToolbarButton
+                        variant="primary"
+                        onClick={handleShareButtonClick}
+                        className="hidden md:flex"
+                      >
+                        <img src={sendIcon} alt="보내기 아이콘" />
+                      </ToolbarButton>
+                    </SpeechBalloon.Wrapper>
+                    <SpeechBalloon.Main
+                      width={101}
+                      offset={4}
+                      position="bottom"
+                    >
+                      공유해보세요!
+                    </SpeechBalloon.Main>
+                  </SpeechBalloon.Container>
                   <ToolbarButton
                     variant="yellow"
                     onClick={handleKakaoShare}
