@@ -14,6 +14,8 @@ interface UseSleepTimeProps {
 export default function useSleepTime({
   sleepTime: _sleepTime,
 }: UseSleepTimeProps = {}) {
+  const [sleepTimesList, setSleepTimesList] = useState<string[]>([]);
+
   const isLoggedIn = localStorage.getItem('access-token') !== null;
 
   const { data: sleepTimeData } = useQuery<SleepTimeType>({
@@ -42,22 +44,26 @@ export default function useSleepTime({
     setSleepTime(_sleepTime);
   }, [_sleepTime]);
 
-  const sleepTimesList = isSame(startSleepTime, endSleepTime)
-    ? []
-    : isBefore(startSleepTime, endSleepTime)
-      ? timeBlockList(startSleepTime, endSleepTime)
-      : [
-          ...timeBlockList(startSleepTime, '24:00'),
-          ...timeBlockList('00:00', endSleepTime),
-        ];
+  useEffect(() => {
+    setSleepTimesList(
+      isSame(startSleepTime, endSleepTime)
+        ? []
+        : isBefore(startSleepTime, endSleepTime)
+          ? timeBlockList(startSleepTime, endSleepTime)
+          : [
+              ...timeBlockList(startSleepTime, '24:00'),
+              ...timeBlockList('00:00', endSleepTime),
+            ],
+    );
 
-  function isSame(time1: string, time2: string) {
-    return dayjs(time1, 'HH:mm').isSame(dayjs(time2, 'HH:mm'));
-  }
+    function isSame(time1: string, time2: string) {
+      return dayjs(time1, 'HH:mm').isSame(dayjs(time2, 'HH:mm'));
+    }
 
-  function isBefore(time1: string, time2: string) {
-    return dayjs(time1, 'HH:mm').isBefore(dayjs(time2, 'HH:mm'));
-  }
+    function isBefore(time1: string, time2: string) {
+      return dayjs(time1, 'HH:mm').isBefore(dayjs(time2, 'HH:mm'));
+    }
+  }, [startSleepTime, endSleepTime]);
 
   function timesGroupForSplittedTimeBlock(type: 'timeBlock' | 'timeLabel') {
     return startSleepTime >= endSleepTime

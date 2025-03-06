@@ -48,7 +48,7 @@ export default function ScheduleFormScreen({
     if (isScheduleEmpty && (!isFixedScheduleEmpty || !isSleepTimeEmpty)) {
       toast(t('toast.loadedMySchedule'));
     }
-  }, [isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty]);
+  }, [isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty, toast, t]);
 
   return (
     <div>
