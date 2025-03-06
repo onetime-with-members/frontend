@@ -28,9 +28,40 @@ export default function useSleepTime({
   const [sleepTime, setSleepTime] = useState<SleepTimeType>(
     _sleepTime || sleepTimeData || DEFAULT_SLEEP_TIME,
   );
+  const [sleepTimesList, setSleepTimesList] = useState<string[]>([]);
 
-  const { sleep_start_time: startSleepTime, sleep_end_time: endSleepTime } =
-    sleepTime || DEFAULT_SLEEP_TIME;
+  function timesGroupForSplittedTimeBlock(type: 'timeBlock' | 'timeLabel') {
+    return sleepTime.sleep_start_time >= sleepTime.sleep_end_time
+      ? [
+          timeBlockList('00:00', '24:00', type === 'timeBlock' ? '30m' : '1h')
+            .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
+            .concat(
+              type === 'timeLabel'
+                ? [
+                    sleepTime.sleep_start_time === sleepTime.sleep_end_time
+                      ? '24:00'
+                      : sleepTime.sleep_start_time,
+                  ]
+                : [],
+            ),
+        ]
+      : [
+          timeBlockList(
+            '00:00',
+            sleepTime.sleep_start_time,
+            type === 'timeBlock' ? '30m' : '1h',
+          )
+            .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
+            .concat(type === 'timeLabel' ? [sleepTime.sleep_start_time] : []),
+          timeBlockList(
+            sleepTime.sleep_end_time,
+            '24:00',
+            type === 'timeBlock' ? '30m' : '1h',
+          )
+            .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
+            .concat(type === 'timeLabel' ? ['24:00'] : []),
+        ];
+  }
 
   useEffect(() => {
     if (!sleepTimeData) return;
@@ -42,51 +73,26 @@ export default function useSleepTime({
     setSleepTime(_sleepTime);
   }, [_sleepTime]);
 
-  const sleepTimesList = isSame(startSleepTime, endSleepTime)
-    ? []
-    : isBefore(startSleepTime, endSleepTime)
-      ? timeBlockList(startSleepTime, endSleepTime)
-      : [
-          ...timeBlockList(startSleepTime, '24:00'),
-          ...timeBlockList('00:00', endSleepTime),
-        ];
+  useEffect(() => {
+    setSleepTimesList(
+      isSame(sleepTime.sleep_start_time, sleepTime.sleep_end_time)
+        ? []
+        : isBefore(sleepTime.sleep_start_time, sleepTime.sleep_end_time)
+          ? timeBlockList(sleepTime.sleep_start_time, sleepTime.sleep_end_time)
+          : [
+              ...timeBlockList(sleepTime.sleep_start_time, '24:00'),
+              ...timeBlockList('00:00', sleepTime.sleep_end_time),
+            ],
+    );
 
-  function isSame(time1: string, time2: string) {
-    return dayjs(time1, 'HH:mm').isSame(dayjs(time2, 'HH:mm'));
-  }
+    function isSame(time1: string, time2: string) {
+      return dayjs(time1, 'HH:mm').isSame(dayjs(time2, 'HH:mm'));
+    }
 
-  function isBefore(time1: string, time2: string) {
-    return dayjs(time1, 'HH:mm').isBefore(dayjs(time2, 'HH:mm'));
-  }
-
-  function timesGroupForSplittedTimeBlock(type: 'timeBlock' | 'timeLabel') {
-    return startSleepTime >= endSleepTime
-      ? [
-          timeBlockList('00:00', '24:00', type === 'timeBlock' ? '30m' : '1h')
-            .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
-            .concat(
-              type === 'timeLabel'
-                ? [startSleepTime === endSleepTime ? '24:00' : startSleepTime]
-                : [],
-            ),
-        ]
-      : [
-          timeBlockList(
-            '00:00',
-            startSleepTime,
-            type === 'timeBlock' ? '30m' : '1h',
-          )
-            .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
-            .concat(type === 'timeLabel' ? [startSleepTime] : []),
-          timeBlockList(
-            endSleepTime,
-            '24:00',
-            type === 'timeBlock' ? '30m' : '1h',
-          )
-            .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
-            .concat(type === 'timeLabel' ? ['24:00'] : []),
-        ];
-  }
+    function isBefore(time1: string, time2: string) {
+      return dayjs(time1, 'HH:mm').isBefore(dayjs(time2, 'HH:mm'));
+    }
+  }, [sleepTime]);
 
   return {
     sleepTimesList,
