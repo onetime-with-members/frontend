@@ -87,35 +87,15 @@ export default function useScheduleAdd({
   }, [scheduleData, fixedScheduleData, sleepTimeData]);
 
   useEffect(() => {
-    if (!event) return;
-
-    const initSchedule = event.ranges.map((time_point) => ({
-      time_point,
-      times: [],
-    }));
-
-    if (!scheduleData) {
-      setSchedules([
-        {
-          name: '본인',
-          schedules: initSchedule,
-        },
-      ]);
-      return;
-    }
-  }, [event, scheduleData]);
-
-  useEffect(() => {
-    if (!event || !scheduleData) return;
-
-    const initSchedule = event.ranges.map((time_point) => ({
-      time_point,
-      times: [],
-    }));
+    const initSchedule =
+      event?.ranges.map((time_point) => ({
+        time_point,
+        times: [],
+      })) || [];
 
     setSchedules([
       {
-        name: scheduleData.name,
+        name: scheduleData?.name || '본인',
         schedules: isEmpty.schedule
           ? isEmpty.fixedSchedule && isEmpty.sleepTime
             ? initSchedule
@@ -123,7 +103,7 @@ export default function useScheduleAdd({
           : initSchedule.map((schedule) => ({
               ...schedule,
               times:
-                scheduleData.schedules.find(
+                scheduleData?.schedules.find(
                   (s) => s.time_point === schedule.time_point,
                 )?.times || [],
             })),
@@ -183,8 +163,14 @@ export default function useScheduleAdd({
         }
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [scheduleData, event, fixedScheduleData, isEmpty]);
+  }, [
+    event,
+    scheduleData,
+    fixedScheduleData,
+    sleepTimeData,
+    isEmpty,
+    sleepTimesList,
+  ]);
 
   return {
     schedules,
