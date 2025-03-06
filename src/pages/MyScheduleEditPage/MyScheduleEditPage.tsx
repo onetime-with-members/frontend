@@ -95,10 +95,9 @@ export default function MyScheduleEditPage() {
         times: Array.from(
           new Set([
             ...schedule.times,
-            ...(isMyScheduleEdited
-              ? []
-              : data?.find((s) => s.time_point === schedule.time_point)
-                  ?.times || []),
+            ...((!isMyScheduleEdited &&
+              data?.find((s) => s.time_point === schedule.time_point)?.times) ||
+              []),
             ...(everytimeSchedule.find(
               (s) => s.time_point === schedule.time_point,
             )?.times || []),
