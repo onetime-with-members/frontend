@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import Header from '../Header/Header';
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
+import EverytimeUI from '@/components/EverytimeUI/EverytimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
 import useSleepTime from '@/hooks/useSleepTime';
 import { MyScheduleTimeType } from '@/types/schedule.type';
@@ -30,6 +31,7 @@ export default function MyScheduleSection() {
         {t('userDashboard.mySchedule')}
       </Header>
       <div className="rounded-2xl bg-gray-00 pb-12">
+        <EverytimeUI className="rounded-t-2xl" />
         <SleepTimeUI />
         <MyTimeBlockBoard
           mode="view"

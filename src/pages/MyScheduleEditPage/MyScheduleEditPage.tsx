@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import EverytimeUI from './EverytimeUI/EverytimeUI';
+import EverytimeUI from '../../components/EverytimeUI/EverytimeUI';
 import SleepTimeAccordion from './SleepTimeAccordion/SleepTimeAccordion';
 import TopAppBar from './TopAppBar/TopAppBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
@@ -135,7 +135,7 @@ export default function MyScheduleEditPage() {
 
         <main className="pb-24">
           <div className="mx-auto max-w-screen-sm">
-            <EverytimeUI />
+            <EverytimeUI className="sticky top-[64px] z-20" />
             <SleepTimeAccordion
               sleepTime={sleepTime}
               setSleepTime={setSleepTime}

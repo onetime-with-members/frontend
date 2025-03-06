@@ -8,7 +8,7 @@ export default function SleepTimeUI() {
   const { sleepTimeData } = useSleepTime();
 
   return (
-    <div className="flex items-stretch justify-between gap-3 px-6 pb-4 pt-5">
+    <div className="flex items-stretch justify-between gap-3 px-6 py-3">
       <div className="flex items-center gap-1.5">
         <span>
           <SleepIcon fill="#31333F" size={20} />
