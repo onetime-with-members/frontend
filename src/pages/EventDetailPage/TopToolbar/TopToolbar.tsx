@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
+
 import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
 import kakaoIcon from '@/assets/kakao-icon.svg';
 import sendIcon from '@/assets/send.svg';
 import useKakaoShare from '@/hooks/useKakaoShare';
+import { useScheduleQuery } from '@/queries/schedule.queries';
 import { EventType } from '@/types/event.type';
 
 interface TopToolbarProps {
@@ -20,6 +23,12 @@ export default function TopToolbar({
   const { handleKakaoShare } = useKakaoShare({
     event,
   });
+
+  const { data: schedules } = useScheduleQuery(event);
+
+  useEffect(() => {
+    console.log(schedules);
+  }, [schedules]);
 
   return (
     <header className="flex h-[59px] w-full justify-center md:h-[72px]">
@@ -42,13 +51,15 @@ export default function TopToolbar({
                         <img src={sendIcon} alt="보내기 아이콘" />
                       </ToolbarButton>
                     </SpeechBalloon.Wrapper>
-                    <SpeechBalloon.Main
-                      width={101}
-                      offset={4}
-                      position="bottom"
-                    >
-                      공유해보세요!
-                    </SpeechBalloon.Main>
+                    {schedules?.length === 0 && (
+                      <SpeechBalloon.Main
+                        width={101}
+                        offset={4}
+                        position="bottom"
+                      >
+                        공유해보세요!
+                      </SpeechBalloon.Main>
+                    )}
                   </SpeechBalloon.Container>
                   <ToolbarButton
                     variant="yellow"

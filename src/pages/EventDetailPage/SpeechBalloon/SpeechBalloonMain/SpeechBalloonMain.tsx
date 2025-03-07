@@ -25,18 +25,21 @@ export default function SpeechBalloonMain({
   const speechBalloonRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    function handleClickOutside(e: MouseEvent) {
       if (
         speechBalloonRef.current &&
-        !speechBalloonRef.current.contains(event.target as Node)
+        !speechBalloonRef.current.contains(e.target as Node)
       ) {
         setIsShown(false);
       }
     }
 
-    document.addEventListener('click', handleClickOutside);
+    const timer = setTimeout(() => {
+      document.addEventListener('click', handleClickOutside);
+    }, 100);
 
     return () => {
+      clearTimeout(timer);
       document.removeEventListener('click', handleClickOutside);
     };
   }, []);

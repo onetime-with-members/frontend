@@ -229,10 +229,6 @@ export default function TimeBlockBoard({
     };
   }, []);
 
-  useEffect(() => {
-    console.log('isEdited', isEdited);
-  }, [isEdited]);
-
   return (
     <div className="flex flex-col">
       <div className={cn('sticky top-0 z-10 bg-gray-00', topContentClassName)}>
