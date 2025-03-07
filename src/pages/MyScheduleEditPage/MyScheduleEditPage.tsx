@@ -107,6 +107,7 @@ export default function MyScheduleEditPage() {
     );
     if (everytimeSchedule.length > 0) {
       setEverytimeSchedule([]);
+      setIsMyScheduleEdited(true);
       toast(t('toast.everytime'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
