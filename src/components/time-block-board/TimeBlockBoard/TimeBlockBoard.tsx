@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import BoardContent from './BoardContent/BoardContent';
 import LeftTimeLine from './LeftTimeLine/LeftTimeLine';
 import PossibleTimeToggle from './PossibleTimeToggle/PossibleTimeToggle';
+import ReloadButton from './ReloadButton/ReloadButton';
 import ResetButton from './ResetButton/ResetButton';
 import TimeBlockPopUp from './TimeBlockPopUp/TimeBlockPopUp';
 import TopDateLabelGroup from './TopDateLabelGroup/TopDateLabelGroup';
@@ -23,6 +24,8 @@ interface TimeBlockBoardProps {
   bottomContentClassName?: string;
   isEdited?: boolean;
   setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
+  initialSchedule?: ScheduleType[];
+  isSchedulePending?: boolean;
 }
 
 export default function TimeBlockBoard({
@@ -37,6 +40,7 @@ export default function TimeBlockBoard({
   bottomContentClassName,
   isEdited,
   setIsEdited,
+  initialSchedule,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<TimeBlockPopUpDataType>({
@@ -132,7 +136,7 @@ export default function TimeBlockBoard({
   function handleAvailableToggle() {
     if (!editable || !setSchedules) return;
 
-    let prevIsAvailable = isPossibleTime;
+    const prevIsAvailable = isPossibleTime;
 
     if (setIsPossibleTime) {
       setIsPossibleTime((prev) => !prev);
@@ -165,7 +169,6 @@ export default function TimeBlockBoard({
 
   function handleResetButtonClick() {
     if (!editable || !setSchedules) return;
-
     setSchedules(
       isPossibleTime
         ? schedules.map((schedule) => ({
@@ -183,8 +186,13 @@ export default function TimeBlockBoard({
             })),
           })),
     );
-
     setIsEdited && setIsEdited(true);
+  }
+
+  function handleReloadButtonClick() {
+    if (!editable || !setSchedules || !initialSchedule || !setIsEdited) return;
+    setSchedules(initialSchedule);
+    setIsEdited(false);
   }
 
   useEffect(() => {
@@ -198,25 +206,32 @@ export default function TimeBlockBoard({
           ).length === 0,
       ),
     );
-  }, [schedules]);
+  }, [schedules, editable, event.start_time, event.end_time]);
 
   useEffect(() => {
+    const boradContent = boardContentRef.current;
+    const topLabel = topLabelRef.current;
+
     function handleScroll() {
-      if (boardContentRef.current && topLabelRef.current) {
-        topLabelRef.current.scrollLeft = boardContentRef.current.scrollLeft;
+      if (boradContent && topLabel) {
+        topLabel.scrollLeft = boardContentRef.current.scrollLeft;
       }
     }
 
-    if (boardContentRef.current && topLabelRef.current) {
-      boardContentRef.current.addEventListener('scroll', handleScroll);
+    if (boradContent && topLabel) {
+      boradContent.addEventListener('scroll', handleScroll);
     }
 
     return () => {
-      if (boardContentRef.current && topLabelRef.current) {
-        boardContentRef.current.removeEventListener('scroll', handleScroll);
+      if (boradContent && topLabel) {
+        boradContent.removeEventListener('scroll', handleScroll);
       }
     };
   }, []);
+
+  useEffect(() => {
+    console.log('isEdited', isEdited);
+  }, [isEdited]);
 
   return (
     <div className="flex flex-col">
@@ -227,7 +242,14 @@ export default function TimeBlockBoard({
               isPossibleTime={isPossibleTime}
               onToggle={handleAvailableToggle}
             />
-            <ResetButton onClick={handleResetButtonClick} />
+            {isEmpty &&
+            initialSchedule &&
+            initialSchedule[0].schedules.length > 0 &&
+            isEdited ? (
+              <ReloadButton onClick={handleReloadButtonClick} />
+            ) : (
+              <ResetButton onClick={handleResetButtonClick} />
+            )}
           </div>
         )}
         <TopDateLabelGroup

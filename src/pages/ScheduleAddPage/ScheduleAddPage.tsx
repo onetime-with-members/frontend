@@ -43,7 +43,7 @@ export default function ScheduleCreatePage() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
-  const { schedules, setSchedules, event } = useScheduleAdd({
+  const { schedules, setSchedules, event, initialSchedule } = useScheduleAdd({
     isNewGuest,
     guestId,
   });
@@ -168,6 +168,7 @@ export default function ScheduleCreatePage() {
               isSubmitting={isSubmitting}
               isNewGuest={isNewGuest}
               guestId={guestId}
+              initialSchedule={initialSchedule}
             />
           )}
         </main>

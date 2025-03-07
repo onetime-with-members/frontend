@@ -145,7 +145,8 @@
   "timeBlockBoard": {
     "availableToggleText": "되는 시간 체크",
     "unavailableToggleText": "안되는 시간 체크",
-    "reset": "초기화"
+    "reset": "초기화",
+    "reload": "불러오기"
   },
   "userDashboard": {
     "more": "더 보기",

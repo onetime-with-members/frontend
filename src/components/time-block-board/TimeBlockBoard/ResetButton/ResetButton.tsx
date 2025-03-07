@@ -6,11 +6,7 @@ import cn from '@/utils/cn';
 interface ResetButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export default function ResetButton({
-  children,
-  className,
-  ...props
-}: ResetButtonProps) {
+export default function ResetButton({ className, ...props }: ResetButtonProps) {
   const { t } = useTranslation();
 
   return (
