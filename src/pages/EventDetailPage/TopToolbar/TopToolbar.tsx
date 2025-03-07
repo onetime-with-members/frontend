@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
@@ -25,10 +23,6 @@ export default function TopToolbar({
   });
 
   const { data: schedules } = useScheduleQuery(event);
-
-  useEffect(() => {
-    console.log(schedules);
-  }, [schedules]);
 
   return (
     <header className="flex h-[59px] w-full justify-center md:h-[72px]">

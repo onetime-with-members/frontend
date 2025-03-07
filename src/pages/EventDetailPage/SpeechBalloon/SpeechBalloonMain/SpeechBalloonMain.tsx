@@ -34,13 +34,10 @@ export default function SpeechBalloonMain({
       }
     }
 
-    const timer = setTimeout(() => {
-      document.addEventListener('click', handleClickOutside);
-    }, 100);
+    document.addEventListener('mouseup', handleClickOutside);
 
     return () => {
-      clearTimeout(timer);
-      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('mouseup', handleClickOutside);
     };
   }, []);
 
