@@ -1,5 +1,6 @@
 'use client';
 
+import { getCookie } from 'cookies-next';
 import { useContext, useEffect, useState } from 'react';
 
 import MemberLoginScreen from './MemberLoginScreen/MemberLoginScreen';
@@ -24,10 +25,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 export default function ScheduleAddPage() {
   const [pageIndex, setPageIndex] = useState(
-    typeof localStorage !== 'undefined' &&
-      localStorage.getItem('access-token') !== null
-      ? 1
-      : 0,
+    !!getCookie('access-token') ? 1 : 0,
   );
   const [isNewGuest, setIsNewGuest] = useState(false);
   const [guestId, setGuestId] = useState('');
@@ -82,9 +80,7 @@ export default function ScheduleAddPage() {
       },
     });
 
-  const isLoggedIn =
-    typeof localStorage !== 'undefined' &&
-    localStorage.getItem('access-token') !== null;
+  const isLoggedIn = !!getCookie('access-token');
   const isSubmitting =
     isCreateNewMemberSchedulePending || isUpdateSchedulePending;
 

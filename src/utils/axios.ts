@@ -18,7 +18,7 @@ const reissuer = _axios.create({
 async function removeTokens() {
   deleteCookie('access-token');
   deleteCookie('refresh-token');
-  location.reload();
+  window.location.reload();
 }
 
 axios.interceptors.request.use(

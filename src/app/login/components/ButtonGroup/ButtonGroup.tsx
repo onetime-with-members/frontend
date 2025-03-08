@@ -1,12 +1,16 @@
 import SocialLoginButton from './SocialLoginButton/SocialLoginButton';
+import { useRouter } from 'next/navigation';
 
 export default function ButtonGroup() {
+  const router = useRouter();
+
   const lastLoginLocal =
     typeof window !== 'undefined' && localStorage.getItem('last-login');
 
   function handleLoginButtonClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
-    location.href = e.currentTarget.href;
+    router.push(e.currentTarget.href);
+    router.refresh();
   }
 
   return (

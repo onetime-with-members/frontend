@@ -1,6 +1,7 @@
 'use client';
 
 import { AxiosError } from 'axios';
+import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 
 import BottomButtonForDesktop from './BottomButtonForDesktop/BottomButtonForDesktop';
@@ -34,7 +35,7 @@ export default function EventDetailPage() {
   const { data: schedules } = useScheduleQuery(event);
 
   function handleBottomButtonClick() {
-    if (localStorage.getItem('access-token')) {
+    if (!!getCookie('access-token')) {
       router.push(`/events/${params.id}/schedules/new`);
     } else {
       setIsLoginAlertOpen(true);

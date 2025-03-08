@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert/Alert/Alert';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 
 interface LoginAlertProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,6 +9,7 @@ interface LoginAlertProps {
 
 export default function LoginAlert({ setIsOpen }: LoginAlertProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const params = useParams<{ id: string }>();
   const t = useTranslations('alert');
 
@@ -21,7 +22,7 @@ export default function LoginAlert({ setIsOpen }: LoginAlertProps) {
   }
 
   function handleLoginAlertConfirm() {
-    router.push(`/login?redirect_url=${location.pathname}`);
+    router.push(`/login?redirect_url=${pathname}`);
   }
 
   return (

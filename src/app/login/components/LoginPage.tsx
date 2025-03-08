@@ -1,6 +1,6 @@
 'use client';
 
-import { setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
 import ButtonGroup from './ButtonGroup/ButtonGroup';
@@ -14,10 +14,7 @@ export default function LoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const hasTokens =
-    typeof window !== 'undefined' &&
-    !!localStorage.getItem('access-token') &&
-    !!localStorage.getItem('refresh-token');
+  const hasTokens = !!getCookie('access-token') && !!getCookie('refresh-token');
 
   const { data, isError } = useQuery({
     queryKey: ['users', 'profile'],

@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import KakaoScript from './components/KakaoScript/KakaoScript';
 import QueryProvider from './components/QueryProvider/QueryProvider';
 import './globals.css';
+import SetUpProvider from './set-up';
 import Toast from '@/components/Toast/Toast';
 import ContextProviders from '@/contexts/ContextProviders';
 import { getLocale, getMessages } from 'next-intl/server';
@@ -34,7 +35,7 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>
             <ContextProviders>
-              {children}
+              <SetUpProvider>{children}</SetUpProvider>
               <Toast />
             </ContextProviders>
           </QueryProvider>

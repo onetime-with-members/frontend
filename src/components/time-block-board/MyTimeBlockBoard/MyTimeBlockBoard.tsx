@@ -2,24 +2,21 @@ import BoardContent from './BoardContent/BoardContent';
 import LeftTimeLine from './LeftTimeLine/LeftTimeLine';
 import TopDateGroup from './TopDateGroup/TopDateGroup';
 import { MyScheduleTimeType } from '@/types/schedule.type';
-import { SleepTimeType } from '@/types/user.type';
 
 interface MyTimeBlockBoard {
   mode: 'view' | 'edit';
   mySchedule: MyScheduleTimeType[];
-  setMySchedule?: React.Dispatch<React.SetStateAction<MyScheduleTimeType[]>>;
-  sleepTime?: SleepTimeType;
+  setMySchedule?: (mySchedule: MyScheduleTimeType[]) => void;
   className?: string;
   backgroundColor?: 'gray' | 'white';
   topDateGroupClassName?: string;
-  setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsEdited?: (isEdited: boolean) => void;
 }
 
 export default function MyTimeBlockBoard({
   mode,
   mySchedule,
   setMySchedule,
-  sleepTime,
   className,
   backgroundColor = 'gray',
   topDateGroupClassName,
@@ -30,12 +27,11 @@ export default function MyTimeBlockBoard({
       <div className="flex flex-col">
         <TopDateGroup className={topDateGroupClassName} />
         <div className="flex flex-1">
-          <LeftTimeLine sleepTime={sleepTime} />
+          <LeftTimeLine />
           <BoardContent
             mode={mode}
             mySchedule={mySchedule}
             setMySchedule={setMySchedule}
-            sleepTime={sleepTime}
             backgroundColor={backgroundColor}
             setIsEdited={setIsEdited}
           />
