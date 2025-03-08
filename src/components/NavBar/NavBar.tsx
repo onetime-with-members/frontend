@@ -28,22 +28,36 @@ export default function NavBar({
   isAuthHidden = false,
   heightZero = false,
 }: NavBarProps) {
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [hasTokens, setHasTokens] = useState<boolean>(
+    !!getCookie('access-token') && !!getCookie('refresh-token'),
+  );
+
   const { isScrolling } = useScroll();
-  const [hasTokens, setHasTokens] = useState(false);
 
   useEffect(() => {
-    if (getCookie('access-token') && getCookie('refresh-token')) {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!!getCookie('access-token') && !!getCookie('refresh-token')) {
       setHasTokens(true);
     }
   }, [hasTokens]);
 
-  const { isPending, data: user } = useQuery<UserType>({
+  const {
+    data: user,
+    isPending,
+    isLoading,
+    error,
+  } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');
       return res.data.payload;
     },
     enabled: hasTokens,
+    retry: false,
   });
 
   return (
@@ -89,12 +103,13 @@ export default function NavBar({
               className="h-[2rem]"
             />
           </Link>
-          {!isAuthHidden && (
+          {isMounted && !isAuthHidden && (
             <>
-              {user && (
+              {user ? (
                 <AvatarDropdown name={user.nickname} disabled={disabled} />
+              ) : (
+                (error || (isPending && !isLoading && !user)) && <LoginButton />
               )}
-              {!isPending && !user && <LoginButton />}
             </>
           )}
         </div>

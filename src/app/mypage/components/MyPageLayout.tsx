@@ -27,9 +27,7 @@ function currentTabActive(pathname: string): TabActiveType {
 }
 
 export default function MyPageLayout({ children }: MyPageLayoutProps) {
-  const [tabActive, setTabActive] = useState<TabActiveType>(
-    currentTabActive(window.location.pathname),
-  );
+  const [tabActive, setTabActive] = useState<TabActiveType>('profile');
 
   const { scrollContainerRef } = useContext(ScrollContext);
 
