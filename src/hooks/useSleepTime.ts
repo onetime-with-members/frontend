@@ -1,5 +1,6 @@
 'use client';
 
+import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
@@ -16,9 +17,7 @@ interface UseSleepTimeProps {
 export default function useSleepTime({
   sleepTime: _sleepTime,
 }: UseSleepTimeProps = {}) {
-  const isLoggedIn =
-    typeof localStorage !== 'undefined' &&
-    localStorage.getItem('access-token') !== null;
+  const isLoggedIn = !!getCookie('access-token');
 
   const { data: sleepTimeData } = useQuery<SleepTimeType>({
     queryKey: ['users', 'sleep-time'],
