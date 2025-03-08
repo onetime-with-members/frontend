@@ -113,7 +113,7 @@
     "createEvent": "Create Event"
   },
   "editEvent": {
-    "editEvent": "Edit {{eventName}}"
+    "editEvent": "Edit {name}"
   },
   "eventForm": {
     "eventName": "Event Name",

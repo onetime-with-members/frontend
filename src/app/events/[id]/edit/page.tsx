@@ -1,5 +1,6 @@
-import EventDetailPage from './components/EventDetailPage';
+import EventEditPage from './components/EventEditPage';
 import { EventType } from '@/types/event.type';
+import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({
   params,
@@ -14,11 +15,15 @@ export async function generateMetadata({
 
   const { payload: event }: { payload: EventType } = await res.json();
 
+  const t = await getTranslations('editEvent');
+
   return {
-    title: `${event.title} | OneTime`,
+    title: `${t('editEvent', {
+      name: event.title,
+    })} | OneTime`,
   };
 }
 
-export default async function EventDetail() {
-  return <EventDetailPage />;
+export default function EventEdit() {
+  return <EventEditPage />;
 }

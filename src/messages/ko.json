@@ -113,7 +113,7 @@
     "createEvent": "이벤트 생성"
   },
   "editEvent": {
-    "editEvent": "{{eventName}} 수정"
+    "editEvent": "{name} 수정"
   },
   "eventForm": {
     "eventName": "이벤트 제목",
