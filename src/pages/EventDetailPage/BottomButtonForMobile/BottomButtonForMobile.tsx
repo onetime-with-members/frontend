@@ -22,7 +22,7 @@ export default function BottomButtonForMobile({
 }: BottomButtonForMobileProps) {
   const { isFooterShown } = useContext(FooterContext);
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const params = useParams<{ eventId: string }>();
 
   const { data: event } = useEventQuery(params.eventId);
@@ -51,8 +51,11 @@ export default function BottomButtonForMobile({
           </button>
         </SpeechBalloon.Wrapper>
         {schedules?.length === 0 && (
-          <SpeechBalloon.Main width={101} offset={4}>
-            공유해보세요!
+          <SpeechBalloon.Main
+            width={i18n.language === 'ko' ? 101 : 111}
+            offset={4}
+          >
+            {t('eventDetail.shareMessage')}
           </SpeechBalloon.Main>
         )}
       </SpeechBalloon.Container>

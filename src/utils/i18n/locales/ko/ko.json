@@ -87,7 +87,8 @@
     "whenAvailableTimes": "가능한 시간은 언제일까요?",
     "emptyEventBanner": "링크를 공유하고 <br />맞는 시간을 찾으세요!",
     "copyLink": "링크 복사",
-    "copied": "복사 완료"
+    "copied": "복사 완료",
+    "shareMessage": "공유해보세요!"
   },
   "sharePopUp": {
     "share": "공유하기",

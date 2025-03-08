@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
@@ -24,6 +26,8 @@ export default function TopToolbar({
 
   const { data: schedules } = useScheduleQuery(event);
 
+  const { t, i18n } = useTranslation();
+
   return (
     <header className="flex h-[59px] w-full justify-center md:h-[72px]">
       <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
@@ -47,11 +51,11 @@ export default function TopToolbar({
                     </SpeechBalloon.Wrapper>
                     {schedules?.length === 0 && (
                       <SpeechBalloon.Main
-                        width={101}
+                        width={i18n.language === 'ko' ? 101 : 111}
                         offset={4}
                         position="bottom"
                       >
-                        공유해보세요!
+                        {t('eventDetail.shareMessage')}
                       </SpeechBalloon.Main>
                     )}
                   </SpeechBalloon.Container>

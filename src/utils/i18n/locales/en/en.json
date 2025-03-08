@@ -87,7 +87,8 @@
     "whenAvailableTimes": "When are the available times?",
     "emptyEventBanner": "Share the link <br />and find the perfect time!",
     "copyLink": "Copy Link",
-    "copied": "Copied"
+    "copied": "Copied",
+    "shareMessage": "Try sharing it!"
   },
   "sharePopUp": {
     "share": "Share",
