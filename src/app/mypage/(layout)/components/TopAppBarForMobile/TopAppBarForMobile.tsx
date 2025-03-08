@@ -1,10 +1,10 @@
-import { TabActiveType } from '../MyPageLayout';
+import { PageTitleType, TabActiveType } from '../MyPageLayout';
 import PenIcon from '@/components/icon/PenIcon';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 
 interface TopAppBarForMobileProps {
-  pageTitle: string | undefined;
+  pageTitle: PageTitleType;
   tabActive: TabActiveType;
   onMyScheduleEditButtonClick: () => void;
 }

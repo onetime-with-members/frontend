@@ -14,7 +14,9 @@ interface MyPageLayoutProps {
   children: React.ReactNode;
 }
 
-export type TabActiveType = 'events' | 'schedules' | 'profile';
+export type TabActiveType = 'events' | 'schedules' | 'profile' | null;
+
+export type PageTitleType = string | React.ReactNode;
 
 function currentTabActive(pathname: string): TabActiveType {
   if (pathname.startsWith('/mypage/events')) {
@@ -23,11 +25,14 @@ function currentTabActive(pathname: string): TabActiveType {
   if (pathname.startsWith('/mypage/schedules')) {
     return 'schedules';
   }
-  return 'profile';
+  if (pathname.startsWith('/mypage/profile')) {
+    return 'profile';
+  }
+  return null;
 }
 
 export default function MyPageLayout({ children }: MyPageLayoutProps) {
-  const [tabActive, setTabActive] = useState<TabActiveType>('profile');
+  const [tabActive, setTabActive] = useState<TabActiveType>(null);
 
   const { scrollContainerRef } = useContext(ScrollContext);
 
@@ -35,11 +40,15 @@ export default function MyPageLayout({ children }: MyPageLayoutProps) {
   const router = useRouter();
   const t = useTranslations('mypage');
 
-  const pageTitle = {
-    events: t('allEvents'),
-    schedules: t('mySchedule'),
-    profile: t('profile'),
-  }[tabActive];
+  const pageTitle: PageTitleType = tabActive ? (
+    {
+      events: t('allEvents'),
+      schedules: t('mySchedule'),
+      profile: t('profile'),
+    }[tabActive]
+  ) : (
+    <>&nbsp;</>
+  );
 
   function handleMyScheduleEditButtonClick() {
     router.push('/mypage/schedules/edit');

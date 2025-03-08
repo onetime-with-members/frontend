@@ -1,8 +1,8 @@
-import { TabActiveType } from '../MyPageLayout';
+import { PageTitleType, TabActiveType } from '../MyPageLayout';
 import PenIcon from '@/components/icon/PenIcon';
 
 interface HeaderForDesktopProps {
-  pageTitle: string | undefined;
+  pageTitle: PageTitleType;
   tabActive: TabActiveType;
   onMyScheduleEditButtonClick: () => void;
 }
