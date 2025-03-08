@@ -12,13 +12,14 @@ import { usePathname, useRouter } from 'next/navigation';
 
 interface MyPageLayoutProps {
   children: React.ReactNode;
+  pathname: string;
 }
 
 export type TabActiveType = 'events' | 'schedules' | 'profile' | null;
 
 export type PageTitleType = string | React.ReactNode;
 
-function currentTabActive(pathname: string): TabActiveType {
+export function currentTabActive(pathname: string): TabActiveType {
   if (pathname.startsWith('/mypage/events')) {
     return 'events';
   }
@@ -31,24 +32,27 @@ function currentTabActive(pathname: string): TabActiveType {
   return null;
 }
 
-export default function MyPageLayout({ children }: MyPageLayoutProps) {
-  const [tabActive, setTabActive] = useState<TabActiveType>(null);
+export default function MyPageLayout({
+  children,
+  pathname: _pathname,
+}: MyPageLayoutProps) {
+  const [tabActive, setTabActive] = useState<TabActiveType>(
+    currentTabActive(_pathname),
+  );
 
   const { scrollContainerRef } = useContext(ScrollContext);
 
-  const pathname = usePathname();
   const router = useRouter();
+  const pathname = usePathname();
   const t = useTranslations('mypage');
 
-  const pageTitle: PageTitleType = tabActive ? (
+  const pageTitle: PageTitleType =
+    tabActive &&
     {
       events: t('allEvents'),
       schedules: t('mySchedule'),
       profile: t('profile'),
-    }[tabActive]
-  ) : (
-    <>&nbsp;</>
-  );
+    }[tabActive];
 
   function handleMyScheduleEditButtonClick() {
     router.push('/mypage/schedules/edit');
