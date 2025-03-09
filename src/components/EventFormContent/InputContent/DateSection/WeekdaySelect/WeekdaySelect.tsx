@@ -1,9 +1,10 @@
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
+import { useWeekdaysShort } from '@/stores/weekday';
 import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
-import { weekdaysShort, weekdaysShortKo } from '@/utils/weekday';
+import { weekdaysShortKo } from '@/utils/weekday';
 
 interface WeekdaySelectProps {
   className?: string;
@@ -16,6 +17,8 @@ export default function WeekdaySelect({
   value,
   setValue,
 }: WeekdaySelectProps) {
+  const weekdaysShort = useWeekdaysShort();
+
   const {
     isFilling,
     cssStyle,

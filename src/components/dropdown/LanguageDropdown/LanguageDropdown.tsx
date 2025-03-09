@@ -1,4 +1,5 @@
 import { getCookie, setCookie } from 'cookies-next';
+import dayjs from 'dayjs';
 import { useLocale } from 'next-intl';
 import { useRef } from 'react';
 
@@ -50,6 +51,7 @@ export default function LanguageDropdown({
     }
     setIsDropdownMenuOpen(false);
     setCookie('locale', language);
+    dayjs.locale(language);
     router.refresh();
   }
 

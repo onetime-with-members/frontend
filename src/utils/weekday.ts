@@ -1,5 +1,3 @@
-import dayjs from 'dayjs';
-
 export const weekdaysShortKo = ['일', '월', '화', '수', '목', '금', '토'];
 export const weekdaysShortEn = [
   'Sun',
@@ -10,13 +8,6 @@ export const weekdaysShortEn = [
   'Fri',
   'Sat',
 ];
-
-export const weekdaysShort = Array.from(
-  {
-    length: 7,
-  },
-  (_, i) => dayjs().day(i).format('ddd'),
-);
 
 export function expandWeekdayShort(weekday: string) {
   return {

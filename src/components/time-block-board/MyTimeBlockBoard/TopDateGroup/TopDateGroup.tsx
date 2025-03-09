@@ -1,11 +1,13 @@
+import { useWeekdaysShort } from '@/stores/weekday';
 import cn from '@/utils/cn';
-import { weekdaysShort } from '@/utils/weekday';
 
 interface TopDateGroupProps {
   className?: string;
 }
 
 export default function TopDateGroup({ className }: TopDateGroupProps) {
+  const weekdaysShort = useWeekdaysShort();
+
   return (
     <div className={cn('relative', className)}>
       <div className="grid grid-cols-7 gap-2 pl-6">

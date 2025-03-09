@@ -2,15 +2,47 @@
 
 import { getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
-import { useLocale } from 'next-intl';
 import { useEffect } from 'react';
 
 import useMyScheduleStoreInit from '@/hooks/store/useMyScheduleStoreInit';
 import useSleepTimeInit from '@/hooks/store/useSleepTimeInit';
+import useWeekdayInit from '@/hooks/store/useWeekdayInit';
 import { PolicyType, UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
+import 'dayjs/locale/ko';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import localeData from 'dayjs/plugin/localeData';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import updateLocale from 'dayjs/plugin/updateLocale';
+import weekday from 'dayjs/plugin/weekday';
 import { usePathname, useRouter } from 'next/navigation';
+
+dayjs.locale('en');
+dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
+dayjs.extend(relativeTime);
+dayjs.extend(updateLocale);
+dayjs.extend(weekday);
+
+dayjs.updateLocale('ko', {
+  relativeTime: {
+    future: '%s 후',
+    past: '%s 전',
+    s: '1초',
+    ss: '%d초',
+    m: '1분',
+    mm: '%d분',
+    h: '1시간',
+    hh: '%d시간',
+    d: '1일',
+    dd: '%d일',
+    M: '1개월',
+    MM: '%d개월',
+    y: '1년',
+    yy: '%d년',
+  },
+});
 
 interface SetUpProviderProps {
   children: React.ReactNode;
@@ -19,10 +51,10 @@ interface SetUpProviderProps {
 export default function SetUpProvider({ children }: SetUpProviderProps) {
   useMyScheduleStoreInit();
   useSleepTimeInit();
+  useWeekdayInit();
 
   const router = useRouter();
   const pathname = usePathname();
-  const locale = useLocale();
 
   const isLoggedIn = !!getCookie('access-token');
 
@@ -57,13 +89,11 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
   }, [pathname, policyData, isLoggedIn, router]);
 
   useEffect(() => {
-    dayjs.locale(locale);
-  }, [locale]);
-
-  useEffect(() => {
     if (!user) return;
     localStorage.setItem('last-login', user.social_platform);
-    setCookie('locale', user.language === 'KOR' ? 'ko' : 'en');
+    const newLocale = user.language === 'KOR' ? 'ko' : 'en';
+    setCookie('locale', newLocale);
+    dayjs.locale(newLocale);
   }, [user]);
 
   return <>{children}</>;

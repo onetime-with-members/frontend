@@ -4,10 +4,10 @@ import { useState } from 'react';
 
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
+import { useWeekdaysShort } from '@/stores/weekday';
 import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
-import { weekdaysShort } from '@/utils/weekday';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface CalendarSelectProps {
@@ -22,6 +22,8 @@ export default function CalendarSelect({
   setValue,
 }: CalendarSelectProps) {
   const [currentDate, setCurrentDate] = useState(dayjs());
+
+  const weekdaysShort = useWeekdaysShort();
 
   const {
     isFilling,
