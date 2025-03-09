@@ -1,11 +1,15 @@
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import Button from '@/components/button/Button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
+import SpeechBalloon from '@/pages/EventDetailPage/SpeechBalloon/SpeechBalloon';
+import { useEventQuery } from '@/queries/event.queries';
+import { useScheduleQuery } from '@/queries/schedule.queries';
 import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 
 interface BottomButtonForMobileProps {
   handleFloatingButtonClick: () => void;
@@ -19,6 +23,11 @@ export default function BottomButtonForMobile({
   const { isFooterShown } = useContext(FooterContext);
 
   const t = useTranslations('eventDetail');
+  const locale = useLocale();
+  const params = useParams<{ id: string }>();
+
+  const { data: event } = useEventQuery(params.id);
+  const { data: schedules } = useScheduleQuery(event);
 
   return (
     <div
@@ -29,17 +38,26 @@ export default function BottomButtonForMobile({
         },
       )}
     >
-      <button
-        className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-gray-80"
-        onClick={handleShareButtonClick}
-      >
-        <Image
-          src="/images/send.svg"
-          alt="공유 아이콘"
-          width={36}
-          height={36}
-        />
-      </button>
+      <SpeechBalloon.Container>
+        <SpeechBalloon.Wrapper>
+          <button
+            className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-gray-80"
+            onClick={handleShareButtonClick}
+          >
+            <Image
+              src="/images/send.svg"
+              alt="공유 아이콘"
+              width={36}
+              height={36}
+            />
+          </button>
+        </SpeechBalloon.Wrapper>
+        {schedules?.length === 0 && (
+          <SpeechBalloon.Main width={locale === 'ko' ? 101 : 111} offset={4}>
+            {t('eventDetail.shareMessage')}
+          </SpeechBalloon.Main>
+        )}
+      </SpeechBalloon.Container>
       <Button
         onClick={handleFloatingButtonClick}
         variant="dark"

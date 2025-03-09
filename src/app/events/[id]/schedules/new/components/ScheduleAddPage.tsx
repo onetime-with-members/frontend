@@ -43,7 +43,7 @@ export default function ScheduleAddPage() {
   const params = useParams<{ id: string }>();
   const queryClient = useQueryClient();
 
-  const { schedules, setSchedules, event } = useScheduleAdd({
+  const { schedules, setSchedules, event, initialSchedule } = useScheduleAdd({
     isNewGuest,
     guestId,
   });
@@ -164,6 +164,7 @@ export default function ScheduleAddPage() {
               isSubmitting={isSubmitting}
               isNewGuest={isNewGuest}
               guestId={guestId}
+              initialSchedule={initialSchedule}
             />
           )}
         </main>

@@ -1,6 +1,11 @@
+import { useLocale, useTranslations } from 'next-intl';
+import { useTranslation } from 'react-i18next';
+
+import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
 import useKakaoShare from '@/hooks/useKakaoShare';
+import { useScheduleQuery } from '@/queries/schedule.queries';
 import { EventType } from '@/types/event.type';
 import Image from 'next/image';
 
@@ -19,6 +24,11 @@ export default function TopToolbar({
     event,
   });
 
+  const { data: schedules } = useScheduleQuery(event);
+
+  const t = useTranslations('eventDetail');
+  const locale = useLocale();
+
   return (
     <header className="flex h-[59px] w-full justify-center md:h-[72px]">
       <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
@@ -30,18 +40,31 @@ export default function TopToolbar({
             {event && (
               <>
                 <div className="flex items-center gap-2">
-                  <ToolbarButton
-                    variant="primary"
-                    onClick={handleShareButtonClick}
-                    className="hidden md:flex"
-                  >
-                    <Image
-                      src="/images/send.svg"
-                      alt="보내기 아이콘"
-                      width={28}
-                      height={28}
-                    />
-                  </ToolbarButton>
+                  <SpeechBalloon.Container className="hidden md:block">
+                    <SpeechBalloon.Wrapper>
+                      <ToolbarButton
+                        variant="primary"
+                        onClick={handleShareButtonClick}
+                        className="hidden md:flex"
+                      >
+                        <Image
+                          src="/images/send.svg"
+                          alt="보내기 아이콘"
+                          width={28}
+                          height={28}
+                        />
+                      </ToolbarButton>
+                    </SpeechBalloon.Wrapper>
+                    {schedules?.length === 0 && (
+                      <SpeechBalloon.Main
+                        width={locale === 'ko' ? 101 : 111}
+                        offset={4}
+                        position="bottom"
+                      >
+                        {t('shareMessage')}
+                      </SpeechBalloon.Main>
+                    )}
+                  </SpeechBalloon.Container>
                   <ToolbarButton
                     variant="yellow"
                     onClick={handleKakaoShare}

@@ -20,6 +20,7 @@ interface ScheduleFormProps {
   isSubmitting: boolean;
   isNewGuest: boolean;
   guestId: string;
+  initialSchedule: ScheduleType[];
 }
 
 export default function ScheduleFormScreen({
@@ -34,6 +35,7 @@ export default function ScheduleFormScreen({
   isSubmitting,
   isNewGuest,
   guestId,
+  initialSchedule,
 }: ScheduleFormProps) {
   const t = useTranslations('toast');
 
@@ -62,6 +64,8 @@ export default function ScheduleFormScreen({
         topContentClassName="top-[69px] sm:top-[62px]"
         isEdited={isScheduleEdited}
         setIsEdited={setIsScheduleEdited}
+        initialSchedule={initialSchedule}
+        isNewGuest={isNewGuest}
       />
       <BottomButtonForDesktop onClick={onSubmit} isSubmitting={isSubmitting} />
     </div>

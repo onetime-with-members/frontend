@@ -21,6 +21,8 @@ export type MyScheduleTimeType = TimeType;
 
 export type EverytimeSchedule = TimeType[];
 
+export type EverytimeSchedule = TimeType[];
+
 export interface TimeBlockPopUpDataType {
   timePoint: string;
   time: string;

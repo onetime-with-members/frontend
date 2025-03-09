@@ -85,7 +85,8 @@
     "whenAvailableTimes": "When are the available times?",
     "emptyEventBanner": "Share the link <br></br>and find the perfect time!",
     "copyLink": "Copy Link",
-    "copied": "Copied"
+    "copied": "Copied",
+    "shareMessage": "Try sharing it!"
   },
   "sharePopUp": {
     "share": "Share",
@@ -143,7 +144,8 @@
   "timeBlockBoard": {
     "availableToggleText": "Available",
     "unavailableToggleText": "Unavailable",
-    "reset": "Reset"
+    "reset": "Reset",
+    "reload": "Reload"
   },
   "userDashboard": {
     "more": "More",

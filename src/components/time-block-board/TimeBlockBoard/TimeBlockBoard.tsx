@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import BoardContent from './BoardContent/BoardContent';
 import LeftTimeLine from './LeftTimeLine/LeftTimeLine';
 import PossibleTimeToggle from './PossibleTimeToggle/PossibleTimeToggle';
+import ReloadButton from './ReloadButton/ReloadButton';
 import ResetButton from './ResetButton/ResetButton';
 import TimeBlockPopUp from './TimeBlockPopUp/TimeBlockPopUp';
 import TopDateLabelGroup from './TopDateLabelGroup/TopDateLabelGroup';
@@ -23,6 +24,9 @@ interface TimeBlockBoardProps {
   bottomContentClassName?: string;
   isEdited?: boolean;
   setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
+  initialSchedule?: ScheduleType[];
+  isSchedulePending?: boolean;
+  isNewGuest?: boolean;
 }
 
 export default function TimeBlockBoard({
@@ -37,6 +41,8 @@ export default function TimeBlockBoard({
   bottomContentClassName,
   isEdited,
   setIsEdited,
+  initialSchedule,
+  isNewGuest,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<TimeBlockPopUpDataType>({
@@ -165,7 +171,6 @@ export default function TimeBlockBoard({
 
   function handleResetButtonClick() {
     if (!editable || !setSchedules) return;
-
     setSchedules(
       isPossibleTime
         ? schedules.map((schedule) => ({
@@ -183,8 +188,13 @@ export default function TimeBlockBoard({
             })),
           })),
     );
-
     setIsEdited?.(true);
+  }
+
+  function handleReloadButtonClick() {
+    if (!editable || !setSchedules || !initialSchedule || !setIsEdited) return;
+    setSchedules(initialSchedule);
+    setIsEdited(false);
   }
 
   useEffect(() => {
@@ -202,15 +212,16 @@ export default function TimeBlockBoard({
 
   useEffect(() => {
     const boardContent = boardContentRef.current;
+    const topLabel = topLabelRef.current;
 
     function handleScroll() {
-      if (boardContentRef.current && topLabelRef.current) {
-        topLabelRef.current.scrollLeft = boardContentRef.current.scrollLeft;
+      if (boardContent && topLabel) {
+        topLabel.scrollLeft = boardContent.scrollLeft;
       }
     }
 
-    if (boardContentRef.current && topLabelRef.current) {
-      boardContentRef.current.addEventListener('scroll', handleScroll);
+    if (boardContent && topLabel) {
+      boardContent.addEventListener('scroll', handleScroll);
     }
 
     return () => {
@@ -227,7 +238,15 @@ export default function TimeBlockBoard({
               isPossibleTime={isPossibleTime}
               onToggle={handleAvailableToggle}
             />
-            <ResetButton onClick={handleResetButtonClick} />
+            {((isEmpty && isPossibleTime) || (isFull && !isPossibleTime)) &&
+            initialSchedule &&
+            initialSchedule[0].schedules.length > 0 &&
+            isEdited &&
+            !isNewGuest ? (
+              <ReloadButton onClick={handleReloadButtonClick} />
+            ) : (
+              <ResetButton onClick={handleResetButtonClick} />
+            )}
           </div>
         )}
         <TopDateLabelGroup

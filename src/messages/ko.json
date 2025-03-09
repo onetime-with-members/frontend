@@ -85,7 +85,8 @@
     "whenAvailableTimes": "가능한 시간은 언제일까요?",
     "emptyEventBanner": "링크를 공유하고 <br></br>맞는 시간을 찾으세요!",
     "copyLink": "링크 복사",
-    "copied": "복사 완료"
+    "copied": "복사 완료",
+    "shareMessage": "공유해보세요!"
   },
   "sharePopUp": {
     "share": "공유하기",
@@ -143,7 +144,8 @@
   "timeBlockBoard": {
     "availableToggleText": "되는 시간 체크",
     "unavailableToggleText": "안되는 시간 체크",
-    "reset": "초기화"
+    "reset": "초기화",
+    "reload": "불러오기"
   },
   "userDashboard": {
     "more": "더 보기",

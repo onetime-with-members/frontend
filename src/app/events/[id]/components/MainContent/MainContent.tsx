@@ -25,7 +25,7 @@ export default function MainContent({
     return <></>;
 
   return (
-    <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6 bg-gray-05 px-6 pb-16 pt-6">
+    <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6 bg-gray-05 px-4 pb-16 pt-6">
       <div className="flex gap-6">
         <div className="w-full md:w-[55%]">
           <TimeBlockBoard
