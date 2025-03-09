@@ -26,6 +26,7 @@ interface TimeBlockBoardProps {
   setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
   initialSchedule?: ScheduleType[];
   isSchedulePending?: boolean;
+  isNewGuest?: boolean;
 }
 
 export default function TimeBlockBoard({
@@ -41,6 +42,7 @@ export default function TimeBlockBoard({
   isEdited,
   setIsEdited,
   initialSchedule,
+  isNewGuest,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<TimeBlockPopUpDataType>({
@@ -241,7 +243,8 @@ export default function TimeBlockBoard({
             {isEmpty &&
             initialSchedule &&
             initialSchedule[0].schedules.length > 0 &&
-            isEdited ? (
+            isEdited &&
+            !isNewGuest ? (
               <ReloadButton onClick={handleReloadButtonClick} />
             ) : (
               <ResetButton onClick={handleResetButtonClick} />
