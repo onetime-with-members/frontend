@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 
+import Footer from './components/Footer/Footer';
 import KakaoScript from './components/KakaoScript/KakaoScript';
 import QueryProvider from './components/QueryProvider/QueryProvider';
 import './globals.css';
@@ -35,8 +36,11 @@ export default async function RootLayout({
         <NextIntlClientProvider messages={messages}>
           <QueryProvider>
             <ContextProviders>
-              <SetUpProvider>{children}</SetUpProvider>
-              <Toast />
+              <SetUpProvider>
+                {children}
+                <Footer />
+                <Toast />
+              </SetUpProvider>
             </ContextProviders>
           </QueryProvider>
         </NextIntlClientProvider>
