@@ -240,7 +240,7 @@ export default function TimeBlockBoard({
               isPossibleTime={isPossibleTime}
               onToggle={handleAvailableToggle}
             />
-            {isEmpty &&
+            {((isEmpty && isPossibleTime) || (isFull && !isPossibleTime)) &&
             initialSchedule &&
             initialSchedule[0].schedules.length > 0 &&
             isEdited &&
