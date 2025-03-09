@@ -61,7 +61,7 @@ export default function EventDetailPage() {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex min-h-[110vh] flex-col">
         <TopNavBar />
         <TopToolbar
           event={event}
