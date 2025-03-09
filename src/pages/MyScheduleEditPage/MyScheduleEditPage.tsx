@@ -127,7 +127,7 @@ export default function MyScheduleEditPage() {
 
         <main className="pb-24">
           <div className="mx-auto max-w-screen-sm">
-            <EverytimeUI className="sticky top-[64px] z-20" />
+            <EverytimeUI className="sticky top-[64px] z-20 rounded-t-2xl" />
             <SleepTimeAccordion
               sleepTime={sleepTime}
               setSleepTime={setSleepTime}
