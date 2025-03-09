@@ -1,9 +1,13 @@
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
+import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import sendIcon from '@/assets/send.svg';
 import Button from '@/components/button/Button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
+import { useEventQuery } from '@/queries/event.queries';
+import { useScheduleQuery } from '@/queries/schedule.queries';
 import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';
 
@@ -18,7 +22,11 @@ export default function BottomButtonForMobile({
 }: BottomButtonForMobileProps) {
   const { isFooterShown } = useContext(FooterContext);
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const params = useParams<{ eventId: string }>();
+
+  const { data: event } = useEventQuery(params.eventId);
+  const { data: schedules } = useScheduleQuery(event);
 
   return (
     <div
@@ -29,12 +37,28 @@ export default function BottomButtonForMobile({
         },
       )}
     >
-      <button
-        className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-gray-80"
-        onClick={handleShareButtonClick}
-      >
-        <img src={sendIcon} alt="공유 아이콘" className="h-[36px] w-[36px]" />
-      </button>
+      <SpeechBalloon.Container>
+        <SpeechBalloon.Wrapper>
+          <button
+            className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-gray-80"
+            onClick={handleShareButtonClick}
+          >
+            <img
+              src={sendIcon}
+              alt="공유 아이콘"
+              className="h-[36px] w-[36px]"
+            />
+          </button>
+        </SpeechBalloon.Wrapper>
+        {schedules?.length === 0 && (
+          <SpeechBalloon.Main
+            width={i18n.language === 'ko' ? 101 : 111}
+            offset={4}
+          >
+            {t('eventDetail.shareMessage')}
+          </SpeechBalloon.Main>
+        )}
+      </SpeechBalloon.Container>
       <Button
         onClick={handleFloatingButtonClick}
         variant="dark"

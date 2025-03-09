@@ -1,8 +1,12 @@
+import { useTranslation } from 'react-i18next';
+
+import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
 import kakaoIcon from '@/assets/kakao-icon.svg';
 import sendIcon from '@/assets/send.svg';
 import useKakaoShare from '@/hooks/useKakaoShare';
+import { useScheduleQuery } from '@/queries/schedule.queries';
 import { EventType } from '@/types/event.type';
 
 interface TopToolbarProps {
@@ -20,6 +24,10 @@ export default function TopToolbar({
     event,
   });
 
+  const { data: schedules } = useScheduleQuery(event);
+
+  const { t, i18n } = useTranslation();
+
   return (
     <header className="flex h-[59px] w-full justify-center md:h-[72px]">
       <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
@@ -31,13 +39,26 @@ export default function TopToolbar({
             {event && (
               <>
                 <div className="flex items-center gap-2">
-                  <ToolbarButton
-                    variant="primary"
-                    onClick={handleShareButtonClick}
-                    className="hidden md:flex"
-                  >
-                    <img src={sendIcon} alt="보내기 아이콘" />
-                  </ToolbarButton>
+                  <SpeechBalloon.Container className="hidden md:block">
+                    <SpeechBalloon.Wrapper>
+                      <ToolbarButton
+                        variant="primary"
+                        onClick={handleShareButtonClick}
+                        className="hidden md:flex"
+                      >
+                        <img src={sendIcon} alt="보내기 아이콘" />
+                      </ToolbarButton>
+                    </SpeechBalloon.Wrapper>
+                    {schedules?.length === 0 && (
+                      <SpeechBalloon.Main
+                        width={i18n.language === 'ko' ? 101 : 111}
+                        offset={4}
+                        position="bottom"
+                      >
+                        {t('eventDetail.shareMessage')}
+                      </SpeechBalloon.Main>
+                    )}
+                  </SpeechBalloon.Container>
                   <ToolbarButton
                     variant="yellow"
                     onClick={handleKakaoShare}

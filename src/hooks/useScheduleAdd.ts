@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import useSleepTime from './useSleepTime';
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleDetailQuery } from '@/queries/schedule.queries';
+import { useSleepTimeData, useSleepTimesList } from '@/stores/sleep-time';
 import { MyScheduleTimeType, ScheduleType } from '@/types/schedule.type';
 import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
@@ -42,7 +42,10 @@ export default function useScheduleAdd({
   isNewGuest,
   guestId,
 }: UseScheduleCreateProps) {
-  const { sleepTimesList, sleepTimeData } = useSleepTime();
+  const [initialSchedule, setInitialSchedule] = useState<ScheduleType[]>([]);
+
+  const sleepTimeData = useSleepTimeData();
+  const sleepTimesList = useSleepTimesList();
 
   const params = useParams<{ eventId: string }>();
 
@@ -85,20 +88,20 @@ export default function useScheduleAdd({
   }, [scheduleData, fixedScheduleData, sleepTimeData]);
 
   useEffect(() => {
-    const initSchedule =
+    const defaultSchedule =
       event?.ranges.map((time_point) => ({
         time_point,
         times: [],
       })) || [];
 
-    setSchedules([
+    const initialSchedule = [
       {
         name: scheduleData?.name || '본인',
         schedules: isEmpty.schedule
           ? isEmpty.fixedSchedule && isEmpty.sleepTime
-            ? initSchedule
+            ? defaultSchedule
             : fixedAndSleepTimeSchedule()
-          : initSchedule.map((schedule) => ({
+          : defaultSchedule.map((schedule) => ({
               ...schedule,
               times:
                 scheduleData?.schedules.find(
@@ -106,7 +109,10 @@ export default function useScheduleAdd({
                 )?.times || [],
             })),
       },
-    ]);
+    ];
+
+    setInitialSchedule(initialSchedule);
+    setSchedules(initialSchedule);
 
     function fixedAndSleepTimeSchedule() {
       return (
@@ -118,7 +124,7 @@ export default function useScheduleAdd({
             fixedScheduleTimes(time_point, event.category),
             sleepTimesList,
           ),
-        })) || initSchedule
+        })) || defaultSchedule
       );
 
       function newTimes(
@@ -177,5 +183,6 @@ export default function useScheduleAdd({
     isScheduleEmpty: isEmpty.schedule,
     isFixedScheduleEmpty: isEmpty.fixedSchedule,
     isSleepTimeEmpty: isEmpty.sleepTime,
+    initialSchedule,
   };
 }
