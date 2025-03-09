@@ -6,6 +6,7 @@ import KakaoScript from './components/KakaoScript/KakaoScript';
 import QueryProvider from './components/QueryProvider/QueryProvider';
 import './globals.css';
 import SetUpProvider from './set-up';
+import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/Toast/Toast';
 import ContextProviders from '@/contexts/ContextProviders';
 import { getLocale, getMessages } from 'next-intl/server';
