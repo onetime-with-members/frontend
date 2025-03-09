@@ -1,9 +1,9 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
+import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import Button from '@/components/button/Button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
-import SpeechBalloon from '@/pages/EventDetailPage/SpeechBalloon/SpeechBalloon';
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleQuery } from '@/queries/schedule.queries';
 import cn from '@/utils/cn';
