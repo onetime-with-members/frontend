@@ -184,6 +184,7 @@
     "placeholder": "링크 붙여넣기...",
     "submit": "확인",
     "submitting": "진행 중...",
+    "publicWarning": "시간표의 공개 범위를 잠시 동안 '전체 공개'로 바꿔주세요.",
     "pendingMessage": "요청을 진행 중입니다. 잠시만 기다려주세요.",
     "invalidURLMessage": "잘못된 URL입니다. 올바른 URL로 다시 입력해주세요.",
     "serverErrorMessage": "요청 도중 오류가 발생했습니다. 다시 시도해주세요."

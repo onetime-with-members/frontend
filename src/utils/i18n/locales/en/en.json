@@ -184,6 +184,7 @@
     "placeholder": "Paste link here...",
     "submit": "Submit",
     "submitting": "Submitting...",
+    "publicWarning": "Please temporarily set sharing rights of the timetable to 'Public'.",
     "pendingMessage": "The request is in progress. <2 />Please wait a moment.",
     "invalidURLMessage": "The entered URL is invalid. <2 />Please try again with a valid URL.",
     "serverErrorMessage": "An error occurred while processing the request. <2 />Please try again."

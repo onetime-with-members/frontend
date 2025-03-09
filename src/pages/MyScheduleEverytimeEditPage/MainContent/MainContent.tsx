@@ -26,6 +26,9 @@ export default function MainContent({
           onChange={onInputChange}
           placeholder={t('MyScheduleEverytimeEditPage.placeholder')}
         />
+        <p className="text-gray-40 text-sm-100">
+          * {t('MyScheduleEverytimeEditPage.publicWarning')}
+        </p>
       </div>
       <div className="overflow-hidden rounded-2xl">
         <img
