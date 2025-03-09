@@ -7,7 +7,7 @@ import EventFormContent from '@/components/EventFormContent/EventFormContent';
 import { EventType, EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useParams, useRouter } from 'next/navigation';
+import { notFound, useParams, useRouter } from 'next/navigation';
 
 export default function EventEditPage() {
   const queryClient = useQueryClient();
@@ -30,7 +30,7 @@ export default function EventEditPage() {
       axiosError?.response?.status === 404 ||
       axiosError?.response?.status === 400
     ) {
-      router.push('/not-found');
+      notFound();
     }
   }, [error, router]);
 

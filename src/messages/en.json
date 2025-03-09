@@ -215,7 +215,7 @@
   },
   "404": {
     "notFound": "Page Not Found",
-    "title": "The Page You Requested <2 />Cannot Be Found",
-    "description": "The URL you entered may be incorrect, <2 />or the page may have been changed or deleted. <5 />Please check that the address is entered correctly."
+    "title": "The Page You Requested <br></br>Cannot Be Found",
+    "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please check that the address is entered correctly."
   }
 }

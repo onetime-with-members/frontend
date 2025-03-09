@@ -15,7 +15,7 @@ import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbar from './TopToolbar/TopToolbar';
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleQuery } from '@/queries/schedule.queries';
-import { useParams, useRouter } from 'next/navigation';
+import { notFound, useParams, useRouter } from 'next/navigation';
 
 export default function EventDetailPage() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
@@ -50,7 +50,7 @@ export default function EventDetailPage() {
     if (eventError) {
       const error = eventError as AxiosError;
       if (error.response?.status === 404 || error.response?.status === 400) {
-        router.push('/not-found');
+        notFound();
       }
     }
   }, [eventError, router]);
