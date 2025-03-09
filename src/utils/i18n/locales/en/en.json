@@ -6,7 +6,8 @@
   },
   "toast": {
     "copiedLink": "Copied event link",
-    "loadedMySchedule": "My schedule has been loaded"
+    "loadedMySchedule": "My schedule has been loaded",
+    "everytime": "Everytime timetable has been loaded"
   },
   "navbar": {
     "login": "Login",
@@ -86,7 +87,8 @@
     "whenAvailableTimes": "When are the available times?",
     "emptyEventBanner": "Share the link <br />and find the perfect time!",
     "copyLink": "Copy Link",
-    "copied": "Copied"
+    "copied": "Copied",
+    "shareMessage": "Try sharing it!"
   },
   "sharePopUp": {
     "share": "Share",
@@ -144,7 +146,8 @@
   "timeBlockBoard": {
     "availableToggleText": "Available",
     "unavailableToggleText": "Unavailable",
-    "reset": "Reset"
+    "reset": "Reset",
+    "reload": "Reload"
   },
   "userDashboard": {
     "more": "More",
@@ -172,7 +175,19 @@
     "myScheduleEdit": "Edit My Schedule",
     "editMySchedule": "Edit My Schedule",
     "sleepTime": "Sleep Time",
+    "everytime": "Register Everytime timetable",
     "done": "Done"
+  },
+  "MyScheduleEverytimeEditPage": {
+    "title": "Register Everytime Timetable",
+    "description": "Paste the timetable link copied using the method below.",
+    "placeholder": "Paste link here...",
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "publicWarning": "Please temporarily set sharing rights of the timetable to 'Public'.",
+    "pendingMessage": "The request is in progress. <2 />Please wait a moment.",
+    "invalidURLMessage": "The entered URL is invalid. <2 />Please try again with a valid URL.",
+    "serverErrorMessage": "An error occurred while processing the request. <2 />Please try again."
   },
   "profile": {
     "profile": "Profile",

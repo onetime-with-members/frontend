@@ -20,7 +20,7 @@ export default function BottomButtonForMobile() {
   return (
     <div
       className={cn(
-        'fixed bottom-0 left-0 w-full bg-gray-00 p-4 shadow-[0px_-4px_32px_0px_rgba(0,0,0,0.05)] transition-opacity duration-300 md:hidden',
+        'fixed bottom-0 left-0 z-10 w-full bg-gray-00 p-4 shadow-[0px_-4px_32px_0px_rgba(0,0,0,0.05)] transition-opacity duration-300 md:hidden',
         {
           'pointer-events-none opacity-0': isFooterShown,
         },

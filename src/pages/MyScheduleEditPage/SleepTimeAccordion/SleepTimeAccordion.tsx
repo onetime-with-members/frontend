@@ -4,7 +4,7 @@ import { SleepTimeType } from '@/types/user.type';
 
 interface SleepTimeUIProps {
   sleepTime: SleepTimeType;
-  setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
+  setSleepTime: (sleepTime: SleepTimeType) => void;
   isAccordionOpen: boolean;
   setIsAccordionOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -16,7 +16,7 @@ export default function SleepTimeAccordion({
   setIsAccordionOpen,
 }: SleepTimeUIProps) {
   return (
-    <div className="sticky top-[64px] z-20 flex flex-col gap-3 bg-gray-05 px-5 py-4">
+    <div className="sticky top-[120px] z-20 flex flex-col gap-3 bg-gray-05 px-5 py-4">
       <AccordionMain
         isAccordionOpen={isAccordionOpen}
         setIsAccordionOpen={setIsAccordionOpen}

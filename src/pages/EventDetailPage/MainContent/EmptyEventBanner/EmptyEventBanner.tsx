@@ -35,7 +35,7 @@ export default function EmptyEventBanner() {
   }, [isCopied]);
 
   return (
-    <div className="relative mt-4 overflow-hidden rounded-2xl bg-primary-40 px-6 py-5">
+    <div className="relative mt-4 overflow-hidden rounded-2xl bg-primary-40 px-4 py-5">
       <div className="relative z-10 flex flex-col items-start gap-3">
         <span className="leading-6 text-gray-00 text-lg-300 md:text-md-300">
           <Trans i18nKey="eventDetail.emptyEventBanner">
@@ -55,7 +55,7 @@ export default function EmptyEventBanner() {
           </span>
         </button>
       </div>
-      <div className="absolute right-0 top-0 hidden h-full xs:block">
+      <div className="absolute bottom-0 right-0 h-full -translate-x-2 xs:-translate-x-4">
         <img
           src={emptyEventBannerImage}
           alt="클립보드 이미지"
