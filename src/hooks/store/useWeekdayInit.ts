@@ -1,10 +1,9 @@
 import { useLocale } from 'next-intl';
 import { useEffect } from 'react';
 
-import { useWeekdayActions, useWeekdaysShort } from '@/stores/weekday';
+import { useWeekdayActions } from '@/stores/weekday';
 
 export default function useWeekdayInit() {
-  const weekdaysShort = useWeekdaysShort();
   const { changeWeekdaysLocale } = useWeekdayActions();
 
   const locale = useLocale();
@@ -12,8 +11,4 @@ export default function useWeekdayInit() {
   useEffect(() => {
     changeWeekdaysLocale(locale as 'en' | 'ko');
   }, [locale, changeWeekdaysLocale]);
-
-  useEffect(() => {
-    console.log('weekdaysShort:', weekdaysShort);
-  }, [weekdaysShort]);
 }
