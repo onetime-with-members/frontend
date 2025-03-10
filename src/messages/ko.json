@@ -208,7 +208,7 @@
   },
   "policyEdit": {
     "agreeToTerms": "약관 동의",
-    "title": "서비스 이용을 위해 <br />약관에 동의해주세요",
+    "title": "서비스 이용을 위해 <br></br>약관에 동의해주세요",
     "all": "전체 동의",
     "termsOfService": "서비스 이용약관 (필수)",
     "privacyPolicy": "개인정보 수집 및 이용 동의 (필수)",

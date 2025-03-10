@@ -208,7 +208,7 @@
   },
   "policyEdit": {
     "agreeToTerms": "Agree to Terms",
-    "title": "Please agree to the terms <br />to use the service",
+    "title": "Please agree to the terms <br></br>to use the service",
     "all": "Agree to all",
     "termsOfService": "Terms of Service (Required)",
     "privacyPolicy": "Privacy Policy (Required)",
