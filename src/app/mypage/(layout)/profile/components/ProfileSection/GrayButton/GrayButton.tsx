@@ -1,7 +1,6 @@
 import cn from '@/utils/cn';
 
-interface GrayButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+type GrayButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function GrayButton({
   className,

@@ -1,5 +1,4 @@
 import { useLocale, useTranslations } from 'next-intl';
-import { useTranslation } from 'react-i18next';
 
 import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import ToolbarButton from './ToolbarButton/ToolbarButton';

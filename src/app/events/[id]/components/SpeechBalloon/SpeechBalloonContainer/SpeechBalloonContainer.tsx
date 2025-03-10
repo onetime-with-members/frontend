@@ -1,7 +1,6 @@
 import cn from '@/utils/cn';
 
-interface SpeechBalloonWrapperProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+type SpeechBalloonWrapperProps = React.HTMLAttributes<HTMLDivElement>;
 
 export default function SpeechBalloonContainer({
   children,
