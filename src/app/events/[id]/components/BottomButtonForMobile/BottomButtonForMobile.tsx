@@ -54,7 +54,7 @@ export default function BottomButtonForMobile({
         </SpeechBalloon.Wrapper>
         {schedules?.length === 0 && (
           <SpeechBalloon.Main width={locale === 'ko' ? 101 : 111} offset={4}>
-            {t('eventDetail.shareMessage')}
+            {t('shareMessage')}
           </SpeechBalloon.Main>
         )}
       </SpeechBalloon.Container>
