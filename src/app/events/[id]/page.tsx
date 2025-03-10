@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import EventDetailPage from './components/EventDetailPage';
 import { EventType } from '@/types/event.type';
 import { getTranslations } from 'next-intl/server';
@@ -7,7 +9,7 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ id: string }>;
-}) {
+}): Promise<Metadata> {
   const { id } = await params;
 
   const res = await fetch(
@@ -26,6 +28,11 @@ export async function generateMetadata({
 
   return {
     title: `${event?.title || ''} | OneTime`,
+    openGraph: {
+      title: `${event?.title || ''} | OneTime`,
+      description:
+        '링크로 접속해 자신의 스케줄을 등록하고 모두가 맞는 시간을 찾으세요.',
+    },
   };
 }
 
