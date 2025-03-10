@@ -6,9 +6,7 @@ interface LayoutProps {
 }
 
 export default async function Layout({ children }: LayoutProps) {
-  return (
-    <MyPageLayout pathname={(await headers()).get('x-pathname') || ''}>
-      {children}
-    </MyPageLayout>
-  );
+  const pathname = (await headers()).get('x-pathname') || '';
+
+  return <MyPageLayout pathname={pathname}>{children}</MyPageLayout>;
 }
