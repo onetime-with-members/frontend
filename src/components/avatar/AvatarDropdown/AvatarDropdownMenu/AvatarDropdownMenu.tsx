@@ -2,7 +2,6 @@ import { deleteCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
 import MenuItem from './MenuItem/MenuItem';
-import { useRouter } from 'next/navigation';
 
 interface AvatarDropdownMenuProps {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,12 +11,11 @@ export default function AvatarDropdownMenu({
   setIsMenuOpen,
 }: AvatarDropdownMenuProps) {
   const t = useTranslations('navbar');
-  const router = useRouter();
 
   function handleLogout() {
     deleteCookie('access-token');
     deleteCookie('refresh-token');
-    router.push('/');
+    location.href = '/';
     setIsMenuOpen(false);
   }
 

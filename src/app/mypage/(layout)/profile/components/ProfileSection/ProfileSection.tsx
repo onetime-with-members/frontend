@@ -20,7 +20,8 @@ export default function ProfileSection() {
 
   function handleLogoutButtonClick() {
     deleteCookie('access-token');
-    router.push('/');
+    deleteCookie('refresh-token');
+    location.href = '/';
   }
 
   return (
