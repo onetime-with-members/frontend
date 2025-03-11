@@ -1,17 +1,14 @@
 import type { Metadata } from 'next';
-import { NextIntlClientProvider } from 'next-intl';
 
 import Footer from './components/Footer/Footer';
 import NoScripts from './components/NoScripts/NoScripts';
-import QueryProvider from './components/QueryProvider/QueryProvider';
+import Providers from './components/Providers/Providers';
 import Scripts from './components/Scripts/Scripts';
 import './globals.css';
-import SetUpProvider from './set-up';
 import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/Toast/Toast';
-import ContextProviders from '@/contexts/ContextProviders';
-import { getLocale, getMessages } from 'next-intl/server';
+import { getLocale } from 'next-intl/server';
 
 declare global {
   interface Window {
@@ -50,26 +47,17 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const locale = await getLocale();
-  const messages = await getMessages();
 
   return (
     <html lang={locale}>
       <body cz-shortcut-listen="true" className="font-pretendard">
-        <NextIntlClientProvider messages={messages}>
-          <QueryProvider>
-            <ContextProviders>
-              <SetUpProvider>
-                {children}
-                <Footer />
-                <Toast />
-              </SetUpProvider>
-            </ContextProviders>
-          </QueryProvider>
-        </NextIntlClientProvider>
-
+        <Providers>
+          <div className="flex min-h-[110vh] flex-col">{children}</div>
+          <Footer />
+          <Toast />
+        </Providers>
         <NoScripts />
       </body>
-
       <Scripts />
     </html>
   );
