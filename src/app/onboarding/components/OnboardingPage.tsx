@@ -1,5 +1,6 @@
 'use client';
 
+import { setCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
@@ -48,8 +49,8 @@ export default function OnboardingPage() {
     onSuccess: (data) => {
       const { access_token: accessToken, refresh_token: refreshToken } =
         data.payload;
-      localStorage.setItem('access-token', accessToken);
-      localStorage.setItem('refresh-token', refreshToken);
+      setCookie('access-token', accessToken);
+      setCookie('refresh-token', refreshToken);
       setPage((prevPage) => prevPage + 1);
     },
     onError: () => {
@@ -89,7 +90,9 @@ export default function OnboardingPage() {
     const newSearchParams = new URLSearchParams();
     newSearchParams.delete('register_token');
     newSearchParams.delete('name');
-    router.push(`/onboarding?${newSearchParams.toString()}`);
+    router.replace(`/onboarding?${newSearchParams.toString()}`, {
+      scroll: false,
+    });
   }, [router, searchParams]);
 
   useEffect(() => {
