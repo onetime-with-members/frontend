@@ -11,7 +11,7 @@ import Link from 'next/link';
 export default function Footer() {
   const footerRef = useRef<HTMLDivElement | null>(null);
 
-  const { setFooterRef, hasFooter } = useContext(FooterContext);
+  const { setFooterRef, footerVisible } = useContext(FooterContext);
 
   const t = useTranslations();
 
@@ -22,7 +22,7 @@ export default function Footer() {
   }, [footerRef, setFooterRef]);
 
   return (
-    hasFooter && (
+    footerVisible && (
       <footer ref={footerRef} className="bg-gray-80 px-4 pb-20 pt-8">
         <div className="mx-auto flex w-full max-w-screen-sm flex-col items-start gap-8">
           <div className="flex w-full flex-col gap-4">

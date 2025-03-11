@@ -33,7 +33,7 @@ export default function OnboardingPage() {
     language: locale === 'ko' ? 'KOR' : 'ENG',
   });
 
-  const { setHasFooter } = useContext(FooterContext);
+  const { setFooterVisible } = useContext(FooterContext);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -96,11 +96,11 @@ export default function OnboardingPage() {
   }, [router, searchParams]);
 
   useEffect(() => {
-    setHasFooter(false);
+    setFooterVisible(false);
     return () => {
-      setHasFooter(true);
+      setFooterVisible(true);
     };
-  }, [setHasFooter]);
+  }, [setFooterVisible]);
 
   return (
     <>

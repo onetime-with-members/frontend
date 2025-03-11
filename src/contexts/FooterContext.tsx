@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 
 interface FooterContextType {
-  hasFooter: boolean;
-  setHasFooter: React.Dispatch<React.SetStateAction<boolean>>;
+  footerVisible: boolean;
+  setFooterVisible: React.Dispatch<React.SetStateAction<boolean>>;
   footerRef: React.RefObject<HTMLDivElement | null> | undefined;
   setFooterRef: React.Dispatch<
     React.SetStateAction<React.RefObject<HTMLDivElement | null> | undefined>
@@ -15,15 +15,15 @@ interface FooterContextProps {
 }
 
 export const FooterContext = createContext<FooterContextType>({
-  hasFooter: true,
-  setHasFooter: () => {},
+  footerVisible: true,
+  setFooterVisible: () => {},
   footerRef: undefined,
   setFooterRef: () => {},
   isFooterShown: false,
 });
 
 export function FooterContextProvider({ children }: FooterContextProps) {
-  const [hasFooter, setHasFooter] = useState(true);
+  const [footerVisible, setFooterVisible] = useState(true);
   const [isFooterShown, setIsFooterShown] = useState(false);
   const [footerRef, setFooterRef] =
     useState<React.RefObject<HTMLDivElement | null>>();
@@ -52,8 +52,8 @@ export function FooterContextProvider({ children }: FooterContextProps) {
   return (
     <FooterContext.Provider
       value={{
-        hasFooter,
-        setHasFooter,
+        footerVisible,
+        setFooterVisible,
         footerRef,
         setFooterRef,
         isFooterShown,

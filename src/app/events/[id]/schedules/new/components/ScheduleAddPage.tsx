@@ -37,7 +37,7 @@ export default function ScheduleAddPage() {
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isScheduleEdited, setIsScheduleEdited] = useState(false);
 
-  const { setHasFooter } = useContext(FooterContext);
+  const { setFooterVisible } = useContext(FooterContext);
 
   const router = useRouter();
   const params = useParams<{ id: string }>();
@@ -114,9 +114,9 @@ export default function ScheduleAddPage() {
   }
 
   useEffect(() => {
-    setHasFooter(false);
+    setFooterVisible(false);
     return () => {
-      setHasFooter(true);
+      setFooterVisible(true);
     };
   });
 
