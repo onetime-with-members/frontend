@@ -14,7 +14,7 @@ const DateItem = forwardRef<HTMLButtonElement, DateItemProps>(function (
     <button
       ref={ref}
       className={cn(
-        'disabled::text-gray-20 h-10 w-10 rounded-lg text-gray-70',
+        'h-10 w-10 rounded-lg text-gray-70 disabled:text-gray-20',
         {
           'bg-primary-40 text-gray-00': active,
         },

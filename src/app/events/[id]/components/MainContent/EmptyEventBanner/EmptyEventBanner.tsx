@@ -35,7 +35,7 @@ export default function EmptyEventBanner() {
   }, [isCopied]);
 
   return (
-    <div className="relative mt-4 overflow-hidden rounded-2xl bg-primary-40 px-4 py-5">
+    <div className="relative mt-2 overflow-hidden rounded-2xl bg-primary-40 px-4 py-5">
       <div className="relative z-10 flex flex-col items-start gap-3">
         <span className="leading-6 text-gray-00 text-lg-300 md:text-md-300">
           {t.rich('emptyEventBanner', {

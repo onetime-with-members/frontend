@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert/Alert/Alert';
 import axios from '@/utils/axios';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 
 interface EventDeleteAlertProps {
@@ -13,7 +13,6 @@ export default function EventDeleteAlert({
   setIsEventDeleteAlertOpen,
 }: EventDeleteAlertProps) {
   const params = useParams<{ id: string }>();
-  const queryClient = useQueryClient();
   const router = useRouter();
   const t = useTranslations('alert');
 
@@ -22,13 +21,12 @@ export default function EventDeleteAlert({
       const res = await axios.delete(`/events/${params.id}`);
       return res.data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['events'] });
+    onSuccess: async () => {
       router.push('/');
     },
   });
 
-  function handleEventDeleteALertClose() {
+  function handleEventDeleteAlertClose() {
     setIsEventDeleteAlertOpen(false);
   }
 
@@ -39,8 +37,8 @@ export default function EventDeleteAlert({
   return (
     <Alert
       onConfirm={handleEventDelete}
-      onCancel={handleEventDeleteALertClose}
-      onClose={handleEventDeleteALertClose}
+      onCancel={handleEventDeleteAlertClose}
+      onClose={handleEventDeleteAlertClose}
       confirmText={
         deleteEvent.isPending
           ? t('deleteEventConfirming')
