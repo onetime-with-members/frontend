@@ -36,6 +36,12 @@ export default function ScheduleAddPage() {
   const [isPossibleTime, setIsPossibleTime] = useState(true);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isScheduleEdited, setIsScheduleEdited] = useState(false);
+  const [
+    isCreateNewMemberScheduleMutating,
+    setIsCreateNewMemberScheduleMutating,
+  ] = useState(false);
+  const [isUpdateScheduleMutating, setIsUpdateScheduleMutating] =
+    useState(false);
 
   const { setFooterVisible } = useContext(FooterContext);
 
@@ -53,10 +59,7 @@ export default function ScheduleAddPage() {
 
   const { refetch: refetchScheduleQuery } = useScheduleQuery(event);
 
-  const {
-    mutate: createNewMemberSchedule,
-    isPending: isCreateNewMemberSchedulePending,
-  } = useScheduleAndNewMemberCreate({
+  const { mutate: createNewMemberSchedule } = useScheduleAndNewMemberCreate({
     event,
     guestValue,
     schedules: schedules[0].schedules,
@@ -66,29 +69,36 @@ export default function ScheduleAddPage() {
       await refetchScheduleQuery();
       router.push(`/events/${event?.event_id}`);
     },
+    onError: () => {
+      setIsCreateNewMemberScheduleMutating(false);
+    },
   });
-  const { mutate: updateSchedule, isPending: isUpdateSchedulePending } =
-    useScheduleUpdateMutation({
-      event,
-      guestId,
-      schedules: schedules[0].schedules,
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ['events'] });
-        await queryClient.invalidateQueries({ queryKey: ['schedules'] });
-        await refetchScheduleQuery();
-        router.push(`/events/${event?.event_id}`);
-      },
-    });
+  const { mutate: updateSchedule } = useScheduleUpdateMutation({
+    event,
+    guestId,
+    schedules: schedules[0].schedules,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+      await refetchScheduleQuery();
+      router.push(`/events/${event?.event_id}`);
+    },
+    onError: () => {
+      setIsUpdateScheduleMutating(false);
+    },
+  });
 
   const isLoggedIn = !!getCookie('access-token');
   const isSubmitting =
-    isCreateNewMemberSchedulePending || isUpdateSchedulePending;
+    isCreateNewMemberScheduleMutating || isUpdateScheduleMutating;
 
   function handleSubmit() {
     if (pageIndex !== 1) return;
     if (isNewGuest) {
+      setIsCreateNewMemberScheduleMutating(true);
       createNewMemberSchedule();
     } else {
+      setIsUpdateScheduleMutating(true);
       updateSchedule();
     }
   }

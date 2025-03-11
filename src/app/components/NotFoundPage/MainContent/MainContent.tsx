@@ -6,9 +6,9 @@ export default function MainContent() {
   const t = useTranslations('404');
 
   return (
-    <main className="flex-1 px-4">
-      <div className="mx-auto flex h-full w-full max-w-screen-md items-center justify-center">
-        <div className="flex -translate-y-10 flex-col items-center gap-10">
+    <main className="flex flex-1 items-center justify-center px-4">
+      <div className="mx-auto flex w-full max-w-screen-md flex-1 items-center justify-center">
+        <div className="flex -translate-y-20 flex-col items-center gap-10">
           <div>
             <Image src="/images/404.svg" alt="404" width={200} height={73} />
           </div>

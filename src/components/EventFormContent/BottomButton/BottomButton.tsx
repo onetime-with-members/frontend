@@ -3,6 +3,7 @@ import { useContext } from 'react';
 
 import Button from '@/components/button/Button/Button';
 import { PageModeContext } from '@/contexts/PageModeContext';
+import cn from '@/utils/cn';
 
 interface BottomButtonProps {
   handleSubmit: () => void;
@@ -26,6 +27,9 @@ export default function BottomButton({
         disabled={disabled}
         variant="dark"
         fullWidth
+        className={cn({
+          'cursor-default': isPending,
+        })}
       >
         {pageMode === 'create' &&
           (isPending ? t('creatingEvent') : t('createEvent'))}

@@ -29,7 +29,7 @@ export default function MemberLoginScreen({
 
   const params = useParams<{ id: string }>();
 
-  const checkNewGuest = useMutation({
+  const { mutate: checkNewGuest } = useMutation({
     mutationFn: async () => {
       const res = await axios.post('/members/name/action-check', {
         event_id: params.id,
@@ -43,12 +43,12 @@ export default function MemberLoginScreen({
       if (data.payload.is_possible) {
         setPageIndex(1);
       } else {
-        loginGuest.mutate();
+        loginGuest();
       }
     },
   });
 
-  const loginGuest = useMutation({
+  const { mutate: loginGuest } = useMutation({
     mutationFn: async () => {
       const res = await axios.post('/members/action-login', {
         event_id: params.id,
@@ -72,7 +72,7 @@ export default function MemberLoginScreen({
 
   function handleSubmit() {
     if (disabled) return;
-    checkNewGuest.mutate();
+    checkNewGuest();
   }
 
   useEffect(() => {

@@ -12,7 +12,7 @@ export default function ProgressBar() {
 
   useEffect(() => {
     setIsLoading(true);
-    nProgress.configure({ minimum: 0.2, speed: 400, trickleSpeed: 50 });
+    nProgress.configure({ minimum: 0.3, speed: 500, trickleSpeed: 50 });
     nProgress.start();
 
     const timer = setTimeout(() => {

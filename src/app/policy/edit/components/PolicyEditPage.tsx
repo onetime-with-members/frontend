@@ -35,7 +35,7 @@ export default function PolicyEditPage() {
     enabled: isLoggedIn,
   });
 
-  const agreePolicies = useMutation({
+  const { mutate: agreePolicies } = useMutation({
     mutationFn: async () => {
       const res = await axios.put('/users/policy', policyValue);
       return res.data.payload;
@@ -47,7 +47,7 @@ export default function PolicyEditPage() {
   });
 
   function handleSubmitButtonClick() {
-    agreePolicies.mutate();
+    agreePolicies();
   }
 
   useEffect(() => {

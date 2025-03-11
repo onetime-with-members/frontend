@@ -15,7 +15,7 @@ export default function WithdrawPage() {
 
   const t = useTranslations('withdraw');
 
-  const withdrawUser = useMutation({
+  const { mutate: withdrawUser } = useMutation({
     mutationFn: async () => {
       const res = await axios.post('/users/action-withdraw');
       return res.data;
@@ -29,7 +29,7 @@ export default function WithdrawPage() {
 
   function handleWithdrawButtonClick() {
     if (!isChecked) return;
-    withdrawUser.mutate();
+    withdrawUser();
   }
 
   return (

@@ -5,7 +5,7 @@ import NavBar from '@/components/NavBar/NavBar';
 
 export default function NotFoundPage() {
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex flex-1 flex-col">
       <NavBar />
       <MainContent />
     </div>

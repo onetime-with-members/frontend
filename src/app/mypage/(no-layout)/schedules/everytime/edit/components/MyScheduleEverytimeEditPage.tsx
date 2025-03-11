@@ -15,6 +15,7 @@ export default function MyScheduleEverytimeEditPage() {
   const [everytimeURL, setEverytimeURL] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(everytimeURL === '');
   const [isTouched, setIsTouched] = useState(false);
+  const [isMutating, setIsMutating] = useState(false);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -23,7 +24,6 @@ export default function MyScheduleEverytimeEditPage() {
 
   const {
     mutate: submitEverytimeURL,
-    isPending,
     isError,
     error,
   } = useMutation<EverytimeSchedule>({
@@ -42,6 +42,9 @@ export default function MyScheduleEverytimeEditPage() {
         router.back();
       }
     },
+    onError: () => {
+      setIsMutating(false);
+    },
   });
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -55,8 +58,9 @@ export default function MyScheduleEverytimeEditPage() {
   }
 
   function handleSubmitButtonClick() {
-    if (isPending) return;
+    if (isMutating) return;
     setIsTouched(false);
+    setIsMutating(true);
     submitEverytimeURL();
   }
 
@@ -75,7 +79,7 @@ export default function MyScheduleEverytimeEditPage() {
         <BottomButton
           disabled={buttonDisabled}
           onClick={handleSubmitButtonClick}
-          isPending={isPending}
+          isPending={isMutating}
           isError={isError}
           error={error as AxiosError}
           isTouched={isTouched}

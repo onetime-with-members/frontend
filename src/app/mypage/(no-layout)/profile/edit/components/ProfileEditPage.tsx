@@ -36,7 +36,7 @@ export default function ProfileEditPage() {
     },
   });
 
-  const editProfile = useMutation({
+  const { mutate: editProfile } = useMutation({
     mutationFn: async () => {
       const res = await axios.patch('/users/profile/action-update', {
         nickname: value,
@@ -54,7 +54,7 @@ export default function ProfileEditPage() {
   }
 
   function handleSubmit() {
-    editProfile.mutate();
+    editProfile();
   }
 
   useEffect(() => {

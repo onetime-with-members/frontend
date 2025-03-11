@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 
 export default function ShortURLRedirect() {
-  const extendShortenUrl = useMutation({
+  const { mutate: extendShortenUrl } = useMutation({
     mutationFn: async () => {
       const res = await axios.post('/urls/action-original', {
         shorten_url: location.href,
@@ -30,7 +30,7 @@ export default function ShortURLRedirect() {
   });
 
   useEffect(() => {
-    extendShortenUrl.mutate();
+    extendShortenUrl();
   }, [extendShortenUrl]);
 
   return null;

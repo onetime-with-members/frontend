@@ -1,7 +1,7 @@
 'use client';
 
 import { AxiosError } from 'axios';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import EventFormContent from '@/components/EventFormContent/EventFormContent';
 import { EventType, EventValueType } from '@/types/event.type';
@@ -10,6 +10,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { notFound, useParams, useRouter } from 'next/navigation';
 
 export default function EventEditPage() {
+  const [isMutating, setIsMutating] = useState(false);
+
   const queryClient = useQueryClient();
   const router = useRouter();
   const params = useParams<{ id: string }>();
@@ -40,7 +42,7 @@ export default function EventEditPage() {
     }
   }, [data, isPending, router]);
 
-  const editEvent = useMutation({
+  const { mutate: editEvent } = useMutation({
     mutationFn: async (value: EventValueType) => {
       const res = await axios.patch(`/events/${params.id}`, value);
       return res.data;
@@ -49,18 +51,22 @@ export default function EventEditPage() {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
       router.back();
     },
+    onError: () => {
+      setIsMutating(false);
+    },
   });
 
   function handleSubmit(disabled: boolean, value: EventValueType) {
-    if (disabled || editEvent.isPending) return;
-    editEvent.mutate(value);
+    if (disabled || isMutating) return;
+    setIsMutating(true);
+    editEvent(value);
   }
 
   return (
     <EventFormContent
       originData={data}
       onSubmit={handleSubmit}
-      isPending={editEvent.isPending}
+      isPending={isMutating}
     />
   );
 }

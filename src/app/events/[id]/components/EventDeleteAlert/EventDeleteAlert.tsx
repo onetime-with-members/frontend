@@ -1,8 +1,9 @@
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
 import Alert from '@/components/alert/Alert/Alert';
 import axios from '@/utils/axios';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 
 interface EventDeleteAlertProps {
@@ -12,17 +13,23 @@ interface EventDeleteAlertProps {
 export default function EventDeleteAlert({
   setIsEventDeleteAlertOpen,
 }: EventDeleteAlertProps) {
+  const [isMutating, setIsMutating] = useState(false);
+
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const t = useTranslations('alert');
+  const queryClient = useQueryClient();
 
-  const deleteEvent = useMutation({
+  const { mutate: deleteEvent } = useMutation({
     mutationFn: async () => {
       const res = await axios.delete(`/events/${params.id}`);
       return res.data;
     },
     onSuccess: async () => {
       router.push('/');
+    },
+    onError: () => {
+      setIsMutating(false);
     },
   });
 
@@ -31,7 +38,10 @@ export default function EventDeleteAlert({
   }
 
   function handleEventDelete() {
-    deleteEvent.mutate();
+    if (isMutating) return;
+    setIsMutating(true);
+    deleteEvent();
+    queryClient.invalidateQueries({ queryKey: ['events'] });
   }
 
   return (
@@ -40,9 +50,7 @@ export default function EventDeleteAlert({
       onCancel={handleEventDeleteAlertClose}
       onClose={handleEventDeleteAlertClose}
       confirmText={
-        deleteEvent.isPending
-          ? t('deleteEventConfirming')
-          : t('deleteEventConfirm')
+        isMutating ? t('deleteEventConfirming') : t('deleteEventConfirm')
       }
       cancelText={t('deleteEventCancel')}
     >

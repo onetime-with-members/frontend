@@ -41,7 +41,7 @@ export default function OnboardingPage() {
   const redirectUrl =
     typeof localStorage !== 'undefined' && localStorage.getItem('redirect-url');
 
-  const onboarding = useMutation({
+  const { mutate: onboarding } = useMutation({
     mutationFn: async () => {
       const res = await axios.post('/users/onboarding', value);
       return res.data;
@@ -73,7 +73,7 @@ export default function OnboardingPage() {
 
   function handleSubmitButtonClick(disabled: boolean) {
     if (disabled) return;
-    onboarding.mutate();
+    onboarding();
   }
 
   useEffect(() => {

@@ -53,7 +53,7 @@ export default function MyScheduleEditPage() {
     },
   });
 
-  const editMySchedule = useMutation({
+  const { mutate: editMySchedule } = useMutation({
     mutationFn: async () => {
       const res = await axios.put('/fixed-schedules', {
         schedules: mySchedule,
@@ -66,7 +66,7 @@ export default function MyScheduleEditPage() {
     },
   });
 
-  const editSleepTime = useMutation({
+  const { mutate: editSleepTime } = useMutation({
     mutationFn: async () => {
       const res = await axios.put('/users/sleep-time', sleepTime);
       return res.data.payload;
@@ -85,8 +85,8 @@ export default function MyScheduleEditPage() {
   }
 
   async function handleSubmitButtonClick() {
-    editMySchedule.mutate();
-    editSleepTime.mutate();
+    editMySchedule();
+    editSleepTime();
   }
 
   useEffect(() => {
