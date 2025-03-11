@@ -86,13 +86,6 @@ export default function OnboardingPage() {
       nickname: searchParams.get('name') as string,
       register_token: searchParams.get('register_token') as string,
     }));
-
-    const newSearchParams = new URLSearchParams();
-    newSearchParams.delete('register_token');
-    newSearchParams.delete('name');
-    router.replace(`/onboarding?${newSearchParams.toString()}`, {
-      scroll: false,
-    });
   }, [router, searchParams]);
 
   useEffect(() => {
