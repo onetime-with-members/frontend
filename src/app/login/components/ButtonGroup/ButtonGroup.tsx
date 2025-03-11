@@ -5,7 +5,7 @@ export default function ButtonGroup() {
   const router = useRouter();
 
   const lastLoginLocal =
-    typeof window !== 'undefined' && localStorage.getItem('last-login');
+    typeof localStorage !== 'undefined' && localStorage.getItem('last-login');
 
   function handleLoginButtonClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
