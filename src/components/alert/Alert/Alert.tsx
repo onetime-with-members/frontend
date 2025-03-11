@@ -17,7 +17,7 @@ export default function Alert({
 }: AlertProps) {
   return (
     <div
-      className="fixed left-0 top-0 z-[10000] flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
+      className="fixed left-0 top-0 z-[9999] flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
       onClick={onClose}
     >
       <div
