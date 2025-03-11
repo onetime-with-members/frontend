@@ -15,3 +15,11 @@ body {
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
+
+#nprogress {
+  pointer-events: none;
+}
+
+#nprogress .bar {
+  @apply fixed left-0 top-0 z-50 h-0.5 w-full bg-primary-50;
+}

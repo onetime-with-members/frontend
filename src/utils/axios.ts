@@ -53,7 +53,7 @@ axios.interceptors.response.use(
           });
 
           setCookie('access-token', data.payload.access_token);
-          setCookie('refresh-token', data.payload.refresh);
+          setCookie('refresh-token', data.payload.refresh_token);
 
           if (originalRequest.headers) {
             originalRequest.headers.Authorization = `Bearer ${data.payload.access_token}`;

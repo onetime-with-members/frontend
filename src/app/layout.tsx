@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import Footer from './components/Footer/Footer';
 import NoScripts from './components/NoScripts/NoScripts';
+import ProgressBar from './components/ProgressBar/ProgressBar';
 import Providers from './components/Providers/Providers';
 import Scripts from './components/Scripts/Scripts';
 import './globals.css';
@@ -52,6 +53,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body cz-shortcut-listen="true" className="font-pretendard">
         <Providers>
+          <ProgressBar />
           <div className="flex min-h-[110vh] flex-col">{children}</div>
           <Footer />
           <Toast />
