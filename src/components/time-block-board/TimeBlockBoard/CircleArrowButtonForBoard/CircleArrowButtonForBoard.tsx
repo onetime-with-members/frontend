@@ -23,7 +23,7 @@ export default function CircleArrowButtonForBoard({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className={cn('sticky top-[174px] z-[5]', {
+          className={cn('sticky top-[174px] z-[5] md:top-[186px]', {
             static: isTargetOnBottom,
           })}
         >
@@ -32,7 +32,7 @@ export default function CircleArrowButtonForBoard({
             className={cn('absolute z-10 mt-40', {
               'bottom-40 mt-0': isTargetOnBottom,
               'left-10': direction === 'left',
-              'right-10': direction === 'right',
+              'right-6': direction === 'right',
             })}
             onClick={onClick}
           />
