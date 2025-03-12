@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import useMyScheduleStoreInit from '@/hooks/store/useMyScheduleStoreInit';
 import useSleepTimeInit from '@/hooks/store/useSleepTimeInit';
 import useWeekdayInit from '@/hooks/store/useWeekdayInit';
+import useLocalStorageClear from '@/hooks/useLocalStorageClear';
 import { useRouter } from '@/navigation';
 import { PolicyType, UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
@@ -53,6 +54,7 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
   useMyScheduleStoreInit();
   useSleepTimeInit();
   useWeekdayInit();
+  useLocalStorageClear();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -91,7 +93,7 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
 
   useEffect(() => {
     if (!user) return;
-    localStorage.setItem('last-login', user.social_platform);
+    setCookie('last-login', user.social_platform);
     const newLocale = user.language === 'KOR' ? 'ko' : 'en';
     setCookie('locale', newLocale);
     dayjs.locale(newLocale);

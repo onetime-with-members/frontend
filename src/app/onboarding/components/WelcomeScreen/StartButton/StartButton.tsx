@@ -1,3 +1,4 @@
+import { deleteCookie, getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
 import Button from '@/components/button/Button/Button';
@@ -8,11 +9,11 @@ export default function StartButton() {
   const t = useTranslations('onboarding');
 
   function handleStartButtonClick() {
-    const redirectUrl = localStorage.getItem('redirect-url');
+    const redirectUrl = getCookie('redirect-url');
 
     if (redirectUrl) {
-      localStorage.removeItem('redirect-url');
-      router.push(redirectUrl);
+      deleteCookie('redirect-url');
+      router.push(redirectUrl as string);
     } else {
       router.push('/');
     }

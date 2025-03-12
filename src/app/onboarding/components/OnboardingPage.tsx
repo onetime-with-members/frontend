@@ -1,6 +1,6 @@
 'use client';
 
-import { setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
@@ -39,8 +39,7 @@ export default function OnboardingPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const redirectUrl =
-    typeof localStorage !== 'undefined' && localStorage.getItem('redirect-url');
+  const redirectUrl = getCookie('redirect-url');
 
   const { mutate: onboarding } = useMutation({
     mutationFn: async () => {

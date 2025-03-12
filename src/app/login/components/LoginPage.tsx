@@ -1,6 +1,6 @@
 'use client';
 
-import { getCookie, setCookie } from 'cookies-next';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
 import ButtonGroup from './ButtonGroup/ButtonGroup';
@@ -40,7 +40,7 @@ export default function LoginPage() {
     const redirectUrl = searchParams.get('redirect_url');
 
     if (redirectUrl) {
-      localStorage.setItem('redirect-url', redirectUrl);
+      setCookie('redirect-url', redirectUrl);
     }
 
     if (registerToken || name) {
@@ -53,9 +53,9 @@ export default function LoginPage() {
       setCookie('access-token', accessToken);
       setCookie('refresh-token', refreshToken);
 
-      const localRedirectUrl = localStorage.getItem('redirect-url');
-      localStorage.removeItem('redirect-url');
-      router.push(localRedirectUrl || '/');
+      const localRedirectUrl = getCookie('redirect-url');
+      deleteCookie('redirect-url');
+      router.push(localRedirectUrl as string);
     }
   }, [searchParams, router]);
 

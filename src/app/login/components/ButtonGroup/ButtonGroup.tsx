@@ -1,11 +1,12 @@
+import { getCookie } from 'cookies-next';
+
 import SocialLoginButton from './SocialLoginButton/SocialLoginButton';
 import { useRouter } from '@/navigation';
 
 export default function ButtonGroup() {
   const router = useRouter();
 
-  const lastLoginLocal =
-    typeof localStorage !== 'undefined' && localStorage.getItem('last-login');
+  const lastLoginLocal = getCookie('last-login');
 
   function handleLoginButtonClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
