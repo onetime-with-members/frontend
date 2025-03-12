@@ -188,9 +188,10 @@
     "placeholder": "Paste link here...",
     "submit": "Submit",
     "submitting": "Submitting...",
-    "publicWarning": "Please temporarily set sharing rights of the timetable to 'Public'.",
+    "publicWarning": "Please set the timetable to 'Public' temporarily. (Setting Icon -> Set sharing rights -> Public)",
     "pendingMessage": "The request is in progress. <2 />Please wait a moment.",
     "invalidURLMessage": "The entered URL is invalid. <2 />Please try again with a valid URL.",
+    "privateURLMessage": "The timetable is not public. <2 />Please set the sharing rights to 'Public'.",
     "serverErrorMessage": "An error occurred while processing the request. <2 />Please try again."
   },
   "profile": {

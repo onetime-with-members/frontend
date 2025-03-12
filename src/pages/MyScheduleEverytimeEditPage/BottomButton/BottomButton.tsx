@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 
 import Button from '@/components/button/Button/Button';
@@ -27,6 +27,14 @@ export default function BottomButton({
   const { isFooterShown } = useContext(FooterContext);
 
   const { t } = useTranslation();
+
+  const errorData = error?.response?.data as { code: string };
+
+  useEffect(() => {
+    if (errorData) {
+      console.log(errorData.code);
+    }
+  }, [errorData]);
 
   return (
     <AnimatePresence>
@@ -69,9 +77,11 @@ export default function BottomButton({
                     i18nKey={
                       isPending
                         ? 'MyScheduleEverytimeEditPage.pendingMessage'
-                        : error?.status === 400
+                        : errorData?.code === 'CRAWLING-002'
                           ? 'MyScheduleEverytimeEditPage.invalidURLMessage'
-                          : 'MyScheduleEverytimeEditPage.serverErrorMessage'
+                          : errorData?.code === 'CRAWLING-003'
+                            ? 'MyScheduleEverytimeEditPage.privateURLMessage'
+                            : 'MyScheduleEverytimeEditPage.serverErrorMessage'
                     }
                   >
                     The request is in progress.{' '}
@@ -79,9 +89,14 @@ export default function BottomButton({
                       className={cn('hidden', {
                         'min-[250px]:block min-[415px]:hidden': isPending,
                         'min-[295px]:block min-[495px]:hidden':
-                          !isPending && error?.status === 400,
+                          !isPending && errorData?.code === 'CRAWLING-002',
+                        'min-[400px]:block sm:hidden':
+                          !isPending && errorData?.code === 'CRAWLING-003',
                         'min-[405px]:block min-[530px]:hidden':
-                          !isPending && error?.status !== 400,
+                          !isPending &&
+                          !['CRAWLING-002', 'CRAWLING-003'].includes(
+                            errorData?.code,
+                          ),
                       })}
                     />
                     Please wait a moment.
