@@ -1,5 +1,3 @@
-import { HTMLMotionProps, motion } from 'framer-motion';
-
 import TimeBlockLine, {
   TimeBlockLineProps,
 } from './TimeBlockLine/TimeBlockLine';
@@ -8,7 +6,7 @@ import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import { EventType } from '@/types/event.type';
 import { TimeType } from '@/types/schedule.type';
 
-interface BoardContentProps extends HTMLMotionProps<'div'> {
+interface BoardContentProps {
   boardContentRef: React.RefObject<HTMLDivElement>;
   event: EventType;
   schedules: TimeBlockLineProps['schedules'];
@@ -72,7 +70,7 @@ export default function BoardContent({
   }
 
   return (
-    <motion.div
+    <div
       ref={boardContentRef}
       className="scrollbar-hidden flex flex-1 gap-2 overflow-x-scroll"
       onMouseDown={handleDragStart}
@@ -98,6 +96,6 @@ export default function BoardContent({
           isBoardContentDragging={isDragEvent}
         />
       ))}
-    </motion.div>
+    </div>
   );
 }
