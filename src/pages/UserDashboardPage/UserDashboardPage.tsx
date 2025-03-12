@@ -1,3 +1,4 @@
+import EverytimeTopBanner from '../../components/EverytimeTopBanner/EverytimeTopBanner';
 import BottomButtonForMobile from './BottomButtonForMobile/BottomButtonForMobile';
 import MyEventSection from './MyEventSection/MyEventSection';
 import MyScheduleSection from './MyScheduleSection/MyScheduleSection';
@@ -10,9 +11,12 @@ export default function UserDashboardPage() {
       <TopNavBar />
       <main className="mx-auto w-full max-w-[calc(768px+2rem)]">
         <TopToolbarForDesktop />
-        <div className="flex flex-col gap-14 bg-gray-05 px-4 pb-20 pt-6 md:px-6">
-          <MyEventSection />
-          <MyScheduleSection />
+        <div className="flex flex-col gap-6 bg-gray-05 px-4 pb-20 pt-6 md:px-6">
+          <EverytimeTopBanner />
+          <div className="flex flex-col gap-14">
+            <MyEventSection />
+            <MyScheduleSection />
+          </div>
         </div>
         <BottomButtonForMobile />
       </main>

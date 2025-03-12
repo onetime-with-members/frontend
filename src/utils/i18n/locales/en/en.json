@@ -20,6 +20,10 @@
     "termsOfService": "Terms of Service",
     "privacyPolicy": "Privacy Policy"
   },
+  "EverytimeTopBanner": {
+    "title": "Everytime Feature Released! <2/>Import Timetable in Just One Click!",
+    "description": "Auto-Register via Everytime URL! Join Event & Grab Snacks!"
+  },
   "login": {
     "login": "Login",
     "logoTitle": "For The Perfect Time,",
