@@ -8,7 +8,8 @@ import SideTabContentForDesktop from './SideTabContentForDesktop/SideTabContentF
 import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
 import NavBar from '@/components/NavBar/NavBar';
 import { ScrollContext } from '@/contexts/ScrollContext';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
+import { usePathname } from 'next/navigation';
 
 interface MyPageLayoutProps {
   children: React.ReactNode;

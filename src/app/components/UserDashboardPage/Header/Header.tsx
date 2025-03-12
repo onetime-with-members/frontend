@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
+import { Link } from '@/navigation';
 import { IconChevronRight } from '@tabler/icons-react';
-import Link from 'next/link';
 
 interface HeaderProps {
   children: React.ReactNode;

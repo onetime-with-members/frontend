@@ -1,7 +1,7 @@
 import { PageTitleType, TabActiveType } from '../MyPageLayout';
 import PenIcon from '@/components/icon/PenIcon';
+import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
 
 interface TopAppBarForMobileProps {
   pageTitle: PageTitleType;

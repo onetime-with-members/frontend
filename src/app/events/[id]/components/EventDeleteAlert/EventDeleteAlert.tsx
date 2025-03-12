@@ -2,9 +2,10 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import Alert from '@/components/alert/Alert/Alert';
+import { useRouter } from '@/navigation';
 import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 interface EventDeleteAlertProps {
   setIsEventDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;

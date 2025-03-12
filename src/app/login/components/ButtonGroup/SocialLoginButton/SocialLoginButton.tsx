@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl';
 
+import { Link } from '@/navigation';
 import cn from '@/utils/cn';
 import Image from 'next/image';
-import Link from 'next/link';
 
 interface SocialLoginButtonProps
   extends React.DetailedHTMLProps<

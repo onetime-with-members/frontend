@@ -6,9 +6,10 @@ import { useEffect } from 'react';
 import ButtonGroup from './ButtonGroup/ButtonGroup';
 import LogoContent from './LogoContent/LogoContent';
 import NavBar from '@/components/NavBar/NavBar';
+import { useRouter } from '@/navigation';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
   const searchParams = useSearchParams();

@@ -1,5 +1,5 @@
 import SocialLoginButton from './SocialLoginButton/SocialLoginButton';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 
 export default function ButtonGroup() {
   const router = useRouter();

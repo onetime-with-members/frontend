@@ -1,5 +1,5 @@
+import { useRouter } from '@/navigation';
 import { IconX } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
 
 export default function TopAppBar() {
   const router = useRouter();

@@ -13,9 +13,10 @@ import MainContent from './MainContent/MainContent';
 import SharePopUp from './SharePopUp/SharePopUp';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbar from './TopToolbar/TopToolbar';
+import { useRouter } from '@/navigation';
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleQuery } from '@/queries/schedule.queries';
-import { notFound, useParams, useRouter } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 
 export default function EventDetailPage() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);

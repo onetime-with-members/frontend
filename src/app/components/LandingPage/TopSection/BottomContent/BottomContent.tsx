@@ -1,8 +1,8 @@
 import { useLocale, useTranslations } from 'next-intl';
 
 import Button from '@/components/button/Button/Button';
+import { useRouter } from '@/navigation';
 import cn from '@/utils/cn';
-import { useRouter } from 'next/navigation';
 
 export default function BottomContent() {
   const locale = useLocale();

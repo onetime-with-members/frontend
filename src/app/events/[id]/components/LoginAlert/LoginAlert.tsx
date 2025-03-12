@@ -1,7 +1,8 @@
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert/Alert/Alert';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
+import { useParams, usePathname } from 'next/navigation';
 
 interface LoginAlertProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import Button from '@/components/button/Button/Button';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 
 export default function BottomButton() {
   const router = useRouter();

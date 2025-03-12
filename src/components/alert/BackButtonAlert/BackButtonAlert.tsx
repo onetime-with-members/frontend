@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert/Alert/Alert';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/navigation';
 
 interface BackButtonAlertProps {
   backHref: string | -1;

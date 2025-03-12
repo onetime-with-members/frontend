@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
+import { Link } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
-import Link from 'next/link';
 
 export default function EmptyMyEvent() {
   const t = useTranslations('myEvents');

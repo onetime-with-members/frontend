@@ -1,10 +1,10 @@
 import { useTranslations } from 'next-intl';
 
 import EverytimeIcon from '@/components/icon/EverytimeIcon';
+import { Link, useRouter } from '@/navigation';
 import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 interface EverytimeUIProps {
   className?: string;

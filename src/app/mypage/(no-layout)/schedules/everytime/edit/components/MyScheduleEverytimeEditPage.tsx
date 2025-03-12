@@ -6,10 +6,11 @@ import { useState } from 'react';
 import BottomButton from './BottomButton/BottomButton';
 import MainContent from './MainContent/MainContent';
 import TopAppBar from './TopAppBar/TopAppBar';
+import { useRouter } from '@/navigation';
 import { useEverytimeScheduleActions } from '@/stores/everytime-schedule';
 import { EverytimeSchedule } from '@/types/schedule.type';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function MyScheduleEverytimeEditPage() {
   const [everytimeURL, setEverytimeURL] = useState('');

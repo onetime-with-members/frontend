@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { Link, useRouter } from '@/navigation';
+import { usePathname } from 'next/navigation';
 
 export default function LoginButton() {
   const router = useRouter();

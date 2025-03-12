@@ -1,7 +1,7 @@
 import PenIcon from '@/components/icon/PenIcon';
 import SleepIcon from '@/components/icon/SleepIcon';
+import { Link } from '@/navigation';
 import { useSleepTimeData } from '@/stores/sleep-time';
-import Link from 'next/link';
 
 export default function SleepTimeUI() {
   const sleepTimeData = useSleepTimeData();

@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl';
 
 import GrayButton from './GrayButton/GrayButton';
 import Avatar from '@/components/avatar/Avatar/Avatar';
+import { useRouter } from '@/navigation';
 import { useUserQuery } from '@/queries/user.queries';
-import { useRouter } from 'next/navigation';
 
 export default function ProfileSection() {
   const router = useRouter();

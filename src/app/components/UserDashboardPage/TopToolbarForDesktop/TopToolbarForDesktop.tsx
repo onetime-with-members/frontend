@@ -2,11 +2,11 @@ import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
 import useScroll from '@/hooks/useScroll';
+import { Link } from '@/navigation';
 import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
-import Link from 'next/link';
 
 export default function TopToolbarForDesktop() {
   const { isScrolling } = useScroll();

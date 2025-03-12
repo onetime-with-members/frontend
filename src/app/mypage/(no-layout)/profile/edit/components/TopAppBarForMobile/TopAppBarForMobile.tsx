@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
+import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
 
 export default function TopAppBarForMobile() {
   const router = useRouter();

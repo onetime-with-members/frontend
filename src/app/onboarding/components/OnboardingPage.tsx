@@ -12,11 +12,12 @@ import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
 import TopNavBarForDesktop from './TopNavBarForDesktop/TopNavBarForDesktop';
 import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
 import { FooterContext } from '@/contexts/FooterContext';
+import { useRouter } from '@/navigation';
 import { OnboardingValueType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function OnboardingPage() {
   const locale = useLocale();

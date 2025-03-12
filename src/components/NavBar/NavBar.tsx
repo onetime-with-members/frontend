@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 import AvatarDropdown from '../avatar/AvatarDropdown/AvatarDropdown';
 import LoginButton from './LoginButton/LoginButton';
 import useScroll from '@/hooks/useScroll';
+import { Link } from '@/navigation';
 import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
-import Link from 'next/link';
 
 interface NavBarProps {
   variant?: 'default' | 'black' | 'transparent';

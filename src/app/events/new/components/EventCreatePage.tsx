@@ -3,10 +3,10 @@
 import { useState } from 'react';
 
 import EventFormContent from '@/components/EventFormContent/EventFormContent';
+import { useRouter } from '@/navigation';
 import { EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 export default function EventCreatePage() {
   const [isMutating, setIsMutating] = useState(false);

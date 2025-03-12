@@ -8,6 +8,7 @@ import TopAppBar from './TopAppBar/TopAppBar';
 import EverytimeUI from '@/components/EverytimeUI/EverytimeUI';
 import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
+import { useRouter } from '@/navigation';
 import {
   useEverytimeSchedule,
   useEverytimeScheduleActions,
@@ -23,7 +24,6 @@ import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 export default function MyScheduleEditPage() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);

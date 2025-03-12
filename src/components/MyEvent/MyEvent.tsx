@@ -1,13 +1,13 @@
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
+import { Link } from '@/navigation';
 import { MyEventType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { weekdaysShortKo } from '@/utils/weekday';
 import { IconChevronRight } from '@tabler/icons-react';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Image from 'next/image';
-import Link from 'next/link';
 
 dayjs.extend(relativeTime);
 

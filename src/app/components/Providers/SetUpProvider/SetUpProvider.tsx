@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import useMyScheduleStoreInit from '@/hooks/store/useMyScheduleStoreInit';
 import useSleepTimeInit from '@/hooks/store/useSleepTimeInit';
 import useWeekdayInit from '@/hooks/store/useWeekdayInit';
+import { useRouter } from '@/navigation';
 import { PolicyType, UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
@@ -16,7 +17,7 @@ import localeData from 'dayjs/plugin/localeData';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import updateLocale from 'dayjs/plugin/updateLocale';
 import weekday from 'dayjs/plugin/weekday';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 dayjs.locale('en');
 dayjs.extend(localeData);

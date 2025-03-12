@@ -8,11 +8,11 @@ import NavBar from '@/components/NavBar/NavBar';
 import Button from '@/components/button/Button/Button';
 import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent/PolicyCheckboxContent';
 import { PolicyContext } from '@/contexts/PolicyContext';
+import { Link, useRouter } from '@/navigation';
 import { PolicyKeyType, PolicyType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import Link from 'next/link';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 export default function PolicyEditPage() {
   const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);

@@ -1,8 +1,7 @@
 import { useTranslations } from 'next-intl';
 
+import { Link, useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 export default function TopHeaderForDesktop() {
   const router = useRouter();

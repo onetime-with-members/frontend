@@ -4,10 +4,11 @@ import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 
 import EventFormContent from '@/components/EventFormContent/EventFormContent';
+import { useRouter } from '@/navigation';
 import { EventType, EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { notFound, useParams, useRouter } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 
 export default function EventEditPage() {
   const [isMutating, setIsMutating] = useState(false);

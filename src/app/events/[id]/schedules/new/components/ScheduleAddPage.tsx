@@ -12,6 +12,7 @@ import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert'
 import { FooterContext } from '@/contexts/FooterContext';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
+import { useRouter } from '@/navigation';
 import {
   useScheduleAndNewMemberCreate,
   useScheduleQuery,
@@ -21,7 +22,7 @@ import { GuestValueType } from '@/types/user.type';
 import breakpoint from '@/utils/breakpoint';
 import cn from '@/utils/cn';
 import { useQueryClient } from '@tanstack/react-query';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 export default function ScheduleAddPage() {
   const [pageIndex, setPageIndex] = useState(

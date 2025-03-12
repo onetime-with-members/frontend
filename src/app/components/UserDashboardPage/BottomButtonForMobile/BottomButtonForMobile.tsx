@@ -3,9 +3,9 @@ import { useContext } from 'react';
 
 import Button from '@/components/button/Button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
+import { useRouter } from '@/navigation';
 import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
 
 export default function BottomButtonForMobile() {
   const { isFooterShown } = useContext(FooterContext);

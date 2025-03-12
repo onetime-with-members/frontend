@@ -1,5 +1,5 @@
+import { Link } from '@/navigation';
 import cn from '@/utils/cn';
-import Link from 'next/link';
 
 interface SettingItemProps extends React.HTMLAttributes<HTMLLIElement> {
   href?: string;
