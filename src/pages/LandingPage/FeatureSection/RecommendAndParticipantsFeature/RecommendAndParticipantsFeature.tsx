@@ -1,7 +1,8 @@
 import { Trans, useTranslation } from 'react-i18next';
 
 import Feature from '../Feature/Feature';
-import featureImage from '@/assets/landing/recommend-and-participant.png';
+import featureImageEn from '@/assets/landing/recommend-and-participant-en.png';
+import featureImageKo from '@/assets/landing/recommend-and-participant-ko.png';
 import cn from '@/utils/cn';
 
 export default function RecommendAndParticipantsFeature() {
@@ -37,7 +38,7 @@ export default function RecommendAndParticipantsFeature() {
       image={
         <div className="w-full max-w-[20rem]">
           <img
-            src={featureImage}
+            src={i18n.language === 'ko' ? featureImageKo : featureImageEn}
             alt="참여자 및 시간 추천 UI 이미지"
             className="h-full w-full"
           />

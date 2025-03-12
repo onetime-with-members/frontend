@@ -1,7 +1,8 @@
 import { Trans, useTranslation } from 'react-i18next';
 
 import Card from '../Card/Card';
-import cardImage from '@/assets/landing/fixed-schedule.png';
+import cardImageEn from '@/assets/landing/fixed-schedule-en.png';
+import cardImageKo from '@/assets/landing/fixed-schedule-ko.png';
 import cn from '@/utils/cn';
 
 export default function FixedScheduleCard() {
@@ -37,7 +38,7 @@ export default function FixedScheduleCard() {
       image={
         <div className="mx-auto w-full max-w-[20rem]">
           <img
-            src={cardImage}
+            src={i18n.language === 'ko' ? cardImageKo : cardImageEn}
             alt="내 스케줄 UI 이미지"
             className="h-full w-full"
           />
