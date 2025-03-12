@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import ParticipantsPopUp from './ParticipantsPopUp/ParticipantsPopUp';
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
-import { useParticipants } from '@/pages/EventDetailPage/EventDetailPage.store';
+import { useParticipants } from '@/pages/EventDetailPage/EventDetailPage.stores';
 import cn from '@/utils/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 

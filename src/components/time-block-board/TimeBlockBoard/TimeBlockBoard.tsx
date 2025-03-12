@@ -1,12 +1,17 @@
+import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 
 import BoardContent from './BoardContent/BoardContent';
+import CircleArrowButtonForBoard from './CircleArrowButtonForBoard/CircleArrowButtonForBoard';
 import LeftTimeLine from './LeftTimeLine/LeftTimeLine';
 import PossibleTimeToggle from './PossibleTimeToggle/PossibleTimeToggle';
 import ReloadButton from './ReloadButton/ReloadButton';
 import ResetButton from './ResetButton/ResetButton';
+import { useTargetOnBottomInScrollableElement } from './TimeBlockBoard.hooks';
 import TimeBlockPopUp from './TimeBlockPopUp/TimeBlockPopUp';
 import TopDateLabelGroup from './TopDateLabelGroup/TopDateLabelGroup';
+import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 import { EventType } from '@/types/event.type.ts';
 import { ScheduleType, TimeBlockPopUpDataType } from '@/types/schedule.type.ts';
 import cn from '@/utils/cn.ts';
@@ -55,9 +60,22 @@ export default function TimeBlockBoard({
   });
   const [isEmpty, setIsEmpty] = useState(false);
   const [isFull, setIsFull] = useState(false);
+  const [isBoardContentHover, setIsBoardContentHover] = useState(false);
 
   const boardContentRef = useRef<HTMLDivElement>(null);
   const topLabelRef = useRef<HTMLDivElement>(null);
+
+  const { arrowButtonVisible, handleScrollLeft, handleScrollRight } =
+    useScrollArrowButton({
+      ref: boardContentRef,
+    });
+  const { isTargetOnBottom } = useTargetOnBottomInScrollableElement({
+    topRef: topLabelRef,
+    scrollableElementRef: boardContentRef,
+    targetHeight: 40,
+    targetTopOffset: 160,
+    targetBottomOffset: 160,
+  });
 
   function changeTimeBlockStatus(
     day: string,
@@ -232,7 +250,24 @@ export default function TimeBlockBoard({
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <motion.div
+      onHoverStart={() => setIsBoardContentHover(true)}
+      onHoverEnd={() => setIsBoardContentHover(false)}
+      className="relative flex flex-col"
+    >
+      <CircleArrowButtonForBoard
+        direction="left"
+        isVisible={!isMobile && arrowButtonVisible.left && isBoardContentHover}
+        onClick={handleScrollLeft}
+        isTargetOnBottom={isTargetOnBottom}
+      />
+      <CircleArrowButtonForBoard
+        direction="right"
+        isVisible={!isMobile && arrowButtonVisible.right && isBoardContentHover}
+        onClick={handleScrollRight}
+        isTargetOnBottom={isTargetOnBottom}
+      />
+
       <div className={cn('sticky top-0 z-10 bg-gray-00', topContentClassName)}>
         {editable && (
           <div className="flex items-center justify-between pt-2">
@@ -256,7 +291,10 @@ export default function TimeBlockBoard({
           category={event.category}
         />
       </div>
-      <div className={cn('flex overflow-hidden', bottomContentClassName)}>
+
+      <div
+        className={cn('relative flex overflow-hidden', bottomContentClassName)}
+      >
         <LeftTimeLine startTime={event.start_time} endTime={event.end_time} />
         <BoardContent
           boardContentRef={boardContentRef}
@@ -278,6 +316,6 @@ export default function TimeBlockBoard({
           category={event.category}
         />
       )}
-    </div>
+    </motion.div>
   );
 }

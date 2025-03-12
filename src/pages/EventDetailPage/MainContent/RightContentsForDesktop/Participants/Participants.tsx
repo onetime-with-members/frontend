@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { useParticipants } from '../../../EventDetailPage.store';
+import { useParticipants } from '../../../EventDetailPage.stores';
 import Header from '../Header/Header';
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 

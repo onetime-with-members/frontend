@@ -2,9 +2,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
-import CircleArrowButton from './CircleArrowButton/CircleArrowButton';
 import Participants from './Participants/Participants';
 import RecommendTime from './RecommendTime/RecommendTime';
+import CircleArrowButton from '@/components/button/CircleArrowButton/CircleArrowButton';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 
 export default function BannerList() {
@@ -19,7 +19,7 @@ export default function BannerList() {
     <motion.div
       onHoverStart={() => setIsHover(true)}
       onHoverEnd={() => setIsHover(false)}
-      className="group relative"
+      className="relative"
     >
       <AnimatePresence>
         {!isMobile && arrowButtonVisible.left && isHover && (
