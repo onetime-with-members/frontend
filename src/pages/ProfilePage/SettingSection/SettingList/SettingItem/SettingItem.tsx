@@ -4,15 +4,27 @@ import cn from '@/utils/cn';
 
 interface SettingItemProps extends React.HTMLAttributes<HTMLLIElement> {
   href?: string;
+  external?: boolean;
 }
 
 export default function SettingItem({
   children,
   className,
   href,
+  external,
   ...rest
 }: SettingItemProps) {
-  const content = href ? <Link to={href}>{children}</Link> : children;
+  const content = href ? (
+    external ? (
+      <a href={href} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    ) : (
+      <Link to={href}>{children}</Link>
+    )
+  ) : (
+    children
+  );
 
   return (
     <li
