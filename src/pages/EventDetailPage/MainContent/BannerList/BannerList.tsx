@@ -1,79 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import CircleArrowButton from './CircleArrowButton/CircleArrowButton';
 import Participants from './Participants/Participants';
 import RecommendTime from './RecommendTime/RecommendTime';
+import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 import cn from '@/utils/cn';
 
 export default function BannerList() {
-  const [circleArrowButtonVisible, setCircleArrowButtonVisible] = useState({
-    left: false,
-    right: true,
-  });
-
   const topDialogListRef = useRef<HTMLDivElement>(null);
 
-  function handleScrollLeft() {
-    topDialogListRef.current?.scrollBy({
-      left: -topDialogListRef.current.clientWidth,
-      behavior: 'smooth',
-    });
-  }
-
-  function handleScrollRight() {
-    topDialogListRef.current?.scrollBy({
-      left: topDialogListRef.current.clientWidth,
-      behavior: 'smooth',
-    });
-  }
-
-  useEffect(() => {
-    if (!topDialogListRef.current) return;
-
-    function handleScroll() {
-      if (!topDialogListRef.current) return;
-
-      if (topDialogListRef.current.scrollLeft === 0) {
-        setCircleArrowButtonVisible((prev) => ({
-          ...prev,
-          left: false,
-        }));
-      } else {
-        setCircleArrowButtonVisible((prev) => ({
-          ...prev,
-          left: true,
-        }));
-      }
-
-      if (
-        Math.ceil(topDialogListRef.current.scrollLeft) >=
-        topDialogListRef.current.scrollWidth -
-          topDialogListRef.current.clientWidth
-      ) {
-        setCircleArrowButtonVisible((prev) => ({
-          ...prev,
-          right: false,
-        }));
-      } else {
-        setCircleArrowButtonVisible((prev) => ({
-          ...prev,
-          right: true,
-        }));
-      }
-    }
-
-    topDialogListRef.current.addEventListener('scroll', handleScroll);
-
-    return () => {
-      topDialogListRef.current?.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const style = {
-    circleArrowButton:
-      'pointer-events-none absolute top-1/2 -translate-y-1/2 opacity-0 shadow-lg drop-shadow-[0_0_24px_rgba(0,0,0,0.25)] transition-opacity group-hover:pointer-events-auto',
-  };
+  const { arrowButtonVisible, handleScrollLeft, handleScrollRight } =
+    useScrollArrowButton({ ref: topDialogListRef });
 
   return (
     <div className="group relative">
@@ -81,10 +19,9 @@ export default function BannerList() {
         <CircleArrowButton
           direction="left"
           className={cn(
-            style.circleArrowButton,
-            'left-10 group-hover:opacity-0 sm:left-16',
+            'absolute left-10 top-1/2 -translate-y-1/2 group-hover:opacity-0 sm:left-16',
             {
-              'group-hover:opacity-100': circleArrowButtonVisible.left,
+              'group-hover:opacity-100': arrowButtonVisible.left,
             },
           )}
           onClick={handleScrollLeft}
@@ -102,10 +39,9 @@ export default function BannerList() {
         <CircleArrowButton
           direction="right"
           className={cn(
-            style.circleArrowButton,
-            'right-10 group-hover:opacity-0 sm:right-16',
+            'absolute right-10 top-1/2 -translate-y-1/2 group-hover:opacity-0 sm:right-16',
             {
-              'group-hover:opacity-100': circleArrowButtonVisible.right,
+              'group-hover:opacity-100': arrowButtonVisible.right,
             },
           )}
           onClick={handleScrollRight}

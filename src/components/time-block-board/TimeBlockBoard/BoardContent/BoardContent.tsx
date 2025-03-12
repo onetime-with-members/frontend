@@ -2,7 +2,9 @@ import TimeBlockLine, {
   TimeBlockLineProps,
 } from './TimeBlockLine/TimeBlockLine';
 import useDragScroll from '@/hooks/useDragScroll';
+import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
+import CircleArrowButton from '@/pages/EventDetailPage/MainContent/BannerList/CircleArrowButton/CircleArrowButton';
 import { EventType } from '@/types/event.type';
 import { TimeType } from '@/types/schedule.type';
 
@@ -45,6 +47,8 @@ export default function BoardContent({
         changeTimeBlockStatus(timePoint, time, isFilling),
       ),
   });
+  const { arrowButtonVisible, handleScrollLeft, handleScrollRight } =
+    useScrollArrowButton({ ref: boardContentRef });
 
   function timesAllMember(timePoint: string) {
     let result: string[] = [];
@@ -72,12 +76,19 @@ export default function BoardContent({
   return (
     <div
       ref={boardContentRef}
-      className="scrollbar-hidden flex flex-1 gap-2 overflow-x-scroll"
+      className="scrollbar-hidden relative flex flex-1 gap-2 overflow-x-scroll"
       onMouseDown={handleDragStart}
       onMouseMove={handleDragMove}
       onMouseUp={handleDragEnd}
       onMouseLeave={handleDragLeave}
     >
+      {arrowButtonVisible.left && (
+        <CircleArrowButton
+          direction="left"
+          className="absolute left-10 top-1/2 -translate-y-1/2"
+          onClick={handleScrollLeft}
+        />
+      )}
       {event.ranges.map((timePoint) => (
         <TimeBlockLine
           key={timePoint}
@@ -96,6 +107,13 @@ export default function BoardContent({
           isBoardContentDragging={isDragEvent}
         />
       ))}
+      {arrowButtonVisible.right && (
+        <CircleArrowButton
+          direction="right"
+          className="absolute right-10 top-1/2 -translate-y-1/2"
+          onClick={handleScrollRight}
+        />
+      )}
     </div>
   );
 }

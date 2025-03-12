@@ -14,7 +14,7 @@ export default function CircleArrowButton({
   return (
     <button
       className={cn(
-        'flex h-6 w-6 items-center justify-center rounded-full bg-gray-00',
+        'pointer-events-none flex h-6 w-6 items-center justify-center rounded-full bg-gray-00 opacity-0 shadow-lg drop-shadow-[0_0_24px_rgba(0,0,0,0.25)] transition-opacity group-hover:pointer-events-auto',
         className,
       )}
       {...rest}
