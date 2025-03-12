@@ -1,8 +1,9 @@
+import { HTMLMotionProps, motion } from 'framer-motion';
+
 import cn from '@/utils/cn';
 import { IconTriangleInvertedFilled } from '@tabler/icons-react';
 
-interface CircleArrowButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface CircleArrowButtonProps extends HTMLMotionProps<'button'> {
   direction?: 'left' | 'right';
 }
 
@@ -12,9 +13,9 @@ export default function CircleArrowButton({
   ...rest
 }: CircleArrowButtonProps) {
   return (
-    <button
+    <motion.button
       className={cn(
-        'pointer-events-none flex h-6 w-6 items-center justify-center rounded-full bg-gray-00 opacity-0 shadow-lg drop-shadow-[0_0_24px_rgba(0,0,0,0.25)] transition-opacity group-hover:pointer-events-auto',
+        'flex h-6 w-6 items-center justify-center rounded-full bg-gray-00 shadow-lg drop-shadow-[0_0_24px_rgba(0,0,0,0.25)]',
         className,
       )}
       {...rest}
@@ -26,6 +27,6 @@ export default function CircleArrowButton({
           '-rotate-90': direction === 'right',
         })}
       />
-    </button>
+    </motion.button>
   );
 }

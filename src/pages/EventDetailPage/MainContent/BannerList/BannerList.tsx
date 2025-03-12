@@ -1,32 +1,38 @@
-import { useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import CircleArrowButton from './CircleArrowButton/CircleArrowButton';
 import Participants from './Participants/Participants';
 import RecommendTime from './RecommendTime/RecommendTime';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
-import cn from '@/utils/cn';
 
 export default function BannerList() {
+  const [isHover, setIsHover] = useState(false);
+
   const topDialogListRef = useRef<HTMLDivElement>(null);
 
   const { arrowButtonVisible, handleScrollLeft, handleScrollRight } =
     useScrollArrowButton({ ref: topDialogListRef });
 
   return (
-    <div className="group relative">
-      {!isMobile && (
-        <CircleArrowButton
-          direction="left"
-          className={cn(
-            'absolute left-10 top-1/2 -translate-y-1/2 group-hover:opacity-0 sm:left-16',
-            {
-              'group-hover:opacity-100': arrowButtonVisible.left,
-            },
-          )}
-          onClick={handleScrollLeft}
-        />
-      )}
+    <motion.div
+      onHoverStart={() => setIsHover(true)}
+      onHoverEnd={() => setIsHover(false)}
+      className="group relative"
+    >
+      <AnimatePresence>
+        {!isMobile && arrowButtonVisible.left && isHover && (
+          <CircleArrowButton
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            direction="left"
+            className="absolute left-10 top-1/2 -translate-y-1/2 sm:left-16"
+            onClick={handleScrollLeft}
+          />
+        )}
+      </AnimatePresence>
       <div
         ref={topDialogListRef}
         className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
@@ -35,18 +41,18 @@ export default function BannerList() {
         <RecommendTime />
         <Participants />
       </div>
-      {!isMobile && (
-        <CircleArrowButton
-          direction="right"
-          className={cn(
-            'absolute right-10 top-1/2 -translate-y-1/2 group-hover:opacity-0 sm:right-16',
-            {
-              'group-hover:opacity-100': arrowButtonVisible.right,
-            },
-          )}
-          onClick={handleScrollRight}
-        />
-      )}
-    </div>
+      <AnimatePresence>
+        {!isMobile && arrowButtonVisible.right && isHover && (
+          <CircleArrowButton
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            direction="right"
+            className="absolute right-10 top-1/2 -translate-y-1/2 sm:right-16"
+            onClick={handleScrollRight}
+          />
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
