@@ -34,7 +34,7 @@ export default function FixedScheduleCard() {
       image={
         <div className="mx-auto w-full max-w-[20rem]">
           <Image
-            src="/images/landing/fixed-schedule.png"
+            src={`/images/landing/fixed-schedule-${locale}.png`}
             alt="내 스케줄 UI 이미지"
             width={316}
             height={296}

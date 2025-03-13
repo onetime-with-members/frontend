@@ -34,7 +34,7 @@ export default function TimeBlockBoardFeature() {
       image={
         <div className="w-full max-w-[20rem]">
           <Image
-            src="/images/landing/time-block-board.png"
+            src={`/images/landing/time-block-board-${locale}.png`}
             alt="타임블록 되는 시간 및 안되는 시간 UI 이미지"
             width={320}
             height={279}

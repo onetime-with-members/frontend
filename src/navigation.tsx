@@ -18,20 +18,10 @@ export function useRouter() {
       nProgress.start();
       return _router.replace(href, options);
     },
-    back: () => {
-      return _router.back();
-    },
-    forward: () => {
-      nProgress.start();
-      return _router.forward();
-    },
-    prefetch: (href: string) => {
-      return _router.prefetch(href);
-    },
-    refresh: () => {
-      nProgress.start();
-      return _router.refresh();
-    },
+    back: () => _router.back(),
+    forward: () => _router.forward(),
+    prefetch: (href: string) => _router.prefetch(href),
+    refresh: () => _router.refresh(),
   };
   return router;
 }
