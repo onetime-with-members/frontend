@@ -28,6 +28,7 @@ export default function EventDeleteAlert({
     },
     onSuccess: async () => {
       router.push('/');
+      setIsEventDeleteAlertOpen(false);
     },
     onError: () => {
       setIsMutating(false);
