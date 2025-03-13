@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import BottomButtonForDesktop from './BottomButtonForDesktop/BottomButtonForDesktop';
 import BottomButtonForMobile from './BottomButtonForMobile/BottomButtonForMobile';
 import EventDeleteAlert from './EventDeleteAlert/EventDeleteAlert';
-import { useParticipantsActions } from './EventDetailPage.store';
+import { useParticipantsActions } from './EventDetailPage.stores';
 import LoginAlert from './LoginAlert/LoginAlert';
 import MainContent from './MainContent/MainContent';
 import SharePopUp from './SharePopUp/SharePopUp';

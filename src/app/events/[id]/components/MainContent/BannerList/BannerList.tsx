@@ -1,97 +1,38 @@
-import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
-import CircleArrowButton from './CircleArrowButton/CircleArrowButton';
 import Participants from './Participants/Participants';
 import RecommendTime from './RecommendTime/RecommendTime';
-import cn from '@/utils/cn';
+import CircleArrowButton from '@/components/button/CircleArrowButton/CircleArrowButton';
+import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 
 export default function BannerList() {
-  const [circleArrowButtonVisible, setCircleArrowButtonVisible] = useState({
-    left: false,
-    right: true,
-  });
+  const [isHover, setIsHover] = useState(false);
 
   const topDialogListRef = useRef<HTMLDivElement>(null);
 
-  function handleScrollLeft() {
-    topDialogListRef.current?.scrollBy({
-      left: -topDialogListRef.current.clientWidth,
-      behavior: 'smooth',
-    });
-  }
-
-  function handleScrollRight() {
-    topDialogListRef.current?.scrollBy({
-      left: topDialogListRef.current.clientWidth,
-      behavior: 'smooth',
-    });
-  }
-
-  useEffect(() => {
-    if (!topDialogListRef.current) return;
-
-    const topDialogList = topDialogListRef.current;
-
-    function handleScroll() {
-      if (!topDialogListRef.current) return;
-
-      if (topDialogListRef.current.scrollLeft === 0) {
-        setCircleArrowButtonVisible((prev) => ({
-          ...prev,
-          left: false,
-        }));
-      } else {
-        setCircleArrowButtonVisible((prev) => ({
-          ...prev,
-          left: true,
-        }));
-      }
-
-      if (
-        Math.ceil(topDialogListRef.current.scrollLeft) >=
-        topDialogListRef.current.scrollWidth -
-          topDialogListRef.current.clientWidth
-      ) {
-        setCircleArrowButtonVisible((prev) => ({
-          ...prev,
-          right: false,
-        }));
-      } else {
-        setCircleArrowButtonVisible((prev) => ({
-          ...prev,
-          right: true,
-        }));
-      }
-    }
-
-    topDialogListRef.current.addEventListener('scroll', handleScroll);
-
-    return () => {
-      topDialogList.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  const style = {
-    circleArrowButton:
-      'pointer-events-none absolute top-1/2 -translate-y-1/2 opacity-0 shadow-lg drop-shadow-[0_0_24px_rgba(0,0,0,0.25)] transition-opacity group-hover:pointer-events-auto',
-  };
+  const { arrowButtonVisible, handleScrollLeft, handleScrollRight } =
+    useScrollArrowButton({ ref: topDialogListRef });
 
   return (
-    <div className="group relative">
-      {!isMobile && (
-        <CircleArrowButton
-          direction="left"
-          className={cn(
-            style.circleArrowButton,
-            'left-10 group-hover:opacity-0 sm:left-16',
-            {
-              'group-hover:opacity-100': circleArrowButtonVisible.left,
-            },
-          )}
-          onClick={handleScrollLeft}
-        />
-      )}
+    <motion.div
+      onHoverStart={() => setIsHover(true)}
+      onHoverEnd={() => setIsHover(false)}
+      className="relative"
+    >
+      <AnimatePresence>
+        {!isMobile && arrowButtonVisible.left && isHover && (
+          <CircleArrowButton
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            direction="left"
+            className="absolute left-10 top-1/2 -translate-y-1/2 sm:left-16"
+            onClick={handleScrollLeft}
+          />
+        )}
+      </AnimatePresence>
       <div
         ref={topDialogListRef}
         className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
@@ -100,19 +41,18 @@ export default function BannerList() {
         <RecommendTime />
         <Participants />
       </div>
-      {!isMobile && (
-        <CircleArrowButton
-          direction="right"
-          className={cn(
-            style.circleArrowButton,
-            'right-10 group-hover:opacity-0 sm:right-16',
-            {
-              'group-hover:opacity-100': circleArrowButtonVisible.right,
-            },
-          )}
-          onClick={handleScrollRight}
-        />
-      )}
-    </div>
+      <AnimatePresence>
+        {!isMobile && arrowButtonVisible.right && isHover && (
+          <CircleArrowButton
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            direction="right"
+            className="absolute right-10 top-1/2 -translate-y-1/2 sm:right-16"
+            onClick={handleScrollRight}
+          />
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }

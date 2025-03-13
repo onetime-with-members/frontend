@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import { useParticipants } from '../../../EventDetailPage.store';
+import { useParticipants } from '../../../EventDetailPage.stores';
 import Header from '../Header/Header';
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 

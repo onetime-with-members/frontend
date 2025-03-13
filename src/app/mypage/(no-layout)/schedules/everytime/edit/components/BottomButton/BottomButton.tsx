@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import Button from '@/components/button/Button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
@@ -27,6 +27,14 @@ export default function BottomButton({
   const { isFooterShown } = useContext(FooterContext);
 
   const t = useTranslations('MyScheduleEverytimeEditPage');
+
+  const errorData = error?.response?.data as { code: string };
+
+  useEffect(() => {
+    if (errorData) {
+      console.log(errorData.code);
+    }
+  }, [errorData]);
 
   return (
     <AnimatePresence>
@@ -68,18 +76,25 @@ export default function BottomButton({
                   {t.rich(
                     isPending
                       ? 'pendingMessage'
-                      : error?.status === 400
+                      : errorData?.code === 'CRAWLING-002'
                         ? 'invalidURLMessage'
-                        : 'serverErrorMessage',
+                        : errorData?.code === 'CRAWLING-003'
+                          ? 'privateURLMessage'
+                          : 'serverErrorMessage',
                     {
                       br: () => (
                         <br
                           className={cn('hidden', {
                             'min-[250px]:block min-[415px]:hidden': isPending,
                             'min-[295px]:block min-[495px]:hidden':
-                              !isPending && error?.status === 400,
+                              !isPending && errorData?.code === 'CRAWLING-002',
+                            'min-[400px]:block sm:hidden':
+                              !isPending && errorData?.code === 'CRAWLING-003',
                             'min-[405px]:block min-[530px]:hidden':
-                              !isPending && error?.status !== 400,
+                              !isPending &&
+                              !['CRAWLING-002', 'CRAWLING-003'].includes(
+                                errorData?.code,
+                              ),
                           })}
                         />
                       ),
