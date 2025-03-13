@@ -1,6 +1,6 @@
-export default function Head() {
+export default function Favicon() {
   return (
-    <head>
+    <>
       <link
         rel="apple-touch-icon"
         sizes="57x57"
@@ -77,6 +77,6 @@ export default function Head() {
         content="/favicon/ms-icon-144x144.png"
       />
       <meta name="theme-color" content="#ffffff" />
-    </head>
+    </>
   );
 }
