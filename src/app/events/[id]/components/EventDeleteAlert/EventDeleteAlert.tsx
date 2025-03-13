@@ -27,7 +27,7 @@ export default function EventDeleteAlert({
       return res.data;
     },
     onSuccess: async () => {
-      router.push('/');
+      router.replace('/');
       setIsEventDeleteAlertOpen(false);
     },
     onError: () => {
