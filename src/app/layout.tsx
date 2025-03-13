@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import Footer from './components/Footer/Footer';
+import Head from './components/Head/Head';
 import NoScripts from './components/NoScripts/NoScripts';
 import ProgressBar from './components/ProgressBar/ProgressBar';
 import Providers from './components/Providers/Providers';
@@ -51,6 +52,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
+      <Head />
       <body cz-shortcut-listen="true" className="font-pretendard">
         <Providers>
           <ProgressBar />
