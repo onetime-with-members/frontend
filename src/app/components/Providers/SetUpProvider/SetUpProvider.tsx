@@ -93,9 +93,13 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
 
   useEffect(() => {
     if (!user) return;
-    setCookie('last-login', user.social_platform);
+    setCookie('last-login', user.social_platform, {
+      expires: dayjs().add(1, 'year').toDate(),
+    });
     const newLocale = user.language === 'KOR' ? 'ko' : 'en';
-    setCookie('locale', newLocale);
+    setCookie('locale', newLocale, {
+      expires: dayjs().add(1, 'year').toDate(),
+    });
     dayjs.locale(newLocale);
   }, [user]);
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { getCookie, setCookie } from 'cookies-next';
+import dayjs from 'dayjs';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
@@ -49,8 +50,12 @@ export default function OnboardingPage() {
     onSuccess: (data) => {
       const { access_token: accessToken, refresh_token: refreshToken } =
         data.payload;
-      setCookie('access-token', accessToken);
-      setCookie('refresh-token', refreshToken);
+      setCookie('access-token', accessToken, {
+        expires: dayjs().add(1, 'year').toDate(),
+      });
+      setCookie('refresh-token', refreshToken, {
+        expires: dayjs().add(1, 'year').toDate(),
+      });
       setPage((prevPage) => prevPage + 1);
     },
     onError: () => {

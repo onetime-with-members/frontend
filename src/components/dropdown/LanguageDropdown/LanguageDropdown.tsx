@@ -50,7 +50,9 @@ export default function LanguageDropdown({
       editUserLanguage(language === 'ko' ? 'KOR' : 'ENG');
     }
     setIsDropdownMenuOpen(false);
-    setCookie('locale', language);
+    setCookie('locale', language, {
+      expires: dayjs().add(1, 'year').toDate(),
+    });
     dayjs.locale(language);
     router.refresh();
   }

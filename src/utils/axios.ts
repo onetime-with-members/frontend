@@ -1,5 +1,6 @@
 import _axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import dayjs from 'dayjs';
 
 const axios = _axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_API_URL,
@@ -52,8 +53,12 @@ axios.interceptors.response.use(
             refresh_token: refreshToken,
           });
 
-          setCookie('access-token', data.payload.access_token);
-          setCookie('refresh-token', data.payload.refresh_token);
+          setCookie('access-token', data.payload.access_token, {
+            expires: dayjs().add(1, 'year').toDate(),
+          });
+          setCookie('refresh-token', data.payload.refresh_token, {
+            expires: dayjs().add(1, 'year').toDate(),
+          });
 
           if (originalRequest.headers) {
             originalRequest.headers.Authorization = `Bearer ${data.payload.access_token}`;

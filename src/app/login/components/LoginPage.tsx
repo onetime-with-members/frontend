@@ -1,6 +1,7 @@
 'use client';
 
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
 import ButtonGroup from './ButtonGroup/ButtonGroup';
@@ -40,7 +41,9 @@ export default function LoginPage() {
     const redirectUrl = searchParams.get('redirect_url');
 
     if (redirectUrl) {
-      setCookie('redirect-url', redirectUrl);
+      setCookie('redirect-url', redirectUrl, {
+        expires: dayjs().add(1, 'year').toDate(),
+      });
     }
 
     if (registerToken || name) {
@@ -50,8 +53,12 @@ export default function LoginPage() {
       ]);
       router.push(`/onboarding?${urlSearchParams.toString()}`);
     } else if (accessToken && refreshToken) {
-      setCookie('access-token', accessToken);
-      setCookie('refresh-token', refreshToken);
+      setCookie('access-token', accessToken, {
+        expires: dayjs().add(1, 'year').toDate(),
+      });
+      setCookie('refresh-token', refreshToken, {
+        expires: dayjs().add(1, 'year').toDate(),
+      });
 
       const localRedirectUrl = getCookie('redirect-url');
       deleteCookie('redirect-url');
