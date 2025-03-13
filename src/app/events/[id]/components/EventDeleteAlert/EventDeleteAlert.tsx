@@ -2,7 +2,6 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import Alert from '@/components/alert/Alert/Alert';
-import { useRouter } from '@/navigation';
 import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
@@ -17,7 +16,6 @@ export default function EventDeleteAlert({
   const [isMutating, setIsMutating] = useState(false);
 
   const params = useParams<{ id: string }>();
-  const router = useRouter();
   const t = useTranslations('alert');
   const queryClient = useQueryClient();
 
@@ -27,7 +25,7 @@ export default function EventDeleteAlert({
       return res.data;
     },
     onSuccess: async () => {
-      router.replace('/');
+      location.href = '/';
       setIsEventDeleteAlertOpen(false);
     },
     onError: () => {
