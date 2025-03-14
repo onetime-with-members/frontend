@@ -36,8 +36,8 @@ export default function RecommendAndParticipantsFeature() {
           <Image
             src={`/images/landing/recommend-and-participant-${locale}.png`}
             alt="참여자 및 시간 추천 UI 이미지"
-            width={320}
-            height={246}
+            width={280}
+            height={241}
             className="h-full w-full"
           />
         </div>
