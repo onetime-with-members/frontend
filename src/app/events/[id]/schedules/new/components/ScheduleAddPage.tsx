@@ -119,7 +119,7 @@ export default function ScheduleAddPage() {
       if (isScheduleEdited) {
         setIsBackButtonAlertOpen(true);
       } else {
-        router.push(`/events/${params.id}`);
+        router.back();
       }
     }
   }
