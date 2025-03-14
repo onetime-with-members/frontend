@@ -52,7 +52,6 @@ export default function NavBar({
       return res.data.payload;
     },
     enabled: hasTokens,
-    retry: 3,
   });
 
   return (

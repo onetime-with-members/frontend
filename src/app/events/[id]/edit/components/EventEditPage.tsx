@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react';
 
 import EventFormContent from '@/components/EventFormContent/EventFormContent';
 import { useRouter } from '@/navigation';
-import { EventType, EventValueType } from '@/types/event.type';
+import { useEventQuery } from '@/queries/event.queries';
+import { EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { notFound, useParams } from 'next/navigation';
 
 export default function EventEditPage() {
@@ -17,14 +18,7 @@ export default function EventEditPage() {
   const router = useRouter();
   const params = useParams<{ id: string }>();
 
-  const { data, isPending, error } = useQuery<EventType>({
-    queryKey: ['events', params.id],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${params.id}`);
-      return res.data.payload;
-    },
-    retry: false,
-  });
+  const { data, isPending, error } = useEventQuery(params.id);
 
   useEffect(() => {
     const axiosError = error as AxiosError;
