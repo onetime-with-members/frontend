@@ -52,7 +52,7 @@ export default function NavBar({
       return res.data.payload;
     },
     enabled: hasTokens,
-    retry: false,
+    retry: 3,
   });
 
   return (
