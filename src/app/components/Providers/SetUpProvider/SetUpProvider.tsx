@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import useMyScheduleStoreInit from '@/hooks/store/useMyScheduleStoreInit';
 import useSleepTimeInit from '@/hooks/store/useSleepTimeInit';
 import useWeekdayInit from '@/hooks/store/useWeekdayInit';
+import useDefaultLocale from '@/hooks/useDefaultLocale';
 import useLocalStorageClear from '@/hooks/useLocalStorageClear';
 import { useRouter } from '@/navigation';
 import { PolicyType, UserType } from '@/types/user.type';
@@ -55,6 +56,7 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
   useSleepTimeInit();
   useWeekdayInit();
   useLocalStorageClear();
+  useDefaultLocale();
 
   const router = useRouter();
   const pathname = usePathname();
