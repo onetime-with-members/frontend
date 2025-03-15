@@ -22,7 +22,7 @@ declare global {
 export const metadata: Metadata = {
   title: 'OneTime',
   description:
-    'For the perfect time, share a link just once to coordinate schedules with multiple people quickly and easily with OneTime',
+    'For our perfect time, share a link just once to coordinate schedules with many people quickly and easily with OneTime',
   keywords:
     '원타임, 일정, 회의시간, 스케줄, 이벤트, 약속, 시간추천, 타임블록, OneTime, meeting, appointment, schedule, event, time recommendation, time block',
   metadataBase: new URL(

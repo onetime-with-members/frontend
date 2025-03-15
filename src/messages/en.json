@@ -21,12 +21,12 @@
     "privacyPolicy": "Privacy Policy"
   },
   "EverytimeTopBanner": {
-    "title": "Everytime Feature Released! <br></br>Import Timetable in Just One Click!",
-    "description": "Auto-Register via Everytime URL! Join Event & Grab Snacks!"
+    "title": "New! Sync Your Schedule <br></br>from 'Everytime' with One Click!",
+    "description": "Auto-Register via Everytime URL! Join the Event & Enjoy Free Snacks!"
   },
   "login": {
     "login": "Login",
-    "logoTitle": "For The Perfect Time,",
+    "logoTitle": "For Our Perfect Time,",
     "kakao": "Continue with KakaoTalk",
     "naver": "Continue with Naver",
     "google": "Continue with Google",
@@ -34,25 +34,25 @@
   },
   "landing": {
     "title": {
-      "main": "For The Perfect Time",
-      "feature1": "Simple And Stress-Free <br></br>Schedule Coordination",
-      "feature2": "Clearer Display of Available Times, <br></br>Easier Selection",
-      "highlight": "Automatically Adjust the Time <br></br>According to Your Schedule, <br></br>No More Worries!",
-      "card1": "Without Repetition, Just One Registration Is All You Need",
-      "card2": "Manage Your Time Easily and Quickly Offline with Just One QR Code",
-      "last": "Experience Stress-Free <br></br>Schedule Coordination with OneTime"
+      "main": "For Our Perfect Time",
+      "feature1": "Simple Scheduling, <br></br>No more Stress",
+      "feature2": "Easier Selections <br></br>with Clear Available Times",
+      "highlight": "Smart Auto-Scheduling. <br></br>No Planning, No Stress!",
+      "card1": "One Share Is All You Need",
+      "card2": "One QR Code Is All We Need",
+      "last": "Experience Simple Scheduling <br></br>with OneTime"
     },
     "description": {
-      "main": "Share the link once to organize schedules <br></br>with multiple people, and find the most suitable time.",
-      "feature1": "You can easily see the time <br></br>when the most people can participate <br></br>in the event.",
-      "feature2": "Is it difficult to estimate the available time? <br></br>Then try deleting with 'Unavailable Time'.",
+      "main": "With just one share of the link, organize schedules <br></br>with many people and find the best time.",
+      "feature1": "What time works for everyone? <br></br>Simply check the best time with OneTime!",
+      "feature2": "Hard to find the available time? <br></br>Remove the busy ones!",
       "card1": "When you pre-register your schedule once, the unavailable time is automatically excluded.",
       "card2": "In offline, try adjusting the time with just one QR code instead of sharing the link."
     },
     "badge": {
-      "feature1": "Quick Status Check",
-      "feature2": "Simple Available Time Check",
-      "card1": "Register My Schedule",
+      "feature1": "Status at a Glance",
+      "feature2": "Easy Slot Check",
+      "card1": "Add My Schedule",
       "card2": "Generate QR Code"
     },
     "button": {
@@ -83,7 +83,7 @@
     "edit": "Edit",
     "delete": "Delete",
     "addSchedule": "Add Schedule",
-    "mostAvailable": "Most Available Times",
+    "mostAvailable": "Best Available Times",
     "allAvailable": "All Available Times",
     "peopleWhoAddedSchedules": "Person who added schedule{count, plural, =1 {} other {s}}",
     "whenAvailableTimes": "When are the available times?",
@@ -102,7 +102,7 @@
   },
   "alert": {
     "loginTitle": "Would you like to log in?",
-    "loginDescription": "If you log in, your information is automatically entered, and you can save your schedule!",
+    "loginDescription": "Your information is auto-filled, and your schedule can be saved!",
     "loginConfirm": "Login",
     "loginCancel": "Not now",
     "deleteEventTitle": "Do you really want to delete the event?",
@@ -176,12 +176,12 @@
     "myScheduleEdit": "Edit My Schedule",
     "editMySchedule": "Edit My Schedule",
     "sleepTime": "Sleep Time",
-    "everytime": "Register Everytime timetable",
+    "everytime": "Add Everytime timetable",
     "done": "Done"
   },
   "MyScheduleEverytimeEditPage": {
-    "title": "Register Everytime Timetable",
-    "description": "Paste the timetable link copied using the method below.",
+    "title": "Add Everytime Timetable",
+    "description": "Copy and Paste the timetable link using the method below.",
     "placeholder": "Paste link here...",
     "submit": "Submit",
     "submitting": "Submitting...",
@@ -229,13 +229,13 @@
     "title1": "Your account will be deleted immediately",
     "description1": "The information of the deleted account cannot be recovered. After deletion, your account will be deleted immediately.",
     "title2": "All your event and schedule data will be deleted",
-    "description2": "All content written in OneTime, such as the schedules registered for events, will be deleted.",
+    "description2": "All content written in OneTime, such as the schedules added for events, will be deleted.",
     "agreeText": "Yes, I have confirmed the above.",
     "withdraw": "Delete account"
   },
   "404": {
     "notFound": "Page Not Found",
-    "title": "The Page You Requested <br></br>Cannot Be Found",
-    "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please check that the address is entered correctly."
+    "title": "This page cannot be found",
+    "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please make sure the address is correct."
   }
 }
