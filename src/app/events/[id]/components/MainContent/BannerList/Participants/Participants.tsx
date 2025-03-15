@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import { useParticipants } from '../../../EventDetailPage.store';
+import { useParticipants } from '../../../EventDetailPage.stores';
 import ParticipantsPopUp from './ParticipantsPopUp/ParticipantsPopUp';
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import cn from '@/utils/cn';
