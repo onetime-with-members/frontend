@@ -97,5 +97,5 @@ export default async function Page() {
 
   const eventId = originalUrl.split('/').at(-1);
 
-  redirect(`/events/${eventId}`);
+  redirect(`${process.env.NEXT_PUBLIC_SITE_DOMAIN}/events/${eventId}`);
 }
