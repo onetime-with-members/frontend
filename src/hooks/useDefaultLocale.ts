@@ -10,11 +10,19 @@ export default function useDefaultLocale() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!getCookie('locale')) {
-      setCookie('locale', window.navigator.language, {
+    if (
+      getCookie('locale') &&
+      ['ko', 'en'].includes(getCookie('locale') as string)
+    )
+      return;
+
+    setCookie(
+      'locale',
+      window.navigator.language.includes('ko') ? 'ko' : 'en',
+      {
         expires: dayjs().add(1, 'year').toDate(),
-      });
-      router.refresh();
-    }
+      },
+    );
+    router.refresh();
   }, [router]);
 }
