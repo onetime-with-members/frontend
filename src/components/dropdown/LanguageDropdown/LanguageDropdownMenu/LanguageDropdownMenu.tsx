@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useLocale } from 'next-intl';
 
 import LanguageDropdownMenuItem from './LanguageDropdownMenuItem/LanguageDropdownMenuItem';
 import cn from '@/utils/cn';
@@ -12,7 +12,7 @@ export default function LanguageDropdownMenu({
   onMenuItemClick,
   menuPosition,
 }: LanguageDropdownMenuProps) {
-  const { i18n } = useTranslation();
+  const locale = useLocale();
 
   return (
     <ul
@@ -25,13 +25,13 @@ export default function LanguageDropdownMenu({
       )}
     >
       <LanguageDropdownMenuItem
-        active={i18n.language === 'ko'}
+        active={locale === 'ko'}
         onClick={() => onMenuItemClick('ko')}
       >
         한국어
       </LanguageDropdownMenuItem>
       <LanguageDropdownMenuItem
-        active={i18n.language === 'en'}
+        active={locale === 'en'}
         onClick={() => onMenuItemClick('en')}
       >
         English

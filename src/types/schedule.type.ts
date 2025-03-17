@@ -17,7 +17,7 @@ export interface RecommendScheduleType {
   impossible_names: string[];
 }
 
-export interface MyScheduleTimeType extends TimeType {}
+export type MyScheduleTimeType = TimeType;
 
 export type EverytimeSchedule = TimeType[];
 

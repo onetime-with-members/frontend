@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 interface useDragScrollProps {
-  ref: React.RefObject<HTMLElement>;
+  ref: React.RefObject<HTMLElement | null>;
 }
 
 type DragX = {
@@ -12,7 +12,7 @@ type DragX = {
 
 export default function useDragScroll({ ref }: useDragScrollProps) {
   const [scrollContainerRef, setScrollContainerRef] =
-    useState<React.RefObject<HTMLElement>>();
+    useState<React.RefObject<HTMLElement | null>>();
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragX, setDragX] = useState<DragX>({
     init: 0,

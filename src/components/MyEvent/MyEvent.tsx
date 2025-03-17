@@ -1,12 +1,15 @@
 import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useTranslations } from 'next-intl';
 
-import alarmIcon from '@/assets/alarm-icon.svg';
+import { Link } from '@/navigation';
 import { MyEventType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { weekdaysShortKo } from '@/utils/weekday';
 import { IconChevronRight } from '@tabler/icons-react';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import Image from 'next/image';
+
+dayjs.extend(relativeTime);
 
 interface MyEventProps {
   event: MyEventType;
@@ -19,7 +22,7 @@ export default function MyEvent({
   className,
   innerClassName,
 }: MyEventProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('common');
 
   const isRecommended =
     event.most_possible_times.length > 0 && event.participant_count >= 1;
@@ -29,7 +32,7 @@ export default function MyEvent({
   return (
     <li className={className}>
       <Link
-        to={`/events/${event.event_id}`}
+        href={`/events/${event.event_id}`}
         className={cn(
           'flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5',
           innerClassName,
@@ -40,7 +43,7 @@ export default function MyEvent({
             <span>{dayjs(event.created_date).fromNow()}</span>
             <span>·</span>
             <span>
-              {t('common.participantCount', {
+              {t('participantCount', {
                 count: event.participant_count,
               })}
             </span>
@@ -69,7 +72,12 @@ export default function MyEvent({
               recommendedTime && (
                 <>
                   <span>
-                    <img src={alarmIcon} alt="알람 아이콘" />
+                    <Image
+                      src="/images/alarm-icon.svg"
+                      alt="알람 아이콘"
+                      width={23}
+                      height={20}
+                    />
                   </span>
                   {event.category === 'DATE' ? (
                     <span>
@@ -94,7 +102,7 @@ export default function MyEvent({
                 </>
               )
             ) : (
-              <span>{t('common.noOneSchedule')}</span>
+              <span>{t('noOneSchedule')}</span>
             )}
           </div>
           <div>

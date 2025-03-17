@@ -1,14 +1,15 @@
-import { Link } from 'react-router-dom';
+import { getCookie } from 'cookies-next';
+import { useEffect, useState } from 'react';
 
 import AvatarDropdown from '../avatar/AvatarDropdown/AvatarDropdown';
 import LoginButton from './LoginButton/LoginButton';
-import logoWhite from '@/assets/logo-white.svg';
-import logoBlack from '@/assets/logo.svg';
 import useScroll from '@/hooks/useScroll';
+import { Link } from '@/navigation';
 import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
 
 interface NavBarProps {
   variant?: 'default' | 'black' | 'transparent';
@@ -27,13 +28,24 @@ export default function NavBar({
   isAuthHidden = false,
   heightZero = false,
 }: NavBarProps) {
+  const [isMounted, setIsMounted] = useState<boolean>(false);
+  const [hasTokens, setHasTokens] = useState<boolean>(
+    !!getCookie('access-token') && !!getCookie('refresh-token'),
+  );
+
   const { isScrolling } = useScroll();
 
-  const hasTokens =
-    !!localStorage.getItem('access-token') &&
-    !!localStorage.getItem('refresh-token');
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-  const { isLoading, data: user } = useQuery<UserType>({
+  useEffect(() => {
+    if (!!getCookie('access-token') && !!getCookie('refresh-token')) {
+      setHasTokens(true);
+    }
+  }, [hasTokens]);
+
+  const { data: user, isLoading } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
     queryFn: async () => {
       const res = await axios.get('/users/profile');
@@ -68,27 +80,30 @@ export default function NavBar({
       >
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
           <Link
-            to={disabled ? '#' : '/'}
+            href={disabled ? '#' : '/'}
             className={cn({
               'cursor-default': disabled,
             })}
           >
-            <img
+            <Image
               src={
                 variant === 'default' || variant === 'transparent'
-                  ? logoBlack
-                  : logoWhite
+                  ? '/images/logo.svg'
+                  : '/images/logo-white.svg'
               }
               alt="OneTime"
+              width={148}
+              height={32}
               className="h-[2rem]"
             />
           </Link>
-          {!isAuthHidden && (
+          {isMounted && !isAuthHidden && (
             <>
-              {user && (
+              {user ? (
                 <AvatarDropdown name={user.nickname} disabled={disabled} />
+              ) : (
+                !isLoading && !user && <LoginButton />
               )}
-              {!isLoading && !user && <LoginButton />}
             </>
           )}
         </div>

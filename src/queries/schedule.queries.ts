@@ -48,6 +48,7 @@ export const useScheduleAndNewMemberCreate = ({
   guestValue,
   schedules,
   onSuccess,
+  onError,
 }: {
   event: EventType | undefined;
   guestValue: {
@@ -56,6 +57,7 @@ export const useScheduleAndNewMemberCreate = ({
   };
   schedules: TimeType[];
   onSuccess: () => void;
+  onError?: () => void;
 }) =>
   useMutation({
     mutationFn: async () => {
@@ -68,6 +70,7 @@ export const useScheduleAndNewMemberCreate = ({
       return res.data;
     },
     onSuccess,
+    onError,
   });
 
 export const useScheduleUpdateMutation = ({
@@ -75,11 +78,13 @@ export const useScheduleUpdateMutation = ({
   schedules,
   guestId,
   onSuccess,
+  onError,
 }: {
   event: EventType | undefined;
   schedules: TimeType[];
   guestId: string;
   onSuccess: () => void;
+  onError?: () => void;
 }) =>
   useMutation({
     mutationFn: async () => {
@@ -94,4 +99,5 @@ export const useScheduleUpdateMutation = ({
       return res.data;
     },
     onSuccess,
+    onError,
   });

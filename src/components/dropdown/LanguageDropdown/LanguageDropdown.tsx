@@ -1,8 +1,11 @@
+import { getCookie, setCookie } from 'cookies-next';
+import dayjs from 'dayjs';
+import { useLocale } from 'next-intl';
 import { useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import LanguageDropdownMenu from './LanguageDropdownMenu/LanguageDropdownMenu';
 import useDropdown from '@/hooks/useDropdown';
+import { useRouter } from '@/navigation';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { IconLanguage } from '@tabler/icons-react';
@@ -24,10 +27,11 @@ export default function LanguageDropdown({
       dropdownRef,
     });
 
-  const { i18n } = useTranslation();
+  const locale = useLocale();
   const queryClient = useQueryClient();
+  const router = useRouter();
 
-  const isLoggedIn = localStorage.getItem('access-token') !== null;
+  const isLoggedIn = getCookie('access-token');
 
   const { mutate: editUserLanguage } = useMutation({
     mutationFn: async (language: string) => {
@@ -42,11 +46,15 @@ export default function LanguageDropdown({
   });
 
   function handleDropdownMenuItemClick(language: string) {
-    i18n.changeLanguage(language);
     if (isLoggedIn) {
       editUserLanguage(language === 'ko' ? 'KOR' : 'ENG');
     }
     setIsDropdownMenuOpen(false);
+    setCookie('locale', language, {
+      expires: dayjs().add(1, 'year').toDate(),
+    });
+    dayjs.locale(language);
+    router.refresh();
   }
 
   return (
@@ -64,7 +72,7 @@ export default function LanguageDropdown({
         <span>
           <IconLanguage size={20} />
         </span>
-        <span>{i18n.language === 'ko' ? '한국어' : 'English'}</span>
+        <span>{locale === 'ko' ? '한국어' : 'English'}</span>
       </button>
       {isDropdownMenuOpen && (
         <LanguageDropdownMenu

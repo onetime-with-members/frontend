@@ -1,15 +1,15 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 import LoadIcon from '@/components/icon/LoadIcon';
 import cn from '@/utils/cn';
 
-interface ReloadButtonProps extends React.HTMLAttributes<HTMLButtonElement> {}
+type ReloadButtonProps = React.HTMLAttributes<HTMLButtonElement>;
 
 export default function ReloadButton({
   className,
   ...props
 }: ReloadButtonProps) {
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   return (
     <button

@@ -1,13 +1,12 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 import RefreshIcon from '@/components/icon/RefreshIcon';
 import cn from '@/utils/cn';
 
-interface ResetButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+type ResetButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function ResetButton({ className, ...props }: ResetButtonProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('timeBlockBoard');
 
   return (
     <button
@@ -20,7 +19,7 @@ export default function ResetButton({ className, ...props }: ResetButtonProps) {
       <span>
         <RefreshIcon size={14} fill="#9296AB" />
       </span>
-      <span>{t('timeBlockBoard.reset')}</span>
+      <span>{t('reset')}</span>
     </button>
   );
 }

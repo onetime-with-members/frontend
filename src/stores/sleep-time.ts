@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 
-import { DEFAULT_SLEEP_TIME } from '@/constants/sleep-time';
 import { SleepTimeType } from '@/types/user.type';
 import { timeBlockList } from '@/utils/time-block';
 
@@ -60,6 +59,11 @@ export function getTimesGroupForSplitted(
           .concat(type === 'timeLabel' ? ['24:00'] : []),
       ];
 }
+
+const DEFAULT_SLEEP_TIME: SleepTimeType = {
+  sleep_start_time: '00:00',
+  sleep_end_time: '00:00',
+};
 
 const useSleepTimeStore = create<SleepTimeStore>((set, get) => ({
   sleepTime: DEFAULT_SLEEP_TIME,

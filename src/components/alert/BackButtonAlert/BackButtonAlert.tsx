@@ -1,7 +1,7 @@
-import { Trans, useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert/Alert/Alert';
+import { useRouter } from '@/navigation';
 
 interface BackButtonAlertProps {
   backHref: string | -1;
@@ -12,8 +12,8 @@ export default function BackButtonAlert({
   setIsOpen,
   backHref,
 }: BackButtonAlertProps) {
-  const navigate = useNavigate();
-  const { t } = useTranslation();
+  const router = useRouter();
+  const t = useTranslations('alert');
 
   function handleBackButtonConfirm() {
     setIsOpen(false);
@@ -21,9 +21,9 @@ export default function BackButtonAlert({
 
   function handleBackButtonCancel() {
     if (backHref === -1) {
-      navigate(-1);
+      router.back();
     } else {
-      navigate(backHref);
+      router.push(backHref);
     }
   }
 
@@ -36,18 +36,15 @@ export default function BackButtonAlert({
       onConfirm={handleBackButtonConfirm}
       onCancel={handleBackButtonCancel}
       onClose={handleBackButtonClose}
-      confirmText={t('alert.backButtonConfirm')}
-      cancelText={t('alert.backButtonCancel')}
+      confirmText={t('backButtonConfirm')}
+      cancelText={t('backButtonCancel')}
     >
       <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">
-        <h2 className="text-gray-80 text-lg-300">
-          {t('alert.backButtonTitle')}
-        </h2>
+        <h2 className="text-gray-80 text-lg-300">{t('backButtonTitle')}</h2>
         <p className="text-gray-60 text-md-100">
-          <Trans i18nKey="alert.backButtonDescription">
-            스케줄을 등록하지 않고 페이지를 벗어날 경우, <br />
-            지금까지 입력한 내용이 사라져요!
-          </Trans>
+          {t.rich('backButtonDescription', {
+            br: () => <br />,
+          })}
         </p>
       </div>
     </Alert>
