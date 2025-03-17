@@ -1,6 +1,6 @@
 import BottomContentsForMobile from './BottomContentsForMobile/BottomContentsForMobile';
 import RightContentsForDesktop from './RightContentsForDesktop/RightContentsForDesktop';
-import EverytimeTopBanner from '@/components/EverytimeTopBanner/EverytimeTopBanner';
+import EverytimeTopBanner from '@/components/everytime/EverytimeTopBanner/EverytimeTopBanner';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
 import { useScheduleQuery } from '@/queries/schedule.queries';
 import { EventType } from '@/types/event.type';

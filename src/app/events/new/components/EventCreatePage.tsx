@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import EventFormContent from '@/components/EventFormContent/EventFormContent';
+import EventFormContent from '@/components/form-control/EventFormContent/EventFormContent';
 import { useRouter } from '@/navigation';
 import { EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
