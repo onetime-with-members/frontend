@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import { TimeBlockPopUpDataType } from '@/types/schedule.type';
@@ -22,7 +22,7 @@ export default function TimeBlockPopUp({
   members,
   category,
 }: TimeBlockPopUpProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('eventDetail');
 
   const startTime = time;
   let endTime = dayjs(time, 'HH:mm').add(30, 'minute').format('HH:mm');
@@ -64,7 +64,7 @@ export default function TimeBlockPopUp({
           {members.possible.length > 0 && (
             <div>
               <h3 className={cn(style.title, 'text-primary-60')}>
-                {t('eventDetail.available')}
+                {t('available')}
               </h3>
               <div className={style.memberBadgeList}>
                 {members.possible.map((member, index) => (
@@ -76,7 +76,7 @@ export default function TimeBlockPopUp({
           {members.impossible.length > 0 && (
             <div>
               <h3 className={cn(style.title, 'text-gray-50')}>
-                {t('eventDetail.unavailable')}
+                {t('unavailable')}
               </h3>
               <div className={style.memberBadgeList}>
                 {members.impossible.map((member, index) => (

@@ -1,4 +1,5 @@
 import cn from '@/utils/cn';
+import Image from 'next/image';
 
 interface AvatarProps {
   size?: number;
@@ -30,7 +31,7 @@ export default function Avatar({
         onClick={onClick}
       >
         {imageUrl ? (
-          <img src={imageUrl} alt={name} />
+          <Image src={imageUrl} alt={name} width={size} height={size} />
         ) : (
           <span>{name.slice(0, 1)}</span>
         )}

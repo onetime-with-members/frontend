@@ -4,7 +4,7 @@ import axios from '@/utils/axios';
 import { weekdaysShortKo } from '@/utils/weekday';
 import { useQuery } from '@tanstack/react-query';
 
-export const useEventQuery = (eventId: string | undefined) =>
+export const useEventQuery = (eventId: string) =>
   useQuery<EventType>({
     queryKey: ['events', eventId],
     queryFn: async () => {
@@ -19,9 +19,12 @@ export const useEventQuery = (eventId: string | undefined) =>
         event.ranges = event.ranges.sort();
       }
 
-      const shortenActionRes = await axios.post('/urls/action-shorten', {
-        original_url: `${window.location.origin}/events/${event.event_id}`,
-      });
+      const shortenActionRes = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_API_URL}/urls/action-shorten`,
+        {
+          original_url: `${window.location.origin}/events/${event.event_id}`,
+        },
+      );
       event.shortenUrl = shortenActionRes.data.payload.shorten_url;
 
       return event;

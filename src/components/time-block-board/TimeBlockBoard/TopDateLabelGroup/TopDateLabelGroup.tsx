@@ -1,11 +1,10 @@
-import { useParams } from 'react-router-dom';
-
 import TopDateLabel from './TopDateLabel/TopDateLabel';
 import { useEventQuery } from '@/queries/event.queries';
 import { EventType } from '@/types/event.type';
+import { useParams } from 'next/navigation';
 
 interface TopDateLabelGroupProps {
-  topLabelRef: React.RefObject<HTMLDivElement>;
+  topLabelRef: React.RefObject<HTMLDivElement | null>;
   category: EventType['category'];
 }
 
@@ -13,9 +12,9 @@ export default function TopDateLabelGroup({
   topLabelRef,
   category,
 }: TopDateLabelGroupProps) {
-  const params = useParams<{ eventId: string }>();
+  const params = useParams<{ id: string }>();
 
-  const { data: event } = useEventQuery(params.eventId);
+  const { data: event } = useEventQuery(params.id);
 
   return (
     <div className="pl-6">

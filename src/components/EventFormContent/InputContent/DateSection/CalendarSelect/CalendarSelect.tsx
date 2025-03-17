@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
+import { useLocale } from 'next-intl';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
+import { useWeekdaysShort } from '@/stores/weekday';
 import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
@@ -22,6 +23,8 @@ export default function CalendarSelect({
 }: CalendarSelectProps) {
   const [currentDate, setCurrentDate] = useState(dayjs());
 
+  const weekdaysShort = useWeekdaysShort();
+
   const {
     isFilling,
     cssStyle,
@@ -32,7 +35,7 @@ export default function CalendarSelect({
     onSelect: handleDateItemSelect,
   });
 
-  const { i18n } = useTranslation();
+  const locale = useLocale();
 
   const firstWeekdayIndex = currentDate.startOf('month').day();
   const lastDate = currentDate.endOf('month').date();
@@ -62,7 +65,7 @@ export default function CalendarSelect({
     setValue((prev) => ({
       ...prev,
       ranges: isFilling
-        ? [...new Set([...prev.ranges, date])]
+        ? Array.from(new Set([...prev.ranges, date]))
         : prev.ranges.filter((range) => range !== date),
     }));
   }
@@ -74,7 +77,7 @@ export default function CalendarSelect({
     >
       <div className="flex justify-between">
         <div className="text-gray-90 text-lg-300">
-          {currentDate.format(i18n.language === 'ko' ? 'YYYY.MM' : 'MMMM YYYY')}
+          {currentDate.format(locale === 'ko' ? 'YYYY.MM' : 'MMMM YYYY')}
         </div>
         <div className="flex items-center gap-4">
           <button
@@ -97,7 +100,7 @@ export default function CalendarSelect({
         </div>
       </div>
       <div className="grid grid-cols-7 gap-3">
-        {dayjs.weekdaysShort().map((weekday) => (
+        {weekdaysShort.map((weekday) => (
           <div key={weekday} className="text-center text-gray-30 text-md-200">
             {weekday}
           </div>

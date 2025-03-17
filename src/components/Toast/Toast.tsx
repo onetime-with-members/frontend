@@ -1,6 +1,7 @@
+'use client';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
 
 import CheckIcon from '@/components/icon/CheckIcon';
 import { useToastActions, useToastMessage } from '@/stores/toast';
@@ -22,9 +23,9 @@ export default function Toast({ bottom = 140, duration = 3000 }: ToastProps) {
     }, duration);
 
     return () => clearTimeout(timer);
-  }, [message, duration]);
+  }, [message, duration, resetMessage]);
 
-  return createPortal(
+  return (
     <AnimatePresence>
       {message.length > 0 && (
         <motion.div
@@ -41,7 +42,6 @@ export default function Toast({ bottom = 140, duration = 3000 }: ToastProps) {
           </span>
         </motion.div>
       )}
-    </AnimatePresence>,
-    document.querySelector('#toast') as HTMLElement,
+    </AnimatePresence>
   );
 }

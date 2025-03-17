@@ -1,10 +1,13 @@
-import { Trans } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 import backgroundDecoration from '@/assets/banner-background-decoration.svg';
 import coffeeGrahic from '@/assets/banner-coffee-graphic.svg';
 import ArrowUpRightIcon from '@/components/icon/ArrowUpRightIcon';
+import Image from 'next/image';
 
 export default function EverytimeTopBanner() {
+  const t = useTranslations('EverytimeTopBanner');
+
   return (
     <a
       href="https://www.instagram.com/p/DHBOlTSPmwl/?img_index=1"
@@ -16,31 +19,27 @@ export default function EverytimeTopBanner() {
       }}
     >
       <div className="absolute bottom-0 left-0">
-        <img src={backgroundDecoration} alt="" />
+        <Image src={backgroundDecoration} alt="" width={752} height={57} />
       </div>
       <div className="relative z-10">
         <h2 className="text-lg-300 min-[700px]:font-bold">
-          <Trans i18nKey="EverytimeTopBanner.title">
-            개강 필수 에브리타임 연동기능 출시!{' '}
-            <br className="block min-[700px]:hidden" />
-            시간표, 한 번에 가져오세요!
-          </Trans>
+          {t.rich('title', {
+            br: () => <br className="block min-[700px]:hidden" />,
+          })}
         </h2>
         <p className="hidden items-center gap-1 leading-[130%] text-md-100 min-[700px]:flex">
-          <span>
-            <Trans i18nKey="EverytimeTopBanner.description">
-              에브리타임 URL로 시간표 자동 등록! 이벤트 참여하고 간식까지 GET!
-            </Trans>
-          </span>
+          <span>{t('description')}</span>
           <span>
             <ArrowUpRightIcon fill="#FFFFFF" size={16} />
           </span>
         </p>
       </div>
       <div className="absolute -bottom-4 right-2 md:right-6">
-        <img
+        <Image
           src={coffeeGrahic}
           alt="hot coffee on the left and ice coffee on the right"
+          width={145}
+          height={126}
           className="h-[97px] w-[102px] min-[450px]:h-[126px] min-[450px]:w-[145px]"
         />
       </div>

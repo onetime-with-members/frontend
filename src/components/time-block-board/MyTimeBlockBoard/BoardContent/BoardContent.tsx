@@ -24,7 +24,7 @@ export default function BoardContent({
       isFilled,
       fillTimeBlocks: ({ timePoint, times, isFilling }) => {
         changeTimeBlock(timePoint, times, isFilling);
-        setIsEdited && setIsEdited(true);
+        setIsEdited?.(true);
       },
     });
   const timesGroupForSplittedTimeBlock = useTimesGroupForSplittedTimeBlock();
@@ -49,7 +49,7 @@ export default function BoardContent({
           );
     }
 
-    setMySchedule && setMySchedule(newMySchedule);
+    setMySchedule?.(newMySchedule);
   }
 
   function handleTimeBlockClick(weekday: string, time: string) {

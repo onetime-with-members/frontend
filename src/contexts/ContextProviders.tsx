@@ -1,3 +1,5 @@
+'use client';
+
 import { FooterContextProvider } from './FooterContext';
 import { PageModeContextProvider } from './PageModeContext';
 import PolicyContextProvider from './PolicyContext';

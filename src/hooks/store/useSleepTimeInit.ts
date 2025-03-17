@@ -1,3 +1,4 @@
+import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
@@ -11,6 +12,7 @@ import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
+import { usePathname } from 'next/navigation';
 
 export default function useSleepTimeInit() {
   const sleepTime = useSleepTime();
@@ -24,7 +26,9 @@ export default function useSleepTimeInit() {
     setTimesGroupForSplittedTimeLabel,
   } = useSleepTimeActions();
 
-  const isLoggedIn = localStorage.getItem('access-token') !== null;
+  const pathname = usePathname();
+
+  const isLoggedIn = !!getCookie('access-token');
 
   const { data: sleepTimeDataOrigin } = useQuery<SleepTimeType>({
     queryKey: ['users', 'sleep-time'],
@@ -37,8 +41,8 @@ export default function useSleepTimeInit() {
 
   useEffect(() => {
     if (!sleepTimeDataOrigin) return;
-    setSleepTime && setSleepTime(sleepTimeDataOrigin);
-    setSleepTimeData && setSleepTimeData(sleepTimeDataOrigin);
+    setSleepTime?.(sleepTimeDataOrigin);
+    setSleepTimeData(sleepTimeDataOrigin);
   }, [sleepTimeDataOrigin, setSleepTime, setSleepTimeData]);
 
   useEffect(() => {
@@ -81,8 +85,7 @@ export default function useSleepTimeInit() {
       '/mypage/schedules/edit',
       '/mypage/schedules/everytime/edit',
     ];
-    if (locationsNotToReset.includes(location.pathname)) return;
+    if (locationsNotToReset.includes(pathname)) return;
     resetSleepTime();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resetSleepTime, location.pathname]);
+  }, [resetSleepTime, pathname]);
 }

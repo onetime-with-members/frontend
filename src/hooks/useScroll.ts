@@ -12,6 +12,8 @@ export default function useScroll() {
       }
     };
 
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll);
 
     return () => {

@@ -1,22 +1,23 @@
-import { useTranslation } from 'react-i18next';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useTranslations } from 'next-intl';
 
 import EverytimeIcon from '@/components/icon/EverytimeIcon';
+import { Link, useRouter } from '@/navigation';
 import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';
+import { usePathname } from 'next/navigation';
 
 interface EverytimeUIProps {
   className?: string;
 }
 
 export default function EverytimeUI({ className }: EverytimeUIProps) {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { t } = useTranslation();
+  const router = useRouter();
+  const pathname = usePathname();
+  const t = useTranslations('myScheduleEdit');
 
   function handleEditButtonClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
-    navigate(e.currentTarget.getAttribute('href') || '#');
+    router.push(e.currentTarget.getAttribute('href') || '#');
   }
 
   return (
@@ -28,10 +29,10 @@ export default function EverytimeUI({ className }: EverytimeUIProps) {
     >
       <div className="flex items-center gap-2.5">
         <EverytimeIcon size={20} />
-        <span className="text-md-300">{t('myScheduleEdit.everytime')}</span>
+        <span className="text-md-300">{t('everytime')}</span>
       </div>
       <Link
-        to={`/mypage/schedules/everytime/edit?from=${location.pathname}`}
+        href={`/mypage/schedules/everytime/edit?from=${pathname}`}
         onClick={handleEditButtonClick}
       >
         <IconPlus size={24} />

@@ -31,5 +31,5 @@ export default function useGrayBackground({
 
       window.removeEventListener('resize', updateBackgroundColor);
     };
-  }, []);
+  }, [breakpointCondition]);
 }

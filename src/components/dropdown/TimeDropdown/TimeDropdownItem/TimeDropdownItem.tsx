@@ -1,6 +1,6 @@
 import cn from '@/utils/cn';
 
-interface DropdownItemProps extends React.LiHTMLAttributes<HTMLLIElement> {}
+type DropdownItemProps = React.LiHTMLAttributes<HTMLLIElement>;
 
 export default function TimeDropdownItem({
   children,
