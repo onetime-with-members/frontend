@@ -12,10 +12,10 @@ import { useTargetOnBottomInScrollableElement } from './TimeBlockBoard.hooks';
 import TimeBlockPopUp from './TimeBlockPopUp/TimeBlockPopUp';
 import TopDateLabelGroup from './TopDateLabelGroup/TopDateLabelGroup';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
-import { EventType } from '@/types/event.type.ts';
-import { ScheduleType, TimeBlockPopUpDataType } from '@/types/schedule.type.ts';
-import cn from '@/utils/cn.ts';
-import { timeBlockList } from '@/utils/time-block.ts';
+import { EventType } from '@/types/event.type';
+import { ScheduleType, TimeBlockPopUpDataType } from '@/types/schedule.type';
+import cn from '@/utils/cn';
+import { timeBlockList } from '@/utils/time-block';
 
 interface TimeBlockBoardProps {
   event: EventType;
@@ -206,7 +206,7 @@ export default function TimeBlockBoard({
             })),
           })),
     );
-    setIsEdited && setIsEdited(true);
+    setIsEdited?.(true);
   }
 
   function handleReloadButtonClick() {
@@ -229,25 +229,23 @@ export default function TimeBlockBoard({
   }, [schedules, editable, event.start_time, event.end_time]);
 
   useEffect(() => {
-    const boradContent = boardContentRef.current;
+    const boardContent = boardContentRef.current;
     const topLabel = topLabelRef.current;
 
     function handleScroll() {
-      if (boradContent && topLabel) {
-        topLabel.scrollLeft = boardContentRef.current.scrollLeft;
+      if (boardContent && topLabel) {
+        topLabel.scrollLeft = boardContent.scrollLeft;
       }
     }
 
-    if (boradContent && topLabel) {
-      boradContent.addEventListener('scroll', handleScroll);
+    if (boardContent && topLabel) {
+      boardContent.addEventListener('scroll', handleScroll);
     }
 
     return () => {
-      if (boradContent && topLabel) {
-        boradContent.removeEventListener('scroll', handleScroll);
-      }
+      boardContent?.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [topLabelRef, boardContentRef]);
 
   return (
     <motion.div

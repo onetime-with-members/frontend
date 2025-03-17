@@ -1,7 +1,7 @@
 import { createContext, useRef } from 'react';
 
 interface ScrollContextType {
-  scrollContainerRef: React.RefObject<HTMLDivElement> | null;
+  scrollContainerRef: React.RefObject<HTMLDivElement | null> | null;
 }
 
 interface ScrollContextProviderProps {

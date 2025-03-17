@@ -7,7 +7,7 @@ import { EventType } from '@/types/event.type';
 import { TimeType } from '@/types/schedule.type';
 
 interface BoardContentProps {
-  boardContentRef: React.RefObject<HTMLDivElement>;
+  boardContentRef: React.RefObject<HTMLDivElement | null>;
   event: EventType;
   schedules: TimeBlockLineProps['schedules'];
   changeTimeBlockStatus: (

@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 import cn from '@/utils/cn';
 
@@ -13,7 +13,7 @@ export default function PossibleTimeToggle({
   onToggle,
   className,
 }: AvailableToggleProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('timeBlockBoard');
 
   return (
     <div className={cn('flex items-center gap-2', className)}>
@@ -36,9 +36,7 @@ export default function PossibleTimeToggle({
         ></div>
       </div>
       <span className="text-gray-60 text-md-200">
-        {isPossibleTime
-          ? t('timeBlockBoard.availableToggleText')
-          : t('timeBlockBoard.unavailableToggleText')}
+        {isPossibleTime ? t('availableToggleText') : t('unavailableToggleText')}
       </span>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import TimeDropdown from '@/components/dropdown/TimeDropdown/TimeDropdown';
@@ -10,7 +10,7 @@ interface TimeSectionProps {
 }
 
 export default function TimeSection({ value, setValue }: TimeSectionProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('eventForm');
 
   function handleSelectTime(key: keyof EventType) {
     return function (time: string) {
@@ -25,8 +25,8 @@ export default function TimeSection({ value, setValue }: TimeSectionProps) {
     <div className="flex flex-col gap-2 md:gap-4">
       <EventInputLabel
         labelId="time"
-        labelText={t('eventForm.timeRange')}
-        description={t('eventForm.selectTimeRange')}
+        labelText={t('timeRange')}
+        description={t('selectTimeRange')}
       />
       <div className="flex gap-4">
         <div className="flex items-center gap-4">

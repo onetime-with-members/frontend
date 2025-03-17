@@ -1,3 +1,5 @@
+import { createPortal } from 'react-dom';
+
 interface AlertProps {
   onConfirm: () => void;
   onCancel: () => void;
@@ -15,9 +17,9 @@ export default function Alert({
   cancelText,
   children,
 }: AlertProps) {
-  return (
+  return createPortal(
     <div
-      className="fixed left-0 top-0 z-[10000] flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
+      className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
       onClick={onClose}
     >
       <div
@@ -40,6 +42,7 @@ export default function Alert({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById('alert') as HTMLElement,
   );
 }

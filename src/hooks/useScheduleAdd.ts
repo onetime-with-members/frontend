@@ -1,6 +1,6 @@
+import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleDetailQuery } from '@/queries/schedule.queries';
@@ -11,6 +11,7 @@ import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { weekdaysShortKo } from '@/utils/weekday';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
 interface UseScheduleCreateProps {
   isNewGuest: boolean;
@@ -47,11 +48,11 @@ export default function useScheduleAdd({
   const sleepTimeData = useSleepTimeData();
   const sleepTimesList = useSleepTimesList();
 
-  const params = useParams<{ eventId: string }>();
+  const params = useParams<{ id: string }>();
 
-  const isLoggedIn = localStorage.getItem('access-token') !== null;
+  const isLoggedIn = !!getCookie('access-token');
 
-  const { data: event } = useEventQuery(params.eventId);
+  const { data: event } = useEventQuery(params.id);
   const { data: scheduleData } = useScheduleDetailQuery({
     event,
     guestId,

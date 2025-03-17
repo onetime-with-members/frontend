@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-
+import { Link } from '@/navigation';
 import cn from '@/utils/cn';
 
 interface MenuItemProps {
@@ -18,7 +17,7 @@ export default function MenuItem({
   return (
     <li onClick={onClick}>
       <Link
-        to={href}
+        href={href}
         className={cn('block px-4 py-2 text-center text-gray-60 text-md-200', {
           'text-danger-50': variant === 'danger',
         })}

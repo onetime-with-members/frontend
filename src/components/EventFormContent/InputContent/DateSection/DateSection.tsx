@@ -1,5 +1,5 @@
+import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import CalendarSelect from './CalendarSelect/CalendarSelect';
@@ -17,7 +17,7 @@ interface DateSectionProps {
 export default function DateSection({ value, setValue }: DateSectionProps) {
   const { pageMode } = useContext(PageModeContext);
 
-  const { t } = useTranslation();
+  const t = useTranslations('eventForm');
 
   function handleSelectChip(chip: 'DATE' | 'DAY') {
     setValue((prev) => ({
@@ -31,8 +31,8 @@ export default function DateSection({ value, setValue }: DateSectionProps) {
     <div className="flex flex-col gap-4">
       <EventInputLabel
         labelId="date-range"
-        labelText={t('eventForm.dateRange')}
-        description={t('eventForm.selectDateRange')}
+        labelText={t('dateRange')}
+        description={t('selectDateRange')}
       />
       <div
         className={cn('flex flex-col', {
@@ -46,13 +46,13 @@ export default function DateSection({ value, setValue }: DateSectionProps) {
               active={value.category === 'DATE'}
               onClick={() => handleSelectChip('DATE')}
             >
-              {t('eventForm.date')}
+              {t('date')}
             </Chip>
             <Chip
               active={value.category === 'DAY'}
               onClick={() => handleSelectChip('DAY')}
             >
-              {t('eventForm.weekday')}
+              {t('weekday')}
             </Chip>
           </div>
         )}

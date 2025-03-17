@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 import Checkbox from '../Checkbox/Checkbox';
 import { PolicyType } from '@/types/user.type';
@@ -9,7 +9,7 @@ interface CheckItemProps {
 }
 
 export default function AllCheckItem({ value, setValue }: CheckItemProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('policyEdit');
 
   function handleAllCheckboxClick() {
     const isNewAllChecked =
@@ -37,7 +37,7 @@ export default function AllCheckItem({ value, setValue }: CheckItemProps) {
           value.marketing_policy_agreement
         }
       />
-      <span className="text-gray-90 text-md-300">{t('policyEdit.all')}</span>
+      <span className="text-gray-90 text-md-300">{t('all')}</span>
     </div>
   );
 }

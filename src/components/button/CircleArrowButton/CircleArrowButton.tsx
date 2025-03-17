@@ -31,4 +31,6 @@ const CircleArrowButton = forwardRef<HTMLButtonElement, CircleArrowButtonProps>(
   },
 );
 
+CircleArrowButton.displayName = 'CircleArrowButton';
+
 export default CircleArrowButton;

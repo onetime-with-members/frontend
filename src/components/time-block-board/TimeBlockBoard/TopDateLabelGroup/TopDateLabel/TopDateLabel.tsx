@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useTranslation } from 'react-i18next';
+import { useLocale } from 'next-intl';
 
 import cn from '@/utils/cn';
 import { weekdaysShortKo } from '@/utils/weekday';
@@ -17,7 +17,7 @@ function TopDateLabel({
   className,
   style,
 }: TopDateLabelProps) {
-  const { i18n } = useTranslation();
+  const locale = useLocale();
 
   return (
     <div className={cn('text-center text-gray-30', className)} style={style}>
@@ -28,7 +28,7 @@ function TopDateLabel({
         </div>
       ) : (
         <span className="text-md-200">
-          {i18n.language === 'ko'
+          {locale === 'ko'
             ? timePoint
             : dayjs()
                 .day(

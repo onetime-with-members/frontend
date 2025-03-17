@@ -47,7 +47,8 @@ export default function TimeBlockLine({
   backgroundColor,
   isBoardContentDragging,
 }: TimeBlockLineProps) {
-  const timeList = timeBlockList(startTime, endTime);
+  const timeList: string[] = timeBlockList(startTime, endTime);
+
   const memberCount = schedules.length || 0;
 
   function handleTimeBlockClick(event: React.MouseEvent | React.TouchEvent) {

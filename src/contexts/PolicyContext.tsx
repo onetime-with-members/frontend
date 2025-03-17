@@ -1,3 +1,4 @@
+import { getCookie } from 'cookies-next';
 import { createContext, useEffect, useState } from 'react';
 
 import { PolicyType } from '@/types/user.type';
@@ -31,7 +32,7 @@ export default function PolicyContextProvider({
     marketing_policy_agreement: false,
   });
 
-  const isLoggedIn = localStorage.getItem('access-token') !== null;
+  const isLoggedIn = !!getCookie('access-token');
 
   const { data: policyData } = useQuery<PolicyType>({
     queryKey: ['users', 'policy'],

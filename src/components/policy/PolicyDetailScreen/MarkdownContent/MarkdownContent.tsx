@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useLocale } from 'next-intl';
 import ReactMarkdown from 'react-markdown';
 
 import privacyMarkdownEN from '@/markdowns/privacy-en';
@@ -12,18 +12,18 @@ interface MarkdownContentProps {
 }
 
 export default function MarkdownContent({ page }: MarkdownContentProps) {
-  const { i18n } = useTranslation();
+  const locale = useLocale();
 
   return (
-    <div className="markdown-body scrollbar-hidden flex-1 overflow-scroll px-4 md:rounded-2xl md:p-8">
+    <div className="markdown-body scrollbar-hidden flex-1 overflow-scroll bg-gray-00 px-4 md:rounded-2xl md:p-8">
       {page === 'service_policy_agreement' && (
         <ReactMarkdown>
-          {i18n.language === 'ko' ? serviceMarkdownKO : serviceMarkdownEN}
+          {locale === 'ko' ? serviceMarkdownKO : serviceMarkdownEN}
         </ReactMarkdown>
       )}
       {page === 'privacy_policy_agreement' && (
         <ReactMarkdown>
-          {i18n.language === 'ko' ? privacyMarkdownKO : privacyMarkdownEN}
+          {locale === 'ko' ? privacyMarkdownKO : privacyMarkdownEN}
         </ReactMarkdown>
       )}
     </div>

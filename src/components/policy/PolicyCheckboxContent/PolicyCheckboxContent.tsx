@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import { useTranslations } from 'next-intl';
 
 import AllCheckItem from './AllCheckItem/AllCheckItem';
 import CheckItem from './CheckItem/CheckItem';
@@ -15,7 +15,7 @@ export default function PolicyCheckboxContent({
   setValue,
   setPageDetail,
 }: PolicyCheckboxContentProps) {
-  const { t } = useTranslation();
+  const t = useTranslations('policyEdit');
 
   return (
     <div className="flex flex-col gap-6">
@@ -28,7 +28,7 @@ export default function PolicyCheckboxContent({
           setPageDetail={setPageDetail}
           hasPageDetail
         >
-          {t('policyEdit.termsOfService')}
+          {t('termsOfService')}
         </CheckItem>
         <CheckItem
           checkedKey="privacy_policy_agreement"
@@ -37,7 +37,7 @@ export default function PolicyCheckboxContent({
           setPageDetail={setPageDetail}
           hasPageDetail
         >
-          {t('policyEdit.privacyPolicy')}
+          {t('privacyPolicy')}
         </CheckItem>
         <CheckItem
           checkedKey="marketing_policy_agreement"
@@ -45,7 +45,7 @@ export default function PolicyCheckboxContent({
           setValue={setValue}
           setPageDetail={setPageDetail}
         >
-          {t('policyEdit.marketing')}
+          {t('marketing')}
         </CheckItem>
       </div>
     </div>
