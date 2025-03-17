@@ -105,5 +105,5 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
     dayjs.locale(newLocale);
   }, [user]);
 
-  return <>{children}</>;
+  return children;
 }
