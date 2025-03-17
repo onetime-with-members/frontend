@@ -9,7 +9,10 @@ export default function SettingList() {
   return (
     <div className="flex flex-col gap-12">
       <ul>
-        <SettingItem href="https://www.kusitms.com/" external>
+        <SettingItem
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfDuttkDxmZDZbHhawL5GSJOgOOelOTFFgoomRVWYHWlEP9Qg/viewform?usp=dialog"
+          external
+        >
           {t('report')}
         </SettingItem>
         <SettingItem href="/policy/service">{t('termsOfService')}</SettingItem>
