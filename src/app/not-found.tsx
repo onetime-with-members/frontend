@@ -96,5 +96,7 @@ export default async function NotFound() {
     payload: { original_url: originalUrl },
   } = originalUrlRes;
 
-  redirect(originalUrl);
+  const eventId = originalUrl.split('/').at(-1);
+
+  redirect(`/events/${eventId}`);
 }
