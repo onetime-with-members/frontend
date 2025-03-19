@@ -16,13 +16,11 @@ export default function useDefaultLocale() {
     )
       return;
 
-    setCookie(
-      'locale',
-      window.navigator.language.includes('ko') ? 'ko' : 'en',
-      {
-        expires: dayjs().add(1, 'year').toDate(),
-      },
-    );
+    const locale = window.navigator.language.includes('ko') ? 'ko' : 'en';
+    setCookie('locale', locale, {
+      expires: dayjs().add(1, 'year').toDate(),
+    });
+    dayjs.locale(locale);
     router.refresh();
   }, [router]);
 }
