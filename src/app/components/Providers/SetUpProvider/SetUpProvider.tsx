@@ -1,17 +1,17 @@
 'use client';
 
-import { getCookie, setCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
 import useMyScheduleStoreInit from '@/hooks/store/useMyScheduleStoreInit';
 import useSleepTimeInit from '@/hooks/store/useSleepTimeInit';
 import useWeekdayInit from '@/hooks/store/useWeekdayInit';
-import useDefaultLocale from '@/hooks/useDefaultLocale';
 import useLocalStorageClear from '@/hooks/useLocalStorageClear';
+import useLocalStorageSetUp from '@/hooks/useLocalStorageSetUp';
 import useShortURLRedirect from '@/hooks/useShortURLRedirect';
 import { useRouter } from '@/navigation';
-import { PolicyType, UserType } from '@/types/user.type';
+import { PolicyType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 import 'dayjs/locale/ko';
@@ -56,23 +56,15 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
   useMyScheduleStoreInit();
   useSleepTimeInit();
   useWeekdayInit();
+
   useLocalStorageClear();
-  useDefaultLocale();
+  useLocalStorageSetUp();
   useShortURLRedirect();
 
   const router = useRouter();
   const pathname = usePathname();
 
   const isLoggedIn = !!getCookie('access-token');
-
-  const { data: user } = useQuery<UserType>({
-    queryKey: ['users', 'profile'],
-    queryFn: async () => {
-      const res = await axios.get('/users/profile');
-      return res.data.payload;
-    },
-    enabled: isLoggedIn,
-  });
 
   const { data: policyData } = useQuery<PolicyType>({
     queryKey: ['users', 'policy'],
@@ -94,18 +86,6 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
       }
     }
   }, [pathname, policyData, isLoggedIn, router]);
-
-  useEffect(() => {
-    if (!user) return;
-    setCookie('last-login', user.social_platform, {
-      expires: dayjs().add(1, 'year').toDate(),
-    });
-    const newLocale = user.language === 'KOR' ? 'ko' : 'en';
-    setCookie('locale', newLocale, {
-      expires: dayjs().add(1, 'year').toDate(),
-    });
-    dayjs.locale(newLocale);
-  }, [user]);
 
   return children;
 }
