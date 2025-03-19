@@ -9,6 +9,7 @@ import useSleepTimeInit from '@/hooks/store/useSleepTimeInit';
 import useWeekdayInit from '@/hooks/store/useWeekdayInit';
 import useDefaultLocale from '@/hooks/useDefaultLocale';
 import useLocalStorageClear from '@/hooks/useLocalStorageClear';
+import useShortURLRedirect from '@/hooks/useShortURLRedirect';
 import { useRouter } from '@/navigation';
 import { PolicyType, UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
@@ -57,6 +58,7 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
   useWeekdayInit();
   useLocalStorageClear();
   useDefaultLocale();
+  useShortURLRedirect();
 
   const router = useRouter();
   const pathname = usePathname();
@@ -105,5 +107,5 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
     dayjs.locale(newLocale);
   }, [user]);
 
-  return <>{children}</>;
+  return children;
 }

@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 import Button from '@/components/button/Button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
@@ -29,12 +29,6 @@ export default function BottomButton({
   const t = useTranslations('MyScheduleEverytimeEditPage');
 
   const errorData = error?.response?.data as { code: string };
-
-  useEffect(() => {
-    if (errorData) {
-      console.log(errorData.code);
-    }
-  }, [errorData]);
 
   return (
     <AnimatePresence>
