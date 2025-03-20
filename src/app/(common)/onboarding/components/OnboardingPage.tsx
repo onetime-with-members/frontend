@@ -82,16 +82,18 @@ export default function OnboardingPage() {
   }
 
   useEffect(() => {
-    if (!searchParams.get('register_token') || !searchParams.get('name')) {
-      return router.push('/login');
-    }
-
     setValue((prevValue) => ({
       ...prevValue,
       nickname: searchParams.get('name') as string,
       register_token: searchParams.get('register_token') as string,
     }));
-  }, [router, searchParams]);
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (!searchParams.get('register_token') || !searchParams.get('name')) {
+      return router.push('/login');
+    }
+  }, [searchParams, router]);
 
   useEffect(() => {
     setFooterVisible(false);
