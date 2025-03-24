@@ -237,5 +237,9 @@
     "notFound": "Page Not Found",
     "title": "This page cannot be found",
     "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please make sure the address is correct."
+  },
+  "NetworkErrorScreen": {
+    "title": "Network Connection Error",
+    "description": "Please check your network connection and try again."
   }
 }
