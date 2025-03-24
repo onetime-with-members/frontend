@@ -18,9 +18,10 @@ export default function SideTabItem({
   return (
     <li
       className={cn(
-        'rounded-lg bg-gray-00 text-gray-40',
+        'rounded-lg bg-gray-00 text-gray-40 duration-150',
         {
           'bg-primary-00 text-primary-50': active,
+          'hover:bg-primary-00 active:bg-primary-00': !active,
         },
         className,
       )}
