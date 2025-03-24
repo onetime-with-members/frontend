@@ -16,7 +16,7 @@ export default function RecommendTime() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const params = useParams<{ id: string }>();
-  const t = useTranslations('eventDetail');
+  const t = useTranslations();
 
   const { data: event } = useEventQuery(params.id);
   const { data: recommendTimes } = useRecommendedTimesQuery(params.id);
@@ -53,7 +53,9 @@ export default function RecommendTime() {
               'text-gray-00': isAllMembersAvailable,
             })}
           >
-            {isAllMembersAvailable ? t('allAvailable') : t('mostAvailable')}
+            {isAllMembersAvailable
+              ? t('eventDetail.allAvailable')
+              : t('eventDetail.mostAvailable')}
           </span>
           <IconChevronRight
             size={24}
