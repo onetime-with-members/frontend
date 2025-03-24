@@ -32,11 +32,7 @@ export default function TopAppBarForMobile({
           </h2>
           {pageIndex === 1 && (
             <div className="flex items-center justify-end">
-              <SmallButton
-                variant={isSubmitting ? 'gray' : 'primary'}
-                onClick={onSubmit}
-                disabled={isSubmitting}
-              >
+              <SmallButton onClick={onSubmit} disabled={isSubmitting}>
                 {isSubmitting ? t('doing') : t('done')}
               </SmallButton>
             </div>
