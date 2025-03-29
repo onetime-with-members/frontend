@@ -1,58 +1,19 @@
-import { useEffect, useState } from 'react';
-
-import cn from '@/utils/cn';
-
-type DeviceOS = 'android' | 'iOS' | 'windows' | 'macOS' | 'etc';
+import { useLocale } from 'next-intl';
 
 export default function TopGraphic() {
-  const [deviceOS, setDeviceOS] = useState<DeviceOS | undefined>(undefined);
-
-  useEffect(() => {
-    let deviceOS: DeviceOS | undefined = undefined;
-
-    const userAgent = window.navigator.userAgent;
-    if (userAgent.match(/Android/i)) {
-      deviceOS = 'android';
-    } else if (userAgent.match(/iPhone|iPad|iPod/i)) {
-      deviceOS = 'iOS';
-    } else if (userAgent.match(/Windows/i)) {
-      deviceOS = 'windows';
-    } else if (userAgent.match(/Mac/i)) {
-      deviceOS = 'macOS';
-    } else {
-      deviceOS = 'etc';
-    }
-
-    setDeviceOS(deviceOS);
-  }, []);
+  const locale = useLocale();
 
   return (
     <div className="relative flex h-[calc(350px+2.5rem)] flex-col items-center justify-end overflow-x-hidden">
-      <div
-        className="h-[350px] w-[350px]"
-        style={{ clipPath: 'circle(50% at 50% 50%)' }}
-      >
-        {deviceOS !== undefined && (
-          <video
-            src="/videos/landing-phone-video.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="h-full w-full object-contain"
+      <div className="h-[350px] w-[350px]">
+        <video autoPlay loop muted playsInline className="h-full w-full">
+          <source
+            src={`/videos/landing-phone-video-${locale === 'ko' ? 'ko' : 'en'}.mov`}
+            type='video/mp4; codecs="hvc1"'
           />
-        )}
+        </video>
       </div>
-      <div
-        className={cn(
-          'absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full',
-          {
-            'bg-[#C8D0F9]': deviceOS === 'android' || deviceOS === 'iOS',
-            'bg-[#D0D6FB]': deviceOS === 'macOS',
-            'bg-[#C9D0FA]': deviceOS === 'windows' || deviceOS === 'etc',
-          },
-        )}
-      />
+      <div className="absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full bg-primary-10" />
     </div>
   );
 }
