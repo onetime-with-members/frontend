@@ -65,6 +65,7 @@ export default function ScheduleFormScreen({
         isEdited={isScheduleEdited}
         setIsEdited={setIsScheduleEdited}
         initialSchedule={initialSchedule}
+        isScheduleEmpty={isScheduleEmpty}
         isNewGuest={isNewGuest}
       />
       <BottomButtonForDesktop onClick={onSubmit} isSubmitting={isSubmitting} />

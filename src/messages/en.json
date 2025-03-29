@@ -18,7 +18,8 @@
   },
   "footer": {
     "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "feedbackIssue": "Issue & Feedback Report"
   },
   "EverytimeTopBanner": {
     "title": "New! Sync Your Schedule <br></br>from 'Everytime' with One Click!",
@@ -149,7 +150,8 @@
     "availableToggleText": "Available",
     "unavailableToggleText": "Unavailable",
     "reset": "Reset",
-    "reload": "Reload"
+    "reload": "Reload",
+    "clear": "Clear"
   },
   "userDashboard": {
     "more": "More",

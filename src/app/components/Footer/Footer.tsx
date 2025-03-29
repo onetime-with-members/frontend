@@ -14,7 +14,7 @@ export default function Footer() {
 
   const { setFooterRef, footerVisible } = useContext(FooterContext);
 
-  const t = useTranslations();
+  const t = useTranslations('footer');
 
   useEffect(() => {
     if (footerRef && footerRef.current) {
@@ -43,12 +43,12 @@ export default function Footer() {
                 <span>
                   <SpeakerPhoneIcon />
                 </span>
-                <span>버그 및 불편사항 제보</span>
+                <span>{t('feedbackIssue')}</span>
               </a>
               <div className="flex items-center gap-2 text-gray-40">
-                <Link href="/policy/privacy">{t('footer.privacyPolicy')}</Link>
+                <Link href="/policy/privacy">{t('privacyPolicy')}</Link>
                 <span>|</span>
-                <Link href="/policy/service">{t('footer.termsOfService')}</Link>
+                <Link href="/policy/service">{t('termsOfService')}</Link>
               </div>
             </div>
           </div>

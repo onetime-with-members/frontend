@@ -18,7 +18,8 @@
   },
   "footer": {
     "termsOfService": "서비스 이용약관",
-    "privacyPolicy": "개인정보처리방침"
+    "privacyPolicy": "개인정보처리방침",
+    "feedbackIssue": "버그 및 불편사항 제보"
   },
   "EverytimeTopBanner": {
     "title": "개강 필수 에브리타임 연동기능 출시! <br></br>시간표, 한 번에 가져오세요!",
@@ -148,8 +149,9 @@
   "timeBlockBoard": {
     "availableToggleText": "되는 시간 체크",
     "unavailableToggleText": "안되는 시간 체크",
-    "reset": "초기화",
-    "reload": "불러오기"
+    "reset": "되돌리기",
+    "reload": "불러오기",
+    "clear": "전체 삭제"
   },
   "userDashboard": {
     "more": "더 보기",
