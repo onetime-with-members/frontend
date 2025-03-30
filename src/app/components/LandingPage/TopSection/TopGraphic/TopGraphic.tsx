@@ -11,6 +11,10 @@ export default function TopGraphic() {
             src={`/videos/landing-phone-video-${locale === 'ko' ? 'ko' : 'en'}.mov`}
             type='video/mp4; codecs="hvc1"'
           />
+          <source
+            src={`/videos/landing-phone-video-${locale === 'ko' ? 'ko' : 'en'}.webm`}
+            type="video/webm"
+          />
         </video>
       </div>
       <div className="absolute bottom-0 left-1/2 -z-10 h-[825px] w-[825px] -translate-x-1/2 rounded-full bg-primary-10" />
