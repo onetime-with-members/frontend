@@ -3,9 +3,12 @@ import { useLocale, useTranslations } from 'next-intl';
 import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
+import BarBanner from '@/components/BarBanner/BarBanner';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import { useScheduleQuery } from '@/queries/schedule.queries';
+import { useBarBanner } from '@/stores/bar-banner';
 import { EventType } from '@/types/event.type';
+import cn from '@/utils/cn';
 import Image from 'next/image';
 
 interface TopToolbarProps {
@@ -19,6 +22,8 @@ export default function TopToolbar({
   setIsDeleteAlertOpen,
   handleShareButtonClick,
 }: TopToolbarProps) {
+  const isBarBannerShown = useBarBanner();
+
   const { handleKakaoShare } = useKakaoShare({
     event,
   });
@@ -29,7 +34,11 @@ export default function TopToolbar({
   const locale = useLocale();
 
   return (
-    <header className="flex h-[59px] w-full justify-center md:h-[72px]">
+    <header
+      className={cn('flex h-[59px] w-full justify-center md:h-[72px]', {
+        'h-[115px] md:h-[128px]': isBarBannerShown,
+      })}
+    >
       <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
         <div className="bg-gray-80 px-6 py-4 md:rounded-t-3xl">
           <div className="flex items-center justify-between md:h-10">
@@ -86,6 +95,10 @@ export default function TopToolbar({
             )}
           </div>
         </div>
+        <BarBanner
+          className="h-[56px]"
+          innnerClassName="fixed max-w-[calc(768px+2rem)] w-full z-40"
+        />
       </div>
     </header>
   );

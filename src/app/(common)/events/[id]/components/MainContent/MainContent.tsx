@@ -3,7 +3,9 @@ import RightContentsForDesktop from './RightContentsForDesktop/RightContentsForD
 import EverytimeTopBanner from '@/components/everytime/EverytimeTopBanner/EverytimeTopBanner';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
 import { useScheduleQuery } from '@/queries/schedule.queries';
+import { useBarBanner } from '@/stores/bar-banner';
 import { EventType } from '@/types/event.type';
+import cn from '@/utils/cn';
 
 interface MainContentProps {
   event: EventType | undefined;
@@ -14,6 +16,8 @@ export default function MainContent({
   event,
   isEventPending,
 }: MainContentProps) {
+  const isBarBannerShown = useBarBanner();
+
   const { isLoading: isScheduleLoading, data: schedules } =
     useScheduleQuery(event);
 
@@ -34,7 +38,9 @@ export default function MainContent({
             event={event}
             schedules={schedules}
             backgroundColor="white"
-            topContentClassName="top-[123px] bg-gray-05 md:top-[136px]"
+            topContentClassName={cn('top-[123px] bg-gray-05 md:top-[136px]', {
+              'top-[179px] md:top-[192px]': isBarBannerShown,
+            })}
           />
         </div>
         <RightContentsForDesktop />
