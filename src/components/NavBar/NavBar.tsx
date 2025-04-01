@@ -95,6 +95,7 @@ export default function NavBar({
               width={148}
               height={32}
               className="h-[2rem]"
+              priority
             />
           </Link>
           {isMounted && !isAuthHidden && (
