@@ -1,16 +1,14 @@
 'use client';
 
-import { getCookie, setCookie } from 'cookies-next';
-import dayjs from 'dayjs';
 import { useLocale } from 'next-intl';
-import { useEffect } from 'react';
 
-import { useBarBanner, useBarBannerActions } from '@/stores/bar-banner';
-import { Banner } from '@/types/banner.type';
-import axios from '@/utils/axios';
+import {
+  useBarBanner,
+  useBarBannerActions,
+  useBarBannerShown,
+} from '@/stores/bar-banner';
 import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 
 export default function BarBanner({
@@ -20,38 +18,13 @@ export default function BarBanner({
   className?: string;
   innnerClassName?: string;
 }) {
-  const isShown = useBarBanner();
-  const { hideBarBanner } = useBarBannerActions();
-
-  const isBarBannerHidden = getCookie('bar-banner');
-
-  const { data, isError } = useQuery<Banner>({
-    queryKey: ['banners', 'activated'],
-    queryFn: async () => {
-      const res = await axios.get('/banners/activated');
-      return res.data.payload;
-    },
-    retry: false,
-    enabled: isShown && !isBarBannerHidden,
-  });
+  const barBanner = useBarBanner();
+  const isShown = useBarBannerShown();
+  const { closeBarBanner } = useBarBannerActions();
 
   const locale = useLocale();
 
-  function handleClose() {
-    setCookie('bar-banner', 'false', {
-      expires: dayjs().add(1, 'day').hour(0).minute(0).second(0).toDate(),
-    });
-    hideBarBanner();
-  }
-
-  useEffect(() => {
-    if (isError || isBarBannerHidden) {
-      hideBarBanner();
-    }
-  }, [isError, isBarBannerHidden, hideBarBanner]);
-
   return (
-    data &&
     isShown && (
       <div className={className}>
         <div
@@ -60,7 +33,7 @@ export default function BarBanner({
             innnerClassName,
           )}
           style={{
-            backgroundColor: data.background_color_code,
+            backgroundColor: barBanner.background_color_code,
           }}
         >
           <div className="flex items-center gap-2 overflow-hidden">
@@ -73,16 +46,16 @@ export default function BarBanner({
             <span
               className="overflow-hidden text-ellipsis whitespace-nowrap text-md-300"
               style={{
-                color: data.text_color_code,
+                color: barBanner.text_color_code,
               }}
             >
-              {locale === 'ko' ? data.content_kor : data.content_eng}
+              {locale === 'ko' ? barBanner.content_kor : barBanner.content_eng}
             </span>
           </div>
           <button
-            onClick={handleClose}
+            onClick={closeBarBanner}
             style={{
-              color: data.text_color_code,
+              color: barBanner.text_color_code,
             }}
           >
             <IconX size={20} />
