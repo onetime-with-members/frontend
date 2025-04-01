@@ -34,7 +34,7 @@ export default function NetworkErrorScreen() {
   return (
     isOffline && (
       <div className="fixed left-0 right-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center bg-gray-00 px-4">
-        <NavBar variant="black" />
+        <NavBar variant="black" disabled />
         <main className="flex -translate-y-6 flex-col items-center">
           <div>
             <Image

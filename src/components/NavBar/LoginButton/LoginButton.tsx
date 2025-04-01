@@ -1,9 +1,10 @@
 import { useTranslations } from 'next-intl';
 
 import { Link, useRouter } from '@/navigation';
+import cn from '@/utils/cn';
 import { usePathname } from 'next/navigation';
 
-export default function LoginButton() {
+export default function LoginButton({ disabled }: { disabled?: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
   const t = useTranslations('navbar');
@@ -16,7 +17,9 @@ export default function LoginButton() {
   return (
     <Link
       href="/login"
-      className="flex items-center text-lg-200"
+      className={cn('flex items-center text-lg-200', {
+        'pointer-events-none': disabled,
+      })}
       onClick={handleLoginClick}
     >
       {t('login')}
