@@ -3,7 +3,6 @@ import Image from 'next/image';
 export default function PreloadImages() {
   return (
     <div className="hidden">
-      <Image src="/images/logo.svg" alt="" width={1} height={1} priority />
       <Image
         src="/images/logo-white.svg"
         alt=""

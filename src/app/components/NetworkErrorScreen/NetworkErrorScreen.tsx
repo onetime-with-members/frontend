@@ -42,7 +42,6 @@ export default function NetworkErrorScreen() {
               alt="The clock included exclamation mark"
               width={168}
               height={158}
-              priority
             />
           </div>
           <h1 className="mt-8 text-center text-gray-80 title-sm-300">
