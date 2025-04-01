@@ -56,7 +56,6 @@ export default async function RootLayout({
     <html lang={locale}>
       <head>
         <Favicon />
-        <PreloadImages />
       </head>
       <body cz-shortcut-listen="true" className="font-pretendard">
         <Providers>
@@ -67,6 +66,7 @@ export default async function RootLayout({
           <Toast />
           <NetworkErrorScreen />
         </Providers>
+        <PreloadImages />
         <NoScripts />
       </body>
       <Scripts />
