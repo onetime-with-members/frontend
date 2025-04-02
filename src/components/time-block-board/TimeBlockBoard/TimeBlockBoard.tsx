@@ -4,6 +4,7 @@ import { isMobile } from 'react-device-detect';
 
 import BoardContent from './BoardContent/BoardContent';
 import CircleArrowButtonForBoard from './CircleArrowButtonForBoard/CircleArrowButtonForBoard';
+import ClearButton from './ClearButton/ClearButton';
 import LeftTimeLine from './LeftTimeLine/LeftTimeLine';
 import PossibleTimeToggle from './PossibleTimeToggle/PossibleTimeToggle';
 import ReloadButton from './ReloadButton/ReloadButton';
@@ -30,7 +31,7 @@ interface TimeBlockBoardProps {
   isEdited?: boolean;
   setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
   initialSchedule?: ScheduleType[];
-  isSchedulePending?: boolean;
+  isScheduleEmpty?: boolean;
   isNewGuest?: boolean;
 }
 
@@ -47,6 +48,7 @@ export default function TimeBlockBoard({
   isEdited,
   setIsEdited,
   initialSchedule,
+  isScheduleEmpty,
   isNewGuest,
 }: TimeBlockBoardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -187,7 +189,7 @@ export default function TimeBlockBoard({
     }
   }
 
-  function handleResetButtonClick() {
+  function handleClearButtonClick() {
     if (!editable || !setSchedules) return;
     setSchedules(
       isPossibleTime
@@ -213,6 +215,10 @@ export default function TimeBlockBoard({
     if (!editable || !setSchedules || !initialSchedule || !setIsEdited) return;
     setSchedules(initialSchedule);
     setIsEdited(false);
+  }
+
+  function handleResetButtonClick() {
+    handleReloadButtonClick();
   }
 
   useEffect(() => {
@@ -274,13 +280,17 @@ export default function TimeBlockBoard({
               onToggle={handleAvailableToggle}
             />
             {((isEmpty && isPossibleTime) || (isFull && !isPossibleTime)) &&
-            initialSchedule &&
-            initialSchedule[0].schedules.length > 0 &&
             isEdited &&
-            !isNewGuest ? (
-              <ReloadButton onClick={handleReloadButtonClick} />
+            !isNewGuest &&
+            initialSchedule &&
+            initialSchedule[0].schedules.length > 0 ? (
+              isScheduleEmpty ? (
+                <ReloadButton onClick={handleReloadButtonClick} />
+              ) : (
+                <ResetButton onClick={handleResetButtonClick} />
+              )
             ) : (
-              <ResetButton onClick={handleResetButtonClick} />
+              <ClearButton onClick={handleClearButtonClick} />
             )}
           </div>
         )}

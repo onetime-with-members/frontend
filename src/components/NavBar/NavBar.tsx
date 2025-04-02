@@ -80,9 +80,9 @@ export default function NavBar({
       >
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
           <Link
-            href={disabled ? '#' : '/'}
+            href="/"
             className={cn({
-              'cursor-default': disabled,
+              'pointer-events-none cursor-default': disabled,
             })}
           >
             <Image
@@ -95,6 +95,7 @@ export default function NavBar({
               width={148}
               height={32}
               className="h-[2rem]"
+              priority
             />
           </Link>
           {isMounted && !isAuthHidden && (
@@ -102,7 +103,7 @@ export default function NavBar({
               {user ? (
                 <AvatarDropdown name={user.nickname} disabled={disabled} />
               ) : (
-                !isLoading && !user && <LoginButton />
+                !isLoading && !user && <LoginButton disabled={disabled} />
               )}
             </>
           )}

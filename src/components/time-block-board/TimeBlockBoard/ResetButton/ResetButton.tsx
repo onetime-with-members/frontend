@@ -3,9 +3,9 @@ import { useTranslations } from 'next-intl';
 import RefreshIcon from '@/components/icon/RefreshIcon';
 import cn from '@/utils/cn';
 
-type ResetButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
+type UndoButtonProps = React.HTMLAttributes<HTMLButtonElement>;
 
-export default function ResetButton({ className, ...props }: ResetButtonProps) {
+export default function ResetButton({ className, ...props }: UndoButtonProps) {
   const t = useTranslations('timeBlockBoard');
 
   return (

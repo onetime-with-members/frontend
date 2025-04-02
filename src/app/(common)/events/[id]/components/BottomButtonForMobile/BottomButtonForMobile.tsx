@@ -41,7 +41,7 @@ export default function BottomButtonForMobile({
       <SpeechBalloon.Container>
         <SpeechBalloon.Wrapper>
           <button
-            className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-gray-80"
+            className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-gray-80 duration-150 hover:bg-gray-90 active:bg-gray-90"
             onClick={handleShareButtonClick}
           >
             <Image

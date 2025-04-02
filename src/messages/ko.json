@@ -18,11 +18,8 @@
   },
   "footer": {
     "termsOfService": "서비스 이용약관",
-    "privacyPolicy": "개인정보처리방침"
-  },
-  "EverytimeTopBanner": {
-    "title": "개강 필수 에브리타임 연동기능 출시! <br></br>시간표, 한 번에 가져오세요!",
-    "description": "에브리타임 URL로 시간표 자동 등록! 이벤트 참여하고 간식까지 GET!"
+    "privacyPolicy": "개인정보처리방침",
+    "feedbackIssue": "버그 및 불편사항 제보"
   },
   "login": {
     "login": "로그인",
@@ -148,8 +145,9 @@
   "timeBlockBoard": {
     "availableToggleText": "되는 시간 체크",
     "unavailableToggleText": "안되는 시간 체크",
-    "reset": "초기화",
-    "reload": "불러오기"
+    "reset": "되돌리기",
+    "reload": "불러오기",
+    "clear": "전체 삭제"
   },
   "userDashboard": {
     "more": "더 보기",
@@ -237,5 +235,9 @@
     "notFound": "페이지를 찾을 수 없습니다",
     "title": "요청하신 페이지를 찾을 수 없어요",
     "description": "찾으시려는 페이지의 주소가 잘못되었거나 <br></br>주소 변경, 삭제로 이용하실 수 없어요. <br></br>주소가 올바르게 입력되었는지 확인해주세요."
+  },
+  "NetworkErrorScreen": {
+    "title": "네트워크에 접속할 수 없어요",
+    "description": "네트워크 연결 상태를 확인해 주세요"
   }
 }

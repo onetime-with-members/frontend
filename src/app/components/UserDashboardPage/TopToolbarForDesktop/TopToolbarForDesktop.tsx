@@ -41,7 +41,7 @@ export default function TopToolbarForDesktop() {
             </h1>
             <Link
               href="/events/new"
-              className="hidden rounded-xl bg-primary-50 px-4 py-2 text-gray-00 text-md-200 md:flex"
+              className="hidden rounded-xl bg-primary-50 px-4 py-2 text-gray-00 duration-150 text-md-200 hover:bg-primary-60 active:bg-primary-60 md:flex"
             >
               {t('createEvent')}
             </Link>
