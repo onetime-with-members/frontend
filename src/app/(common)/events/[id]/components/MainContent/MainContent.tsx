@@ -3,7 +3,7 @@ import RightContentsForDesktop from './RightContentsForDesktop/RightContentsForD
 import EverytimeTopBanner from '@/components/everytime/EverytimeTopBanner/EverytimeTopBanner';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
 import { useScheduleQuery } from '@/queries/schedule.queries';
-import { useBarBannerShown } from '@/stores/bar-banner';
+import useBarBannerStore from '@/stores/bar-banner';
 import { EventType } from '@/types/event.type';
 import cn from '@/utils/cn';
 
@@ -16,7 +16,7 @@ export default function MainContent({
   event,
   isEventPending,
 }: MainContentProps) {
-  const isBarBannerShown = useBarBannerShown();
+  const isBarBannerShown = useBarBannerStore((state) => state.isShown);
 
   const { isLoading: isScheduleLoading, data: schedules } =
     useScheduleQuery(event);

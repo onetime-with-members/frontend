@@ -1,10 +1,10 @@
-import { useBarBannerShown } from '@/stores/bar-banner';
+import useBarBannerStore from '@/stores/bar-banner';
 import cn from '@/utils/cn';
 
 type HeaderProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 export default function Header({ children, className, ...props }: HeaderProps) {
-  const isBarBannerShown = useBarBannerShown();
+  const isBarBannerShown = useBarBannerStore((state) => state.isShown);
 
   return (
     <h2

@@ -51,8 +51,4 @@ const useBarBannerStore = create<BarBannerStore>((set, get) => ({
   },
 }));
 
-export const useBarBanner = () => useBarBannerStore((state) => state.barBanner);
-export const useBarBannerShown = () =>
-  useBarBannerStore((state) => state.isShown);
-export const useBarBannerActions = () =>
-  useBarBannerStore((state) => state.actions);
+export default useBarBannerStore;

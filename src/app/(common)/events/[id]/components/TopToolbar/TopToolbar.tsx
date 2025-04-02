@@ -6,7 +6,7 @@ import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
 import BarBanner from '@/components/BarBanner/BarBanner';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import { useScheduleQuery } from '@/queries/schedule.queries';
-import { useBarBannerShown } from '@/stores/bar-banner';
+import useBarBannerStore from '@/stores/bar-banner';
 import { EventType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import Image from 'next/image';
@@ -22,7 +22,7 @@ export default function TopToolbar({
   setIsDeleteAlertOpen,
   handleShareButtonClick,
 }: TopToolbarProps) {
-  const isBarBannerShown = useBarBannerShown();
+  const isBarBannerShown = useBarBannerStore((state) => state.isShown);
 
   const { handleKakaoShare } = useKakaoShare({
     event,

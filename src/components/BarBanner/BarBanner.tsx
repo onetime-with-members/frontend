@@ -2,11 +2,7 @@
 
 import { useLocale } from 'next-intl';
 
-import {
-  useBarBanner,
-  useBarBannerActions,
-  useBarBannerShown,
-} from '@/stores/bar-banner';
+import useBarBannerStore from '@/stores/bar-banner';
 import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
 import Image from 'next/image';
@@ -18,9 +14,9 @@ export default function BarBanner({
   className?: string;
   innnerClassName?: string;
 }) {
-  const barBanner = useBarBanner();
-  const isShown = useBarBannerShown();
-  const { closeBarBanner } = useBarBannerActions();
+  const barBanner = useBarBannerStore((state) => state.barBanner);
+  const isShown = useBarBannerStore((state) => state.isShown);
+  const { closeBarBanner } = useBarBannerStore((state) => state.actions);
 
   const locale = useLocale();
 

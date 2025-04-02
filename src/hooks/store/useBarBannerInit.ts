@@ -1,13 +1,15 @@
 import { getCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
-import { useBarBannerActions } from '@/stores/bar-banner';
+import useBarBannerStore from '@/stores/bar-banner';
 import { Banner } from '@/types/banner.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function useBarBannerInit() {
-  const { showBarBanner, hideBarBanner, setBarBanner } = useBarBannerActions();
+  const { showBarBanner, hideBarBanner, setBarBanner } = useBarBannerStore(
+    (state) => state.actions,
+  );
 
   const isBarBannerHidden = getCookie('bar-banner');
 

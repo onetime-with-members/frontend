@@ -4,14 +4,14 @@ import Header from '../Header/Header';
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
 import EverytimeUI from '@/components/everytime/EverytimeUI/EverytimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
-import { useBarBannerShown } from '@/stores/bar-banner';
+import useBarBannerStore from '@/stores/bar-banner';
 import { MyScheduleTimeType } from '@/types/schedule.type';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleSection() {
-  const isBarBannerShown = useBarBannerShown();
+  const isBarBannerShown = useBarBannerStore((state) => state.isShown);
 
   const t = useTranslations('userDashboard');
 
