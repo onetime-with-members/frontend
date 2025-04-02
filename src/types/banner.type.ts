@@ -6,4 +6,5 @@ export interface Banner {
   text_color_code: string;
   is_activated: boolean;
   created_date: string;
+  link_url: string;
 }

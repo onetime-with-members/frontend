@@ -2,6 +2,7 @@
 
 import { useLocale } from 'next-intl';
 
+import { useRouter } from '@/navigation';
 import useBarBannerStore from '@/stores/bar-banner';
 import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
@@ -18,11 +19,31 @@ export default function BarBanner({
   const isShown = useBarBannerStore((state) => state.isShown);
   const { closeBarBanner } = useBarBannerStore((state) => state.actions);
 
+  const router = useRouter();
+
   const locale = useLocale();
+
+  function handleClick() {
+    if (barBanner.link_url) {
+      if (barBanner.link_url.startsWith('/')) {
+        router.push(barBanner.link_url);
+      } else {
+        window.open(barBanner.link_url, '_blank', 'noopener noreferrer');
+      }
+    }
+  }
 
   return (
     isShown && (
-      <div className={className}>
+      <div
+        className={cn(
+          {
+            'cursor-pointer': barBanner.link_url,
+          },
+          className,
+        )}
+        onClick={handleClick}
+      >
         <div
           className={cn(
             'flex items-center justify-between p-4',
@@ -49,7 +70,10 @@ export default function BarBanner({
             </span>
           </div>
           <button
-            onClick={closeBarBanner}
+            onClick={(e) => {
+              e.stopPropagation();
+              closeBarBanner();
+            }}
             style={{
               color: barBanner.text_color_code,
             }}

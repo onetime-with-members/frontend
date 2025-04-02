@@ -25,6 +25,7 @@ const useBarBannerStore = create<BarBannerStore>((set, get) => ({
     text_color_code: '',
     is_activated: false,
     created_date: '',
+    link_url: '',
   },
   actions: {
     showBarBanner: () => {
