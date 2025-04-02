@@ -5,6 +5,7 @@ import { useContext, useEffect, useRef } from 'react';
 
 import LogoContent from './LogoContent/LogoContent';
 import LanguageDropdown from '@/components/dropdown/LanguageDropdown/LanguageDropdown';
+import SpeakerPhoneIcon from '@/components/icon/SpeakerPhoneIcon';
 import { FooterContext } from '@/contexts/FooterContext';
 import { Link } from '@/navigation';
 
@@ -13,7 +14,7 @@ export default function Footer() {
 
   const { setFooterRef, footerVisible } = useContext(FooterContext);
 
-  const t = useTranslations();
+  const t = useTranslations('footer');
 
   useEffect(() => {
     if (footerRef && footerRef.current) {
@@ -32,10 +33,23 @@ export default function Footer() {
                 ©OneTime. ALL RIGHTS RESERVED
               </p>
             </div>
-            <div className="flex items-center gap-2 text-gray-40">
-              <Link href="/policy/privacy">{t('footer.privacyPolicy')}</Link>
-              <span>|</span>
-              <Link href="/policy/service">{t('footer.termsOfService')}</Link>
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfDuttkDxmZDZbHhawL5GSJOgOOelOTFFgoomRVWYHWlEP9Qg/viewform?usp=dialog"
+                className="flex items-center gap-1 text-gray-00 text-sm-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>
+                  <SpeakerPhoneIcon />
+                </span>
+                <span>{t('feedbackIssue')}</span>
+              </a>
+              <div className="flex items-center gap-2 text-gray-40">
+                <Link href="/policy/privacy">{t('privacyPolicy')}</Link>
+                <span>|</span>
+                <Link href="/policy/service">{t('termsOfService')}</Link>
+              </div>
             </div>
           </div>
           <LanguageDropdown variant="dark" menuPosition="top" />

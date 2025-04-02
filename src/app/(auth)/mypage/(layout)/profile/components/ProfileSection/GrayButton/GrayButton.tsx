@@ -10,7 +10,7 @@ export default function GrayButton({
   return (
     <button
       className={cn(
-        'w-full rounded-lg bg-gray-05 px-3 py-2 text-gray-60 text-sm-200',
+        'w-full rounded-lg bg-gray-05 px-3 py-2 text-gray-60 duration-150 text-sm-200 hover:bg-gray-10 active:bg-gray-10',
         className,
       )}
       {...rest}

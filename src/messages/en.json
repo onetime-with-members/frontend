@@ -18,11 +18,8 @@
   },
   "footer": {
     "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy"
-  },
-  "EverytimeTopBanner": {
-    "title": "New! Sync Your Schedule <br></br>from 'Everytime' with One Click!",
-    "description": "Auto-Register via Everytime URL! Join the Event & Enjoy Free Snacks!"
+    "privacyPolicy": "Privacy Policy",
+    "feedbackIssue": "Issue & Feedback Report"
   },
   "login": {
     "login": "Login",
@@ -149,7 +146,8 @@
     "availableToggleText": "Available",
     "unavailableToggleText": "Unavailable",
     "reset": "Reset",
-    "reload": "Reload"
+    "reload": "Reload",
+    "clear": "Clear"
   },
   "userDashboard": {
     "more": "More",
@@ -237,5 +235,9 @@
     "notFound": "Page Not Found",
     "title": "This page cannot be found",
     "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please make sure the address is correct."
+  },
+  "NetworkErrorScreen": {
+    "title": "Network Connection Error",
+    "description": "Please check your network connection and try again."
   }
 }

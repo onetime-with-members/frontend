@@ -2,7 +2,9 @@ import type { Metadata } from 'next';
 
 import Favicon from './components/Favicon/Favicon';
 import Footer from './components/Footer/Footer';
+import NetworkErrorScreen from './components/NetworkErrorScreen/NetworkErrorScreen';
 import NoScripts from './components/NoScripts/NoScripts';
+import PreloadImages from './components/PreloadImages/PreloadImages';
 import ProgressBar from './components/ProgressBar/ProgressBar';
 import Providers from './components/Providers/Providers';
 import Scripts from './components/Scripts/Scripts';
@@ -62,7 +64,9 @@ export default async function RootLayout({
           <Footer />
           <div id="alert" />
           <Toast />
+          <NetworkErrorScreen />
         </Providers>
+        <PreloadImages />
         <NoScripts />
       </body>
       <Scripts />

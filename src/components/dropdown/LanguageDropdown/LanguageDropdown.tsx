@@ -61,9 +61,10 @@ export default function LanguageDropdown({
     <div ref={dropdownRef} className="relative">
       <button
         className={cn(
-          'flex items-center gap-1 rounded-lg bg-gray-10 px-3 py-2 text-gray-60 text-sm-200',
+          'flex items-center gap-1 rounded-lg bg-gray-10 px-3 py-2 text-gray-60 duration-150 text-sm-200 hover:bg-gray-15 active:bg-gray-15',
           {
-            'bg-gray-70 text-gray-00': variant === 'dark',
+            'bg-gray-70 text-gray-00 hover:bg-[#3f4352] active:bg-[#3f4352]':
+              variant === 'dark',
             'bg-primary-40 text-gray-00': isDropdownMenuOpen,
           },
         )}

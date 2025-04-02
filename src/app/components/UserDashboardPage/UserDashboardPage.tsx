@@ -5,7 +5,7 @@ import MyEventSection from './MyEventSection/MyEventSection';
 import MyScheduleSection from './MyScheduleSection/MyScheduleSection';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbarForDesktop from './TopToolbarForDesktop/TopToolbarForDesktop';
-import EverytimeTopBanner from '@/components/everytime/EverytimeTopBanner/EverytimeTopBanner';
+import BarBanner from '@/components/BarBanner/BarBanner';
 
 export default function UserDashboardPage() {
   return (
@@ -13,12 +13,13 @@ export default function UserDashboardPage() {
       <TopNavBar />
       <main className="mx-auto w-full max-w-[calc(768px+2rem)]">
         <TopToolbarForDesktop />
-        <div className="flex flex-col gap-6 bg-gray-05 px-4 pb-20 pt-6 md:px-6">
-          <EverytimeTopBanner />
-          <div className="flex flex-col gap-14">
-            <MyEventSection />
-            <MyScheduleSection />
-          </div>
+        <BarBanner
+          className="h-[56px]"
+          innnerClassName="fixed max-w-[calc(768px+2rem)] w-full z-30"
+        />
+        <div className="flex flex-col gap-14 bg-gray-05 px-4 pb-20 pt-6 md:px-6">
+          <MyEventSection />
+          <MyScheduleSection />
         </div>
         <BottomButtonForMobile />
       </main>

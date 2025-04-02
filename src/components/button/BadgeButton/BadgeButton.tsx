@@ -14,10 +14,11 @@ export default function BadgeButton({
   return (
     <button
       className={cn(
-        'flex items-center gap-1 rounded-full px-6 py-3 text-gray-00 shadow-[0_0_30px_0_rgba(0,0,0,0.15)] text-md-200',
+        'flex items-center gap-1 rounded-full px-6 py-3 text-gray-00 shadow-[0_0_30px_0_rgba(0,0,0,0.15)] duration-150 text-md-200',
         {
-          'bg-primary-50': variant === 'primary',
-          'bg-gray-80': variant === 'black',
+          'bg-primary-50 hover:bg-primary-60 active:bg-primary-60':
+            variant === 'primary',
+          'bg-gray-80 hover:bg-gray-90 active:bg-gray-90': variant === 'black',
         },
       )}
       {...rest}
