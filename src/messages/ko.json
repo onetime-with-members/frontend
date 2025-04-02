@@ -21,10 +21,6 @@
     "privacyPolicy": "개인정보처리방침",
     "feedbackIssue": "버그 및 불편사항 제보"
   },
-  "EverytimeTopBanner": {
-    "title": "개강 필수 에브리타임 연동기능 출시! <br></br>시간표, 한 번에 가져오세요!",
-    "description": "에브리타임 URL로 시간표 자동 등록! 이벤트 참여하고 간식까지 GET!"
-  },
   "login": {
     "login": "로그인",
     "logoTitle": "일정을 쉽고 빠르게,",

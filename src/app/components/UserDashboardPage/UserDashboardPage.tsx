@@ -6,7 +6,6 @@ import MyScheduleSection from './MyScheduleSection/MyScheduleSection';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbarForDesktop from './TopToolbarForDesktop/TopToolbarForDesktop';
 import BarBanner from '@/components/BarBanner/BarBanner';
-import EverytimeTopBanner from '@/components/everytime/EverytimeTopBanner/EverytimeTopBanner';
 
 export default function UserDashboardPage() {
   return (
@@ -18,12 +17,9 @@ export default function UserDashboardPage() {
           className="h-[56px]"
           innnerClassName="fixed max-w-[calc(768px+2rem)] w-full z-40"
         />
-        <div className="flex flex-col gap-6 bg-gray-05 px-4 pb-20 pt-6 md:px-6">
-          <EverytimeTopBanner />
-          <div className="flex flex-col gap-14">
-            <MyEventSection />
-            <MyScheduleSection />
-          </div>
+        <div className="flex flex-col gap-14 bg-gray-05 px-4 pb-20 pt-6 md:px-6">
+          <MyEventSection />
+          <MyScheduleSection />
         </div>
         <BottomButtonForMobile />
       </main>

@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import Header from '../Header/Header';
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
-import EverytimeUI from '@/components/everytime/EverytimeUI/EverytimeUI';
+import EverytimeUI from '@/components/EverytimeUI/EverytimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
 import useBarBannerStore from '@/stores/bar-banner';
 import { MyScheduleTimeType } from '@/types/schedule.type';
