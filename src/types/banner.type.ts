@@ -1,4 +1,4 @@
-export interface Banner {
+export interface BarBanner {
   id: number;
   content_kor: string;
   content_eng: string;

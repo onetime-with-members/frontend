@@ -2,15 +2,15 @@ import { setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { create } from 'zustand';
 
-import { Banner } from '@/types/banner.type';
+import { BarBanner } from '@/types/banner.type';
 
 interface BarBannerStore {
   isShown: boolean;
-  barBanner: Banner;
+  barBanner: BarBanner;
   actions: {
     showBarBanner: () => void;
     hideBarBanner: () => void;
-    setBarBanner: (banner: Banner) => void;
+    setBarBanner: (banner: BarBanner) => void;
     closeBarBanner: () => void;
   };
 }
@@ -38,7 +38,7 @@ const useBarBannerStore = create<BarBannerStore>((set, get) => ({
         isShown: false,
       }));
     },
-    setBarBanner: (banner: Banner) => {
+    setBarBanner: (banner: BarBanner) => {
       set(() => ({
         barBanner: banner,
       }));

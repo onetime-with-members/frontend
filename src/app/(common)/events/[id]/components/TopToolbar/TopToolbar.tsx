@@ -97,7 +97,7 @@ export default function TopToolbar({
         </div>
         <BarBanner
           className="h-[56px]"
-          innnerClassName="fixed max-w-[calc(768px+2rem)] w-full z-40"
+          innnerClassName="fixed max-w-[calc(768px+2rem)] w-full"
         />
       </div>
     </header>

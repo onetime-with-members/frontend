@@ -2,7 +2,7 @@ import { getCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
 import useBarBannerStore from '@/stores/bar-banner';
-import { Banner } from '@/types/banner.type';
+import { BarBanner } from '@/types/banner.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
@@ -13,7 +13,7 @@ export default function useBarBannerInit() {
 
   const isBarBannerHidden = getCookie('bar-banner');
 
-  const { data } = useQuery<Banner>({
+  const { data } = useQuery<BarBanner>({
     queryKey: ['banners', 'activated'],
     queryFn: async () => {
       const res = await axios.get('/banners/activated');
