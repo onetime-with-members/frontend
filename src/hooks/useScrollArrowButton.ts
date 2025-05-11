@@ -31,8 +31,21 @@ export default function useScrollArrowButton({
 
     const scrollableElement = ref.current;
 
+    const isScrollable =
+      scrollableElement.scrollWidth > scrollableElement.clientWidth;
+
+    handleScroll();
+
     function handleScroll() {
       if (!scrollableElement) return;
+
+      if (!isScrollable) {
+        setArrowButtonVisible({
+          left: false,
+          right: false,
+        });
+      }
+
       setArrowButtonVisible((prev) => ({
         ...prev,
         left: scrollableElement.scrollLeft !== 0,

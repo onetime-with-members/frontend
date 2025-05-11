@@ -29,7 +29,9 @@ export default function LoginPage() {
 
   useEffect(() => {
     if (data) {
-      router.push('/');
+      const redirectUrlCookie = getCookie('redirect-url');
+      deleteCookie('redirect-url');
+      router.push((redirectUrlCookie as string) || '/');
     }
   }, [data, isError, router]);
 
@@ -59,10 +61,6 @@ export default function LoginPage() {
       setCookie('refresh-token', refreshToken, {
         expires: dayjs().add(1, 'year').toDate(),
       });
-
-      const localRedirectUrl = getCookie('redirect-url');
-      deleteCookie('redirect-url');
-      router.push(localRedirectUrl as string);
     }
   }, [searchParams, router]);
 

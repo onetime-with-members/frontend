@@ -95,7 +95,7 @@
     "qrCode": "QR 코드",
     "kakao": "카카오톡",
     "more": "더 보기",
-    "qrCodeScreen": "<Name>{eventName}</Name>에 <br />스케줄을 등록해 주세요!"
+    "qrCodeScreen": "<Name>{eventName}</Name>에 <br></br>스케줄을 등록해 주세요!"
   },
   "alert": {
     "loginTitle": "로그인 하시겠어요?",
