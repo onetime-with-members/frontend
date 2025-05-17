@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react';
 import Header from '../Header/Header';
 import EmptyUI from '@/components/EmptyUI/EmptyUI';
 import MyEvent from '@/components/MyEvent/MyEvent';
+import { breakpoint, defaultMyEvent } from '@/lib/constants';
 import { MyEventType } from '@/types/event.type';
 import axios from '@/utils/axios';
-import breakpoint from '@/utils/breakpoint';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
@@ -44,7 +44,7 @@ export default function MyEventSection() {
 
   return (
     <section className="flex flex-col gap-3">
-      <Header moreHref="/mypage/events">
+      <Header moreHref="/mypage/events" isPending={isEventsPending}>
         {t('recentEvents', {
           count:
             events === undefined
@@ -54,23 +54,28 @@ export default function MyEventSection() {
                 : eventsLength,
         })}
       </Header>
-      {isEventsPending && (
-        <div className="rounded-2xl py-5">
-          <EmptyUI>{t('loadingEvents')}</EmptyUI>
-        </div>
-      )}
-      {!isEventsPending && events && (
-        <ul
-          className={cn('grid grid-cols-1 gap-4 md:grid-cols-2', {
-            'md:grid-cols-1': events.length === 0,
-          })}
-        >
-          {events.length === 0 && (
+      <ul
+        className={cn('grid grid-cols-1 gap-4 md:grid-cols-2', {
+          'md:grid-cols-1': events?.length === 0,
+        })}
+      >
+        {isEventsPending &&
+          Array.from({ length: 2 }).map((_, index) => (
+            <MyEvent
+              key={index}
+              event={defaultMyEvent}
+              innerClassName="border-none"
+              className={cn({ 'hidden md:block': index === 1 })}
+              isPending={true}
+            />
+          ))}
+        {!isEventsPending &&
+          events &&
+          (events.length === 0 ? (
             <div className="rounded-2xl bg-gray-00 py-5">
               <EmptyUI>{t('noEvent')}</EmptyUI>
             </div>
-          )}
-          {events.length >= 1 &&
+          ) : (
             events
               .slice(0, eventsLength)
               .map((event) => (
@@ -79,9 +84,9 @@ export default function MyEventSection() {
                   event={event}
                   innerClassName="border-none"
                 />
-              ))}
-        </ul>
-      )}
+              ))
+          ))}
+      </ul>
     </section>
   );
 }
