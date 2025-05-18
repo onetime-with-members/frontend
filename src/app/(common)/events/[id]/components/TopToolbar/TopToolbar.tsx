@@ -4,6 +4,7 @@ import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
 import BarBanner from '@/components/BarBanner/BarBanner';
+import SkeletonToolbarTitle from '@/components/skeleton/SkeletonToolbarTitle/SkeletonToolbarTitle';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import { useScheduleQuery } from '@/queries/schedule.queries';
 import useBarBannerStore from '@/stores/bar-banner';
@@ -43,7 +44,7 @@ export default function TopToolbar({
         <div className="bg-gray-80 px-6 py-4 md:rounded-t-3xl">
           <div className="flex items-center justify-between md:h-10">
             <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
-              {event?.title || <>&nbsp;</>}
+              {event ? event.title : <SkeletonToolbarTitle />}
             </h1>
             {event && (
               <>
