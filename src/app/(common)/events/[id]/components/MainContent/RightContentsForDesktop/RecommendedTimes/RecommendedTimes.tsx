@@ -3,7 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 
 import Header from '../Header/Header';
 import RecommendedTime from './RecommendedTime/RecommendedTime';
-import { defaultRecommendTime } from '@/lib/constants';
+import { SKELETON_GRAY, defaultRecommendTime } from '@/lib/constants';
 import { useRecommendedTimesQuery } from '@/queries/event.queries';
 import { useParams } from 'next/navigation';
 
@@ -21,7 +21,7 @@ export default function RecommendedTimes() {
         {!isPending ? (
           t('mostAvailable')
         ) : (
-          <Skeleton width={200} baseColor="#e8e9ed" borderRadius={9999} />
+          <Skeleton width={200} baseColor={SKELETON_GRAY} borderRadius={9999} />
         )}
       </Header>
       <div className="flex flex-col gap-6">

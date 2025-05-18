@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
+import { SKELETON_DARK_GRAY } from '@/lib/constants';
 import { Link } from '@/navigation';
 import { IconChevronRight } from '@tabler/icons-react';
 
@@ -22,7 +23,7 @@ export default function Header({
   const t = useTranslations('userDashboard');
 
   return (
-    <SkeletonTheme baseColor="#DADBE2" borderRadius={9999}>
+    <SkeletonTheme baseColor={SKELETON_DARK_GRAY} borderRadius={9999}>
       <header className="flex flex-col gap-1">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-gray-90 title-sm-300">

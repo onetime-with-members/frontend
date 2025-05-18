@@ -3,6 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import SkeletonMemberBadge from '@/components/skeleton/SkeletonMemberBadge/SkeletonMemberBadge';
+import { SKELETON_DARK_GRAY } from '@/lib/constants';
 import cn from '@/utils/cn';
 
 interface ParticipantsSectionProps {
@@ -57,7 +58,10 @@ export default function ParticipantsSection({
                 </MemberBadge>
               ))
             : Array.from({ length: 4 }, (_, index) => (
-                <SkeletonMemberBadge key={index} baseColor="#dadbe2" />
+                <SkeletonMemberBadge
+                  key={index}
+                  baseColor={SKELETON_DARK_GRAY}
+                />
               ))}
         </div>
       </div>

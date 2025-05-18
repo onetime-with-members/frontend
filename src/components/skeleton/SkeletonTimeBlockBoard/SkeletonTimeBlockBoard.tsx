@@ -1,5 +1,6 @@
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
+import { SKELETON_GRAY } from '@/lib/constants';
 import cn from '@/utils/cn';
 
 interface SkeletonTimeBlockBoardProps {
@@ -11,7 +12,7 @@ interface SkeletonTimeBlockBoardProps {
 export default function SkeletonTimeBlockBoard({
   className,
   count = 7,
-  baseColor = '#e8e9ed',
+  baseColor = SKELETON_GRAY,
 }: SkeletonTimeBlockBoardProps) {
   return (
     <SkeletonTheme baseColor={baseColor} borderRadius={9999}>

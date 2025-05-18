@@ -3,9 +3,9 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import ParticipantsSection from './ParticipantsSection/ParticipantsSection';
 import ClockIcon from '@/components/icon/ClockIcon';
+import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/lib/constants';
 import { useEventQuery } from '@/queries/event.queries';
 import { RecommendScheduleType } from '@/types/schedule.type';
-import cn from '@/utils/cn';
 import { weekdaysShortKo } from '@/utils/weekday';
 import { useParams } from 'next/navigation';
 
@@ -23,11 +23,12 @@ export default function RecommendedTime({
   const { data: event } = useEventQuery(params.id);
 
   return (
-    <SkeletonTheme baseColor="#dadbe2" borderRadius={9999}>
+    <SkeletonTheme baseColor={SKELETON_DARK_GRAY} borderRadius={9999}>
       <div
-        className={cn('flex flex-col gap-3 rounded-2xl bg-gray-00 p-5', {
-          'bg-gray-10': isPending,
-        })}
+        className="flex flex-col gap-3 rounded-2xl bg-gray-00 p-5"
+        style={{
+          ...(isPending && { backgroundColor: SKELETON_GRAY }),
+        }}
       >
         <h3 className="flex items-center gap-1 text-primary-50 text-md-300">
           <span>

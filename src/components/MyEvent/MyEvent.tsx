@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import Skeleton from 'react-loading-skeleton';
 
+import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/lib/constants';
 import { Link } from '@/navigation';
 import { MyEventType } from '@/types/event.type';
 import cn from '@/utils/cn';
@@ -38,11 +39,11 @@ export default function MyEvent({
         href={`/events/${event.event_id}`}
         className={cn(
           'flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5',
-          {
-            'bg-gray-10': isPending,
-          },
           innerClassName,
         )}
+        style={{
+          ...(isPending && { backgroundColor: SKELETON_GRAY }),
+        }}
       >
         <div className="flex flex-col gap-1">
           <div className="flex items-center gap-1 text-gray-30 text-sm-200">
@@ -50,7 +51,7 @@ export default function MyEvent({
               {!isPending ? (
                 dayjs(event.created_date).fromNow()
               ) : (
-                <Skeleton width={100} baseColor="#DADBE2" />
+                <Skeleton width={100} baseColor={SKELETON_DARK_GRAY} />
               )}
             </span>
             <span>·</span>
@@ -60,7 +61,7 @@ export default function MyEvent({
                   count: event.participant_count,
                 })
               ) : (
-                <Skeleton width={50} baseColor="#DADBE2" />
+                <Skeleton width={50} baseColor={SKELETON_DARK_GRAY} />
               )}
             </span>
           </div>
@@ -68,12 +69,16 @@ export default function MyEvent({
             {!isPending ? (
               event.title
             ) : (
-              <Skeleton width={200} baseColor="#DADBE2" />
+              <Skeleton width={200} baseColor={SKELETON_DARK_GRAY} />
             )}
           </h1>
         </div>
         {isPending ? (
-          <Skeleton height={44} borderRadius="0.5rem" baseColor="#DADBE2" />
+          <Skeleton
+            height={44}
+            borderRadius="0.5rem"
+            baseColor={SKELETON_DARK_GRAY}
+          />
         ) : (
           <div
             className={cn(

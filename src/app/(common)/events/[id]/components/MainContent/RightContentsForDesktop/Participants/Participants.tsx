@@ -8,6 +8,7 @@ import {
 import Header from '../Header/Header';
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import SkeletonMemberBadge from '@/components/skeleton/SkeletonMemberBadge/SkeletonMemberBadge';
+import { SKELETON_GRAY } from '@/lib/constants';
 
 export default function Participants() {
   const participants = useParticipants();
@@ -29,8 +30,12 @@ export default function Participants() {
           </span>
         ) : (
           <span className="flex items-center gap-2">
-            <Skeleton width={100} baseColor="#e8e9ed" borderRadius={9999} />
-            <Skeleton width={16} baseColor="#e8e9ed" circle />
+            <Skeleton
+              width={100}
+              baseColor={SKELETON_GRAY}
+              borderRadius={9999}
+            />
+            <Skeleton width={16} baseColor={SKELETON_GRAY} circle />
           </span>
         )}
       </Header>
@@ -42,7 +47,7 @@ export default function Participants() {
               </MemberBadge>
             ))
           : Array.from({ length: 4 }, (_, index) => (
-              <SkeletonMemberBadge key={index} baseColor="#e8e9ed" />
+              <SkeletonMemberBadge key={index} baseColor={SKELETON_GRAY} />
             ))}
       </div>
     </div>

@@ -23,3 +23,8 @@ export const defaultRecommendTime: RecommendTimeType = {
   possible_names: [],
   impossible_names: [],
 };
+
+export const SKELETON_GRAY = '#e8e9ed77';
+export const SKELETON_DARK_GRAY = '#dadbe277';
+export const SKELETON_TOOLBAR_TITLE_COLOR = '#404251';
+export const SKELETON_TOOLBAR_TITLE_HIGHLIGHT_COLOR = '#585a70';
