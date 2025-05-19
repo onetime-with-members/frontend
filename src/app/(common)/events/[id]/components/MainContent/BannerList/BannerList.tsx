@@ -7,7 +7,7 @@ import RecommendTime from './RecommendTime/RecommendTime';
 import CircleArrowButton from '@/components/button/CircleArrowButton/CircleArrowButton';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 
-export default function BannerList({ isPending }: { isPending: boolean }) {
+export default function BannerList({ isPending }: { isPending?: boolean }) {
   const [isHover, setIsHover] = useState(false);
 
   const topDialogListRef = useRef<HTMLDivElement>(null);
@@ -40,7 +40,7 @@ export default function BannerList({ isPending }: { isPending: boolean }) {
         style={{ scrollSnapType: 'x mandatory' }}
       >
         <RecommendTime isPending={isPending} />
-        <Participants />
+        <Participants isPending={isPending} />
       </div>
 
       <AnimatePresence>

@@ -1,22 +1,23 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import { useParticipants } from '../../../EventDetailPage.stores';
 import ParticipantsPopUp from './ParticipantsPopUp/ParticipantsPopUp';
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
-import cn from '@/utils/cn';
+import SkeletonMemberBadge from '@/components/skeleton/SkeletonMemberBadge/SkeletonMemberBadge';
+import useClientWidth from '@/hooks/useClientWidth';
+import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/lib/constants';
 import { IconChevronRight } from '@tabler/icons-react';
 
-export default function Participants() {
+export default function Participants({ isPending }: { isPending?: boolean }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const participants = useParticipants();
-
+  const clientWidth = useClientWidth();
   const t = useTranslations('eventDetail');
 
-  const style = {
-    badgeList: 'mt-2 flex-wrap gap-x-1 gap-y-2',
-  };
+  const shownMemberBadgesCount = clientWidth >= 440 ? 9 : 7;
 
   function handleDialogOpen() {
     setIsDialogOpen(true);
@@ -27,37 +28,58 @@ export default function Participants() {
   }
 
   return (
-    <>
+    <SkeletonTheme baseColor={SKELETON_DARK_GRAY} borderRadius={9999}>
       <div
-        className="min-w-[85%] cursor-pointer snap-start rounded-2xl bg-gray-00 px-4 py-5"
+        className="flex min-w-[85%] cursor-pointer snap-start flex-col gap-2 rounded-2xl bg-gray-00 px-4 py-5"
         onClick={handleDialogOpen}
+        style={{
+          ...(isPending && {
+            backgroundColor: SKELETON_GRAY,
+          }),
+        }}
       >
         <div className="ml-1 flex items-center justify-between">
-          <span className="text-gray-60 text-md-300">
-            {t('participant', {
-              count: participants.length,
-            })}{' '}
+          <span className="flex items-center gap-1">
+            <span className="text-gray-60 text-md-300">
+              {!isPending ? (
+                t('participant', {
+                  count: participants.length,
+                })
+              ) : (
+                <Skeleton width={150} height={20} />
+              )}
+            </span>
             <strong className="text-primary-50 text-md-300">
-              {participants.length}
+              {!isPending ? (
+                participants.length
+              ) : (
+                <Skeleton width={20} height={20} />
+              )}
             </strong>
           </span>
-          <IconChevronRight size={24} className="text-gray-30" />
-        </div>
-
-        <div className={cn(style.badgeList, 'hidden min-[440px]:flex')}>
-          {participants.slice(0, 9).map((participant, index) => (
-            <MemberBadge key={index}>{participant}</MemberBadge>
-          ))}
-          {participants.length > 9 && (
-            <MemberBadge variant="gray">...</MemberBadge>
+          {!isPending ? (
+            <IconChevronRight size={24} className="text-gray-30" />
+          ) : (
+            <Skeleton width={20} height={20} />
           )}
         </div>
-        <div className={cn(style.badgeList, 'flex min-[440px]:hidden')}>
-          {participants.slice(0, 7).map((participant, index) => (
-            <MemberBadge key={index}>{participant}</MemberBadge>
-          ))}
-          {participants.length > 7 && (
-            <MemberBadge variant="gray">...</MemberBadge>
+
+        <div className="flex flex-wrap gap-x-1 gap-y-2">
+          {!isPending ? (
+            <>
+              {participants
+                .slice(0, shownMemberBadgesCount)
+                .map((participant, index) => (
+                  <MemberBadge key={index}>{participant}</MemberBadge>
+                ))}
+              {participants.length > shownMemberBadgesCount && (
+                <MemberBadge variant="gray">...</MemberBadge>
+              )}
+            </>
+          ) : (
+            Array.from({ length: 4 }).map((_, index) => (
+              <SkeletonMemberBadge key={index} />
+            ))
           )}
         </div>
       </div>
@@ -68,6 +90,6 @@ export default function Participants() {
           participants={participants}
         />
       )}
-    </>
+    </SkeletonTheme>
   );
 }

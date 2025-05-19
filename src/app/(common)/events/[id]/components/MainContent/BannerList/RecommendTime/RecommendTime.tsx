@@ -14,7 +14,7 @@ import { weekdaysShortKo } from '@/utils/weekday';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
-export default function RecommendTime({ isPending }: { isPending: boolean }) {
+export default function RecommendTime({ isPending }: { isPending?: boolean }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const params = useParams<{ id: string }>();
