@@ -18,7 +18,7 @@ export default function SkeletonTimeBlockBoard({
     <SkeletonTheme baseColor={baseColor} borderRadius={9999}>
       <div className={cn('flex gap-2', className)}>
         <div className="flex flex-col items-center gap-10 pt-9">
-          {Array.from({ length: 20 }).map((_, index) => (
+          {Array.from({ length: 16 }).map((_, index) => (
             <Skeleton key={index} width={20} height={16} />
           ))}
         </div>
