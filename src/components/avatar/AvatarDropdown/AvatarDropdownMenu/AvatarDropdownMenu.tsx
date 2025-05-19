@@ -15,8 +15,7 @@ export default function AvatarDropdownMenu({
   function handleLogout() {
     deleteCookie('access-token');
     deleteCookie('refresh-token');
-    location.href = '/';
-    setIsMenuOpen(false);
+    location.reload();
   }
 
   function handleMenuItemClick() {
