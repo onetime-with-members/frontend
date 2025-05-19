@@ -3,6 +3,8 @@ import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 
 async function getOriginalUrl(shortUrl: string) {
+  'use server';
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_API_URL}/urls/action-original`,
     {
@@ -20,6 +22,8 @@ async function getOriginalUrl(shortUrl: string) {
 }
 
 async function getEvent(eventId: string) {
+  'use server';
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_API_URL}/events/${eventId}`,
     {
@@ -82,6 +86,16 @@ export default async function Page() {
   const protocol = (await headers()).get('x-forwarded-proto');
   const host = (await headers()).get('x-forwarded-host');
   const pathname = (await headers()).get('x-pathname');
+
+  if (!protocol || !host || !pathname) {
+    return notFound();
+  }
+
+  const pathnameParts = pathname.slice(1).split('/') || [];
+  const regex = /^[a-zA-Z0-9]+$/;
+  if (pathnameParts.length !== 1 || !regex.test(pathnameParts[0])) {
+    return notFound();
+  }
 
   const originalUrlRes = await getOriginalUrl(
     `${protocol}://${host}${pathname}`,
