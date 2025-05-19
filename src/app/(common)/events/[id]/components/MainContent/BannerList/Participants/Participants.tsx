@@ -43,6 +43,7 @@ export default function Participants() {
           </span>
           <IconChevronRight size={24} className="text-gray-30" />
         </div>
+
         <div className={cn(style.badgeList, 'hidden min-[440px]:flex')}>
           {participants.slice(0, 9).map((participant, index) => (
             <MemberBadge key={index}>{participant}</MemberBadge>
@@ -60,6 +61,7 @@ export default function Participants() {
           )}
         </div>
       </div>
+
       {isDialogOpen && (
         <ParticipantsPopUp
           onClose={handleDialogClose}

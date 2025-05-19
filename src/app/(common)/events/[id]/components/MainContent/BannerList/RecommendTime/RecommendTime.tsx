@@ -81,6 +81,7 @@ export default function RecommendTime({ isPending }: { isPending: boolean }) {
             <Skeleton width={20} height={20} circle />
           )}
         </div>
+
         {!isPending ? (
           <div
             className={cn(
@@ -123,6 +124,7 @@ export default function RecommendTime({ isPending }: { isPending: boolean }) {
           <Skeleton height={42} borderRadius={16} />
         )}
       </div>
+
       {isDialogOpen && <RecommendTimePopUp onClose={handleDialogClose} />}
     </SkeletonTheme>
   );

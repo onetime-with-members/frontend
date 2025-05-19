@@ -33,6 +33,7 @@ export default function BannerList({ isPending }: { isPending: boolean }) {
           />
         )}
       </AnimatePresence>
+
       <div
         ref={topDialogListRef}
         className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
@@ -41,6 +42,7 @@ export default function BannerList({ isPending }: { isPending: boolean }) {
         <RecommendTime isPending={isPending} />
         <Participants />
       </div>
+
       <AnimatePresence>
         {!isMobile && arrowButtonVisible.right && isHover && (
           <CircleArrowButton
