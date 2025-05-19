@@ -10,6 +10,7 @@ import { useUserQuery } from '@/queries/user.queries';
 
 export default function ProfileSection() {
   const router = useRouter();
+
   const t = useTranslations();
 
   const { data: user } = useUserQuery();
@@ -21,7 +22,7 @@ export default function ProfileSection() {
   function handleLogoutButtonClick() {
     deleteCookie('access-token');
     deleteCookie('refresh-token');
-    location.href = '/';
+    location.reload();
   }
 
   return (
