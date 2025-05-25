@@ -3,9 +3,9 @@
 import EmptyMyEvent from './EmptyMyEvent/EmptyMyEvent';
 import MyEvent from '@/components/MyEvent/MyEvent';
 import useGrayBackground from '@/hooks/useGrayBackground';
+import { breakpoint } from '@/lib/constants';
 import { MyEventType } from '@/types/event.type';
 import axios from '@/utils/axios';
-import breakpoint from '@/utils/breakpoint';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyEventsPage() {

@@ -13,6 +13,7 @@ import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/Toast/Toast';
 import { getLocale } from 'next-intl/server';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 declare global {
   interface Window {

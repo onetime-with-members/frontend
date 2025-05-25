@@ -4,6 +4,7 @@ import { ScheduleType } from '@/types/schedule.type';
 
 interface ParticipantsStore {
   participants: string[];
+  isLoading: boolean;
   actions: {
     setParticipants: (schedules: ScheduleType[]) => void;
   };
@@ -11,11 +12,13 @@ interface ParticipantsStore {
 
 const useParticipantsStore = create<ParticipantsStore>((set) => ({
   participants: [],
+  isLoading: true,
   actions: {
     setParticipants: (schedules: ScheduleType[]) => {
       set((state) => ({
         ...state,
         participants: schedules.map((schedule) => schedule.name).sort(),
+        isLoading: false,
       }));
     },
   },
@@ -23,5 +26,7 @@ const useParticipantsStore = create<ParticipantsStore>((set) => ({
 
 export const useParticipants = () =>
   useParticipantsStore((state) => state.participants);
+export const useParticipantsIsLoading = () =>
+  useParticipantsStore((state) => state.isLoading);
 export const useParticipantsActions = () =>
   useParticipantsStore((state) => state.actions);

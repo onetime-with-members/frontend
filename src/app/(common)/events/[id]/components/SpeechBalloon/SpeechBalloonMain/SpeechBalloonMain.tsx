@@ -77,7 +77,7 @@ export default function SpeechBalloonMain({
             duration: 0.5,
           }}
           className={cn(
-            'absolute',
+            'absolute z-10 shadow-lg',
             {
               'top-0': position === 'top',
               'bottom-0': position === 'bottom',

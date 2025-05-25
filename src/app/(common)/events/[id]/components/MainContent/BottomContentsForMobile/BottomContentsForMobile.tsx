@@ -8,12 +8,16 @@ export default function BottomContentsForMobile() {
   const params = useParams<{ id: string }>();
 
   const { data: event } = useEventQuery(params.id);
-  const { data: schedules } = useScheduleQuery(event);
+  const { data: schedules, isPending: isSchedulesPending } =
+    useScheduleQuery(event);
 
   return (
     <div className="block md:hidden">
-      {schedules &&
-        (schedules.length === 0 ? <EmptyEventBanner /> : <BannerList />)}
+      {schedules?.length === 0 ? (
+        <EmptyEventBanner />
+      ) : (
+        <BannerList isPending={isSchedulesPending} />
+      )}
     </div>
   );
 }
