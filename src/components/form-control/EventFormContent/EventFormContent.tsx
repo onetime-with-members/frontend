@@ -6,7 +6,7 @@ import InputContent from './InputContent/InputContent';
 import TopActionForDesktop from './TopActionForDesktop/TopActionForDesktop';
 import TopNavBar from './TopNavBar/TopNavBar';
 import { breakpoint } from '@/lib/constants';
-import { EventValueType } from '@/types/event.type';
+import { EventValueType } from '@/lib/types';
 
 interface EventFormContentProps {
   originData?: EventValueType;

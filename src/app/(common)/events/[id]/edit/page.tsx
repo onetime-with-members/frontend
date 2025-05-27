@@ -1,5 +1,5 @@
 import EventEditPage from './components/EventEditPage';
-import { EventType } from '@/types/event.type';
+import { EventType } from '@/lib/types';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 

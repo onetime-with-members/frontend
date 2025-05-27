@@ -1,7 +1,7 @@
 import TimeBlock from './TimeBlock/TimeBlock';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
+import { MyScheduleTimeType } from '@/lib/types';
 import { useTimesGroupForSplittedTimeBlock } from '@/stores/sleep-time';
-import { MyScheduleTimeType } from '@/types/schedule.type';
 import { weekdaysShortKo } from '@/utils/weekday';
 
 interface TimeBlockContentProps {

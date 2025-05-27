@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import BottomButtonForDesktop from './BottomButtonForDesktop/BottomButtonForDesktop';
 import BottomButtonForMobile from './BottomButtonForMobile/BottomButtonForMobile';
 import InputContent from './InputContent/InputContent';
-import { GuestValueType } from '@/types/user.type';
+import { GuestValueType } from '@/lib/types';
 import axios from '@/utils/axios';
 import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';

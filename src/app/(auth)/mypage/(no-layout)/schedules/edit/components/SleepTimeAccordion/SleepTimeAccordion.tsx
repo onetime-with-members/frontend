@@ -1,6 +1,6 @@
 import AccordionContent from './AccordionContent/AccordionContent';
 import AccordionMain from './AccordionMain/AccordionMain';
-import { SleepTimeType } from '@/types/user.type';
+import { SleepTimeType } from '@/lib/types';
 
 interface SleepTimeUIProps {
   sleepTime: SleepTimeType;

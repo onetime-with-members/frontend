@@ -3,7 +3,7 @@ import MarkdownContent from './MarkdownContent/MarkdownContent';
 import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
 import TopNavBarForDesktop from './TopNavBarForDesktop/TopNavBarForDesktop';
 import useGrayBackground from '@/hooks/useGrayBackground';
-import { PolicyKeyType } from '@/types/user.type';
+import { PolicyKeyType } from '@/lib/types';
 
 interface PolicyDetailScreenProps {
   page: PolicyKeyType;

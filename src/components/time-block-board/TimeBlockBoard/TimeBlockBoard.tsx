@@ -13,8 +13,7 @@ import { useTargetOnBottomInScrollableElement } from './TimeBlockBoard.hooks';
 import TimeBlockPopUp from './TimeBlockPopUp/TimeBlockPopUp';
 import TopDateLabelGroup from './TopDateLabelGroup/TopDateLabelGroup';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
-import { EventType } from '@/types/event.type';
-import { ScheduleType, TimeBlockPopUpDataType } from '@/types/schedule.type';
+import { EventType, ScheduleType, TimeBlockPopUpDataType } from '@/lib/types';
 import cn from '@/utils/cn';
 import { timeBlockList } from '@/utils/time-block';
 

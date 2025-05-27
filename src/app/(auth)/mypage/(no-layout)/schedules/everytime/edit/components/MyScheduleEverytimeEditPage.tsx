@@ -6,9 +6,9 @@ import { useState } from 'react';
 import BottomButton from './BottomButton/BottomButton';
 import MainContent from './MainContent/MainContent';
 import TopAppBar from './TopAppBar/TopAppBar';
+import { EverytimeSchedule } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import { useEverytimeScheduleActions } from '@/stores/everytime-schedule';
-import { EverytimeSchedule } from '@/types/schedule.type';
 import { useMutation } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 

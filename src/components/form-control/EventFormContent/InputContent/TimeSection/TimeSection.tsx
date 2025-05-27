@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import EventInputLabel from '../EventInputLabel/EventInputLabel';
 import TimeDropdown from '@/components/dropdown/TimeDropdown/TimeDropdown';
-import { EventType, EventValueType } from '@/types/event.type';
+import { EventType, EventValueType } from '@/lib/types';
 
 interface TimeSectionProps {
   value: EventValueType;

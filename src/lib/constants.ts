@@ -1,5 +1,5 @@
-import { MyEventType } from '@/types/event.type';
-import { RecommendScheduleType as RecommendTimeType } from '@/types/schedule.type';
+import { MyEventType } from '@/lib/types';
+import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 
 export const breakpoint = {
   sm: 640,

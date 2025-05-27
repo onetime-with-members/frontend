@@ -4,8 +4,8 @@ import { getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
+import { UserType } from '@/lib/types';
 import { useRouter } from '@/navigation';
-import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 

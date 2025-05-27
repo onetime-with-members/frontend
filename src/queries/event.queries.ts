@@ -1,5 +1,4 @@
-import { EventType } from '@/types/event.type';
-import { RecommendScheduleType } from '@/types/schedule.type';
+import { EventType, RecommendScheduleType } from '@/lib/types';
 import axios from '@/utils/axios';
 import { weekdaysShortKo } from '@/utils/weekday';
 import { useQuery } from '@tanstack/react-query';

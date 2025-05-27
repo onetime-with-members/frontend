@@ -1,6 +1,6 @@
 import TopDateLabel from './TopDateLabel/TopDateLabel';
+import { EventType } from '@/lib/types';
 import { useEventQuery } from '@/queries/event.queries';
-import { EventType } from '@/types/event.type';
 import { useParams } from 'next/navigation';
 
 interface TopDateLabelGroupProps {

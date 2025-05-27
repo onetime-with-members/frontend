@@ -3,8 +3,8 @@
 import { useState } from 'react';
 
 import EventFormContent from '@/components/form-control/EventFormContent/EventFormContent';
+import { EventValueType } from '@/lib/types';
 import { useRouter } from '@/navigation';
-import { EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 

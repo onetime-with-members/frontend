@@ -2,9 +2,9 @@ import BottomContentsForMobile from './BottomContentsForMobile/BottomContentsFor
 import RightContentsForDesktop from './RightContentsForDesktop/RightContentsForDesktop';
 import SkeletonTimeBlockBoard from '@/components/skeleton/SkeletonTimeBlockBoard/SkeletonTimeBlockBoard';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
+import { EventType } from '@/lib/types';
 import { useScheduleQuery } from '@/queries/schedule.queries';
 import useBarBannerStore from '@/stores/bar-banner';
-import { EventType } from '@/types/event.type';
 import cn from '@/utils/cn';
 
 interface MainContentProps {

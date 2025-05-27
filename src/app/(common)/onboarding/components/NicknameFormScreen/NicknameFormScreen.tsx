@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import ScreenLayout from '../ScreenLayout/ScreenLayout';
 import NicknameFormControl from '@/components/form-control/NicknameFormControl/NicknameFormControl';
-import { OnboardingValueType } from '@/types/user.type';
+import { OnboardingValueType } from '@/lib/types';
 
 interface NicknameFormProps {
   isVisible: boolean;

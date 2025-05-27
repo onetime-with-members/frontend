@@ -2,13 +2,13 @@ import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
+import { SleepTimeType } from '@/lib/types';
 import {
   getTimesGroupForSplitted,
   useSleepTime,
   useSleepTimeActions,
   useSleepTimesList,
 } from '@/stores/sleep-time';
-import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';

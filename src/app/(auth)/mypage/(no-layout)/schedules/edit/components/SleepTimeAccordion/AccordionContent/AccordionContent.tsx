@@ -1,5 +1,5 @@
 import TimeDropdown from '@/components/dropdown/TimeDropdown/TimeDropdown';
-import { SleepTimeType } from '@/types/user.type';
+import { SleepTimeType } from '@/lib/types';
 
 interface AccordionContentProps {
   sleepTime: SleepTimeType;

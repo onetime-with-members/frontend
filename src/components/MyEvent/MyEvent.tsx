@@ -3,8 +3,8 @@ import { useTranslations } from 'next-intl';
 import Skeleton from 'react-loading-skeleton';
 
 import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/lib/constants';
+import { MyEventType } from '@/lib/types';
 import { Link } from '@/navigation';
-import { MyEventType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { weekdaysShortKo } from '@/utils/weekday';
 import { IconChevronRight } from '@tabler/icons-react';

@@ -1,4 +1,4 @@
-import { UserType } from '@/types/user.type';
+import { UserType } from '@/lib/types';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 

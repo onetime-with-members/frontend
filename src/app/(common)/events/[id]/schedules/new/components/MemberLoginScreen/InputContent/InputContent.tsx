@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import PinPasswordInput from './PinPasswordInput/PinPasswordInput';
 import ScheduleInputLabel from './ScheduleInputLabel/ScheduleInputLabel';
 import NicknameFormControl from '@/components/form-control/NicknameFormControl/NicknameFormControl';
-import { GuestValueType } from '@/types/user.type';
+import { GuestValueType } from '@/lib/types';
 
 interface InputContentProps {
   guestValue: GuestValueType;

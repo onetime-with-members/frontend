@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 import Checkbox from '../Checkbox/Checkbox';
-import { PolicyKeyType, PolicyType } from '@/types/user.type';
+import { PolicyKeyType, PolicyType } from '@/lib/types';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface CheckItemProps {

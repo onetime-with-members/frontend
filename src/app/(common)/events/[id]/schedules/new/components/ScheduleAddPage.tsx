@@ -13,13 +13,13 @@ import { FooterContext } from '@/contexts/FooterContext';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
 import { breakpoint } from '@/lib/constants';
+import { GuestValueType } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import {
   useScheduleAndNewMemberCreate,
   useScheduleQuery,
   useScheduleUpdateMutation,
 } from '@/queries/schedule.queries';
-import { GuestValueType } from '@/types/user.type';
 import cn from '@/utils/cn';
 import { useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';

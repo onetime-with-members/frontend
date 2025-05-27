@@ -2,11 +2,10 @@ import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
+import { MyScheduleTimeType, ScheduleType, SleepTimeType } from '@/lib/types';
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleDetailQuery } from '@/queries/schedule.queries';
 import { useSleepTimeData, useSleepTimesList } from '@/stores/sleep-time';
-import { MyScheduleTimeType, ScheduleType } from '@/types/schedule.type';
-import { SleepTimeType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { timeBlockList } from '@/utils/time-block';
 import { weekdaysShortKo } from '@/utils/weekday';

@@ -2,7 +2,7 @@ import { setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { create } from 'zustand';
 
-import { BarBanner } from '@/types/banner.type';
+import { BarBanner } from '@/lib/types';
 
 interface BarBannerStore {
   isShown: boolean;

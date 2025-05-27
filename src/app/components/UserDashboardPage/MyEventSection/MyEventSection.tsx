@@ -6,7 +6,7 @@ import EmptyUI from '@/components/EmptyUI/EmptyUI';
 import MyEvent from '@/components/MyEvent/MyEvent';
 import useClientWidth from '@/hooks/useClientWidth';
 import { breakpoint, defaultMyEvent } from '@/lib/constants';
-import { MyEventType } from '@/types/event.type';
+import { MyEventType } from '@/lib/types';
 import axios from '@/utils/axios';
 import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';

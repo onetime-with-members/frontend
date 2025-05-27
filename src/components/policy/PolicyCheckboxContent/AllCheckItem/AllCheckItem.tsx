@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import Checkbox from '../Checkbox/Checkbox';
-import { PolicyType } from '@/types/user.type';
+import { PolicyType } from '@/lib/types';
 
 interface CheckItemProps {
   value: PolicyType;

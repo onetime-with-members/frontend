@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { ScheduleType } from '@/types/schedule.type';
+import { ScheduleType } from '@/lib/types';
 
 interface ParticipantsStore {
   participants: string[];

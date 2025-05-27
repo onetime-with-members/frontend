@@ -6,9 +6,9 @@ import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
 import BarBanner from '@/components/BarBanner/BarBanner';
 import SkeletonToolbarTitle from '@/components/skeleton/SkeletonToolbarTitle/SkeletonToolbarTitle';
 import useKakaoShare from '@/hooks/useKakaoShare';
+import { EventType } from '@/lib/types';
 import { useScheduleQuery } from '@/queries/schedule.queries';
 import useBarBannerStore from '@/stores/bar-banner';
-import { EventType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import Image from 'next/image';
 

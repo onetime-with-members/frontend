@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { SleepTimeType } from '@/types/user.type';
+import { SleepTimeType } from '@/lib/types';
 import { timeBlockList } from '@/utils/time-block';
 
 interface SleepTimeStore {

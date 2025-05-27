@@ -1,5 +1,5 @@
 import TimeBlock from './TimeBlock/TimeBlock';
-import { ScheduleType } from '@/types/schedule.type';
+import { ScheduleType } from '@/lib/types';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 import { timeBlockList } from '@/utils/time-block';

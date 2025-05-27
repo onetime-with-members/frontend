@@ -1,7 +1,7 @@
 import DateSection from './DateSection/DateSection';
 import TimeSection from './TimeSection/TimeSection';
 import TitleSection from './TitleSection/TitleSection';
-import { EventValueType } from '@/types/event.type';
+import { EventValueType } from '@/lib/types';
 
 interface InputContentBlockProps {
   value: EventValueType;

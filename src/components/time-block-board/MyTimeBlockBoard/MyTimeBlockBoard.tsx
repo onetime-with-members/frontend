@@ -1,7 +1,7 @@
 import BoardContent from './BoardContent/BoardContent';
 import LeftTimeLine from './LeftTimeLine/LeftTimeLine';
 import TopDateGroup from './TopDateGroup/TopDateGroup';
-import { MyScheduleTimeType } from '@/types/schedule.type';
+import { MyScheduleTimeType } from '@/lib/types';
 
 interface MyTimeBlockBoard {
   mode: 'view' | 'edit';

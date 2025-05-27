@@ -1,5 +1,4 @@
-import { EventType } from '@/types/event.type';
-import { ScheduleType, TimeType } from '@/types/schedule.type';
+import { EventType, ScheduleType, TimeType } from '@/lib/types';
 import axios from '@/utils/axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 

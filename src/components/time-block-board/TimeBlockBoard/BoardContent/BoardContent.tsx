@@ -3,8 +3,7 @@ import TimeBlockLine, {
 } from './TimeBlockLine/TimeBlockLine';
 import useDragScroll from '@/hooks/useDragScroll';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
-import { EventType } from '@/types/event.type';
-import { TimeType } from '@/types/schedule.type';
+import { EventType, TimeType } from '@/lib/types';
 
 interface BoardContentProps {
   boardContentRef: React.RefObject<HTMLDivElement | null>;

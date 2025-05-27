@@ -1,7 +1,7 @@
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
+import { EventValueType } from '@/lib/types';
 import { useWeekdaysShort } from '@/stores/weekday';
-import { EventValueType } from '@/types/event.type';
 import cn from '@/utils/cn';
 import { eventTarget } from '@/utils/event-target';
 import { weekdaysShortKo } from '@/utils/weekday';

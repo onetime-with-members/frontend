@@ -6,7 +6,7 @@ import CalendarSelect from './CalendarSelect/CalendarSelect';
 import Chip from './Chip/Chip';
 import WeekdaySelect from './WeekdaySelect/WeekdaySelect';
 import { PageModeContext } from '@/contexts/PageModeContext';
-import { EventValueType } from '@/types/event.type';
+import { EventValueType } from '@/lib/types';
 import cn from '@/utils/cn';
 
 interface DateSectionProps {

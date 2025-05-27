@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { EverytimeSchedule } from '@/types/schedule.type';
+import { EverytimeSchedule } from '@/lib/types';
 
 interface EverytimeScheduleStore {
   everytimeSchedule: EverytimeSchedule;

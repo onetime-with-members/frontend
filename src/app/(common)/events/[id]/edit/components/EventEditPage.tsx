@@ -4,9 +4,9 @@ import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 
 import EventFormContent from '@/components/form-control/EventFormContent/EventFormContent';
+import { EventValueType } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import { useEventQuery } from '@/queries/event.queries';
-import { EventValueType } from '@/types/event.type';
 import axios from '@/utils/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { notFound, useParams } from 'next/navigation';

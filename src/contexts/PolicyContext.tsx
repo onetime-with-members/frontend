@@ -1,7 +1,7 @@
 import { getCookie } from 'cookies-next';
 import { createContext, useEffect, useState } from 'react';
 
-import { PolicyType } from '@/types/user.type';
+import { PolicyType } from '@/lib/types';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 

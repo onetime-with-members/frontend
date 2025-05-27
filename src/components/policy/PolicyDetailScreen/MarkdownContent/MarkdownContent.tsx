@@ -1,11 +1,11 @@
 import { useLocale } from 'next-intl';
 import ReactMarkdown from 'react-markdown';
 
+import { PolicyKeyType } from '@/lib/types';
 import privacyMarkdownEN from '@/markdowns/privacy-en';
 import privacyMarkdownKO from '@/markdowns/privacy-ko';
 import serviceMarkdownEN from '@/markdowns/service-en';
 import serviceMarkdownKO from '@/markdowns/service-ko';
-import { PolicyKeyType } from '@/types/user.type';
 
 interface MarkdownContentProps {
   page: PolicyKeyType;

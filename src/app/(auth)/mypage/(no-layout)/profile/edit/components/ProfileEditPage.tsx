@@ -11,8 +11,8 @@ import FloatingBottomButton from '@/components/button/FloatingBottomButton/Float
 import NicknameFormControl from '@/components/form-control/NicknameFormControl/NicknameFormControl';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import { breakpoint } from '@/lib/constants';
+import { UserType } from '@/lib/types';
 import { useRouter } from '@/navigation';
-import { UserType } from '@/types/user.type';
 import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

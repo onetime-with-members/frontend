@@ -1,8 +1,8 @@
 import { getCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
+import { BarBanner } from '@/lib/types';
 import useBarBannerStore from '@/stores/bar-banner';
-import { BarBanner } from '@/types/banner.type';
 import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 

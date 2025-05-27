@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import ScreenLayout from '../ScreenLayout/ScreenLayout';
 import TimeDropdown from '@/components/dropdown/TimeDropdown/TimeDropdown';
 import SleepIcon from '@/components/icon/SleepIcon';
-import { OnboardingValueType } from '@/types/user.type';
+import { OnboardingValueType } from '@/lib/types';
 
 interface SleepTimeScreenProps {
   isVisible: boolean;
