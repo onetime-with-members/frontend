@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import PinPasswordInputField from './PinPasswordInputField/PinPasswordInputField';
-import { isNumber } from '@/utils/validation';
+import { isNumber } from '@/lib/utils';
 
 interface PinPasswordInputProps {
   inputId: string;

@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useLocale } from 'next-intl';
 
 import cn from '@/lib/cn';
-import { weekdaysShortKo } from '@/utils/weekday';
+import { weekdaysShortKo } from '@/lib/constants';
 
 interface TopDateLabelProps {
   category: 'DAY' | 'DATE';

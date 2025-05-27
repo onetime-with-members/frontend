@@ -1,6 +1,6 @@
 import cn from '@/lib/cn';
+import { leftTimeLabelFormat } from '@/lib/utils';
 import { useTimesGroupForSplittedTimeLabel } from '@/stores/sleep-time';
-import { leftTimeLabelFormat } from '@/utils/time-block';
 
 export default function LeftTimeLine() {
   const timesGroupForSplittedTimeLabel = useTimesGroupForSplittedTimeLabel();

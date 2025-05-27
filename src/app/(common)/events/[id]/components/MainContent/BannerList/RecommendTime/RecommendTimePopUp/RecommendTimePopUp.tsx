@@ -2,11 +2,11 @@ import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
 import TimeAccordionItem from './TimeAccordionItem/TimeAccordionItem';
+import { weekdaysShortKo } from '@/lib/constants';
 import {
   useEventQuery,
   useRecommendedTimesQuery,
 } from '@/queries/event.queries';
-import { weekdaysShortKo } from '@/utils/weekday';
 import { IconX } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 

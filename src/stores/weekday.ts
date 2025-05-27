@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-import { weekdaysShortEn, weekdaysShortKo } from '@/utils/weekday';
+import { weekdaysShortEn, weekdaysShortKo } from '@/lib/constants';
 
 interface WeekdayStore {
   weekdaysShort: string[];

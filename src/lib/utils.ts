@@ -80,3 +80,12 @@ export function timeBlockList(
 
   return timeList;
 }
+
+export function leftTimeLabelFormat(time: string) {
+  return time.split(':')[0] === '24' ? '24' : dayjs(time, 'HH:mm').format('H');
+}
+
+export function isNumber(value: string): boolean {
+  const regex = /^[0-9]*$/;
+  return regex.test(value);
+}

@@ -1,5 +1,5 @@
 import cn from '@/lib/cn';
-import { leftTimeLabelFormat, timeLabelList } from '@/utils/time-block';
+import { leftTimeLabelFormat, timeLabelList } from '@/lib/utils';
 
 interface LeftTimeLineProps {
   startTime: string;
