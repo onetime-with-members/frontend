@@ -2,9 +2,9 @@ import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
+import cn from '@/lib/cn';
+import { weekdaysShortKo } from '@/lib/constants';
 import { TimeBlockPopUpDataType } from '@/lib/types';
-import cn from '@/utils/cn';
-import { weekdaysShortKo } from '@/utils/weekday';
 import { IconX } from '@tabler/icons-react';
 
 interface TimeBlockPopUpProps {

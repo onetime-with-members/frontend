@@ -1,7 +1,7 @@
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
+import cn from '@/lib/cn';
 import { SKELETON_GRAY } from '@/lib/constants';
-import cn from '@/utils/cn';
 
 interface SkeletonTimeBlockBoardProps {
   className?: string;

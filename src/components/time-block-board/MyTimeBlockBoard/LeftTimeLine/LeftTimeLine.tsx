@@ -1,5 +1,5 @@
+import cn from '@/lib/cn';
 import { useTimesGroupForSplittedTimeLabel } from '@/stores/sleep-time';
-import cn from '@/utils/cn';
 import { leftTimeLabelFormat } from '@/utils/time-block';
 
 export default function LeftTimeLine() {

@@ -3,10 +3,13 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import ParticipantsSection from './ParticipantsSection/ParticipantsSection';
 import ClockIcon from '@/components/icon/ClockIcon';
-import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/lib/constants';
+import {
+  SKELETON_DARK_GRAY,
+  SKELETON_GRAY,
+  weekdaysShortKo,
+} from '@/lib/constants';
 import { RecommendScheduleType } from '@/lib/types';
 import { useEventQuery } from '@/queries/event.queries';
-import { weekdaysShortKo } from '@/utils/weekday';
 import { useParams } from 'next/navigation';
 
 interface RecommendedTimeProps {

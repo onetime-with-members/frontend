@@ -1,4 +1,4 @@
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import { leftTimeLabelFormat, timeLabelList } from '@/utils/time-block';
 
 interface LeftTimeLineProps {

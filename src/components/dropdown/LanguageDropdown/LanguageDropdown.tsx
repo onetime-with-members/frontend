@@ -5,9 +5,9 @@ import { useRef } from 'react';
 
 import LanguageDropdownMenu from './LanguageDropdownMenu/LanguageDropdownMenu';
 import useDropdown from '@/hooks/useDropdown';
+import axios from '@/lib/axios';
+import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
-import axios from '@/utils/axios';
-import cn from '@/utils/cn';
 import { IconLanguage } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
+import cn from '@/lib/cn';
 import { Link } from '@/navigation';
-import cn from '@/utils/cn';
 import Image from 'next/image';
 
 interface SocialLoginButtonProps

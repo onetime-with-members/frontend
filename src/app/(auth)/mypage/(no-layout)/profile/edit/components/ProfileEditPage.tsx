@@ -10,10 +10,10 @@ import Button from '@/components/button/Button/Button';
 import FloatingBottomButton from '@/components/button/FloatingBottomButton/FloatingBottomButton';
 import NicknameFormControl from '@/components/form-control/NicknameFormControl/NicknameFormControl';
 import useGrayBackground from '@/hooks/useGrayBackground';
+import axios from '@/lib/axios';
 import { breakpoint } from '@/lib/constants';
 import { UserType } from '@/lib/types';
 import { useRouter } from '@/navigation';
-import axios from '@/utils/axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function ProfileEditPage() {

@@ -1,4 +1,4 @@
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface ChipProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;

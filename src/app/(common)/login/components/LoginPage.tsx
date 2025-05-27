@@ -7,8 +7,8 @@ import { useEffect } from 'react';
 import ButtonGroup from './ButtonGroup/ButtonGroup';
 import LogoContent from './LogoContent/LogoContent';
 import NavBar from '@/components/NavBar/NavBar';
+import axios from '@/lib/axios';
 import { useRouter } from '@/navigation';
-import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 

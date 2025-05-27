@@ -2,8 +2,8 @@
 
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
+import axios from '@/lib/axios';
 import { MyScheduleTimeType } from '@/lib/types';
-import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MySchedulePage() {

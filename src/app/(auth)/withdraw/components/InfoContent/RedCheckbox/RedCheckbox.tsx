@@ -1,6 +1,6 @@
 import React from 'react';
 
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import Image from 'next/image';
 
 interface RedCheckboxProps extends React.HTMLAttributes<HTMLDivElement> {

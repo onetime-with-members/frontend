@@ -1,7 +1,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 
 import Feature from '../Feature/Feature';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import Image from 'next/image';
 
 export default function TimeBlockBoardFeature() {

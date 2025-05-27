@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import RefreshIcon from '@/components/icon/RefreshIcon';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 type UndoButtonProps = React.HTMLAttributes<HTMLButtonElement>;
 

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import SleepIcon from '@/components/icon/SleepIcon';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import { IconChevronDown } from '@tabler/icons-react';
 
 interface AccordionMainProps {

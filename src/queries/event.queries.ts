@@ -1,6 +1,6 @@
+import axios from '@/lib/axios';
+import { weekdaysShortKo } from '@/lib/constants';
 import { EventType, RecommendScheduleType } from '@/lib/types';
-import axios from '@/utils/axios';
-import { weekdaysShortKo } from '@/utils/weekday';
 import { useQuery } from '@tanstack/react-query';
 
 export const useEventQuery = (eventId: string) =>

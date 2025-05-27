@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface AvailableToggleProps {
   isPossibleTime: boolean;

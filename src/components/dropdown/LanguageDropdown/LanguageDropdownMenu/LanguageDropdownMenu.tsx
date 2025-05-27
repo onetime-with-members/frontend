@@ -1,7 +1,7 @@
 import { useLocale } from 'next-intl';
 
 import LanguageDropdownMenuItem from './LanguageDropdownMenuItem/LanguageDropdownMenuItem';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface LanguageDropdownMenuProps {
   onMenuItemClick: (language: 'en' | 'ko') => void;

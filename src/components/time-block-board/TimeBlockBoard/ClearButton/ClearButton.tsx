@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import { IconX } from '@tabler/icons-react';
 
 type ResetButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;

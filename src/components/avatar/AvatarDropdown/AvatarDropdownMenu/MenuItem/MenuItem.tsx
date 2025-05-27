@@ -1,5 +1,5 @@
+import cn from '@/lib/cn';
 import { Link } from '@/navigation';
-import cn from '@/utils/cn';
 
 interface MenuItemProps {
   children: React.ReactNode;

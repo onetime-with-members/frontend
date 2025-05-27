@@ -1,8 +1,7 @@
 import TimeBlock from './TimeBlock/TimeBlock';
+import cn from '@/lib/cn';
 import { ScheduleType } from '@/lib/types';
-import cn from '@/utils/cn';
-import { eventTarget } from '@/utils/event-target';
-import { timeBlockList } from '@/utils/time-block';
+import { eventTarget, timeBlockList } from '@/lib/utils';
 
 export interface TimeBlockLineProps {
   timePoint: string;

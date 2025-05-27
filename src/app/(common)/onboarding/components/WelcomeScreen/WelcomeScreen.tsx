@@ -1,7 +1,7 @@
 import StartButton from './StartButton/StartButton';
 import WelcomeContent from './WelcomeContent/WelcomeContent';
+import cn from '@/lib/cn';
 import { OnboardingValueType } from '@/lib/types';
-import cn from '@/utils/cn';
 
 interface WelcomeScreenProps {
   isVisible: boolean;

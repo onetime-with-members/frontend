@@ -1,7 +1,7 @@
 import { HTMLMotionProps, motion } from 'framer-motion';
 import { forwardRef } from 'react';
 
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import { IconTriangleInvertedFilled } from '@tabler/icons-react';
 
 interface CircleArrowButtonProps extends HTMLMotionProps<'button'> {

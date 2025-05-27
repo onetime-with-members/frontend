@@ -1,5 +1,5 @@
 import CheckIcon from '@/components/icon/CheckIcon';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface CheckboxProps {
   checked: boolean;

@@ -2,15 +2,15 @@ import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
+import axios from '@/lib/axios';
 import { SleepTimeType } from '@/lib/types';
+import { timeBlockList } from '@/lib/utils';
 import {
   getTimesGroupForSplitted,
   useSleepTime,
   useSleepTimeActions,
   useSleepTimesList,
 } from '@/stores/sleep-time';
-import axios from '@/utils/axios';
-import { timeBlockList } from '@/utils/time-block';
 import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 

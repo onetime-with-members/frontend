@@ -2,7 +2,7 @@ import { AnimatePresence, HTMLMotionProps, motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
 import RoundedTriangle from './RoundedTriangle/RoundedTriangle';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface SpeechBalloonProps extends HTMLMotionProps<'div'> {
   width: number;

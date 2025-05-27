@@ -1,6 +1,6 @@
 import React from 'react';
 
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface TimeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   backgroundColor?: 'gray' | 'white';

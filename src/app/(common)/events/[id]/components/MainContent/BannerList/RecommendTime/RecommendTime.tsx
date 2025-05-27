@@ -4,12 +4,12 @@ import { useState } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import RecommendTimePopUp from './RecommendTimePopUp/RecommendTimePopUp';
+import cn from '@/lib/cn';
 import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/lib/constants';
 import {
   useEventQuery,
   useRecommendedTimesQuery,
 } from '@/queries/event.queries';
-import cn from '@/utils/cn';
 import { weekdaysShortKo } from '@/utils/weekday';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';

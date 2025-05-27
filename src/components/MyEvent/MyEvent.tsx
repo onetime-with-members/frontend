@@ -2,11 +2,14 @@ import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import Skeleton from 'react-loading-skeleton';
 
-import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/lib/constants';
+import cn from '@/lib/cn';
+import {
+  SKELETON_DARK_GRAY,
+  SKELETON_GRAY,
+  weekdaysShortKo,
+} from '@/lib/constants';
 import { MyEventType } from '@/lib/types';
 import { Link } from '@/navigation';
-import cn from '@/utils/cn';
-import { weekdaysShortKo } from '@/utils/weekday';
 import { IconChevronRight } from '@tabler/icons-react';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import Image from 'next/image';

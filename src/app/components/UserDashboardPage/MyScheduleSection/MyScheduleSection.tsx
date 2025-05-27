@@ -5,10 +5,10 @@ import SkeletonContent from './SkeletonContent/SkeletonContent';
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
 import EverytimeUI from '@/components/EverytimeUI/EverytimeUI';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
+import axios from '@/lib/axios';
+import cn from '@/lib/cn';
 import { MyScheduleTimeType } from '@/lib/types';
 import useBarBannerStore from '@/stores/bar-banner';
-import axios from '@/utils/axios';
-import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyScheduleSection() {

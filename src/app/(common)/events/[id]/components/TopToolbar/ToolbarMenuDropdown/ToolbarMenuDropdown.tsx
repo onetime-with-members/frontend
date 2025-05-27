@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import ToolbarButton from '../ToolbarButton/ToolbarButton';
 import ToolbarMenuItem from './ToolbarMenuItem/ToolbarMenuItem';
 import useDropdown from '@/hooks/useDropdown';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import { IconDots } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 

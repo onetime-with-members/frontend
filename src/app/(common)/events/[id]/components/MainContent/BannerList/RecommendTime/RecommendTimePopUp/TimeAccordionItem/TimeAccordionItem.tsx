@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 interface TimeAccordionItemProps {

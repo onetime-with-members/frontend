@@ -4,10 +4,10 @@ import { useState } from 'react';
 
 import DateItem from '../DateItem/DateItem';
 import useDragSelect from '@/hooks/useDragSelect';
+import cn from '@/lib/cn';
 import { EventValueType } from '@/lib/types';
+import { eventTarget } from '@/lib/utils';
 import { useWeekdaysShort } from '@/stores/weekday';
-import cn from '@/utils/cn';
-import { eventTarget } from '@/utils/event-target';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 interface CalendarSelectProps {

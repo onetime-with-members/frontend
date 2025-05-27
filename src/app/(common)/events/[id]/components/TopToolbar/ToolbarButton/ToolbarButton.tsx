@@ -1,4 +1,4 @@
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface ToolbarButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;

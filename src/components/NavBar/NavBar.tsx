@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import AvatarDropdown from '../avatar/AvatarDropdown/AvatarDropdown';
 import LoginButton from './LoginButton/LoginButton';
 import useScroll from '@/hooks/useScroll';
+import axios from '@/lib/axios';
+import cn from '@/lib/cn';
 import { UserType } from '@/lib/types';
 import { Link } from '@/navigation';
-import axios from '@/utils/axios';
-import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 

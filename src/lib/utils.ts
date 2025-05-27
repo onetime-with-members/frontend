@@ -4,6 +4,29 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(customParseFormat);
 
+export function eventTarget(event: React.UIEvent): HTMLElement | null {
+  if (event.type.includes('mouse') || event.type.includes('click')) {
+    return event.target as HTMLElement;
+  }
+  if (event.type.includes('touch')) {
+    const touch = (event as React.TouchEvent).touches[0];
+    if (!touch) return null;
+    return document.elementFromPoint(
+      touch.clientX,
+      touch.clientY,
+    ) as HTMLElement;
+  }
+  return null;
+}
+
+export function minOf(a: string, b: string) {
+  return a < b ? a : b;
+}
+
+export function maxOf(a: string, b: string) {
+  return a > b ? a : b;
+}
+
 type TimeBlockUnit = '30m' | '1h';
 
 export function getBlockCount(
@@ -56,8 +79,4 @@ export function timeBlockList(
   const timeList = getTimeList(blockCount, startTime, unit);
 
   return timeList;
-}
-
-export function leftTimeLabelFormat(time: string) {
-  return time.split(':')[0] === '24' ? '24' : dayjs(time, 'HH:mm').format('H');
 }

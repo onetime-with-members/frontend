@@ -1,5 +1,5 @@
+import axios from '@/lib/axios';
 import { EventType, ScheduleType, TimeType } from '@/lib/types';
-import axios from '@/utils/axios';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const useScheduleQuery = (event: EventType | undefined) =>

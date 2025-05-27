@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import Avatar from '../Avatar/Avatar';
 import AvatarDropdownMenu from './AvatarDropdownMenu/AvatarDropdownMenu';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface AvatarProps {
   size?: number;

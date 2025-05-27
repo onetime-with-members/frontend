@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl';
 
 import EverytimeIcon from '@/components/icon/EverytimeIcon';
+import cn from '@/lib/cn';
 import { Link, useRouter } from '@/navigation';
-import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';
 import { usePathname } from 'next/navigation';
 

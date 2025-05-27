@@ -3,8 +3,8 @@ import { useContext } from 'react';
 
 import Button from '@/components/button/Button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
+import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
-import cn from '@/utils/cn';
 import { IconPlus } from '@tabler/icons-react';
 
 export default function BottomButtonForMobile() {

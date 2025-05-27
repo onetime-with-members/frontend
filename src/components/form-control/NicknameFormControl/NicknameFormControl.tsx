@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import Input from '../Input/Input';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface NicknameFormControlProps {
   value: string;

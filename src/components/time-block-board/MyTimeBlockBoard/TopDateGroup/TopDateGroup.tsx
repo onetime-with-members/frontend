@@ -1,5 +1,5 @@
+import cn from '@/lib/cn';
 import { useWeekdaysShort } from '@/stores/weekday';
-import cn from '@/utils/cn';
 
 interface TopDateGroupProps {
   className?: string;

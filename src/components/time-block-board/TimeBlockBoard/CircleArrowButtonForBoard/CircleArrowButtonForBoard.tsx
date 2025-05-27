@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 
 import CircleArrowButton from '@/components/button/CircleArrowButton/CircleArrowButton';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface CircleArrowButtonForBoardProps {
   isVisible: boolean;

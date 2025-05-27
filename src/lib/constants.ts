@@ -24,6 +24,17 @@ export const defaultRecommendTime: RecommendTimeType = {
   impossible_names: [],
 };
 
+export const weekdaysShortKo = ['일', '월', '화', '수', '목', '금', '토'];
+export const weekdaysShortEn = [
+  'Sun',
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat',
+];
+
 export const SKELETON_GRAY = '#e8e9ed77';
 export const SKELETON_DARK_GRAY = '#dadbe277';
 export const SKELETON_TOOLBAR_TITLE_COLOR = '#404251';

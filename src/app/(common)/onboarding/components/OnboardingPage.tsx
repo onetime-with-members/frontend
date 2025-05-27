@@ -13,10 +13,10 @@ import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
 import TopNavBarForDesktop from './TopNavBarForDesktop/TopNavBarForDesktop';
 import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
 import { FooterContext } from '@/contexts/FooterContext';
+import axios from '@/lib/axios';
+import cn from '@/lib/cn';
 import { OnboardingValueType } from '@/lib/types';
 import { useRouter } from '@/navigation';
-import axios from '@/utils/axios';
-import cn from '@/utils/cn';
 import { useMutation } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 

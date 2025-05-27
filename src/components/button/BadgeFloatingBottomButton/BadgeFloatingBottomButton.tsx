@@ -1,5 +1,5 @@
 import BadgeButton from '../BadgeButton/BadgeButton';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import { IconPlus } from '@tabler/icons-react';
 
 interface BadgeFloatingBottomButtonProps {

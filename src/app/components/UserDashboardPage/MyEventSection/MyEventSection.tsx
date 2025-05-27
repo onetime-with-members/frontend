@@ -5,10 +5,10 @@ import Header from '../Header/Header';
 import EmptyUI from '@/components/EmptyUI/EmptyUI';
 import MyEvent from '@/components/MyEvent/MyEvent';
 import useClientWidth from '@/hooks/useClientWidth';
+import axios from '@/lib/axios';
+import cn from '@/lib/cn';
 import { breakpoint, defaultMyEvent } from '@/lib/constants';
 import { MyEventType } from '@/lib/types';
-import axios from '@/utils/axios';
-import cn from '@/utils/cn';
 import { useQuery } from '@tanstack/react-query';
 
 export default function MyEventSection() {

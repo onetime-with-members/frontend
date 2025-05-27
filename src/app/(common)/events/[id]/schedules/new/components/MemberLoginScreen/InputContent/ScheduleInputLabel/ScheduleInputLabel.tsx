@@ -1,4 +1,4 @@
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface ScheduleInputLabelProps extends React.HTMLProps<HTMLLabelElement> {
   children: React.ReactNode;

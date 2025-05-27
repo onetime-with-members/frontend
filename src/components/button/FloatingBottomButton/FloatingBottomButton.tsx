@@ -1,5 +1,5 @@
 import Button, { ButtonProps } from '../Button/Button';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface FloatingBottomButtonProps extends ButtonProps {
   children: React.ReactNode;

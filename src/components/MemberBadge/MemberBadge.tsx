@@ -1,4 +1,4 @@
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface MemberBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   variant?: 'primary' | 'gray' | 'white';

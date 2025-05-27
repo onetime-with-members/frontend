@@ -1,6 +1,6 @@
 import { useLocale } from 'next-intl';
 
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface FeatureProps {
   title: React.ReactNode;

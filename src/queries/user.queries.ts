@@ -1,5 +1,5 @@
+import axios from '@/lib/axios';
 import { UserType } from '@/lib/types';
-import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export const useUserQuery = () =>

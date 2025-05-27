@@ -1,5 +1,5 @@
+import cn from '@/lib/cn';
 import useBarBannerStore from '@/stores/bar-banner';
-import cn from '@/utils/cn';
 
 type HeaderProps = React.HTMLAttributes<HTMLHeadingElement>;
 

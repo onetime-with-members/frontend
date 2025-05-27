@@ -1,7 +1,7 @@
 import EditIcon from '@/components/icon/EditIcon';
 import TrashIcon from '@/components/icon/TrashIcon';
+import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
-import cn from '@/utils/cn';
 
 interface ToolbarMenuItemProps extends React.HTMLAttributes<HTMLLIElement> {
   name: string;

@@ -7,7 +7,7 @@ import { useState } from 'react';
 import InfoContent from './InfoContent/InfoContent';
 import TopAppBar from './TopAppBar/TopAppBar';
 import Button from '@/components/button/Button/Button';
-import axios from '@/utils/axios';
+import axios from '@/lib/axios';
 import { useMutation } from '@tanstack/react-query';
 
 export default function WithdrawPage() {

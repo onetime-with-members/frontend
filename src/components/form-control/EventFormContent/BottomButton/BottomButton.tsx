@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import Button from '@/components/button/Button/Button';
 import { PageModeContext } from '@/contexts/PageModeContext';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface BottomButtonProps {
   handleSubmit: () => void;

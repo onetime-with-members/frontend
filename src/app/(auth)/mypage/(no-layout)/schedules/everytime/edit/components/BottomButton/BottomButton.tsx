@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 import Button from '@/components/button/Button/Button';
 import { FooterContext } from '@/contexts/FooterContext';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface BottomButtonProps {
   disabled: boolean;

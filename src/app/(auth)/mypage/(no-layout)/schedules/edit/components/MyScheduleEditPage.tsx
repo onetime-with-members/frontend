@@ -8,6 +8,8 @@ import TopAppBar from './TopAppBar/TopAppBar';
 import EverytimeUI from '@/components/EverytimeUI/EverytimeUI';
 import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
+import axios from '@/lib/axios';
+import cn from '@/lib/cn';
 import { MyScheduleTimeType } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import {
@@ -21,8 +23,6 @@ import {
 } from '@/stores/my-schedule';
 import { useSleepTime, useSleepTimeActions } from '@/stores/sleep-time';
 import { useToast } from '@/stores/toast';
-import axios from '@/utils/axios';
-import cn from '@/utils/cn';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function MyScheduleEditPage() {

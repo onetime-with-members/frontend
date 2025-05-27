@@ -1,6 +1,6 @@
 import useKakaoShare from '@/hooks/useKakaoShare';
+import cn from '@/lib/cn';
 import { useEventQuery } from '@/queries/event.queries';
-import cn from '@/utils/cn';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 

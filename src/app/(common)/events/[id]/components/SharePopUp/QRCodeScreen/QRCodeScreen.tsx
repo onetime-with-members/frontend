@@ -3,8 +3,8 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import ClockPattern from '@/components/ClockPattern/ClockPattern';
+import axios from '@/lib/axios';
 import { useEventQuery } from '@/queries/event.queries';
-import axios from '@/utils/axios';
 import { IconX } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';

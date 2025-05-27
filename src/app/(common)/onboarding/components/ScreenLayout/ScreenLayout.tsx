@@ -1,6 +1,6 @@
 import BottomButtonForDesktop from './BottomButtonForDesktop/BottomButtonForDesktop';
 import BottomButtonForMobile from './BottomButtonForMobile/BottomButtonForMobile';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface ScreenLayoutProps {
   isVisible: boolean;

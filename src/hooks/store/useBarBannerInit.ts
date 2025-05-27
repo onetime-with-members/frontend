@@ -1,9 +1,9 @@
 import { getCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
+import axios from '@/lib/axios';
 import { BarBanner } from '@/lib/types';
 import useBarBannerStore from '@/stores/bar-banner';
-import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function useBarBannerInit() {

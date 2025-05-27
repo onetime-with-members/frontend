@@ -1,6 +1,6 @@
 import SleepIcon from '@/components/icon/SleepIcon';
+import axios from '@/lib/axios';
 import { SleepTimeType } from '@/lib/types';
-import axios from '@/utils/axios';
 import { useQuery } from '@tanstack/react-query';
 
 export default function SleepTimeUI() {

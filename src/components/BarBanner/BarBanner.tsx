@@ -2,9 +2,9 @@
 
 import { useLocale } from 'next-intl';
 
+import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
 import useBarBannerStore from '@/stores/bar-banner';
-import cn from '@/utils/cn';
 import { IconX } from '@tabler/icons-react';
 import Image from 'next/image';
 

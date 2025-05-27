@@ -2,7 +2,7 @@ import { useRef } from 'react';
 
 import TimeDropdownItem from './TimeDropdownItem/TimeDropdownItem';
 import useDropdown from '@/hooks/useDropdown';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import {
   IconTriangleFilled,
   IconTriangleInvertedFilled,

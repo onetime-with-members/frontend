@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
+import cn from '@/lib/cn';
 import { Link, useRouter } from '@/navigation';
-import cn from '@/utils/cn';
 import { usePathname } from 'next/navigation';
 
 export default function LoginButton({ disabled }: { disabled?: boolean }) {

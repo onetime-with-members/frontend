@@ -1,5 +1,5 @@
 import ClockPatternLine from './ClockPatternLine/ClockPatternLine';
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface ClockPatternProps {
   className?: string;

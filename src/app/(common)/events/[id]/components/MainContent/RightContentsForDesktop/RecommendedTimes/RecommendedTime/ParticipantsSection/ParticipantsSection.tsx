@@ -3,8 +3,8 @@ import Skeleton from 'react-loading-skeleton';
 
 import MemberBadge from '@/components/MemberBadge/MemberBadge';
 import SkeletonMemberBadge from '@/components/skeleton/SkeletonMemberBadge/SkeletonMemberBadge';
+import cn from '@/lib/cn';
 import { SKELETON_DARK_GRAY } from '@/lib/constants';
-import cn from '@/utils/cn';
 
 interface ParticipantsSectionProps {
   type: 'available' | 'unavailable';

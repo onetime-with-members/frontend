@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
+import { weekdaysShortKo } from '@/lib/constants';
 import { MyScheduleTimeType } from '@/lib/types';
-import { weekdaysShortKo } from '@/utils/weekday';
 
 interface MyScheduleStore {
   mySchedule: MyScheduleTimeType[];

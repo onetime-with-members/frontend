@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl';
 
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 import Image from 'next/image';
 
 export default function TypoSection() {

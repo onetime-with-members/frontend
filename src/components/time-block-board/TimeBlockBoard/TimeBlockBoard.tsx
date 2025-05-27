@@ -13,9 +13,9 @@ import { useTargetOnBottomInScrollableElement } from './TimeBlockBoard.hooks';
 import TimeBlockPopUp from './TimeBlockPopUp/TimeBlockPopUp';
 import TopDateLabelGroup from './TopDateLabelGroup/TopDateLabelGroup';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
+import cn from '@/lib/cn';
 import { EventType, ScheduleType, TimeBlockPopUpDataType } from '@/lib/types';
-import cn from '@/utils/cn';
-import { timeBlockList } from '@/utils/time-block';
+import { timeBlockList } from '@/lib/utils';
 
 interface TimeBlockBoardProps {
   event: EventType;

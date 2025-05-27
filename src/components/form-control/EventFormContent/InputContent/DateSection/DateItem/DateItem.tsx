@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 
-import cn from '@/utils/cn';
+import cn from '@/lib/cn';
 
 interface DateItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
