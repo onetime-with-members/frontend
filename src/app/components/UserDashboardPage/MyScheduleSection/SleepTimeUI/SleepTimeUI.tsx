@@ -1,5 +1,5 @@
-import PenIcon from '@/components/icon/PenIcon';
-import SleepIcon from '@/components/icon/SleepIcon';
+import PenIcon from '@/components/icon/pen';
+import SleepIcon from '@/components/icon/sleep';
 import { Link } from '@/navigation';
 import { useSleepTimeData } from '@/stores/sleep-time';
 

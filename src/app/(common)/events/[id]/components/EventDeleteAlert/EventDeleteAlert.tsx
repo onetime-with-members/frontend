@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import Alert from '@/components/alert/Alert/Alert';
+import Alert from '@/components/alert/alert';
 import axios from '@/lib/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';

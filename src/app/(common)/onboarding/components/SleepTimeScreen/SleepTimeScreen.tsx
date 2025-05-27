@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl';
 
 import ScreenLayout from '../ScreenLayout/ScreenLayout';
-import TimeDropdown from '@/components/dropdown/TimeDropdown/TimeDropdown';
-import SleepIcon from '@/components/icon/SleepIcon';
+import TimeDropdown from '@/components/dropdown/time-dropdown';
+import SleepIcon from '@/components/icon/sleep';
 import { OnboardingValueType } from '@/lib/types';
 
 interface SleepTimeScreenProps {

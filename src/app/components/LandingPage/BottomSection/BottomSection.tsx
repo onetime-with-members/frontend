@@ -1,6 +1,6 @@
 import BottomButton from './BottomButton/BottomButton';
 import TopContent from './TopContent/TopContent';
-import ClockPattern from '@/components/ClockPattern/ClockPattern';
+import ClockPattern from '@/components/clock-pattern';
 
 export default function BottomSection() {
   return (

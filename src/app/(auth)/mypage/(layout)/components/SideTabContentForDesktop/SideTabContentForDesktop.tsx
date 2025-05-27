@@ -2,9 +2,9 @@ import { useTranslations } from 'next-intl';
 
 import { TabActiveType } from '../MyPageLayout';
 import SideTabItem from './SideTabItem/SideTabItem';
-import CalendarIcon from '@/components/icon/CalendarIcon';
-import EventIcon from '@/components/icon/EventIcon';
-import ProfileIcon from '@/components/icon/ProfileIcon';
+import CalendarIcon from '@/components/icon/calendar';
+import EventIcon from '@/components/icon/event';
+import ProfileIcon from '@/components/icon/profile';
 
 interface SideTabContentForDesktopProps {
   tabActive: TabActiveType;

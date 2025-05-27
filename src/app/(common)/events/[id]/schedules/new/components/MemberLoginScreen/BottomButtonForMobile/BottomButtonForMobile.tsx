@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import FloatingBottomButton from '@/components/button/FloatingBottomButton/FloatingBottomButton';
+import FloatingBottomButton from '@/components/button/floating-bottom-button';
 
 interface BottomButtonForMobileProps {
   onClick: () => void;

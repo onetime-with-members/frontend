@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import SmallButton from '@/components/button/SmallButton/SmallButton';
+import SmallButton from '@/components/button/small-button';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 interface TopAppBarProps {

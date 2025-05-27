@@ -1,5 +1,5 @@
 import { PageTitleType, TabActiveType } from '../MyPageLayout';
-import PenIcon from '@/components/icon/PenIcon';
+import PenIcon from '@/components/icon/pen';
 
 interface HeaderForDesktopProps {
   pageTitle: PageTitleType;

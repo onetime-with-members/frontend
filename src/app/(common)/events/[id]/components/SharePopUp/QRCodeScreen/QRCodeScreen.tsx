@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
-import ClockPattern from '@/components/ClockPattern/ClockPattern';
+import ClockPattern from '@/components/clock-pattern';
 import axios from '@/lib/axios';
 import { useEventQuery } from '@/queries/event.queries';
 import { IconX } from '@tabler/icons-react';

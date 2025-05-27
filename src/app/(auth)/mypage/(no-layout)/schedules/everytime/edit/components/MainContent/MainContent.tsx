@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl';
 
-import Input from '@/components/form-control/Input/Input';
+import Input from '@/components/input';
 import Image from 'next/image';
 
 interface MainContentProps {

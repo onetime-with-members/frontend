@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import HeaderForDesktop from './HeaderForDesktop/HeaderForDesktop';
 import SideTabContentForDesktop from './SideTabContentForDesktop/SideTabContentForDesktop';
 import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
-import NavBar from '@/components/NavBar/NavBar';
+import NavBar from '@/components/nav-bar';
 import { ScrollContext } from '@/contexts/ScrollContext';
 import { useRouter } from '@/navigation';
 import { usePathname } from 'next/navigation';

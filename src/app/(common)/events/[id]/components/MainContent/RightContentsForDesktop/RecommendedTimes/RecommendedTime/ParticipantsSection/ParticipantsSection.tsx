@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl';
 import Skeleton from 'react-loading-skeleton';
 
-import MemberBadge from '@/components/MemberBadge/MemberBadge';
-import SkeletonMemberBadge from '@/components/skeleton/SkeletonMemberBadge/SkeletonMemberBadge';
+import MemberBadge from '@/components/member-badge';
+import MemberBadgeSkeleton from '@/components/skeleton/member-badge-skeleton';
 import cn from '@/lib/cn';
 import { SKELETON_DARK_GRAY } from '@/lib/constants';
 
@@ -58,7 +58,7 @@ export default function ParticipantsSection({
                 </MemberBadge>
               ))
             : Array.from({ length: 4 }, (_, index) => (
-                <SkeletonMemberBadge
+                <MemberBadgeSkeleton
                   key={index}
                   baseColor={SKELETON_DARK_GRAY}
                 />

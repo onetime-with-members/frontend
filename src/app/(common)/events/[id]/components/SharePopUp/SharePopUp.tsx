@@ -7,7 +7,7 @@ import ShareBlueButton from './ShareBlueButton/ShareBlueButton';
 import ShareButtonWrapper from './ShareButtonWrapper/ShareButtonWrapper';
 import ShareKakaoButton from './ShareKakaoButton/ShareKakaoButton';
 import ShareMoreButton from './ShareMoreButton/ShareMoreButton';
-import Input from '@/components/form-control/Input/Input';
+import Input from '@/components/input';
 import { useEventQuery } from '@/queries/event.queries';
 import { useToast } from '@/stores/toast';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';

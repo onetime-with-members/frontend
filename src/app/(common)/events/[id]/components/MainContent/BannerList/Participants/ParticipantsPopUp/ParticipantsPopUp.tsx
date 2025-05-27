@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import MemberBadge from '@/components/MemberBadge/MemberBadge';
+import MemberBadge from '@/components/member-badge';
 import { IconX } from '@tabler/icons-react';
 
 interface ParticipantsPopUpProps {

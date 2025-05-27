@@ -4,8 +4,8 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import { useParticipants } from '../../../EventDetailPage.stores';
 import ParticipantsPopUp from './ParticipantsPopUp/ParticipantsPopUp';
-import MemberBadge from '@/components/MemberBadge/MemberBadge';
-import SkeletonMemberBadge from '@/components/skeleton/SkeletonMemberBadge/SkeletonMemberBadge';
+import MemberBadge from '@/components/member-badge';
+import MemberBadgeSkeleton from '@/components/skeleton/member-badge-skeleton';
 import useClientWidth from '@/hooks/useClientWidth';
 import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/lib/constants';
 import { IconChevronRight } from '@tabler/icons-react';
@@ -78,7 +78,7 @@ export default function Participants({ isPending }: { isPending?: boolean }) {
             </>
           ) : (
             Array.from({ length: 4 }).map((_, index) => (
-              <SkeletonMemberBadge key={index} />
+              <MemberBadgeSkeleton key={index} />
             ))
           )}
         </div>

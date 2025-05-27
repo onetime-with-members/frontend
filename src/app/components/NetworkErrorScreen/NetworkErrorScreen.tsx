@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import NavBar from '@/components/NavBar/NavBar';
+import NavBar from '@/components/nav-bar';
 import Image from 'next/image';
 
 export default function NetworkErrorScreen() {

@@ -1,7 +1,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 
 import clockLottie from '@/assets/lotties/landing-clock.json';
-import Lottie from '@/components/Lottie/Lottie';
+import Lottie from '@/components/lottie';
 import cn from '@/lib/cn';
 
 export default function TopContent() {

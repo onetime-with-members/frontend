@@ -2,7 +2,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
-import Button from '@/components/button/Button/Button';
+import Button from '@/components/button/button';
 import { FooterContext } from '@/contexts/FooterContext';
 import cn from '@/lib/cn';
 import { useEventQuery } from '@/queries/event.queries';

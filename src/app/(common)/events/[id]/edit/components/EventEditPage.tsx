@@ -3,7 +3,7 @@
 import { AxiosError } from 'axios';
 import { useEffect, useState } from 'react';
 
-import EventFormContent from '@/components/form-control/EventFormContent/EventFormContent';
+import EventFormContent from '@/components/event/form-screen';
 import axios from '@/lib/axios';
 import { EventValueType } from '@/lib/types';
 import { useRouter } from '@/navigation';

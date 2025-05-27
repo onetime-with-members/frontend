@@ -2,8 +2,8 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import Header from '../Header/Header';
-import EmptyUI from '@/components/EmptyUI/EmptyUI';
-import MyEvent from '@/components/MyEvent/MyEvent';
+import EmptyUI from '@/components/empty-ui';
+import MyEvent from '@/components/event/my-event';
 import useClientWidth from '@/hooks/useClientWidth';
 import axios from '@/lib/axios';
 import cn from '@/lib/cn';

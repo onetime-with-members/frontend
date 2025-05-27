@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 
-import CircleArrowButton from '@/components/button/CircleArrowButton/CircleArrowButton';
+import CircleArrowButton from '@/components/button/circle-arrow-button';
 import cn from '@/lib/cn';
 
 interface CircleArrowButtonForBoardProps {

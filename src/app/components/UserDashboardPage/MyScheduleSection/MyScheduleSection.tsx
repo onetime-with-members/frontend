@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import Header from '../Header/Header';
 import SkeletonContent from './SkeletonContent/SkeletonContent';
 import SleepTimeUI from './SleepTimeUI/SleepTimeUI';
-import EverytimeUI from '@/components/EverytimeUI/EverytimeUI';
+import EverytimeUI from '@/components/everytime-ui';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
 import axios from '@/lib/axios';
 import cn from '@/lib/cn';

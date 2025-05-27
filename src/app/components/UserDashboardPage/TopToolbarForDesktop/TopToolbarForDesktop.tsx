@@ -1,7 +1,7 @@
 import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
-import SkeletonToolbarTitle from '@/components/skeleton/SkeletonToolbarTitle/SkeletonToolbarTitle';
+import ToolbarTitleSkeleton from '@/components/skeleton/toolbar-title-skeleton';
 import useScroll from '@/hooks/useScroll';
 import axios from '@/lib/axios';
 import cn from '@/lib/cn';
@@ -41,7 +41,7 @@ export default function TopToolbarForDesktop() {
               {user ? (
                 t('hello', { name: user.nickname })
               ) : (
-                <SkeletonToolbarTitle />
+                <ToolbarTitleSkeleton />
               )}
             </h1>
             <Link

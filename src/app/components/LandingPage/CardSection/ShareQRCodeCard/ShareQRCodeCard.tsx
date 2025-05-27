@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import Card from '../Card/Card';
-import ClockPattern from '@/components/ClockPattern/ClockPattern';
+import ClockPattern from '@/components/clock-pattern';
 import Image from 'next/image';
 
 export default function ShareQRCodeCard() {

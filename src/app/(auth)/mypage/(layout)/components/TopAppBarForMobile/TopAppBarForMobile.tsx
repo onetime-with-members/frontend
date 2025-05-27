@@ -1,5 +1,5 @@
 import { PageTitleType, TabActiveType } from '../MyPageLayout';
-import PenIcon from '@/components/icon/PenIcon';
+import PenIcon from '@/components/icon/pen';
 import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 

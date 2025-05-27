@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 
 import SleepTimeAccordion from './SleepTimeAccordion/SleepTimeAccordion';
 import TopAppBar from './TopAppBar/TopAppBar';
-import EverytimeUI from '@/components/EverytimeUI/EverytimeUI';
-import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert';
+import BackButtonAlert from '@/components/alert/back-button-alert';
+import EverytimeUI from '@/components/everytime-ui';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
 import axios from '@/lib/axios';
 import cn from '@/lib/cn';

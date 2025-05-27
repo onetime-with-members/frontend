@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import Alert from '@/components/alert/Alert/Alert';
+import Alert from '@/components/alert/alert';
 import { useRouter } from '@/navigation';
 import { useParams, usePathname } from 'next/navigation';
 

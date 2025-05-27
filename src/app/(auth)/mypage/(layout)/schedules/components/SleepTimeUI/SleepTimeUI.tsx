@@ -1,4 +1,4 @@
-import SleepIcon from '@/components/icon/SleepIcon';
+import SleepIcon from '@/components/icon/sleep';
 import axios from '@/lib/axios';
 import { SleepTimeType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';

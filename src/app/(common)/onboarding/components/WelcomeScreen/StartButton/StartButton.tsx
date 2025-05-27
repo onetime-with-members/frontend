@@ -1,7 +1,7 @@
 import { deleteCookie, getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
-import Button from '@/components/button/Button/Button';
+import Button from '@/components/button/button';
 import { useRouter } from '@/navigation';
 
 export default function StartButton() {

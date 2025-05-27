@@ -4,9 +4,9 @@ import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
-import NavBar from '@/components/NavBar/NavBar';
-import Button from '@/components/button/Button/Button';
-import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent/PolicyCheckboxContent';
+import Button from '@/components/button/button';
+import NavBar from '@/components/nav-bar';
+import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import { PolicyContext } from '@/contexts/PolicyContext';
 import axios from '@/lib/axios';
 import { PolicyKeyType, PolicyType } from '@/lib/types';

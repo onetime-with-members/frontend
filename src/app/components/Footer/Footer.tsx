@@ -4,8 +4,8 @@ import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useRef } from 'react';
 
 import LogoContent from './LogoContent/LogoContent';
-import LanguageDropdown from '@/components/dropdown/LanguageDropdown/LanguageDropdown';
-import SpeakerPhoneIcon from '@/components/icon/SpeakerPhoneIcon';
+import LanguageDropdown from '@/components/dropdown/language-dropdown';
+import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import { FooterContext } from '@/contexts/FooterContext';
 import { Link } from '@/navigation';
 

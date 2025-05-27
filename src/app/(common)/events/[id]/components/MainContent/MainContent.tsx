@@ -1,6 +1,6 @@
 import BottomContentsForMobile from './BottomContentsForMobile/BottomContentsForMobile';
 import RightContentsForDesktop from './RightContentsForDesktop/RightContentsForDesktop';
-import SkeletonTimeBlockBoard from '@/components/skeleton/SkeletonTimeBlockBoard/SkeletonTimeBlockBoard';
+import TimeBlockBoardSkeleton from '@/components/skeleton/time-block-board-skeleton';
 import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard/TimeBlockBoard';
 import cn from '@/lib/cn';
 import { EventType } from '@/lib/types';
@@ -26,7 +26,7 @@ export default function MainContent({
       <div className="flex gap-6">
         <div className="w-full md:w-[55%]">
           {isEventPending || isScheduleLoading || !event || !schedules ? (
-            <SkeletonTimeBlockBoard count={6} />
+            <TimeBlockBoardSkeleton count={6} />
           ) : (
             <TimeBlockBoard
               event={event}

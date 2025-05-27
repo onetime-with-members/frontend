@@ -11,7 +11,7 @@ import Scripts from './components/Scripts/Scripts';
 import './globals.css';
 import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
-import Toast from '@/components/Toast/Toast';
+import Toast from '@/components/toast';
 import { getLocale } from 'next-intl/server';
 import 'react-loading-skeleton/dist/skeleton.css';
 

@@ -1,5 +1,5 @@
-import EditIcon from '@/components/icon/EditIcon';
-import TrashIcon from '@/components/icon/TrashIcon';
+import EditIcon from '@/components/icon/edit';
+import TrashIcon from '@/components/icon/trash';
 import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
 

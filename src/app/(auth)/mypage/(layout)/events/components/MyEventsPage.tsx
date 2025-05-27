@@ -1,7 +1,7 @@
 'use client';
 
 import EmptyMyEvent from './EmptyMyEvent/EmptyMyEvent';
-import MyEvent from '@/components/MyEvent/MyEvent';
+import MyEvent from '@/components/event/my-event';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import axios from '@/lib/axios';
 import { breakpoint } from '@/lib/constants';

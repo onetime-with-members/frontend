@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl';
 
-import Button from '@/components/button/Button/Button';
+import Button from '@/components/button/button';
 import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
 

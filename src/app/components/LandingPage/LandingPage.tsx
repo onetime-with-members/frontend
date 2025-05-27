@@ -5,7 +5,7 @@ import CardSection from './CardSection/CardSection';
 import FeatureSection from './FeatureSection/FeatureSection';
 import TopSection from './TopSection/TopSection';
 import TypoSection from './TypoSection/TypoSection';
-import NavBar from '@/components/NavBar/NavBar';
+import NavBar from '@/components/nav-bar';
 
 export default function LandingPage() {
   return (

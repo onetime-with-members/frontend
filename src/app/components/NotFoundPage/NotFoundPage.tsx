@@ -1,7 +1,7 @@
 'use client';
 
 import MainContent from './MainContent/MainContent';
-import NavBar from '@/components/NavBar/NavBar';
+import NavBar from '@/components/nav-bar';
 
 export default function NotFoundPage() {
   return (

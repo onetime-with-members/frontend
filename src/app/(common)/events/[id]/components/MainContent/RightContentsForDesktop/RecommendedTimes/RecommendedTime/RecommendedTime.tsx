@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import ParticipantsSection from './ParticipantsSection/ParticipantsSection';
-import ClockIcon from '@/components/icon/ClockIcon';
+import ClockIcon from '@/components/icon/clock';
 import {
   SKELETON_DARK_GRAY,
   SKELETON_GRAY,

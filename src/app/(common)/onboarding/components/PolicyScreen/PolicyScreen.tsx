@@ -2,8 +2,8 @@ import { useTranslations } from 'next-intl';
 import React, { useEffect, useState } from 'react';
 
 import ScreenLayout from '../ScreenLayout/ScreenLayout';
-import PolicyCheckboxContent from '@/components/policy/PolicyCheckboxContent/PolicyCheckboxContent';
-import PolicyDetailScreen from '@/components/policy/PolicyDetailScreen/PolicyDetailScreen';
+import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
+import PolicyDetailScreen from '@/components/user/policy-detail-screen';
 import { OnboardingValueType, PolicyKeyType, PolicyType } from '@/lib/types';
 
 interface PolicyScreenProps {

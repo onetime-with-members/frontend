@@ -3,8 +3,8 @@ import { useLocale, useTranslations } from 'next-intl';
 import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import ToolbarButton from './ToolbarButton/ToolbarButton';
 import ToolbarMenuDropdown from './ToolbarMenuDropdown/ToolbarMenuDropdown';
-import BarBanner from '@/components/BarBanner/BarBanner';
-import SkeletonToolbarTitle from '@/components/skeleton/SkeletonToolbarTitle/SkeletonToolbarTitle';
+import BarBanner from '@/components/bar-banner';
+import ToolbarTitleSkeleton from '@/components/skeleton/toolbar-title-skeleton';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import cn from '@/lib/cn';
 import { EventType } from '@/lib/types';
@@ -44,7 +44,7 @@ export default function TopToolbar({
         <div className="bg-gray-80 px-6 py-4 md:rounded-t-3xl">
           <div className="flex items-center justify-between md:h-10">
             <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
-              {event ? event.title : <SkeletonToolbarTitle />}
+              {event ? event.title : <ToolbarTitleSkeleton />}
             </h1>
             {event && (
               <>

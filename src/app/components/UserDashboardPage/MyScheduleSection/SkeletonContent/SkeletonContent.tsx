@@ -1,6 +1,6 @@
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
-import SkeletonTimeBlockBoard from '@/components/skeleton/SkeletonTimeBlockBoard/SkeletonTimeBlockBoard';
+import TimeBlockBoardSkeleton from '@/components/skeleton/time-block-board-skeleton';
 import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/lib/constants';
 
 export default function SkeletonContent() {
@@ -22,7 +22,7 @@ export default function SkeletonContent() {
           <Skeleton width={32} height={32} circle />
         </div>
 
-        <SkeletonTimeBlockBoard
+        <TimeBlockBoardSkeleton
           baseColor={SKELETON_DARK_GRAY}
           className="pb-10 pl-4 pr-5 pt-4"
         />

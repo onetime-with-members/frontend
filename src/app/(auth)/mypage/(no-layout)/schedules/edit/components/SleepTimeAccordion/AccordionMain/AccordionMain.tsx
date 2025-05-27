@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import SleepIcon from '@/components/icon/SleepIcon';
+import SleepIcon from '@/components/icon/sleep';
 import cn from '@/lib/cn';
 import { IconChevronDown } from '@tabler/icons-react';
 

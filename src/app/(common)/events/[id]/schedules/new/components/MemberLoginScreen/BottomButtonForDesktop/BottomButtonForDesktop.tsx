@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import Button from '@/components/button/Button/Button';
+import Button from '@/components/button/button';
 
 interface BottomButtonForDesktopProps {
   onClick: () => void;

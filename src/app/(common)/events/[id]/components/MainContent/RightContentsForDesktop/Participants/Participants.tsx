@@ -6,8 +6,8 @@ import {
   useParticipantsIsLoading,
 } from '../../../EventDetailPage.stores';
 import Header from '../Header/Header';
-import MemberBadge from '@/components/MemberBadge/MemberBadge';
-import SkeletonMemberBadge from '@/components/skeleton/SkeletonMemberBadge/SkeletonMemberBadge';
+import MemberBadge from '@/components/member-badge';
+import MemberBadgeSkeleton from '@/components/skeleton/member-badge-skeleton';
 import { SKELETON_GRAY } from '@/lib/constants';
 
 export default function Participants() {
@@ -47,7 +47,7 @@ export default function Participants() {
               </MemberBadge>
             ))
           : Array.from({ length: 4 }, (_, index) => (
-              <SkeletonMemberBadge key={index} baseColor={SKELETON_GRAY} />
+              <MemberBadgeSkeleton key={index} baseColor={SKELETON_GRAY} />
             ))}
       </div>
     </div>

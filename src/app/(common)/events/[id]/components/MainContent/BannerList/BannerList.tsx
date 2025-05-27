@@ -4,7 +4,7 @@ import { isMobile } from 'react-device-detect';
 
 import Participants from './Participants/Participants';
 import RecommendTime from './RecommendTime/RecommendTime';
-import CircleArrowButton from '@/components/button/CircleArrowButton/CircleArrowButton';
+import CircleArrowButton from '@/components/button/circle-arrow-button';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 
 export default function BannerList({ isPending }: { isPending?: boolean }) {

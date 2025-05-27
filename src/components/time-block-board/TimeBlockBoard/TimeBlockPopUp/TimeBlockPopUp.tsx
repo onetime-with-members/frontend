@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
-import MemberBadge from '@/components/MemberBadge/MemberBadge';
+import MemberBadge from '@/components/member-badge';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import { TimeBlockPopUpDataType } from '@/lib/types';

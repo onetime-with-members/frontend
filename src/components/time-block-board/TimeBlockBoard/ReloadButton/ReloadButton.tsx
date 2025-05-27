@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import LoadIcon from '@/components/icon/LoadIcon';
+import LoadIcon from '@/components/icon/load';
 import cn from '@/lib/cn';
 
 type ReloadButtonProps = React.HTMLAttributes<HTMLButtonElement>;

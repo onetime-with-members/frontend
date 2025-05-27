@@ -4,7 +4,7 @@ import { deleteCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
 import GrayButton from './GrayButton/GrayButton';
-import Avatar from '@/components/avatar/Avatar/Avatar';
+import Avatar from '@/components/avatar';
 import { useRouter } from '@/navigation';
 import { useUserQuery } from '@/queries/user.queries';
 

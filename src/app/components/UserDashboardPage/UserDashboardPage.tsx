@@ -5,7 +5,7 @@ import MyEventSection from './MyEventSection/MyEventSection';
 import MyScheduleSection from './MyScheduleSection/MyScheduleSection';
 import TopNavBar from './TopNavBar/TopNavBar';
 import TopToolbarForDesktop from './TopToolbarForDesktop/TopToolbarForDesktop';
-import BarBanner from '@/components/BarBanner/BarBanner';
+import BarBanner from '@/components/bar-banner';
 
 export default function UserDashboardPage() {
   return (
