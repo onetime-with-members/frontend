@@ -117,8 +117,9 @@ function AvatarDropdownMenu({
                 'text-danger-50': menuItem.variant === 'danger',
               },
             )}
-          ></Link>
-          {menuItem.label}
+          >
+            {menuItem.label}
+          </Link>
         </li>
       ))}
     </ul>

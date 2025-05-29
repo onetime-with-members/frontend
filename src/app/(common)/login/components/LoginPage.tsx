@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import ButtonGroup from './ButtonGroup/ButtonGroup';
 import LogoContent from './LogoContent/LogoContent';
 import NavBar from '@/components/nav-bar';
+import { signIn } from '@/lib/actions';
 import axios from '@/lib/axios';
 import { useRouter } from '@/navigation';
 import { useQuery } from '@tanstack/react-query';
@@ -36,32 +37,30 @@ export default function LoginPage() {
   }, [data, isError, router]);
 
   useEffect(() => {
-    const registerToken = searchParams.get('register_token');
-    const name = searchParams.get('name');
-    const accessToken = searchParams.get('access_token');
-    const refreshToken = searchParams.get('refresh_token');
-    const redirectUrl = searchParams.get('redirect_url');
+    async function authenticate() {
+      const registerToken = searchParams.get('register_token');
+      const name = searchParams.get('name');
+      const accessToken = searchParams.get('access_token');
+      const refreshToken = searchParams.get('refresh_token');
+      const redirectUrl = searchParams.get('redirect_url');
 
-    if (redirectUrl) {
-      setCookie('redirect-url', redirectUrl, {
-        expires: dayjs().add(1, 'year').toDate(),
-      });
-    }
+      if (redirectUrl) {
+        setCookie('redirect-url', redirectUrl, {
+          expires: dayjs().add(1, 'year').toDate(),
+        });
+      }
 
-    if (registerToken || name) {
-      const urlSearchParams = new URLSearchParams([
-        ...(registerToken ? [['register_token', registerToken]] : []),
-        ...(name ? [['name', name]] : []),
-      ]);
-      router.push(`/onboarding?${urlSearchParams.toString()}`);
-    } else if (accessToken && refreshToken) {
-      setCookie('access-token', accessToken, {
-        expires: dayjs().add(1, 'year').toDate(),
-      });
-      setCookie('refresh-token', refreshToken, {
-        expires: dayjs().add(1, 'year').toDate(),
-      });
+      if (registerToken || name) {
+        const urlSearchParams = new URLSearchParams([
+          ...(registerToken ? [['register_token', registerToken]] : []),
+          ...(name ? [['name', name]] : []),
+        ]);
+        router.push(`/onboarding?${urlSearchParams.toString()}`);
+      } else if (accessToken && refreshToken) {
+        await signIn(accessToken, refreshToken, redirectUrl || '/');
+      }
     }
+    authenticate();
   }, [searchParams, router]);
 
   return (

@@ -1,14 +1,12 @@
-import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
 import useScroll from '@/hooks/useScroll';
-import axios from '@/lib/axios';
+import { currentUser } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { UserType } from '@/lib/types';
 import { Link, useRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
@@ -27,31 +25,18 @@ export default function NavBar({
   isAuthHidden?: boolean;
   heightZero?: boolean;
 }) {
-  const [isMounted, setIsMounted] = useState<boolean>(false);
-  const [hasTokens, setHasTokens] = useState<boolean>(
-    !!getCookie('access-token') && !!getCookie('refresh-token'),
-  );
+  const [user, setUser] = useState<UserType | undefined>();
+  const [isPending, setIsPending] = useState(true);
 
   const { isScrolling } = useScroll();
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!!getCookie('access-token') && !!getCookie('refresh-token')) {
-      setHasTokens(true);
+    async function fetchData() {
+      setUser(await currentUser());
+      setIsPending(false);
     }
-  }, [hasTokens]);
-
-  const { data: user, isLoading } = useQuery<UserType>({
-    queryKey: ['users', 'profile'],
-    queryFn: async () => {
-      const res = await axios.get('/users/profile');
-      return res.data.payload;
-    },
-    enabled: hasTokens,
-  });
+    fetchData();
+  }, []);
 
   return (
     <nav
@@ -97,12 +82,12 @@ export default function NavBar({
               priority
             />
           </Link>
-          {isMounted && !isAuthHidden && (
+          {!isAuthHidden && (
             <>
               {user ? (
                 <AvatarDropdown name={user.nickname} disabled={disabled} />
               ) : (
-                !isLoading && !user && <LoginButton disabled={disabled} />
+                !isPending && <LoginButton disabled={disabled} />
               )}
             </>
           )}

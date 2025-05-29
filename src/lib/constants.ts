@@ -1,6 +1,9 @@
 import { MyEventType } from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 
+export const SERVER_API_URL =
+  process.env.SERVER_API_URL || 'http://localhost:3000';
+
 export const breakpoint = {
   sm: 640,
   md: 768,
