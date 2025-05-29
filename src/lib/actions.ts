@@ -28,40 +28,45 @@ export async function signIn(
     expires: refreshTokenExpired.toDate(),
   });
 
+  cookieStore.set(
+    'session',
+    JSON.stringify({
+      accessToken,
+      refreshToken,
+      expiredAt: accessTokenExpired.valueOf(),
+    }),
+    {
+      expires: refreshTokenExpired.toDate(),
+    },
+  );
+
   if (redirectUrl) redirect(redirectUrl);
 }
 
 export async function signOut(redirectUrl?: string) {
   const cookieStore = await cookies();
-
-  cookieStore.delete('access-token');
-  cookieStore.delete('refresh-token');
-  cookieStore.delete('expired-at');
+  cookieStore.delete('session');
 
   revalidatePath('/');
-
   if (redirectUrl) redirect(redirectUrl);
 }
 
 export async function auth() {
   const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get('session')?.value;
+  if (!sessionCookie) return null;
+  const session = JSON.parse(sessionCookie);
 
-  const accessToken = cookieStore.get('access-token')?.value;
-  const refreshToken = cookieStore.get('refresh-token')?.value;
-  const expiredAt = cookieStore.get('expired-at')?.value;
+  if (dayjs().isBefore(dayjs(session.expiredAt))) return session.accessToken;
 
-  if (!accessToken || !refreshToken || !expiredAt) return null;
-
-  if (dayjs().isBefore(dayjs(Number(expiredAt)))) return accessToken;
-
-  const res = await fetch(`${SERVER_API_URL}/token/action-reissue`, {
+  const res = await fetch(`${SERVER_API_URL}/tokens/action-reissue`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${session.accessToken}`,
     },
     body: JSON.stringify({
-      refresh_token: refreshToken,
+      refresh_token: session.refreshToken,
     }),
   });
   if (!res.ok) {
@@ -85,7 +90,6 @@ export async function currentUser() {
   });
 
   if (!res.ok) {
-    console.log(await res.json());
     throw new Error('Failed to fetch current user');
   }
 
