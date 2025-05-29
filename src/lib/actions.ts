@@ -3,7 +3,6 @@
 import dayjs from 'dayjs';
 
 import { SERVER_API_URL } from './constants';
-import { UserType } from './types';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -22,9 +21,6 @@ export async function signIn(
     expires: accessTokenExpired.toDate(),
   });
   cookieStore.set('refresh-token', refreshToken, {
-    expires: refreshTokenExpired.toDate(),
-  });
-  cookieStore.set('expired-at', `${accessTokenExpired.valueOf()}`, {
     expires: refreshTokenExpired.toDate(),
   });
 
@@ -88,13 +84,10 @@ export async function currentUser() {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-
   if (!res.ok) {
     throw new Error('Failed to fetch current user');
   }
-
   const data = await res.json();
-  const user: UserType = data.payload;
 
-  return user;
+  return data.payload;
 }

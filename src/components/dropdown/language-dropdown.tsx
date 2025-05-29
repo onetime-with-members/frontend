@@ -1,3 +1,5 @@
+'use client';
+
 import { getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useLocale } from 'next-intl';

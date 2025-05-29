@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Avatar from '../avatar';
 import { signOut } from '@/lib/actions';
 import cn from '@/lib/cn';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { useRouter } from 'next/navigation';
 
 export default function AvatarDropdown({
