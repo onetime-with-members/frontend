@@ -1,5 +1,3 @@
-import { useTranslations } from 'next-intl';
-
 import MyEvent from '@/components/event/my-event';
 import GrayBackground from '@/components/gray-background';
 import { fetchMyEvents } from '@/lib/actions';
@@ -34,8 +32,8 @@ export default async function Page() {
   );
 }
 
-export function EmptyMyEvent() {
-  const t = useTranslations('myEvents');
+async function EmptyMyEvent() {
+  const t = await getTranslations('myEvents');
 
   return (
     <div className="flex h-full translate-y-14 flex-col items-center justify-center gap-8 px-4 md:translate-y-0 md:justify-start md:py-12">
