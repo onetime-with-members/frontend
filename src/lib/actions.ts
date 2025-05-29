@@ -3,6 +3,7 @@
 import dayjs from 'dayjs';
 
 import { SERVER_API_URL } from './constants';
+import { MyEventType } from './types';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -90,4 +91,21 @@ export async function currentUser() {
   const data = await res.json();
 
   return data.payload;
+}
+
+export async function fetchMyEvents() {
+  const accessToken = await auth();
+
+  const res = await fetch(`${SERVER_API_URL}/events/user/all`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!res.ok) {
+    throw new Error('Failed to fetch my events');
+  }
+  const data = await res.json();
+  const events: MyEventType[] = data.payload;
+
+  return events;
 }

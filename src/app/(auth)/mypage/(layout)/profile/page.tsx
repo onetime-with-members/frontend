@@ -15,7 +15,7 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Profile() {
+export default async function Page() {
   if (!(await auth())) redirect('/login');
 
   const user = await currentUser();
