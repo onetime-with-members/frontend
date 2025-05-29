@@ -1,3 +1,5 @@
+'use client';
+
 import BoardContent from './BoardContent/BoardContent';
 import LeftTimeLine from './LeftTimeLine/LeftTimeLine';
 import TopDateGroup from './TopDateGroup/TopDateGroup';

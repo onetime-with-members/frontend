@@ -3,7 +3,12 @@
 import dayjs from 'dayjs';
 
 import { SERVER_API_URL } from './constants';
-import { MyEventType } from './types';
+import {
+  MyEventType,
+  MyScheduleTimeType,
+  SleepTimeType,
+  UserType,
+} from './types';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -15,7 +20,7 @@ export async function signIn(
 ) {
   const cookieStore = await cookies();
 
-  const accessTokenExpired = dayjs().add(1, 'hour');
+  const accessTokenExpired = dayjs().add(30, 'minutes');
   const refreshTokenExpired = dayjs().add(1, 'month');
 
   cookieStore.set('access-token', accessToken, {
@@ -85,12 +90,11 @@ export async function currentUser() {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  if (!res.ok) {
-    throw new Error('Failed to fetch current user');
-  }
+  if (!res.ok) throw new Error('Failed to fetch current user');
   const data = await res.json();
+  const user: UserType = data.payload;
 
-  return data.payload;
+  return user;
 }
 
 export async function fetchMyEvents() {
@@ -101,11 +105,42 @@ export async function fetchMyEvents() {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  if (!res.ok) {
-    throw new Error('Failed to fetch my events');
-  }
+  if (!res.ok) throw new Error('Failed to fetch my events');
   const data = await res.json();
   const events: MyEventType[] = data.payload;
 
   return events;
+}
+
+export async function fetchMySchedules() {
+  const accessToken = await auth();
+
+  const res = await fetch(`${SERVER_API_URL}/fixed-schedules`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch my schedule');
+  }
+  const data = await res.json();
+  const mySchedule: MyScheduleTimeType[] = data.payload.schedules;
+
+  return mySchedule;
+}
+
+export async function fetchSleepTime() {
+  const accessToken = await auth();
+
+  const res = await fetch(`${SERVER_API_URL}/users/sleep-time`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!res.ok) throw new Error('Failed to fetch my sleep time');
+  const data = await res.json();
+  const sleepTime: SleepTimeType = data.payload;
+
+  return sleepTime;
 }
