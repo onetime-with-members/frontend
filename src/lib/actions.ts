@@ -72,8 +72,9 @@ export async function auth() {
     }),
   });
   if (!res.ok) {
+    console.error(await res.json());
     await signOut();
-    return null;
+    throw new Error('Failed to reissue token');
   }
   const data = await res.json();
 
@@ -90,7 +91,10 @@ export async function currentUser() {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  if (!res.ok) throw new Error('Failed to fetch current user');
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch current user');
+  }
   const data = await res.json();
   const user: UserType = data.payload;
 
@@ -105,7 +109,10 @@ export async function fetchMyEvents() {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  if (!res.ok) throw new Error('Failed to fetch my events');
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch my events');
+  }
   const data = await res.json();
   const events: MyEventType[] = data.payload;
 
@@ -138,7 +145,10 @@ export async function fetchSleepTime() {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  if (!res.ok) throw new Error('Failed to fetch my sleep time');
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch sleep time');
+  }
   const data = await res.json();
   const sleepTime: SleepTimeType = data.payload;
 
