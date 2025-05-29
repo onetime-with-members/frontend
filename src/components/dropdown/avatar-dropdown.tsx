@@ -1,10 +1,11 @@
-import { deleteCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
 import Avatar from '../avatar';
+import { signOut } from '@/lib/actions';
 import cn from '@/lib/cn';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function AvatarDropdown({
   size = 40,
@@ -61,6 +62,7 @@ function AvatarDropdownMenu({
 }: {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const router = useRouter();
   const t = useTranslations('navbar');
 
   const menuItems: {
@@ -95,10 +97,9 @@ function AvatarDropdownMenu({
     },
   ];
 
-  function handleLogout() {
-    deleteCookie('access-token');
-    deleteCookie('refresh-token');
-    location.reload();
+  async function handleLogout() {
+    await signOut();
+    router.refresh();
   }
 
   function handleMenuItemClick() {

@@ -1,10 +1,10 @@
 'use client';
 
-import { deleteCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
 import GrayButton from './GrayButton/GrayButton';
 import Avatar from '@/components/avatar';
+import { signOut } from '@/lib/actions';
 import { useRouter } from '@/navigation';
 import { useUserQuery } from '@/queries/user.queries';
 
@@ -19,10 +19,9 @@ export default function ProfileSection() {
     router.push('/mypage/profile/edit');
   }
 
-  function handleLogoutButtonClick() {
-    deleteCookie('access-token');
-    deleteCookie('refresh-token');
-    location.reload();
+  async function handleLogoutButtonClick() {
+    await signOut();
+    router.refresh();
   }
 
   return (

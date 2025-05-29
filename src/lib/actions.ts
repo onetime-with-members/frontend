@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 
 import { SERVER_API_URL } from './constants';
 import { UserType } from './types';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -30,7 +31,19 @@ export async function signIn(
   if (redirectUrl) redirect(redirectUrl);
 }
 
-async function auth() {
+export async function signOut(redirectUrl?: string) {
+  const cookieStore = await cookies();
+
+  cookieStore.delete('access-token');
+  cookieStore.delete('refresh-token');
+  cookieStore.delete('expired-at');
+
+  revalidatePath('/');
+
+  if (redirectUrl) redirect(redirectUrl);
+}
+
+export async function auth() {
   const cookieStore = await cookies();
 
   const accessToken = cookieStore.get('access-token')?.value;
@@ -41,27 +54,25 @@ async function auth() {
 
   if (dayjs().isBefore(dayjs(Number(expiredAt)))) return accessToken;
 
-  try {
-    const res = await fetch(`${SERVER_API_URL}/token/action-reissue`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-      body: JSON.stringify({
-        refresh_token: refreshToken,
-      }),
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-
-    await signIn(data.payload.access_token, data.payload.refresh_token);
-
-    return data.payload.access_token;
-  } catch (error) {
-    console.error(error);
+  const res = await fetch(`${SERVER_API_URL}/token/action-reissue`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+    body: JSON.stringify({
+      refresh_token: refreshToken,
+    }),
+  });
+  if (!res.ok) {
+    await signOut();
     return null;
   }
+  const data = await res.json();
+
+  await signIn(data.payload.access_token, data.payload.refresh_token);
+
+  return data.payload.access_token;
 }
 
 export async function currentUser() {
