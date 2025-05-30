@@ -1,7 +1,7 @@
 import { getCookie } from 'cookies-next';
 import { createContext, useEffect, useState } from 'react';
 
-import { auth, currentUser } from '@/lib/actions';
+import { auth, currentUser } from '@/lib/auth';
 import { UserType } from '@/lib/types';
 
 interface CurrentUserContextType {

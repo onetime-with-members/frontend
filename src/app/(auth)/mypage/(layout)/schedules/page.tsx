@@ -1,6 +1,6 @@
 import SleepIcon from '@/components/icon/sleep';
 import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
-import { fetchMySchedules, fetchSleepTime } from '@/lib/actions';
+import { fetchMySchedules, fetchSleepTime } from '@/lib/data';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {

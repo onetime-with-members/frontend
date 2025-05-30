@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 
 import Avatar from '../avatar';
 import { CurrentUserContext } from '@/contexts/CurrentUserContext';
-import { signOut } from '@/lib/actions';
+import { signOut } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { Link } from '@/navigation';
 import { useRouter } from 'next/navigation';

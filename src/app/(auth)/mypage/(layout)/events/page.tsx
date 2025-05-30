@@ -1,6 +1,6 @@
 import MyEvent from '@/components/event/my-event';
 import GrayBackground from '@/components/gray-background';
-import { fetchMyEvents } from '@/lib/actions';
+import { fetchMyEvents } from '@/lib/data';
 import { Link } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
 import { getTranslations } from 'next-intl/server';
