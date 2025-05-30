@@ -68,6 +68,8 @@ export async function signIn(
 export async function signOut(redirectUrl?: string) {
   const cookieStore = await cookies();
   cookieStore.delete('session');
+  cookieStore.delete('access-token');
+  cookieStore.delete('refresh-token');
 
   revalidatePath('/');
 

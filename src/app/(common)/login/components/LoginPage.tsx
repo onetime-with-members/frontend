@@ -10,12 +10,13 @@ import NavBar from '@/components/nav-bar';
 import { signIn } from '@/lib/actions';
 import axios from '@/lib/axios';
 import { useRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const hasTokens = !!getCookie('access-token') && !!getCookie('refresh-token');
 
@@ -58,10 +59,11 @@ export default function LoginPage() {
         router.push(`/onboarding?${urlSearchParams.toString()}`);
       } else if (accessToken && refreshToken) {
         await signIn(accessToken, refreshToken, redirectUrl || '/');
+        await queryClient.invalidateQueries({ queryKey: ['users'] });
       }
     }
     authenticate();
-  }, [searchParams, router]);
+  }, [searchParams, router, queryClient]);
 
   return (
     <div className="flex h-screen flex-col">

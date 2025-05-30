@@ -5,6 +5,7 @@ import Avatar from '../avatar';
 import { signOut } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { Link } from '@/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export default function AvatarDropdown({
@@ -64,12 +65,14 @@ function AvatarDropdownMenu({
 }) {
   const router = useRouter();
   const t = useTranslations('navbar');
+  const queryClient = useQueryClient();
 
   const menuItems: {
     href: string;
     label: string;
     onClick: () => void;
     variant: 'default' | 'danger';
+    notProgressed?: boolean;
   }[] = [
     {
       href: '/mypage/events',
@@ -94,11 +97,13 @@ function AvatarDropdownMenu({
       label: t('logout'),
       onClick: handleLogout,
       variant: 'danger',
+      notProgressed: true,
     },
   ];
 
   async function handleLogout() {
     await signOut();
+    queryClient.removeQueries({ queryKey: ['users', 'profile'] });
     router.refresh();
   }
 
@@ -118,6 +123,7 @@ function AvatarDropdownMenu({
                 'text-danger-50': menuItem.variant === 'danger',
               },
             )}
+            notProgressed={menuItem.notProgressed}
           >
             {menuItem.label}
           </Link>

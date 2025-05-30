@@ -1,5 +1,4 @@
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
 import useScroll from '@/hooks/useScroll';
@@ -7,6 +6,7 @@ import { auth } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { UserType } from '@/lib/types';
 import { Link, useRouter } from '@/navigation';
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
@@ -25,19 +25,16 @@ export default function NavBar({
   isAuthHidden?: boolean;
   heightZero?: boolean;
 }) {
-  const [user, setUser] = useState<UserType | undefined>();
-  const [isPending, setIsPending] = useState(true);
-
   const { isScrolling } = useScroll();
 
-  useEffect(() => {
-    async function fetchData() {
+  const { data: user, isPending } = useQuery<UserType | null>({
+    queryKey: ['users', 'profile'],
+    queryFn: async () => {
       const session = await auth();
-      if (session) setUser(session.user);
-      setIsPending(false);
-    }
-    fetchData();
-  }, []);
+      if (!session) return null;
+      return session.user;
+    },
+  });
 
   return (
     <nav

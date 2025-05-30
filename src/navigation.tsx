@@ -37,17 +37,29 @@ export function useRouter() {
 
 interface LinkProps
   extends NextLinkProps,
-    React.HTMLAttributes<HTMLAnchorElement> {}
+    React.HTMLAttributes<HTMLAnchorElement> {
+  notProgressed?: boolean;
+}
 
-export function Link({ children, onClick, ...props }: LinkProps) {
+export function Link({
+  children,
+  onClick,
+  notProgressed,
+  ...props
+}: LinkProps) {
   const router = useRouter();
+  const _router = _useRouter();
 
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
     if (onClick) {
       onClick(e);
     } else {
       e.preventDefault();
-      router.push(props.href as string);
+      if (notProgressed) {
+        _router.push(props.href as string);
+      } else {
+        router.push(props.href as string);
+      }
     }
   }
 
