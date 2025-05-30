@@ -1,3 +1,4 @@
+import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
@@ -27,9 +28,12 @@ export default function NavBar({
 }) {
   const { isScrolling } = useScroll();
 
-  const { data: user, isPending } = useQuery<UserType>({
+  const session = getCookie('session');
+
+  const { data: user, isLoading } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
     queryFn: currentUser,
+    enabled: !!session,
   });
 
   return (
@@ -81,7 +85,7 @@ export default function NavBar({
               {user ? (
                 <AvatarDropdown name={user.nickname} disabled={disabled} />
               ) : (
-                !isPending && <LoginButton disabled={disabled} />
+                !isLoading && <LoginButton disabled={disabled} />
               )}
             </>
           )}
