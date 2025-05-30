@@ -1,7 +1,7 @@
 import ProfileActions from './profile-actions';
 import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import { auth } from '@/lib/actions';
+import { auth, currentUser } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { Link } from '@/navigation';
 import { getTranslations } from 'next-intl/server';
@@ -18,7 +18,7 @@ export async function generateMetadata() {
 export default async function Page() {
   const session = await auth();
   if (!session) redirect('/login');
-  const { user } = session;
+  const user = await currentUser();
 
   const t = await getTranslations('profile');
 
