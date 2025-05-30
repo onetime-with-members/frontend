@@ -62,6 +62,8 @@ export async function signIn(
     },
   );
 
+  revalidatePath('/');
+
   if (redirectUrl) redirect(redirectUrl);
 }
 
