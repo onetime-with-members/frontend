@@ -1,5 +1,6 @@
 'use client';
 
+import CurrentUserContextProvider from './CurrentUserContext';
 import { FooterContextProvider } from './FooterContext';
 import { PageModeContextProvider } from './PageModeContext';
 import PolicyContextProvider from './PolicyContext';
@@ -14,7 +15,9 @@ export default function ContextProviders({ children }: ContextProvidersProps) {
     <PageModeContextProvider>
       <FooterContextProvider>
         <ScrollContextProvider>
-          <PolicyContextProvider>{children}</PolicyContextProvider>
+          <PolicyContextProvider>
+            <CurrentUserContextProvider>{children}</CurrentUserContextProvider>
+          </PolicyContextProvider>
         </ScrollContextProvider>
       </FooterContextProvider>
     </PageModeContextProvider>

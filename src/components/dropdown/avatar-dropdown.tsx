@@ -1,11 +1,11 @@
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import Avatar from '../avatar';
+import { CurrentUserContext } from '@/contexts/CurrentUserContext';
 import { signOut } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { Link } from '@/navigation';
-import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export default function AvatarDropdown({
@@ -65,7 +65,8 @@ function AvatarDropdownMenu({
 }) {
   const router = useRouter();
   const t = useTranslations('navbar');
-  const queryClient = useQueryClient();
+
+  const { setUser } = useContext(CurrentUserContext);
 
   const menuItems: {
     href: string;
@@ -103,7 +104,7 @@ function AvatarDropdownMenu({
 
   async function handleLogout() {
     await signOut();
-    queryClient.removeQueries({ queryKey: ['users', 'profile'] });
+    setUser(null);
     router.refresh();
   }
 

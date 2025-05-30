@@ -1,13 +1,11 @@
-import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
+import { CurrentUserContext } from '@/contexts/CurrentUserContext';
 import useScroll from '@/hooks/useScroll';
-import { currentUser } from '@/lib/actions';
 import cn from '@/lib/cn';
-import { UserType } from '@/lib/types';
 import { Link, useRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
@@ -28,13 +26,7 @@ export default function NavBar({
 }) {
   const { isScrolling } = useScroll();
 
-  const session = getCookie('session');
-
-  const { data: user, isLoading } = useQuery<UserType>({
-    queryKey: ['users', 'profile'],
-    queryFn: currentUser,
-    enabled: !!session,
-  });
+  const { user, isPending } = useContext(CurrentUserContext);
 
   return (
     <nav
@@ -85,7 +77,7 @@ export default function NavBar({
               {user ? (
                 <AvatarDropdown name={user.nickname} disabled={disabled} />
               ) : (
-                !isLoading && <LoginButton disabled={disabled} />
+                !isPending && <LoginButton disabled={disabled} />
               )}
             </>
           )}
