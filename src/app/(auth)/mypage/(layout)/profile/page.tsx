@@ -1,7 +1,7 @@
 import ProfileActions from './profile-actions';
 import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import { auth, currentUser } from '@/lib/actions';
+import { auth } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { Link } from '@/navigation';
 import { getTranslations } from 'next-intl/server';
@@ -16,9 +16,9 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  if (!(await auth())) redirect('/login');
-
-  const user = await currentUser();
+  const session = await auth();
+  if (!session) redirect('/login');
+  const { user } = session;
 
   const t = await getTranslations('profile');
 
@@ -27,10 +27,10 @@ export default async function Page() {
       {/* Profile */}
       <section className="flex flex-col gap-4 rounded-[1.25rem] border border-gray-10 p-6">
         <div className="flex items-center gap-4">
-          <Avatar size={64} name={user?.nickname || ''} />
+          <Avatar size={64} name={user.nickname || ''} />
           <div className="flex flex-col gap-1">
-            <div className="text-gray-80 title-sm-300">{user?.nickname}</div>
-            <div className="text-gray-40 text-sm-200">{user?.email}</div>
+            <div className="text-gray-80 title-sm-300">{user.nickname}</div>
+            <div className="text-gray-40 text-sm-200">{user.email}</div>
           </div>
         </div>
         <ProfileActions />

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
 import useScroll from '@/hooks/useScroll';
-import { auth, currentUser } from '@/lib/actions';
+import { auth } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { UserType } from '@/lib/types';
 import { Link, useRouter } from '@/navigation';
@@ -32,7 +32,8 @@ export default function NavBar({
 
   useEffect(() => {
     async function fetchData() {
-      if (await auth()) setUser(await currentUser());
+      const session = await auth();
+      if (session) setUser(session.user);
       setIsPending(false);
     }
     fetchData();

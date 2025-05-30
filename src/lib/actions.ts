@@ -13,6 +13,13 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+interface Session {
+  user: UserType;
+  accessToken: string;
+  refreshToken: string;
+  expiredAt: number;
+}
+
 export async function signIn(
   accessToken: string,
   refreshToken: string,
@@ -30,13 +37,26 @@ export async function signIn(
     expires: refreshTokenExpired.toDate(),
   });
 
+  const res = await fetch(`${SERVER_API_URL}/users/profile`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch current user');
+  }
+  const data = await res.json();
+  const user: UserType = data.payload;
+
   cookieStore.set(
     'session',
     JSON.stringify({
+      user,
       accessToken,
       refreshToken,
       expiredAt: accessTokenExpired.valueOf(),
-    }),
+    } satisfies Session),
     {
       expires: refreshTokenExpired.toDate(),
     },
@@ -50,16 +70,42 @@ export async function signOut(redirectUrl?: string) {
   cookieStore.delete('session');
 
   revalidatePath('/');
+
   if (redirectUrl) redirect(redirectUrl);
 }
 
-export async function auth() {
+async function updateTokens(accessToken: string, refreshToken: string) {
+  const cookieStore = await cookies();
+
+  const sessionCookie = cookieStore.get('session')?.value;
+  if (!sessionCookie) {
+    await signOut();
+    throw new Error('No session cookie');
+  }
+  const session: Session = JSON.parse(sessionCookie);
+
+  const newSession: Session = {
+    ...session,
+    accessToken,
+    refreshToken,
+    expiredAt: dayjs().add(30, 'minutes').valueOf(),
+  };
+  cookieStore.set('session', JSON.stringify(newSession), {
+    expires: dayjs().add(1, 'month').toDate(),
+  });
+
+  revalidatePath('/');
+
+  return newSession;
+}
+
+export async function auth(): Promise<Session | null> {
   const cookieStore = await cookies();
   const sessionCookie = cookieStore.get('session')?.value;
   if (!sessionCookie) return null;
   const session = JSON.parse(sessionCookie);
 
-  if (dayjs().isBefore(dayjs(session.expiredAt))) return session.accessToken;
+  if (dayjs().isBefore(dayjs(session.expiredAt))) return session;
 
   const res = await fetch(`${SERVER_API_URL}/tokens/action-reissue`, {
     method: 'POST',
@@ -77,36 +123,24 @@ export async function auth() {
     throw new Error('Failed to reissue token');
   }
   const data = await res.json();
+  const { access_token: accessToken, refresh_token: refreshToken } =
+    data.payload;
 
-  await signIn(data.payload.access_token, data.payload.refresh_token);
+  const newSession = await updateTokens(accessToken, refreshToken);
 
-  return data.payload.access_token;
+  return newSession;
 }
 
-export async function currentUser() {
-  const accessToken = await auth();
-
-  const res = await fetch(`${SERVER_API_URL}/users/profile`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  if (!res.ok) {
-    console.error(await res.json());
-    throw new Error('Failed to fetch current user');
-  }
-  const data = await res.json();
-  const user: UserType = data.payload;
-
-  return user;
+async function accessToken() {
+  const session = await auth();
+  if (!session) throw new Error('Unauthorized Error');
+  return session.accessToken;
 }
 
 export async function fetchMyEvents() {
-  const accessToken = await auth();
-
   const res = await fetch(`${SERVER_API_URL}/events/user/all`, {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${await accessToken()}`,
     },
   });
   if (!res.ok) {
@@ -120,11 +154,9 @@ export async function fetchMyEvents() {
 }
 
 export async function fetchMySchedules() {
-  const accessToken = await auth();
-
   const res = await fetch(`${SERVER_API_URL}/fixed-schedules`, {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${await accessToken()}`,
     },
   });
   if (!res.ok) {
@@ -138,11 +170,9 @@ export async function fetchMySchedules() {
 }
 
 export async function fetchSleepTime() {
-  const accessToken = await auth();
-
   const res = await fetch(`${SERVER_API_URL}/users/sleep-time`, {
     headers: {
-      Authorization: `Bearer ${accessToken}`,
+      Authorization: `Bearer ${await accessToken()}`,
     },
   });
   if (!res.ok) {
