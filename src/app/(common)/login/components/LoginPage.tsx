@@ -2,39 +2,29 @@
 
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 import ButtonGroup from './ButtonGroup/ButtonGroup';
 import LogoContent from './LogoContent/LogoContent';
 import NavBar from '@/components/nav-bar';
+import { CurrentUserContext } from '@/contexts/CurrentUserContext';
 import { signIn } from '@/lib/actions';
-import axios from '@/lib/axios';
 import { useRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const hasTokens = !!getCookie('access-token') && !!getCookie('refresh-token');
-
-  const { data, isError } = useQuery({
-    queryKey: ['users', 'profile'],
-    queryFn: async () => {
-      const res = await axios.get('/users/profile');
-      return res.data.payload;
-    },
-    enabled: hasTokens,
-  });
+  const { user } = useContext(CurrentUserContext);
 
   useEffect(() => {
-    if (data) {
+    if (user) {
       const redirectUrlCookie = getCookie('redirect-url');
       deleteCookie('redirect-url');
       router.push((redirectUrlCookie as string) || '/');
     }
-  }, [data, isError, router]);
+  }, [router, user]);
 
   useEffect(() => {
     async function authenticate() {
