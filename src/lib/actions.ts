@@ -14,7 +14,6 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 interface Session {
-  user: UserType;
   accessToken: string;
   refreshToken: string;
   expiredAt: number;
@@ -37,22 +36,9 @@ export async function signIn(
     expires: refreshTokenExpired.toDate(),
   });
 
-  const res = await fetch(`${SERVER_API_URL}/users/profile`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  if (!res.ok) {
-    console.error(await res.json());
-    throw new Error('Failed to fetch current user');
-  }
-  const data = await res.json();
-  const user: UserType = data.payload;
-
   cookieStore.set(
     'session',
     JSON.stringify({
-      user,
       accessToken,
       refreshToken,
       expiredAt: accessTokenExpired.valueOf(),
@@ -79,21 +65,13 @@ export async function signOut(redirectUrl?: string) {
 }
 
 async function updateTokens(accessToken: string, refreshToken: string) {
-  const cookieStore = await cookies();
-
-  const sessionCookie = cookieStore.get('session')?.value;
-  if (!sessionCookie) {
-    await signOut();
-    throw new Error('No session cookie');
-  }
-  const session: Session = JSON.parse(sessionCookie);
-
-  const newSession: Session = {
-    ...session,
+  const newSession = {
     accessToken,
     refreshToken,
     expiredAt: dayjs().add(30, 'minutes').valueOf(),
   };
+
+  const cookieStore = await cookies();
   cookieStore.set('session', JSON.stringify(newSession), {
     expires: dayjs().add(1, 'month').toDate(),
   });
@@ -139,6 +117,23 @@ async function accessToken() {
   const session = await auth();
   if (!session) throw new Error('Unauthorized Error');
   return session.accessToken;
+}
+
+export async function currentUser() {
+  const res = await fetch(`${SERVER_API_URL}/users/profile`, {
+    headers: {
+      Authorization: `Bearer ${await accessToken()}`,
+    },
+    cache: 'force-cache',
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch current user');
+  }
+  const data = await res.json();
+  const user: UserType = data.payload;
+
+  return user;
 }
 
 export async function fetchMyEvents() {

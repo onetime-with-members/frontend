@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import ButtonGroup from './ButtonGroup/ButtonGroup';
 import LogoContent from './LogoContent/LogoContent';
 import NavBar from '@/components/nav-bar';
-import { auth, signIn } from '@/lib/actions';
+import { signIn } from '@/lib/actions';
 import axios from '@/lib/axios';
 import { useRouter } from '@/navigation';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -59,11 +59,6 @@ export default function LoginPage() {
         router.push(`/onboarding?${urlSearchParams.toString()}`);
       } else if (accessToken && refreshToken) {
         await signIn(accessToken, refreshToken, redirectUrl || '/');
-        await queryClient.setQueryData(['users', 'profile'], async () => {
-          const session = await auth();
-          if (!session) return null;
-          return session.user;
-        });
       }
     }
     authenticate();

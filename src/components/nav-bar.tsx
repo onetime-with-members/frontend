@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
 import useScroll from '@/hooks/useScroll';
-import { auth } from '@/lib/actions';
+import { currentUser } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { UserType } from '@/lib/types';
 import { Link, useRouter } from '@/navigation';
@@ -27,13 +27,9 @@ export default function NavBar({
 }) {
   const { isScrolling } = useScroll();
 
-  const { data: user, isPending } = useQuery<UserType | null>({
+  const { data: user, isPending } = useQuery<UserType>({
     queryKey: ['users', 'profile'],
-    queryFn: async () => {
-      const session = await auth();
-      if (!session) return null;
-      return session.user;
-    },
+    queryFn: currentUser,
   });
 
   return (
