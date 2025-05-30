@@ -8,7 +8,7 @@ import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-interface Session {
+export interface Session {
   accessToken: string;
   refreshToken: string;
   expiredAt: number;
@@ -59,53 +59,14 @@ export async function signOut(redirectUrl?: string) {
   if (redirectUrl) redirect(redirectUrl);
 }
 
-async function updateTokens(accessToken: string, refreshToken: string) {
-  const newSession = {
-    accessToken,
-    refreshToken,
-    expiredAt: dayjs().add(30, 'minutes').valueOf(),
-  };
-
-  const cookieStore = await cookies();
-  cookieStore.set('session', JSON.stringify(newSession), {
-    expires: dayjs().add(1, 'month').toDate(),
-  });
-
-  revalidatePath('/');
-
-  return newSession;
-}
-
 export async function auth(): Promise<Session | null> {
   const cookieStore = await cookies();
+
   const sessionCookie = cookieStore.get('session')?.value;
   if (!sessionCookie) return null;
   const session = JSON.parse(sessionCookie);
 
-  if (dayjs().isBefore(dayjs(session.expiredAt))) return session;
-
-  const res = await fetch(`${SERVER_API_URL}/tokens/action-reissue`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${session.accessToken}`,
-    },
-    body: JSON.stringify({
-      refresh_token: session.refreshToken,
-    }),
-  });
-  if (!res.ok) {
-    console.error(await res.json());
-    await signOut();
-    throw new Error('Failed to reissue token');
-  }
-  const data = await res.json();
-  const { access_token: accessToken, refresh_token: refreshToken } =
-    data.payload;
-
-  const newSession = await updateTokens(accessToken, refreshToken);
-
-  return newSession;
+  return session;
 }
 
 export async function accessToken() {
