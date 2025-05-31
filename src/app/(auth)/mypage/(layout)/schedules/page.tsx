@@ -1,5 +1,5 @@
 import SleepIcon from '@/components/icon/sleep';
-import MyTimeBlockBoard from '@/components/time-block-board/my-time-block-board';
+import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { fetchMySchedules, fetchSleepTime } from '@/lib/data';
 import { getTranslations } from 'next-intl/server';
 

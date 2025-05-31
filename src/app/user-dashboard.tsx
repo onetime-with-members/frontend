@@ -17,7 +17,7 @@ import SleepIcon from '@/components/icon/sleep';
 import NavBar from '@/components/nav-bar';
 import TimeBlockBoardSkeleton from '@/components/skeleton/time-block-board-skeleton';
 import ToolbarTitleSkeleton from '@/components/skeleton/toolbar-title-skeleton';
-import MyTimeBlockBoard from '@/components/time-block-board/my-time-block-board';
+import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { currentUser } from '@/lib/auth';
 import cn from '@/lib/cn';
 import {

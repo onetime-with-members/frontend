@@ -1,7 +1,7 @@
 import BottomContentsForMobile from './BottomContentsForMobile/BottomContentsForMobile';
 import RightContentsForDesktop from './RightContentsForDesktop/RightContentsForDesktop';
 import TimeBlockBoardSkeleton from '@/components/skeleton/time-block-board-skeleton';
-import TimeBlockBoard from '@/components/time-block-board/time-block-board';
+import TimeBlockBoard from '@/components/time-block-board/event';
 import cn from '@/lib/cn';
 import { EventType } from '@/lib/types';
 import { useScheduleQuery } from '@/queries/schedule.queries';
