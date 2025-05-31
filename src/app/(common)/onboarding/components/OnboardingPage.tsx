@@ -12,7 +12,7 @@ import SleepTimeScreen from './SleepTimeScreen/SleepTimeScreen';
 import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
 import TopNavBarForDesktop from './TopNavBarForDesktop/TopNavBarForDesktop';
 import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
-import { FooterContext } from '@/contexts/FooterContext';
+import { FooterContext } from '@/contexts/footer';
 import axios from '@/lib/axios';
 import cn from '@/lib/cn';
 import { OnboardingValueType } from '@/lib/types';

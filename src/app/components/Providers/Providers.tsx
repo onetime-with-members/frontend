@@ -2,7 +2,7 @@ import { NextIntlClientProvider } from 'next-intl';
 
 import QueryProvider from './QueryProvider/QueryProvider';
 import SetUpProvider from './SetUpProvider/SetUpProvider';
-import ContextProviders from '@/contexts/ContextProviders';
+import ContextProviders from '@/contexts';
 import { getMessages } from 'next-intl/server';
 
 interface ProvidersProps {

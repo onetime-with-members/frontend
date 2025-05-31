@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { CalendarSelect, WeekdaySelect } from './select';
 import TimeDropdown from '@/components/dropdown/time-dropdown';
 import Input from '@/components/input';
-import { PageModeContext } from '@/contexts/PageModeContext';
+import { PageModeContext } from '@/contexts/page-mode';
 import cn from '@/lib/cn';
 import { EventType, EventValueType } from '@/lib/types';
 

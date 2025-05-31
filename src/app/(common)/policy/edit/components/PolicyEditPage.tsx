@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from 'react';
 import Button from '@/components/button/button';
 import NavBar from '@/components/nav-bar';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
-import { PolicyContext } from '@/contexts/PolicyContext';
+import { PolicyContext } from '@/contexts/policy';
 import axios from '@/lib/axios';
 import { PolicyKeyType, PolicyType } from '@/lib/types';
 import { Link, useRouter } from '@/navigation';

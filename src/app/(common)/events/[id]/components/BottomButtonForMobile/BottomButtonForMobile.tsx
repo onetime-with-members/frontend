@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import SpeechBalloon from '../SpeechBalloon/SpeechBalloon';
 import Button from '@/components/button/button';
-import { FooterContext } from '@/contexts/FooterContext';
+import { FooterContext } from '@/contexts/footer';
 import cn from '@/lib/cn';
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleQuery } from '@/queries/schedule.queries';

@@ -7,7 +7,7 @@ import HeaderForDesktop from './HeaderForDesktop/HeaderForDesktop';
 import SideTabContentForDesktop from './SideTabContentForDesktop/SideTabContentForDesktop';
 import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
 import NavBar from '@/components/nav-bar';
-import { ScrollContext } from '@/contexts/ScrollContext';
+import { ScrollContext } from '@/contexts/scroll';
 import { useRouter } from '@/navigation';
 import { usePathname } from 'next/navigation';
 

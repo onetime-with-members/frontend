@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import Button from '@/components/button/button';
-import { FooterContext } from '@/contexts/FooterContext';
+import { FooterContext } from '@/contexts/footer';
 import cn from '@/lib/cn';
 
 interface BottomButtonProps {

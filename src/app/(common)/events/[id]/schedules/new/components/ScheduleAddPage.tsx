@@ -9,7 +9,7 @@ import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
 import TopHeaderForDesktop from './TopHeaderForDesktop/TopHeaderForDesktop';
 import TopNavBarForDesktop from './TopNavBarForDesktop/TopNavBarForDesktop';
 import BackButtonAlert from '@/components/alert/back-button-alert';
-import { FooterContext } from '@/contexts/FooterContext';
+import { FooterContext } from '@/contexts/footer';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
 import cn from '@/lib/cn';

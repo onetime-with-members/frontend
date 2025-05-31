@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
-import { CurrentUserContext } from '@/contexts/CurrentUserContext';
+import { CurrentUserContext } from '@/contexts/current-user';
 import useScroll from '@/hooks/useScroll';
 import cn from '@/lib/cn';
 import { Link, useRouter } from '@/navigation';

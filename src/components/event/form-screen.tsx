@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import InputContent from './input-content';
 import Button from '@/components/button/button';
 import NavBar from '@/components/nav-bar';
-import { PageModeContext } from '@/contexts/PageModeContext';
+import { PageModeContext } from '@/contexts/page-mode';
 import cn from '@/lib/cn';
 import { breakpoint } from '@/lib/constants';
 import { EventValueType } from '@/lib/types';

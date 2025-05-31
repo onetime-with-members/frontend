@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useRef, useState } from 'react';
 
 import Avatar from '../avatar';
-import { CurrentUserContext } from '@/contexts/CurrentUserContext';
+import { CurrentUserContext } from '@/contexts/current-user';
 import { signOut } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { Link } from '@/navigation';

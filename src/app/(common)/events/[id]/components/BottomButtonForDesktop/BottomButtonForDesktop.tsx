@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import BadgeFloatingBottomButton from '@/components/button/badge-floating-bottom-button';
-import { FooterContext } from '@/contexts/FooterContext';
+import { FooterContext } from '@/contexts/footer';
 import cn from '@/lib/cn';
 
 interface BottomButtonForDesktopProps {

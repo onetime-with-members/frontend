@@ -6,7 +6,7 @@ import { useContext, useEffect, useRef } from 'react';
 import LogoContent from './LogoContent/LogoContent';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/speak-phone';
-import { FooterContext } from '@/contexts/FooterContext';
+import { FooterContext } from '@/contexts/footer';
 import { Link } from '@/navigation';
 
 export default function Footer() {

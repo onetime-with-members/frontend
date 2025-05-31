@@ -1,8 +1,8 @@
-import CurrentUserContextProvider from './CurrentUserContext';
-import FooterContextProvider from './FooterContext';
-import PageModeContextProvider from './PageModeContext';
-import PolicyContextProvider from './PolicyContext';
-import ScrollContextProvider from './ScrollContext';
+import CurrentUserContextProvider from './current-user';
+import FooterContextProvider from './footer';
+import PageModeContextProvider from './page-mode';
+import PolicyContextProvider from './policy';
+import ScrollContextProvider from './scroll';
 import { auth, currentUser } from '@/lib/auth';
 
 export default async function ContextProviders({
