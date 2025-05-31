@@ -24,6 +24,8 @@ export default async function Page(props: {
   }>;
 }) {
   const searchParams = await props.searchParams;
+  const cookieStore = await cookies();
+
   if (searchParams?.register_token && searchParams?.name) {
     const urlSearchParams = new URLSearchParams({
       register_token: searchParams.register_token,
@@ -32,7 +34,6 @@ export default async function Page(props: {
     redirect(`/onboarding?${urlSearchParams.toString()}`);
   }
 
-  const cookieStore = await cookies();
   const lastLogin = cookieStore.get('last-login')?.value as SocialLoginType;
 
   const t = await getTranslations('login');
@@ -40,7 +41,16 @@ export default async function Page(props: {
   return (
     <>
       {/* Callback */}
-      <SocialLoginCallback />
+      <SocialLoginCallback
+        searchParams={{
+          accessToken: searchParams?.access_token,
+          refreshToken: searchParams?.refresh_token,
+          redriectUrl: searchParams?.redirect_url,
+        }}
+        cookies={{
+          redirectUrl: cookieStore.get('redirect-url') as string | undefined,
+        }}
+      />
 
       {/* Page */}
       <div className="flex h-screen flex-col">

@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import { deleteCookie, setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
@@ -11,32 +11,38 @@ import { Link, useRouter } from '@/navigation';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 
-export function SocialLoginCallback() {
+export function SocialLoginCallback({
+  searchParams,
+  cookies,
+}: {
+  searchParams: {
+    accessToken?: string;
+    refreshToken?: string;
+    redriectUrl?: string;
+  };
+  cookies: {
+    redirectUrl?: string;
+  };
+}) {
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     async function socialLogin() {
-      const accessTokenParams = searchParams.get('access_token');
-      const refreshTokenParams = searchParams.get('refresh_token');
-      const redirectUrlParams = searchParams.get('redirect_url');
-
       if (await auth()) {
-        const redirectUrlCookie = await getCookie('redirect-url');
-        if (redirectUrlCookie) await deleteCookie('redirect-url');
-        router.replace(redirectUrlParams || redirectUrlCookie || '/');
+        if (cookies.redirectUrl) await deleteCookie('redirect-url');
+        router.replace(searchParams.redriectUrl || cookies.redirectUrl || '/');
       }
 
-      if (accessTokenParams && refreshTokenParams) {
+      if (searchParams.accessToken && searchParams.refreshToken) {
         await signIn(
-          accessTokenParams,
-          refreshTokenParams,
-          redirectUrlParams || '/',
+          searchParams.accessToken,
+          searchParams.refreshToken,
+          searchParams.redriectUrl || '/',
         );
       }
     }
     socialLogin();
-  }, [router, searchParams]);
+  }, [searchParams, cookies, router]);
 
   return null;
 }
