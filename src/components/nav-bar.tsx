@@ -28,7 +28,7 @@ export default function NavBar({
 }) {
   const { isScrolling } = useScroll();
 
-  const { user, isPending } = useContext(CurrentUserContext);
+  const { user } = useContext(CurrentUserContext);
 
   return (
     <nav
@@ -79,7 +79,7 @@ export default function NavBar({
               {user ? (
                 <AvatarDropdown name={user.nickname} disabled={disabled} />
               ) : (
-                !isPending && <LoginButton disabled={disabled} />
+                <LoginButton disabled={disabled} />
               )}
             </>
           )}

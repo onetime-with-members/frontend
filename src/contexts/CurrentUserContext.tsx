@@ -9,11 +9,9 @@ import { UserType } from '@/lib/types';
 export const CurrentUserContext = createContext<{
   user: UserType | null;
   setUser: (user: UserType | null) => void;
-  isPending: boolean;
 }>({
   user: null,
   setUser: () => {},
-  isPending: false,
 });
 
 export default function CurrentUserContextProvider({
@@ -24,24 +22,18 @@ export default function CurrentUserContextProvider({
   defaultUser: UserType | null;
 }) {
   const [user, setUser] = useState<UserType | null>(defaultUser);
-  const [isPending, setIsPending] = useState(true);
 
   const session = getCookie('session');
 
   useEffect(() => {
     async function fetchData() {
-      if (!user) {
-        if (await auth()) {
-          setUser(await currentUser());
-        }
-      }
-      setIsPending(false);
+      if (!user && (await auth())) setUser(await currentUser());
     }
     fetchData();
   }, [user, setUser, session]);
 
   return (
-    <CurrentUserContext.Provider value={{ user, setUser, isPending }}>
+    <CurrentUserContext.Provider value={{ user, setUser }}>
       {children}
     </CurrentUserContext.Provider>
   );
