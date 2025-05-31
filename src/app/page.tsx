@@ -1,4 +1,4 @@
-import LandingPage from './components/LandingPage/LandingPage';
+import LandingPage from './landing';
 import UserDashboardPage from './user-dashboard';
 import { auth } from '@/lib/auth';
 

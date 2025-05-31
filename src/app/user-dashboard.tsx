@@ -7,7 +7,7 @@ import {
   MyEventsHeader,
   MyEventsList,
 } from './components/user-dashboard/my-events';
-import ToolbarWrapper from '@/app/components/user-dashboard/toolbar';
+import ToolbarWrapper from '@/app/components/user-dashboard/toolbar-wrapper';
 import BarBanner from '@/components/bar-banner';
 import EmptyUI from '@/components/empty-ui';
 import MyEvent from '@/components/event/my-event';
