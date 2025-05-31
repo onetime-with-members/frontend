@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
