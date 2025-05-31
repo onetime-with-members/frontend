@@ -1,20 +1,18 @@
+'use client';
+
 import { createContext, useRef } from 'react';
 
-interface ScrollContextType {
+export const ScrollContext = createContext<{
   scrollContainerRef: React.RefObject<HTMLDivElement | null> | null;
-}
-
-interface ScrollContextProviderProps {
-  children: React.ReactNode;
-}
-
-export const ScrollContext = createContext<ScrollContextType>({
+}>({
   scrollContainerRef: null,
 });
 
-export function ScrollContextProvider({
+export default function ScrollContextProvider({
   children,
-}: ScrollContextProviderProps) {
+}: {
+  children: React.ReactNode;
+}) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   return (

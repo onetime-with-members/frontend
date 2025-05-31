@@ -1,16 +1,16 @@
+'use client';
+
 import { getCookie } from 'cookies-next';
 import { createContext, useEffect, useState } from 'react';
 
 import { auth, currentUser } from '@/lib/auth';
 import { UserType } from '@/lib/types';
 
-interface CurrentUserContextType {
+export const CurrentUserContext = createContext<{
   user: UserType | null;
   setUser: (user: UserType | null) => void;
   isPending: boolean;
-}
-
-export const CurrentUserContext = createContext<CurrentUserContextType>({
+}>({
   user: null,
   setUser: () => {},
   isPending: false,
@@ -18,10 +18,12 @@ export const CurrentUserContext = createContext<CurrentUserContextType>({
 
 export default function CurrentUserContextProvider({
   children,
+  defaultUser,
 }: {
   children: React.ReactNode;
+  defaultUser: UserType | null;
 }) {
-  const [user, setUser] = useState<UserType | null>(null);
+  const [user, setUser] = useState<UserType | null>(defaultUser);
   const [isPending, setIsPending] = useState(true);
 
   const session = getCookie('session');

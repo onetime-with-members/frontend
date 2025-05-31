@@ -1,22 +1,25 @@
-'use client';
-
 import CurrentUserContextProvider from './CurrentUserContext';
-import { FooterContextProvider } from './FooterContext';
-import { PageModeContextProvider } from './PageModeContext';
+import FooterContextProvider from './FooterContext';
+import PageModeContextProvider from './PageModeContext';
 import PolicyContextProvider from './PolicyContext';
-import { ScrollContextProvider } from './ScrollContext';
+import ScrollContextProvider from './ScrollContext';
+import { auth, currentUser } from '@/lib/auth';
 
-interface ContextProvidersProps {
+export default async function ContextProviders({
+  children,
+}: {
   children: React.ReactNode;
-}
+}) {
+  const user = (await auth()) ? await currentUser() : null;
 
-export default function ContextProviders({ children }: ContextProvidersProps) {
   return (
     <PageModeContextProvider>
       <FooterContextProvider>
         <ScrollContextProvider>
           <PolicyContextProvider>
-            <CurrentUserContextProvider>{children}</CurrentUserContextProvider>
+            <CurrentUserContextProvider defaultUser={user}>
+              {children}
+            </CurrentUserContextProvider>
           </PolicyContextProvider>
         </ScrollContextProvider>
       </FooterContextProvider>

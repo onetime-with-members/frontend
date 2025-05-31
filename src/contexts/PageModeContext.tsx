@@ -1,18 +1,18 @@
+'use client';
+
 import { createContext, useEffect, useState } from 'react';
 
 import { usePathname } from 'next/navigation';
 
 export type PageMode = 'view' | 'create' | 'edit';
 
-interface PageModeContextType {
+export const PageModeContext = createContext<{
   pageMode: PageMode;
-}
-
-export const PageModeContext = createContext<PageModeContextType>({
+}>({
   pageMode: 'view',
 });
 
-export function PageModeContextProvider({
+export default function PageModeContextProvider({
   children,
 }: {
   children: React.ReactNode;

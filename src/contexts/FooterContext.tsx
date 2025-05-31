@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-interface FooterContextType {
+export const FooterContext = createContext<{
   footerVisible: boolean;
   setFooterVisible: React.Dispatch<React.SetStateAction<boolean>>;
   footerRef: React.RefObject<HTMLDivElement | null> | undefined;
@@ -10,13 +10,7 @@ interface FooterContextType {
     React.SetStateAction<React.RefObject<HTMLDivElement | null> | undefined>
   >;
   isFooterShown: boolean;
-}
-
-interface FooterContextProps {
-  children: React.ReactNode;
-}
-
-export const FooterContext = createContext<FooterContextType>({
+}>({
   footerVisible: true,
   setFooterVisible: () => {},
   footerRef: undefined,
@@ -24,7 +18,11 @@ export const FooterContext = createContext<FooterContextType>({
   isFooterShown: false,
 });
 
-export function FooterContextProvider({ children }: FooterContextProps) {
+export default function FooterContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [footerVisible, setFooterVisible] = useState(true);
   const [isFooterShown, setIsFooterShown] = useState(false);
   const [footerRef, setFooterRef] =
