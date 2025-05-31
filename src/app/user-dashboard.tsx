@@ -108,7 +108,7 @@ async function MyEventsContent() {
   const t = await getTranslations('userDashboard');
 
   return (
-    <ul
+    <div
       className={cn('grid grid-cols-1 gap-4 md:grid-cols-2', {
         'md:grid-cols-1': myEvents.length === 0,
       })}
@@ -120,7 +120,7 @@ async function MyEventsContent() {
       ) : (
         <MyEventsList myEvents={myEvents} />
       )}
-    </ul>
+    </div>
   );
 }
 
@@ -129,8 +129,7 @@ function MyEventsSkeleton() {
     <MyEvent
       key={index}
       event={defaultMyEvent}
-      innerClassName="border-none"
-      className={cn({ 'hidden md:block': index === 1 })}
+      className={cn('border-none', { 'hidden md:block': index === 1 })}
       isPending={true}
     />
   ));

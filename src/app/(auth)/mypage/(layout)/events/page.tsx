@@ -19,16 +19,16 @@ export default async function Page() {
   return events.length === 0 ? (
     <EmptyMyEvent />
   ) : (
-    <ul className="flex flex-col gap-5 px-4 py-5">
+    <div className="flex flex-col gap-5 px-4 py-5">
       {events.map((event) => (
         <MyEvent
           key={event.event_id}
           event={event}
-          innerClassName="border-0 md:border"
+          className="border-0 md:border"
         />
       ))}
       <GrayBackground />
-    </ul>
+    </div>
   );
 }
 

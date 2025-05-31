@@ -46,10 +46,6 @@ export function MyEventsList({ myEvents }: { myEvents: MyEventType[] }) {
   return myEvents
     .slice(0, eventsLength)
     .map((myEvent) => (
-      <MyEvent
-        key={myEvent.event_id}
-        event={myEvent}
-        innerClassName="border-none"
-      />
+      <MyEvent key={myEvent.event_id} event={myEvent} className="border-none" />
     ));
 }
