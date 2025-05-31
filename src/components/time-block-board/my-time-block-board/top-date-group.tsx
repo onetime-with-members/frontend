@@ -1,11 +1,9 @@
+'use client';
+
 import cn from '@/lib/cn';
 import { useWeekdaysShort } from '@/stores/weekday';
 
-interface TopDateGroupProps {
-  className?: string;
-}
-
-export default function TopDateGroup({ className }: TopDateGroupProps) {
+export default function TopDateGroup({ className }: { className?: string }) {
   const weekdaysShort = useWeekdaysShort();
 
   return (

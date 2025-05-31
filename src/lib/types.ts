@@ -66,8 +66,6 @@ export interface UserType {
   social_platform: 'google' | 'naver' | 'kakao';
 }
 
-export type SocialLoginType = 'naver' | 'kakao' | 'google';
-
 export interface GuestValueType {
   name: string;
   pin: string;

@@ -7,7 +7,7 @@ import SleepTimeAccordion from './SleepTimeAccordion/SleepTimeAccordion';
 import TopAppBar from './TopAppBar/TopAppBar';
 import BackButtonAlert from '@/components/alert/back-button-alert';
 import EverytimeUI from '@/components/everytime-ui';
-import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard/MyTimeBlockBoard';
+import MyTimeBlockBoard from '@/components/time-block-board/my-time-block-board';
 import axios from '@/lib/axios';
 import cn from '@/lib/cn';
 import { MyScheduleTimeType } from '@/lib/types';

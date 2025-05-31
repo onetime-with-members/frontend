@@ -4,9 +4,9 @@ import { deleteCookie, setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
+import { SocialLoginType } from './page';
 import { auth, signIn } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { SocialLoginType } from '@/lib/types';
 import { Link, useRouter } from '@/navigation';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';

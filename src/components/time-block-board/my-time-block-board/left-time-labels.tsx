@@ -1,8 +1,10 @@
+'use client';
+
 import cn from '@/lib/cn';
 import { leftTimeLabelFormat } from '@/lib/utils';
 import { useTimesGroupForSplittedTimeLabel } from '@/stores/sleep-time';
 
-export default function LeftTimeLine() {
+export default function LeftTimeLabels() {
   const timesGroupForSplittedTimeLabel = useTimesGroupForSplittedTimeLabel();
 
   return (

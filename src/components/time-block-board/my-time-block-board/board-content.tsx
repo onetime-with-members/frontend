@@ -1,16 +1,10 @@
-import TimeBlock from './TimeBlock/TimeBlock';
+'use client';
+
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
+import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import { MyScheduleTimeType } from '@/lib/types';
 import { useTimesGroupForSplittedTimeBlock } from '@/stores/sleep-time';
-
-interface TimeBlockContentProps {
-  mode: 'view' | 'edit';
-  mySchedule: MyScheduleTimeType[];
-  setMySchedule?: (mySchedule: MyScheduleTimeType[]) => void;
-  backgroundColor?: 'gray' | 'white';
-  setIsEdited?: (isEdited: boolean) => void;
-}
 
 export default function BoardContent({
   mode,
@@ -18,7 +12,13 @@ export default function BoardContent({
   setMySchedule,
   backgroundColor = 'gray',
   setIsEdited,
-}: TimeBlockContentProps) {
+}: {
+  mode: 'view' | 'edit';
+  mySchedule: MyScheduleTimeType[];
+  setMySchedule?: (mySchedule: MyScheduleTimeType[]) => void;
+  backgroundColor?: 'gray' | 'white';
+  setIsEdited?: (isEdited: boolean) => void;
+}) {
   const { handleTimeBlockClick: _handleTimeBlockClick, isClickedFirst } =
     useTimeBlockFill({
       isFilled,
@@ -88,5 +88,41 @@ export default function BoardContent({
         </div>
       ))}
     </div>
+  );
+}
+
+export function TimeBlock({
+  backgroundColor = 'gray',
+  mode,
+  filled,
+  clickedFirst,
+  ...props
+}: {
+  backgroundColor?: 'gray' | 'white';
+  mode: 'view' | 'edit';
+  filled?: boolean;
+  clickedFirst?: boolean;
+  onClick?: () => void;
+} & React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        'h-[3rem] border-b border-gray-10 bg-gray-05 last:border-b-0 odd:border-dashed even:border-solid',
+        {
+          'bg-gray-00': backgroundColor === 'white',
+        },
+        {
+          'bg-gray-60': filled,
+        },
+        {
+          'cursor-pointer': mode === 'edit',
+        },
+        {
+          'border border-dashed border-gray-60 bg-gray-20 last:border-b even:border-dashed':
+            clickedFirst,
+        },
+      )}
+      {...props}
+    />
   );
 }

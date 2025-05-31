@@ -1,19 +1,7 @@
-'use client';
-
-import BoardContent from './BoardContent/BoardContent';
-import LeftTimeLine from './LeftTimeLine/LeftTimeLine';
-import TopDateGroup from './TopDateGroup/TopDateGroup';
+import BoardContent from './board-content';
+import LeftTimeLabels from './left-time-labels';
+import TopDateGroup from './top-date-group';
 import { MyScheduleTimeType } from '@/lib/types';
-
-interface MyTimeBlockBoard {
-  mode: 'view' | 'edit';
-  mySchedule: MyScheduleTimeType[];
-  setMySchedule?: (mySchedule: MyScheduleTimeType[]) => void;
-  className?: string;
-  backgroundColor?: 'gray' | 'white';
-  topDateGroupClassName?: string;
-  setIsEdited?: (isEdited: boolean) => void;
-}
 
 export default function MyTimeBlockBoard({
   mode,
@@ -23,13 +11,21 @@ export default function MyTimeBlockBoard({
   backgroundColor = 'gray',
   topDateGroupClassName,
   setIsEdited,
-}: MyTimeBlockBoard) {
+}: {
+  mode: 'view' | 'edit';
+  mySchedule: MyScheduleTimeType[];
+  setMySchedule?: (mySchedule: MyScheduleTimeType[]) => void;
+  className?: string;
+  backgroundColor?: 'gray' | 'white';
+  topDateGroupClassName?: string;
+  setIsEdited?: (isEdited: boolean) => void;
+}) {
   return (
     <div className={className}>
       <div className="flex flex-col">
         <TopDateGroup className={topDateGroupClassName} />
         <div className="flex flex-1">
-          <LeftTimeLine />
+          <LeftTimeLabels />
           <BoardContent
             mode={mode}
             mySchedule={mySchedule}

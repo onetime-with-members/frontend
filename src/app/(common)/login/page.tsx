@@ -1,10 +1,11 @@
 import { SocialLoginButton, SocialLoginCallback } from './social-login';
 import NavBar from '@/components/nav-bar';
-import { SocialLoginType } from '@/lib/types';
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
+
+export type SocialLoginType = 'naver' | 'kakao' | 'google';
 
 export async function generateMetadata() {
   const t = await getTranslations('login');
