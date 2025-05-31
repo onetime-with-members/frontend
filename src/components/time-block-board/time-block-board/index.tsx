@@ -2,37 +2,21 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
-import BoardContent from './BoardContent/BoardContent';
-import CircleArrowButtonForBoard from './CircleArrowButtonForBoard/CircleArrowButtonForBoard';
-import ClearButton from './ClearButton/ClearButton';
-import LeftTimeLine from './LeftTimeLine/LeftTimeLine';
-import PossibleTimeToggle from './PossibleTimeToggle/PossibleTimeToggle';
-import ReloadButton from './ReloadButton/ReloadButton';
-import ResetButton from './ResetButton/ResetButton';
-import { useTargetOnBottomInScrollableElement } from './TimeBlockBoard.hooks';
-import TimeBlockPopUp from './TimeBlockPopUp/TimeBlockPopUp';
-import TopDateLabelGroup from './TopDateLabelGroup/TopDateLabelGroup';
+import BlockContent from './block-content';
+import { DateIndicator, TimeIndicator } from './indicators';
+import TimeBlockPopUp from './pop-up';
+import {
+  CircleArrowButtonForBoard,
+  ClearButton,
+  PossibleTimeToggle,
+  ReloadButton,
+  ResetButton,
+} from './ui-actions';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
+import useTargetSticky from '@/hooks/useTargetSticky';
 import cn from '@/lib/cn';
 import { EventType, ScheduleType, TimeBlockPopUpDataType } from '@/lib/types';
 import { timeBlockList } from '@/lib/utils';
-
-interface TimeBlockBoardProps {
-  event: EventType;
-  schedules: ScheduleType[];
-  setSchedules?: React.Dispatch<React.SetStateAction<ScheduleType[]>>;
-  editable?: boolean;
-  backgroundColor?: 'white' | 'gray';
-  isPossibleTime?: boolean;
-  setIsPossibleTime?: React.Dispatch<React.SetStateAction<boolean>>;
-  topContentClassName?: string;
-  bottomContentClassName?: string;
-  isEdited?: boolean;
-  setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
-  initialSchedule?: ScheduleType[];
-  isScheduleEmpty?: boolean;
-  isNewGuest?: boolean;
-}
 
 export default function TimeBlockBoard({
   event,
@@ -49,7 +33,22 @@ export default function TimeBlockBoard({
   initialSchedule,
   isScheduleEmpty,
   isNewGuest,
-}: TimeBlockBoardProps) {
+}: {
+  event: EventType;
+  schedules: ScheduleType[];
+  setSchedules?: React.Dispatch<React.SetStateAction<ScheduleType[]>>;
+  editable?: boolean;
+  backgroundColor?: 'white' | 'gray';
+  isPossibleTime?: boolean;
+  setIsPossibleTime?: React.Dispatch<React.SetStateAction<boolean>>;
+  topContentClassName?: string;
+  bottomContentClassName?: string;
+  isEdited?: boolean;
+  setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
+  initialSchedule?: ScheduleType[];
+  isScheduleEmpty?: boolean;
+  isNewGuest?: boolean;
+}) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [dialogData, setDialogData] = useState<TimeBlockPopUpDataType>({
     timePoint: '',
@@ -70,7 +69,7 @@ export default function TimeBlockBoard({
     useScrollArrowButton({
       ref: boardContentRef,
     });
-  const { isTargetOnBottom } = useTargetOnBottomInScrollableElement({
+  const { isTargetOnBottom } = useTargetSticky({
     topRef: topLabelRef,
     scrollableElementRef: boardContentRef,
     targetHeight: 40,
@@ -293,17 +292,14 @@ export default function TimeBlockBoard({
             )}
           </div>
         )}
-        <TopDateLabelGroup
-          topLabelRef={topLabelRef}
-          category={event.category}
-        />
+        <DateIndicator topLabelRef={topLabelRef} category={event.category} />
       </div>
 
       <div
         className={cn('relative flex overflow-hidden', bottomContentClassName)}
       >
-        <LeftTimeLine startTime={event.start_time} endTime={event.end_time} />
-        <BoardContent
+        <TimeIndicator startTime={event.start_time} endTime={event.end_time} />
+        <BlockContent
           boardContentRef={boardContentRef}
           event={event}
           schedules={schedules}

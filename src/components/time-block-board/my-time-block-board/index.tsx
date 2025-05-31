@@ -1,6 +1,5 @@
-import BoardContent from './board-content';
-import LeftTimeLabels from './left-time-labels';
-import TopDateGroup from './top-date-group';
+import BlockContent from './block-content';
+import { DateIndicator, TimeIndicator } from './indicators';
 import { MyScheduleTimeType } from '@/lib/types';
 
 export default function MyTimeBlockBoard({
@@ -23,10 +22,10 @@ export default function MyTimeBlockBoard({
   return (
     <div className={className}>
       <div className="flex flex-col">
-        <TopDateGroup className={topDateGroupClassName} />
+        <DateIndicator className={topDateGroupClassName} />
         <div className="flex flex-1">
-          <LeftTimeLabels />
-          <BoardContent
+          <TimeIndicator />
+          <BlockContent
             mode={mode}
             mySchedule={mySchedule}
             setMySchedule={setMySchedule}

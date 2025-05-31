@@ -6,7 +6,7 @@ import { weekdaysShortKo } from '@/lib/constants';
 import { MyScheduleTimeType } from '@/lib/types';
 import { useTimesGroupForSplittedTimeBlock } from '@/stores/sleep-time';
 
-export default function BoardContent({
+export default function BlockContent({
   mode,
   mySchedule,
   setMySchedule,

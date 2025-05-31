@@ -7,21 +7,19 @@ import { weekdaysShortKo } from '@/lib/constants';
 import { TimeBlockPopUpDataType } from '@/lib/types';
 import { IconX } from '@tabler/icons-react';
 
-interface TimeBlockPopUpProps {
-  onClose: () => void;
-  timePoint: TimeBlockPopUpDataType['timePoint'];
-  time: TimeBlockPopUpDataType['time'];
-  members: TimeBlockPopUpDataType['members'];
-  category: 'DAY' | 'DATE';
-}
-
 export default function TimeBlockPopUp({
   onClose,
   timePoint,
   time,
   members,
   category,
-}: TimeBlockPopUpProps) {
+}: {
+  onClose: () => void;
+  timePoint: TimeBlockPopUpDataType['timePoint'];
+  time: TimeBlockPopUpDataType['time'];
+  members: TimeBlockPopUpDataType['members'];
+  category: 'DAY' | 'DATE';
+}) {
   const t = useTranslations('eventDetail');
 
   const startTime = time;

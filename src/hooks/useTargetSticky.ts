@@ -1,20 +1,18 @@
 import { useEffect, useState } from 'react';
 
-interface UseFixedInScrollableElementProps {
-  topRef: React.RefObject<HTMLElement | null>;
-  scrollableElementRef: React.RefObject<HTMLElement | null>;
-  targetHeight: number;
-  targetTopOffset?: number;
-  targetBottomOffset?: number;
-}
-
-export function useTargetOnBottomInScrollableElement({
+export default function useTargetSticky({
   topRef,
   scrollableElementRef,
   targetHeight,
   targetTopOffset = 0,
   targetBottomOffset = 0,
-}: UseFixedInScrollableElementProps) {
+}: {
+  topRef: React.RefObject<HTMLElement | null>;
+  scrollableElementRef: React.RefObject<HTMLElement | null>;
+  targetHeight: number;
+  targetTopOffset?: number;
+  targetBottomOffset?: number;
+}) {
   const [isTargetOnBottom, setIsTargetOnBottom] = useState(false);
 
   useEffect(() => {
