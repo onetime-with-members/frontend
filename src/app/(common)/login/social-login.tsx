@@ -68,7 +68,7 @@ export function SocialLoginButton({
 
   return (
     <Link
-      href={`${process.env.NEXT_PUBLIC_SERVER_OAUTH2_URL}/naver`}
+      href={`${process.env.NEXT_PUBLIC_SERVER_OAUTH2_URL}/${provider}`}
       className={cn(
         'relative flex h-14 w-full items-center justify-center gap-2 rounded-xl',
         {
