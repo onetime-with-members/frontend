@@ -21,7 +21,7 @@ export async function signIn(
 ) {
   const cookieStore = await cookies();
 
-  const accessTokenExpired = dayjs().add(30, 'minutes');
+  const accessTokenExpired = dayjs().add(30, 'seconds');
   const refreshTokenExpired = dayjs().add(1, 'month');
 
   cookieStore.set('access-token', accessToken, {

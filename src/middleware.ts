@@ -41,7 +41,7 @@ export async function middleware(request: NextRequest) {
     JSON.stringify({
       accessToken,
       refreshToken,
-      expiredAt: dayjs().add(30, 'minutes').valueOf(),
+      expiredAt: dayjs().add(30, 'seconds').valueOf(),
     }),
     {
       expires: dayjs().add(1, 'month').toDate(),
