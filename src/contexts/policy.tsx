@@ -7,10 +7,12 @@ import axios from '@/lib/axios';
 import { PolicyType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
 
-export const PolicyContext = createContext<{
+interface PolicyContextType {
   policyValue: PolicyType;
   setPolicyValue: React.Dispatch<React.SetStateAction<PolicyType>>;
-}>({
+}
+
+export const PolicyContext = createContext<PolicyContextType>({
   policyValue: {
     service_policy_agreement: false,
     privacy_policy_agreement: false,

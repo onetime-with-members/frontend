@@ -4,11 +4,13 @@ import { createContext, useEffect, useState } from 'react';
 
 import { usePathname } from 'next/navigation';
 
-export type PageMode = 'view' | 'create' | 'edit';
+type PageMode = 'view' | 'create' | 'edit';
 
-export const PageModeContext = createContext<{
+interface PageModeContextType {
   pageMode: PageMode;
-}>({
+}
+
+export const PageModeContext = createContext<PageModeContextType>({
   pageMode: 'view',
 });
 

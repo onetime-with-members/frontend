@@ -31,9 +31,9 @@ import { cookies } from 'next/headers';
 import Link from 'next/link';
 
 export default async function UserDashboardPage() {
-  const t = await getTranslations('userDashboard');
-
   const user = await currentUser();
+
+  const t = await getTranslations('userDashboard');
 
   return (
     <div className="flex flex-col">
@@ -136,11 +136,11 @@ function MyEventsSkeleton() {
 }
 
 export async function MyScheduleSection() {
-  const cookieStore = await cookies();
-  const isBarBannerShown = cookieStore.get('bar-banner');
-
   const mySchedule = await fetchMySchedules();
   const sleepTime = await fetchSleepTime();
+
+  const cookieStore = await cookies();
+  const isBarBannerShown = cookieStore.get('bar-banner');
 
   const t = await getTranslations('userDashboard');
 
@@ -153,7 +153,7 @@ export async function MyScheduleSection() {
         {/* Everytime UI */}
         <EverytimeUI className="rounded-t-2xl px-6" />
 
-        {/* SLeep Time UI */}
+        {/* Sleep Time UI */}
         <div className="flex items-stretch justify-between gap-3 px-6 py-3">
           <div className="flex items-center gap-1.5">
             <span>

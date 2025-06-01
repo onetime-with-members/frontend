@@ -6,10 +6,12 @@ import { createContext, useEffect, useState } from 'react';
 import { auth, currentUser } from '@/lib/auth';
 import { UserType } from '@/lib/types';
 
-export const CurrentUserContext = createContext<{
+interface CurrentUserContextType {
   user: UserType | null;
-  setUser: (user: UserType | null) => void;
-}>({
+  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
+}
+
+export const CurrentUserContext = createContext<CurrentUserContextType>({
   user: null,
   setUser: () => {},
 });
