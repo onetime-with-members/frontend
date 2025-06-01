@@ -27,7 +27,7 @@ export default async function Page() {
           className="border-0 md:border"
         />
       ))}
-      <GrayBackground />
+      <GrayBackground device="mobile" breakpoint="md" />
     </div>
   );
 }

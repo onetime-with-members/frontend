@@ -46,6 +46,7 @@ export default function NicknameFormControl({
       <label className="pl-1 text-gray-90 text-lg-200">{t('name')}</label>
       <div className="flex flex-col gap-2">
         <Input
+          type="text"
           name="nickname"
           value={value}
           onChange={onChange}
