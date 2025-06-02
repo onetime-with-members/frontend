@@ -34,7 +34,11 @@ export function SocialLoginCallback({
       }
 
       if (searchParams.accessToken) {
-        await signIn(searchParams.accessToken, searchParams.redriectUrl || '/');
+        await signIn(
+          searchParams.accessToken,
+          // searchParams.redriectUrl || '/'
+          undefined,
+        );
       }
     }
     socialLogin();
