@@ -48,12 +48,8 @@ export default function OnboardingPage() {
       return res.data;
     },
     onSuccess: (data) => {
-      const { access_token: accessToken, refresh_token: refreshToken } =
-        data.payload;
+      const { access_token: accessToken } = data.payload;
       setCookie('access-token', accessToken, {
-        expires: dayjs().add(1, 'year').toDate(),
-      });
-      setCookie('refresh-token', refreshToken, {
         expires: dayjs().add(1, 'year').toDate(),
       });
       setPage((prevPage) => prevPage + 1);

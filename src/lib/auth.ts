@@ -10,36 +10,22 @@ import { redirect } from 'next/navigation';
 
 export interface Session {
   accessToken: string;
-  refreshToken: string;
   expiredAt: number;
 }
 
-export async function signIn(
-  accessToken: string,
-  refreshToken: string,
-  redirectUrl?: string,
-) {
+export async function signIn(accessToken: string, redirectUrl?: string) {
   const cookieStore = await cookies();
-
-  const accessTokenExpired = dayjs().add(30, 'seconds');
-  const refreshTokenExpired = dayjs().add(1, 'month');
-
   cookieStore.set('access-token', accessToken, {
-    expires: accessTokenExpired.toDate(),
+    expires: dayjs().add(30, 'seconds').toDate(),
   });
-  cookieStore.set('refresh-token', refreshToken, {
-    expires: refreshTokenExpired.toDate(),
-  });
-
   cookieStore.set(
     'session',
     JSON.stringify({
       accessToken,
-      refreshToken,
-      expiredAt: accessTokenExpired.valueOf(),
+      expiredAt: dayjs().add(30, 'seconds').valueOf(),
     } satisfies Session),
     {
-      expires: refreshTokenExpired.toDate(),
+      expires: dayjs().add(1, 'month').toDate(),
     },
   );
 

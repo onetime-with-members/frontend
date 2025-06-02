@@ -33,12 +33,8 @@ export function SocialLoginCallback({
         router.replace(searchParams.redriectUrl || cookies.redirectUrl || '/');
       }
 
-      if (searchParams.accessToken && searchParams.refreshToken) {
-        await signIn(
-          searchParams.accessToken,
-          searchParams.refreshToken,
-          searchParams.redriectUrl || '/',
-        );
+      if (searchParams.accessToken) {
+        await signIn(searchParams.accessToken, searchParams.redriectUrl || '/');
       }
     }
     socialLogin();

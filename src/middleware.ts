@@ -21,26 +21,20 @@ export async function middleware(request: NextRequest) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${session.accessToken}`,
     },
-    body: JSON.stringify({
-      refresh_token: session.refreshToken,
-    }),
   });
   if (!res.ok) {
     console.error(await res.json());
     response.cookies.delete('session');
     response.cookies.delete('access-token');
-    response.cookies.delete('refresh-token');
     return response;
   }
   const data = await res.json();
-  const { access_token: accessToken, refresh_token: refreshToken } =
-    data.payload;
+  const { access_token: accessToken } = data.payload;
 
   response.cookies.set(
     'session',
     JSON.stringify({
       accessToken,
-      refreshToken,
       expiredAt: dayjs().add(30, 'seconds').valueOf(),
     }),
     {
