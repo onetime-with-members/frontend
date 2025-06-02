@@ -10,7 +10,6 @@ import { redirect } from 'next/navigation';
 
 export interface Session {
   accessToken: string;
-  expiredAt: number;
 }
 
 export async function signIn(accessToken: string, redirectUrl?: string) {
@@ -22,7 +21,6 @@ export async function signIn(accessToken: string, redirectUrl?: string) {
     'session',
     JSON.stringify({
       accessToken,
-      expiredAt: dayjs().add(30, 'seconds').valueOf(),
     } satisfies Session),
     {
       expires: dayjs().add(1, 'month').toDate(),

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import jwt from 'jsonwebtoken';
 
 import { Session } from './lib/auth';
 import { SERVER_API_URL } from './lib/constants';
@@ -13,7 +14,8 @@ export async function middleware(request: NextRequest) {
   if (!sessionCookie) return response;
   const session: Session = JSON.parse(sessionCookie);
 
-  if (dayjs().isBefore(dayjs(session.expiredAt))) return response;
+  const decodedAccessToken = jwt.decode(session.accessToken) as { exp: number };
+  if (dayjs().isBefore(dayjs(decodedAccessToken.exp))) return response;
 
   const res = await fetch(`${SERVER_API_URL}/tokens/action-reissue`, {
     method: 'POST',
@@ -35,8 +37,7 @@ export async function middleware(request: NextRequest) {
     'session',
     JSON.stringify({
       accessToken,
-      expiredAt: dayjs().add(30, 'seconds').valueOf(),
-    }),
+    } satisfies Session),
     {
       expires: dayjs().add(1, 'month').toDate(),
     },
