@@ -15,7 +15,8 @@ export async function middleware(request: NextRequest) {
   const session: Session = JSON.parse(sessionCookie);
 
   const decodedAccessToken = jwt.decode(session.accessToken) as { exp: number };
-  if (dayjs().isBefore(dayjs(decodedAccessToken.exp))) return response;
+  if (dayjs().isBefore(dayjs(decodedAccessToken.exp * 1000), 'second'))
+    return response;
 
   const res = await fetch(`${SERVER_API_URL}/tokens/action-reissue`, {
     method: 'POST',
@@ -23,9 +24,10 @@ export async function middleware(request: NextRequest) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${session.accessToken}`,
     },
+    credentials: 'include',
   });
   if (!res.ok) {
-    console.error(await res.json());
+    console.error('reissue', await res.json());
     response.cookies.delete('session');
     response.cookies.delete('access-token');
     return response;
