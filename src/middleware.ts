@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
     credentials: 'include',
   });
   if (!res.ok) {
-    console.error('reissue', await res.json());
+    console.error(await res.json());
     response.cookies.delete('session');
     response.cookies.delete('access-token');
     return response;
