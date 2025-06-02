@@ -10,7 +10,12 @@ export default async function ContextProviders({
 }: {
   children: React.ReactNode;
 }) {
-  const user = (await auth()) ? await currentUser() : null;
+  let user;
+  if (await auth()) {
+    user = await currentUser();
+  } else {
+    user = null;
+  }
 
   return (
     <PageModeContextProvider>
