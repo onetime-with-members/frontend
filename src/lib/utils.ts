@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 
+import { TabActiveType } from './types';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(customParseFormat);
@@ -88,4 +89,17 @@ export function leftTimeLabelFormat(time: string) {
 export function isNumber(value: string): boolean {
   const regex = /^[0-9]*$/;
   return regex.test(value);
+}
+
+export function mypageTabActive(pathname: string): TabActiveType {
+  if (pathname.startsWith('/mypage/events')) {
+    return 'events';
+  }
+  if (pathname.startsWith('/mypage/schedules')) {
+    return 'schedules';
+  }
+  if (pathname.startsWith('/mypage/profile')) {
+    return 'profile';
+  }
+  return null;
 }

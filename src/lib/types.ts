@@ -100,3 +100,5 @@ export interface BarBanner {
   created_date: string;
   link_url: string;
 }
+
+export type TabActiveType = 'events' | 'schedules' | 'profile' | null;
