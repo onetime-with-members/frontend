@@ -26,9 +26,9 @@ import {
   defaultMyEvent,
 } from '@/lib/constants';
 import { fetchMyEvents, fetchMySchedules, fetchSleepTime } from '@/lib/data';
+import { Link } from '@/navigation';
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
-import Link from 'next/link';
 
 export default async function UserDashboardPage() {
   const user = await currentUser();
