@@ -1,8 +1,31 @@
 'use server';
 
-import { accessToken } from './auth';
+import { accessToken, auth } from './auth';
 import { SERVER_API_URL } from './constants';
-import { MyEventType, MyScheduleTimeType, SleepTimeType } from './types';
+import {
+  EventType,
+  MyEventType,
+  MyScheduleTimeType,
+  SleepTimeType,
+} from './types';
+
+export async function fetchEvent(eventId: string) {
+  const res = await fetch(`${SERVER_API_URL}/events/${eventId}`, {
+    headers: {
+      ...((await auth())
+        ? { Authorization: `Bearer ${await accessToken()}` }
+        : {}),
+    },
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch event');
+  }
+  const data = await res.json();
+  const event: EventType = data.payload;
+
+  return event;
+}
 
 export async function fetchMyEvents() {
   const res = await fetch(`${SERVER_API_URL}/events/user/all`, {

@@ -1,4 +1,4 @@
-import { MyEventType } from '@/lib/types';
+import { EventValueType, MyEventType } from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 
 export const SERVER_API_URL =
@@ -7,6 +7,14 @@ export const SERVER_API_URL =
 export const breakpoint = {
   sm: 640,
   md: 768,
+};
+
+export const defaultEventValue: EventValueType = {
+  title: '',
+  start_time: '09:00',
+  end_time: '24:00',
+  category: 'DATE',
+  ranges: [],
 };
 
 export const defaultMyEvent: MyEventType = {

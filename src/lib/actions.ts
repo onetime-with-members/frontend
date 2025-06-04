@@ -22,12 +22,34 @@ export async function createEvent(formData: FormData) {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to update profile');
+    throw new Error('Failed to create event');
   }
   const data = await res.json();
   const { event_id } = data.payload;
 
   redirect(`/events/${event_id}`);
+}
+
+export async function editEvent(formData: FormData) {
+  const eventId = formData.get('eventId') as string;
+  const event = JSON.parse(formData.get('event') as string);
+
+  const res = await fetch(`${SERVER_API_URL}/events/${eventId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${await accessToken()}`,
+    },
+    body: JSON.stringify(event),
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to edit event');
+  }
+
+  revalidatePath(`/events/${eventId}`);
+
+  redirect(`/events/${eventId}`);
 }
 
 export async function editProfile(formData: FormData) {
@@ -45,7 +67,7 @@ export async function editProfile(formData: FormData) {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to update profile');
+    throw new Error('Failed to edit profile');
   }
 
   revalidatePath('/mypage/profile');
@@ -66,7 +88,7 @@ export async function editMySchedule(formData: FormData) {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to update profile');
+    throw new Error('Failed to edit my schedule');
   }
 
   revalidatePath('/mypage/schedules/edit');
@@ -85,7 +107,7 @@ export async function editSleepTime(formData: FormData) {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to update profile');
+    throw new Error('Failed to edit sleep time');
   }
 
   revalidatePath('/mypage/schedules/edit');

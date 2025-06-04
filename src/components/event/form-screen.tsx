@@ -9,12 +9,12 @@ import InputContent from './input-content';
 import Button from '@/components/button/button';
 import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
-import { createEvent } from '@/lib/actions';
+import { createEvent, editEvent } from '@/lib/actions';
 import cn from '@/lib/cn';
-import { breakpoint } from '@/lib/constants';
+import { breakpoint, defaultEventValue } from '@/lib/constants';
 import { EventValueType } from '@/lib/types';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 export default function EventFormContent({
   type,
@@ -23,16 +23,13 @@ export default function EventFormContent({
   type: 'create' | 'edit';
   originData?: EventValueType;
 }) {
-  const [value, setValue] = useState<EventValueType>({
-    title: '',
-    start_time: '09:00',
-    end_time: '24:00',
-    category: 'DATE',
-    ranges: [],
-  });
-  const [disabled, setDisabled] = useState(true);
+  const [value, setValue] = useState<EventValueType>(
+    originData || defaultEventValue,
+  );
+  const [disabled, setDisabled] = useState(type === 'create');
 
   const router = useRouter();
+  const params = useParams<{ id: string }>();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -40,8 +37,12 @@ export default function EventFormContent({
 
     const formData = new FormData();
     formData.set('event', JSON.stringify(value));
+
     if (type === 'create') {
       await createEvent(formData);
+    } else {
+      formData.set('eventId', params.id);
+      await editEvent(formData);
     }
   }
 
@@ -53,6 +54,7 @@ export default function EventFormContent({
   useEffect(() => {
     const startTime = dayjs(value.start_time, 'HH:mm');
     const endTime = dayjs(value.end_time, 'HH:mm');
+
     setDisabled(
       value.title.trim() === '' ||
         value.title.trim().length > 50 ||
@@ -72,7 +74,6 @@ export default function EventFormContent({
     }
 
     updateBackgroundColor();
-
     window.addEventListener('resize', updateBackgroundColor);
 
     return () => {
