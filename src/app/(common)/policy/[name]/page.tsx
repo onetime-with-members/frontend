@@ -3,7 +3,7 @@ import NotFound from '@/app/not-found';
 import { POLICY_KEY_LIST } from '@/lib/constants';
 import { PolicyKeyType } from '@/lib/types';
 import { policyPageTitle } from '@/lib/utils';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({

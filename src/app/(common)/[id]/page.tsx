@@ -1,6 +1,5 @@
 import NotFound from '@/app/not-found';
 import { fetchEvent, fetchOriginalUrl } from '@/lib/data';
-import { getTranslations } from 'next-intl/server';
 import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 
@@ -8,8 +7,6 @@ export async function generateMetadata() {
   const protocol = (await headers()).get('x-forwarded-proto');
   const host = (await headers()).get('x-forwarded-host');
   const pathname = (await headers()).get('x-pathname');
-
-  const t = await getTranslations('404');
 
   const { originalUrl, error } = await fetchOriginalUrl(
     `${protocol}://${host}${pathname}`,
