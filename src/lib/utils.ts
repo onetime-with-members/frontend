@@ -103,3 +103,13 @@ export function mypageTabActive(pathname: string): TabActiveType {
   }
   return null;
 }
+
+export function policyPageTitle(name: string, locale: string) {
+  return name === 'privacy'
+    ? locale === 'ko'
+      ? '개인정보 수집 및 이용 동의'
+      : 'Privacy Policy'
+    : locale === 'ko'
+      ? '서비스 이용약관'
+      : 'Terms of Service';
+}

@@ -4,6 +4,10 @@ import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 export const SERVER_API_URL =
   process.env.SERVER_API_URL || 'http://localhost:3000';
 
+export const LOCALES = ['ko', 'en'] as const;
+
+export const POLICY_KEY_LIST = ['privacy', 'service'] as const;
+
 export const breakpoint = {
   sm: 640,
   md: 768,
