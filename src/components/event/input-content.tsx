@@ -108,12 +108,14 @@ export default function InputContent({
             {pageMode === 'create' && (
               <div className="flex gap-2">
                 <Chip
+                  type="button"
                   active={value.category === 'DATE'}
                   onClick={() => handleSelectChip('DATE')}
                 >
                   {t('date')}
                 </Chip>
                 <Chip
+                  type="button"
                   active={value.category === 'DAY'}
                   onClick={() => handleSelectChip('DAY')}
                 >

@@ -23,9 +23,7 @@ export default function FormContent({ user }: { user: UserType }) {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     if (isDisabled) return;
-
     const formData = new FormData(e.currentTarget);
     await editProfile(formData);
 
@@ -33,7 +31,6 @@ export default function FormContent({ user }: { user: UserType }) {
       ...user,
       nickname: value,
     });
-
     router.back();
   }
 

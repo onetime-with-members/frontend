@@ -1,8 +1,34 @@
 'use server';
 
-import { accessToken } from './auth';
+import { accessToken, auth } from './auth';
 import { SERVER_API_URL } from './constants';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+
+export async function createEvent(formData: FormData) {
+  const event = JSON.parse(formData.get('event') as string);
+
+  const res = await fetch(`${SERVER_API_URL}/events`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...((await auth())
+        ? { Authorization: `Bearer ${await accessToken()}` }
+        : {}),
+    },
+    body: JSON.stringify({
+      ...event,
+    }),
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to update profile');
+  }
+  const data = await res.json();
+  const { event_id } = data.payload;
+
+  redirect(`/events/${event_id}`);
+}
 
 export async function editProfile(formData: FormData) {
   const name = formData.get('nickname') as string;
