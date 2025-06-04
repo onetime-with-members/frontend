@@ -15,14 +15,18 @@ export async function middleware(request: NextRequest) {
   const session: Session = JSON.parse(sessionCookie);
 
   const decodedAccessToken = jwt.decode(session.accessToken) as { exp: number };
-  if (dayjs().isBefore(dayjs(decodedAccessToken.exp * 1000), 'second'))
+  if (dayjs().isBefore(dayjs(decodedAccessToken.exp * 1000), 'second')) {
     return response;
+  }
 
   const res = await fetch(`${SERVER_API_URL}/tokens/action-reissue`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${session.accessToken}`,
+      body: JSON.stringify({
+        refresh_token: session.refreshToken,
+      }),
     },
     credentials: 'include',
   });
@@ -30,15 +34,18 @@ export async function middleware(request: NextRequest) {
     console.error(await res.json());
     response.cookies.delete('session');
     response.cookies.delete('access-token');
+    response.cookies.delete('refresh-token');
     return response;
   }
   const data = await res.json();
-  const { access_token: accessToken } = data.payload;
+  const { access_token: accessToken, refresh_token: refreshToken } =
+    data.payload;
 
   response.cookies.set(
     'session',
     JSON.stringify({
       accessToken,
+      refreshToken,
     } satisfies Session),
     {
       expires: dayjs().add(1, 'month').toDate(),
