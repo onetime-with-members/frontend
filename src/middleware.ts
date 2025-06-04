@@ -24,11 +24,10 @@ export async function middleware(request: NextRequest) {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${session.accessToken}`,
-      body: JSON.stringify({
-        refresh_token: session.refreshToken,
-      }),
     },
-    credentials: 'include',
+    body: JSON.stringify({
+      refresh_token: session.refreshToken,
+    }),
   });
   if (!res.ok) {
     console.error(await res.json());
