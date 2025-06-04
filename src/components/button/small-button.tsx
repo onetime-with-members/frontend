@@ -1,12 +1,10 @@
 import cn from '@/lib/cn';
 
-type SmallButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>;
-
 export default function SmallButton({
   className,
   children,
   ...props
-}: SmallButtonProps) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       className={cn(

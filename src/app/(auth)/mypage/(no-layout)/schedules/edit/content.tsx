@@ -3,14 +3,14 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import SleepTimeAccordion from './SleepTimeAccordion/SleepTimeAccordion';
-import TopAppBar from './TopAppBar/TopAppBar';
+import SleepTimeAccordion from './sleep-time';
 import BackButtonAlert from '@/components/alert/back-button-alert';
+import SmallButton from '@/components/button/small-button';
 import EverytimeUI from '@/components/everytime-ui';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
-import axios from '@/lib/axios';
+import { editMySchedule, editSleepTime } from '@/lib/actions';
 import cn from '@/lib/cn';
-import { MyScheduleTimeType } from '@/lib/types';
+import { TimeType } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import {
   useEverytimeSchedule,
@@ -23,9 +23,13 @@ import {
 } from '@/stores/my-schedule';
 import { useSleepTime, useSleepTimeActions } from '@/stores/sleep-time';
 import { useToast } from '@/stores/toast';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { IconChevronLeft } from '@tabler/icons-react';
 
-export default function MyScheduleEditPage() {
+export default function Content({
+  myScheduleData,
+}: {
+  myScheduleData: TimeType[];
+}) {
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
 
@@ -42,51 +46,19 @@ export default function MyScheduleEditPage() {
   const { setSleepTime } = useSleepTimeActions();
 
   const router = useRouter();
-  const queryClient = useQueryClient();
-  const t = useTranslations('toast');
 
-  const { data } = useQuery<MyScheduleTimeType[]>({
-    queryKey: ['fixed-schedules'],
-    queryFn: async () => {
-      const res = await axios.get('/fixed-schedules');
-      return res.data.payload.schedules;
-    },
-  });
+  const t = useTranslations();
 
-  const { mutate: editMySchedule } = useMutation({
-    mutationFn: async () => {
-      const res = await axios.put('/fixed-schedules', {
-        schedules: mySchedule,
-      });
-      return res.data.payload;
-    },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
-      router.back();
-    },
-  });
+  async function handleSubmit() {
+    const myScheduleFormData = new FormData();
+    myScheduleFormData.set('mySchedule', JSON.stringify(mySchedule));
+    await editMySchedule(myScheduleFormData);
 
-  const { mutate: editSleepTime } = useMutation({
-    mutationFn: async () => {
-      const res = await axios.put('/users/sleep-time', sleepTime);
-      return res.data.payload;
-    },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['users'] });
-    },
-  });
+    const sleepTimeFormData = new FormData();
+    sleepTimeFormData.set('sleepTime', JSON.stringify(sleepTime));
+    await editSleepTime(sleepTimeFormData);
 
-  function handleCloseButtonClick() {
-    if (isMyScheduleEdited) {
-      setIsBackButtonAlertOpen(true);
-    } else {
-      router.back();
-    }
-  }
-
-  async function handleSubmitButtonClick() {
-    editMySchedule();
-    editSleepTime();
+    router.back();
   }
 
   useEffect(() => {
@@ -97,7 +69,8 @@ export default function MyScheduleEditPage() {
           new Set([
             ...schedule.times,
             ...((!isMyScheduleEdited &&
-              data?.find((s) => s.time_point === schedule.time_point)?.times) ||
+              myScheduleData?.find((s) => s.time_point === schedule.time_point)
+                ?.times) ||
               []),
             ...(everytimeSchedule.find(
               (s) => s.time_point === schedule.time_point,
@@ -109,19 +82,51 @@ export default function MyScheduleEditPage() {
     if (everytimeSchedule.length > 0) {
       setEverytimeSchedule([]);
       setIsMyScheduleEdited(true);
-      toast(t('everytime'));
+      toast(t('toast.everytime'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [everytimeSchedule, data, toast, setMySchedule, setEverytimeSchedule, t]);
+  }, [
+    everytimeSchedule,
+    myScheduleData,
+    toast,
+    setMySchedule,
+    setEverytimeSchedule,
+    t,
+  ]);
 
   return (
     <>
       <div className="flex flex-col">
-        <TopAppBar
-          onBackButtonClick={handleCloseButtonClick}
-          onSubmitButtonClick={handleSubmitButtonClick}
-        />
+        {/* Top App Bar */}
+        <nav className="h-[64px]">
+          <div className="fixed z-10 flex h-[4rem] w-full justify-center bg-gray-00 px-4">
+            <div className="mx-auto grid w-full max-w-screen-sm grid-cols-3">
+              <div className="flex items-center justify-start">
+                <button
+                  onClick={() => {
+                    if (isMyScheduleEdited) {
+                      setIsBackButtonAlertOpen(true);
+                    } else {
+                      router.back();
+                    }
+                  }}
+                >
+                  <IconChevronLeft size={24} />
+                </button>
+              </div>
+              <div className="flex items-center justify-center whitespace-nowrap text-gray-90 text-lg-300">
+                {t('myScheduleEdit.editMySchedule')}
+              </div>
+              <div className="flex items-center justify-end">
+                <SmallButton onClick={handleSubmit}>
+                  {t('myScheduleEdit.done')}
+                </SmallButton>
+              </div>
+            </div>
+          </div>
+        </nav>
 
+        {/* Main Content */}
         <main className="pb-24">
           <div className="mx-auto max-w-screen-sm">
             <EverytimeUI className="sticky top-[64px] z-20 rounded-t-2xl" />
@@ -145,6 +150,7 @@ export default function MyScheduleEditPage() {
         </main>
       </div>
 
+      {/* Back Button Alert */}
       {isBackButtonAlertOpen && (
         <BackButtonAlert backHref={-1} setIsOpen={setIsBackButtonAlertOpen} />
       )}

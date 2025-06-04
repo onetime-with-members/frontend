@@ -1,4 +1,5 @@
-import MyScheduleEditPage from './components/MyScheduleEditPage';
+import Content from './content';
+import { fetchMySchedules } from '@/lib/data';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -9,6 +10,8 @@ export async function generateMetadata() {
   };
 }
 
-export default function MyScheduleEdit() {
-  return <MyScheduleEditPage />;
+export default async function MyScheduleEdit() {
+  const myScheduleData = await fetchMySchedules();
+
+  return <Content myScheduleData={myScheduleData} />;
 }

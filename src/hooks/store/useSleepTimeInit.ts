@@ -2,7 +2,7 @@ import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
-import axios from '@/lib/axios';
+import { fetchSleepTime } from '@/lib/data';
 import { SleepTimeType } from '@/lib/types';
 import { timeBlockList } from '@/lib/utils';
 import {
@@ -32,10 +32,7 @@ export default function useSleepTimeInit() {
 
   const { data: sleepTimeDataOrigin } = useQuery<SleepTimeType>({
     queryKey: ['users', 'sleep-time'],
-    queryFn: async () => {
-      const res = await axios.get('/users/sleep-time');
-      return res.data.payload;
-    },
+    queryFn: async () => await fetchSleepTime(),
     enabled: isLoggedIn,
   });
 
