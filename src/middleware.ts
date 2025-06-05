@@ -34,6 +34,9 @@ export async function middleware(request: NextRequest) {
     response.cookies.delete('session');
     response.cookies.delete('access-token');
     response.cookies.delete('refresh-token');
+    if (request.nextUrl.pathname !== '/login') {
+      return NextResponse.redirect(new URL('/login', request.nextUrl.origin));
+    }
     return response;
   }
   const data = await res.json();
@@ -51,5 +54,9 @@ export async function middleware(request: NextRequest) {
     },
   );
 
-  return response;
+  return NextResponse.redirect(new URL(request.nextUrl.pathname, request.url));
 }
+
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+};
