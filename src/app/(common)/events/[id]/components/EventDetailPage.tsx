@@ -57,13 +57,16 @@ export default function EventDetailPage() {
   }, [eventError, router]);
 
   useEffect(() => {
-    setParticipants(schedules || []);
+    if (schedules) {
+      setParticipants(schedules);
+    }
   }, [schedules, setParticipants]);
 
   return (
     <>
       <div className="flex min-h-[110vh] flex-col">
         <TopNavBar />
+
         <TopToolbar
           event={event}
           setIsDeleteAlertOpen={setIsDeleteAlertOpen}

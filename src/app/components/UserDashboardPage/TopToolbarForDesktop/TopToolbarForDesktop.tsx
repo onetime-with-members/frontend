@@ -1,6 +1,7 @@
 import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
+import SkeletonToolbarTitle from '@/components/skeleton/SkeletonToolbarTitle/SkeletonToolbarTitle';
 import useScroll from '@/hooks/useScroll';
 import { Link } from '@/navigation';
 import { UserType } from '@/types/user.type';
@@ -37,7 +38,11 @@ export default function TopToolbarForDesktop() {
         <div className="flex h-[72px] items-center rounded-t-3xl bg-gray-80 px-6 text-gray-00">
           <div className="mx-auto flex w-full max-w-screen-md items-center justify-between gap-2">
             <h1 className="flex-1 title-lg-300">
-              {t('hello', { name: user?.nickname })}
+              {user ? (
+                t('hello', { name: user.nickname })
+              ) : (
+                <SkeletonToolbarTitle />
+              )}
             </h1>
             <Link
               href="/events/new"

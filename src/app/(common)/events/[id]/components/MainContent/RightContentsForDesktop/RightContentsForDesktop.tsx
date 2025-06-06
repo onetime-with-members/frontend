@@ -13,15 +13,14 @@ export default function RightContentsForDesktop() {
 
   return (
     <div className="hidden flex-col md:flex md:w-[45%]">
-      {schedules &&
-        (schedules.length === 0 ? (
-          <EmptyEventBanner />
-        ) : (
-          <>
-            <Participants />
-            <RecommendedTimes />
-          </>
-        ))}
+      {schedules?.length === 0 ? (
+        <EmptyEventBanner />
+      ) : (
+        <>
+          <Participants />
+          <RecommendedTimes />
+        </>
+      )}
     </div>
   );
 }

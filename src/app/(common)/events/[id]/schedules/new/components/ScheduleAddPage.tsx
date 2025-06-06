@@ -12,6 +12,7 @@ import BackButtonAlert from '@/components/alert/BackButtonAlert/BackButtonAlert'
 import { FooterContext } from '@/contexts/FooterContext';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
+import { breakpoint } from '@/lib/constants';
 import { useRouter } from '@/navigation';
 import {
   useScheduleAndNewMemberCreate,
@@ -19,7 +20,6 @@ import {
   useScheduleUpdateMutation,
 } from '@/queries/schedule.queries';
 import { GuestValueType } from '@/types/user.type';
-import breakpoint from '@/utils/breakpoint';
 import cn from '@/utils/cn';
 import { useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';

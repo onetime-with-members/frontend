@@ -7,7 +7,7 @@ import RecommendTime from './RecommendTime/RecommendTime';
 import CircleArrowButton from '@/components/button/CircleArrowButton/CircleArrowButton';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 
-export default function BannerList() {
+export default function BannerList({ isPending }: { isPending?: boolean }) {
   const [isHover, setIsHover] = useState(false);
 
   const topDialogListRef = useRef<HTMLDivElement>(null);
@@ -33,14 +33,16 @@ export default function BannerList() {
           />
         )}
       </AnimatePresence>
+
       <div
         ref={topDialogListRef}
         className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
         style={{ scrollSnapType: 'x mandatory' }}
       >
-        <RecommendTime />
-        <Participants />
+        <RecommendTime isPending={isPending} />
+        <Participants isPending={isPending} />
       </div>
+
       <AnimatePresence>
         {!isMobile && arrowButtonVisible.right && isHover && (
           <CircleArrowButton
