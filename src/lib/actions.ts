@@ -110,5 +110,6 @@ export async function editSleepTime(formData: FormData) {
     throw new Error('Failed to edit sleep time');
   }
 
+  revalidatePath('/');
   revalidatePath('/mypage/schedules/edit');
 }

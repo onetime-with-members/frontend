@@ -3,7 +3,9 @@ import FooterContextProvider from './footer';
 import PageModeContextProvider from './page-mode';
 import PolicyContextProvider from './policy';
 import ScrollContextProvider from './scroll';
+import SleepTimeContextProvider from './sleep-time';
 import { auth, currentUser } from '@/lib/auth';
+import { fetchSleepTime } from '@/lib/data';
 
 export default async function ContextProviders({
   children,
@@ -11,10 +13,13 @@ export default async function ContextProviders({
   children: React.ReactNode;
 }) {
   let user;
+  let sleepTime;
   if (await auth()) {
     user = await currentUser();
+    sleepTime = await fetchSleepTime();
   } else {
     user = null;
+    sleepTime = null;
   }
 
   return (
@@ -23,7 +28,9 @@ export default async function ContextProviders({
         <ScrollContextProvider>
           <PolicyContextProvider>
             <CurrentUserContextProvider defaultUser={user}>
-              {children}
+              <SleepTimeContextProvider defaultSleepTime={sleepTime}>
+                {children}
+              </SleepTimeContextProvider>
             </CurrentUserContextProvider>
           </PolicyContextProvider>
         </ScrollContextProvider>

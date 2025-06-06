@@ -1,10 +1,12 @@
 'use client';
 
+import { useContext } from 'react';
+
+import { SleepTimeContext } from '@/contexts/sleep-time';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import { MyScheduleTimeType } from '@/lib/types';
-import { useTimesGroupForSplittedTimeBlock } from '@/stores/sleep-time';
 
 export default function BlockContent({
   mode,
@@ -27,7 +29,8 @@ export default function BlockContent({
         setIsEdited?.(true);
       },
     });
-  const timesGroupForSplittedTimeBlock = useTimesGroupForSplittedTimeBlock();
+
+  const { timesGroupForSplittedTimeBlock } = useContext(SleepTimeContext);
 
   function changeTimeBlock(
     weekday: string,

@@ -1,4 +1,4 @@
-import { EventValueType, MyEventType } from '@/lib/types';
+import { EventValueType, MyEventType, SleepTimeType } from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 
 export const SERVER_API_URL =
@@ -37,6 +37,11 @@ export const defaultRecommendTime: RecommendTimeType = {
   possible_count: 0,
   possible_names: [],
   impossible_names: [],
+};
+
+export const defaultSleepTime: SleepTimeType = {
+  sleep_start_time: '00:00',
+  sleep_end_time: '00:00',
 };
 
 export const weekdaysShortKo = ['일', '월', '화', '수', '목', '금', '토'];

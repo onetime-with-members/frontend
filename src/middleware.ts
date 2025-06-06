@@ -34,9 +34,6 @@ export async function middleware(request: NextRequest) {
     response.cookies.delete('session');
     response.cookies.delete('access-token');
     response.cookies.delete('refresh-token');
-    if (request.nextUrl.pathname !== '/login') {
-      return NextResponse.redirect(new URL('/login', request.nextUrl.origin));
-    }
     return response;
   }
   const data = await res.json();
@@ -54,7 +51,7 @@ export async function middleware(request: NextRequest) {
     },
   );
 
-  return NextResponse.redirect(new URL(request.nextUrl.pathname, request.url));
+  return response;
 }
 
 export const config = {

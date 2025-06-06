@@ -1,13 +1,14 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import SleepTimeAccordion from './sleep-time';
 import BackButtonAlert from '@/components/alert/back-button-alert';
 import SmallButton from '@/components/button/small-button';
 import EverytimeUI from '@/components/everytime-ui';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
+import { SleepTimeContext } from '@/contexts/sleep-time';
 import { editMySchedule, editSleepTime } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { TimeType } from '@/lib/types';
@@ -21,7 +22,6 @@ import {
   useMySchedule,
   useMyScheduleActions,
 } from '@/stores/my-schedule';
-import { useSleepTime, useSleepTimeActions } from '@/stores/sleep-time';
 import { useToast } from '@/stores/toast';
 import { IconChevronLeft } from '@tabler/icons-react';
 
@@ -40,10 +40,10 @@ export default function Content({
   const everytimeSchedule = useEverytimeSchedule();
   const { setEverytimeSchedule } = useEverytimeScheduleActions();
 
-  const toast = useToast();
+  const { sleepTime, setSleepTime, revalidateSleepTime } =
+    useContext(SleepTimeContext);
 
-  const sleepTime = useSleepTime();
-  const { setSleepTime } = useSleepTimeActions();
+  const toast = useToast();
 
   const router = useRouter();
 
@@ -57,6 +57,7 @@ export default function Content({
     const sleepTimeFormData = new FormData();
     sleepTimeFormData.set('sleepTime', JSON.stringify(sleepTime));
     await editSleepTime(sleepTimeFormData);
+    revalidateSleepTime();
 
     router.back();
   }

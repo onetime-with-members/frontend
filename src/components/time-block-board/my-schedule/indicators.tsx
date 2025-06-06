@@ -1,8 +1,10 @@
 'use client';
 
+import { useContext, useEffect } from 'react';
+
+import { SleepTimeContext } from '@/contexts/sleep-time';
 import cn from '@/lib/cn';
 import { leftTimeLabelFormat } from '@/lib/utils';
-import { useTimesGroupForSplittedTimeLabel } from '@/stores/sleep-time';
 import { useWeekdaysShort } from '@/stores/weekday';
 
 export function DateIndicator({ className }: { className?: string }) {
@@ -25,7 +27,7 @@ export function DateIndicator({ className }: { className?: string }) {
 }
 
 export function TimeIndicator() {
-  const timesGroupForSplittedTimeLabel = useTimesGroupForSplittedTimeLabel();
+  const { timesGroupForSplittedTimeLabel } = useContext(SleepTimeContext);
 
   return (
     <div className="flex w-6 flex-col items-end gap-2 pr-2">
