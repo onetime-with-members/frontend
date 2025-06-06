@@ -1,34 +1,40 @@
-import { AxiosError } from 'axios';
+'use client';
+
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
+import { useFormStatus } from 'react-dom';
 
 import Button from '@/components/button/button';
 import { FooterContext } from '@/contexts/footer';
 import cn from '@/lib/cn';
+import { IconChevronLeft } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
-interface BottomButtonProps {
-  disabled: boolean;
-  onClick: () => void;
-  isPending: boolean;
-  isError: boolean;
-  error: AxiosError | null;
-  isTouched: boolean;
+export default function BackButton() {
+  const router = useRouter();
+
+  return (
+    <button onClick={() => router.back()}>
+      <IconChevronLeft size={24} />
+    </button>
+  );
 }
 
-export default function BottomButton({
+export function BottomButton({
   disabled,
-  onClick,
-  isPending,
-  isError,
   error,
   isTouched,
-}: BottomButtonProps) {
+}: {
+  disabled: boolean;
+  error: { code: string } | null;
+  isTouched: boolean;
+}) {
   const { isFooterShown } = useContext(FooterContext);
 
-  const t = useTranslations('MyScheduleEverytimeEditPage');
+  const { pending } = useFormStatus();
 
-  const errorData = error?.response?.data as { code: string };
+  const t = useTranslations('everytimeScheduleEdit');
 
   return (
     <AnimatePresence>
@@ -49,7 +55,7 @@ export default function BottomButton({
         >
           <div className="relative mx-auto max-w-screen-sm px-4 py-3">
             <AnimatePresence>
-              {(isPending || isError) && !isTouched && (
+              {(pending || error) && !isTouched && (
                 <motion.div
                   initial={{
                     transform: 'translateY(0)',
@@ -63,31 +69,31 @@ export default function BottomButton({
                   className={cn(
                     'absolute left-0 right-0 top-0 -translate-y-full rounded-t-xl bg-primary-50 px-4 py-1.5 text-center text-gray-00 text-md-300',
                     {
-                      'bg-danger-50': isError,
+                      'bg-danger-50': error,
                     },
                   )}
                 >
                   {t.rich(
-                    isPending
+                    pending
                       ? 'pendingMessage'
-                      : errorData?.code === 'CRAWLING-002'
+                      : error?.code === 'CRAWLING-002'
                         ? 'invalidURLMessage'
-                        : errorData?.code === 'CRAWLING-003'
+                        : error?.code === 'CRAWLING-003'
                           ? 'privateURLMessage'
                           : 'serverErrorMessage',
                     {
                       br: () => (
                         <br
                           className={cn('hidden', {
-                            'min-[250px]:block min-[415px]:hidden': isPending,
+                            'min-[250px]:block min-[415px]:hidden': pending,
                             'min-[295px]:block min-[495px]:hidden':
-                              !isPending && errorData?.code === 'CRAWLING-002',
+                              !pending && error?.code === 'CRAWLING-002',
                             'min-[400px]:block sm:hidden':
-                              !isPending && errorData?.code === 'CRAWLING-003',
+                              !pending && error?.code === 'CRAWLING-003',
                             'min-[405px]:block min-[530px]:hidden':
-                              !isPending &&
+                              !pending &&
                               !['CRAWLING-002', 'CRAWLING-003'].includes(
-                                errorData?.code,
+                                error?.code as string,
                               ),
                           })}
                         />
@@ -99,13 +105,13 @@ export default function BottomButton({
             </AnimatePresence>
             <div className="absolute left-0 top-0 h-full w-full bg-gray-00" />
             <Button
+              type="submit"
               variant="black"
-              onClick={onClick}
               fullWidth
               disabled={disabled}
               className="relative"
             >
-              {isPending ? t('submitting') : t('submit')}
+              {pending ? t('submitting') : t('submit')}
             </Button>
           </div>
         </motion.div>

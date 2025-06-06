@@ -1,7 +1,8 @@
 'use server';
 
 import { accessToken, auth } from './auth';
-import { SERVER_API_URL } from './constants';
+import { CRAWLING_SERVER_API_URL, SERVER_API_URL } from './constants';
+import { EverytimeSchedule } from './types';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -126,4 +127,26 @@ export async function editPolicy(formData: FormData) {
     console.error(await res.json());
     throw new Error('Failed to edit sleep time');
   }
+}
+
+export async function submitEverytimeUrl(formData: FormData) {
+  const everytimeUrl = formData.get('everytimeUrl') as string;
+
+  const res = await fetch(
+    `${CRAWLING_SERVER_API_URL}/users/sleep-time?url=${everytimeUrl}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${await accessToken()}`,
+      },
+    },
+  );
+  if (!res.ok) {
+    console.error(await res.json());
+    return { everytimeSchedule: null, error: await res.json() };
+  }
+  const data = await res.json();
+  const everytimeSchedule: EverytimeSchedule = data.payload;
+
+  return { everytimeSchedule: everytimeSchedule, error: null };
 }

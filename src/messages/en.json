@@ -177,7 +177,7 @@
     "everytime": "Add Everytime timetable",
     "done": "Done"
   },
-  "MyScheduleEverytimeEditPage": {
+  "everytimeScheduleEdit": {
     "title": "Add Everytime Timetable",
     "description": "Copy and Paste the timetable link using the method below.",
     "placeholder": "Paste link here...",
