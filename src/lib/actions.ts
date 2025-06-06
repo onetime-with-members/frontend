@@ -6,6 +6,8 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function createEvent(formData: FormData) {
+  const event = JSON.parse(formData.get('event') as string);
+
   const res = await fetch(`${SERVER_API_URL}/events`, {
     method: 'POST',
     headers: {
@@ -14,7 +16,7 @@ export async function createEvent(formData: FormData) {
         ? { Authorization: `Bearer ${await accessToken()}` }
         : {}),
     },
-    body: formData.get('event'),
+    body: JSON.stringify(event),
   });
   if (!res.ok) {
     console.error(await res.json());
@@ -48,6 +50,8 @@ export async function editEvent(formData: FormData) {
 }
 
 export async function editProfile(formData: FormData) {
+  const nickname = JSON.parse(formData.get('nickname') as string);
+
   const res = await fetch(`${SERVER_API_URL}/users/profile/action-update`, {
     method: 'PATCH',
     headers: {
@@ -55,7 +59,7 @@ export async function editProfile(formData: FormData) {
       Authorization: `Bearer ${await accessToken()}`,
     },
     body: JSON.stringify({
-      nickname: formData.get('nickname') as string,
+      nickname,
     }),
   });
   if (!res.ok) {
@@ -67,6 +71,8 @@ export async function editProfile(formData: FormData) {
 }
 
 export async function editMySchedule(formData: FormData) {
+  const mySchedule = JSON.parse(formData.get('mySchedule') as string);
+
   const res = await fetch(`${SERVER_API_URL}/fixed-schedules`, {
     method: 'PUT',
     headers: {
@@ -74,7 +80,7 @@ export async function editMySchedule(formData: FormData) {
       Authorization: `Bearer ${await accessToken()}`,
     },
     body: JSON.stringify({
-      schedules: formData.get('mySchedule'),
+      schedules: mySchedule,
     }),
   });
   if (!res.ok) {
@@ -86,13 +92,15 @@ export async function editMySchedule(formData: FormData) {
 }
 
 export async function editSleepTime(formData: FormData) {
+  const sleepTime = JSON.parse(formData.get('sleepTime') as string);
+
   const res = await fetch(`${SERVER_API_URL}/users/sleep-time`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${await accessToken()}`,
     },
-    body: formData.get('sleepTime'),
+    body: JSON.stringify(sleepTime),
   });
   if (!res.ok) {
     console.error(await res.json());
@@ -104,13 +112,15 @@ export async function editSleepTime(formData: FormData) {
 }
 
 export async function editPolicy(formData: FormData) {
+  const policy = JSON.parse(formData.get('policy') as string);
+
   const res = await fetch(`${SERVER_API_URL}/users/sleep-time`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${await accessToken()}`,
     },
-    body: formData.get('policy'),
+    body: JSON.stringify(policy),
   });
   if (!res.ok) {
     console.error(await res.json());
