@@ -1,14 +1,14 @@
 'use client';
 
 import axios, { AxiosError } from 'axios';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import BottomButton from './BottomButton/BottomButton';
 import MainContent from './MainContent/MainContent';
 import TopAppBar from './TopAppBar/TopAppBar';
+import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { EverytimeSchedule } from '@/lib/types';
 import { useRouter } from '@/navigation';
-import { useEverytimeScheduleActions } from '@/stores/everytime-schedule';
 import { useMutation } from '@tanstack/react-query';
 import { useSearchParams } from 'next/navigation';
 
@@ -21,7 +21,7 @@ export default function MyScheduleEverytimeEditPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { setEverytimeSchedule } = useEverytimeScheduleActions();
+  const { setEverytimeSchedule } = useContext(EverytimeScheduleContext);
 
   const {
     mutate: submitEverytimeURL,

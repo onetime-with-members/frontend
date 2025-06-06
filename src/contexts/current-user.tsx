@@ -7,8 +7,8 @@ import { auth, currentUser } from '@/lib/auth';
 import { UserType } from '@/lib/types';
 
 export const CurrentUserContext = createContext<{
-  user?: UserType | null | undefined;
-  setUser: React.Dispatch<React.SetStateAction<UserType | null | undefined>>;
+  user?: UserType | null;
+  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
 }>({
   user: null,
   setUser: () => {},
@@ -21,9 +21,7 @@ export default function CurrentUserContextProvider({
   children: React.ReactNode;
   defaultUser: UserType | undefined;
 }) {
-  const [user, setUser] = useState<UserType | null | undefined>(
-    defaultUser || null,
-  );
+  const [user, setUser] = useState<UserType | null>(defaultUser || null);
 
   const session = getCookie('session');
 

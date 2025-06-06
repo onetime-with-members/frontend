@@ -8,16 +8,13 @@ import BackButtonAlert from '@/components/alert/back-button-alert';
 import SmallButton from '@/components/button/small-button';
 import EverytimeUI from '@/components/everytime-ui';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
+import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import { editMySchedule, editSleepTime } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { TimeType } from '@/lib/types';
 import { useRouter } from '@/navigation';
-import {
-  useEverytimeSchedule,
-  useEverytimeScheduleActions,
-} from '@/stores/everytime-schedule';
 import { useToast } from '@/stores/toast';
 import { IconChevronLeft } from '@tabler/icons-react';
 
@@ -38,9 +35,9 @@ export default function Content({
   } = useContext(MyScheduleContext);
   const { sleepTime, setSleepTime, revalidateSleepTime } =
     useContext(SleepTimeContext);
-
-  const everytimeSchedule = useEverytimeSchedule();
-  const { setEverytimeSchedule } = useEverytimeScheduleActions();
+  const { everytimeSchedule, setEverytimeSchedule } = useContext(
+    EverytimeScheduleContext,
+  );
 
   const toast = useToast();
 

@@ -50,7 +50,6 @@ export interface RecommendScheduleType {
 }
 
 export type MyScheduleTimeType = TimeType;
-
 export type EverytimeSchedule = TimeType[];
 
 export interface TimeBlockPopUpDataType {
