@@ -1,5 +1,5 @@
 import Content from './content';
-import { fetchMySchedules } from '@/lib/data';
+import { fetchMySchedule } from '@/lib/data';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -11,7 +11,7 @@ export async function generateMetadata() {
 }
 
 export default async function MyScheduleEdit() {
-  const myScheduleData = await fetchMySchedules();
+  const myScheduleData = await fetchMySchedule();
 
   return <Content myScheduleData={myScheduleData} />;
 }

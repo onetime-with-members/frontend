@@ -1,14 +1,14 @@
 import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
+import { SleepTimeContext } from '@/contexts/sleep-time';
 import axios from '@/lib/axios';
 import { weekdaysShortKo } from '@/lib/constants';
 import { MyScheduleTimeType, ScheduleType, SleepTimeType } from '@/lib/types';
 import { timeBlockList } from '@/lib/utils';
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleDetailQuery } from '@/queries/schedule.queries';
-import { useSleepTimeData, useSleepTimesList } from '@/stores/sleep-time';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
@@ -44,8 +44,7 @@ export default function useScheduleAdd({
 }: UseScheduleCreateProps) {
   const [initialSchedule, setInitialSchedule] = useState<ScheduleType[]>([]);
 
-  const sleepTimeData = useSleepTimeData();
-  const sleepTimesList = useSleepTimesList();
+  const { sleepTimeData, sleepTimesList } = useContext(SleepTimeContext);
 
   const params = useParams<{ id: string }>();
 

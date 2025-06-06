@@ -1,12 +1,27 @@
-import { EventValueType, MyEventType, SleepTimeType } from '@/lib/types';
+import {
+  EventValueType,
+  MyEventType,
+  MyScheduleTimeType,
+  SleepTimeType,
+} from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 
 export const SERVER_API_URL =
   process.env.SERVER_API_URL || 'http://localhost:3000';
 
 export const LOCALES = ['ko', 'en'] as const;
-
 export const POLICY_KEY_LIST = ['privacy', 'service'] as const;
+
+export const weekdaysShortKo = ['일', '월', '화', '수', '목', '금', '토'];
+export const weekdaysShortEn = [
+  'Sun',
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat',
+];
 
 export const breakpoint = {
   sm: 640,
@@ -44,16 +59,12 @@ export const defaultSleepTime: SleepTimeType = {
   sleep_end_time: '00:00',
 };
 
-export const weekdaysShortKo = ['일', '월', '화', '수', '목', '금', '토'];
-export const weekdaysShortEn = [
-  'Sun',
-  'Mon',
-  'Tue',
-  'Wed',
-  'Thu',
-  'Fri',
-  'Sat',
-];
+export const defaultMySchedule: MyScheduleTimeType[] = weekdaysShortKo.map(
+  (weekday) => ({
+    time_point: weekday,
+    times: [],
+  }),
+);
 
 export const SKELETON_GRAY = '#e8e9ed77';
 export const SKELETON_DARK_GRAY = '#dadbe277';

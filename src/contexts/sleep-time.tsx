@@ -1,7 +1,7 @@
 'use client';
 
 import dayjs from 'dayjs';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
 import { auth } from '@/lib/auth';
 import { defaultSleepTime } from '@/lib/constants';
@@ -10,7 +10,7 @@ import { SleepTimeType } from '@/lib/types';
 import { getTimesGroupForSplitted, timeBlockList } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 
-interface SleepTimeContextType {
+export const SleepTimeContext = createContext<{
   sleepTime: SleepTimeType;
   setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
   sleepTimesList: string[];
@@ -18,9 +18,7 @@ interface SleepTimeContextType {
   timesGroupForSplittedTimeBlock: string[][];
   timesGroupForSplittedTimeLabel: string[][];
   revalidateSleepTime: () => void;
-}
-
-export const SleepTimeContext = createContext<SleepTimeContextType>({
+}>({
   sleepTime: defaultSleepTime,
   setSleepTime: () => {},
   sleepTimesList: [],
@@ -35,7 +33,7 @@ export default function SleepTimeContextProvider({
   defaultSleepTime: fetchedSleepTime,
 }: {
   children: React.ReactNode;
-  defaultSleepTime: SleepTimeType | null;
+  defaultSleepTime: SleepTimeType | undefined;
 }) {
   const [sleepTime, setSleepTime] = useState<SleepTimeType>(
     fetchedSleepTime || defaultSleepTime,
@@ -55,9 +53,9 @@ export default function SleepTimeContextProvider({
 
   const pathname = usePathname();
 
-  function resetSleepTime() {
+  const resetSleepTime = useCallback(() => {
     setSleepTime(sleepTimeData);
-  }
+  }, [sleepTimeData]);
 
   async function revalidateSleepTime() {
     if (!(await auth())) return;
@@ -109,7 +107,7 @@ export default function SleepTimeContextProvider({
     ];
     if (locationsNotToReset.includes(pathname)) return;
     resetSleepTime();
-  }, [pathname]);
+  }, [pathname, resetSleepTime]);
 
   return (
     <SleepTimeContext.Provider

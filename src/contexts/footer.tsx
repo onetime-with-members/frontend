@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-interface FooterContextType {
+export const FooterContext = createContext<{
   footerVisible: boolean;
   setFooterVisible: React.Dispatch<React.SetStateAction<boolean>>;
   footerRef: React.RefObject<HTMLDivElement | null> | undefined;
@@ -10,9 +10,7 @@ interface FooterContextType {
     React.SetStateAction<React.RefObject<HTMLDivElement | null> | undefined>
   >;
   isFooterShown: boolean;
-}
-
-export const FooterContext = createContext<FooterContextType>({
+}>({
   footerVisible: true,
   setFooterVisible: () => {},
   footerRef: undefined,

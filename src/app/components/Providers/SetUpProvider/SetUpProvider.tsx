@@ -5,7 +5,6 @@ import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
 import useBarBannerInit from '@/hooks/store/useBarBannerInit';
-import useMyScheduleStoreInit from '@/hooks/store/useMyScheduleStoreInit';
 import useWeekdayInit from '@/hooks/store/useWeekdayInit';
 import useLocalStorageClear from '@/hooks/useLocalStorageClear';
 import useLocalStorageSetUp from '@/hooks/useLocalStorageSetUp';
@@ -53,7 +52,6 @@ interface SetUpProviderProps {
 }
 
 export default function SetUpProvider({ children }: SetUpProviderProps) {
-  useMyScheduleStoreInit();
   useWeekdayInit();
   useBarBannerInit();
 

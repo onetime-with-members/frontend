@@ -43,7 +43,7 @@ export async function fetchMyEvents() {
   return events;
 }
 
-export async function fetchMySchedules() {
+export async function fetchMySchedule() {
   const res = await fetch(`${SERVER_API_URL}/fixed-schedules`, {
     headers: {
       Authorization: `Bearer ${await accessToken()}`,

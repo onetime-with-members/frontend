@@ -25,7 +25,7 @@ import {
   SKELETON_GRAY,
   defaultMyEvent,
 } from '@/lib/constants';
-import { fetchMyEvents, fetchMySchedules, fetchSleepTime } from '@/lib/data';
+import { fetchMyEvents, fetchMySchedule, fetchSleepTime } from '@/lib/data';
 import { Link } from '@/navigation';
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
@@ -136,7 +136,7 @@ function MyEventsSkeleton() {
 }
 
 export async function MyScheduleSection() {
-  const mySchedule = await fetchMySchedules();
+  const mySchedule = await fetchMySchedule();
   const sleepTime = await fetchSleepTime();
 
   const cookieStore = await cookies();

@@ -6,11 +6,9 @@ import { usePathname } from 'next/navigation';
 
 type PageMode = 'view' | 'create' | 'edit';
 
-interface PageModeContextType {
+export const PageModeContext = createContext<{
   pageMode: PageMode;
-}
-
-export const PageModeContext = createContext<PageModeContextType>({
+}>({
   pageMode: 'view',
 });
 

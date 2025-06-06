@@ -8,6 +8,7 @@ import BackButtonAlert from '@/components/alert/back-button-alert';
 import SmallButton from '@/components/button/small-button';
 import EverytimeUI from '@/components/everytime-ui';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
+import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import { editMySchedule, editSleepTime } from '@/lib/actions';
 import cn from '@/lib/cn';
@@ -17,11 +18,6 @@ import {
   useEverytimeSchedule,
   useEverytimeScheduleActions,
 } from '@/stores/everytime-schedule';
-import {
-  useIsMyScheduleEdited,
-  useMySchedule,
-  useMyScheduleActions,
-} from '@/stores/my-schedule';
 import { useToast } from '@/stores/toast';
 import { IconChevronLeft } from '@tabler/icons-react';
 
@@ -33,26 +29,29 @@ export default function Content({
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
 
-  const mySchedule = useMySchedule();
-  const isMyScheduleEdited = useIsMyScheduleEdited();
-  const { setMySchedule, setIsMyScheduleEdited } = useMyScheduleActions();
+  const {
+    mySchedule,
+    setMySchedule,
+    isMyScheduleEdited,
+    setIsMyScheduleEdited,
+    revalidateMySchedule,
+  } = useContext(MyScheduleContext);
+  const { sleepTime, setSleepTime, revalidateSleepTime } =
+    useContext(SleepTimeContext);
 
   const everytimeSchedule = useEverytimeSchedule();
   const { setEverytimeSchedule } = useEverytimeScheduleActions();
 
-  const { sleepTime, setSleepTime, revalidateSleepTime } =
-    useContext(SleepTimeContext);
-
   const toast = useToast();
 
   const router = useRouter();
-
   const t = useTranslations();
 
   async function handleSubmit() {
     const myScheduleFormData = new FormData();
     myScheduleFormData.set('mySchedule', JSON.stringify(mySchedule));
     await editMySchedule(myScheduleFormData);
+    revalidateMySchedule();
 
     const sleepTimeFormData = new FormData();
     sleepTimeFormData.set('sleepTime', JSON.stringify(sleepTime));

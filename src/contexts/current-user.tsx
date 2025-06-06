@@ -6,12 +6,10 @@ import { createContext, useEffect, useState } from 'react';
 import { auth, currentUser } from '@/lib/auth';
 import { UserType } from '@/lib/types';
 
-interface CurrentUserContextType {
-  user: UserType | null;
-  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
-}
-
-export const CurrentUserContext = createContext<CurrentUserContextType>({
+export const CurrentUserContext = createContext<{
+  user?: UserType | null | undefined;
+  setUser: React.Dispatch<React.SetStateAction<UserType | null | undefined>>;
+}>({
   user: null,
   setUser: () => {},
 });
@@ -21,9 +19,11 @@ export default function CurrentUserContextProvider({
   defaultUser,
 }: {
   children: React.ReactNode;
-  defaultUser: UserType | null;
+  defaultUser: UserType | undefined;
 }) {
-  const [user, setUser] = useState<UserType | null>(defaultUser);
+  const [user, setUser] = useState<UserType | null | undefined>(
+    defaultUser || null,
+  );
 
   const session = getCookie('session');
 

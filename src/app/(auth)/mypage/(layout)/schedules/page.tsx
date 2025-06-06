@@ -1,6 +1,6 @@
 import SleepIcon from '@/components/icon/sleep';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
-import { fetchMySchedules, fetchSleepTime } from '@/lib/data';
+import { fetchMySchedule, fetchSleepTime } from '@/lib/data';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -12,7 +12,7 @@ export async function generateMetadata() {
 }
 
 export default async function Page() {
-  const mySchedule = await fetchMySchedules();
+  const mySchedule = await fetchMySchedule();
   const sleepTime = await fetchSleepTime();
 
   return (
