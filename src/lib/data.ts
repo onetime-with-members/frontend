@@ -6,6 +6,7 @@ import {
   EventType,
   MyEventType,
   MyScheduleTimeType,
+  PolicyType,
   SleepTimeType,
 } from './types';
 
@@ -98,4 +99,20 @@ export async function fetchOriginalUrl(shortUrl: string) {
     originalUrl: original_url,
     error: null,
   };
+}
+
+export async function fetchPolicy() {
+  const res = await fetch(`${SERVER_API_URL}/users/policy`, {
+    headers: {
+      Authorization: `Bearer ${await accessToken()}`,
+    },
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch sleep time');
+  }
+  const data = await res.json();
+  const policy: PolicyType = data.payload;
+
+  return policy;
 }

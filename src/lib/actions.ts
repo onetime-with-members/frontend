@@ -6,8 +6,6 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function createEvent(formData: FormData) {
-  const event = JSON.parse(formData.get('event') as string);
-
   const res = await fetch(`${SERVER_API_URL}/events`, {
     method: 'POST',
     headers: {
@@ -16,9 +14,7 @@ export async function createEvent(formData: FormData) {
         ? { Authorization: `Bearer ${await accessToken()}` }
         : {}),
     },
-    body: JSON.stringify({
-      ...event,
-    }),
+    body: formData.get('event'),
   });
   if (!res.ok) {
     console.error(await res.json());
@@ -32,7 +28,6 @@ export async function createEvent(formData: FormData) {
 
 export async function editEvent(formData: FormData) {
   const eventId = formData.get('eventId') as string;
-  const event = JSON.parse(formData.get('event') as string);
 
   const res = await fetch(`${SERVER_API_URL}/events/${eventId}`, {
     method: 'PATCH',
@@ -40,7 +35,7 @@ export async function editEvent(formData: FormData) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${await accessToken()}`,
     },
-    body: JSON.stringify(event),
+    body: formData.get('event'),
   });
   if (!res.ok) {
     console.error(await res.json());
@@ -53,8 +48,6 @@ export async function editEvent(formData: FormData) {
 }
 
 export async function editProfile(formData: FormData) {
-  const name = formData.get('nickname') as string;
-
   const res = await fetch(`${SERVER_API_URL}/users/profile/action-update`, {
     method: 'PATCH',
     headers: {
@@ -62,7 +55,7 @@ export async function editProfile(formData: FormData) {
       Authorization: `Bearer ${await accessToken()}`,
     },
     body: JSON.stringify({
-      nickname: name,
+      nickname: formData.get('nickname') as string,
     }),
   });
   if (!res.ok) {
@@ -74,8 +67,6 @@ export async function editProfile(formData: FormData) {
 }
 
 export async function editMySchedule(formData: FormData) {
-  const mySchedule = JSON.parse(formData.get('mySchedule') as string);
-
   const res = await fetch(`${SERVER_API_URL}/fixed-schedules`, {
     method: 'PUT',
     headers: {
@@ -83,7 +74,7 @@ export async function editMySchedule(formData: FormData) {
       Authorization: `Bearer ${await accessToken()}`,
     },
     body: JSON.stringify({
-      schedules: mySchedule,
+      schedules: formData.get('mySchedule'),
     }),
   });
   if (!res.ok) {
@@ -95,15 +86,13 @@ export async function editMySchedule(formData: FormData) {
 }
 
 export async function editSleepTime(formData: FormData) {
-  const sleepTime = JSON.parse(formData.get('sleepTime') as string);
-
   const res = await fetch(`${SERVER_API_URL}/users/sleep-time`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${await accessToken()}`,
     },
-    body: JSON.stringify(sleepTime),
+    body: formData.get('sleepTime'),
   });
   if (!res.ok) {
     console.error(await res.json());
@@ -112,4 +101,19 @@ export async function editSleepTime(formData: FormData) {
 
   revalidatePath('/');
   revalidatePath('/mypage/schedules/edit');
+}
+
+export async function editPolicy(formData: FormData) {
+  const res = await fetch(`${SERVER_API_URL}/users/sleep-time`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${await accessToken()}`,
+    },
+    body: formData.get('policy'),
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to edit sleep time');
+  }
 }
