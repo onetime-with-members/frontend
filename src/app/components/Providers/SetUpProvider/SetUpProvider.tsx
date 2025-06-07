@@ -8,7 +8,7 @@ import useWeekdayInit from '@/hooks/store/useWeekdayInit';
 import useLocalStorageClear from '@/hooks/useLocalStorageClear';
 import useLocalStorageSetUp from '@/hooks/useLocalStorageSetUp';
 import useShortURLRedirect from '@/hooks/useShortURLRedirect';
-import { auth, reissueToken } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { fetchPolicy } from '@/lib/data';
 import { useRouter } from '@/navigation';
 import 'dayjs/locale/ko';
@@ -59,14 +59,6 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
 
   const router = useRouter();
   const pathname = usePathname();
-
-  useEffect(() => {
-    async function reissue() {
-      const { willRefresh } = await reissueToken();
-      if (willRefresh) router.refresh();
-    }
-    reissue();
-  }, [router]);
 
   useEffect(() => {
     async function checkPolicy() {
