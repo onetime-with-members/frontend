@@ -1,6 +1,5 @@
 'use client';
 
-import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
@@ -9,10 +8,9 @@ import useWeekdayInit from '@/hooks/store/useWeekdayInit';
 import useLocalStorageClear from '@/hooks/useLocalStorageClear';
 import useLocalStorageSetUp from '@/hooks/useLocalStorageSetUp';
 import useShortURLRedirect from '@/hooks/useShortURLRedirect';
-import axios from '@/lib/axios';
-import { PolicyType } from '@/lib/types';
+import { auth, reissueToken } from '@/lib/auth';
+import { fetchPolicy } from '@/lib/data';
 import { useRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 import 'dayjs/locale/ko';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localeData from 'dayjs/plugin/localeData';
@@ -62,28 +60,25 @@ export default function SetUpProvider({ children }: SetUpProviderProps) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const isLoggedIn = !!getCookie('access-token');
-
-  const { data: policyData } = useQuery<PolicyType>({
-    queryKey: ['users', 'policy'],
-    queryFn: async () => {
-      const res = await axios.get('/users/policy');
-      return res.data.payload;
-    },
-    enabled: isLoggedIn,
-  });
+  useEffect(() => {
+    async function reissue() {
+      const { willRefresh } = await reissueToken();
+      if (willRefresh) router.refresh();
+    }
+    reissue();
+  }, [router]);
 
   useEffect(() => {
-    if (!policyData || !isLoggedIn) return;
-    if (
-      !policyData.service_policy_agreement ||
-      !policyData.privacy_policy_agreement
-    ) {
-      if (!pathname.startsWith('/policy') && pathname !== '/withdraw') {
-        router.push('/policy/edit');
-      }
+    async function checkPolicy() {
+      if (pathname.startsWith('/policy') || pathname === '/withdraw') return;
+      if (!(await auth())) return;
+      const policy = await fetchPolicy();
+      if (policy.service_policy_agreement && policy.privacy_policy_agreement)
+        return;
+      router.push('/policy/edit');
     }
-  }, [pathname, policyData, isLoggedIn, router]);
+    checkPolicy();
+  }, [pathname, router]);
 
   return children;
 }

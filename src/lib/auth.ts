@@ -1,6 +1,7 @@
 'use server';
 
 import dayjs from 'dayjs';
+import jwt from 'jsonwebtoken';
 
 import { SERVER_API_URL } from './constants';
 import { UserType } from './types';
@@ -77,4 +78,51 @@ export async function currentUser() {
   const user: UserType = data.payload;
 
   return user;
+}
+
+export async function reissueToken() {
+  const cookieStore = await cookies();
+  const sessionCookie = cookieStore.get('session')?.value;
+  if (!sessionCookie) return { willRefresh: false };
+  const session: Session = JSON.parse(sessionCookie);
+
+  const decodedAccessToken = jwt.decode(session.accessToken) as {
+    exp: number;
+  };
+  if (dayjs().isBefore(dayjs(decodedAccessToken.exp * 1000), 'second'))
+    return { willRefresh: false };
+
+  const res = await fetch(`${SERVER_API_URL}/tokens/action-reissue`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${session.accessToken}`,
+    },
+    body: JSON.stringify({
+      refresh_token: session.refreshToken,
+    }),
+  });
+  if (!res.ok) {
+    cookieStore.delete('session');
+    cookieStore.delete('access-token');
+    cookieStore.delete('refresh-token');
+
+    return { willRefresh: true };
+  }
+  const data = await res.json();
+  const { access_token: accessToken, refresh_token: refreshToken } =
+    data.payload;
+
+  cookieStore.set(
+    'session',
+    JSON.stringify({
+      accessToken,
+      refreshToken,
+    } satisfies Session),
+    {
+      expires: dayjs().add(1, 'month').toDate(),
+    },
+  );
+
+  return { willRefresh: true };
 }
