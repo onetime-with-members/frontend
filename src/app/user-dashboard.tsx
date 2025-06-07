@@ -3,10 +3,6 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import BottomButtonForMobile from './components/user-dashboard/bottom-button';
 import Header from './components/user-dashboard/header';
-import {
-  MyEventsHeader,
-  MyEventsList,
-} from './components/user-dashboard/my-events';
 import ToolbarWrapper from '@/app/components/user-dashboard/toolbar-wrapper';
 import BarBanner from '@/components/bar-banner';
 import EmptyUI from '@/components/empty-ui';
@@ -88,17 +84,40 @@ export default async function UserDashboardPage() {
 }
 
 export async function MyEventSection() {
-  const myEvents = await fetchMyEvents();
-
   return (
     <section className="flex flex-col gap-3">
       {/* Header */}
-      <MyEventsHeader myEvents={myEvents} />
+      <MyEventsHeader />
       {/* My Events */}
       <Suspense fallback={<MyEventsSkeleton />}>
         <MyEventsContent />
       </Suspense>
     </section>
+  );
+}
+
+export async function MyEventsHeader() {
+  const myEvents = await fetchMyEvents();
+
+  const t = await getTranslations('userDashboard');
+
+  return (
+    <Header moreHref="/mypage/events">
+      <span
+        className={cn('block md:hidden', {
+          'md:block': myEvents.length === 1,
+        })}
+      >
+        {t('recentEvent')}
+      </span>
+      <span
+        className={cn('hidden md:block', {
+          'md:hidden': myEvents.length === 1,
+        })}
+      >
+        {t('recentEvents')}
+      </span>
+    </Header>
   );
 }
 
@@ -110,7 +129,7 @@ async function MyEventsContent() {
   return (
     <div
       className={cn('grid grid-cols-1 gap-4 md:grid-cols-2', {
-        'md:grid-cols-1': myEvents.length === 0,
+        'md:grid-cols-1': myEvents.length <= 1,
       })}
     >
       {myEvents.length === 0 ? (
@@ -118,7 +137,15 @@ async function MyEventsContent() {
           <EmptyUI>{t('noEvent')}</EmptyUI>
         </div>
       ) : (
-        <MyEventsList myEvents={myEvents} />
+        myEvents.slice(0, 2).map((myEvent, index) => (
+          <MyEvent
+            key={myEvent.event_id}
+            event={myEvent}
+            className={cn('border-none', {
+              'hidden md:block': index === 1,
+            })}
+          />
+        ))
       )}
     </div>
   );

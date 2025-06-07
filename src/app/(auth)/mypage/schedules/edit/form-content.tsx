@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from 'react';
 import SubmitButton from './button';
 import SleepTimeAccordion from './sleep-time';
 import BackButtonAlert from '@/components/alert/back-button-alert';
-import SmallButton from '@/components/button/small-button';
 import EverytimeUI from '@/components/everytime-ui';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';

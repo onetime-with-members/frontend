@@ -153,6 +153,7 @@
     "more": "더 보기",
     "hello": "안녕하세요, {name}님",
     "createEvent": "이벤트 생성하기",
+    "recentEvent": "참여한 이벤트",
     "recentEvents": "참여한 이벤트",
     "mySchedule": "내 스케줄",
     "myScheduleDescription": "스케줄을 입력할 때 자동으로 불러와져요.",
