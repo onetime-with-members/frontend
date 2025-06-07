@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
+import SubmitButton from './button';
 import SleepTimeAccordion from './sleep-time';
 import BackButtonAlert from '@/components/alert/back-button-alert';
 import SmallButton from '@/components/button/small-button';
@@ -18,7 +19,7 @@ import { useRouter } from '@/navigation';
 import { useToast } from '@/stores/toast';
 import { IconChevronLeft } from '@tabler/icons-react';
 
-export default function Content({
+export default function FormContent({
   myScheduleData,
 }: {
   myScheduleData: TimeType[];
@@ -44,7 +45,9 @@ export default function Content({
   const router = useRouter();
   const t = useTranslations();
 
-  async function handleSubmit() {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
     const myScheduleFormData = new FormData();
     myScheduleFormData.set('mySchedule', JSON.stringify(mySchedule));
     await editMySchedule(myScheduleFormData);
@@ -93,13 +96,14 @@ export default function Content({
 
   return (
     <>
-      <div className="flex flex-col">
+      <form onSubmit={handleSubmit} className="flex flex-col">
         {/* Top App Bar */}
         <nav className="h-[64px]">
           <div className="fixed z-10 flex h-[4rem] w-full justify-center bg-gray-00 px-4">
             <div className="mx-auto grid w-full max-w-screen-sm grid-cols-3">
               <div className="flex items-center justify-start">
                 <button
+                  type="button"
                   onClick={() => {
                     if (isMyScheduleEdited) {
                       setIsBackButtonAlertOpen(true);
@@ -115,9 +119,7 @@ export default function Content({
                 {t('myScheduleEdit.editMySchedule')}
               </div>
               <div className="flex items-center justify-end">
-                <SmallButton onClick={handleSubmit}>
-                  {t('myScheduleEdit.done')}
-                </SmallButton>
+                <SubmitButton />
               </div>
             </div>
           </div>
@@ -145,7 +147,7 @@ export default function Content({
             />
           </div>
         </main>
-      </div>
+      </form>
 
       {/* Back Button Alert */}
       {isBackButtonAlertOpen && (
