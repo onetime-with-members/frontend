@@ -176,7 +176,8 @@
     "editMySchedule": "Edit My Schedule",
     "sleepTime": "Sleep Time",
     "everytime": "Add Everytime timetable",
-    "done": "Done"
+    "done": "Done",
+    "saving": "Saving..."
   },
   "everytimeScheduleEdit": {
     "title": "Add Everytime Timetable",

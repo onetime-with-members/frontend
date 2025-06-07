@@ -10,7 +10,7 @@ export default function SubmitButton() {
 
   return (
     <SmallButton type="submit" disabled={pending}>
-      {t('done')}
+      {pending ? t('saving') : t('done')}
     </SmallButton>
   );
 }

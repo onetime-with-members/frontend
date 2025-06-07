@@ -176,7 +176,8 @@
     "editMySchedule": "스케줄 입력",
     "sleepTime": "수면 시간",
     "everytime": "에브리타임 시간표 등록",
-    "done": "완료"
+    "done": "완료",
+    "saving": "저장 중..."
   },
   "MyScheduleEverytimeEditPage": {
     "title": "에브리타임 시간표 등록",
