@@ -8,7 +8,7 @@ import EventIcon from '@/components/icon/event';
 import ProfileIcon from '@/components/icon/profile';
 import cn from '@/lib/cn';
 import { TabActiveType } from '@/lib/types';
-import { mypageTabActive } from '@/lib/utils';
+import { myPageTabActive } from '@/lib/utils';
 import { Link } from '@/navigation';
 import { usePathname } from 'next/navigation';
 
@@ -20,7 +20,7 @@ export default function SideTab() {
   const t = useTranslations('mypage');
 
   useEffect(() => {
-    setTabActive(mypageTabActive(pathname));
+    setTabActive(myPageTabActive(pathname));
   }, [pathname]);
 
   return (

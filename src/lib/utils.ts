@@ -91,7 +91,7 @@ export function isNumber(value: string): boolean {
   return regex.test(value);
 }
 
-export function mypageTabActive(pathname: string): TabActiveType {
+export function myPageTabActive(pathname: string): TabActiveType {
   if (pathname.startsWith('/mypage/events')) {
     return 'events';
   }
@@ -102,6 +102,20 @@ export function mypageTabActive(pathname: string): TabActiveType {
     return 'profile';
   }
   return null;
+}
+
+export function myPageTitle(
+  tabActive: string | null,
+  t: (key: string) => string,
+) {
+  return (
+    tabActive &&
+    {
+      events: t('allEvents'),
+      schedules: t('mySchedule'),
+      profile: t('profile'),
+    }[tabActive]
+  );
 }
 
 export function policyPageTitle(name: string, locale: string) {
