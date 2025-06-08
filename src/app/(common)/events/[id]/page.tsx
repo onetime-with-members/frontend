@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 
 import EventDetailScreen from './screen';
 import { fetchEvent } from '@/lib/data';
-import { EventType } from '@/lib/types';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 

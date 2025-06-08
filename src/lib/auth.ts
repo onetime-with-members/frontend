@@ -1,7 +1,6 @@
 'use server';
 
 import dayjs from 'dayjs';
-import jwt from 'jsonwebtoken';
 
 import { SERVER_API_URL } from './constants';
 import { UserType } from './types';
