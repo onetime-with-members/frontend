@@ -1,5 +1,6 @@
 import axios from '@/lib/axios';
 import { weekdaysShortKo } from '@/lib/constants';
+import { fetchEvent } from '@/lib/data';
 import { EventType, RecommendScheduleType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
 
@@ -7,8 +8,7 @@ export const useEventQuery = (eventId: string) =>
   useQuery<EventType>({
     queryKey: ['events', eventId],
     queryFn: async () => {
-      const res = await axios.get(`/events/${eventId}`);
-      const event = res.data.payload;
+      const event = await fetchEvent(eventId);
 
       if (event.category === 'DAY') {
         event.ranges = weekdaysShortKo.filter((weekday) =>

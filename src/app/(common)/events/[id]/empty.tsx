@@ -1,18 +1,18 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import { useEventQuery } from '@/queries/event.queries';
+import { EventType } from '@/lib/types';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 
-export default function EmptyEventBanner() {
+export default function EmptyEventBanner({
+  event,
+}: {
+  event: EventType | undefined;
+}) {
   const [isCopied, setIsCopied] = useState(false);
 
-  const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
-
-  const { data: event } = useEventQuery(params.id);
 
   const handleCopyButtonClick = () => {
     if (!event) return;

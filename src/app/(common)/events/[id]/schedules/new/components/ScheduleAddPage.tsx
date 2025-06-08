@@ -18,7 +18,6 @@ import { GuestValueType } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import {
   useScheduleAndNewMemberCreate,
-  useScheduleQuery,
   useScheduleUpdateMutation,
 } from '@/queries/schedule.queries';
 import { useQueryClient } from '@tanstack/react-query';
@@ -58,8 +57,6 @@ export default function ScheduleAddPage() {
     breakpointCondition: () => window.innerWidth >= breakpoint.sm,
   });
 
-  const { refetch: refetchScheduleQuery } = useScheduleQuery(event);
-
   const { mutate: createNewMemberSchedule } = useScheduleAndNewMemberCreate({
     event,
     guestValue,
@@ -67,7 +64,6 @@ export default function ScheduleAddPage() {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
       await queryClient.invalidateQueries({ queryKey: ['schedules'] });
-      await refetchScheduleQuery();
       router.push(`/events/${event?.event_id}`);
     },
     onError: () => {
@@ -81,7 +77,6 @@ export default function ScheduleAddPage() {
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
       await queryClient.invalidateQueries({ queryKey: ['schedules'] });
-      await refetchScheduleQuery();
       router.push(`/events/${event?.event_id}`);
     },
     onError: () => {

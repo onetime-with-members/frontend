@@ -1,16 +1,12 @@
 import axios from '@/lib/axios';
+import { fetchSchedules } from '@/lib/data';
 import { EventType, ScheduleType, TimeType } from '@/lib/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const useScheduleQuery = (event: EventType | undefined) =>
   useQuery<ScheduleType[]>({
     queryKey: ['schedules', event?.category?.toLowerCase(), event?.event_id],
-    queryFn: async () => {
-      const res = await axios.get(
-        `/schedules/${event?.category.toLowerCase()}/${event?.event_id}`,
-      );
-      return res.data.payload;
-    },
+    queryFn: async () => await fetchSchedules(event),
     enabled: !!event,
   });
 

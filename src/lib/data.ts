@@ -7,6 +7,7 @@ import {
   MyEventType,
   MyScheduleTimeType,
   PolicyType,
+  ScheduleType,
   SleepTimeType,
 } from './types';
 
@@ -26,6 +27,20 @@ export async function fetchEvent(eventId: string) {
   const event: EventType = data.payload;
 
   return event;
+}
+
+export async function fetchSchedules(event: EventType | undefined) {
+  const res = await fetch(
+    `${SERVER_API_URL}/schedules/${event?.category.toLowerCase()}/${event?.event_id}`,
+  );
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch schedules');
+  }
+  const data = await res.json();
+  const schedules: ScheduleType[] = data.payload;
+
+  return schedules;
 }
 
 export async function fetchMyEvents() {
