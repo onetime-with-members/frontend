@@ -1,10 +1,10 @@
 'use client';
 
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 import CheckIcon from '@/components/icon/check';
-import { useToastActions, useToastMessage } from '@/stores/toast';
+import { ToastContext } from '@/contexts/toast';
 
 export default function Toast({
   bottom = 140,
@@ -13,8 +13,7 @@ export default function Toast({
   bottom?: number;
   duration?: number;
 }) {
-  const message = useToastMessage();
-  const { resetMessage } = useToastActions();
+  const { message, resetMessage } = useContext(ToastContext);
 
   useEffect(() => {
     if (message.length === 0) return;

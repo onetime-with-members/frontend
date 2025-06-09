@@ -11,11 +11,11 @@ import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
+import useToast from '@/hooks/useToast';
 import { editMySchedule, editSleepTime } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { TimeType } from '@/lib/types';
 import { useRouter } from '@/navigation';
-import { useToast } from '@/stores/toast';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function FormContent({

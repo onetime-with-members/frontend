@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import BottomButtonForDesktop from './BottomButtonForDesktop/BottomButtonForDesktop';
 import TimeBlockBoard from '@/components/time-block-board/event';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
+import useToast from '@/hooks/useToast';
 import { EventType, ScheduleType } from '@/lib/types';
-import { useToast } from '@/stores/toast';
 
 interface ScheduleFormProps {
   event: EventType;

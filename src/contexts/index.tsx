@@ -6,6 +6,7 @@ import PageModeContextProvider from './page-mode';
 import PolicyContextProvider from './policy';
 import ScrollContextProvider from './scroll';
 import SleepTimeContextProvider from './sleep-time';
+import ToastContextProvider from './toast';
 import WeekdayLocaleContextProvider from './weekday-locale';
 import { auth, currentUser } from '@/lib/auth';
 import { fetchBarBanner, fetchMySchedule, fetchSleepTime } from '@/lib/data';
@@ -41,7 +42,7 @@ export default async function ContextProviders({
                 <MyScheduleContextProvider defaultMySchedule={mySchedule}>
                   <BarBannerContextProvider barBanner={barBanner}>
                     <WeekdayLocaleContextProvider initialLocale={locale}>
-                      {children}
+                      <ToastContextProvider>{children}</ToastContextProvider>
                     </WeekdayLocaleContextProvider>
                   </BarBannerContextProvider>
                 </MyScheduleContextProvider>

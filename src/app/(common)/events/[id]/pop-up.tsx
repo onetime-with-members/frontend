@@ -7,6 +7,7 @@ import ClockPattern from '@/components/clock-pattern';
 import Input from '@/components/input';
 import MemberBadge from '@/components/member-badge';
 import useKakaoShare from '@/hooks/useKakaoShare';
+import useToast from '@/hooks/useToast';
 import axios from '@/lib/axios';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
@@ -14,7 +15,6 @@ import {
   useEventQuery,
   useRecommendedTimesQuery,
 } from '@/queries/event.queries';
-import { useToast } from '@/stores/toast';
 import {
   IconChevronDown,
   IconChevronUp,
