@@ -1,14 +1,14 @@
 import dayjs from 'dayjs';
 import { useLocale } from 'next-intl';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import DateItem from './date-item';
+import { WeekdayLocaleContext } from '@/contexts/weekday-locale';
 import useDragSelect from '@/hooks/useDragSelect';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import { EventValueType } from '@/lib/types';
 import { eventTarget } from '@/lib/utils';
-import { useWeekdaysShort } from '@/stores/weekday';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 export function WeekdaySelect({
@@ -20,7 +20,7 @@ export function WeekdaySelect({
   value: EventValueType;
   setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
 }) {
-  const weekdaysShort = useWeekdaysShort();
+  const { weekdaysShort } = useContext(WeekdayLocaleContext);
 
   const {
     isFilling,
@@ -89,7 +89,7 @@ export function CalendarSelect({
 }) {
   const [currentDate, setCurrentDate] = useState(dayjs());
 
-  const weekdaysShort = useWeekdaysShort();
+  const { weekdaysShort } = useContext(WeekdayLocaleContext);
 
   const {
     isFilling,

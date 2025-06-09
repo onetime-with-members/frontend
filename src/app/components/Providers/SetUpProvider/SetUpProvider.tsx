@@ -3,7 +3,6 @@
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 
-import useWeekdayInit from '@/hooks/store/useWeekdayInit';
 import useLocalStorageClear from '@/hooks/useLocalStorageClear';
 import useLocalStorageSetUp from '@/hooks/useLocalStorageSetUp';
 import useShortURLRedirect from '@/hooks/useShortURLRedirect';
@@ -49,8 +48,6 @@ interface SetUpProviderProps {
 }
 
 export default function SetUpProvider({ children }: SetUpProviderProps) {
-  useWeekdayInit();
-
   useLocalStorageClear();
   useLocalStorageSetUp();
   useShortURLRedirect();

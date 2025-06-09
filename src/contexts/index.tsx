@@ -6,8 +6,10 @@ import PageModeContextProvider from './page-mode';
 import PolicyContextProvider from './policy';
 import ScrollContextProvider from './scroll';
 import SleepTimeContextProvider from './sleep-time';
+import WeekdayLocaleContextProvider from './weekday-locale';
 import { auth, currentUser } from '@/lib/auth';
 import { fetchBarBanner, fetchMySchedule, fetchSleepTime } from '@/lib/data';
+import { getLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
 
 export default async function ContextProviders({
@@ -27,6 +29,8 @@ export default async function ContextProviders({
     barBanner = await fetchBarBanner();
   }
 
+  const locale = await getLocale();
+
   return (
     <PageModeContextProvider>
       <FooterContextProvider>
@@ -36,7 +40,9 @@ export default async function ContextProviders({
               <SleepTimeContextProvider defaultSleepTime={sleepTime}>
                 <MyScheduleContextProvider defaultMySchedule={mySchedule}>
                   <BarBannerContextProvider barBanner={barBanner}>
-                    {children}
+                    <WeekdayLocaleContextProvider initialLocale={locale}>
+                      {children}
+                    </WeekdayLocaleContextProvider>
                   </BarBannerContextProvider>
                 </MyScheduleContextProvider>
               </SleepTimeContextProvider>

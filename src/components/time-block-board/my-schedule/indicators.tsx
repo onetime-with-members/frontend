@@ -3,12 +3,12 @@
 import { useContext } from 'react';
 
 import { SleepTimeContext } from '@/contexts/sleep-time';
+import { WeekdayLocaleContext } from '@/contexts/weekday-locale';
 import cn from '@/lib/cn';
 import { leftTimeLabelFormat } from '@/lib/utils';
-import { useWeekdaysShort } from '@/stores/weekday';
 
 export function DateIndicator({ className }: { className?: string }) {
-  const weekdaysShort = useWeekdaysShort();
+  const { weekdaysShort } = useContext(WeekdayLocaleContext);
 
   return (
     <div className={cn('relative', className)}>
