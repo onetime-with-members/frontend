@@ -17,6 +17,7 @@ import NavBar from '@/components/nav-bar';
 import TimeBlockBoardSkeleton from '@/components/skeleton/time-block-board-skeleton';
 import ToolbarTitleSkeleton from '@/components/skeleton/toolbar-title-skeleton';
 import TimeBlockBoard from '@/components/time-block-board/event';
+import { BarBannerContext } from '@/contexts/bar-banner';
 import { FooterContext } from '@/contexts/footer';
 import ParticipantContextProvider from '@/contexts/participant';
 import useDropdown from '@/hooks/useDropdown';
@@ -26,7 +27,6 @@ import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
 import { useEventQuery } from '@/queries/event.queries';
 import { useScheduleQuery } from '@/queries/schedule.queries';
-import useBarBannerStore from '@/stores/bar-banner';
 import { IconDots, IconPlus } from '@tabler/icons-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
@@ -37,8 +37,7 @@ export default function EventDetailScreen() {
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
   const { isFooterShown } = useContext(FooterContext);
-
-  const isBarBannerShown = useBarBannerStore((state) => state.isShown);
+  const { isBarBannerShown } = useContext(BarBannerContext);
 
   const params = useParams<{ id: string }>();
   const router = useRouter();

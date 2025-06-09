@@ -1,3 +1,4 @@
+import BarBannerContextProvider from './bar-banner';
 import CurrentUserContextProvider from './current-user';
 import FooterContextProvider from './footer';
 import MyScheduleContextProvider from './my-schedule';
@@ -6,7 +7,8 @@ import PolicyContextProvider from './policy';
 import ScrollContextProvider from './scroll';
 import SleepTimeContextProvider from './sleep-time';
 import { auth, currentUser } from '@/lib/auth';
-import { fetchMySchedule, fetchSleepTime } from '@/lib/data';
+import { fetchBarBanner, fetchMySchedule, fetchSleepTime } from '@/lib/data';
+import { cookies } from 'next/headers';
 
 export default async function ContextProviders({
   children,
@@ -20,6 +22,11 @@ export default async function ContextProviders({
     mySchedule = await fetchMySchedule();
   }
 
+  let barBanner = null;
+  if (!(await cookies()).get('bar-banner')) {
+    barBanner = await fetchBarBanner();
+  }
+
   return (
     <PageModeContextProvider>
       <FooterContextProvider>
@@ -28,7 +35,9 @@ export default async function ContextProviders({
             <CurrentUserContextProvider defaultUser={user}>
               <SleepTimeContextProvider defaultSleepTime={sleepTime}>
                 <MyScheduleContextProvider defaultMySchedule={mySchedule}>
-                  {children}
+                  <BarBannerContextProvider barBanner={barBanner}>
+                    {children}
+                  </BarBannerContextProvider>
                 </MyScheduleContextProvider>
               </SleepTimeContextProvider>
             </CurrentUserContextProvider>

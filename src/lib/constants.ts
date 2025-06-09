@@ -1,4 +1,5 @@
 import {
+  BarBanner,
   EventValueType,
   MyEventType,
   MyScheduleTimeType,
@@ -67,6 +68,17 @@ export const defaultMySchedule: MyScheduleTimeType[] = weekdaysShortKo.map(
     times: [],
   }),
 );
+
+export const defaultBarBanner: BarBanner = {
+  id: 0,
+  content_kor: '',
+  content_eng: '',
+  background_color_code: '',
+  text_color_code: '',
+  is_activated: false,
+  created_date: '',
+  link_url: '',
+};
 
 export const SKELETON_GRAY = '#e8e9ed77';
 export const SKELETON_DARK_GRAY = '#dadbe277';

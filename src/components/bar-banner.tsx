@@ -1,10 +1,11 @@
 'use client';
 
 import { useLocale } from 'next-intl';
+import { useContext } from 'react';
 
+import { BarBannerContext } from '@/contexts/bar-banner';
 import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
-import useBarBannerStore from '@/stores/bar-banner';
 import { IconX } from '@tabler/icons-react';
 import Image from 'next/image';
 
@@ -15,16 +16,15 @@ export default function BarBanner({
   className?: string;
   innnerClassName?: string;
 }) {
-  const barBanner = useBarBannerStore((state) => state.barBanner);
-  const isShown = useBarBannerStore((state) => state.isShown);
-  const { closeBarBanner } = useBarBannerStore((state) => state.actions);
+  const { barBanner, isBarBannerShown, closeBarBanner } =
+    useContext(BarBannerContext);
 
   const router = useRouter();
 
   const locale = useLocale();
 
   function handleClick() {
-    if (barBanner.link_url) {
+    if (barBanner?.link_url) {
       if (barBanner.link_url.startsWith('/')) {
         router.push(barBanner.link_url);
       } else {
@@ -34,7 +34,8 @@ export default function BarBanner({
   }
 
   return (
-    isShown && (
+    isBarBannerShown &&
+    barBanner && (
       <div
         className={cn(
           {

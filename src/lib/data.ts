@@ -3,6 +3,7 @@
 import { accessToken, auth } from './auth';
 import { SERVER_API_URL } from './constants';
 import {
+  BarBanner,
   EventType,
   MyEventType,
   MyScheduleTimeType,
@@ -130,4 +131,16 @@ export async function fetchPolicy() {
   const policy: PolicyType = data.payload;
 
   return policy;
+}
+
+export async function fetchBarBanner() {
+  const res = await fetch(`${SERVER_API_URL}/banners/activated`);
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch bar banner');
+  }
+  const data = await res.json();
+  const barBanner: BarBanner | null = data.payload;
+
+  return barBanner;
 }

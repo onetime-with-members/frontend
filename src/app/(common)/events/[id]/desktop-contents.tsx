@@ -7,6 +7,7 @@ import EmptyEventBanner from './empty';
 import ClockIcon from '@/components/icon/clock';
 import MemberBadge from '@/components/member-badge';
 import MemberBadgeSkeleton from '@/components/skeleton/member-badge-skeleton';
+import { BarBannerContext } from '@/contexts/bar-banner';
 import { ParticipantContext } from '@/contexts/participant';
 import cn from '@/lib/cn';
 import {
@@ -17,7 +18,6 @@ import {
 } from '@/lib/constants';
 import { EventType, RecommendScheduleType, ScheduleType } from '@/lib/types';
 import { useRecommendedTimesQuery } from '@/queries/event.queries';
-import useBarBannerStore from '@/stores/bar-banner';
 import { useParams } from 'next/navigation';
 
 export default function DesktopContents({
@@ -129,7 +129,7 @@ function Header({
   className,
   ...props
 }: React.HTMLAttributes<HTMLHeadingElement>) {
-  const isBarBannerShown = useBarBannerStore((state) => state.isShown);
+  const { isBarBannerShown } = useContext(BarBannerContext);
 
   return (
     <h2
