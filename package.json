@@ -28,8 +28,7 @@
     "react-loading-skeleton": "^3.5.0",
     "react-markdown": "^9.0.3",
     "react-player": "^2.16.0",
-    "tailwind-merge": "^2.6.0",
-    "zustand": "^5.0.3"
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
