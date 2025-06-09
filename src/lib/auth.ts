@@ -78,3 +78,22 @@ export async function currentUser() {
 
   return user;
 }
+
+export async function withdraw() {
+  const res = await fetch(`${SERVER_API_URL}/users/action-withdraw`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${await accessToken()}`,
+    },
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to withdraw account');
+  }
+  const cookieStore = await cookies();
+  cookieStore.delete('session');
+
+  revalidatePath('/');
+
+  redirect('/');
+}
