@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
 import { signInAction } from '@/lib/actions';
-import { auth } from '@/lib/auth';
+import { auth, signIn } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { Link, useRouter } from '@/navigation';
 import Image from 'next/image';
@@ -19,7 +19,7 @@ export function SocialLoginCallback({
   searchParams: {
     accessToken?: string;
     refreshToken?: string;
-    redriectUrl?: string;
+    redirectUrl?: string;
   };
   cookies: {
     redirectUrl?: string;
@@ -31,15 +31,20 @@ export function SocialLoginCallback({
     async function socialLogin() {
       if (await auth()) {
         if (cookies.redirectUrl) await deleteCookie('redirect-url');
-        router.replace(searchParams.redriectUrl || cookies.redirectUrl || '/');
+        router.replace(searchParams.redirectUrl || cookies.redirectUrl || '/');
       }
 
       if (searchParams.accessToken && searchParams.refreshToken) {
         const formData = new FormData();
         formData.set('accessToken', searchParams.accessToken);
         formData.set('refreshToken', searchParams.refreshToken);
-        formData.set('redirectTo', searchParams.redriectUrl || '/');
+        formData.set('redirectTo', searchParams.redirectUrl || '/');
         await signInAction(formData);
+        await signIn(
+          searchParams.accessToken,
+          searchParams.refreshToken,
+          searchParams.redirectUrl || '/',
+        );
       }
     }
     socialLogin();
