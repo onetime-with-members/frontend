@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import axios from '@/lib/axios';
 import { weekdaysShortKo } from '@/lib/constants';
+import { fetchMySchedule } from '@/lib/data';
 import { MyScheduleTimeType, ScheduleType, SleepTimeType } from '@/lib/types';
 import { timeBlockList } from '@/lib/utils';
 import { useEventQuery } from '@/queries/event.queries';
@@ -48,7 +49,7 @@ export default function useScheduleAdd({
 
   const params = useParams<{ id: string }>();
 
-  const isLoggedIn = !!getCookie('access-token');
+  const isLoggedIn = !!getCookie('session');
 
   const { data: event } = useEventQuery(params.id);
   const { data: scheduleData } = useScheduleDetailQuery({
@@ -59,10 +60,7 @@ export default function useScheduleAdd({
   });
   const { data: fixedScheduleData } = useQuery<MyScheduleTimeType[]>({
     queryKey: ['fixed-schedules'],
-    queryFn: async () => {
-      const res = await axios.get('/fixed-schedules');
-      return res.data.payload.schedules;
-    },
+    queryFn: async () => await fetchMySchedule(),
     enabled: isLoggedIn,
   });
 

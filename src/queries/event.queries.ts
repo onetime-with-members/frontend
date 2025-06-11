@@ -1,6 +1,6 @@
 import axios from '@/lib/axios';
 import { weekdaysShortKo } from '@/lib/constants';
-import { fetchEvent } from '@/lib/data';
+import { fetchEvent, fetchRecommendedTimes } from '@/lib/data';
 import { EventType, RecommendScheduleType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
 
@@ -35,9 +35,6 @@ export const useEventQuery = (eventId: string) =>
 export const useRecommendedTimesQuery = (eventId: string | undefined) =>
   useQuery<RecommendScheduleType[]>({
     queryKey: ['events', eventId, 'most'],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${eventId}/most`);
-      return res.data.payload;
-    },
+    queryFn: async () => await fetchRecommendedTimes(eventId || ''),
     enabled: !!eventId,
   });

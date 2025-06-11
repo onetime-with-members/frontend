@@ -8,6 +8,7 @@ import {
   MyEventType,
   MyScheduleTimeType,
   PolicyType,
+  RecommendScheduleType,
   ScheduleType,
   SleepTimeType,
 } from './types';
@@ -30,9 +31,34 @@ export async function fetchEvent(eventId: string) {
   return event;
 }
 
+export async function fetchRecommendedTimes(eventId: string) {
+  const res = await fetch(`${SERVER_API_URL}/events/${eventId}/most`, {
+    headers: {
+      ...((await auth())
+        ? { Authorization: `Bearer ${await accessToken()}` }
+        : {}),
+    },
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch recommended times');
+  }
+  const data = await res.json();
+  const recommendedTimes: RecommendScheduleType[] = data.payload;
+
+  return recommendedTimes;
+}
+
 export async function fetchSchedules(event: EventType | undefined) {
   const res = await fetch(
     `${SERVER_API_URL}/schedules/${event?.category.toLowerCase()}/${event?.event_id}`,
+    {
+      headers: {
+        ...((await auth())
+          ? { Authorization: `Bearer ${await accessToken()}` }
+          : {}),
+      },
+    },
   );
   if (!res.ok) {
     console.error(await res.json());
@@ -42,6 +68,31 @@ export async function fetchSchedules(event: EventType | undefined) {
   const schedules: ScheduleType[] = data.payload;
 
   return schedules;
+}
+
+export async function fetchScheduleDetail(
+  event: EventType | undefined,
+  isLoggedIn: boolean,
+  guestId: string,
+) {
+  const res = await fetch(
+    `${SERVER_API_URL}/schedules/${event?.category.toLowerCase()}/${event?.event_id}/${isLoggedIn ? 'user' : guestId}`,
+    {
+      headers: {
+        ...((await auth())
+          ? { Authorization: `Bearer ${await accessToken()}` }
+          : {}),
+      },
+    },
+  );
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch schedules');
+  }
+  const data = await res.json();
+  const schedule: ScheduleType = data.payload;
+
+  return schedule;
 }
 
 export async function fetchMyEvents() {

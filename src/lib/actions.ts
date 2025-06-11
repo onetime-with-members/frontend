@@ -2,7 +2,7 @@
 
 import { accessToken, auth } from './auth';
 import { CRAWLING_SERVER_API_URL, SERVER_API_URL } from './constants';
-import { EverytimeSchedule } from './types';
+import { EventType, EverytimeSchedule, ScheduleType, TimeType } from './types';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -149,4 +149,55 @@ export async function submitEverytimeUrl(formData: FormData) {
   const everytimeSchedule: EverytimeSchedule = data.payload;
 
   return { everytimeSchedule: everytimeSchedule, error: null };
+}
+
+export async function createNewMemberSchedule(formData: FormData) {
+  const eventId = formData.get('eventId');
+  const schedules = JSON.parse(formData.get('schedules') as string);
+
+  const res = await fetch(`${SERVER_API_URL}/members/action-register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${await accessToken()}`,
+    },
+    body: JSON.stringify({
+      event_id: eventId,
+      name: formData.get('name'),
+      pin: formData.get('pin'),
+      schedules,
+    }),
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+  }
+}
+
+export async function updateSchedule(formData: FormData) {
+  const event: EventType = JSON.parse(formData.get('event') as string);
+  const schedule: TimeType[] = JSON.parse(formData.get('schedule') as string);
+
+  const res = await fetch(
+    `${SERVER_API_URL}/schedules/${event.category.toLowerCase()}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${await accessToken()}`,
+      },
+      body: JSON.stringify({
+        event_id: event.event_id,
+        member_id: formData.get('guestId'),
+        schedules: schedule,
+      }),
+    },
+  );
+  if (!res.ok) {
+    console.error(await res.json());
+    return;
+  }
+
+  revalidatePath(`/events/${event.event_id}`);
+
+  redirect(`/events/${event.event_id}`);
 }

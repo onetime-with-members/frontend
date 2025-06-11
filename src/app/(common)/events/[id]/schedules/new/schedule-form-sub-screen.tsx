@@ -1,42 +1,35 @@
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 
-import BottomButtonForDesktop from './BottomButtonForDesktop/BottomButtonForDesktop';
+import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import TimeBlockBoard from '@/components/time-block-board/event';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
 import useToast from '@/hooks/useToast';
 import { EventType, ScheduleType } from '@/lib/types';
 
-interface ScheduleFormProps {
-  event: EventType;
-  schedules: ScheduleType[];
-  setSchedules: React.Dispatch<React.SetStateAction<ScheduleType[]>>;
-  isPossibleTime: boolean;
-  setIsPossibleTime: React.Dispatch<React.SetStateAction<boolean>>;
-  isScheduleEdited: boolean;
-  setIsScheduleEdited: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit: () => void;
-  isSubmitting: boolean;
-  isNewGuest: boolean;
-  guestId: string;
-  initialSchedule: ScheduleType[];
-}
-
-export default function ScheduleFormScreen({
+export default function ScheduleFormSubScreen({
   event,
   schedules,
   setSchedules,
-  isPossibleTime,
-  setIsPossibleTime,
   isScheduleEdited,
   setIsScheduleEdited,
-  onSubmit,
-  isSubmitting,
   isNewGuest,
   guestId,
   initialSchedule,
-}: ScheduleFormProps) {
-  const t = useTranslations('toast');
+}: {
+  event: EventType;
+  schedules: ScheduleType[];
+  setSchedules: React.Dispatch<React.SetStateAction<ScheduleType[]>>;
+  isScheduleEdited: boolean;
+  setIsScheduleEdited: React.Dispatch<React.SetStateAction<boolean>>;
+  isNewGuest: boolean;
+  guestId: string;
+  initialSchedule: ScheduleType[];
+}) {
+  const [isPossibleTime, setIsPossibleTime] = useState(true);
+
+  const t = useTranslations();
 
   const toast = useToast();
   const { isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty } =
@@ -47,12 +40,13 @@ export default function ScheduleFormScreen({
 
   useEffect(() => {
     if (isScheduleEmpty && (!isFixedScheduleEmpty || !isSleepTimeEmpty)) {
-      toast(t('loadedMySchedule'));
+      toast(t('toast.loadedMySchedule'));
     }
   }, [isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty, toast, t]);
 
   return (
     <div>
+      {/* Time Block Board */}
       <TimeBlockBoard
         schedules={schedules}
         setSchedules={setSchedules}
@@ -67,7 +61,22 @@ export default function ScheduleFormScreen({
         isScheduleEmpty={isScheduleEmpty}
         isNewGuest={isNewGuest}
       />
-      <BottomButtonForDesktop onClick={onSubmit} isSubmitting={isSubmitting} />
+      {/* Bottom Submit Button for Desktop */}
+      <div className="hidden sm:block">
+        <BottomSubmitButton />
+      </div>
     </div>
+  );
+}
+
+function BottomSubmitButton() {
+  const { pending } = useFormStatus();
+
+  const t = useTranslations('scheduleAdd');
+
+  return (
+    <FloatingBottomButton variant="dark" maxWidth={480}>
+      {pending ? t('addingSchedule') : t('addSchedule')}
+    </FloatingBottomButton>
   );
 }

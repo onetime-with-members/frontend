@@ -1,5 +1,8 @@
-import ScheduleAddPage from './components/ScheduleAddPage';
+import ScheduleAddScreen from './screen';
+import { auth } from '@/lib/auth';
 
 export default async function ScheduleAdd() {
-  return <ScheduleAddPage />;
+  const session = await auth();
+
+  return <ScheduleAddScreen isLoggedIn={!!session} />;
 }

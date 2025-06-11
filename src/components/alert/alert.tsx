@@ -27,12 +27,14 @@ export default function Alert({
         <div className="flex-1 px-4">{children}</div>
         <div className="flex items-center">
           <button
+            type="button"
             className="flex-1 bg-gray-05 px-3 py-4 text-gray-40 duration-150 text-lg-200 hover:bg-gray-10 active:bg-gray-10"
             onClick={onCancel}
           >
             {cancelText}
           </button>
           <button
+            type="button"
             className="flex-1 bg-primary-50 px-3 py-4 text-gray-00 duration-150 text-lg-200 hover:bg-primary-60 active:bg-primary-60"
             onClick={onConfirm}
           >

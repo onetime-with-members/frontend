@@ -1,19 +1,17 @@
 import { useRef } from 'react';
 
-import PinPasswordInputField from './PinPasswordInputField/PinPasswordInputField';
+import cn from '@/lib/cn';
 import { isNumber } from '@/lib/utils';
-
-interface PinPasswordInputProps {
-  inputId: string;
-  pin: string;
-  setPin: (pin: string) => void;
-}
 
 export default function PinPasswordInput({
   inputId,
   pin,
   setPin,
-}: PinPasswordInputProps) {
+}: {
+  inputId: string;
+  pin: string;
+  setPin: (pin: string) => void;
+}) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const MAX_PIN_LENGTH = 4;
@@ -74,5 +72,26 @@ export default function PinPasswordInput({
         />
       ))}
     </div>
+  );
+}
+
+export function PinPasswordInputField({
+  inputRef,
+  className,
+  ...props
+}: {
+  inputRef: React.Ref<HTMLInputElement>;
+} & React.InputHTMLAttributes<HTMLInputElement>) {
+  return (
+    <input
+      ref={inputRef}
+      className={cn(
+        'rounded-xl bg-gray-05 px-5 py-4 text-center text-gray-90 outline-none text-md-200 placeholder:text-gray-30 focus:outline-2 focus:outline-primary-30',
+        className,
+      )}
+      autoComplete="off"
+      placeholder="_"
+      {...props}
+    />
   );
 }
