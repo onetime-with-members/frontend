@@ -1,9 +1,11 @@
 import LandingPage from './landing';
 import UserDashboardPage from './user-dashboard';
-import { auth } from '@/lib/auth';
+import { auth } from '@/auth';
 
 export default async function Home() {
-  if (await auth()) {
+  const session = await auth();
+
+  if (session) {
     return <UserDashboardPage />;
   }
 

@@ -3,9 +3,10 @@ import jwt from 'jsonwebtoken';
 
 import { Session } from './lib/auth';
 import { SERVER_API_URL } from './lib/constants';
-import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@/auth';
+import { NextResponse } from 'next/server';
 
-export async function middleware(request: NextRequest) {
+export default auth(async (request) => {
   const response = NextResponse.next();
 
   response.headers.set('x-pathname', request.nextUrl.pathname);
@@ -55,7 +56,7 @@ export async function middleware(request: NextRequest) {
   );
 
   return response;
-}
+});
 
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],

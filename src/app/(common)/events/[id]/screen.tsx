@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 
 import { EventDeleteAlert, LoginAlert } from './alert';
 import DesktopContents from './desktop-contents';

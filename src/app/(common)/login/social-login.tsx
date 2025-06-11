@@ -5,7 +5,9 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
-import { auth, signIn } from '@/lib/auth';
+import { signIn } from '@/auth';
+import { signInAction } from '@/lib/actions';
+import { auth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { Link, useRouter } from '@/navigation';
 import Image from 'next/image';
@@ -34,11 +36,11 @@ export function SocialLoginCallback({
       }
 
       if (searchParams.accessToken && searchParams.refreshToken) {
-        await signIn(
-          searchParams.accessToken,
-          searchParams.refreshToken,
-          searchParams.redriectUrl || '/',
-        );
+        const formData = new FormData();
+        formData.set('accessToken', searchParams.accessToken);
+        formData.set('refreshToken', searchParams.refreshToken);
+        formData.set('redirectTo', searchParams.redriectUrl || '/');
+        await signInAction(formData);
       }
     }
     socialLogin();
