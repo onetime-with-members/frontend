@@ -75,7 +75,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function refreshAccessToken(token: any) {
-  console.log(token.refreshToken);
   try {
     const res = await fetch(`${SERVER_API_URL}/tokens/action-reissue`, {
       method: 'POST',
@@ -84,7 +83,7 @@ async function refreshAccessToken(token: any) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        refresh_token: token.refreshToken,
+        refresh_token: token.user.refreshToken,
       }),
     });
 

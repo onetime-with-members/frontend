@@ -8,10 +8,7 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export async function signInAction(formData: FormData) {
-  await signIn('credentials', {
-    accessToken: formData.get('accessToken'),
-    refreshToken: formData.get('refreshToken'),
-  });
+  await signIn('credentials', formData);
 }
 
 export async function signOutAction() {

@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 
 import { SERVER_API_URL } from './constants';
 import { UserType } from './types';
+import { signIn as signInAuth } from '@/auth';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -14,6 +15,7 @@ export interface Session {
 }
 
 export async function signIn(
+  formData: FormData,
   accessToken: string,
   refreshToken: string,
   redirectUrl?: string,
@@ -29,6 +31,8 @@ export async function signIn(
       expires: dayjs().add(1, 'month').toDate(),
     },
   );
+
+  await signInAuth('credentials', formData);
 
   revalidatePath('/');
 

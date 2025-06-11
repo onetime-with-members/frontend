@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
-import { signInAction } from '@/lib/actions';
 import { auth, signIn } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { Link, useRouter } from '@/navigation';
@@ -39,8 +38,8 @@ export function SocialLoginCallback({
         formData.set('accessToken', searchParams.accessToken);
         formData.set('refreshToken', searchParams.refreshToken);
         formData.set('redirectTo', searchParams.redirectUrl || '/');
-        await signInAction(formData);
         await signIn(
+          formData,
           searchParams.accessToken,
           searchParams.refreshToken,
           searchParams.redirectUrl || '/',
