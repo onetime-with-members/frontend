@@ -1,6 +1,5 @@
 'use client';
 
-import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 import { useFormStatus } from 'react-dom';

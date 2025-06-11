@@ -2,7 +2,7 @@
 
 import { accessToken, auth } from './auth';
 import { CRAWLING_SERVER_API_URL, SERVER_API_URL } from './constants';
-import { EventType, EverytimeSchedule, ScheduleType, TimeType } from './types';
+import { EventType, EverytimeSchedule, TimeType } from './types';
 import { signIn, signOut } from '@/auth';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';

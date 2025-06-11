@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import { useContext, useEffect, useState } from 'react';
 
 import { SleepTimeContext } from '@/contexts/sleep-time';
-import axios from '@/lib/axios';
 import { weekdaysShortKo } from '@/lib/constants';
 import { fetchMySchedule } from '@/lib/data';
 import { MyScheduleTimeType, ScheduleType, SleepTimeType } from '@/lib/types';

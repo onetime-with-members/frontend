@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
-import { signIn } from '@/auth';
 import { signInAction } from '@/lib/actions';
 import { auth } from '@/lib/auth';
 import cn from '@/lib/cn';

@@ -73,6 +73,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function refreshAccessToken(token: any) {
   console.log(token.refreshToken);
   try {
