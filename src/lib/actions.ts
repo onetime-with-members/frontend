@@ -3,17 +3,8 @@
 import { accessToken, auth } from './auth';
 import { CRAWLING_SERVER_API_URL, SERVER_API_URL } from './constants';
 import { EventType, EverytimeSchedule, TimeType } from './types';
-import { signIn, signOut } from '@/auth';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-
-export async function signInAction(formData: FormData) {
-  await signIn('credentials', formData);
-}
-
-export async function signOutAction() {
-  await signOut();
-}
 
 export async function createEvent(formData: FormData) {
   const event = JSON.parse(formData.get('event') as string);

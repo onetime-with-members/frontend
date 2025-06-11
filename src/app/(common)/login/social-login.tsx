@@ -18,7 +18,7 @@ export function SocialLoginCallback({
   searchParams: {
     accessToken?: string;
     refreshToken?: string;
-    redirectUrl?: string;
+    redriectUrl?: string;
   };
   cookies: {
     redirectUrl?: string;
@@ -30,19 +30,14 @@ export function SocialLoginCallback({
     async function socialLogin() {
       if (await auth()) {
         if (cookies.redirectUrl) await deleteCookie('redirect-url');
-        router.replace(searchParams.redirectUrl || cookies.redirectUrl || '/');
+        router.replace(searchParams.redriectUrl || cookies.redirectUrl || '/');
       }
 
       if (searchParams.accessToken && searchParams.refreshToken) {
-        const formData = new FormData();
-        formData.set('accessToken', searchParams.accessToken);
-        formData.set('refreshToken', searchParams.refreshToken);
-        formData.set('redirectTo', searchParams.redirectUrl || '/');
         await signIn(
-          formData,
           searchParams.accessToken,
           searchParams.refreshToken,
-          searchParams.redirectUrl || '/',
+          searchParams.redriectUrl || '/',
         );
       }
     }

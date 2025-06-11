@@ -5,7 +5,6 @@ import { useContext, useEffect, useRef, useState } from 'react';
 
 import Avatar from '../avatar';
 import { CurrentUserContext } from '@/contexts/current-user';
-import { signOutAction } from '@/lib/actions';
 import { signOut } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { Link } from '@/navigation';
@@ -107,7 +106,6 @@ function AvatarDropdownMenu({
 
   async function handleLogout() {
     await signOut();
-    await signOutAction();
     setUser(null);
     router.refresh();
   }
