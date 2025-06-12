@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
   const session: Session = JSON.parse(sessionCookie);
 
   const decodedAccessToken = jwt.decode(session.accessToken) as { exp: number };
-  if (dayjs().isBefore(dayjs(decodedAccessToken.exp * 1000), 'second')) {
+  if (dayjs().isBefore(dayjs(decodedAccessToken.exp * 1000).subtract(15, 'second'), 'second')) {
     return response;
   }
 
