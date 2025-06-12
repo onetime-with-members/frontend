@@ -1,5 +1,3 @@
-'use server';
-
 import { accessToken, auth } from './auth';
 import { SERVER_API_URL } from './constants';
 import {
