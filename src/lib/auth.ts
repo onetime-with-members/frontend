@@ -1,3 +1,5 @@
+'use server';
+
 import dayjs from 'dayjs';
 
 import { SERVER_API_URL } from './constants';
@@ -16,8 +18,6 @@ export async function signIn(
   refreshToken: string,
   redirectUrl?: string,
 ) {
-  'use server';
-  
   const cookieStore = await cookies();
   cookieStore.set(
     'session',
@@ -36,8 +36,6 @@ export async function signIn(
 }
 
 export async function signOut(redirectUrl?: string) {
-  'use server';
-  
   const cookieStore = await cookies();
   cookieStore.delete('session');
   cookieStore.delete('access-token');
@@ -82,8 +80,6 @@ export async function currentUser() {
 }
 
 export async function withdraw() {
-  'use server';
-  
   const res = await fetch(`${SERVER_API_URL}/users/action-withdraw`, {
     method: 'POST',
     headers: {
