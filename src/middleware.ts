@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
   const session: Session = JSON.parse(sessionCookie);
 
   const decodedAccessToken = jwt.decode(session.accessToken) as { exp: number };
-  if (dayjs().isBefore(dayjs(decodedAccessToken.exp * 1000).subtract(15, 'second'), 'second')) {
+  if (dayjs().isBefore(dayjs(decodedAccessToken.exp * 1000), 'second')) {
     return response;
   }
 
@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
   });
   if (!res.ok) {
     const error = await res.json();
-    if (error.code === 'TOKEN-005' || error.code === 'TOKEN-009') {
+    if (error.code === 'TOKEN-009') {
       return response;
     }
     redirectResponse.cookies.delete('session');
