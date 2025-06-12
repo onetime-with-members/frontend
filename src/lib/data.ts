@@ -1,3 +1,5 @@
+'use server';
+
 import { accessToken, auth } from './auth';
 import { SERVER_API_URL } from './constants';
 import {
@@ -47,7 +49,7 @@ export async function fetchRecommendedTimes(eventId: string) {
   return recommendedTimes;
 }
 
-export async function fetchSchedules(event: EventType | undefined) {
+export async function fetchSchedules(event: EventType) {
   const res = await fetch(
     `${SERVER_API_URL}/schedules/${event?.category.toLowerCase()}/${event?.event_id}`,
     {

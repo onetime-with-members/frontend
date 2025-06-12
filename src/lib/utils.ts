@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { SleepTimeType, TabActiveType } from './types';
+import { ScheduleType, SleepTimeType, TabActiveType } from './types';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
 dayjs.extend(customParseFormat);
@@ -163,4 +163,8 @@ export function getTimesGroupForSplitted(
           .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
           .concat(type === 'timeLabel' ? ['24:00'] : []),
       ];
+}
+
+export function getParticipants(schedules: ScheduleType[]) {
+  return schedules.map((schedule) => schedule.name).sort();
 }

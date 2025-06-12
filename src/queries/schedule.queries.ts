@@ -2,7 +2,7 @@ import { fetchScheduleDetail, fetchSchedules } from '@/lib/data';
 import { EventType, ScheduleType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
 
-export const useScheduleQuery = (event: EventType | undefined) =>
+export const useScheduleQuery = (event: EventType) =>
   useQuery<ScheduleType[]>({
     queryKey: ['schedules', event?.category?.toLowerCase(), event?.event_id],
     queryFn: async () => await fetchSchedules(event),

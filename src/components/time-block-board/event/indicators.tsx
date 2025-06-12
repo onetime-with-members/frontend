@@ -5,20 +5,14 @@ import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import { EventType } from '@/lib/types';
 import { leftTimeLabelFormat, timeLabelList } from '@/lib/utils';
-import { useEventQuery } from '@/queries/event.queries';
-import { useParams } from 'next/navigation';
 
 export function DateIndicator({
   topLabelRef,
-  category,
+  event,
 }: {
   topLabelRef: React.RefObject<HTMLDivElement | null>;
-  category: EventType['category'];
+  event: EventType;
 }) {
-  const params = useParams<{ id: string }>();
-
-  const { data: event } = useEventQuery(params.id);
-
   return (
     <div className="pl-6">
       <div
@@ -28,7 +22,7 @@ export function DateIndicator({
         {event?.ranges.map((timePoint) => (
           <TopDateLabel
             key={timePoint}
-            category={category}
+            category={event.category}
             timePoint={timePoint}
             className="min-w-[52px] flex-1 py-2 text-center"
           />

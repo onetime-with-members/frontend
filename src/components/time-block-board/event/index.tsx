@@ -294,7 +294,7 @@ export default function TimeBlockBoard({
             )}
           </div>
         )}
-        <DateIndicator topLabelRef={topLabelRef} category={event.category} />
+        <DateIndicator topLabelRef={topLabelRef} event={event} />
       </div>
 
       <div

@@ -1,3 +1,5 @@
+'use client';
+
 import dayjs from 'dayjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
