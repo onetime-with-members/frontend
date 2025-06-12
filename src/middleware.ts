@@ -32,10 +32,6 @@ export async function middleware(request: NextRequest) {
     }),
   });
   if (!res.ok) {
-    const error = await res.json();
-    if (error.code === 'TOKEN-009') {
-      return response;
-    }
     redirectResponse.cookies.delete('session');
     redirectResponse.cookies.delete('access-token');
     redirectResponse.cookies.delete('refresh-token');
