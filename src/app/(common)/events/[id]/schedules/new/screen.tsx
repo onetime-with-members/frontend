@@ -102,9 +102,7 @@ export default function ScheduleAddScreen({
     <form
       onSubmit={handleSubmit}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-        }
+        if (e.key === 'Enter') e.preventDefault();
       }}
     >
       {/* Navigation Bar for Desktop */}

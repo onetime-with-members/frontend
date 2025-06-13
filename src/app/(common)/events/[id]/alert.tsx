@@ -1,12 +1,11 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useFormStatus } from 'react-dom';
 
 import Alert from '@/components/alert/alert';
-import axios from '@/lib/axios';
+import { deleteEvent } from '@/lib/actions';
 import { useRouter } from '@/navigation';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, usePathname } from 'next/navigation';
 
 export function LoginAlert({
@@ -45,42 +44,30 @@ export function EventDeleteAlert({
 }: {
   setIsEventDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [isMutating, setIsMutating] = useState(false);
+  const { pending } = useFormStatus();
 
   const params = useParams<{ id: string }>();
+
   const t = useTranslations('alert');
-  const queryClient = useQueryClient();
 
-  const { mutate: deleteEvent } = useMutation({
-    mutationFn: async () => {
-      const res = await axios.delete(`/events/${params.id}`);
-      return res.data;
-    },
-    onSuccess: async () => {
-      location.href = '/';
-      setIsEventDeleteAlertOpen(false);
-    },
-    onError: () => {
-      setIsMutating(false);
-    },
-  });
+  async function handleDelete(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-  function handleEventDelete() {
-    if (isMutating) return;
-    setIsMutating(true);
-    deleteEvent();
-    queryClient.invalidateQueries({ queryKey: ['events'] });
+    const formData = new FormData();
+    formData.set('eventId', params.id);
+    await deleteEvent(formData);
+
+    setIsEventDeleteAlertOpen(false);
   }
 
   return (
     <Alert
-      onConfirm={handleEventDelete}
+      onConfirm={handleDelete}
       onCancel={() => setIsEventDeleteAlertOpen(false)}
       onClose={() => setIsEventDeleteAlertOpen(false)}
-      confirmText={
-        isMutating ? t('deleteEventConfirming') : t('deleteEventConfirm')
-      }
+      confirmText={t('deleteEventConfirm')}
       cancelText={t('deleteEventCancel')}
+      pendingText={t('deleteEventConfirming')}
     >
       <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">
         <h2 className="text-gray-80 text-lg-300">{t('deleteEventTitle')}</h2>

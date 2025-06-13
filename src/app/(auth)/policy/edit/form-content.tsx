@@ -48,9 +48,7 @@ export default function FormContent() {
     <form
       onSubmit={handleSubmit}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-        }
+        if (e.key === 'Enter') e.preventDefault();
       }}
     >
       <PolicyCheckboxContent

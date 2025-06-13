@@ -50,6 +50,23 @@ export async function editEvent(formData: FormData) {
   redirect(`/events/${eventId}`);
 }
 
+export async function deleteEvent(formData: FormData) {
+  const eventId = formData.get('eventId') as string;
+
+  const res = await fetch(`${SERVER_API_URL}/events/${eventId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${await accessToken()}`,
+    },
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to delete event');
+  }
+
+  redirect('/');
+}
+
 export async function editProfile(formData: FormData) {
   const nickname = formData.get('nickname');
 

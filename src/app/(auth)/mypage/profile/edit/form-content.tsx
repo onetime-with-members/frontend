@@ -38,9 +38,7 @@ export default function FormContent({ user }: { user: UserType }) {
     <form
       onSubmit={handleSubmit}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-        }
+        if (e.key === 'Enter') e.preventDefault();
       }}
     >
       <div className="mx-auto flex flex-col gap-[3.75rem] bg-gray-00 px-4 pb-40 pt-8 sm:max-w-[480px] sm:rounded-3xl sm:px-9 sm:py-10">

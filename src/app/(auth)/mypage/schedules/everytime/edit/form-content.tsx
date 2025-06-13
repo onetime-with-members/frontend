@@ -63,9 +63,7 @@ export default function FormContent() {
     <form
       onSubmit={handleSubmit}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-        }
+        if (e.key === 'Enter') e.preventDefault();
       }}
     >
       <div className="mx-auto flex max-w-screen-sm flex-col gap-6">

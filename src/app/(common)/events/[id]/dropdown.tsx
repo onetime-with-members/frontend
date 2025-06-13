@@ -8,6 +8,7 @@ import { ToolbarButton } from './button';
 import EditIcon from '@/components/icon/edit';
 import TrashIcon from '@/components/icon/trash';
 import useDropdown from '@/hooks/useDropdown';
+import { deleteEvent } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
 import { IconDots } from '@tabler/icons-react';
