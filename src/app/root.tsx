@@ -175,7 +175,7 @@ export function Footer() {
 export function NetworkErrorScreen() {
   const [isOffline, setIsOffline] = useState(false);
 
-  const t = useTranslations('NetworkErrorScreen');
+  const t = useTranslations('networkError');
 
   useEffect(() => {
     function handleOffline() {
