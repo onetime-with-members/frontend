@@ -39,7 +39,7 @@ export default async function Home() {
   return <LandingPage />;
 }
 
-export function LandingPage() {
+function LandingPage() {
   return (
     <>
       <header>
@@ -56,7 +56,7 @@ export function LandingPage() {
   );
 }
 
-export async function TopSection() {
+async function TopSection() {
   const t = await getTranslations('landing');
   const locale = await getLocale();
 
@@ -106,7 +106,7 @@ export async function TopSection() {
   );
 }
 
-export async function FeatureSection() {
+async function FeatureSection() {
   const t = await getTranslations('landing');
   const locale = await getLocale();
 
@@ -187,7 +187,7 @@ export async function FeatureSection() {
   );
 }
 
-export async function Feature({
+async function Feature({
   title,
   badgeLabel,
   description,
@@ -227,7 +227,7 @@ export async function Feature({
   );
 }
 
-export async function CardSection() {
+async function CardSection() {
   const t = await getTranslations('landing');
   const locale = await getLocale();
 
@@ -299,7 +299,7 @@ export async function CardSection() {
   );
 }
 
-export function Card({
+function Card({
   title,
   badgeTitle,
   description,
@@ -338,7 +338,7 @@ export function Card({
   );
 }
 
-export async function TypoSection() {
+async function TypoSection() {
   const t = await getTranslations('landing');
   const locale = await getLocale();
 
@@ -368,7 +368,7 @@ export async function TypoSection() {
   );
 }
 
-export async function BottomSection() {
+async function BottomSection() {
   const t = await getTranslations('landing');
   const locale = await getLocale();
 
@@ -399,7 +399,7 @@ export async function BottomSection() {
   );
 }
 
-export async function UserDashboardPage() {
+async function UserDashboardPage() {
   const user = await currentUser();
 
   const t = await getTranslations('userDashboard');
@@ -456,7 +456,7 @@ export async function UserDashboardPage() {
   );
 }
 
-export async function MyEventSection() {
+async function MyEventSection() {
   return (
     <section className="flex flex-col gap-3">
       {/* Header */}
@@ -469,7 +469,7 @@ export async function MyEventSection() {
   );
 }
 
-export async function MyEventsHeader() {
+async function MyEventsHeader() {
   const myEvents = await fetchMyEvents();
 
   const t = await getTranslations('userDashboard');
@@ -535,7 +535,7 @@ function MyEventsSkeleton() {
   ));
 }
 
-export async function MyScheduleSection() {
+async function MyScheduleSection() {
   const mySchedule = await fetchMySchedule();
   const sleepTime = await fetchSleepTime();
 
@@ -603,7 +603,7 @@ function MyScheduleSkeleton() {
   );
 }
 
-export async function Header({
+async function Header({
   children,
   moreHref = '#',
   hasMore = true,
