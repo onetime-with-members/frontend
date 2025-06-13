@@ -101,7 +101,3 @@ export interface BarBanner {
 }
 
 export type TabActiveType = 'events' | 'schedules' | 'profile' | null;
-
-export interface QrCode {
-  qr_code_img_url: string;
-}

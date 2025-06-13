@@ -13,7 +13,7 @@ import { FooterContext } from '@/contexts/footer';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import { auth } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { EventType, QrCode, ScheduleType } from '@/lib/types';
+import { EventType, ScheduleType } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
 import Image from 'next/image';
@@ -23,10 +23,12 @@ export function BottomButtons({
   schedules,
   event,
   qrCode,
+  shortenUrl,
 }: {
   schedules: ScheduleType[];
   event: EventType;
-  qrCode: QrCode;
+  qrCode: string;
+  shortenUrl: string;
 }) {
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
@@ -108,6 +110,7 @@ export function BottomButtons({
           setIsOpen={setIsSharePopUpOpen}
           event={event}
           qrCode={qrCode}
+          shortenUrl={shortenUrl}
         />
       )}
     </>
@@ -117,9 +120,11 @@ export function BottomButtons({
 export function ToolbarButtons({
   event,
   qrCode,
+  shortenUrl,
 }: {
   event: EventType;
-  qrCode: QrCode;
+  qrCode: string;
+  shortenUrl: string;
 }) {
   const t = useTranslations('eventDetail');
   const locale = useLocale();
@@ -128,7 +133,7 @@ export function ToolbarButtons({
     <div className="flex items-center gap-2">
       <SpeechBalloon.Container className="hidden md:block">
         <SpeechBalloon.Wrapper>
-          <SendButton qrCode={qrCode} event={event} />
+          <SendButton qrCode={qrCode} event={event} shortenUrl={shortenUrl} />
         </SpeechBalloon.Wrapper>
         <SpeechBalloon.Main
           width={locale === 'ko' ? 101 : 111}
@@ -147,9 +152,11 @@ export function ToolbarButtons({
 export function SendButton({
   qrCode,
   event,
+  shortenUrl,
 }: {
-  qrCode: QrCode;
+  qrCode: string;
   event: EventType;
+  shortenUrl: string;
 }) {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
 
@@ -175,6 +182,7 @@ export function SendButton({
           setIsOpen={setIsSharePopUpOpen}
           qrCode={qrCode}
           event={event}
+          shortenUrl={shortenUrl}
         />
       )}
     </>

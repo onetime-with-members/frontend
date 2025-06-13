@@ -6,7 +6,6 @@ import {
   MyEventType,
   MyScheduleTimeType,
   PolicyType,
-  QrCode,
   RecommendScheduleType,
   ScheduleType,
   SleepTimeType,
@@ -28,6 +27,29 @@ export async function fetchEvent(eventId: string) {
   const event: EventType = data.payload;
 
   return event;
+}
+
+export async function fetchShortenUrl(originalUrl: string) {
+  const res = await fetch(`${SERVER_API_URL}/urls/action-shorten`, {
+    method: 'POST',
+    headers: {
+      ...((await auth())
+        ? { Authorization: `Bearer ${await accessToken()}` }
+        : {}),
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      original_url: originalUrl,
+    }),
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch event');
+  }
+  const data = await res.json();
+  const shortenUrl: string = data.payload.shorten_url;
+
+  return shortenUrl;
 }
 
 export async function fetchRecommendedTimes(eventId: string) {
@@ -202,7 +224,7 @@ export async function fetchQrCode(eventId: string) {
     throw new Error('Failed to fetch qr code');
   }
   const data = await res.json();
-  const qrCode: QrCode = data.payload;
+  const qrCode: string = data.payload.qr_code_img_url;
 
   return qrCode;
 }

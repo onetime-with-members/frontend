@@ -13,7 +13,7 @@ import useKakaoShare from '@/hooks/useKakaoShare';
 import useToast from '@/hooks/useToast';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
-import { EventType, QrCode } from '@/lib/types';
+import { EventType } from '@/lib/types';
 import {
   useEventQuery,
   useRecommendedTimesQuery,
@@ -33,10 +33,12 @@ export default function SharePopUp({
   setIsOpen,
   qrCode,
   event,
+  shortenUrl,
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  qrCode: QrCode;
+  qrCode: string;
   event: EventType;
+  shortenUrl: string;
 }) {
   const [isQrCodeScreenOpen, setIsQrCodeScreenOpen] = useState(false);
 
@@ -48,7 +50,7 @@ export default function SharePopUp({
   const tToast = useTranslations('toast');
 
   function handleCopyLink() {
-    navigator.clipboard.writeText(event?.shortenUrl || '');
+    navigator.clipboard.writeText(shortenUrl);
     if (urlInputRef.current) {
       urlInputRef.current.select();
     }
@@ -75,7 +77,7 @@ export default function SharePopUp({
             <div className="flex flex-col gap-3">
               <Input
                 inputRef={urlInputRef}
-                value={event?.shortenUrl || 'Loading...'}
+                value={shortenUrl}
                 className="overflow-hidden text-sm-100"
                 inputClassName="pr-0"
                 inputMode="none"
@@ -217,7 +219,7 @@ export function QRCodeScreen({
   event,
 }: {
   onClose?: () => void;
-  qrCode: QrCode;
+  qrCode: string;
   event: EventType;
 }) {
   const t = useTranslations('sharePopUp');
@@ -259,7 +261,7 @@ export function QRCodeScreen({
             </div>
             <div className="h-[230px] w-[230px] overflow-hidden rounded-3xl bg-gray-00 sm:h-[280px] sm:w-[280px]">
               <Image
-                src={qrCode.qr_code_img_url}
+                src={qrCode}
                 alt="QR 코드 이미지"
                 className="h-full w-full object-cover"
                 width={230}

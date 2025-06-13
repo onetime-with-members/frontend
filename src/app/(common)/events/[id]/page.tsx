@@ -18,10 +18,12 @@ import {
   fetchQrCode,
   fetchRecommendedTimes,
   fetchSchedules,
+  fetchShortenUrl,
 } from '@/lib/data';
 import { EventType, RecommendScheduleType, ScheduleType } from '@/lib/types';
 import { getParticipants } from '@/lib/utils';
 import { getTranslations } from 'next-intl/server';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
@@ -58,15 +60,23 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+
   const event = await fetchEvent(id);
-  const recommendedTimes = await fetchRecommendedTimes(id);
-  const qrCode = await fetchQrCode(id);
 
   if (!event) {
     notFound();
   }
 
+  const recommendedTimes = await fetchRecommendedTimes(id);
+  const qrCode = await fetchQrCode(id);
   const schedules = await fetchSchedules(event);
+
+  const headersList = await headers();
+  const host = headersList.get('host');
+  const protocol = headersList.get('x-forwarded-proto') || 'http';
+  const pathname = headersList.get('x-pathname') || '';
+
+  const shortenUrl = await fetchShortenUrl(`${protocol}://${host}${pathname}`);
 
   return (
     <div className="flex min-h-[110vh] flex-col">
@@ -83,7 +93,11 @@ export default async function Page({
               <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
                 {event.title}
               </h1>
-              <ToolbarButtons event={event} qrCode={qrCode} />
+              <ToolbarButtons
+                event={event}
+                qrCode={qrCode}
+                shortenUrl={shortenUrl}
+              />
             </div>
           </div>
           {/* Bar Banner */}
@@ -111,7 +125,12 @@ export default async function Page({
       </main>
 
       {/* Bottom Button for Desktop and Mobile */}
-      <BottomButtons schedules={schedules} event={event} qrCode={qrCode} />
+      <BottomButtons
+        schedules={schedules}
+        event={event}
+        qrCode={qrCode}
+        shortenUrl={shortenUrl}
+      />
     </div>
   );
 }
