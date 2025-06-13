@@ -7,10 +7,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
-  const redirectResponse = NextResponse.redirect(request.nextUrl);
 
   response.headers.set('x-pathname', request.nextUrl.pathname);
-  redirectResponse.headers.set('x-pathname', request.nextUrl.pathname);
 
   const sessionCookie = request.cookies.get('session')?.value;
   if (!sessionCookie) return response;
@@ -32,20 +30,16 @@ export async function middleware(request: NextRequest) {
     }),
   });
   if (!res.ok) {
-    const error = await res.json();
-    if (error.code === 'TOKEN-009') {
-      return response;
-    }
-    redirectResponse.cookies.delete('session');
-    redirectResponse.cookies.delete('access-token');
-    redirectResponse.cookies.delete('refresh-token');
-    return redirectResponse;
+    response.cookies.delete('session');
+    response.cookies.delete('access-token');
+    response.cookies.delete('refresh-token');
+    return response;
   }
   const data = await res.json();
   const { access_token: accessToken, refresh_token: refreshToken } =
     data.payload;
 
-  redirectResponse.cookies.set(
+  response.cookies.set(
     'session',
     JSON.stringify({
       accessToken,
@@ -56,7 +50,7 @@ export async function middleware(request: NextRequest) {
     },
   );
 
-  return redirectResponse;
+  return response;
 }
 
 export const config = {
