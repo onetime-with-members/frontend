@@ -6,7 +6,6 @@ export interface EventType {
   category: 'DATE' | 'DAY';
   ranges: string[];
   event_status: 'CREATOR' | 'PARTICIPANT';
-  shortenUrl: string;
 }
 
 export interface EventValueType {

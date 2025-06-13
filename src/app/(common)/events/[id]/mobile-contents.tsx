@@ -16,9 +16,7 @@ import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import { EventType, RecommendScheduleType, ScheduleType } from '@/lib/types';
 import { getParticipants } from '@/lib/utils';
-import { useRecommendedTimesQuery } from '@/queries/event.queries';
 import { IconChevronRight } from '@tabler/icons-react';
-import { useParams } from 'next/navigation';
 
 export default function MobileContents({
   event,
@@ -180,7 +178,6 @@ function RecommendTime({
 }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const params = useParams<{ id: string }>();
   const t = useTranslations();
 
   const isAllMembersAvailable =

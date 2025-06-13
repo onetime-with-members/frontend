@@ -15,10 +15,6 @@ import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import { EventType, RecommendScheduleType } from '@/lib/types';
 import {
-  useEventQuery,
-  useRecommendedTimesQuery,
-} from '@/queries/event.queries';
-import {
   IconChevronDown,
   IconChevronUp,
   IconDots,
@@ -27,7 +23,6 @@ import {
   IconX,
 } from '@tabler/icons-react';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 
 export default function SharePopUp({
   setIsOpen,
@@ -96,10 +91,10 @@ export default function SharePopUp({
                 </ShareBlueButton>
               </ShareButtonWrapper>
               <ShareButtonWrapper label={t('kakao')}>
-                <ShareKakaoButton />
+                <ShareKakaoButton event={event} />
               </ShareButtonWrapper>
               <ShareButtonWrapper label={t('more')}>
-                <ShareMoreButton />
+                <ShareMoreButton event={event} shortenUrl={shortenUrl} />
               </ShareButtonWrapper>
             </div>
           </div>
@@ -157,11 +152,13 @@ export function ShareBlueButton({
   );
 }
 
-export function ShareKakaoButton({ size = 48 }: { size?: number }) {
-  const params = useParams<{ id: string }>();
-
-  const { data: event } = useEventQuery(params.id);
-
+export function ShareKakaoButton({
+  size = 48,
+  event,
+}: {
+  size?: number;
+  event: EventType;
+}) {
   const { handleKakaoShare } = useKakaoShare({
     event,
   });
@@ -184,16 +181,18 @@ export function ShareKakaoButton({ size = 48 }: { size?: number }) {
   );
 }
 
-export function ShareMoreButton() {
-  const params = useParams<{ id: string }>();
-
-  const { data: event } = useEventQuery(params.id);
-
+export function ShareMoreButton({
+  event,
+  shortenUrl,
+}: {
+  event: EventType;
+  shortenUrl: string;
+}) {
   function handleClick() {
     const shareData = {
-      title: `${event?.title} - OneTime`,
+      title: `${event.title} - OneTime`,
       text: '스케줄 등록 요청이 도착했습니다.',
-      url: event?.shortenUrl,
+      url: shortenUrl,
     };
 
     if (navigator.share) {
@@ -338,7 +337,6 @@ export function RecommendTimePopUp({
   event: EventType;
   recommendedTimes: RecommendScheduleType[];
 }) {
-  const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
 
   const formattedRecommendTimes = recommendedTimes

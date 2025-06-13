@@ -1,4 +1,3 @@
-import axios from '@/lib/axios';
 import { weekdaysShortKo } from '@/lib/constants';
 import { fetchEvent, fetchRecommendedTimes } from '@/lib/data';
 import { EventType, RecommendScheduleType } from '@/lib/types';
@@ -17,14 +16,6 @@ export const useEventQuery = (eventId: string) =>
       } else {
         event.ranges = event.ranges.sort();
       }
-
-      const shortenActionRes = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_API_URL}/urls/action-shorten`,
-        {
-          original_url: `${window.location.origin}/events/${event.event_id}`,
-        },
-      );
-      event.shortenUrl = shortenActionRes.data.payload.shorten_url;
 
       return event;
     },
