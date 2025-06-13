@@ -1,0 +1,237 @@
+'use client';
+
+import dayjs from 'dayjs';
+import { useTranslations } from 'next-intl';
+import nProgress from 'nprogress';
+import { useContext, useEffect, useRef, useState } from 'react';
+
+import LanguageDropdown from '@/components/dropdown/language-dropdown';
+import SpeakerPhoneIcon from '@/components/icon/speak-phone';
+import NavBar from '@/components/nav-bar';
+import { FooterContext } from '@/contexts/footer';
+import useLocalStorageClear from '@/hooks/useLocalStorageClear';
+import useLocalStorageSetUp from '@/hooks/useLocalStorageSetUp';
+import useShortURLRedirect from '@/hooks/useShortURLRedirect';
+import { auth } from '@/lib/auth';
+import { fetchPolicy } from '@/lib/data';
+import { getQueryClient } from '@/lib/query-client';
+import { Link, useRouter } from '@/navigation';
+import { IconBrandInstagram } from '@tabler/icons-react';
+import { QueryClientProvider } from '@tanstack/react-query';
+import 'dayjs/locale/ko';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import localeData from 'dayjs/plugin/localeData';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import updateLocale from 'dayjs/plugin/updateLocale';
+import weekday from 'dayjs/plugin/weekday';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+import Script from 'next/script';
+
+dayjs.locale('en');
+dayjs.extend(localeData);
+dayjs.extend(customParseFormat);
+dayjs.extend(relativeTime);
+dayjs.extend(updateLocale);
+dayjs.extend(weekday);
+
+dayjs.updateLocale('ko', {
+  relativeTime: {
+    future: '%s 후',
+    past: '%s 전',
+    s: '1초',
+    ss: '%d초',
+    m: '1분',
+    mm: '%d분',
+    h: '1시간',
+    hh: '%d시간',
+    d: '1일',
+    dd: '%d일',
+    M: '1개월',
+    MM: '%d개월',
+    y: '1년',
+    yy: '%d년',
+  },
+});
+
+export function SetUpProvider({ children }: { children: React.ReactNode }) {
+  useLocalStorageClear();
+  useLocalStorageSetUp();
+  useShortURLRedirect();
+
+  const router = useRouter();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    async function checkPolicy() {
+      if (pathname.startsWith('/policy') || pathname === '/withdraw') return;
+      if (!(await auth())) return;
+      const policy = await fetchPolicy();
+      if (policy.service_policy_agreement && policy.privacy_policy_agreement)
+        return;
+      router.push('/policy/edit');
+    }
+    checkPolicy();
+  }, [pathname, router]);
+
+  return children;
+}
+
+export function QueryProvider({ children }: { children: React.ReactNode }) {
+  const queryClient = getQueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+}
+
+export function ProgressBar() {
+  const pathname = usePathname();
+
+  useEffect(() => {
+    nProgress.configure({ minimum: 0.3, speed: 500, trickleSpeed: 50 });
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      nProgress.done();
+    }, 500);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [pathname]);
+
+  return null;
+}
+
+export function Footer() {
+  const footerRef = useRef<HTMLDivElement | null>(null);
+
+  const { setFooterRef, footerVisible } = useContext(FooterContext);
+
+  const t = useTranslations('footer');
+
+  useEffect(() => {
+    if (footerRef && footerRef.current) {
+      setFooterRef(footerRef);
+    }
+  }, [footerRef, setFooterRef]);
+
+  return (
+    footerVisible && (
+      <footer ref={footerRef} className="bg-gray-80 px-4 pb-20 pt-8">
+        <div className="mx-auto flex w-full max-w-screen-sm flex-col items-start gap-8">
+          <div className="flex w-full flex-col gap-4">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Image
+                    src="/images/logo-white.svg"
+                    alt="OneTime"
+                    width={148}
+                    height={32}
+                  />
+                </div>
+                <a
+                  href="https://www.instagram.com/one.time.official/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full bg-gray-70 p-2 duration-150 hover:bg-[#3f4352] active:bg-[#3f4352]"
+                >
+                  <IconBrandInstagram size={20} className="text-gray-40" />
+                </a>
+              </div>
+              <p className="text-gray-20 text-sm-100">
+                ©OneTime. ALL RIGHTS RESERVED
+              </p>
+            </div>
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfDuttkDxmZDZbHhawL5GSJOgOOelOTFFgoomRVWYHWlEP9Qg/viewform?usp=dialog"
+                className="flex items-center gap-1 text-gray-00 text-sm-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>
+                  <SpeakerPhoneIcon />
+                </span>
+                <span>{t('feedbackIssue')}</span>
+              </a>
+              <div className="flex items-center gap-2 text-gray-40">
+                <Link href="/policy/privacy">{t('privacyPolicy')}</Link>
+                <span>|</span>
+                <Link href="/policy/service">{t('termsOfService')}</Link>
+              </div>
+            </div>
+          </div>
+          <LanguageDropdown variant="dark" menuPosition="top" />
+        </div>
+      </footer>
+    )
+  );
+}
+
+export function NetworkErrorScreen() {
+  const [isOffline, setIsOffline] = useState(false);
+
+  const t = useTranslations('NetworkErrorScreen');
+
+  useEffect(() => {
+    function handleOffline() {
+      setIsOffline(true);
+      document.body.style.overflow = 'hidden';
+    }
+
+    function handleOnline() {
+      setIsOffline(false);
+      document.body.style.overflow = 'auto';
+    }
+
+    window.addEventListener('offline', handleOffline);
+    window.addEventListener('online', handleOnline);
+
+    return () => {
+      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener('online', handleOnline);
+    };
+  }, []);
+
+  return (
+    isOffline && (
+      <div className="fixed left-0 right-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center bg-gray-00 px-4">
+        <NavBar variant="black" disabled />
+        <main className="flex -translate-y-6 flex-col items-center">
+          <div>
+            <Image
+              src="/images/network-error-clock.svg"
+              alt="The clock included exclamation mark"
+              width={168}
+              height={158}
+              priority
+            />
+          </div>
+          <h1 className="mt-8 text-center text-gray-80 title-sm-300">
+            {t('title')}
+          </h1>
+          <p className="text-center text-gray-40 text-md-200">
+            {t('description')}
+          </p>
+        </main>
+      </div>
+    )
+  );
+}
+
+export function KakaoShareScript() {
+  function onLoad() {
+    window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JS_KEY);
+  }
+
+  return (
+    <Script
+      src="https://developers.kakao.com/sdk/js/kakao.js"
+      onLoad={onLoad}
+    />
+  );
+}
