@@ -190,7 +190,7 @@ export function TopSubmitButton() {
 
   return (
     <SmallButton disabled={pending}>
-      {pending ? t('doing') : t('done')}
+      {pending ? t('saving') : t('done')}
     </SmallButton>
   );
 }

@@ -140,7 +140,7 @@
     "password": "Password",
     "next": "Next",
     "done": "Done",
-    "doing": "Doing..."
+    "saving": "Saving..."
   },
   "timeBlockBoard": {
     "availableToggleText": "Available",
