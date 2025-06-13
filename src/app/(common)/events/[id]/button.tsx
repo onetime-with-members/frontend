@@ -14,9 +14,10 @@ import useKakaoShare from '@/hooks/useKakaoShare';
 import { auth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { EventType, ScheduleType } from '@/lib/types';
+import { useRouter } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
 import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 export function BottomButtons({ schedules }: { schedules: ScheduleType[] }) {
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
