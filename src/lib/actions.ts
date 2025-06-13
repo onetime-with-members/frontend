@@ -51,7 +51,7 @@ export async function editEvent(formData: FormData) {
 }
 
 export async function editProfile(formData: FormData) {
-  const nickname = JSON.parse(formData.get('nickname') as string);
+  const nickname = formData.get('nickname');
 
   const res = await fetch(`${SERVER_API_URL}/users/profile/action-update`, {
     method: 'PATCH',
