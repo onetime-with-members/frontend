@@ -14,7 +14,7 @@ import useClientWidth from '@/hooks/useClientWidth';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
-import { EventType, ScheduleType } from '@/lib/types';
+import { EventType, RecommendScheduleType, ScheduleType } from '@/lib/types';
 import { getParticipants } from '@/lib/utils';
 import { useRecommendedTimesQuery } from '@/queries/event.queries';
 import { IconChevronRight } from '@tabler/icons-react';
@@ -23,16 +23,22 @@ import { useParams } from 'next/navigation';
 export default function MobileContents({
   event,
   schedules,
+  recommendedTimes,
 }: {
   event: EventType;
   schedules: ScheduleType[];
+  recommendedTimes: RecommendScheduleType[];
 }) {
   return (
     <div className="block md:hidden">
       {schedules?.length === 0 ? (
         <EmptyEventBanner event={event} />
       ) : (
-        <BannerList event={event} schedules={schedules} />
+        <BannerList
+          event={event}
+          schedules={schedules}
+          recommendedTimes={recommendedTimes}
+        />
       )}
     </div>
   );
@@ -41,9 +47,11 @@ export default function MobileContents({
 function BannerList({
   event,
   schedules,
+  recommendedTimes,
 }: {
   event: EventType;
   schedules: ScheduleType[];
+  recommendedTimes: RecommendScheduleType[];
 }) {
   const [isHover, setIsHover] = useState(false);
 
@@ -78,7 +86,7 @@ function BannerList({
         className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
         style={{ scrollSnapType: 'x mandatory' }}
       >
-        <RecommendTime event={event} />
+        <RecommendTime event={event} recommendedTimes={recommendedTimes} />
         <Participants schedules={schedules} />
       </div>
 
@@ -163,22 +171,26 @@ function Participants({ schedules }: { schedules: ScheduleType[] }) {
   );
 }
 
-function RecommendTime({ event }: { event: EventType | undefined }) {
+function RecommendTime({
+  event,
+  recommendedTimes,
+}: {
+  event: EventType;
+  recommendedTimes: RecommendScheduleType[];
+}) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const params = useParams<{ id: string }>();
   const t = useTranslations();
 
-  const { data: recommendTimes } = useRecommendedTimesQuery(params.id);
-
   const isAllMembersAvailable =
-    recommendTimes && recommendTimes.length > 0
-      ? recommendTimes[0].impossible_names.length === 0 &&
-        recommendTimes[0].possible_count > 1
+    recommendedTimes.length > 0
+      ? recommendedTimes[0].impossible_names.length === 0 &&
+        recommendedTimes[0].possible_count > 1
       : false;
 
   function handleDialogOpen() {
-    if (recommendTimes?.length === 0) return;
+    if (recommendedTimes.length === 0) return;
     setIsDialogOpen(true);
   }
 
@@ -220,39 +232,47 @@ function RecommendTime({ event }: { event: EventType | undefined }) {
             'overflow-hidden text-ellipsis whitespace-nowrap rounded-2xl bg-primary-00 p-4 text-primary-50 text-sm-300 xs:text-md-300 sm:text-lg-300',
             {
               'bg-gray-00 text-success-60': isAllMembersAvailable,
-              'bg-gray-05 text-gray-40': recommendTimes?.length === 0,
+              'bg-gray-05 text-gray-40': recommendedTimes.length === 0,
             },
           )}
         >
-          {recommendTimes &&
+          {recommendedTimes &&
             event &&
-            (recommendTimes.length === 0 ? (
+            (recommendedTimes.length === 0 ? (
               <>{t('common.noOneSchedule')}</>
             ) : (
               <>
                 <span>
                   {event.category === 'DATE'
-                    ? dayjs(recommendTimes[0].time_point, 'YYYY.MM.DD').format(
-                        'YYYY.MM.DD (ddd)',
-                      )
+                    ? dayjs(
+                        recommendedTimes[0].time_point,
+                        'YYYY.MM.DD',
+                      ).format('YYYY.MM.DD (ddd)')
                     : dayjs()
                         .day(
                           weekdaysShortKo.findIndex(
                             (weekday) =>
-                              weekday === recommendTimes[0].time_point,
+                              weekday === recommendedTimes[0].time_point,
                           ),
                         )
                         .format('dddd')}
                 </span>
                 <span className="ml-2">
-                  {recommendTimes[0].start_time} - {recommendTimes[0].end_time}
+                  {recommendedTimes[0].start_time} -{' '}
+                  {recommendedTimes[0].end_time}
                 </span>
               </>
             ))}
         </div>
       </div>
 
-      {isDialogOpen && <RecommendTimePopUp onClose={handleDialogClose} />}
+      {isDialogOpen && (
+        <RecommendTimePopUp
+          onClose={handleDialogClose}
+          event={event}
+          recommendedTimes={recommendedTimes}
+        />
+      )}
     </>
   );
 }

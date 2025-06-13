@@ -121,7 +121,11 @@ export default async function Page({
           />
         </div>
         {/* Bottom Contents for Mobile */}
-        <MobileContents event={event} schedules={schedules} />
+        <MobileContents
+          event={event}
+          schedules={schedules}
+          recommendedTimes={recommendedTimes}
+        />
       </main>
 
       {/* Bottom Button for Desktop and Mobile */}

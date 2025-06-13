@@ -13,7 +13,7 @@ import useKakaoShare from '@/hooks/useKakaoShare';
 import useToast from '@/hooks/useToast';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
-import { EventType } from '@/lib/types';
+import { EventType, RecommendScheduleType } from '@/lib/types';
 import {
   useEventQuery,
   useRecommendedTimesQuery,
@@ -329,24 +329,27 @@ export function ParticipantsPopUp({
   );
 }
 
-export function RecommendTimePopUp({ onClose }: { onClose: () => void }) {
+export function RecommendTimePopUp({
+  onClose,
+  event,
+  recommendedTimes,
+}: {
+  onClose: () => void;
+  event: EventType;
+  recommendedTimes: RecommendScheduleType[];
+}) {
   const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
 
-  const { data: event } = useEventQuery(params.id);
-  const { data: recommendTimes } = useRecommendedTimesQuery(params.id);
-
-  const formattedRecommendTimes = recommendTimes
-    ? [
-        ...new Set(
-          recommendTimes.map(
-            (recommendSchedule) => recommendSchedule.time_point,
-          ),
+  const formattedRecommendTimes = recommendedTimes
+    ? Array.from(
+        new Set(
+          recommendedTimes.map((recommendedTime) => recommendedTime.time_point),
         ),
-      ].map((timePoint) => ({
+      ).map((timePoint) => ({
         timePoint,
-        schedules: recommendTimes.filter(
-          (recommendTime) => recommendTime.time_point === timePoint,
+        schedules: recommendedTimes.filter(
+          (recommendedTime) => recommendedTime.time_point === timePoint,
         ),
       }))
     : [];
