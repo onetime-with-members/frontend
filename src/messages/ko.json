@@ -140,7 +140,7 @@
     "password": "비밀번호",
     "next": "다음",
     "done": "완료",
-    "doing": "진행 중..."
+    "saving": "진행 중..."
   },
   "timeBlockBoard": {
     "availableToggleText": "되는 시간 체크",
