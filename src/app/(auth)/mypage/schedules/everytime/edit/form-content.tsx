@@ -7,8 +7,9 @@ import { BottomButton } from './button';
 import Input from '@/components/input';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { submitEverytimeUrl } from '@/lib/actions';
+import { useRouter } from '@/navigation';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function FormContent() {
   const [buttonDisabled, setButtonDisabled] = useState(false);

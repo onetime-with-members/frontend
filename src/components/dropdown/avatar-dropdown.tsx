@@ -7,8 +7,7 @@ import Avatar from '../avatar';
 import { CurrentUserContext } from '@/contexts/current-user';
 import { signOut } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { Link } from '@/navigation';
-import { useRouter } from 'next/navigation';
+import { Link, useRouter } from '@/navigation';
 
 export default function AvatarDropdown({
   size = 40,

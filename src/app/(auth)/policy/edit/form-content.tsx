@@ -8,8 +8,8 @@ import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import { PolicyContext } from '@/contexts/policy';
 import { editPolicy } from '@/lib/actions';
 import { PolicyKeyType } from '@/lib/types';
+import { useRouter } from '@/navigation';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 export default function FormContent() {
   const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
