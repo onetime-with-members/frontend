@@ -3,6 +3,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import BottomButtonForMobile from './components/user-dashboard/bottom-button';
 import Header from './components/user-dashboard/header';
+import TimeBlockBoardContent from './components/user-dashboard/time-block-board';
 import ToolbarWrapper from '@/app/components/user-dashboard/toolbar-wrapper';
 import BarBanner from '@/components/bar-banner';
 import EmptyUI from '@/components/empty-ui';
@@ -167,7 +168,6 @@ export async function MyScheduleSection() {
   const sleepTime = await fetchSleepTime();
 
   const cookieStore = await cookies();
-  const isBarBannerShown = cookieStore.get('bar-banner');
 
   const t = await getTranslations('userDashboard');
 
@@ -199,17 +199,7 @@ export async function MyScheduleSection() {
         </div>
 
         {/* Time Block Board */}
-        <MyTimeBlockBoard
-          mode="view"
-          mySchedule={mySchedule || []}
-          className="pl-3 pr-6"
-          topDateGroupClassName={cn(
-            'sticky bg-gray-00 z-10 top-[64px] md:top-[136px]',
-            {
-              'top-[120px] md:top-[192px]': isBarBannerShown,
-            },
-          )}
-        />
+        <TimeBlockBoardContent mySchedule={mySchedule} />
       </div>
     </section>
   );
