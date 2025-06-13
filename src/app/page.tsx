@@ -515,7 +515,7 @@ async function MyEventsContent() {
             key={myEvent.event_id}
             event={myEvent}
             className={cn('border-none', {
-              'hidden md:block': index === 1,
+              'hidden md:flex': index === 1,
             })}
           />
         ))

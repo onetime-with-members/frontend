@@ -7,7 +7,7 @@ import { LoginAlert } from './alert';
 import { ToolbarMenuDropdown } from './dropdown';
 import SharePopUp from './pop-up';
 import SpeechBalloon from './speech-balloon';
-import BadgeFloatingBottomButton from '@/components/button/badge-floating-bottom-button';
+import BadgeButton from '@/components/button/badge-button';
 import Button from '@/components/button/button';
 import { FooterContext } from '@/contexts/footer';
 import useKakaoShare from '@/hooks/useKakaoShare';
@@ -15,7 +15,7 @@ import { auth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { EventType, ScheduleType } from '@/lib/types';
 import { useRouter } from '@/navigation';
-import { IconPlus } from '@tabler/icons-react';
+import { IconEdit, IconPlus } from '@tabler/icons-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
@@ -24,11 +24,15 @@ export function BottomButtons({
   event,
   qrCode,
   shortenUrl,
+  scheduleDetail,
+  isLoggedIn,
 }: {
   schedules: ScheduleType[];
   event: EventType;
   qrCode: string;
   shortenUrl: string;
+  scheduleDetail: ScheduleType;
+  isLoggedIn: boolean;
 }) {
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
@@ -40,6 +44,11 @@ export function BottomButtons({
 
   const t = useTranslations('eventDetail');
   const locale = useLocale();
+
+  const hasUserSchedule = isLoggedIn
+    ? scheduleDetail.schedules.length !== 0 &&
+      scheduleDetail.schedules.every((schedule) => schedule.times.length !== 0)
+    : false;
 
   async function handleBottomButtonClick() {
     if (await auth()) {
@@ -86,17 +95,24 @@ export function BottomButtons({
           className="flex-1"
         >
           <span className="flex items-center justify-center gap-1">
-            <span>{t('addSchedule')}</span>
             <span>
-              <IconPlus size={24} />
+              {hasUserSchedule ? t('editSchedule') : t('addSchedule')}
+            </span>
+            <span>
+              {hasUserSchedule ? (
+                <IconEdit size={24} />
+              ) : (
+                <IconPlus size={24} />
+              )}
             </span>
           </span>
         </Button>
       </div>
       {/* Bottom Button for Desktop */}
       <BadgeFloatingBottomButton
-        name={t('addSchedule')}
+        name={hasUserSchedule ? t('editSchedule') : t('addSchedule')}
         variant="black"
+        icon={hasUserSchedule ? 'edit' : 'plus'}
         onClick={handleBottomButtonClick}
         className={cn('hidden duration-150 md:block', {
           'pointer-events-none opacity-0': isFooterShown,
@@ -233,5 +249,46 @@ export function ToolbarButton({
     >
       {children}
     </button>
+  );
+}
+
+export function BadgeFloatingBottomButton({
+  onClick,
+  name,
+  className,
+  variant = 'primary',
+  icon,
+  style,
+}: {
+  onClick: () => void;
+  name: string;
+  className?: string;
+  variant?: 'primary' | 'black';
+  icon: 'plus' | 'edit';
+  style?: React.CSSProperties;
+}) {
+  return (
+    <>
+      <div
+        className={cn(
+          'fixed bottom-8 left-1/2 flex -translate-x-1/2 justify-center',
+          className,
+        )}
+        style={style}
+      >
+        <BadgeButton onClick={onClick} variant={variant}>
+          <span className="flex items-center justify-center gap-1">
+            <span>{name}</span>
+            <span>
+              {icon === 'plus' ? (
+                <IconPlus size={24} />
+              ) : (
+                <IconEdit size={24} />
+              )}
+            </span>
+          </span>
+        </BadgeButton>
+      </div>
+    </>
   );
 }

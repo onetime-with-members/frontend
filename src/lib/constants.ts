@@ -3,12 +3,15 @@ import {
   EventValueType,
   MyEventType,
   MyScheduleTimeType,
+  ScheduleType,
   SleepTimeType,
 } from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 
 export const SERVER_API_URL =
-  process.env.SERVER_API_URL || process.env.NEXT_PUBLIC_SERVER_API_URL || 'http://localhost:3000';
+  process.env.SERVER_API_URL ||
+  process.env.NEXT_PUBLIC_SERVER_API_URL ||
+  'http://localhost:3000';
 export const CRAWLING_SERVER_API_URL =
   process.env.CRAWLING_SERVER_API_URL || 'http://localhost:3000';
 
@@ -78,6 +81,11 @@ export const defaultBarBanner: BarBanner = {
   is_activated: false,
   created_date: '',
   link_url: '',
+};
+
+export const defaultScheduleDetail: ScheduleType = {
+  name: '',
+  schedules: [],
 };
 
 export const SKELETON_GRAY = '#e8e9ed77';

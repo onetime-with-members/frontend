@@ -11,12 +11,14 @@ import BarBanner from '@/components/bar-banner';
 import ClockIcon from '@/components/icon/clock';
 import MemberBadge from '@/components/member-badge';
 import NavBar from '@/components/nav-bar';
+import { auth } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { weekdaysShortKo } from '@/lib/constants';
+import { defaultScheduleDetail, weekdaysShortKo } from '@/lib/constants';
 import {
   fetchEvent,
   fetchQrCode,
   fetchRecommendedTimes,
+  fetchScheduleDetail,
   fetchSchedules,
   fetchShortenUrl,
 } from '@/lib/data';
@@ -70,6 +72,9 @@ export default async function Page({
   const recommendedTimes = await fetchRecommendedTimes(id);
   const qrCode = await fetchQrCode(id);
   const schedules = await fetchSchedules(event);
+  const scheduleDetail = (await auth())
+    ? await fetchScheduleDetail(event, !!(await auth()), '')
+    : defaultScheduleDetail;
 
   const headersList = await headers();
   const host = headersList.get('host');
@@ -134,6 +139,8 @@ export default async function Page({
         event={event}
         qrCode={qrCode}
         shortenUrl={shortenUrl}
+        scheduleDetail={scheduleDetail}
+        isLoggedIn={!!(await auth())}
       />
     </div>
   );
