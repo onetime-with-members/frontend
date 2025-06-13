@@ -13,7 +13,12 @@ import MemberBadge from '@/components/member-badge';
 import NavBar from '@/components/nav-bar';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
-import { fetchEvent, fetchRecommendedTimes, fetchSchedules } from '@/lib/data';
+import {
+  fetchEvent,
+  fetchQrCode,
+  fetchRecommendedTimes,
+  fetchSchedules,
+} from '@/lib/data';
 import { EventType, RecommendScheduleType, ScheduleType } from '@/lib/types';
 import { getParticipants } from '@/lib/utils';
 import { getTranslations } from 'next-intl/server';
@@ -55,6 +60,7 @@ export default async function Page({
   const { id } = await params;
   const event = await fetchEvent(id);
   const recommendedTimes = await fetchRecommendedTimes(id);
+  const qrCode = await fetchQrCode(id);
 
   if (!event) {
     notFound();
@@ -77,7 +83,7 @@ export default async function Page({
               <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
                 {event.title}
               </h1>
-              <ToolbarButtons event={event} />
+              <ToolbarButtons event={event} qrCode={qrCode} />
             </div>
           </div>
           {/* Bar Banner */}
@@ -105,7 +111,7 @@ export default async function Page({
       </main>
 
       {/* Bottom Button for Desktop and Mobile */}
-      <BottomButtons schedules={schedules || []} />
+      <BottomButtons schedules={schedules} event={event} qrCode={qrCode} />
     </div>
   );
 }

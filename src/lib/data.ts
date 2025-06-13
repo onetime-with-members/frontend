@@ -6,6 +6,7 @@ import {
   MyEventType,
   MyScheduleTimeType,
   PolicyType,
+  QrCode,
   RecommendScheduleType,
   ScheduleType,
   SleepTimeType,
@@ -192,4 +193,16 @@ export async function fetchBarBanner() {
   const barBanner: BarBanner | null = data.payload;
 
   return barBanner;
+}
+
+export async function fetchQrCode(eventId: string) {
+  const res = await fetch(`${SERVER_API_URL}/events/qr/${eventId}`);
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to fetch qr code');
+  }
+  const data = await res.json();
+  const qrCode: QrCode = data.payload;
+
+  return qrCode;
 }

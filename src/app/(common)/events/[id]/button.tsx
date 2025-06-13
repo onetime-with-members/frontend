@@ -13,13 +13,21 @@ import { FooterContext } from '@/contexts/footer';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import { auth } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { EventType, ScheduleType } from '@/lib/types';
+import { EventType, QrCode, ScheduleType } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
-export function BottomButtons({ schedules }: { schedules: ScheduleType[] }) {
+export function BottomButtons({
+  schedules,
+  event,
+  qrCode,
+}: {
+  schedules: ScheduleType[];
+  event: EventType;
+  qrCode: QrCode;
+}) {
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
 
@@ -95,14 +103,24 @@ export function BottomButtons({ schedules }: { schedules: ScheduleType[] }) {
 
       {/* Alert and Pop Up */}
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
-      {isSharePopUpOpen && event && (
-        <SharePopUp setIsOpen={setIsSharePopUpOpen} />
+      {isSharePopUpOpen && (
+        <SharePopUp
+          setIsOpen={setIsSharePopUpOpen}
+          event={event}
+          qrCode={qrCode}
+        />
       )}
     </>
   );
 }
 
-export function ToolbarButtons({ event }: { event: EventType }) {
+export function ToolbarButtons({
+  event,
+  qrCode,
+}: {
+  event: EventType;
+  qrCode: QrCode;
+}) {
   const t = useTranslations('eventDetail');
   const locale = useLocale();
 
@@ -110,7 +128,7 @@ export function ToolbarButtons({ event }: { event: EventType }) {
     <div className="flex items-center gap-2">
       <SpeechBalloon.Container className="hidden md:block">
         <SpeechBalloon.Wrapper>
-          <SendButton />
+          <SendButton qrCode={qrCode} event={event} />
         </SpeechBalloon.Wrapper>
         <SpeechBalloon.Main
           width={locale === 'ko' ? 101 : 111}
@@ -126,7 +144,13 @@ export function ToolbarButtons({ event }: { event: EventType }) {
   );
 }
 
-export function SendButton() {
+export function SendButton({
+  qrCode,
+  event,
+}: {
+  qrCode: QrCode;
+  event: EventType;
+}) {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
 
   return (
@@ -146,7 +170,13 @@ export function SendButton() {
       </ToolbarButton>
 
       {/*  Pop Up */}
-      {isSharePopUpOpen && <SharePopUp setIsOpen={setIsSharePopUpOpen} />}
+      {isSharePopUpOpen && (
+        <SharePopUp
+          setIsOpen={setIsSharePopUpOpen}
+          qrCode={qrCode}
+          event={event}
+        />
+      )}
     </>
   );
 }

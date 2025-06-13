@@ -4,15 +4,16 @@ import dayjs from 'dayjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 import ClockPattern from '@/components/clock-pattern';
 import Input from '@/components/input';
 import MemberBadge from '@/components/member-badge';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import useToast from '@/hooks/useToast';
-import axios from '@/lib/axios';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
+import { EventType, QrCode } from '@/lib/types';
 import {
   useEventQuery,
   useRecommendedTimesQuery,
@@ -25,14 +26,17 @@ import {
   IconQrcode,
   IconX,
 } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
 export default function SharePopUp({
   setIsOpen,
+  qrCode,
+  event,
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  qrCode: QrCode;
+  event: EventType;
 }) {
   const [isQrCodeScreenOpen, setIsQrCodeScreenOpen] = useState(false);
 
@@ -40,11 +44,8 @@ export default function SharePopUp({
 
   const toast = useToast();
 
-  const params = useParams<{ id: string }>();
   const t = useTranslations('sharePopUp');
   const tToast = useTranslations('toast');
-
-  const { data: event } = useEventQuery(params.id);
 
   function handleCopyLink() {
     navigator.clipboard.writeText(event?.shortenUrl || '');
@@ -54,7 +55,7 @@ export default function SharePopUp({
     toast(tToast('copiedLink'));
   }
 
-  return (
+  return createPortal(
     <>
       <div
         className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
@@ -105,10 +106,15 @@ export default function SharePopUp({
 
       <AnimatePresence>
         {isQrCodeScreenOpen && (
-          <QRCodeScreen onClose={() => setIsQrCodeScreenOpen(false)} />
+          <QRCodeScreen
+            onClose={() => setIsQrCodeScreenOpen(false)}
+            qrCode={qrCode}
+            event={event}
+          />
         )}
       </AnimatePresence>
-    </>
+    </>,
+    document.getElementById('pop-up') as HTMLElement,
   );
 }
 
@@ -205,20 +211,16 @@ export function ShareMoreButton() {
   );
 }
 
-export function QRCodeScreen({ onClose }: { onClose?: () => void }) {
-  const params = useParams<{ id: string }>();
+export function QRCodeScreen({
+  onClose,
+  qrCode,
+  event,
+}: {
+  onClose?: () => void;
+  qrCode: QrCode;
+  event: EventType;
+}) {
   const t = useTranslations('sharePopUp');
-
-  const { data: event } = useEventQuery(params.id);
-  const { data: qrData, isLoading: isQrLoading } = useQuery({
-    queryKey: ['events', 'qr', params.id],
-    queryFn: async () => {
-      const res = await axios.get(`/events/qr/${params.id}`);
-      return res.data;
-    },
-  });
-
-  const qr = qrData?.payload;
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -227,10 +229,6 @@ export function QRCodeScreen({ onClose }: { onClose?: () => void }) {
       document.body.style.overflow = '';
     };
   }, []);
-
-  if (isQrLoading) {
-    return <></>;
-  }
 
   return (
     <motion.div
@@ -261,7 +259,7 @@ export function QRCodeScreen({ onClose }: { onClose?: () => void }) {
             </div>
             <div className="h-[230px] w-[230px] overflow-hidden rounded-3xl bg-gray-00 sm:h-[280px] sm:w-[280px]">
               <Image
-                src={qr.qr_code_img_url}
+                src={qrCode.qr_code_img_url}
                 alt="QR 코드 이미지"
                 className="h-full w-full object-cover"
                 width={230}
@@ -270,7 +268,7 @@ export function QRCodeScreen({ onClose }: { onClose?: () => void }) {
             </div>
             <p className="text-center text-primary-10 title-sm-300">
               {t.rich('qrCodeScreen', {
-                eventName: event?.title,
+                eventName: event.title,
                 br: () => <br />,
                 Name: (children) => (
                   <span className="text-primary-00">{children}</span>

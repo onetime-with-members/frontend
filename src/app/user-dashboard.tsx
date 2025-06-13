@@ -14,7 +14,6 @@ import SleepIcon from '@/components/icon/sleep';
 import NavBar from '@/components/nav-bar';
 import TimeBlockBoardSkeleton from '@/components/skeleton/time-block-board-skeleton';
 import ToolbarTitleSkeleton from '@/components/skeleton/toolbar-title-skeleton';
-import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { currentUser } from '@/lib/auth';
 import cn from '@/lib/cn';
 import {
@@ -25,7 +24,6 @@ import {
 import { fetchMyEvents, fetchMySchedule, fetchSleepTime } from '@/lib/data';
 import { Link } from '@/navigation';
 import { getTranslations } from 'next-intl/server';
-import { cookies } from 'next/headers';
 
 export default async function UserDashboardPage() {
   const user = await currentUser();
@@ -166,8 +164,6 @@ function MyEventsSkeleton() {
 export async function MyScheduleSection() {
   const mySchedule = await fetchMySchedule();
   const sleepTime = await fetchSleepTime();
-
-  const cookieStore = await cookies();
 
   const t = await getTranslations('userDashboard');
 

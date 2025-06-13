@@ -63,6 +63,7 @@ export default async function RootLayout({
           <ProgressBar />
           <div className="flex min-h-[110vh] flex-col">{children}</div>
           <Footer />
+          <div id="pop-up" />
           <div id="alert" />
           <Toast />
           <NetworkErrorScreen />
