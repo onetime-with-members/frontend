@@ -1,7 +1,6 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useFormStatus } from 'react-dom';
 
 import Alert from '@/components/alert/alert';
 import { deleteEvent } from '@/lib/actions';
@@ -44,8 +43,6 @@ export function EventDeleteAlert({
 }: {
   setIsEventDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { pending } = useFormStatus();
-
   const params = useParams<{ id: string }>();
 
   const t = useTranslations('alert');
