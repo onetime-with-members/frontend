@@ -292,7 +292,7 @@ export function ParticipantsPopUp({
 }) {
   const t = useTranslations('eventDetail');
 
-  return (
+  return createPortal(
     <div
       className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
       onClick={onClose}
@@ -322,7 +322,8 @@ export function ParticipantsPopUp({
           ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById('pop-up') as HTMLElement,
   );
 }
 
@@ -353,7 +354,7 @@ export function RecommendTimePopUp({ onClose }: { onClose: () => void }) {
     timeAccordionList: 'mt-3 flex flex-col gap-3',
   };
 
-  return (
+  return createPortal(
     <div
       className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
       onClick={onClose}
@@ -405,7 +406,8 @@ export function RecommendTimePopUp({ onClose }: { onClose: () => void }) {
             ))}
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById('pop-up') as HTMLElement,
   );
 }
 
