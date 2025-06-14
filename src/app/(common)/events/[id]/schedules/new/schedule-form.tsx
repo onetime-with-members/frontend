@@ -40,7 +40,7 @@ export default function ScheduleFormSubScreen({
     if (isScheduleEmpty && (!isFixedScheduleEmpty || !isSleepTimeEmpty)) {
       toast(t('toast.loadedMySchedule'));
     }
-  }, [isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty, t]);
+  }, [isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty]);
 
   return (
     <div>

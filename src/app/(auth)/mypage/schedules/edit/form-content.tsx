@@ -83,13 +83,7 @@ export default function FormContent({
       setIsMyScheduleEdited(true);
       toast(t('toast.everytime'));
     }
-  }, [
-    everytimeSchedule,
-    myScheduleData,
-    setMySchedule,
-    setEverytimeSchedule,
-    t,
-  ]);
+  }, [everytimeSchedule, myScheduleData, mySchedule, isMyScheduleEdited]);
 
   return (
     <>
