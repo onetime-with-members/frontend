@@ -30,6 +30,10 @@ export async function middleware(request: NextRequest) {
     }),
   });
   if (!res.ok) {
+    const error = await res.json();
+    if (error.code === 'TOKEN-009') {
+      return response;
+    }
     response.cookies.delete('session');
     response.cookies.delete('access-token');
     response.cookies.delete('refresh-token');
