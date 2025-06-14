@@ -15,15 +15,29 @@ import useScheduleAdd from '@/hooks/useScheduleAdd';
 import { createNewMemberSchedule, updateSchedule } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { breakpoint } from '@/lib/constants';
-import { GuestValueType } from '@/lib/types';
+import {
+  EventType,
+  GuestValueType,
+  MyScheduleTimeType,
+  ScheduleType,
+  SleepTimeType,
+} from '@/lib/types';
 import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
 export default function ScheduleAddScreen({
   isLoggedIn,
+  event,
+  schedule,
+  mySchedule,
+  sleepTime,
 }: {
   isLoggedIn: boolean;
+  event: EventType;
+  schedule: ScheduleType;
+  mySchedule: MyScheduleTimeType[];
+  sleepTime: SleepTimeType;
 }) {
   const [pageIndex, setPageIndex] = useState(isLoggedIn ? 1 : 0);
   const [isNewGuest, setIsNewGuest] = useState(false);
@@ -42,9 +56,18 @@ export default function ScheduleAddScreen({
 
   const t = useTranslations('scheduleAdd');
 
-  const { schedules, setSchedules, event, initialSchedule } = useScheduleAdd({
-    isNewGuest,
-    guestId,
+  const {
+    schedules,
+    setSchedules,
+    initialSchedule,
+    isScheduleEmpty,
+    isFixedScheduleEmpty,
+    isSleepTimeEmpty,
+  } = useScheduleAdd({
+    event,
+    schedule,
+    mySchedule,
+    sleepTime,
   });
   useGrayBackground({
     breakpointCondition: () => window.innerWidth >= breakpoint.sm,
@@ -159,14 +182,16 @@ export default function ScheduleAddScreen({
           )}
           {pageIndex === 1 && event && (
             <ScheduleFormSubScreen
-              event={event}
               schedules={schedules}
               setSchedules={setSchedules}
+              event={event}
               isScheduleEdited={isScheduleEdited}
               setIsScheduleEdited={setIsScheduleEdited}
               isNewGuest={isNewGuest}
-              guestId={guestId}
               initialSchedule={initialSchedule}
+              isScheduleEmpty={isScheduleEmpty}
+              isFixedScheduleEmpty={isFixedScheduleEmpty}
+              isSleepTimeEmpty={isSleepTimeEmpty}
             />
           )}
         </main>

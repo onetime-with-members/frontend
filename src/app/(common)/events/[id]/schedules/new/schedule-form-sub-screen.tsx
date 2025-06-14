@@ -4,7 +4,6 @@ import { useFormStatus } from 'react-dom';
 
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import TimeBlockBoard from '@/components/time-block-board/event';
-import useScheduleAdd from '@/hooks/useScheduleAdd';
 import useToast from '@/hooks/useToast';
 import { EventType, ScheduleType } from '@/lib/types';
 
@@ -15,8 +14,10 @@ export default function ScheduleFormSubScreen({
   isScheduleEdited,
   setIsScheduleEdited,
   isNewGuest,
-  guestId,
   initialSchedule,
+  isScheduleEmpty,
+  isFixedScheduleEmpty,
+  isSleepTimeEmpty,
 }: {
   event: EventType;
   schedules: ScheduleType[];
@@ -24,19 +25,16 @@ export default function ScheduleFormSubScreen({
   isScheduleEdited: boolean;
   setIsScheduleEdited: React.Dispatch<React.SetStateAction<boolean>>;
   isNewGuest: boolean;
-  guestId: string;
   initialSchedule: ScheduleType[];
+  isScheduleEmpty: boolean;
+  isFixedScheduleEmpty: boolean;
+  isSleepTimeEmpty: boolean;
 }) {
   const [isPossibleTime, setIsPossibleTime] = useState(true);
 
   const t = useTranslations();
 
   const toast = useToast();
-  const { isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty } =
-    useScheduleAdd({
-      isNewGuest,
-      guestId,
-    });
 
   useEffect(() => {
     if (isScheduleEmpty && (!isFixedScheduleEmpty || !isSleepTimeEmpty)) {

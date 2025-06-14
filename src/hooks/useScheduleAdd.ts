@@ -1,21 +1,15 @@
-import { getCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useContext, useEffect, useState } from 'react';
 
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import { weekdaysShortKo } from '@/lib/constants';
-import { fetchMySchedule } from '@/lib/data';
-import { MyScheduleTimeType, ScheduleType, SleepTimeType } from '@/lib/types';
+import {
+  EventType,
+  MyScheduleTimeType,
+  ScheduleType,
+  SleepTimeType,
+} from '@/lib/types';
 import { timeBlockList } from '@/lib/utils';
-import { useEventQuery } from '@/queries/event.queries';
-import { useScheduleDetailQuery } from '@/queries/schedule.queries';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'next/navigation';
-
-interface UseScheduleCreateProps {
-  isNewGuest: boolean;
-  guestId: string;
-}
 
 function isScheduleEmpty(scheduleData: ScheduleType | undefined) {
   return scheduleData
@@ -39,29 +33,19 @@ function isSleepTimeEmpty(sleepTimeData: SleepTimeType | undefined) {
 }
 
 export default function useScheduleAdd({
-  isNewGuest,
-  guestId,
-}: UseScheduleCreateProps) {
+  event,
+  schedule,
+  mySchedule,
+  sleepTime,
+}: {
+  event: EventType;
+  schedule: ScheduleType;
+  mySchedule: MyScheduleTimeType[];
+  sleepTime: SleepTimeType;
+}) {
   const [initialSchedule, setInitialSchedule] = useState<ScheduleType[]>([]);
 
-  const { sleepTimeData, sleepTimesList } = useContext(SleepTimeContext);
-
-  const params = useParams<{ id: string }>();
-
-  const isLoggedIn = !!getCookie('session');
-
-  const { data: event } = useEventQuery(params.id);
-  const { data: scheduleData } = useScheduleDetailQuery({
-    event,
-    guestId,
-    isNewGuest,
-    isLoggedIn,
-  });
-  const { data: fixedScheduleData } = useQuery<MyScheduleTimeType[]>({
-    queryKey: ['fixed-schedules'],
-    queryFn: async () => await fetchMySchedule(),
-    enabled: isLoggedIn,
-  });
+  const { sleepTimesList } = useContext(SleepTimeContext);
 
   const [schedules, setSchedules] = useState<ScheduleType[]>([
     {
@@ -70,38 +54,37 @@ export default function useScheduleAdd({
     },
   ]);
   const [isEmpty, setIsEmpty] = useState({
-    schedule: isScheduleEmpty(scheduleData),
-    fixedSchedule: isFixedScheduleEmpty(fixedScheduleData),
-    sleepTime: isSleepTimeEmpty(sleepTimeData),
+    schedule: isScheduleEmpty(schedule),
+    fixedSchedule: isFixedScheduleEmpty(mySchedule),
+    sleepTime: isSleepTimeEmpty(sleepTime),
   });
 
   useEffect(() => {
     setIsEmpty({
-      schedule: isScheduleEmpty(scheduleData),
-      fixedSchedule: isFixedScheduleEmpty(fixedScheduleData),
-      sleepTime: isSleepTimeEmpty(sleepTimeData),
+      schedule: isScheduleEmpty(schedule),
+      fixedSchedule: isFixedScheduleEmpty(mySchedule),
+      sleepTime: isSleepTimeEmpty(sleepTime),
     });
-  }, [scheduleData, fixedScheduleData, sleepTimeData]);
+  }, [schedule, mySchedule, sleepTime]);
 
   useEffect(() => {
-    const defaultSchedule =
-      event?.ranges.map((time_point) => ({
-        time_point,
-        times: [],
-      })) || [];
+    const defaultSchedule = event.ranges.map((time_point) => ({
+      time_point,
+      times: [],
+    }));
 
     const initialSchedule = [
       {
-        name: scheduleData?.name || '본인',
+        name: schedule.name || '본인',
         schedules: isEmpty.schedule
           ? isEmpty.fixedSchedule && isEmpty.sleepTime
             ? defaultSchedule
             : fixedAndSleepTimeSchedule()
-          : defaultSchedule.map((schedule) => ({
-              ...schedule,
+          : defaultSchedule.map((scheduleTime) => ({
+              ...scheduleTime,
               times:
-                scheduleData?.schedules.find(
-                  (s) => s.time_point === schedule.time_point,
+                schedule.schedules.find(
+                  (s) => s.time_point === scheduleTime.time_point,
                 )?.times || [],
             })),
       },
@@ -112,7 +95,7 @@ export default function useScheduleAdd({
 
     function fixedAndSleepTimeSchedule() {
       return (
-        event?.ranges.map((time_point) => ({
+        event.ranges.map((time_point) => ({
           time_point,
           times: newTimes(
             event.start_time,
@@ -146,7 +129,7 @@ export default function useScheduleAdd({
 
       function fixedScheduleTimes(timePoint: string, category: 'DATE' | 'DAY') {
         return (
-          fixedScheduleData?.find(
+          mySchedule?.find(
             (fixedSchedule) =>
               weekdayIndex(timePoint, category) ===
               weekdayIndex(fixedSchedule.time_point, 'DAY'),
@@ -163,19 +146,11 @@ export default function useScheduleAdd({
         }
       }
     }
-  }, [
-    event,
-    scheduleData,
-    fixedScheduleData,
-    sleepTimeData,
-    isEmpty,
-    sleepTimesList,
-  ]);
+  }, [event, schedule, mySchedule, sleepTime, isEmpty, sleepTimesList]);
 
   return {
     schedules,
     setSchedules,
-    event,
     isScheduleEmpty: isEmpty.schedule,
     isFixedScheduleEmpty: isEmpty.fixedSchedule,
     isSleepTimeEmpty: isEmpty.sleepTime,

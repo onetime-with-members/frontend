@@ -14,7 +14,6 @@ export const SleepTimeContext = createContext<{
   sleepTime: SleepTimeType;
   setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
   sleepTimesList: string[];
-  sleepTimeData: SleepTimeType;
   timesGroupForSplittedTimeBlock: string[][];
   timesGroupForSplittedTimeLabel: string[][];
   revalidateSleepTime: () => void;
@@ -22,7 +21,6 @@ export const SleepTimeContext = createContext<{
   sleepTime: defaultSleepTime,
   setSleepTime: () => {},
   sleepTimesList: [],
-  sleepTimeData: defaultSleepTime,
   timesGroupForSplittedTimeBlock: [],
   timesGroupForSplittedTimeLabel: [],
   revalidateSleepTime: () => {},
@@ -115,7 +113,6 @@ export default function SleepTimeContextProvider({
         sleepTime,
         setSleepTime,
         sleepTimesList,
-        sleepTimeData,
         timesGroupForSplittedTimeBlock,
         timesGroupForSplittedTimeLabel,
         revalidateSleepTime,
