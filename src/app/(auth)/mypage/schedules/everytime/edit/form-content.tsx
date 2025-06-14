@@ -42,15 +42,15 @@ export default function FormContent() {
 
     const formData = new FormData();
     formData.set('everytimeUrl', everytimeUrl);
-    const { everytimeSchedule: data, error: errorData } =
+    const { everytimeSchedule, error: errorData } =
       await submitEverytimeUrl(formData);
 
-    if (!data) {
+    if (!everytimeSchedule) {
       setError(errorData);
       return;
     }
 
-    setEverytimeSchedule(data);
+    setEverytimeSchedule(everytimeSchedule);
     const editPagePathname = '/mypage/schedules/edit';
     if (searchParams.get('from') !== editPagePathname) {
       router.replace(editPagePathname);

@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, useState } from 'react';
 
 import { EverytimeSchedule } from '@/lib/types';

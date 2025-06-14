@@ -149,23 +149,21 @@ export async function editPolicy(formData: FormData) {
 export async function submitEverytimeUrl(formData: FormData) {
   const everytimeUrl = formData.get('everytimeUrl') as string;
 
+  const searchParams = new URLSearchParams({
+    url: everytimeUrl,
+  });
+
   const res = await fetch(
-    `${CRAWLING_SERVER_API_URL}/users/sleep-time?url=${everytimeUrl}`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${await accessToken()}`,
-      },
-    },
+    `${CRAWLING_SERVER_API_URL}/schedule?${searchParams.toString()}`,
   );
   if (!res.ok) {
     console.error(await res.json());
     return { everytimeSchedule: null, error: await res.json() };
   }
   const data = await res.json();
-  const everytimeSchedule: EverytimeSchedule = data.payload;
+  const everytimeSchedule: EverytimeSchedule = data.payload.schedules;
 
-  return { everytimeSchedule: everytimeSchedule, error: null };
+  return { everytimeSchedule, error: null };
 }
 
 export async function checkNewGuest(formData: FormData) {

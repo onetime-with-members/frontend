@@ -1,5 +1,6 @@
 import BarBannerContextProvider from './bar-banner';
 import CurrentUserContextProvider from './current-user';
+import EverytimeScheduleContextProvider from './everytime-schedule';
 import FooterContextProvider from './footer';
 import MyScheduleContextProvider from './my-schedule';
 import PageModeContextProvider from './page-mode';
@@ -42,7 +43,11 @@ export default async function ContextProviders({
                 <MyScheduleContextProvider defaultMySchedule={mySchedule}>
                   <BarBannerContextProvider barBanner={barBanner}>
                     <WeekdayLocaleContextProvider initialLocale={locale}>
-                      <ToastContextProvider>{children}</ToastContextProvider>
+                      <ToastContextProvider>
+                        <EverytimeScheduleContextProvider>
+                          {children}
+                        </EverytimeScheduleContextProvider>
+                      </ToastContextProvider>
                     </WeekdayLocaleContextProvider>
                   </BarBannerContextProvider>
                 </MyScheduleContextProvider>
