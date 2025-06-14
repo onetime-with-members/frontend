@@ -177,7 +177,7 @@ export default function ScheduleAddScreen({
             </h2>
             {pageIndex === 1 && (
               <div className="flex items-center justify-end">
-                <TopSubmitButton disabled={disabled} />
+                <TopSubmitButton />
               </div>
             )}
           </div>
@@ -240,13 +240,13 @@ export default function ScheduleAddScreen({
   );
 }
 
-export function TopSubmitButton({ disabled }: { disabled: boolean }) {
+export function TopSubmitButton() {
   const { pending } = useFormStatus();
 
   const t = useTranslations('scheduleAdd');
 
   return (
-    <SmallButton disabled={pending || disabled}>
+    <SmallButton disabled={pending}>
       {pending ? t('saving') : t('done')}
     </SmallButton>
   );
