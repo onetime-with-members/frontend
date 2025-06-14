@@ -11,10 +11,7 @@ import {
 import { MyEventType } from '@/lib/types';
 import { Link } from '@/navigation';
 import { IconChevronRight } from '@tabler/icons-react';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import Image from 'next/image';
-
-dayjs.extend(relativeTime);
 
 export default function MyEvent({
   event,
