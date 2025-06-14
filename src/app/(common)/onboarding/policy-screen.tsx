@@ -1,28 +1,26 @@
 import { useTranslations } from 'next-intl';
 import React, { useEffect, useState } from 'react';
 
-import ScreenLayout from '../ScreenLayout/ScreenLayout';
+import ScreenLayout from './screen-layout';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import PolicyDetailScreen from '@/components/user/policy-detail-screen';
 import { OnboardingValueType, PolicyKeyType, PolicyType } from '@/lib/types';
-
-interface PolicyScreenProps {
-  isVisible: boolean;
-  page: number;
-  value: OnboardingValueType;
-  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
-  handleNextButtonClick: (disabled: boolean) => void;
-  handleBackButtonClick: () => void;
-}
 
 export default function PolicyScreen({
   isVisible,
   page,
   value,
   setValue,
-  handleNextButtonClick,
-  handleBackButtonClick,
-}: PolicyScreenProps) {
+  onNextButtonClick: handleNextButtonClick,
+  onBackButtonClick: handleBackButtonClick,
+}: {
+  isVisible: boolean;
+  page: number;
+  value: OnboardingValueType;
+  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
+  onNextButtonClick: (disabled: boolean) => void;
+  onBackButtonClick: () => void;
+}) {
   const [disabled, setDisabled] = useState(true);
   const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
   const [policyValue, setPolicyValue] = useState<PolicyType>({
@@ -64,8 +62,8 @@ export default function PolicyScreen({
           br: () => <br className="hidden xs:block" />,
         })}
         disabled={disabled}
-        handleNextButtonClick={() => handleNextButtonClick(disabled)}
-        handleBackButtonClick={handleBackButtonClick}
+        onNextButtonClick={() => handleNextButtonClick(disabled)}
+        onBackButtonClick={handleBackButtonClick}
       >
         <PolicyCheckboxContent
           value={policyValue}

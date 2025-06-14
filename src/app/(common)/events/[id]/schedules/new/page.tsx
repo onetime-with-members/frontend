@@ -1,4 +1,4 @@
-import ScheduleAddScreen from './screen';
+import ScheduleAddScreen from './content';
 import { auth } from '@/lib/auth';
 import {
   fetchEvent,

@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
-import Button from '@/components/button/button';
+import Button from '@/components/button';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { BarBannerContext } from '@/contexts/bar-banner';
 import { FooterContext } from '@/contexts/footer';

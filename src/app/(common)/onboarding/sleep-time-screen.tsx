@@ -1,27 +1,25 @@
 import { useTranslations } from 'next-intl';
 
-import ScreenLayout from '../ScreenLayout/ScreenLayout';
+import ScreenLayout from './screen-layout';
 import TimeDropdown from '@/components/dropdown/time-dropdown';
 import SleepIcon from '@/components/icon/sleep';
 import { OnboardingValueType } from '@/lib/types';
-
-interface SleepTimeScreenProps {
-  isVisible: boolean;
-  page: number;
-  value: OnboardingValueType;
-  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
-  handleSubmitButtonClick: (disabled: boolean) => void;
-  handleBackButtonClick: () => void;
-}
 
 export default function SleepTimeScreen({
   isVisible,
   page,
   value,
   setValue,
-  handleSubmitButtonClick,
-  handleBackButtonClick,
-}: SleepTimeScreenProps) {
+  onSubmit,
+  onBackButtonClick,
+}: {
+  isVisible: boolean;
+  page: number;
+  value: OnboardingValueType;
+  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onBackButtonClick: () => void;
+}) {
   const t = useTranslations('onboarding');
 
   function handleTimeChange(key: keyof OnboardingValueType) {
@@ -35,13 +33,15 @@ export default function SleepTimeScreen({
 
   return (
     <ScreenLayout
+      type="submit"
       isVisible={isVisible}
       page={page}
       title={t.rich('title3', {
         br: () => <br />,
       })}
-      handleNextButtonClick={() => handleSubmitButtonClick(false)}
-      handleBackButtonClick={handleBackButtonClick}
+      onNextButtonClick={() => {}}
+      onSubmit={onSubmit}
+      onBackButtonClick={onBackButtonClick}
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-1.5">

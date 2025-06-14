@@ -1,4 +1,4 @@
-import EventFormContent from '@/components/event/form-screen';
+import EventFormScreen from '@/components/event/form-screen';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -10,5 +10,5 @@ export async function generateMetadata() {
 }
 
 export default function EventCreate() {
-  return <EventFormContent type="create" />;
+  return <EventFormScreen type="create" />;
 }

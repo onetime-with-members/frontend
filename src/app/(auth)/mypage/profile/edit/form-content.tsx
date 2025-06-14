@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
-import Button from '@/components/button/button';
+import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import NicknameFormControl from '@/components/user/nickname-form-control';
 import { CurrentUserContext } from '@/contexts/current-user';

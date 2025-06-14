@@ -1,4 +1,5 @@
-import Button, { ButtonProps } from './button';
+import Button, { ButtonProps } from '.';
+
 import cn from '@/lib/cn';
 
 interface FloatingBottomButtonProps extends ButtonProps {

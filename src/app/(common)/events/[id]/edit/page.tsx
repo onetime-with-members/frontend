@@ -1,4 +1,4 @@
-import EventFormContent from '@/components/event/form-screen';
+import EventFormScreen from '@/components/event/form-screen';
 import { fetchEvent } from '@/lib/data';
 import { getTranslations } from 'next-intl/server';
 import { notFound, redirect } from 'next/navigation';
@@ -45,7 +45,7 @@ export default async function Page({
   }
 
   return (
-    <EventFormContent
+    <EventFormScreen
       type="edit"
       originData={{
         title: event.title,

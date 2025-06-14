@@ -3,7 +3,7 @@
 import dayjs from 'dayjs';
 
 import { SERVER_API_URL, defaultUser } from './constants';
-import { UserType } from './types';
+import { OnboardingValueType, UserType } from './types';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -77,6 +77,43 @@ export async function currentUser() {
   const user: UserType = data.payload;
 
   return user;
+}
+
+export async function createUser(formData: FormData) {
+  const onboardingValue: OnboardingValueType = JSON.parse(
+    formData.get('onboardingValue') as string,
+  );
+
+  const cookieStore = await cookies();
+
+  const redirectUrl = cookieStore.get('redirect-url');
+
+  const res = await fetch(`${SERVER_API_URL}/users/onboarding`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${await accessToken()}`,
+    },
+    body: JSON.stringify(onboardingValue),
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    redirect(`/login?redirect_url=${redirectUrl || '/'}`);
+  }
+  const data = await res.json();
+  const { access_token: newAccessToken, refresh_token: newRefreshToken } =
+    data.payload;
+
+  cookieStore.set(
+    'session',
+    JSON.stringify({
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+    } satisfies Session),
+    {
+      expires: dayjs().add(1, 'month').toDate(),
+    },
+  );
 }
 
 export async function withdraw() {

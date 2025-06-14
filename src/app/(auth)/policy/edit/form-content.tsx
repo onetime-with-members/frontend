@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
-import Button from '@/components/button/button';
+import Button from '@/components/button';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import { PolicyContext } from '@/contexts/policy';
 import { editPolicy } from '@/lib/actions';

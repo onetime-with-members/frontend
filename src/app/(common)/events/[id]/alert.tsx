@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import Alert from '@/components/alert/alert';
+import Alert from '@/components/alert';
 import { deleteEvent } from '@/lib/actions';
 import { useRouter } from '@/navigation';
 import { useParams, usePathname } from 'next/navigation';

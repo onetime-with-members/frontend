@@ -1,6 +1,6 @@
+import Alert from '.';
 import { useTranslations } from 'next-intl';
 
-import Alert from './alert';
 import { useRouter } from '@/navigation';
 
 export default function BackButtonAlert({

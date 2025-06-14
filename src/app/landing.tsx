@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import Button from '@/components/button/button';
+import Button from '@/components/button';
 import { useRouter } from '@/navigation';
 
 export function TopCTAButton() {

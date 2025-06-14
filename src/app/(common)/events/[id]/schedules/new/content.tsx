@@ -4,8 +4,8 @@ import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
-import MemberLoginSubScreen from './member-login-sub-screen';
-import ScheduleFormSubScreen from './schedule-form-sub-screen';
+import MemberLoginSubScreen from './member-login';
+import ScheduleFormSubScreen from './schedule-form';
 import BackButtonAlert from '@/components/alert/back-button-alert';
 import SmallButton from '@/components/button/small-button';
 import NavBar from '@/components/nav-bar';

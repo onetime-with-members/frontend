@@ -1,27 +1,25 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import ScreenLayout from '../ScreenLayout/ScreenLayout';
+import ScreenLayout from './screen-layout';
 import NicknameFormControl from '@/components/user/nickname-form-control';
 import { OnboardingValueType } from '@/lib/types';
-
-interface NicknameFormProps {
-  isVisible: boolean;
-  page: number;
-  value: OnboardingValueType;
-  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
-  handleNextButtonClick: (disabled: boolean) => void;
-  handleBackButtonClick: () => void;
-}
 
 export default function NicknameFormScreen({
   isVisible,
   page,
   value,
   setValue,
-  handleNextButtonClick,
-  handleBackButtonClick,
-}: NicknameFormProps) {
+  onNextButtonClick: handleNextButtonClick,
+  onBackButtonClick: handleBackButtonClick,
+}: {
+  isVisible: boolean;
+  page: number;
+  value: OnboardingValueType;
+  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
+  onNextButtonClick: (disabled: boolean) => void;
+  onBackButtonClick: () => void;
+}) {
   const [disabled, setDisabled] = useState(true);
 
   const t = useTranslations('onboarding');
@@ -41,8 +39,8 @@ export default function NicknameFormScreen({
         br: () => <br className="md:hidden" />,
       })}
       disabled={disabled}
-      handleNextButtonClick={() => handleNextButtonClick(disabled)}
-      handleBackButtonClick={handleBackButtonClick}
+      onNextButtonClick={() => handleNextButtonClick(disabled)}
+      onBackButtonClick={handleBackButtonClick}
     >
       <NicknameFormControl
         value={value.nickname}

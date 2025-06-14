@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import InputContent from './input-content';
-import Button from '@/components/button/button';
+import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
 import { createEvent, editEvent } from '@/lib/actions';
@@ -17,7 +17,7 @@ import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
-export default function EventFormContent({
+export default function EventFormScreen({
   type,
   originData,
 }: {

@@ -1,4 +1,4 @@
-import OnboardingPage from './components/OnboardingPage';
+import OnboardingContent from './content';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -10,5 +10,5 @@ export async function generateMetadata() {
 }
 
 export default function Onboarding() {
-  return <OnboardingPage />;
+  return <OnboardingContent />;
 }

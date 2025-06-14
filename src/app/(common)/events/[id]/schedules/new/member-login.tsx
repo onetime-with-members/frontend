@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import PinPasswordInput from './pin-password';
-import Button from '@/components/button/button';
+import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import NicknameFormControl from '@/components/user/nickname-form-control';
 import { GuestValueType } from '@/lib/types';

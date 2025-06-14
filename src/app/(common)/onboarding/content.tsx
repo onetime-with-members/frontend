@@ -1,23 +1,20 @@
 'use client';
 
-import { getCookie, setCookie } from 'cookies-next';
-import dayjs from 'dayjs';
+import { getCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
-import NicknameFormScreen from './NicknameFormScreen/NicknameFormScreen';
-import PageIndicator from './PageIndicator/PageIndicator';
-import PolicyScreen from './PolicyScreen/PolicyScreen';
-import SleepTimeScreen from './SleepTimeScreen/SleepTimeScreen';
-import TopAppBarForMobile from './TopAppBarForMobile/TopAppBarForMobile';
-import TopNavBarForDesktop from './TopNavBarForDesktop/TopNavBarForDesktop';
-import WelcomeScreen from './WelcomeScreen/WelcomeScreen';
+import NicknameFormScreen from './nickname-form-screen';
+import PolicyScreen from './policy-screen';
+import SleepTimeScreen from './sleep-time-screen';
+import WelcomeScreen from './welcome-screen';
+import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import axios from '@/lib/axios';
+import { createUser } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { OnboardingValueType } from '@/lib/types';
 import { useRouter } from '@/navigation';
-import { useMutation } from '@tanstack/react-query';
+import { IconChevronLeft } from '@tabler/icons-react';
 import { useSearchParams } from 'next/navigation';
 
 export default function OnboardingPage() {
@@ -42,23 +39,6 @@ export default function OnboardingPage() {
 
   const redirectUrl = getCookie('redirect-url');
 
-  const { mutate: onboarding } = useMutation({
-    mutationFn: async () => {
-      const res = await axios.post('/users/onboarding', value);
-      return res.data;
-    },
-    onSuccess: (data) => {
-      const { access_token: accessToken } = data.payload;
-      setCookie('access-token', accessToken, {
-        expires: dayjs().add(1, 'year').toDate(),
-      });
-      setPage((prevPage) => prevPage + 1);
-    },
-    onError: () => {
-      router.push(`/login?redirect_url=${redirectUrl}`);
-    },
-  });
-
   function handleNextButtonClick(disabled: boolean) {
     if (disabled) return;
     setPage((prevPage) => prevPage + 1);
@@ -72,9 +52,14 @@ export default function OnboardingPage() {
     }
   }
 
-  function handleSubmitButtonClick(disabled: boolean) {
-    if (disabled) return;
-    onboarding();
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.set('onboardingValue', JSON.stringify(value));
+    await createUser(formData);
+
+    setPage((prev) => prev + 1);
   }
 
   useEffect(() => {
@@ -102,48 +87,75 @@ export default function OnboardingPage() {
     <>
       <div className="flex flex-1 flex-col md:gap-4">
         <header>
-          <TopAppBarForMobile
-            handleBackButtonClick={handleBackButtonClick}
-            className={cn({
+          {/* App Bar for Mobile */}
+          <nav
+            className={cn('block h-[4rem] md:hidden', {
               hidden: page === 4,
             })}
-          />
-          <TopNavBarForDesktop />
+          >
+            <div className="fixed left-0 top-0 flex h-[4rem] w-full items-center bg-gray-00 p-4">
+              <button className="w-6" onClick={handleBackButtonClick}>
+                <IconChevronLeft />
+              </button>
+              <div className="flex flex-1 items-center justify-center">
+                <span className="text-gray-90 text-md-300"></span>
+              </div>
+              <div className="w-6" />
+            </div>
+          </nav>
+          {/* Navigation Bar for Desktop */}
+          <div className="hidden md:block">
+            <NavBar isAuthHidden={true} />
+          </div>
         </header>
 
         <main className="flex h-full flex-1 flex-col px-4">
+          {/* Page Indicator */}
           <div className="mx-auto flex w-full max-w-screen-sm flex-1 flex-col">
-            <PageIndicator
-              pageMaxNumber={3}
-              page={page}
-              className={cn({
+            <div
+              className={cn('flex items-center gap-2 py-4 md:justify-center', {
                 hidden: page === 4,
               })}
-            />
+            >
+              {Array.from({ length: 3 }, (_, i) => i + 1).map((pageNumber) => (
+                <div
+                  key={pageNumber}
+                  className={cn(
+                    'flex h-6 w-6 items-center justify-center rounded-full bg-gray-05 text-gray-20 text-sm-300',
+                    {
+                      'bg-primary-40 text-white': page === pageNumber,
+                    },
+                  )}
+                >
+                  {pageNumber}
+                </div>
+              ))}
+            </div>
 
+            {/* Screen */}
             <PolicyScreen
               isVisible={page === 1}
               page={page}
               value={value}
               setValue={setValue}
-              handleNextButtonClick={handleNextButtonClick}
-              handleBackButtonClick={handleBackButtonClick}
+              onNextButtonClick={handleNextButtonClick}
+              onBackButtonClick={handleBackButtonClick}
             />
             <NicknameFormScreen
               isVisible={page === 2}
               page={page}
               value={value}
               setValue={setValue}
-              handleNextButtonClick={handleNextButtonClick}
-              handleBackButtonClick={handleBackButtonClick}
+              onNextButtonClick={handleNextButtonClick}
+              onBackButtonClick={handleBackButtonClick}
             />
             <SleepTimeScreen
               isVisible={page === 3}
               page={page}
               value={value}
               setValue={setValue}
-              handleSubmitButtonClick={handleSubmitButtonClick}
-              handleBackButtonClick={handleBackButtonClick}
+              onSubmit={handleSubmit}
+              onBackButtonClick={handleBackButtonClick}
             />
             <WelcomeScreen isVisible={page === 4} value={value} />
           </div>

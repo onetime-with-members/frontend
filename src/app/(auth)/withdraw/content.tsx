@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import Button from '@/components/button/button';
+import Button from '@/components/button';
 import { withdraw } from '@/lib/auth';
 import cn from '@/lib/cn';
 import Image from 'next/image';

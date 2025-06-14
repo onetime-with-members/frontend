@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 import { useFormStatus } from 'react-dom';
 
-import Button from '@/components/button/button';
+import Button from '@/components/button';
 import { FooterContext } from '@/contexts/footer';
 import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
