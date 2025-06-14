@@ -87,7 +87,6 @@ export default function FormContent({
   }, [
     everytimeSchedule,
     myScheduleData,
-    toast,
     setMySchedule,
     setEverytimeSchedule,
     t,
