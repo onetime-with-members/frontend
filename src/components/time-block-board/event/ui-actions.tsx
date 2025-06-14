@@ -52,6 +52,7 @@ export function ClearButton({
 
   return (
     <button
+      type="button"
       className={cn(
         'flex h-[2rem] items-center gap-1 rounded-full border border-danger-50 bg-gray-00 px-3 py-1 text-danger-50 text-sm-200',
         className,
@@ -74,6 +75,7 @@ export function ReloadButton({
 
   return (
     <button
+      type="button"
       className={cn(
         'flex h-8 items-center gap-1 rounded-full bg-primary-50 px-3 py-1 text-gray-00 text-sm-200',
         className,
@@ -96,6 +98,7 @@ export function ResetButton({
 
   return (
     <button
+      type="button"
       className={cn(
         'flex h-[2rem] items-center gap-1 rounded-full border border-gray-10 bg-gray-00 px-3 py-1 text-gray-40 text-sm-200',
         className,

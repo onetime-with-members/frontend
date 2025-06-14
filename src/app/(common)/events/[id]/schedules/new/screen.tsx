@@ -12,7 +12,12 @@ import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
-import { createNewMemberSchedule, updateSchedule } from '@/lib/actions';
+import {
+  checkNewGuest,
+  createNewMemberSchedule,
+  loginGuest,
+  updateSchedule,
+} from '@/lib/actions';
 import cn from '@/lib/cn';
 import { breakpoint } from '@/lib/constants';
 import {
@@ -46,6 +51,8 @@ export default function ScheduleAddScreen({
     name: '',
     pin: '',
   });
+  const [disabled, setDisabled] = useState(true);
+  const [nicknameDisabled, setNicknameDisabled] = useState(true);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isScheduleEdited, setIsScheduleEdited] = useState(false);
 
@@ -57,8 +64,8 @@ export default function ScheduleAddScreen({
   const t = useTranslations('scheduleAdd');
 
   const {
-    schedules,
-    setSchedules,
+    scheduleValue,
+    setScheduleValue,
     initialSchedule,
     isScheduleEmpty,
     isFixedScheduleEmpty,
@@ -76,20 +83,37 @@ export default function ScheduleAddScreen({
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (pageIndex !== 1) return;
+    if (pageIndex === 0) {
+      if (disabled) return;
 
-    if (isNewGuest) {
+      const formData = new FormData();
+      formData.set('event_id', params.id);
+      formData.set('name', guestValue.name);
+      const { isNewGuest } = await checkNewGuest(formData);
+      setIsNewGuest(isNewGuest);
+      if (isNewGuest) {
+        return setPageIndex(1);
+      }
+
+      formData.set('pin', guestValue.pin);
+      const { guestId, pinNotCorrect } = await loginGuest(formData);
+      if (pinNotCorrect) {
+        return alert('PIN 번호가 올바르지 않습니다.');
+      }
+      setGuestId(guestId);
+      setPageIndex(1);
+    } else if (isNewGuest) {
       const formData = new FormData();
       formData.set('event_id', params.id);
       formData.set('name', guestValue.name);
       formData.set('pin', guestValue.pin);
-      formData.set('schedules', JSON.stringify(schedules));
+      formData.set('schedules', JSON.stringify(scheduleValue));
       await createNewMemberSchedule(formData);
     } else {
       const formData = new FormData();
       formData.set('event', JSON.stringify(event));
       formData.set('guestId', guestId);
-      formData.set('schedule', JSON.stringify(schedules[0].schedules));
+      formData.set('schedule', JSON.stringify(scheduleValue[0].schedules));
       await updateSchedule(formData);
     }
   }
@@ -121,6 +145,15 @@ export default function ScheduleAddScreen({
     };
   });
 
+  useEffect(() => {
+    setDisabled(
+      guestValue.name === '' ||
+        guestValue.pin.length !== 4 ||
+        guestValue.pin.includes('-') ||
+        nicknameDisabled,
+    );
+  }, [guestValue, nicknameDisabled]);
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -144,7 +177,7 @@ export default function ScheduleAddScreen({
             </h2>
             {pageIndex === 1 && (
               <div className="flex items-center justify-end">
-                <TopSubmitButton />
+                <TopSubmitButton disabled={disabled} />
               </div>
             )}
           </div>
@@ -173,17 +206,16 @@ export default function ScheduleAddScreen({
         >
           {pageIndex === 0 && (
             <MemberLoginSubScreen
-              setPageIndex={setPageIndex}
-              setGuestId={setGuestId}
               guestValue={guestValue}
               setGuestValue={setGuestValue}
-              setIsNewGuest={setIsNewGuest}
+              setNicknameDisabled={setNicknameDisabled}
+              disabled={disabled}
             />
           )}
           {pageIndex === 1 && event && (
             <ScheduleFormSubScreen
-              schedules={schedules}
-              setSchedules={setSchedules}
+              scheduleValue={scheduleValue}
+              setScheduleValue={setScheduleValue}
               event={event}
               isScheduleEdited={isScheduleEdited}
               setIsScheduleEdited={setIsScheduleEdited}
@@ -208,13 +240,13 @@ export default function ScheduleAddScreen({
   );
 }
 
-export function TopSubmitButton() {
+export function TopSubmitButton({ disabled }: { disabled: boolean }) {
   const { pending } = useFormStatus();
 
   const t = useTranslations('scheduleAdd');
 
   return (
-    <SmallButton disabled={pending}>
+    <SmallButton disabled={pending || disabled}>
       {pending ? t('saving') : t('done')}
     </SmallButton>
   );

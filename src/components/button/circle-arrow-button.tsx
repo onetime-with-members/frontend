@@ -13,6 +13,7 @@ const CircleArrowButton = forwardRef<HTMLButtonElement, CircleArrowButtonProps>(
     return (
       <motion.button
         ref={ref}
+        type="button"
         className={cn(
           'flex h-6 w-6 items-center justify-center rounded-full bg-gray-00 shadow-lg drop-shadow-[0_0_24px_rgba(0,0,0,0.25)]',
           className,

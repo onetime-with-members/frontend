@@ -9,8 +9,8 @@ import { EventType, ScheduleType } from '@/lib/types';
 
 export default function ScheduleFormSubScreen({
   event,
-  schedules,
-  setSchedules,
+  scheduleValue,
+  setScheduleValue,
   isScheduleEdited,
   setIsScheduleEdited,
   isNewGuest,
@@ -20,8 +20,8 @@ export default function ScheduleFormSubScreen({
   isSleepTimeEmpty,
 }: {
   event: EventType;
-  schedules: ScheduleType[];
-  setSchedules: React.Dispatch<React.SetStateAction<ScheduleType[]>>;
+  scheduleValue: ScheduleType[];
+  setScheduleValue: React.Dispatch<React.SetStateAction<ScheduleType[]>>;
   isScheduleEdited: boolean;
   setIsScheduleEdited: React.Dispatch<React.SetStateAction<boolean>>;
   isNewGuest: boolean;
@@ -46,8 +46,8 @@ export default function ScheduleFormSubScreen({
     <div>
       {/* Time Block Board */}
       <TimeBlockBoard
-        schedules={schedules}
-        setSchedules={setSchedules}
+        schedules={scheduleValue}
+        setSchedules={setScheduleValue}
         event={event}
         isPossibleTime={isPossibleTime}
         setIsPossibleTime={setIsPossibleTime}

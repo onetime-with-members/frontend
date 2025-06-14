@@ -168,6 +168,65 @@ export async function submitEverytimeUrl(formData: FormData) {
   return { everytimeSchedule: everytimeSchedule, error: null };
 }
 
+export async function checkNewGuest(formData: FormData) {
+  const eventId = formData.get('eventId') as string;
+  const name = formData.get('name') as string;
+
+  const res = await fetch(
+    `${CRAWLING_SERVER_API_URL}/members/name/action-check`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${await accessToken()}`,
+      },
+      body: JSON.stringify({
+        event_id: eventId,
+        name,
+      }),
+    },
+  );
+  if (!res.ok) {
+    console.error(await res.json());
+    return { isNewGuest: false };
+  }
+  const data = await res.json();
+  const isNewGuest: boolean = data.payload.is_possible;
+
+  return { isNewGuest };
+}
+
+export async function loginGuest(formData: FormData) {
+  const eventId = formData.get('eventId') as string;
+  const name = formData.get('name') as string;
+  const pin = formData.get('pin') as string;
+
+  const res = await fetch(
+    `${CRAWLING_SERVER_API_URL}/members/name/action-check`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${await accessToken()}`,
+      },
+      body: JSON.stringify({
+        event_id: eventId,
+        name,
+        pin,
+      }),
+    },
+  );
+  if (!res.ok) {
+    console.error(await res.json());
+    if (res.status === 404) {
+      return { guestId: '', pinNotCorrect: true };
+    }
+    return { guestId: '', pinNotCorrect: false };
+  }
+  const data = await res.json();
+  const guestId: string = data.payload.member_id;
+
+  return { guestId, pinNotCorrect: false };
+}
+
 export async function createNewMemberSchedule(formData: FormData) {
   const eventId = formData.get('eventId');
   const schedules = JSON.parse(formData.get('schedules') as string);

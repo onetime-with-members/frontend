@@ -11,27 +11,6 @@ import {
 } from '@/lib/types';
 import { timeBlockList } from '@/lib/utils';
 
-function isScheduleEmpty(scheduleData: ScheduleType | undefined) {
-  return scheduleData
-    ? scheduleData.schedules.length === 0 ||
-        scheduleData.schedules.every((schedule) => schedule.times.length === 0)
-    : false;
-}
-
-function isFixedScheduleEmpty(
-  fixedScheduleData: MyScheduleTimeType[] | undefined,
-) {
-  return fixedScheduleData
-    ? fixedScheduleData.every((schedule) => schedule.times.length === 0)
-    : true;
-}
-
-function isSleepTimeEmpty(sleepTimeData: SleepTimeType | undefined) {
-  return sleepTimeData
-    ? sleepTimeData.sleep_end_time === sleepTimeData.sleep_start_time
-    : true;
-}
-
 export default function useScheduleAdd({
   event,
   schedule,
@@ -44,10 +23,7 @@ export default function useScheduleAdd({
   sleepTime: SleepTimeType;
 }) {
   const [initialSchedule, setInitialSchedule] = useState<ScheduleType[]>([]);
-
-  const { sleepTimesList } = useContext(SleepTimeContext);
-
-  const [schedules, setSchedules] = useState<ScheduleType[]>([
+  const [scheduleValue, setScheduleValue] = useState<ScheduleType[]>([
     {
       name: '본인',
       schedules: [],
@@ -58,6 +34,8 @@ export default function useScheduleAdd({
     fixedSchedule: isFixedScheduleEmpty(mySchedule),
     sleepTime: isSleepTimeEmpty(sleepTime),
   });
+
+  const { sleepTimesList } = useContext(SleepTimeContext);
 
   useEffect(() => {
     setIsEmpty({
@@ -75,7 +53,7 @@ export default function useScheduleAdd({
 
     const initialSchedule = [
       {
-        name: schedule.name || '본인',
+        name: schedule.name,
         schedules: isEmpty.schedule
           ? isEmpty.fixedSchedule && isEmpty.sleepTime
             ? defaultSchedule
@@ -91,7 +69,7 @@ export default function useScheduleAdd({
     ];
 
     setInitialSchedule(initialSchedule);
-    setSchedules(initialSchedule);
+    setScheduleValue(initialSchedule);
 
     function fixedAndSleepTimeSchedule() {
       return (
@@ -149,11 +127,32 @@ export default function useScheduleAdd({
   }, [event, schedule, mySchedule, sleepTime, isEmpty, sleepTimesList]);
 
   return {
-    schedules,
-    setSchedules,
+    scheduleValue,
+    setScheduleValue,
     isScheduleEmpty: isEmpty.schedule,
     isFixedScheduleEmpty: isEmpty.fixedSchedule,
     isSleepTimeEmpty: isEmpty.sleepTime,
     initialSchedule,
   };
+}
+
+function isScheduleEmpty(scheduleData: ScheduleType | undefined) {
+  return scheduleData
+    ? scheduleData.schedules.length === 0 ||
+        scheduleData.schedules.every((schedule) => schedule.times.length === 0)
+    : false;
+}
+
+function isFixedScheduleEmpty(
+  fixedScheduleData: MyScheduleTimeType[] | undefined,
+) {
+  return fixedScheduleData
+    ? fixedScheduleData.every((schedule) => schedule.times.length === 0)
+    : true;
+}
+
+function isSleepTimeEmpty(sleepTimeData: SleepTimeType | undefined) {
+  return sleepTimeData
+    ? sleepTimeData.sleep_end_time === sleepTimeData.sleep_start_time
+    : true;
 }
