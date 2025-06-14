@@ -13,7 +13,8 @@ export default function BackButtonAlert({
   const router = useRouter();
   const t = useTranslations('alert');
 
-  function handleBackButtonConfirm() {
+  function handleBackButtonConfirm(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     setIsOpen(false);
   }
 

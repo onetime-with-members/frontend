@@ -1,6 +1,11 @@
 import ScheduleAddScreen from './content';
 import { auth } from '@/lib/auth';
 import {
+  defaultMySchedule,
+  defaultScheduleDetail,
+  defaultSleepTime,
+} from '@/lib/constants';
+import {
   fetchEvent,
   fetchMySchedule,
   fetchScheduleDetail,
@@ -14,10 +19,14 @@ export default async function Page({
 }) {
   const { id } = await params;
 
+  const session = await auth();
+
   const event = await fetchEvent(id);
-  const schedule = await fetchScheduleDetail(event, !!(await auth()), '');
-  const mySchedule = await fetchMySchedule();
-  const sleepTime = await fetchSleepTime();
+  const schedule = session
+    ? await fetchScheduleDetail(event, !!session, '')
+    : defaultScheduleDetail;
+  const mySchedule = session ? await fetchMySchedule() : defaultMySchedule;
+  const sleepTime = session ? await fetchSleepTime() : defaultSleepTime;
 
   return (
     <ScheduleAddScreen

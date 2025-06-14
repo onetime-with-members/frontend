@@ -20,7 +20,10 @@ export function LoginAlert({
 
   return (
     <Alert
-      onConfirm={() => router.push(`/login?redirect_url=${pathname}`)}
+      onConfirm={(e) => {
+        e.preventDefault();
+        router.push(`/login?redirect_url=${pathname}`);
+      }}
       onCancel={() => router.push(`/events/${params.id}/schedules/new`)}
       onClose={() => setIsOpen(false)}
       confirmText={t('loginConfirm')}

@@ -170,19 +170,16 @@ export async function checkNewGuest(formData: FormData) {
   const eventId = formData.get('eventId') as string;
   const name = formData.get('name') as string;
 
-  const res = await fetch(
-    `${CRAWLING_SERVER_API_URL}/members/name/action-check`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${await accessToken()}`,
-      },
-      body: JSON.stringify({
-        event_id: eventId,
-        name,
-      }),
+  const res = await fetch(`${SERVER_API_URL}/members/name/action-check`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify({
+      event_id: eventId,
+      name,
+    }),
+  });
   if (!res.ok) {
     console.error(await res.json());
     return { isNewGuest: false };
@@ -198,20 +195,17 @@ export async function loginGuest(formData: FormData) {
   const name = formData.get('name') as string;
   const pin = formData.get('pin') as string;
 
-  const res = await fetch(
-    `${CRAWLING_SERVER_API_URL}/members/name/action-check`,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${await accessToken()}`,
-      },
-      body: JSON.stringify({
-        event_id: eventId,
-        name,
-        pin,
-      }),
+  const res = await fetch(`${SERVER_API_URL}/members/action-login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  );
+    body: JSON.stringify({
+      event_id: eventId,
+      name,
+      pin,
+    }),
+  });
   if (!res.ok) {
     console.error(await res.json());
     if (res.status === 404) {
@@ -227,29 +221,42 @@ export async function loginGuest(formData: FormData) {
 
 export async function createNewMemberSchedule(formData: FormData) {
   const eventId = formData.get('eventId');
+  const name = formData.get('name');
+  const pin = formData.get('pin');
   const schedules = JSON.parse(formData.get('schedules') as string);
 
   const res = await fetch(`${SERVER_API_URL}/members/action-register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${await accessToken()}`,
     },
     body: JSON.stringify({
       event_id: eventId,
-      name: formData.get('name'),
-      pin: formData.get('pin'),
+      name,
+      pin,
       schedules,
     }),
   });
   if (!res.ok) {
     console.error(await res.json());
+    return;
   }
+
+  revalidatePath(`/events/${eventId}`);
+
+  redirect(`/events/${eventId}`);
 }
 
 export async function updateSchedule(formData: FormData) {
   const event: EventType = JSON.parse(formData.get('event') as string);
-  const schedule: TimeType[] = JSON.parse(formData.get('schedule') as string);
+  const guestId = formData.get('guestId');
+  const schedules: TimeType[] = JSON.parse(formData.get('schedules') as string);
+
+  console.log({
+    event_id: event.event_id,
+    member_id: guestId,
+    schedules,
+  });
 
   const res = await fetch(
     `${SERVER_API_URL}/schedules/${event.category.toLowerCase()}`,
@@ -257,12 +264,12 @@ export async function updateSchedule(formData: FormData) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${await accessToken()}`,
+        // Authorization: `Bearer ${await accessToken()}`,
       },
       body: JSON.stringify({
         event_id: event.event_id,
-        member_id: formData.get('guestId'),
-        schedules: schedule,
+        member_id: guestId,
+        schedules,
       }),
     },
   );

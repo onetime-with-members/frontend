@@ -16,6 +16,7 @@ import {
   ScheduleType,
   SleepTimeType,
 } from './types';
+import { notFound } from 'next/navigation';
 
 export async function fetchEvent(eventId: string) {
   const res = await fetch(`${SERVER_API_URL}/events/${eventId}`, {
@@ -26,7 +27,11 @@ export async function fetchEvent(eventId: string) {
     },
   });
   if (!res.ok) {
-    console.error(await res.json());
+    const error = await res.json();
+    console.error(error);
+    if (error.code === 'EVENT-001') {
+      notFound();
+    }
     return defaultEvent;
   }
   const data = await res.json();

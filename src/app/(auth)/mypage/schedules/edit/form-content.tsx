@@ -83,7 +83,6 @@ export default function FormContent({
       setIsMyScheduleEdited(true);
       toast(t('toast.everytime'));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     everytimeSchedule,
     myScheduleData,

@@ -53,14 +53,14 @@ export default function MemberLoginSubScreen({
 
       {/* Bottom Button for Desktop */}
       <div className="hidden sm:block">
-        <Button type="button" variant="dark" disabled={disabled} fullWidth>
+        <Button type="submit" variant="dark" disabled={disabled} fullWidth>
           {t('next')}
         </Button>
       </div>
       {/* Bottom Button for Mobile */}
       <div className="block sm:hidden">
         <FloatingBottomButton
-          type="button"
+          type="submit"
           variant="black"
           disabled={disabled}
           fullWidth

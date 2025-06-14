@@ -2,7 +2,8 @@ import dayjs from 'dayjs';
 import { useContext, useEffect, useState } from 'react';
 
 import { SleepTimeContext } from '@/contexts/sleep-time';
-import { weekdaysShortKo } from '@/lib/constants';
+import { defaultScheduleDetail, weekdaysShortKo } from '@/lib/constants';
+import { fetchScheduleDetail } from '@/lib/data';
 import {
   EventType,
   MyScheduleTimeType,
@@ -13,14 +14,18 @@ import { timeBlockList } from '@/lib/utils';
 
 export default function useScheduleAdd({
   event,
-  schedule,
+  schedule: fetchedSchedule,
   mySchedule,
   sleepTime,
+  isLoggedIn,
+  guestId,
 }: {
   event: EventType;
   schedule: ScheduleType;
   mySchedule: MyScheduleTimeType[];
   sleepTime: SleepTimeType;
+  isLoggedIn: boolean;
+  guestId: string;
 }) {
   const [initialSchedule, setInitialSchedule] = useState<ScheduleType[]>([]);
   const [scheduleValue, setScheduleValue] = useState<ScheduleType[]>([
@@ -29,13 +34,28 @@ export default function useScheduleAdd({
       schedules: [],
     },
   ]);
+  const [schedule, setSchedule] = useState<ScheduleType>(
+    isLoggedIn ? fetchedSchedule : defaultScheduleDetail,
+  );
   const [isEmpty, setIsEmpty] = useState({
-    schedule: isScheduleEmpty(schedule),
+    schedule: isScheduleEmpty(isLoggedIn ? fetchedSchedule : schedule),
     fixedSchedule: isFixedScheduleEmpty(mySchedule),
     sleepTime: isSleepTimeEmpty(sleepTime),
   });
 
   const { sleepTimesList } = useContext(SleepTimeContext);
+
+  useEffect(() => {
+    async function fetchSchedule() {
+      const scheduleDetail = await fetchScheduleDetail(
+        event,
+        isLoggedIn,
+        guestId,
+      );
+      setSchedule(scheduleDetail);
+    }
+    fetchSchedule();
+  }, [event, guestId, isLoggedIn]);
 
   useEffect(() => {
     setIsEmpty({

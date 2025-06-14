@@ -40,7 +40,6 @@ export default function ScheduleFormSubScreen({
     if (isScheduleEmpty && (!isFixedScheduleEmpty || !isSleepTimeEmpty)) {
       toast(t('toast.loadedMySchedule'));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isScheduleEmpty, isFixedScheduleEmpty, isSleepTimeEmpty, t]);
 
   return (

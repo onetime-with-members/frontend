@@ -75,6 +75,8 @@ export default function ScheduleAddScreen({
     schedule,
     mySchedule,
     sleepTime,
+    isLoggedIn,
+    guestId,
   });
   useGrayBackground({
     breakpointCondition: () => window.innerWidth >= breakpoint.sm,
@@ -83,11 +85,13 @@ export default function ScheduleAddScreen({
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
+    if ((e.target as HTMLElement).getAttribute('id') !== 'schedule-add') return;
+
     if (pageIndex === 0) {
       if (disabled) return;
 
       const formData = new FormData();
-      formData.set('event_id', params.id);
+      formData.set('eventId', params.id);
       formData.set('name', guestValue.name);
       const { isNewGuest } = await checkNewGuest(formData);
       setIsNewGuest(isNewGuest);
@@ -104,16 +108,16 @@ export default function ScheduleAddScreen({
       setPageIndex(1);
     } else if (isNewGuest) {
       const formData = new FormData();
-      formData.set('event_id', params.id);
+      formData.set('eventId', params.id);
       formData.set('name', guestValue.name);
       formData.set('pin', guestValue.pin);
-      formData.set('schedules', JSON.stringify(scheduleValue));
+      formData.set('schedules', JSON.stringify(scheduleValue[0].schedules));
       await createNewMemberSchedule(formData);
     } else {
       const formData = new FormData();
       formData.set('event', JSON.stringify(event));
       formData.set('guestId', guestId);
-      formData.set('schedule', JSON.stringify(scheduleValue[0].schedules));
+      formData.set('schedules', JSON.stringify(scheduleValue[0].schedules));
       await updateSchedule(formData);
     }
   }
@@ -156,6 +160,7 @@ export default function ScheduleAddScreen({
 
   return (
     <form
+      id="schedule-add"
       onSubmit={handleSubmit}
       onKeyDown={(e) => {
         if (e.key === 'Enter') e.preventDefault();
