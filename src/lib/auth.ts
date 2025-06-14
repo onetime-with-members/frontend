@@ -2,7 +2,7 @@
 
 import dayjs from 'dayjs';
 
-import { SERVER_API_URL } from './constants';
+import { SERVER_API_URL, defaultUser } from './constants';
 import { UserType } from './types';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
@@ -71,7 +71,7 @@ export async function currentUser() {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch current user');
+    return defaultUser;
   }
   const data = await res.json();
   const user: UserType = data.payload;

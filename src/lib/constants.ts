@@ -7,6 +7,7 @@ import {
   PolicyType,
   ScheduleType,
   SleepTimeType,
+  UserType,
 } from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 
@@ -98,6 +99,13 @@ export const defaultBarBanner: BarBanner = {
 export const defaultScheduleDetail: ScheduleType = {
   name: '',
   schedules: [],
+};
+
+export const defaultUser: UserType = {
+  nickname: '',
+  email: '',
+  language: 'ENG',
+  social_platform: 'google',
 };
 
 export const defaultPolicy: PolicyType = {

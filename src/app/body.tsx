@@ -1,5 +1,7 @@
 'use client';
 
+import { getCookie, setCookie } from 'cookies-next';
+import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import nProgress from 'nprogress';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -8,10 +10,7 @@ import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import useLocalStorageClear from '@/hooks/useLocalStorageClear';
-import useLocalStorageSetUp from '@/hooks/useLocalStorageSetUp';
-import useShortURLRedirect from '@/hooks/useShortURLRedirect';
-import { auth } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth';
 import { fetchPolicy } from '@/lib/data';
 import { getQueryClient } from '@/lib/query-client';
 import { Link, useRouter } from '@/navigation';
@@ -19,16 +18,64 @@ import { IconBrandInstagram } from '@tabler/icons-react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import 'dayjs/locale/ko';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 
 export function SetUpProvider({ children }: { children: React.ReactNode }) {
-  useLocalStorageClear();
-  useLocalStorageSetUp();
-  useShortURLRedirect();
-
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (location.hostname === '1-ti.me') {
+      const searchParamsStr = new URLSearchParams(searchParams).toString();
+      location.href = `${process.env.NEXT_PUBLIC_SITE_DOMAIN}${pathname}${searchParamsStr && `?${searchParamsStr}`}`;
+    }
+  }, [pathname, searchParams]);
+
+  useEffect(() => {
+    localStorage.removeItem('access-token');
+    localStorage.removeItem('refresh-token');
+    localStorage.removeItem('last-login');
+    localStorage.removeItem('redirect-url');
+    localStorage.removeItem('language');
+    localStorage.removeItem('locale');
+    localStorage.removeItem('i18nextLng');
+  }, []);
+
+  useEffect(() => {
+    if (
+      getCookie('locale') &&
+      ['ko', 'en'].includes(getCookie('locale') as string)
+    ) {
+      dayjs.locale(getCookie('locale') as string);
+      return;
+    }
+
+    const locale = window.navigator.language.includes('ko') ? 'ko' : 'en';
+    setCookie('locale', locale, {
+      expires: dayjs().add(1, 'year').toDate(),
+    });
+    dayjs.locale(locale);
+    router.refresh();
+  }, [router]);
+
+  useEffect(() => {
+    async function setUpLocale() {
+      if (!(await auth())) return;
+      const user = await currentUser();
+      if (!user) return;
+      setCookie('last-login', user.social_platform, {
+        expires: dayjs().add(1, 'year').toDate(),
+      });
+      const newLocale = user.language === 'KOR' ? 'ko' : 'en';
+      setCookie('locale', newLocale, {
+        expires: dayjs().add(1, 'year').toDate(),
+      });
+      dayjs.locale(newLocale);
+    }
+    setUpLocale();
+  }, []);
 
   useEffect(() => {
     async function checkPolicy() {
