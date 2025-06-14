@@ -1,8 +1,10 @@
 import {
   BarBanner,
+  EventType,
   EventValueType,
   MyEventType,
   MyScheduleTimeType,
+  PolicyType,
   ScheduleType,
   SleepTimeType,
 } from '@/lib/types';
@@ -32,6 +34,16 @@ export const weekdaysShortEn = [
 export const breakpoint = {
   sm: 640,
   md: 768,
+};
+
+export const defaultEvent: EventType = {
+  event_id: '',
+  title: '',
+  start_time: '',
+  end_time: '',
+  category: 'DATE',
+  ranges: [],
+  event_status: 'PARTICIPANT',
 };
 
 export const defaultEventValue: EventValueType = {
@@ -86,6 +98,12 @@ export const defaultBarBanner: BarBanner = {
 export const defaultScheduleDetail: ScheduleType = {
   name: '',
   schedules: [],
+};
+
+export const defaultPolicy: PolicyType = {
+  service_policy_agreement: true,
+  privacy_policy_agreement: true,
+  marketing_policy_agreement: true,
 };
 
 export const SKELETON_GRAY = '#e8e9ed77';

@@ -1,5 +1,11 @@
 import { accessToken, auth } from './auth';
-import { SERVER_API_URL } from './constants';
+import {
+  SERVER_API_URL,
+  defaultEvent,
+  defaultPolicy,
+  defaultScheduleDetail,
+  defaultSleepTime,
+} from './constants';
 import {
   BarBanner,
   EventType,
@@ -21,7 +27,7 @@ export async function fetchEvent(eventId: string) {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch event');
+    return defaultEvent;
   }
   const data = await res.json();
   const event: EventType = data.payload;
@@ -44,7 +50,7 @@ export async function fetchShortenUrl(originalUrl: string) {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch event');
+    return '';
   }
   const data = await res.json();
   const shortenUrl: string = data.payload.shorten_url;
@@ -62,7 +68,7 @@ export async function fetchRecommendedTimes(eventId: string) {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch recommended times');
+    return [];
   }
   const data = await res.json();
   const recommendedTimes: RecommendScheduleType[] = data.payload;
@@ -83,7 +89,7 @@ export async function fetchSchedules(event: EventType) {
   );
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch schedules');
+    return [];
   }
   const data = await res.json();
   const schedules: ScheduleType[] = data.payload;
@@ -108,7 +114,7 @@ export async function fetchScheduleDetail(
   );
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch schedules');
+    return defaultScheduleDetail;
   }
   const data = await res.json();
   const schedule: ScheduleType = data.payload;
@@ -124,7 +130,7 @@ export async function fetchMyEvents() {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch my events');
+    return [];
   }
   const data = await res.json();
   const events: MyEventType[] = data.payload;
@@ -140,7 +146,7 @@ export async function fetchMySchedule() {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch my schedule');
+    return [];
   }
   const data = await res.json();
   const mySchedule: MyScheduleTimeType[] = data.payload.schedules;
@@ -156,7 +162,7 @@ export async function fetchSleepTime() {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch sleep time');
+    return defaultSleepTime;
   }
   const data = await res.json();
   const sleepTime: SleepTimeType = data.payload;
@@ -197,7 +203,7 @@ export async function fetchPolicy() {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch sleep time');
+    return defaultPolicy;
   }
   const data = await res.json();
   const policy: PolicyType = data.payload;
@@ -209,7 +215,7 @@ export async function fetchBarBanner() {
   const res = await fetch(`${SERVER_API_URL}/banners/activated`);
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch bar banner');
+    return null;
   }
   const data = await res.json();
   const barBanner: BarBanner | null = data.payload;
@@ -221,7 +227,7 @@ export async function fetchQrCode(eventId: string) {
   const res = await fetch(`${SERVER_API_URL}/events/qr/${eventId}`);
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to fetch qr code');
+    return '';
   }
   const data = await res.json();
   const qrCode: string = data.payload.qr_code_img_url;
