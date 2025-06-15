@@ -82,7 +82,6 @@ export async function createUser(formData: FormData) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${await accessToken()}`,
     },
     body: JSON.stringify(onboardingValue),
   });
