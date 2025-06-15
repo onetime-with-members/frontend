@@ -1,6 +1,6 @@
 'use client';
 
-import { getCookie, setCookie } from 'cookies-next';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import nProgress from 'nprogress';
@@ -42,6 +42,14 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem('language');
     localStorage.removeItem('locale');
     localStorage.removeItem('i18nextLng');
+  }, []);
+
+  useEffect(() => {
+    async function deleteOldCookies() {
+      await deleteCookie('access-token');
+      await deleteCookie('refresh-token');
+    }
+    deleteOldCookies();
   }, []);
 
   useEffect(() => {

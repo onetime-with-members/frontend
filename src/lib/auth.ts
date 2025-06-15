@@ -32,8 +32,6 @@ export async function signIn(accessToken: string, refreshToken: string) {
 export async function signOut() {
   const cookieStore = await cookies();
   cookieStore.delete('session');
-  cookieStore.delete('access-token');
-  cookieStore.delete('refresh-token');
 
   revalidatePath('/');
 }

@@ -35,8 +35,6 @@ export async function middleware(request: NextRequest) {
       return response;
     }
     response.cookies.delete('session');
-    response.cookies.delete('access-token');
-    response.cookies.delete('refresh-token');
     return response;
   }
   const data = await res.json();
