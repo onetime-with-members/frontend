@@ -26,10 +26,10 @@ export async function signIn(accessToken: string, refreshToken: string) {
     },
   );
 
-  const redirectUrl = `${cookieStore.get('redirect-url')}`;
+  const redirectUrl = `${cookieStore.get('redirect-url') || '/'}`;
   cookieStore.delete('redirect-url');
 
-  revalidatePath(redirectUrl || '/');
+  revalidatePath(redirectUrl);
 
   if (redirectUrl) redirect(redirectUrl);
 }
