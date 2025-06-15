@@ -1,10 +1,8 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import Button from '@/components/button';
-import FloatingBottomButton from '@/components/button/floating-bottom-button';
+import { DesktopSubmitButton, MobileSubmitButton } from './submit-button';
 import NicknameFormControl from '@/components/user/nickname-form-control';
 import { editProfile } from '@/lib/actions';
 import { UserType } from '@/lib/types';
@@ -15,8 +13,6 @@ export default function FormContent({ user }: { user: UserType }) {
   const [isDisabled, setIsDisabled] = useState(true);
 
   const router = useRouter();
-
-  const t = useTranslations('profileEdit');
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -42,25 +38,9 @@ export default function FormContent({ user }: { user: UserType }) {
           onChange={(e) => setValue(e.target.value)}
           setSubmitDisabled={setIsDisabled}
         />
-        <Button
-          type="submit"
-          variant="dark"
-          className="hidden sm:flex"
-          fullWidth
-          disabled={isDisabled}
-        >
-          {t('save')}
-        </Button>
+        <DesktopSubmitButton isDisabled={isDisabled} />
       </div>
-
-      <FloatingBottomButton
-        type="submit"
-        variant="dark"
-        className="sm:hidden"
-        disabled={isDisabled}
-      >
-        {t('save')}
-      </FloatingBottomButton>
+      <MobileSubmitButton isDisabled={isDisabled} />
     </form>
   );
 }

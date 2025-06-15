@@ -211,7 +211,8 @@
   },
   "profileEdit": {
     "editProfile": "Edit Profile",
-    "save": "Save"
+    "save": "Save",
+    "saving": "Saving..."
   },
   "policyEdit": {
     "agreeToTerms": "Agree to Terms",

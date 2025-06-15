@@ -13,9 +13,20 @@ export default function MainContent() {
 
   const t = useTranslations('withdraw');
 
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (!isChecked) return;
+
+    await withdraw();
+  }
+
   return (
     <main className="px-4 pb-24">
-      <div className="mx-auto flex w-full max-w-screen-sm flex-col items-center gap-10">
+      <form
+        onSubmit={handleSubmit}
+        className="mx-auto flex w-full max-w-screen-sm flex-col items-center gap-10"
+      >
         {/* Information */}
         <div className="flex w-full flex-col items-center gap-6">
           <div className="flex flex-col items-center gap-8">
@@ -46,17 +57,10 @@ export default function MainContent() {
         </div>
 
         {/* Submit Button */}
-        <Button
-          variant="danger"
-          disabled={!isChecked}
-          onClick={async () => {
-            if (isChecked) await withdraw();
-          }}
-          fullWidth
-        >
+        <Button type="submit" variant="danger" disabled={!isChecked} fullWidth>
           {t('withdraw')}
         </Button>
-      </div>
+      </form>
     </main>
   );
 }
