@@ -253,11 +253,7 @@ export async function updateSchedule(formData: FormData) {
   const guestId = formData.get('guestId');
   const schedules: TimeType[] = JSON.parse(formData.get('schedules') as string);
 
-  console.log({
-    event_id: event.event_id,
-    member_id: guestId,
-    schedules,
-  });
+  const session = await auth();
 
   const res = await fetch(
     `${SERVER_API_URL}/schedules/${event.category.toLowerCase()}`,
@@ -265,7 +261,7 @@ export async function updateSchedule(formData: FormData) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        // Authorization: `Bearer ${await accessToken()}`,
+        ...(session ? { Authorization: `Bearer ${session.accessToken}` } : {}),
       },
       body: JSON.stringify({
         event_id: event.event_id,
