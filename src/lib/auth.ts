@@ -29,9 +29,9 @@ export async function signIn(accessToken: string, refreshToken: string) {
   const redirectUrl = `${cookieStore.get('redirect-url') || '/'}`;
   cookieStore.delete('redirect-url');
 
-  revalidatePath(redirectUrl);
+  revalidatePath('/');
 
-  if (redirectUrl) redirect(redirectUrl);
+  redirect(redirectUrl);
 }
 
 export async function signOut(redirectUrl?: string) {
