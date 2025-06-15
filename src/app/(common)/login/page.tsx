@@ -49,7 +49,7 @@ export default async function Page(props: {
         searchParams={{
           accessToken: searchParams?.access_token,
           refreshToken: searchParams?.refresh_token,
-          redriectUrl: searchParams?.redirect_url,
+          redirectUrl: searchParams?.redirect_url,
         }}
         cookies={{
           redirectUrl: cookieStore.get('redirect-url') as string | undefined,

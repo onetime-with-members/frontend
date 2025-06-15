@@ -18,7 +18,7 @@ export function SocialLoginCallback({
   searchParams: {
     accessToken?: string;
     refreshToken?: string;
-    redriectUrl?: string;
+    redirectUrl?: string;
   };
   cookies: {
     redirectUrl?: string;
@@ -28,16 +28,20 @@ export function SocialLoginCallback({
 
   useEffect(() => {
     async function socialLogin() {
+      const redirectUrl =
+        searchParams.redirectUrl || cookies.redirectUrl || '/';
+
+      if (cookies.redirectUrl) await deleteCookie('redirect-url');
+
       if (await auth()) {
-        if (cookies.redirectUrl) await deleteCookie('redirect-url');
-        router.replace(searchParams.redriectUrl || cookies.redirectUrl || '/');
+        router.replace(redirectUrl);
       }
 
       if (searchParams.accessToken && searchParams.refreshToken) {
         await signIn(
           searchParams.accessToken,
           searchParams.refreshToken,
-          searchParams.redriectUrl || '/',
+          redirectUrl,
         );
       }
     }
