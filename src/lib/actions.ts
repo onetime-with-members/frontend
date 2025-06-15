@@ -106,7 +106,8 @@ export async function editMySchedule(formData: FormData) {
     throw new Error('Failed to edit my schedule');
   }
 
-  revalidatePath('/mypage/schedules/edit');
+  revalidatePath('/');
+  revalidatePath('/mypage/schedules');
 }
 
 export async function editSleepTime(formData: FormData) {
@@ -126,7 +127,7 @@ export async function editSleepTime(formData: FormData) {
   }
 
   revalidatePath('/');
-  revalidatePath('/mypage/schedules/edit');
+  revalidatePath('/mypage/schedules');
 }
 
 export async function editPolicy(formData: FormData) {

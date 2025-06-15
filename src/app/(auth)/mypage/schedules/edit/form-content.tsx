@@ -61,8 +61,8 @@ export default function FormContent({
   }
 
   useEffect(() => {
-    setMySchedule(
-      mySchedule.map((schedule) => ({
+    setMySchedule((prevMySchedule) =>
+      prevMySchedule.map((schedule) => ({
         ...schedule,
         times: Array.from(
           new Set([
@@ -83,7 +83,7 @@ export default function FormContent({
       setIsMyScheduleEdited(true);
       toast(t('toast.everytime'));
     }
-  }, [everytimeSchedule, myScheduleData, mySchedule, isMyScheduleEdited]);
+  }, [myScheduleData, isMyScheduleEdited, everytimeSchedule]);
 
   return (
     <>
