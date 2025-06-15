@@ -1,5 +1,6 @@
 import PolicyContent from './content';
 import NotFound from '@/app/not-found';
+import { auth, currentUser } from '@/lib/auth';
 import { POLICY_KEY_LIST } from '@/lib/constants';
 import { PolicyKeyType } from '@/lib/types';
 import { policyPageTitle } from '@/lib/utils';
@@ -41,9 +42,11 @@ export default async function Page({
       : 'service_policy_agreement';
   const pageTitle = policyPageTitle(name, locale);
 
+  const user = (await auth()) ? await currentUser() : null;
+
   return (
     <div className="flex h-full flex-col">
-      <PolicyContent page={page} pageTitle={pageTitle} />
+      <PolicyContent page={page} pageTitle={pageTitle} user={user} />
     </div>
   );
 }

@@ -12,7 +12,7 @@ import { PageModeContext } from '@/contexts/page-mode';
 import { createEvent, editEvent } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { breakpoint, defaultEventValue } from '@/lib/constants';
-import { EventValueType } from '@/lib/types';
+import { EventValueType, UserType } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
@@ -20,9 +20,11 @@ import { useParams } from 'next/navigation';
 export default function EventFormScreen({
   type,
   originData,
+  user,
 }: {
   type: 'create' | 'edit';
   originData?: EventValueType;
+  user: UserType | null;
 }) {
   const [value, setValue] = useState<EventValueType>(
     originData || defaultEventValue,
@@ -87,9 +89,9 @@ export default function EventFormScreen({
     <form onSubmit={handleSubmit} className="flex flex-col items-center pb-40">
       <div className="w-full md:px-4">
         {/* Top Navigation Bar for Desktop */}
-        <NavBar variant="default" className="hidden md:flex" />
+        <NavBar user={user} variant="default" className="hidden md:flex" />
         {/* Top Navigation Bar for Mobile */}
-        <NavBar variant="black" className="flex md:hidden" />
+        <NavBar user={user} variant="black" className="flex md:hidden" />
 
         <main className="mx-auto flex w-full max-w-screen-md flex-col items-center justify-center md:pt-6">
           {/* Top Actions for Desktop */}

@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 
 import NavBar from '@/components/nav-bar';
 import useGrayBackground from '@/hooks/useGrayBackground';
-import { PolicyKeyType } from '@/lib/types';
+import { PolicyKeyType, UserType } from '@/lib/types';
 import privacyMarkdownEN from '@/markdowns/privacy-en';
 import privacyMarkdownKO from '@/markdowns/privacy-ko';
 import serviceMarkdownEN from '@/markdowns/service-en';
@@ -16,10 +16,12 @@ export default function PolicyDetailScreen({
   page,
   pageTitle,
   onClose,
+  user,
 }: {
   page: PolicyKeyType;
   pageTitle: string;
   onClose: () => void;
+  user: UserType | null;
 }) {
   const locale = useLocale();
   useGrayBackground();
@@ -41,7 +43,7 @@ export default function PolicyDetailScreen({
 
       {/* Top Navigation Bar for Desktop */}
       <div className="hidden md:block">
-        <NavBar />
+        <NavBar user={user} />
       </div>
 
       <div className="mx-auto flex h-[calc(100%-4rem)] w-full max-w-screen-md flex-1 flex-col md:pb-6">

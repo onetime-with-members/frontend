@@ -140,6 +140,7 @@ export default function OnboardingContent({ user }: { user: UserType | null }) {
               setValue={setValue}
               onNextButtonClick={handleNextButtonClick}
               onBackButtonClick={handleBackButtonClick}
+              user={user}
             />
             <NicknameFormScreen
               isVisible={page === 2}

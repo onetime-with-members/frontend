@@ -4,7 +4,12 @@ import React, { useEffect, useState } from 'react';
 import ScreenLayout from './screen-layout';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import PolicyDetailScreen from '@/components/user/policy-detail-screen';
-import { OnboardingValueType, PolicyKeyType, PolicyType } from '@/lib/types';
+import {
+  OnboardingValueType,
+  PolicyKeyType,
+  PolicyType,
+  UserType,
+} from '@/lib/types';
 
 export default function PolicyScreen({
   isVisible,
@@ -13,6 +18,7 @@ export default function PolicyScreen({
   setValue,
   onNextButtonClick: handleNextButtonClick,
   onBackButtonClick: handleBackButtonClick,
+  user,
 }: {
   isVisible: boolean;
   page: number;
@@ -20,6 +26,7 @@ export default function PolicyScreen({
   setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
   onNextButtonClick: (disabled: boolean) => void;
   onBackButtonClick: () => void;
+  user: UserType | null;
 }) {
   const [disabled, setDisabled] = useState(true);
   const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
@@ -77,6 +84,7 @@ export default function PolicyScreen({
           page={pageDetail}
           pageTitle={pageTitle}
           onClose={handlePageDetailClose}
+          user={user}
         />
       )}
     </>

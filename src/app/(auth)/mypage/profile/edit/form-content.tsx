@@ -1,12 +1,11 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import NicknameFormControl from '@/components/user/nickname-form-control';
-import { CurrentUserContext } from '@/contexts/current-user';
 import { editProfile } from '@/lib/actions';
 import { UserType } from '@/lib/types';
 import { useRouter } from '@/navigation';
@@ -17,20 +16,16 @@ export default function FormContent({ user }: { user: UserType }) {
 
   const router = useRouter();
 
-  const { setUser } = useContext(CurrentUserContext);
-
   const t = useTranslations('profileEdit');
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
     if (isDisabled) return;
+
     const formData = new FormData(e.currentTarget);
     await editProfile(formData);
 
-    setUser({
-      ...user,
-      nickname: value,
-    });
     router.back();
   }
 
