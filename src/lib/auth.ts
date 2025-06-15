@@ -26,23 +26,16 @@ export async function signIn(accessToken: string, refreshToken: string) {
     },
   );
 
-  const redirectUrl = `${cookieStore.get('redirect-url') || '/'}`;
-  cookieStore.delete('redirect-url');
-
   revalidatePath('/');
-
-  redirect(redirectUrl);
 }
 
-export async function signOut(redirectUrl?: string) {
+export async function signOut() {
   const cookieStore = await cookies();
   cookieStore.delete('session');
   cookieStore.delete('access-token');
   cookieStore.delete('refresh-token');
 
   revalidatePath('/');
-
-  if (redirectUrl) redirect(redirectUrl);
 }
 
 export async function auth(): Promise<Session | null> {

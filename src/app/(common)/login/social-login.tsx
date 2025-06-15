@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteCookie, setCookie } from 'cookies-next';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
@@ -34,6 +34,9 @@ export function SocialLoginCallback({
 
       if (searchParams.accessToken && searchParams.refreshToken) {
         await signIn(searchParams.accessToken, searchParams.refreshToken);
+
+        router.push((await getCookie('redirect-url')) || '/');
+        await deleteCookie('redirect-url');
       }
 
       if (await auth()) {
