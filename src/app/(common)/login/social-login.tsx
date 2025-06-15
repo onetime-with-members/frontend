@@ -28,13 +28,16 @@ export function SocialLoginCallback({
 
   useEffect(() => {
     async function socialLogin() {
+      if (searchParams.redirectUrl) {
+        await setCookie('redirect-url', searchParams.redirectUrl);
+      }
+
       const redirectUrl =
         searchParams.redirectUrl || cookies.redirectUrl || '/';
 
-      if (cookies.redirectUrl) await deleteCookie('redirect-url');
-
       if (await auth()) {
         router.replace(redirectUrl);
+        await deleteCookie('redirect-url');
       }
 
       if (searchParams.accessToken && searchParams.refreshToken) {
@@ -43,6 +46,7 @@ export function SocialLoginCallback({
           searchParams.refreshToken,
           redirectUrl,
         );
+        await deleteCookie('redirect-url');
       }
     }
     socialLogin();

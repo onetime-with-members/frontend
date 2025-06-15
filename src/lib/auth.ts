@@ -30,7 +30,7 @@ export async function signIn(
     },
   );
 
-  revalidatePath('/');
+  revalidatePath(redirectUrl || '/');
 
   if (redirectUrl) redirect(redirectUrl);
 }
