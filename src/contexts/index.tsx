@@ -1,5 +1,4 @@
 import BarBannerContextProvider from './bar-banner';
-import CurrentUserContextProvider from './current-user';
 import EverytimeScheduleContextProvider from './everytime-schedule';
 import FooterContextProvider from './footer';
 import MyScheduleContextProvider from './my-schedule';
@@ -9,7 +8,7 @@ import ScrollContextProvider from './scroll';
 import SleepTimeContextProvider from './sleep-time';
 import ToastContextProvider from './toast';
 import WeekdayLocaleContextProvider from './weekday-locale';
-import { auth, currentUser } from '@/lib/auth';
+import { auth } from '@/lib/auth';
 import { fetchBarBanner, fetchMySchedule, fetchSleepTime } from '@/lib/data';
 import { getLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
@@ -19,9 +18,8 @@ export default async function ContextProviders({
 }: {
   children: React.ReactNode;
 }) {
-  let user, sleepTime, mySchedule;
+  let sleepTime, mySchedule;
   if (await auth()) {
-    user = await currentUser();
     sleepTime = await fetchSleepTime();
     mySchedule = await fetchMySchedule();
   }
@@ -38,21 +36,19 @@ export default async function ContextProviders({
       <FooterContextProvider>
         <ScrollContextProvider>
           <PolicyContextProvider>
-            <CurrentUserContextProvider defaultUser={user}>
-              <SleepTimeContextProvider defaultSleepTime={sleepTime}>
-                <MyScheduleContextProvider defaultMySchedule={mySchedule}>
-                  <BarBannerContextProvider barBanner={barBanner}>
-                    <WeekdayLocaleContextProvider initialLocale={locale}>
-                      <ToastContextProvider>
-                        <EverytimeScheduleContextProvider>
-                          {children}
-                        </EverytimeScheduleContextProvider>
-                      </ToastContextProvider>
-                    </WeekdayLocaleContextProvider>
-                  </BarBannerContextProvider>
-                </MyScheduleContextProvider>
-              </SleepTimeContextProvider>
-            </CurrentUserContextProvider>
+            <SleepTimeContextProvider defaultSleepTime={sleepTime}>
+              <MyScheduleContextProvider defaultMySchedule={mySchedule}>
+                <BarBannerContextProvider barBanner={barBanner}>
+                  <WeekdayLocaleContextProvider initialLocale={locale}>
+                    <ToastContextProvider>
+                      <EverytimeScheduleContextProvider>
+                        {children}
+                      </EverytimeScheduleContextProvider>
+                    </ToastContextProvider>
+                  </WeekdayLocaleContextProvider>
+                </BarBannerContextProvider>
+              </MyScheduleContextProvider>
+            </SleepTimeContextProvider>
           </PolicyContextProvider>
         </ScrollContextProvider>
       </FooterContextProvider>

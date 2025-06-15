@@ -1,17 +1,17 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useContext } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
-import { CurrentUserContext } from '@/contexts/current-user';
 import useScroll from '@/hooks/useScroll';
 import cn from '@/lib/cn';
+import { UserType } from '@/lib/types';
 import { Link, useRouter } from '@/navigation';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function NavBar({
+  user,
   variant = 'default',
   shadow = true,
   className,
@@ -19,6 +19,7 @@ export default function NavBar({
   isAuthHidden = false,
   heightZero = false,
 }: {
+  user: UserType | null;
   variant?: 'default' | 'black' | 'transparent';
   shadow?: boolean;
   className?: string;
@@ -27,8 +28,6 @@ export default function NavBar({
   heightZero?: boolean;
 }) {
   const { isScrolling } = useScroll();
-
-  const { user } = useContext(CurrentUserContext);
 
   return (
     <nav

@@ -26,6 +26,7 @@ import {
   MyScheduleTimeType,
   ScheduleType,
   SleepTimeType,
+  UserType,
 } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
@@ -37,12 +38,14 @@ export default function ScheduleAddScreen({
   schedule,
   mySchedule,
   sleepTime,
+  user,
 }: {
   isLoggedIn: boolean;
   event: EventType;
   schedule: ScheduleType;
   mySchedule: MyScheduleTimeType[];
   sleepTime: SleepTimeType;
+  user: UserType | null;
 }) {
   const [pageIndex, setPageIndex] = useState(isLoggedIn ? 1 : 0);
   const [isNewGuest, setIsNewGuest] = useState(false);
@@ -167,7 +170,7 @@ export default function ScheduleAddScreen({
       }}
     >
       {/* Navigation Bar for Desktop */}
-      <NavBar className="hidden sm:flex" shadow={false} />
+      <NavBar user={user} className="hidden sm:flex" shadow={false} />
       {/* App Bar for Mobile */}
       <header className="block h-[69px] sm:hidden">
         <div className="fixed left-0 top-0 z-50 w-full bg-white px-4">

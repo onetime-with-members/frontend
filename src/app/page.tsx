@@ -39,11 +39,11 @@ export default async function Home() {
   return <LandingPage />;
 }
 
-function LandingPage() {
+async function LandingPage() {
   return (
     <>
       <header>
-        <NavBar variant="transparent" heightZero />
+        <NavBar user={null} variant="transparent" heightZero />
       </header>
       <main className="w-full">
         <TopSection />
@@ -406,8 +406,8 @@ async function UserDashboardPage() {
 
   return (
     <div className="flex flex-col">
-      <NavBar variant="default" className="hidden md:flex" />
-      <NavBar variant="black" className="flex md:hidden" />
+      <NavBar user={user} variant="default" className="hidden md:flex" />
+      <NavBar user={user} variant="black" className="flex md:hidden" />
 
       <main className="mx-auto w-full max-w-[calc(768px+2rem)]">
         {/* Top Toolbar */}

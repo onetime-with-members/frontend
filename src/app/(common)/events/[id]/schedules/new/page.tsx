@@ -1,5 +1,5 @@
 import ScheduleAddScreen from './content';
-import { auth } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth';
 import {
   defaultMySchedule,
   defaultScheduleDetail,
@@ -27,6 +27,7 @@ export default async function Page({
     : defaultScheduleDetail;
   const mySchedule = session ? await fetchMySchedule() : defaultMySchedule;
   const sleepTime = session ? await fetchSleepTime() : defaultSleepTime;
+  const user = session ? await currentUser() : null;
 
   return (
     <ScheduleAddScreen
@@ -35,6 +36,7 @@ export default async function Page({
       schedule={schedule}
       mySchedule={mySchedule}
       sleepTime={sleepTime}
+      user={user}
     />
   );
 }

@@ -1,6 +1,6 @@
 import FormContent from './form-content';
 import NavBar from '@/components/nav-bar';
-import { auth } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth';
 import { fetchPolicy } from '@/lib/data';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -24,11 +24,13 @@ export default async function Page() {
     notFound();
   }
 
+  const user = await currentUser();
+
   const t = await getTranslations('policyEdit');
 
   return (
     <>
-      <NavBar disabled />
+      <NavBar user={user} disabled />
       <div className="px-4 py-12">
         <div className="mx-auto flex w-full max-w-screen-xs flex-col gap-12">
           <h1 className="text-center text-gray-90 title-lg-300">

@@ -1,4 +1,5 @@
 import OnboardingContent from './content';
+import { auth, currentUser } from '@/lib/auth';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -9,6 +10,8 @@ export async function generateMetadata() {
   };
 }
 
-export default function Onboarding() {
-  return <OnboardingContent />;
+export default async function Onboarding() {
+  const user = (await auth()) ? await currentUser() : null;
+
+  return <OnboardingContent user={user} />;
 }

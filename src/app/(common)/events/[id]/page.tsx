@@ -11,7 +11,7 @@ import BarBanner from '@/components/bar-banner';
 import ClockIcon from '@/components/icon/clock';
 import MemberBadge from '@/components/member-badge';
 import NavBar from '@/components/nav-bar';
-import { auth } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { defaultScheduleDetail, weekdaysShortKo } from '@/lib/constants';
 import {
@@ -83,11 +83,18 @@ export default async function Page({
 
   const shortenUrl = await fetchShortenUrl(`${protocol}://${host}${pathname}`);
 
+  const user = (await auth()) ? await currentUser() : null;
+
   return (
     <div className="flex min-h-[110vh] flex-col">
       {/* Navigation Bar */}
-      <NavBar variant="default" className="hidden md:flex" />
-      <NavBar variant="black" className="flex md:hidden" shadow={false} />
+      <NavBar user={user} variant="default" className="hidden md:flex" />
+      <NavBar
+        user={user}
+        variant="black"
+        className="flex md:hidden"
+        shadow={false}
+      />
 
       {/* Top Toolbar and Bar Banner */}
       <ToolbarHeading>

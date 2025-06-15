@@ -1,9 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useContext } from 'react';
 
-import { CurrentUserContext } from '@/contexts/current-user';
 import { signOut } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { useRouter } from '@/navigation';
@@ -12,15 +10,12 @@ export default function ProfileActions() {
   const router = useRouter();
   const t = useTranslations();
 
-  const { setUser } = useContext(CurrentUserContext);
-
   function handleProfileEditButtonClick() {
     router.push('/mypage/profile/edit');
   }
 
   async function handleLogoutButtonClick() {
     await signOut();
-    setUser(null);
     router.refresh();
   }
 

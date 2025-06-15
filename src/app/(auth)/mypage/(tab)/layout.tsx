@@ -2,12 +2,15 @@ import { DesktopHeader, MobileHeader } from './header';
 import ScrollContainerWrapper from './scroll';
 import SideTab from './side-tab';
 import NavBar from '@/components/nav-bar';
+import { auth, currentUser } from '@/lib/auth';
 
 export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const user = (await auth()) ? await currentUser() : null;
+
   return (
     <>
       {/* Mobile */}
@@ -18,7 +21,7 @@ export default async function Layout({
 
       {/* Desktop */}
       <div className="hidden min-h-screen flex-col md:flex">
-        <NavBar shadow={false} />
+        <NavBar user={user} shadow={false} />
         <div className="px-4">
           <div className="mx-auto flex w-full max-w-screen-md gap-10">
             <SideTab />

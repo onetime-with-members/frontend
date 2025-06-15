@@ -13,6 +13,7 @@ import { FooterContext } from '@/contexts/footer';
 import { auth, currentUser } from '@/lib/auth';
 import { fetchPolicy } from '@/lib/data';
 import { getQueryClient } from '@/lib/query-client';
+import { UserType } from '@/lib/types';
 import { Link, useRouter } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -187,7 +188,7 @@ export function Footer() {
   );
 }
 
-export function NetworkErrorScreen() {
+export function NetworkErrorScreen({ user }: { user: UserType | null }) {
   const [isOffline, setIsOffline] = useState(false);
 
   const t = useTranslations('networkError');
@@ -215,7 +216,7 @@ export function NetworkErrorScreen() {
   return (
     isOffline && (
       <div className="fixed left-0 right-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center bg-gray-00 px-4">
-        <NavBar variant="black" disabled />
+        <NavBar user={user} variant="black" disabled />
         <main className="flex -translate-y-6 flex-col items-center">
           <div>
             <Image

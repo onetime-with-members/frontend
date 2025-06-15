@@ -12,12 +12,12 @@ import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
 import { createUser } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { OnboardingValueType } from '@/lib/types';
+import { OnboardingValueType, UserType } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useSearchParams } from 'next/navigation';
 
-export default function OnboardingPage() {
+export default function OnboardingContent({ user }: { user: UserType | null }) {
   const locale = useLocale();
 
   const [page, setPage] = useState(1);
@@ -105,7 +105,7 @@ export default function OnboardingPage() {
           </nav>
           {/* Navigation Bar for Desktop */}
           <div className="hidden md:block">
-            <NavBar isAuthHidden={true} />
+            <NavBar user={user} isAuthHidden={true} />
           </div>
         </header>
 

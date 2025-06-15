@@ -15,6 +15,7 @@ import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/toast';
 import ContextProviders from '@/contexts';
+import { auth, currentUser } from '@/lib/auth';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localeData from 'dayjs/plugin/localeData';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -87,6 +88,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = (await auth()) ? await currentUser() : null;
+
   const locale = await getLocale();
 
   return (
@@ -102,7 +105,7 @@ export default async function RootLayout({
           <div id="pop-up" />
           <div id="alert" />
           <Toast />
-          <NetworkErrorScreen />
+          <NetworkErrorScreen user={user} />
         </Providers>
         <PreloadImages />
         <NoScripts />

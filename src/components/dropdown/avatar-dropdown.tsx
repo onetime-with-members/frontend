@@ -1,10 +1,9 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Avatar from '../avatar';
-import { CurrentUserContext } from '@/contexts/current-user';
 import { signOut } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { Link, useRouter } from '@/navigation';
@@ -67,8 +66,6 @@ function AvatarDropdownMenu({
   const router = useRouter();
   const t = useTranslations('navbar');
 
-  const { setUser } = useContext(CurrentUserContext);
-
   const menuItems: {
     href: string;
     label: string;
@@ -105,7 +102,6 @@ function AvatarDropdownMenu({
 
   async function handleLogout() {
     await signOut();
-    setUser(null);
     router.refresh();
   }
 

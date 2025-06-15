@@ -29,7 +29,7 @@ export default async function Page() {
       <GrayBackground device="desktop" breakpoint="sm" />
 
       {/* Navigation Bar for Desktop */}
-      <NavBar className="hidden sm:flex" />
+      <NavBar user={user} className="hidden sm:flex" />
 
       {/* App Bar for Mobile */}
       <header className="block h-[67px] sm:hidden">
