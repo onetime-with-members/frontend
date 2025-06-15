@@ -13,11 +13,7 @@ export interface Session {
   refreshToken: string;
 }
 
-export async function signIn(
-  accessToken: string,
-  refreshToken: string,
-  redirectUrl?: string,
-) {
+export async function signIn(accessToken: string, refreshToken: string) {
   const cookieStore = await cookies();
   cookieStore.set(
     'session',
@@ -29,6 +25,9 @@ export async function signIn(
       expires: dayjs().add(1, 'month').toDate(),
     },
   );
+
+  const redirectUrl = `${cookieStore.get('redirect-url')}`;
+  cookieStore.delete('redirect-url');
 
   revalidatePath(redirectUrl || '/');
 

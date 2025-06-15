@@ -32,20 +32,12 @@ export function SocialLoginCallback({
         await setCookie('redirect-url', searchParams.redirectUrl);
       }
 
-      const redirectUrl =
-        searchParams.redirectUrl || cookies.redirectUrl || '/';
-
-      if (await auth()) {
-        router.replace(redirectUrl);
-        await deleteCookie('redirect-url');
+      if (searchParams.accessToken && searchParams.refreshToken) {
+        await signIn(searchParams.accessToken, searchParams.refreshToken);
       }
 
-      if (searchParams.accessToken && searchParams.refreshToken) {
-        await signIn(
-          searchParams.accessToken,
-          searchParams.refreshToken,
-          redirectUrl,
-        );
+      if (await auth()) {
+        router.replace(searchParams.redirectUrl || cookies.redirectUrl || '/');
         await deleteCookie('redirect-url');
       }
     }
