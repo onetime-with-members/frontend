@@ -12,18 +12,23 @@ import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
 import { createUser } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { OnboardingValueType, UserType } from '@/lib/types';
+import { OnboardingValueType } from '@/lib/types';
 import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useSearchParams } from 'next/navigation';
 
-export default function OnboardingContent({ user }: { user: UserType | null }) {
+export default function Content({
+  name,
+  registerToken,
+}: {
+  name: string;
+  registerToken: string;
+}) {
   const locale = useLocale();
 
   const [page, setPage] = useState(1);
   const [value, setValue] = useState<OnboardingValueType>({
-    register_token: '',
-    nickname: '',
+    register_token: registerToken,
+    nickname: name,
     service_policy_agreement: false,
     privacy_policy_agreement: false,
     marketing_policy_agreement: false,
@@ -35,7 +40,6 @@ export default function OnboardingContent({ user }: { user: UserType | null }) {
   const { setFooterVisible } = useContext(FooterContext);
 
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   const redirectUrl = getCookie('redirect-url');
 
@@ -61,20 +65,6 @@ export default function OnboardingContent({ user }: { user: UserType | null }) {
 
     setPage((prev) => prev + 1);
   }
-
-  useEffect(() => {
-    setValue((prevValue) => ({
-      ...prevValue,
-      nickname: searchParams.get('name') as string,
-      register_token: searchParams.get('register_token') as string,
-    }));
-  }, [searchParams]);
-
-  useEffect(() => {
-    if (!searchParams.get('register_token') || !searchParams.get('name')) {
-      return router.push('/login');
-    }
-  }, [searchParams, router]);
 
   useEffect(() => {
     setFooterVisible(false);
@@ -105,7 +95,7 @@ export default function OnboardingContent({ user }: { user: UserType | null }) {
           </nav>
           {/* Navigation Bar for Desktop */}
           <div className="hidden md:block">
-            <NavBar user={user} isAuthHidden={true} />
+            <NavBar user={null} isAuthHidden={true} />
           </div>
         </header>
 
@@ -140,7 +130,7 @@ export default function OnboardingContent({ user }: { user: UserType | null }) {
               setValue={setValue}
               onNextButtonClick={handleNextButtonClick}
               onBackButtonClick={handleBackButtonClick}
-              user={user}
+              user={null}
             />
             <NicknameFormScreen
               isVisible={page === 2}

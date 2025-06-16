@@ -1,6 +1,6 @@
-import OnboardingContent from './content';
-import { auth, currentUser } from '@/lib/auth';
+import Content from './content';
 import { getTranslations } from 'next-intl/server';
+import { redirect } from 'next/navigation';
 
 export async function generateMetadata() {
   const t = await getTranslations('onboarding');
@@ -10,8 +10,16 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Onboarding() {
-  const user = (await auth()) ? await currentUser() : null;
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ name: string; register_token: string }>;
+}) {
+  const { name, register_token } = await searchParams;
 
-  return <OnboardingContent user={user} />;
+  if (!name || !register_token) {
+    redirect('/login');
+  }
+
+  return <Content name={name} registerToken={register_token} />;
 }
