@@ -10,7 +10,7 @@ import { FooterContext } from '@/contexts/footer';
 import useScroll from '@/hooks/useScroll';
 import cn from '@/lib/cn';
 import { MyScheduleTimeType } from '@/lib/types';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
 
 export default function ToolbarWrapper({
@@ -59,11 +59,11 @@ export function MyTimeBlockBoardContent({
 export function BottomButtonForMobile() {
   const { isFooterShown } = useContext(FooterContext);
 
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
   const t = useTranslations('userDashboard');
 
   function handleFloatingBottomButtonClick() {
-    router.push('/events/new');
+    progressRouter.push('/events/new');
   }
 
   return (

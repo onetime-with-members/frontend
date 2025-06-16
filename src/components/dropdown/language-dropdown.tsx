@@ -9,9 +9,9 @@ import CheckIcon from '@/components/icon/check';
 import useDropdown from '@/hooks/useDropdown';
 import axios from '@/lib/axios';
 import cn from '@/lib/cn';
-import { useRouter } from '@/navigation';
 import { IconLanguage } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 const languages: { key: 'ko' | 'en'; label: string }[] = [
   { key: 'ko', label: '한국어' },

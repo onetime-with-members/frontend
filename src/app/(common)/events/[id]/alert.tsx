@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
 import { deleteEvent } from '@/lib/actions';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import { useParams, usePathname } from 'next/navigation';
 
 export function LoginAlert({
@@ -12,7 +12,7 @@ export function LoginAlert({
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
   const pathname = usePathname();
   const params = useParams<{ id: string }>();
 
@@ -22,9 +22,9 @@ export function LoginAlert({
     <Alert
       onConfirm={(e) => {
         e.preventDefault();
-        router.push(`/login?redirect_url=${pathname}`);
+        progressRouter.push(`/login?redirect_url=${pathname}`);
       }}
-      onCancel={() => router.push(`/events/${params.id}/schedules/new`)}
+      onCancel={() => progressRouter.push(`/events/${params.id}/schedules/new`)}
       onClose={() => setIsOpen(false)}
       confirmText={t('loginConfirm')}
       cancelText={t('loginCancel')}

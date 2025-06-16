@@ -4,14 +4,16 @@ import { useTranslations } from 'next-intl';
 
 import { signOut } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function ProfileActions() {
   const router = useRouter();
+  const progressRouter = useProgressRouter();
   const t = useTranslations();
 
   function handleProfileEditButtonClick() {
-    router.push('/mypage/profile/edit');
+    progressRouter.push('/mypage/profile/edit');
   }
 
   async function handleLogoutButtonClick() {

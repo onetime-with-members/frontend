@@ -7,9 +7,9 @@ import { useEffect } from 'react';
 import { SocialLoginType } from './page';
 import { auth, signIn } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { Link, useRouter } from '@/navigation';
+import { ProgressLink, useProgressRouter } from '@/navigation';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export function SocialLoginCallback({
   searchParams,
@@ -24,7 +24,7 @@ export function SocialLoginCallback({
     redirectUrl?: string;
   };
 }) {
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
 
   useEffect(() => {
     async function socialLogin() {
@@ -35,17 +35,19 @@ export function SocialLoginCallback({
       if (searchParams.accessToken && searchParams.refreshToken) {
         await signIn(searchParams.accessToken, searchParams.refreshToken);
 
-        router.push((await getCookie('redirect-url')) || '/');
+        progressRouter.push((await getCookie('redirect-url')) || '/');
         await deleteCookie('redirect-url');
       }
 
       if (await auth()) {
-        router.replace(searchParams.redirectUrl || cookies.redirectUrl || '/');
+        progressRouter.replace(
+          searchParams.redirectUrl || cookies.redirectUrl || '/',
+        );
         await deleteCookie('redirect-url');
       }
     }
     socialLogin();
-  }, [searchParams, cookies, router]);
+  }, [searchParams, cookies]);
 
   return null;
 }
@@ -63,6 +65,7 @@ export function SocialLoginButton({
   HTMLAnchorElement
 >) {
   const router = useRouter();
+  const progressRouter = useProgressRouter();
   const searchParams = useSearchParams();
 
   const t = useTranslations('login');
@@ -71,12 +74,12 @@ export function SocialLoginButton({
     e.preventDefault();
     if (searchParams.has('redirect_url'))
       setCookie('redirect-url', searchParams.get('redirect_url'));
-    router.push(e.currentTarget.href);
+    progressRouter.push(e.currentTarget.href);
     router.refresh();
   }
 
   return (
-    <Link
+    <ProgressLink
       href={`${process.env.NEXT_PUBLIC_SERVER_OAUTH2_URL}/${provider}`}
       className={cn(
         'relative flex h-14 w-full items-center justify-center gap-2 rounded-xl',
@@ -134,6 +137,6 @@ export function SocialLoginButton({
               ? t('google')
               : ''}{' '}
       </span>
-    </Link>
+    </ProgressLink>
   );
 }

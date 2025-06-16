@@ -4,9 +4,9 @@ import { useTranslations } from 'next-intl';
 
 import PenIcon from '@/components/icon/pen';
 import { myPageTabActive, myPageTitle } from '@/lib/utils';
-import { Link, useRouter } from '@/navigation';
+import { ProgressLink } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export function MobileHeader() {
   const router = useRouter();
@@ -31,9 +31,9 @@ export function MobileHeader() {
             </h1>
             <div className="flex items-center justify-end">
               {tabActive === 'schedules' && (
-                <Link href="/mypage/schedules/edit">
+                <ProgressLink href="/mypage/schedules/edit">
                   <PenIcon fill="#31333F" />
-                </Link>
+                </ProgressLink>
               )}
             </div>
           </div>
@@ -54,9 +54,9 @@ export function DesktopHeader() {
     <header className="sticky top-[64px] z-20 flex items-center justify-between bg-gray-00 py-2">
       <h1 className="text-[1.75rem] font-semibold">{pageTitle}</h1>
       {tabActive === 'schedules' && (
-        <Link href="/mypage/schedules/edit">
+        <ProgressLink href="/mypage/schedules/edit">
           <PenIcon fill="#31333F" />
-        </Link>
+        </ProgressLink>
       )}
     </header>
   );

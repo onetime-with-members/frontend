@@ -13,7 +13,7 @@ import { FooterContext } from '@/contexts/footer';
 import { createUser } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { OnboardingValueType } from '@/lib/types';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function Content({
@@ -39,7 +39,7 @@ export default function Content({
 
   const { setFooterVisible } = useContext(FooterContext);
 
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
 
   const redirectUrl = getCookie('redirect-url');
 
@@ -50,7 +50,7 @@ export default function Content({
 
   function handleBackButtonClick() {
     if (page === 1) {
-      router.push(`/login?redirect_url=${redirectUrl}`);
+      progressRouter.push(`/login?redirect_url=${redirectUrl}`);
     } else {
       setPage((prevPage) => prevPage - 1);
     }

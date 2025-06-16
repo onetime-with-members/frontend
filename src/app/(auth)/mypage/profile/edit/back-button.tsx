@@ -1,7 +1,7 @@
 'use client';
 
-import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
 export function MobileBackButton() {
   const router = useRouter();

@@ -3,14 +3,14 @@
 import { useTranslations } from 'next-intl';
 
 import Button from '@/components/button';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 
 export function TopCTAButton() {
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
   const t = useTranslations('landing');
 
   function handleStartButtonClick() {
-    router.push('/events/new');
+    progressRouter.push('/events/new');
   }
 
   return (
@@ -26,11 +26,11 @@ export function TopCTAButton() {
 }
 
 export function BottomCTAButton() {
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
   const t = useTranslations('landing');
 
   function handleStartButtonClick() {
-    router.push('/events/new');
+    progressRouter.push('/events/new');
   }
 
   return (

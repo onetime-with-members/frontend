@@ -13,9 +13,8 @@ import { createEvent, editEvent } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { breakpoint, defaultEventValue } from '@/lib/constants';
 import { EventValueType, UserType } from '@/lib/types';
-import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 export default function EventFormScreen({
   type,

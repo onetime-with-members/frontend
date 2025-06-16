@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 import { BarBannerContext } from '@/contexts/bar-banner';
 import cn from '@/lib/cn';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import { IconX } from '@tabler/icons-react';
 import Image from 'next/image';
 
@@ -19,14 +19,14 @@ export default function BarBanner({
   const { barBanner, isBarBannerShown, closeBarBanner } =
     useContext(BarBannerContext);
 
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
 
   const locale = useLocale();
 
   function handleClick() {
     if (barBanner?.link_url) {
       if (barBanner.link_url.startsWith('/')) {
-        router.push(barBanner.link_url);
+        progressRouter.push(barBanner.link_url);
       } else {
         window.open(barBanner.link_url, '_blank', 'noopener noreferrer');
       }

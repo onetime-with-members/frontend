@@ -6,7 +6,7 @@ import AvatarDropdown from './dropdown/avatar-dropdown';
 import useScroll from '@/hooks/useScroll';
 import cn from '@/lib/cn';
 import { UserType } from '@/lib/types';
-import { Link, useRouter } from '@/navigation';
+import { ProgressLink, useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
@@ -54,7 +54,7 @@ export default function NavBar({
         )}
       >
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
-          <Link
+          <ProgressLink
             href="/"
             className={cn({
               'pointer-events-none cursor-default': disabled,
@@ -72,7 +72,7 @@ export default function NavBar({
               className="h-[2rem]"
               priority
             />
-          </Link>
+          </ProgressLink>
           {!isAuthHidden && (
             <>
               {user ? (
@@ -89,17 +89,17 @@ export default function NavBar({
 }
 
 function LoginButton({ disabled }: { disabled?: boolean }) {
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
   const pathname = usePathname();
   const t = useTranslations('navbar');
 
   function handleLoginClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
-    router.push(`/login?redirect_url=${pathname}`);
+    progressRouter.push(`/login?redirect_url=${pathname}`);
   }
 
   return (
-    <Link
+    <ProgressLink
       href="/login"
       className={cn('flex items-center text-lg-200', {
         'pointer-events-none': disabled,
@@ -107,6 +107,6 @@ function LoginButton({ disabled }: { disabled?: boolean }) {
       onClick={handleLoginClick}
     >
       {t('login')}
-    </Link>
+    </ProgressLink>
   );
 }

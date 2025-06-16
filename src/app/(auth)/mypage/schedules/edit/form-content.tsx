@@ -15,8 +15,8 @@ import useToast from '@/hooks/useToast';
 import { editMySchedule, editSleepTime } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { TimeType } from '@/lib/types';
-import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
 export default function FormContent({
   myScheduleData,

@@ -14,16 +14,17 @@ import { auth, currentUser } from '@/lib/auth';
 import { fetchPolicy } from '@/lib/data';
 import { getQueryClient } from '@/lib/query-client';
 import { UserType } from '@/lib/types';
-import { Link, useRouter } from '@/navigation';
+import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import 'dayjs/locale/ko';
 import Image from 'next/image';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
 
 export function SetUpProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const progressRouter = useProgressRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -67,7 +68,7 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
     });
     dayjs.locale(locale);
     router.refresh();
-  }, [router]);
+  }, []);
 
   useEffect(() => {
     async function setUpLocale() {
@@ -93,10 +94,10 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
       const policy = await fetchPolicy();
       if (policy.service_policy_agreement && policy.privacy_policy_agreement)
         return;
-      router.push('/policy/edit');
+      progressRouter.push('/policy/edit');
     }
     checkPolicy();
-  }, [pathname, router]);
+  }, [pathname, progressRouter]);
 
   return children;
 }
@@ -183,9 +184,13 @@ export function Footer() {
                 <span>{t('feedbackIssue')}</span>
               </a>
               <div className="flex items-center gap-2 text-gray-40">
-                <Link href="/policy/privacy">{t('privacyPolicy')}</Link>
+                <ProgressLink href="/policy/privacy">
+                  {t('privacyPolicy')}
+                </ProgressLink>
                 <span>|</span>
-                <Link href="/policy/service">{t('termsOfService')}</Link>
+                <ProgressLink href="/policy/service">
+                  {t('termsOfService')}
+                </ProgressLink>
               </div>
             </div>
           </div>

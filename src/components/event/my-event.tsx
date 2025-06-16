@@ -9,7 +9,7 @@ import {
   weekdaysShortKo,
 } from '@/lib/constants';
 import { MyEventType } from '@/lib/types';
-import { Link } from '@/navigation';
+import { ProgressLink } from '@/navigation';
 import { IconChevronRight } from '@tabler/icons-react';
 import Image from 'next/image';
 
@@ -30,7 +30,7 @@ export default function MyEvent({
   const recommendedTime = event.most_possible_times[0];
 
   return (
-    <Link
+    <ProgressLink
       href={`/events/${event.event_id}`}
       className={cn(
         'flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5',
@@ -138,6 +138,6 @@ export default function MyEvent({
           </div>
         </div>
       )}
-    </Link>
+    </ProgressLink>
   );
 }

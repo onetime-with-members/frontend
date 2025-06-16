@@ -8,8 +8,8 @@ import { useFormStatus } from 'react-dom';
 import Button from '@/components/button';
 import { FooterContext } from '@/contexts/footer';
 import cn from '@/lib/cn';
-import { useRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
+import { useRouter } from 'next/navigation';
 
 export default function BackButton() {
   const router = useRouter();

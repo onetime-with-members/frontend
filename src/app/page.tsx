@@ -26,7 +26,7 @@ import {
   defaultMyEvent,
 } from '@/lib/constants';
 import { fetchMyEvents, fetchMySchedule, fetchSleepTime } from '@/lib/data';
-import { Link } from '@/navigation';
+import { ProgressLink } from '@/navigation';
 import { IconChevronRight } from '@tabler/icons-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 import Image from 'next/image';
@@ -422,12 +422,12 @@ async function UserDashboardPage() {
                     <ToolbarTitleSkeleton />
                   )}
                 </h1>
-                <Link
+                <ProgressLink
                   href="/events/new"
                   className="hidden rounded-xl bg-primary-50 px-4 py-2 text-gray-00 duration-150 text-md-200 hover:bg-primary-60 active:bg-primary-60 md:flex"
                 >
                   {t('createEvent')}
-                </Link>
+                </ProgressLink>
               </div>
             </div>
           </ToolbarWrapper>
@@ -560,12 +560,12 @@ async function MyScheduleSection() {
               {sleepTime.sleep_start_time} - {sleepTime.sleep_end_time}
             </span>
           </div>
-          <Link
+          <ProgressLink
             href="/mypage/schedules/edit"
             className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-05 duration-150 hover:bg-gray-10 active:bg-gray-10"
           >
             <PenIcon fill="#474A5C" size={24} />
-          </Link>
+          </ProgressLink>
         </div>
 
         {/* Time Block Board */}
@@ -626,7 +626,10 @@ async function Header({
             {!isPending ? children : <Skeleton width={200} height={30} />}
           </h2>
           {hasMore && (
-            <Link href={moreHref} className="flex items-center text-gray-50">
+            <ProgressLink
+              href={moreHref}
+              className="flex items-center text-gray-50"
+            >
               {isPending ? (
                 <Skeleton width={50} height={24} />
               ) : (
@@ -637,7 +640,7 @@ async function Header({
                   </span>
                 </>
               )}
-            </Link>
+            </ProgressLink>
           )}
         </div>
         {description && (

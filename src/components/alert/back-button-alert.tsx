@@ -1,7 +1,8 @@
 import Alert from '.';
 import { useTranslations } from 'next-intl';
 
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function BackButtonAlert({
   setIsOpen,
@@ -11,6 +12,7 @@ export default function BackButtonAlert({
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const router = useRouter();
+  const progressRouter = useProgressRouter();
   const t = useTranslations('alert');
 
   function handleBackButtonConfirm(e: React.FormEvent<HTMLFormElement>) {
@@ -22,7 +24,7 @@ export default function BackButtonAlert({
     if (backHref === -1) {
       router.back();
     } else {
-      router.push(backHref);
+      progressRouter.push(backHref);
     }
   }
 

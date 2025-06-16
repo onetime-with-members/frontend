@@ -8,8 +8,9 @@ import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import { PolicyContext } from '@/contexts/policy';
 import { editPolicy } from '@/lib/actions';
 import { PolicyKeyType } from '@/lib/types';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function FormContent() {
   const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
@@ -18,6 +19,7 @@ export default function FormContent() {
   const { policyValue, setPolicyValue } = useContext(PolicyContext);
 
   const router = useRouter();
+  const progressRouter = useProgressRouter();
 
   const t = useTranslations('policyEdit');
 
@@ -38,11 +40,11 @@ export default function FormContent() {
 
   useEffect(() => {
     if (pageDetail === 'service_policy_agreement') {
-      router.push('/policy/service');
+      progressRouter.push('/policy/service');
     } else if (pageDetail === 'privacy_policy_agreement') {
-      router.push('/policy/privacy');
+      progressRouter.push('/policy/privacy');
     }
-  }, [pageDetail, router]);
+  }, [pageDetail, progressRouter]);
 
   return (
     <form

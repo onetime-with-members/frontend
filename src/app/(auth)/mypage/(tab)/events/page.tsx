@@ -1,7 +1,7 @@
 import MyEvent from '@/components/event/my-event';
 import GrayBackground from '@/components/gray-background';
 import { fetchMyEvents } from '@/lib/data';
-import { Link } from '@/navigation';
+import { ProgressLink } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
 import { getTranslations } from 'next-intl/server';
 
@@ -40,7 +40,7 @@ async function EmptyMyEvent() {
       <div className="text-center text-gray-90 text-lg-200">
         {t('empty.title')}
       </div>
-      <Link
+      <ProgressLink
         href="/events/new"
         className="flex items-center gap-1 rounded-full bg-primary-40 px-6 py-3 text-gray-00"
       >
@@ -48,7 +48,7 @@ async function EmptyMyEvent() {
         <span>
           <IconPlus size={20} />
         </span>
-      </Link>
+      </ProgressLink>
     </div>
   );
 }

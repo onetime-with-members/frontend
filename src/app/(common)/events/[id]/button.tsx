@@ -14,7 +14,7 @@ import useKakaoShare from '@/hooks/useKakaoShare';
 import { auth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { EventType, ScheduleType } from '@/lib/types';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import { IconEdit, IconPlus } from '@tabler/icons-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
@@ -39,7 +39,7 @@ export function BottomButtons({
 
   const { isFooterShown } = useContext(FooterContext);
 
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
 
   const t = useTranslations('eventDetail');
@@ -52,7 +52,7 @@ export function BottomButtons({
 
   async function handleBottomButtonClick() {
     if (await auth()) {
-      router.push(`/events/${params.id}/schedules/new`);
+      progressRouter.push(`/events/${params.id}/schedules/new`);
     } else {
       setIsLoginAlertOpen(true);
     }

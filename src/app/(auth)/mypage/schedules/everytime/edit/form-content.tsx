@@ -7,9 +7,9 @@ import { BottomButton } from './button';
 import Input from '@/components/input';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { submitEverytimeUrl } from '@/lib/actions';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function FormContent() {
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -20,6 +20,7 @@ export default function FormContent() {
   const { setEverytimeSchedule } = useContext(EverytimeScheduleContext);
 
   const router = useRouter();
+  const progressRouter = useProgressRouter();
   const searchParams = useSearchParams();
 
   const t = useTranslations('everytimeScheduleEdit');
@@ -53,7 +54,7 @@ export default function FormContent() {
     setEverytimeSchedule(everytimeSchedule);
     const editPagePathname = '/mypage/schedules/edit';
     if (searchParams.get('from') !== editPagePathname) {
-      router.replace(editPagePathname);
+      progressRouter.replace(editPagePathname);
     } else {
       router.back();
     }

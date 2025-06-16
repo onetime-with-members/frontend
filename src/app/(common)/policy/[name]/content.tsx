@@ -2,7 +2,7 @@
 
 import PolicyDetailScreen from '@/components/user/policy-detail-screen';
 import { PolicyKeyType, UserType } from '@/lib/types';
-import { useRouter } from '@/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function PolicyContent({
   page,

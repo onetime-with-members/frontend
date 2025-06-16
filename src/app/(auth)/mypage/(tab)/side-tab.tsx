@@ -9,7 +9,7 @@ import ProfileIcon from '@/components/icon/profile';
 import cn from '@/lib/cn';
 import { TabActiveType } from '@/lib/types';
 import { myPageTabActive } from '@/lib/utils';
-import { Link } from '@/navigation';
+import { ProgressLink } from '@/navigation';
 import { usePathname } from 'next/navigation';
 
 export default function SideTab() {
@@ -88,7 +88,7 @@ function SideTabItem({
       )}
       {...props}
     >
-      <Link
+      <ProgressLink
         href={href}
         className="flex w-[10rem] items-center justify-start gap-2 p-3 text-md-300"
       >
@@ -96,7 +96,7 @@ function SideTabItem({
           {icon}
         </span>
         <span>{children}</span>
-      </Link>
+      </ProgressLink>
     </li>
   );
 }

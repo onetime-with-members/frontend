@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from 'react';
 import Avatar from '../avatar';
 import { signOut } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { Link, useRouter } from '@/navigation';
+import { ProgressLink } from '@/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function AvatarDropdown({
   size = 40,
@@ -71,32 +72,35 @@ function AvatarDropdownMenu({
     label: string;
     onClick: () => void;
     variant: 'default' | 'danger';
-    notProgressed?: boolean;
+    progressBar: boolean;
   }[] = [
     {
       href: '/mypage/events',
       label: t('allEvents'),
       onClick: handleMenuItemClick,
       variant: 'default',
+      progressBar: true,
     },
     {
       href: '/mypage/schedules',
       label: t('mySchedule'),
       onClick: handleMenuItemClick,
       variant: 'default',
+      progressBar: true,
     },
     {
       href: '/mypage/profile',
       label: t('profile'),
       onClick: handleMenuItemClick,
       variant: 'default',
+      progressBar: true,
     },
     {
       href: '#',
       label: t('logout'),
       onClick: handleLogout,
       variant: 'danger',
-      notProgressed: true,
+      progressBar: false,
     },
   ];
 
@@ -113,7 +117,7 @@ function AvatarDropdownMenu({
     <ul className="absolute -bottom-4 right-0 w-[8.5rem] translate-y-full rounded-xl bg-gray-00 py-1 shadow-[0_0_30px_0_rgba(0,0,0,0.15)]">
       {menuItems.map((menuItem) => (
         <li key={menuItem.href} onClick={menuItem.onClick}>
-          <Link
+          <ProgressLink
             href={menuItem.href}
             className={cn(
               'block px-4 py-2 text-center text-gray-60 text-md-200',
@@ -121,10 +125,10 @@ function AvatarDropdownMenu({
                 'text-danger-50': menuItem.variant === 'danger',
               },
             )}
-            notProgressed={menuItem.notProgressed}
+            progressBar={menuItem.progressBar}
           >
             {menuItem.label}
-          </Link>
+          </ProgressLink>
         </li>
       ))}
     </ul>

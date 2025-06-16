@@ -3,7 +3,7 @@ import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import { auth, currentUser } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { Link } from '@/navigation';
+import { ProgressLink } from '@/navigation';
 import { getTranslations } from 'next-intl/server';
 import { redirect } from 'next/navigation';
 
@@ -89,7 +89,7 @@ function SettingItem({
         {children}
       </a>
     ) : (
-      <Link href={href}>{children}</Link>
+      <ProgressLink href={href}>{children}</ProgressLink>
     )
   ) : (
     children

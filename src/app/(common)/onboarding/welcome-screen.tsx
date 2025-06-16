@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import Button from '@/components/button';
 import cn from '@/lib/cn';
 import { OnboardingValueType } from '@/lib/types';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 
 export default function WelcomeScreen({
@@ -14,7 +14,7 @@ export default function WelcomeScreen({
   isVisible: boolean;
   value: OnboardingValueType;
 }) {
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
   const t = useTranslations('onboarding');
 
   function handleStartButtonClick() {
@@ -22,9 +22,9 @@ export default function WelcomeScreen({
 
     if (redirectUrl) {
       deleteCookie('redirect-url');
-      router.push(redirectUrl as string);
+      progressRouter.push(redirectUrl as string);
     } else {
-      router.push('/');
+      progressRouter.push('/');
     }
   }
 

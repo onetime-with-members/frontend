@@ -9,7 +9,7 @@ import EditIcon from '@/components/icon/edit';
 import TrashIcon from '@/components/icon/trash';
 import useDropdown from '@/hooks/useDropdown';
 import cn from '@/lib/cn';
-import { useRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import { IconDots } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
@@ -97,10 +97,10 @@ function ToolbarMenuItem({
   href?: string;
   variant?: 'default' | 'danger';
 } & React.HTMLAttributes<HTMLLIElement>) {
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
 
   function handleMenuItemClick() {
-    router.push(href);
+    progressRouter.push(href);
   }
 
   return (

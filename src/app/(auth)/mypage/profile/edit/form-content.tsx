@@ -6,7 +6,7 @@ import { DesktopSubmitButton, MobileSubmitButton } from './submit-button';
 import NicknameFormControl from '@/components/user/nickname-form-control';
 import { editProfile } from '@/lib/actions';
 import { UserType } from '@/lib/types';
-import { useRouter } from '@/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function FormContent({ user }: { user: UserType }) {
   const [value, setValue] = useState(user.nickname);
