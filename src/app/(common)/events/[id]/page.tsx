@@ -69,21 +69,30 @@ export default async function Page({
     notFound();
   }
 
-  const recommendedTimes = await fetchRecommendedTimes(id);
-  const qrCode = await fetchQrCode(id);
-  const schedules = await fetchSchedules(event);
-  const scheduleDetail = (await auth())
-    ? await fetchScheduleDetail(event, !!(await auth()), '')
-    : defaultScheduleDetail;
-
   const headersList = await headers();
   const host = headersList.get('host');
   const protocol = headersList.get('x-forwarded-proto') || 'http';
   const pathname = headersList.get('x-pathname') || '';
 
-  const shortenUrl = await fetchShortenUrl(`${protocol}://${host}${pathname}`);
+  const isLoggedIn = !!(await auth());
 
-  const user = (await auth()) ? await currentUser() : null;
+  const [
+    shortenUrl,
+    recommendedTimes,
+    qrCode,
+    schedules,
+    scheduleDetail,
+    user,
+  ] = await Promise.all([
+    fetchShortenUrl(`${protocol}://${host}${pathname}`),
+    fetchRecommendedTimes(id),
+    fetchQrCode(id),
+    fetchSchedules(event),
+    isLoggedIn
+      ? fetchScheduleDetail(event, true, '')
+      : Promise.resolve(defaultScheduleDetail),
+    isLoggedIn ? currentUser() : Promise.resolve(null),
+  ]);
 
   return (
     <div className="flex min-h-[110vh] flex-col">
