@@ -28,9 +28,8 @@ import {
   SleepTimeType,
   UserType,
 } from '@/lib/types';
-import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 
 export default function ScheduleAddScreen({
   isLoggedIn,
@@ -61,7 +60,7 @@ export default function ScheduleAddScreen({
 
   const { setFooterVisible } = useContext(FooterContext);
 
-  const progressRouter = useProgressRouter();
+  const router = useRouter();
   const params = useParams<{ id: string }>();
 
   const t = useTranslations('scheduleAdd');
@@ -140,7 +139,7 @@ export default function ScheduleAddScreen({
       if (isScheduleEdited) {
         setIsBackButtonAlertOpen(true);
       } else {
-        progressRouter.back();
+        router.back();
       }
     }
   }

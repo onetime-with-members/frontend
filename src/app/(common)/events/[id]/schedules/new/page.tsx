@@ -11,6 +11,7 @@ import {
   fetchScheduleDetail,
   fetchSleepTime,
 } from '@/lib/data';
+import { notFound } from 'next/navigation';
 
 export default async function Page({
   params,
@@ -19,15 +20,22 @@ export default async function Page({
 }) {
   const { id } = await params;
 
-  const session = await auth();
+  const isLoggedIn = !!(await auth());
 
   const event = await fetchEvent(id);
-  const schedule = session
-    ? await fetchScheduleDetail(event, !!session, '')
-    : defaultScheduleDetail;
-  const mySchedule = session ? await fetchMySchedule() : defaultMySchedule;
-  const sleepTime = session ? await fetchSleepTime() : defaultSleepTime;
-  const user = session ? await currentUser() : null;
+
+  if (!event) {
+    notFound();
+  }
+
+  const [schedule, mySchedule, sleepTime, user] = await Promise.all([
+    isLoggedIn
+      ? fetchScheduleDetail(event, true, '')
+      : Promise.resolve(defaultScheduleDetail),
+    isLoggedIn ? fetchMySchedule() : Promise.resolve(defaultMySchedule),
+    isLoggedIn ? fetchSleepTime() : Promise.resolve(defaultSleepTime),
+    isLoggedIn ? currentUser() : Promise.resolve(null),
+  ]);
 
   return (
     <ScheduleAddScreen
