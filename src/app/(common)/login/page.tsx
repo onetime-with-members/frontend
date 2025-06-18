@@ -38,7 +38,7 @@ export default async function Page(props: {
 
   const lastLogin = cookieStore.get('last-login')?.value as SocialLoginType;
 
-  const user = (await auth()) ? await currentUser() : null;
+  const user = (await auth()) ? (await currentUser()).user : null;
 
   const t = await getTranslations('login');
 

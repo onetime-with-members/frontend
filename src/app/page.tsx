@@ -400,7 +400,7 @@ async function BottomSection() {
 }
 
 async function UserDashboardPage() {
-  const user = await currentUser();
+  const { user } = await currentUser();
 
   const t = await getTranslations('userDashboard');
 

@@ -9,7 +9,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = (await auth()) ? await currentUser() : null;
+  const user = (await auth()) ? (await currentUser()).user : null;
 
   return (
     <>

@@ -45,7 +45,7 @@ export default async function Page({
     redirect(`/events/${eventId}`);
   }
 
-  const user = (await auth()) ? await currentUser() : null;
+  const user = (await auth()) ? (await currentUser()).user : null;
 
   return (
     <EventFormScreen

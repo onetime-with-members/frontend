@@ -12,7 +12,7 @@ export async function generateMetadata() {
 }
 
 export default async function NotFound() {
-  const user = (await auth()) ? await currentUser() : null;
+  const user = (await auth()) ? (await currentUser()).user : null;
 
   const t = await getTranslations('404');
 

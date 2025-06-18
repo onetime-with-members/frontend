@@ -88,7 +88,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = (await auth()) ? await currentUser() : null;
+  const user = (await auth()) ? (await currentUser()).user : null;
 
   const locale = await getLocale();
 

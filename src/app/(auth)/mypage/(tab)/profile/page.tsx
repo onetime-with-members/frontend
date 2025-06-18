@@ -18,7 +18,7 @@ export async function generateMetadata() {
 export default async function Page() {
   const session = await auth();
   if (!session) redirect('/login');
-  const user = await currentUser();
+  const { user } = await currentUser();
 
   const t = await getTranslations('profile');
 

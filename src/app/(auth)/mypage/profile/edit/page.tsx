@@ -19,7 +19,7 @@ export default async function Page() {
     redirect('/login');
   }
 
-  const user = await currentUser();
+  const { user } = await currentUser();
 
   const t = await getTranslations('profileEdit');
 

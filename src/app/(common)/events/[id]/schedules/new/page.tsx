@@ -28,7 +28,7 @@ export default async function Page({
     notFound();
   }
 
-  const [schedule, mySchedule, sleepTime, user] = await Promise.all([
+  const [schedule, mySchedule, sleepTime, userResponse] = await Promise.all([
     isLoggedIn
       ? fetchScheduleDetail(event, true, '')
       : Promise.resolve(defaultScheduleDetail),
@@ -36,6 +36,7 @@ export default async function Page({
     isLoggedIn ? fetchSleepTime() : Promise.resolve(defaultSleepTime),
     isLoggedIn ? currentUser() : Promise.resolve(null),
   ]);
+  const user = userResponse?.user || null;
 
   return (
     <ScheduleAddScreen

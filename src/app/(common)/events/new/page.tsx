@@ -11,7 +11,7 @@ export async function generateMetadata() {
 }
 
 export default async function EventCreate() {
-  const user = (await auth()) ? await currentUser() : null;
+  const user = (await auth()) ? (await currentUser()).user : null;
 
   return <EventFormScreen type="create" user={user} />;
 }

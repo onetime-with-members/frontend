@@ -24,7 +24,7 @@ export default async function Page() {
     notFound();
   }
 
-  const user = await currentUser();
+  const { user } = await currentUser();
 
   const t = await getTranslations('policyEdit');
 

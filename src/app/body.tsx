@@ -10,7 +10,7 @@ import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { auth, currentUser } from '@/lib/auth';
+import { auth, currentUser, signOut } from '@/lib/auth';
 import { fetchPolicy } from '@/lib/data';
 import { getQueryClient } from '@/lib/query-client';
 import { UserType } from '@/lib/types';
@@ -54,6 +54,16 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
+    async function withdrawCallback() {
+      const { error } = await currentUser();
+      if (error.code === 'USER-003') {
+        await signOut();
+      }
+    }
+    withdrawCallback();
+  }, []);
+
+  useEffect(() => {
     if (
       getCookie('locale') &&
       ['ko', 'en'].includes(getCookie('locale') as string)
@@ -73,7 +83,7 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function setUpLocale() {
       if (!(await auth())) return;
-      const user = await currentUser();
+      const { user } = await currentUser();
       if (!user) return;
       setCookie('last-login', user.social_platform, {
         expires: dayjs().add(1, 'year').toDate(),

@@ -79,15 +79,12 @@ export async function currentUser() {
   if (!res.ok) {
     const error = await res.json();
     console.error(error);
-    if (error.code === 'USER-003') {
-      await signOut();
-    }
-    return defaultUser;
+    return { user: defaultUser, error };
   }
   const data = await res.json();
   const user: UserType = data.payload;
 
-  return user;
+  return { user, error: null };
 }
 
 export async function createUser(formData: FormData) {

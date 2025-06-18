@@ -42,7 +42,7 @@ export default async function Page({
       : 'service_policy_agreement';
   const pageTitle = policyPageTitle(name, locale);
 
-  const user = (await auth()) ? await currentUser() : null;
+  const user = (await auth()) ? (await currentUser()).user : null;
 
   return (
     <div className="flex h-full flex-col">

@@ -82,7 +82,7 @@ export default async function Page({
     qrCode,
     schedules,
     scheduleDetail,
-    user,
+    userResponse,
   ] = await Promise.all([
     fetchShortenUrl(`${protocol}://${host}${pathname}`),
     fetchRecommendedTimes(id),
@@ -93,6 +93,7 @@ export default async function Page({
       : Promise.resolve(defaultScheduleDetail),
     isLoggedIn ? currentUser() : Promise.resolve(null),
   ]);
+  const user = userResponse?.user || null;
 
   return (
     <div className="flex min-h-[110vh] flex-col">
