@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
   const session: Session = JSON.parse(sessionCookie);
 
   const { error } = await currentUser();
-  if (error.code === 'USER-003') {
+  if (error?.code === 'USER-003') {
     response.cookies.delete('session');
     return response;
   }
