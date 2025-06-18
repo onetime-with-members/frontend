@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import jwt from 'jsonwebtoken';
 
-import { Session } from './lib/auth';
+import { Session, currentUser } from './lib/auth';
 import { SERVER_API_URL } from './lib/constants';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -13,6 +13,12 @@ export async function middleware(request: NextRequest) {
   const sessionCookie = request.cookies.get('session')?.value;
   if (!sessionCookie) return response;
   const session: Session = JSON.parse(sessionCookie);
+
+  const { error } = await currentUser();
+  if (error.code === 'USER-003') {
+    response.cookies.delete('session');
+    return response;
+  }
 
   const decodedAccessToken = jwt.decode(session.accessToken) as { exp: number };
   if (dayjs().isBefore(dayjs(decodedAccessToken.exp * 1000), 'second')) {

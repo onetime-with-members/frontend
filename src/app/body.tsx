@@ -10,7 +10,7 @@ import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { auth, currentUser, signOut } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth';
 import { fetchPolicy } from '@/lib/data';
 import { getQueryClient } from '@/lib/query-client';
 import { UserType } from '@/lib/types';
@@ -51,19 +51,6 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
       await deleteCookie('refresh-token');
     }
     deleteOldCookies();
-  }, []);
-
-  useEffect(() => {
-    async function withdrawCallback() {
-      if (!(await auth())) return;
-      const { error } = await currentUser();
-      if (!error) return;
-      if (error.code === 'USER-003') {
-        await signOut();
-        router.refresh();
-      }
-    }
-    withdrawCallback();
   }, []);
 
   useEffect(() => {

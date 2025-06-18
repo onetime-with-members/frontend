@@ -48,14 +48,9 @@ export async function signOut() {
     }),
   });
   if (!res.ok) {
-    const error = await res.json();
-    console.error(error);
-    if (error.code !== 'USER-003') {
-      return defaultUser;
-    }
+    console.error(await res.json());
+    return defaultUser;
   }
-
-  redirect('/');
 }
 
 export async function auth(): Promise<Session | null> {
