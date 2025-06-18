@@ -77,7 +77,11 @@ export async function currentUser() {
     cache: 'force-cache',
   });
   if (!res.ok) {
-    console.error(await res.json());
+    const error = await res.json();
+    console.error(error);
+    if (error.code === 'USER-003') {
+      await signOut();
+    }
     return defaultUser;
   }
   const data = await res.json();
