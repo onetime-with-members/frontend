@@ -32,6 +32,11 @@ export async function signIn(accessToken: string, refreshToken: string) {
 export async function signOut() {
   const session = await auth();
 
+  const cookieStore = await cookies();
+  cookieStore.delete('session');
+
+  revalidatePath('/');
+
   const res = await fetch(`${SERVER_API_URL}/users/logout`, {
     method: 'POST',
     headers: {
@@ -46,11 +51,6 @@ export async function signOut() {
     console.error(await res.json());
     return defaultUser;
   }
-
-  const cookieStore = await cookies();
-  cookieStore.delete('session');
-
-  revalidatePath('/');
 }
 
 export async function auth(): Promise<Session | null> {
