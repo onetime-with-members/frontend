@@ -30,6 +30,23 @@ export async function signIn(accessToken: string, refreshToken: string) {
 }
 
 export async function signOut() {
+  const session = await auth();
+
+  const res = await fetch(`${SERVER_API_URL}/users/logout`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${await accessToken()}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      refresh_token: session?.refreshToken,
+    }),
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    return defaultUser;
+  }
+
   const cookieStore = await cookies();
   cookieStore.delete('session');
 
