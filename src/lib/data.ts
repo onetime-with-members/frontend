@@ -2,6 +2,7 @@ import { accessToken, auth } from './auth';
 import {
   SERVER_API_URL,
   defaultEvent,
+  defaultMySchedule,
   defaultPolicy,
   defaultScheduleDetail,
   defaultSleepTime,
@@ -154,7 +155,17 @@ export async function fetchMySchedule() {
     return [];
   }
   const data = await res.json();
-  const mySchedule: MyScheduleTimeType[] = data.payload.schedules;
+  const myScheduleData: MyScheduleTimeType[] = data.payload.schedules;
+
+  const mySchedule =
+    myScheduleData.length !== 7
+      ? defaultMySchedule.map((s1) => ({
+          time_point: s1.time_point,
+          times:
+            myScheduleData.find((s2) => s1.time_point === s2.time_point)
+              ?.times || [],
+        }))
+      : myScheduleData;
 
   return mySchedule;
 }
