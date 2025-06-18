@@ -35,7 +35,6 @@ export async function signOut() {
   const cookieStore = await cookies();
   cookieStore.delete('session');
 
-  console.log('Revalidated');
   revalidatePath('/');
 
   const res = await fetch(`${SERVER_API_URL}/users/logout`, {
@@ -49,9 +48,14 @@ export async function signOut() {
     }),
   });
   if (!res.ok) {
-    console.error(await res.json());
-    return defaultUser;
+    const error = await res.json();
+    console.error(error);
+    if (error.code !== 'USER-003') {
+      return defaultUser;
+    }
   }
+
+  redirect('/');
 }
 
 export async function auth(): Promise<Session | null> {
