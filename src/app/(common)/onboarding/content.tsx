@@ -10,6 +10,7 @@ import SleepTimeScreen from './sleep-time-screen';
 import WelcomeScreen from './welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
+import { SleepTimeContext } from '@/contexts/sleep-time';
 import { createUser } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { OnboardingValueType } from '@/lib/types';
@@ -38,6 +39,7 @@ export default function Content({
   });
 
   const { setFooterVisible } = useContext(FooterContext);
+  const { revalidateSleepTime } = useContext(SleepTimeContext);
 
   const progressRouter = useProgressRouter();
 
@@ -62,6 +64,8 @@ export default function Content({
     const formData = new FormData();
     formData.set('onboardingValue', JSON.stringify(value));
     await createUser(formData);
+
+    revalidateSleepTime();
 
     setPage((prev) => prev + 1);
   }

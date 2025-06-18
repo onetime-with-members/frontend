@@ -103,6 +103,8 @@ export async function createUser(formData: FormData) {
       expires: dayjs().add(1, 'month').toDate(),
     },
   );
+
+  revalidatePath('/');
 }
 
 export async function withdraw() {
