@@ -18,7 +18,7 @@ export default function ProfileActions() {
 
   async function handleLogoutButtonClick() {
     await signOut();
-    router.refresh();
+    router.push('/');
   }
 
   return (
