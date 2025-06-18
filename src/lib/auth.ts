@@ -35,6 +35,7 @@ export async function signOut() {
   const cookieStore = await cookies();
   cookieStore.delete('session');
 
+  console.log('Revalidated');
   revalidatePath('/');
 
   const res = await fetch(`${SERVER_API_URL}/users/logout`, {

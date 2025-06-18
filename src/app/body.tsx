@@ -60,7 +60,9 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
       if (!error) return;
       if (error.code === 'USER-003') {
         await signOut();
-        router.refresh();
+        console.log('Revalidated in Client');
+        location.reload();
+        console.log('Reloaded');
       }
     }
     withdrawCallback();
