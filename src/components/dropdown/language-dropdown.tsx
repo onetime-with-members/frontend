@@ -1,16 +1,16 @@
 'use client';
 
-import { getCookie, setCookie } from 'cookies-next';
-import dayjs from 'dayjs';
+import { setCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useRef } from 'react';
 
 import CheckIcon from '@/components/icon/check';
 import useDropdown from '@/hooks/useDropdown';
-import axios from '@/lib/axios';
+import { editUserLanguage } from '@/lib/actions';
+import { auth } from '@/lib/auth';
 import cn from '@/lib/cn';
+import dayjs from '@/lib/dayjs';
 import { IconLanguage } from '@tabler/icons-react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 const languages: { key: 'ko' | 'en'; label: string }[] = [
@@ -33,26 +33,13 @@ export default function LanguageDropdown({
     });
 
   const locale = useLocale();
-  const queryClient = useQueryClient();
   const router = useRouter();
 
-  const isLoggedIn = getCookie('access-token');
-
-  const { mutate: editUserLanguage } = useMutation({
-    mutationFn: async (language: string) => {
-      const res = await axios.patch('/users/profile/action-update', {
-        language,
-      });
-      return res.data.payload;
-    },
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['users'] });
-    },
-  });
-
-  function handleDropdownMenuItemClick(language: string) {
-    if (isLoggedIn) {
-      editUserLanguage(language === 'ko' ? 'KOR' : 'ENG');
+  async function handleDropdownMenuItemClick(language: string) {
+    if (await auth()) {
+      const formData = new FormData();
+      formData.set('language', language === 'ko' ? 'KOR' : 'ENG');
+      await editUserLanguage(formData);
     }
     setIsDropdownMenuOpen(false);
     setCookie('locale', language, {

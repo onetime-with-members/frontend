@@ -1,6 +1,5 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
@@ -13,6 +12,7 @@ import useKakaoShare from '@/hooks/useKakaoShare';
 import useToast from '@/hooks/useToast';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
+import dayjs from '@/lib/dayjs';
 import { EventType, RecommendScheduleType } from '@/lib/types';
 import {
   IconChevronDown,

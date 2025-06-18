@@ -88,6 +88,28 @@ export async function editProfile(formData: FormData) {
   revalidatePath('/mypage/profile');
 }
 
+export async function editUserLanguage(formData: FormData) {
+  const language = formData.get('language');
+
+  console.log(language);
+
+  const res = await fetch(`${SERVER_API_URL}/users/profile/action-update`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${await accessToken()}`,
+    },
+    body: JSON.stringify({
+      language,
+    }),
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    throw new Error('Failed to edit user language');
+  }
+  console.log(await res.json());
+}
+
 export async function editMySchedule(formData: FormData) {
   const mySchedule = JSON.parse(formData.get('mySchedule') as string);
 

@@ -1,7 +1,6 @@
 'use client';
 
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import nProgress from 'nprogress';
 import { useContext, useEffect, useRef, useState } from 'react';
@@ -12,12 +11,12 @@ import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
 import { auth, currentUser } from '@/lib/auth';
 import { fetchPolicy } from '@/lib/data';
+import dayjs from '@/lib/dayjs';
 import { getQueryClient } from '@/lib/query-client';
 import { UserType } from '@/lib/types';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
 import { QueryClientProvider } from '@tanstack/react-query';
-import 'dayjs/locale/ko';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
@@ -54,24 +53,31 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (
-      getCookie('locale') &&
-      ['ko', 'en'].includes(getCookie('locale') as string)
-    ) {
-      dayjs.locale(getCookie('locale') as string);
-      return;
+    const localeCookie = getCookie('locale');
+    if (!localeCookie) return;
+    if (['ko', 'en'].includes(localeCookie as string)) {
+      dayjs.locale(localeCookie as string);
+      router.refresh();
     }
-
-    const locale = window.navigator.language.includes('ko') ? 'ko' : 'en';
-    setCookie('locale', locale, {
-      expires: dayjs().add(1, 'year').toDate(),
-    });
-    dayjs.locale(locale);
-    router.refresh();
   }, []);
 
   useEffect(() => {
-    async function setUpLocale() {
+    async function setUpBrowserLocale() {
+      const localeCookie = getCookie('locale');
+      const isLoggedIn = !!(await auth());
+      if (localeCookie || isLoggedIn) return;
+      const locale = window.navigator.language.includes('ko') ? 'ko' : 'en';
+      setCookie('locale', locale, {
+        expires: dayjs().add(1, 'year').toDate(),
+      });
+      dayjs.locale(locale);
+      router.refresh();
+    }
+    setUpBrowserLocale();
+  }, []);
+
+  useEffect(() => {
+    async function setUpUserLocaleLastLogin() {
       if (!(await auth())) return;
       const { user } = await currentUser();
       if (!user) return;
@@ -83,8 +89,9 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
         expires: dayjs().add(1, 'year').toDate(),
       });
       dayjs.locale(newLocale);
+      router.refresh();
     }
-    setUpLocale();
+    setUpUserLocaleLastLogin();
   }, []);
 
   useEffect(() => {

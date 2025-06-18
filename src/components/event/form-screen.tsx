@@ -1,6 +1,5 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 import { useFormStatus } from 'react-dom';
@@ -12,6 +11,7 @@ import { PageModeContext } from '@/contexts/page-mode';
 import { createEvent, editEvent } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { breakpoint, defaultEventValue } from '@/lib/constants';
+import dayjs from '@/lib/dayjs';
 import { EventValueType, UserType } from '@/lib/types';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useParams, useRouter } from 'next/navigation';

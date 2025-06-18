@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { useLocale } from 'next-intl';
 import { useContext, useState } from 'react';
 
@@ -7,6 +6,7 @@ import { WeekdayLocaleContext } from '@/contexts/weekday-locale';
 import useDragSelect from '@/hooks/useDragSelect';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
+import dayjs from '@/lib/dayjs';
 import { EventValueType } from '@/lib/types';
 import { eventTarget } from '@/lib/utils';
 import { IconTriangleFilled } from '@tabler/icons-react';

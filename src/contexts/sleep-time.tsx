@@ -1,11 +1,11 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { createContext, useCallback, useEffect, useState } from 'react';
 
 import { auth } from '@/lib/auth';
 import { defaultSleepTime } from '@/lib/constants';
 import { fetchSleepTime } from '@/lib/data';
+import dayjs from '@/lib/dayjs';
 import { SleepTimeType } from '@/lib/types';
 import { getTimesGroupForSplitted, timeBlockList } from '@/lib/utils';
 import { usePathname } from 'next/navigation';

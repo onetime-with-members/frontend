@@ -1,9 +1,5 @@
-import dayjs from 'dayjs';
-
+import dayjs from './dayjs';
 import { ScheduleType, SleepTimeType, TabActiveType } from './types';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-
-dayjs.extend(customParseFormat);
 
 export function eventTarget(event: React.UIEvent): HTMLElement | null {
   if (event.type.includes('mouse') || event.type.includes('click')) {

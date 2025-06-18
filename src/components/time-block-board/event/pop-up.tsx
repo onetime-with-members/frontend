@@ -1,9 +1,9 @@
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 
 import MemberBadge from '@/components/member-badge';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
+import dayjs from '@/lib/dayjs';
 import { TimeBlockPopUpDataType } from '@/lib/types';
 import { IconX } from '@tabler/icons-react';
 

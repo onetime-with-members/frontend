@@ -1,10 +1,10 @@
 'use client';
 
 import { setCookie } from 'cookies-next';
-import dayjs from 'dayjs';
 import { createContext, useState } from 'react';
 
 import { defaultBarBanner } from '@/lib/constants';
+import dayjs from '@/lib/dayjs';
 import { BarBanner } from '@/lib/types';
 
 export const BarBannerContext = createContext<{

@@ -1,8 +1,7 @@
 'use server';
 
-import dayjs from 'dayjs';
-
 import { SERVER_API_URL, defaultUser } from './constants';
+import dayjs from './dayjs';
 import { OnboardingValueType, UserType } from './types';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
@@ -74,7 +73,6 @@ export async function currentUser() {
     headers: {
       Authorization: `Bearer ${await accessToken()}`,
     },
-    cache: 'force-cache',
   });
   if (!res.ok) {
     const error = await res.json();

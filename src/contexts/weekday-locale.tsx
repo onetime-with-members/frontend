@@ -4,6 +4,7 @@ import { useLocale } from 'next-intl';
 import { createContext, useEffect, useState } from 'react';
 
 import { weekdaysShortEn, weekdaysShortKo } from '@/lib/constants';
+import dayjs from '@/lib/dayjs';
 
 export const WeekdayLocaleContext = createContext<{
   weekdaysShort: string[];
@@ -25,6 +26,8 @@ export default function WeekdayLocaleContextProvider({
   );
 
   const locale = useLocale();
+
+  dayjs.locale(locale);
 
   function changeWeekdaysLocale(locale: string) {
     setWeekdaysShort(locale === 'ko' ? weekdaysShortKo : weekdaysShortEn);

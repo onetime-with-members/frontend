@@ -1,9 +1,9 @@
-import dayjs from 'dayjs';
 import { useContext, useEffect, useState } from 'react';
 
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import { defaultScheduleDetail, weekdaysShortKo } from '@/lib/constants';
 import { fetchScheduleDetail } from '@/lib/data';
+import dayjs from '@/lib/dayjs';
 import {
   EventType,
   MyScheduleTimeType,

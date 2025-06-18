@@ -1,6 +1,5 @@
 'use client';
 
-import dayjs from 'dayjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
@@ -14,6 +13,7 @@ import useClientWidth from '@/hooks/useClientWidth';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
+import dayjs from '@/lib/dayjs';
 import { EventType, RecommendScheduleType, ScheduleType } from '@/lib/types';
 import { getParticipants } from '@/lib/utils';
 import { IconChevronRight } from '@tabler/icons-react';

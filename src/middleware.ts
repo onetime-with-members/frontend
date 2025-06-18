@@ -1,8 +1,8 @@
-import dayjs from 'dayjs';
 import jwt from 'jsonwebtoken';
 
 import { Session, currentUser } from './lib/auth';
 import { SERVER_API_URL } from './lib/constants';
+import dayjs from './lib/dayjs';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {

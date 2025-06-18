@@ -1,5 +1,6 @@
-import dayjs from 'dayjs';
-import { useTranslations } from 'next-intl';
+'use client';
+
+import { useLocale, useTranslations } from 'next-intl';
 import Skeleton from 'react-loading-skeleton';
 
 import cn from '@/lib/cn';
@@ -8,6 +9,7 @@ import {
   SKELETON_GRAY,
   weekdaysShortKo,
 } from '@/lib/constants';
+import dayjs from '@/lib/dayjs';
 import { MyEventType } from '@/lib/types';
 import { ProgressLink } from '@/navigation';
 import { IconChevronRight } from '@tabler/icons-react';
@@ -23,6 +25,9 @@ export default function MyEvent({
   isPending?: boolean;
 }) {
   const t = useTranslations('common');
+  const locale = useLocale();
+
+  dayjs.locale(locale);
 
   const isRecommended =
     event.most_possible_times.length > 0 && event.participant_count >= 1;
