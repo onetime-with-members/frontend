@@ -55,6 +55,7 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     async function withdrawCallback() {
+      if (!(await auth())) return;
       const { error } = await currentUser();
       if (error.code === 'USER-003') {
         await signOut();
