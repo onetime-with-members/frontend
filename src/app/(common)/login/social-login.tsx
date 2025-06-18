@@ -7,9 +7,9 @@ import { useEffect } from 'react';
 import { SocialLoginType } from './page';
 import { auth, signIn } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { ProgressLink, useProgressRouter } from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 export function SocialLoginCallback({
   searchParams,
@@ -56,7 +56,7 @@ export function SocialLoginButton({
   provider,
   className,
   lastLogin,
-  ...rest
+  ...props
 }: {
   provider: SocialLoginType;
   lastLogin: boolean;
@@ -64,22 +64,10 @@ export function SocialLoginButton({
   React.AnchorHTMLAttributes<HTMLAnchorElement>,
   HTMLAnchorElement
 >) {
-  const router = useRouter();
-  const progressRouter = useProgressRouter();
-  const searchParams = useSearchParams();
-
   const t = useTranslations('login');
 
-  function handleLoginButtonClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    e.preventDefault();
-    if (searchParams.has('redirect_url'))
-      setCookie('redirect-url', searchParams.get('redirect_url'));
-    progressRouter.push(e.currentTarget.href);
-    router.refresh();
-  }
-
   return (
-    <ProgressLink
+    <Link
       href={`${process.env.NEXT_PUBLIC_SERVER_OAUTH2_URL}/${provider}`}
       className={cn(
         'relative flex h-14 w-full items-center justify-center gap-2 rounded-xl',
@@ -90,8 +78,7 @@ export function SocialLoginButton({
         },
         className,
       )}
-      onClick={handleLoginButtonClick}
-      {...rest}
+      {...props}
     >
       {lastLogin && (
         <div className="absolute -top-2 right-2.5 rounded-lg rounded-bl-sm bg-gray-90 px-2.5 py-1.5 text-xs font-medium text-gray-00">
@@ -137,6 +124,6 @@ export function SocialLoginButton({
               ? t('google')
               : ''}{' '}
       </span>
-    </ProgressLink>
+    </Link>
   );
 }
