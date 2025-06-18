@@ -57,8 +57,10 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
     async function withdrawCallback() {
       if (!(await auth())) return;
       const { error } = await currentUser();
+      if (!error) return;
       if (error.code === 'USER-003') {
         await signOut();
+        router.refresh();
       }
     }
     withdrawCallback();
