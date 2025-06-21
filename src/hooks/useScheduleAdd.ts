@@ -47,6 +47,7 @@ export default function useScheduleAdd({
 
   useEffect(() => {
     async function fetchSchedule() {
+      if (!isLoggedIn && !guestId) return;
       const scheduleDetail = await fetchScheduleDetail(
         event,
         isLoggedIn,
