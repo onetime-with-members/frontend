@@ -1,4 +1,5 @@
-import EventCreatePage from './components/EventCreatePage';
+import EventFormScreen from '@/components/event/form-screen';
+import { auth, currentUser } from '@/lib/auth';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -9,6 +10,8 @@ export async function generateMetadata() {
   };
 }
 
-export default function EventCreate() {
-  return <EventCreatePage />;
+export default async function EventCreate() {
+  const user = (await auth()) ? (await currentUser()).user : null;
+
+  return <EventFormScreen type="create" user={user} />;
 }

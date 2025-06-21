@@ -1,9 +1,58 @@
-import { MyEventType } from '@/types/event.type';
-import { RecommendScheduleType as RecommendTimeType } from '@/types/schedule.type';
+import {
+  BarBanner,
+  EventType,
+  EventValueType,
+  MyEventType,
+  MyScheduleTimeType,
+  PolicyType,
+  ScheduleType,
+  SleepTimeType,
+  UserType,
+} from '@/lib/types';
+import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
+
+export const SERVER_API_URL =
+  process.env.SERVER_API_URL ||
+  process.env.NEXT_PUBLIC_SERVER_API_URL ||
+  'http://localhost:3000';
+export const CRAWLING_SERVER_API_URL =
+  process.env.CRAWLING_SERVER_API_URL || 'http://localhost:3000';
+
+export const LOCALES = ['ko', 'en'] as const;
+export const POLICY_KEY_LIST = ['privacy', 'service'] as const;
+
+export const weekdaysShortKo = ['일', '월', '화', '수', '목', '금', '토'];
+export const weekdaysShortEn = [
+  'Sun',
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat',
+];
 
 export const breakpoint = {
   sm: 640,
   md: 768,
+};
+
+export const defaultEvent: EventType = {
+  event_id: '',
+  title: '',
+  start_time: '',
+  end_time: '',
+  category: 'DATE',
+  ranges: [],
+  event_status: 'PARTICIPANT',
+};
+
+export const defaultEventValue: EventValueType = {
+  title: '',
+  start_time: '09:00',
+  end_time: '24:00',
+  category: 'DATE',
+  ranges: [],
 };
 
 export const defaultMyEvent: MyEventType = {
@@ -22,6 +71,47 @@ export const defaultRecommendTime: RecommendTimeType = {
   possible_count: 0,
   possible_names: [],
   impossible_names: [],
+};
+
+export const defaultSleepTime: SleepTimeType = {
+  sleep_start_time: '00:00',
+  sleep_end_time: '00:00',
+};
+
+export const defaultMySchedule: MyScheduleTimeType[] = weekdaysShortKo.map(
+  (weekday) => ({
+    time_point: weekday,
+    times: [],
+  }),
+);
+
+export const defaultBarBanner: BarBanner = {
+  id: 0,
+  content_kor: '',
+  content_eng: '',
+  background_color_code: '',
+  text_color_code: '',
+  is_activated: false,
+  created_date: '',
+  link_url: '',
+};
+
+export const defaultScheduleDetail: ScheduleType = {
+  name: '',
+  schedules: [],
+};
+
+export const defaultUser: UserType = {
+  nickname: '',
+  email: '',
+  language: 'ENG',
+  social_platform: 'google',
+};
+
+export const defaultPolicy: PolicyType = {
+  service_policy_agreement: true,
+  privacy_policy_agreement: true,
+  marketing_policy_agreement: true,
 };
 
 export const SKELETON_GRAY = '#e8e9ed77';

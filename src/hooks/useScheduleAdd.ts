@@ -1,123 +1,100 @@
-import { getCookie } from 'cookies-next';
-import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
-import { useEventQuery } from '@/queries/event.queries';
-import { useScheduleDetailQuery } from '@/queries/schedule.queries';
-import { useSleepTimeData, useSleepTimesList } from '@/stores/sleep-time';
-import { MyScheduleTimeType, ScheduleType } from '@/types/schedule.type';
-import { SleepTimeType } from '@/types/user.type';
-import axios from '@/utils/axios';
-import { timeBlockList } from '@/utils/time-block';
-import { weekdaysShortKo } from '@/utils/weekday';
-import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'next/navigation';
-
-interface UseScheduleCreateProps {
-  isNewGuest: boolean;
-  guestId: string;
-}
-
-function isScheduleEmpty(scheduleData: ScheduleType | undefined) {
-  return scheduleData
-    ? scheduleData.schedules.length === 0 ||
-        scheduleData.schedules.every((schedule) => schedule.times.length === 0)
-    : false;
-}
-
-function isFixedScheduleEmpty(
-  fixedScheduleData: MyScheduleTimeType[] | undefined,
-) {
-  return fixedScheduleData
-    ? fixedScheduleData.every((schedule) => schedule.times.length === 0)
-    : true;
-}
-
-function isSleepTimeEmpty(sleepTimeData: SleepTimeType | undefined) {
-  return sleepTimeData
-    ? sleepTimeData.sleep_end_time === sleepTimeData.sleep_start_time
-    : true;
-}
+import { SleepTimeContext } from '@/contexts/sleep-time';
+import { defaultScheduleDetail, weekdaysShortKo } from '@/lib/constants';
+import { fetchScheduleDetail } from '@/lib/data';
+import dayjs from '@/lib/dayjs';
+import {
+  EventType,
+  MyScheduleTimeType,
+  ScheduleType,
+  SleepTimeType,
+} from '@/lib/types';
+import { timeBlockList } from '@/lib/utils';
 
 export default function useScheduleAdd({
-  isNewGuest,
+  event,
+  schedule: fetchedSchedule,
+  mySchedule,
+  sleepTime,
+  isLoggedIn,
   guestId,
-}: UseScheduleCreateProps) {
+}: {
+  event: EventType;
+  schedule: ScheduleType;
+  mySchedule: MyScheduleTimeType[];
+  sleepTime: SleepTimeType;
+  isLoggedIn: boolean;
+  guestId: string;
+}) {
   const [initialSchedule, setInitialSchedule] = useState<ScheduleType[]>([]);
-
-  const sleepTimeData = useSleepTimeData();
-  const sleepTimesList = useSleepTimesList();
-
-  const params = useParams<{ id: string }>();
-
-  const isLoggedIn = !!getCookie('access-token');
-
-  const { data: event } = useEventQuery(params.id);
-  const { data: scheduleData } = useScheduleDetailQuery({
-    event,
-    guestId,
-    isNewGuest,
-    isLoggedIn,
-  });
-  const { data: fixedScheduleData } = useQuery<MyScheduleTimeType[]>({
-    queryKey: ['fixed-schedules'],
-    queryFn: async () => {
-      const res = await axios.get('/fixed-schedules');
-      return res.data.payload.schedules;
-    },
-    enabled: isLoggedIn,
-  });
-
-  const [schedules, setSchedules] = useState<ScheduleType[]>([
+  const [scheduleValue, setScheduleValue] = useState<ScheduleType[]>([
     {
       name: '본인',
       schedules: [],
     },
   ]);
+  const [schedule, setSchedule] = useState<ScheduleType>(
+    isLoggedIn ? fetchedSchedule : defaultScheduleDetail,
+  );
   const [isEmpty, setIsEmpty] = useState({
-    schedule: isScheduleEmpty(scheduleData),
-    fixedSchedule: isFixedScheduleEmpty(fixedScheduleData),
-    sleepTime: isSleepTimeEmpty(sleepTimeData),
+    schedule: isScheduleEmpty(isLoggedIn ? fetchedSchedule : schedule),
+    fixedSchedule: isFixedScheduleEmpty(mySchedule),
+    sleepTime: isSleepTimeEmpty(sleepTime),
   });
+
+  const { sleepTimesList } = useContext(SleepTimeContext);
+
+  useEffect(() => {
+    async function fetchSchedule() {
+      if (!isLoggedIn && !guestId) return;
+      const scheduleDetail = await fetchScheduleDetail(
+        event,
+        isLoggedIn,
+        guestId,
+      );
+      setSchedule(scheduleDetail);
+    }
+    fetchSchedule();
+  }, [event, guestId, isLoggedIn]);
 
   useEffect(() => {
     setIsEmpty({
-      schedule: isScheduleEmpty(scheduleData),
-      fixedSchedule: isFixedScheduleEmpty(fixedScheduleData),
-      sleepTime: isSleepTimeEmpty(sleepTimeData),
+      schedule: isScheduleEmpty(schedule),
+      fixedSchedule: isFixedScheduleEmpty(mySchedule),
+      sleepTime: isSleepTimeEmpty(sleepTime),
     });
-  }, [scheduleData, fixedScheduleData, sleepTimeData]);
+  }, [schedule, mySchedule, sleepTime]);
 
   useEffect(() => {
-    const defaultSchedule =
-      event?.ranges.map((time_point) => ({
-        time_point,
-        times: [],
-      })) || [];
+    const defaultSchedule = event.ranges.map((time_point) => ({
+      time_point,
+      times: [],
+    }));
 
     const initialSchedule = [
       {
-        name: scheduleData?.name || '본인',
+        name: schedule.name,
         schedules: isEmpty.schedule
           ? isEmpty.fixedSchedule && isEmpty.sleepTime
             ? defaultSchedule
             : fixedAndSleepTimeSchedule()
-          : defaultSchedule.map((schedule) => ({
-              ...schedule,
+          : defaultSchedule.map((scheduleTime) => ({
+              ...scheduleTime,
               times:
-                scheduleData?.schedules.find(
-                  (s) => s.time_point === schedule.time_point,
+                schedule.schedules.find(
+                  (s) => s.time_point === scheduleTime.time_point,
                 )?.times || [],
             })),
       },
     ];
 
     setInitialSchedule(initialSchedule);
-    setSchedules(initialSchedule);
+    setScheduleValue(initialSchedule);
 
     function fixedAndSleepTimeSchedule() {
       return (
-        event?.ranges.map((time_point) => ({
+        event.ranges.map((time_point) => ({
           time_point,
           times: newTimes(
             event.start_time,
@@ -151,7 +128,7 @@ export default function useScheduleAdd({
 
       function fixedScheduleTimes(timePoint: string, category: 'DATE' | 'DAY') {
         return (
-          fixedScheduleData?.find(
+          mySchedule?.find(
             (fixedSchedule) =>
               weekdayIndex(timePoint, category) ===
               weekdayIndex(fixedSchedule.time_point, 'DAY'),
@@ -168,22 +145,35 @@ export default function useScheduleAdd({
         }
       }
     }
-  }, [
-    event,
-    scheduleData,
-    fixedScheduleData,
-    sleepTimeData,
-    isEmpty,
-    sleepTimesList,
-  ]);
+  }, [event, schedule, mySchedule, sleepTime, isEmpty, sleepTimesList]);
 
   return {
-    schedules,
-    setSchedules,
-    event,
+    scheduleValue,
+    setScheduleValue,
     isScheduleEmpty: isEmpty.schedule,
     isFixedScheduleEmpty: isEmpty.fixedSchedule,
     isSleepTimeEmpty: isEmpty.sleepTime,
     initialSchedule,
   };
+}
+
+function isScheduleEmpty(scheduleData: ScheduleType | undefined) {
+  return scheduleData
+    ? scheduleData.schedules.length === 0 ||
+        scheduleData.schedules.every((schedule) => schedule.times.length === 0)
+    : false;
+}
+
+function isFixedScheduleEmpty(
+  fixedScheduleData: MyScheduleTimeType[] | undefined,
+) {
+  return fixedScheduleData
+    ? fixedScheduleData.every((schedule) => schedule.times.length === 0)
+    : true;
+}
+
+function isSleepTimeEmpty(sleepTimeData: SleepTimeType | undefined) {
+  return sleepTimeData
+    ? sleepTimeData.sleep_end_time === sleepTimeData.sleep_start_time
+    : true;
 }

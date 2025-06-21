@@ -1,22 +1,17 @@
-import EventEditPage from './components/EventEditPage';
-import { EventType } from '@/types/event.type';
+import EventFormScreen from '@/components/event/form-screen';
+import { auth, currentUser } from '@/lib/auth';
+import { fetchEvent } from '@/lib/data';
 import { getTranslations } from 'next-intl/server';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
+  const { id: eventId } = await params;
+  const event = await fetchEvent(eventId);
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_API_URL}/events/${id}`,
-  );
-
-  const { payload: event }: { payload: EventType } = await res.json();
-
-  const t = await getTranslations('editEvent');
   const t404 = await getTranslations('404');
 
   if (!event) {
@@ -25,6 +20,8 @@ export async function generateMetadata({
     };
   }
 
+  const t = await getTranslations('editEvent');
+
   return {
     title: `${t('editEvent', {
       name: event?.title || '',
@@ -32,22 +29,35 @@ export async function generateMetadata({
   };
 }
 
-export default async function EventEdit({
+export default async function Page({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
-
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_API_URL}/events/${id}`,
-  );
-
-  const { payload: event }: { payload: EventType } = await res.json();
+  const { id: eventId } = await params;
+  const event = await fetchEvent(eventId);
 
   if (!event) {
-    return notFound();
+    notFound();
   }
 
-  return <EventEditPage />;
+  if (event.event_status !== 'CREATOR') {
+    redirect(`/events/${eventId}`);
+  }
+
+  const user = (await auth()) ? (await currentUser()).user : null;
+
+  return (
+    <EventFormScreen
+      type="edit"
+      originData={{
+        title: event.title,
+        start_time: event.start_time,
+        end_time: event.end_time,
+        category: event.category,
+        ranges: event.ranges,
+      }}
+      user={user}
+    />
+  );
 }

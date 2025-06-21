@@ -80,6 +80,7 @@
     "edit": "Edit",
     "delete": "Delete",
     "addSchedule": "Add Schedule",
+    "editSchedule": "Edit Schedule",
     "mostAvailable": "Best Available Times",
     "allAvailable": "All Available Times",
     "peopleWhoAddedSchedules": "Person who added schedule{count, plural, =1 {} other {s}}",
@@ -140,7 +141,7 @@
     "password": "Password",
     "next": "Next",
     "done": "Done",
-    "doing": "Doing..."
+    "saving": "Saving..."
   },
   "timeBlockBoard": {
     "availableToggleText": "Available",
@@ -153,7 +154,8 @@
     "more": "More",
     "hello": "Hello, {name}",
     "createEvent": "Create Event",
-    "recentEvents": "Recent Event{count, plural, =1 {} other {s}}",
+    "recentEvent": "Recent Event",
+    "recentEvents": "Recent Events",
     "mySchedule": "My Schedule",
     "myScheduleDescription": "It is automatically loaded when you enter a schedule.",
     "loadingEvents": "Loading events...",
@@ -175,19 +177,20 @@
     "editMySchedule": "Edit My Schedule",
     "sleepTime": "Sleep Time",
     "everytime": "Add Everytime timetable",
-    "done": "Done"
+    "done": "Done",
+    "saving": "Saving..."
   },
-  "MyScheduleEverytimeEditPage": {
+  "everytimeScheduleEdit": {
     "title": "Add Everytime Timetable",
     "description": "Copy and Paste the timetable link using the method below.",
     "placeholder": "Paste link here...",
     "submit": "Submit",
     "submitting": "Submitting...",
     "publicWarning": "Please set the timetable to 'Public' temporarily. (Setting Icon -> Set sharing rights -> Public)",
-    "pendingMessage": "The request is in progress. <br></br>Please wait a moment.",
-    "invalidURLMessage": "The entered URL is invalid. <br></br>Please try again with a valid URL.",
-    "privateURLMessage": "The timetable is not public. <br></br>Please set the sharing rights to 'Public'.",
-    "serverErrorMessage": "An error occurred while processing the request. <br></br>Please try again."
+    "pendingMessage": "The request is in progress. Please wait a moment.",
+    "invalidURLMessage": "The entered URL is invalid. Please try again with a valid URL.",
+    "privateURLMessage": "The timetable is not public. Please set the sharing rights to 'Public'.",
+    "serverErrorMessage": "An error occurred while processing the request. Please try again."
   },
   "profile": {
     "profile": "Profile",
@@ -208,7 +211,8 @@
   },
   "profileEdit": {
     "editProfile": "Edit Profile",
-    "save": "Save"
+    "save": "Save",
+    "saving": "Saving..."
   },
   "policyEdit": {
     "agreeToTerms": "Agree to Terms",
@@ -236,7 +240,7 @@
     "title": "This page cannot be found",
     "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please make sure the address is correct."
   },
-  "NetworkErrorScreen": {
+  "networkError": {
     "title": "Network Connection Error",
     "description": "Please check your network connection and try again."
   }

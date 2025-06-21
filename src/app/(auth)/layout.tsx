@@ -1,14 +1,12 @@
-import { cookies } from 'next/headers';
+import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
-interface AuthLayoutProps {
+export default async function AuthLayout({
+  children,
+}: {
   children: React.ReactNode;
-}
-
-export default async function AuthLayout({ children }: AuthLayoutProps) {
-  const isLoggedIn = !!(await cookies()).get('access-token');
-
-  if (!isLoggedIn) {
+}) {
+  if (!(await auth())) {
     redirect('/login');
   }
 
