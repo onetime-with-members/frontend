@@ -1,58 +1,50 @@
 'use client';
 
-import { getCookie } from 'cookies-next';
 import { createContext, useEffect, useState } from 'react';
 
-import axios from '@/lib/axios';
+import { auth } from '@/lib/auth';
+import { defaultPolicy } from '@/lib/constants';
+import { fetchPolicy } from '@/lib/data';
 import { PolicyType } from '@/lib/types';
-import { useQuery } from '@tanstack/react-query';
 
 export const PolicyContext = createContext<{
   policyValue: PolicyType;
   setPolicyValue: React.Dispatch<React.SetStateAction<PolicyType>>;
+  revalidatePolicy: () => void;
 }>({
-  policyValue: {
-    service_policy_agreement: false,
-    privacy_policy_agreement: false,
-    marketing_policy_agreement: false,
-  },
+  policyValue: defaultPolicy,
   setPolicyValue: () => {},
+  revalidatePolicy: () => {},
 });
 
 export default function PolicyContextProvider({
   children,
+  defaultPolicy: fetchedPolicy,
 }: {
   children: React.ReactNode;
+  defaultPolicy: PolicyType | undefined;
 }) {
-  const [policyValue, setPolicyValue] = useState<PolicyType>({
-    service_policy_agreement: false,
-    privacy_policy_agreement: false,
-    marketing_policy_agreement: false,
-  });
+  const [policyValue, setPolicyValue] = useState<PolicyType>(
+    fetchedPolicy || defaultPolicy,
+  );
 
-  const isLoggedIn = !!getCookie('access-token');
-
-  const { data: policyData } = useQuery<PolicyType>({
-    queryKey: ['users', 'policy'],
-    queryFn: async () => {
-      const res = await axios.get('/users/policy');
-      return res.data.payload;
-    },
-    enabled: isLoggedIn,
-  });
+  async function revalidatePolicy() {
+    if (!(await auth())) return;
+    const data = await fetchPolicy();
+    if (!data) return;
+    setPolicyValue(data);
+  }
 
   useEffect(() => {
-    if (!policyData) return;
-    setPolicyValue({
-      ...policyData,
-    });
-  }, [policyData]);
+    revalidatePolicy();
+  }, []);
 
   return (
     <PolicyContext.Provider
       value={{
         policyValue,
         setPolicyValue,
+        revalidatePolicy,
       }}
     >
       {children}

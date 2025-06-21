@@ -10,6 +10,7 @@ import SleepTimeScreen from './sleep-time-screen';
 import WelcomeScreen from './welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
+import { PolicyContext } from '@/contexts/policy';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import { createUser } from '@/lib/auth';
 import cn from '@/lib/cn';
@@ -40,6 +41,7 @@ export default function Content({
 
   const { setFooterVisible } = useContext(FooterContext);
   const { revalidateSleepTime } = useContext(SleepTimeContext);
+  const { revalidatePolicy } = useContext(PolicyContext);
 
   const progressRouter = useProgressRouter();
 
@@ -66,6 +68,7 @@ export default function Content({
     await createUser(formData);
 
     revalidateSleepTime();
+    revalidatePolicy();
 
     setPage((prev) => prev + 1);
   }
