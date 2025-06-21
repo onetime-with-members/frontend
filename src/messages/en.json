@@ -187,10 +187,10 @@
     "submit": "Submit",
     "submitting": "Submitting...",
     "publicWarning": "Please set the timetable to 'Public' temporarily. (Setting Icon -> Set sharing rights -> Public)",
-    "pendingMessage": "The request is in progress. <br></br>Please wait a moment.",
-    "invalidURLMessage": "The entered URL is invalid. <br></br>Please try again with a valid URL.",
-    "privateURLMessage": "The timetable is not public. <br></br>Please set the sharing rights to 'Public'.",
-    "serverErrorMessage": "An error occurred while processing the request. <br></br>Please try again."
+    "pendingMessage": "The request is in progress. Please wait a moment.",
+    "invalidURLMessage": "The entered URL is invalid. Please try again with a valid URL.",
+    "privateURLMessage": "The timetable is not public. Please set the sharing rights to 'Public'.",
+    "serverErrorMessage": "An error occurred while processing the request. Please try again."
   },
   "profile": {
     "profile": "Profile",
