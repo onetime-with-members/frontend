@@ -29,6 +29,7 @@ export default function FormContent() {
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     setEverytimeUrl(e.target.value);
     setIsTouched(true);
+    setError(null);
     if (e.target.value === '') {
       setButtonDisabled(true);
     } else {

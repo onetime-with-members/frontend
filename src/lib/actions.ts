@@ -180,8 +180,9 @@ export async function submitEverytimeUrl(formData: FormData) {
     `${CRAWLING_SERVER_API_URL}/schedule?${searchParams.toString()}`,
   );
   if (!res.ok) {
-    console.error(await res.json());
-    return { everytimeSchedule: null, error: await res.json() };
+    const error = await res.json();
+    console.error(error);
+    return { everytimeSchedule: null, error };
   }
   const data = await res.json();
   const everytimeSchedule: EverytimeSchedule = data.payload.schedules;

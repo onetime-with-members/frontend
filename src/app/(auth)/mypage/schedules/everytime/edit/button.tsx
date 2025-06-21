@@ -85,16 +85,16 @@ export function BottomButton({
                       br: () => (
                         <br
                           className={cn('hidden', {
-                            'min-[250px]:block min-[415px]:hidden': pending,
-                            'min-[295px]:block min-[495px]:hidden':
-                              !pending && error?.code === 'CRAWLING-002',
-                            'min-[400px]:block sm:hidden':
-                              !pending && error?.code === 'CRAWLING-003',
-                            'min-[405px]:block min-[530px]:hidden':
-                              !pending &&
-                              !['CRAWLING-002', 'CRAWLING-003'].includes(
-                                error?.code as string,
-                              ),
+                            // 'min-[250px]:block min-[415px]:hidden': pending,
+                            // 'min-[295px]:block min-[495px]:hidden':
+                            //   !pending && error?.code === 'CRAWLING-002',
+                            // 'min-[400px]:block sm:hidden':
+                            //   !pending && error?.code === 'CRAWLING-003',
+                            // 'min-[405px]:block min-[530px]:hidden':
+                            //   !pending &&
+                            //   !['CRAWLING-002', 'CRAWLING-003'].includes(
+                            //     error?.code as string,
+                            //   ),
                           })}
                         />
                       ),
