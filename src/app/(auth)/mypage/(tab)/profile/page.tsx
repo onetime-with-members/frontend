@@ -57,7 +57,7 @@ export default async function Page() {
             </SettingItem>
             <SettingItem>
               <span>{t('version')}</span>
-              <span className="text-primary-40">v 1.4.8</span>
+              <span className="text-primary-40">v 1.4.9</span>
             </SettingItem>
             <SettingItem href="/withdraw" className="text-gray-30 text-sm-200">
               {t('withdraw')}
