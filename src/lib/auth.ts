@@ -1,5 +1,7 @@
 'use server';
 
+import { cache } from 'react';
+
 import { SERVER_API_URL, defaultUser } from './constants';
 import dayjs from './dayjs';
 import { OnboardingValueType, UserType } from './types';
@@ -68,7 +70,7 @@ export async function accessToken() {
   return session.accessToken;
 }
 
-export async function currentUser() {
+export async function currentUserForClient() {
   const res = await fetch(`${SERVER_API_URL}/users/profile`, {
     headers: {
       Authorization: `Bearer ${await accessToken()}`,
@@ -84,6 +86,8 @@ export async function currentUser() {
 
   return { user, error: null };
 }
+
+export const currentUser = cache(currentUserForClient);
 
 export async function createUser(formData: FormData) {
   const onboardingValue: OnboardingValueType = JSON.parse(

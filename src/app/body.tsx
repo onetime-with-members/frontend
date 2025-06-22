@@ -9,7 +9,7 @@ import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { auth, currentUser } from '@/lib/auth';
+import { auth, currentUserForClient } from '@/lib/auth';
 import { fetchPolicy } from '@/lib/data';
 import dayjs from '@/lib/dayjs';
 import { getQueryClient } from '@/lib/query-client';
@@ -79,7 +79,7 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function setUpUserLocaleLastLogin() {
       if (!(await auth())) return;
-      const { user } = await currentUser();
+      const { user } = await currentUserForClient();
       if (!user) return;
       setCookie('last-login', user.social_platform, {
         expires: dayjs().add(1, 'year').toDate(),
