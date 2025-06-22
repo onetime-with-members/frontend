@@ -1,43 +1,64 @@
+'use client';
+
 import nProgress from 'nprogress';
 
 import {
   AppRouterInstance,
   NavigateOptions,
 } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { LinkProps as NextLinkProps, default as _Link } from 'next/link';
-import { useRouter as _useRouter, usePathname } from 'next/navigation';
+import Link, { LinkProps } from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
-export function useRouter() {
-  const _router = _useRouter();
+export function useProgressRouter() {
+  const router = useRouter();
   const pathname = usePathname();
 
-  const router: AppRouterInstance = {
+  const progressRouter: AppRouterInstance = {
     push: (href: string, options?: NavigateOptions) => {
       if (pathname !== href) {
         nProgress.start();
       }
-      return _router.push(href, options);
+      router.push(href, options);
     },
     replace: (href: string, options?: NavigateOptions) => {
       if (pathname !== href) {
         nProgress.start();
       }
-      return _router.replace(href, options);
+      router.replace(href, options);
     },
-    back: () => _router.back(),
-    forward: () => _router.forward(),
-    prefetch: (href: string) => _router.prefetch(href),
-    refresh: () => _router.refresh(),
+    back: () => {
+      nProgress.start();
+      router.back();
+    },
+    forward: () => {
+      nProgress.start();
+      router.forward();
+    },
+    prefetch: (href: string) => {
+      if (pathname !== href) {
+        nProgress.start();
+      }
+      router.prefetch(href);
+    },
+    refresh: () => {
+      nProgress.start();
+      router.refresh();
+    },
   };
 
-  return router;
+  return progressRouter;
 }
 
-interface LinkProps
-  extends NextLinkProps,
-    React.HTMLAttributes<HTMLAnchorElement> {}
-
-export function Link({ children, onClick, ...props }: LinkProps) {
+export function ProgressLink({
+  children,
+  onClick,
+  progressBar = true,
+  ...props
+}: {
+  progressBar?: boolean;
+} & LinkProps &
+  React.HTMLAttributes<HTMLAnchorElement>) {
+  const progressRouter = useProgressRouter();
   const router = useRouter();
 
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>) {
@@ -45,13 +66,17 @@ export function Link({ children, onClick, ...props }: LinkProps) {
       onClick(e);
     } else {
       e.preventDefault();
-      router.push(props.href as string);
+      if (progressBar) {
+        progressRouter.push(props.href as string);
+      } else {
+        router.push(props.href as string);
+      }
     }
   }
 
   return (
-    <_Link onClick={handleClick} {...props}>
+    <Link onClick={handleClick} {...props}>
       {children}
-    </_Link>
+    </Link>
   );
 }

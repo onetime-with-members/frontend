@@ -1,4 +1,4 @@
-import { EventType } from '../types/event.type';
+import { EventType } from '@/lib/types';
 
 interface useKakaoShareProps {
   event: EventType | undefined;

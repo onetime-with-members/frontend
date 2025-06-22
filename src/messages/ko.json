@@ -80,6 +80,7 @@
     "edit": "수정",
     "delete": "삭제",
     "addSchedule": "스케줄 추가",
+    "editSchedule": "스케줄 수정",
     "mostAvailable": "가장 많이 되는 시간대",
     "allAvailable": "모두가 되는 시간",
     "peopleWhoAddedSchedules": "스케줄을 추가한 사람{count, plural, =1 {} other {들}}",
@@ -140,7 +141,7 @@
     "password": "비밀번호",
     "next": "다음",
     "done": "완료",
-    "doing": "진행 중..."
+    "saving": "진행 중..."
   },
   "timeBlockBoard": {
     "availableToggleText": "되는 시간 체크",
@@ -153,6 +154,7 @@
     "more": "더 보기",
     "hello": "안녕하세요, {name}님",
     "createEvent": "이벤트 생성하기",
+    "recentEvent": "참여한 이벤트",
     "recentEvents": "참여한 이벤트",
     "mySchedule": "내 스케줄",
     "myScheduleDescription": "스케줄을 입력할 때 자동으로 불러와져요.",
@@ -175,9 +177,10 @@
     "editMySchedule": "스케줄 입력",
     "sleepTime": "수면 시간",
     "everytime": "에브리타임 시간표 등록",
-    "done": "완료"
+    "done": "완료",
+    "saving": "저장 중..."
   },
-  "MyScheduleEverytimeEditPage": {
+  "everytimeScheduleEdit": {
     "title": "에브리타임 시간표 등록",
     "description": "URL 공유로 복사한 시간표 링크를 붙여주세요.",
     "placeholder": "링크 붙여넣기...",
@@ -208,7 +211,8 @@
   },
   "profileEdit": {
     "editProfile": "프로필 수정",
-    "save": "저장"
+    "save": "저장",
+    "saving": "저장 중..."
   },
   "policyEdit": {
     "agreeToTerms": "약관 동의",
@@ -236,7 +240,7 @@
     "title": "요청하신 페이지를 찾을 수 없어요",
     "description": "찾으시려는 페이지의 주소가 잘못되었거나 <br></br>주소 변경, 삭제로 이용하실 수 없어요. <br></br>주소가 올바르게 입력되었는지 확인해주세요."
   },
-  "NetworkErrorScreen": {
+  "networkError": {
     "title": "네트워크에 접속할 수 없어요",
     "description": "네트워크 연결 상태를 확인해 주세요"
   }
