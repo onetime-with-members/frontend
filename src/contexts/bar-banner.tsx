@@ -24,7 +24,7 @@ export default function BarBannerContextProvider({
   children: React.ReactNode;
   barBanner: BarBanner | null;
 }) {
-  const [isBarBannerShown, setIsBarBannerShown] = useState(barBanner !== null);
+  const [isBarBannerShown, setIsBarBannerShown] = useState(!!barBanner);
 
   function closeBarBanner() {
     setCookie('bar-banner', 'false', {
