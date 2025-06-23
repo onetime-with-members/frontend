@@ -1,50 +1,49 @@
 'use client';
 
+import { getCookie } from 'cookies-next';
 import { createContext, useEffect, useState } from 'react';
 
-import { auth } from '@/lib/auth';
+import axios from '@/lib/axios';
 import { defaultPolicy } from '@/lib/constants';
-import { fetchPolicy } from '@/lib/data';
 import { PolicyType } from '@/lib/types';
+import { useQuery } from '@tanstack/react-query';
 
 export const PolicyContext = createContext<{
   policyValue: PolicyType;
   setPolicyValue: React.Dispatch<React.SetStateAction<PolicyType>>;
-  revalidatePolicy: () => void;
 }>({
   policyValue: defaultPolicy,
   setPolicyValue: () => {},
-  revalidatePolicy: () => {},
 });
 
 export default function PolicyContextProvider({
   children,
-  defaultPolicy: fetchedPolicy,
 }: {
   children: React.ReactNode;
-  defaultPolicy: PolicyType | undefined;
 }) {
-  const [policyValue, setPolicyValue] = useState<PolicyType>(
-    fetchedPolicy || defaultPolicy,
-  );
+  const [policyValue, setPolicyValue] = useState<PolicyType>(defaultPolicy);
 
-  async function revalidatePolicy() {
-    if (!(await auth())) return;
-    const data = await fetchPolicy();
-    if (!data) return;
-    setPolicyValue(data);
-  }
+  const isLoggedIn = !!getCookie('session');
+
+  const { data: policyData } = useQuery<PolicyType>({
+    queryKey: ['users', 'policy'],
+    queryFn: async () => {
+      const res = await axios.get('/users/policy');
+      return res.data.payload;
+    },
+    enabled: isLoggedIn,
+  });
 
   useEffect(() => {
-    revalidatePolicy();
-  }, []);
+    if (!policyData) return;
+    setPolicyValue(policyData);
+  }, [policyData]);
 
   return (
     <PolicyContext.Provider
       value={{
         policyValue,
         setPolicyValue,
-        revalidatePolicy,
       }}
     >
       {children}
