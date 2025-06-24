@@ -99,6 +99,8 @@ axios.interceptors.response.use(
       } else {
         removeTokens();
       }
+    } else if (error.response && error.response.data.code === 'USER-003') {
+      removeTokens();
     }
 
     return Promise.reject(error);
