@@ -32,8 +32,8 @@ export default function FormContent() {
     const formData = new FormData();
     formData.set('policy', JSON.stringify(policyValue));
     await editPolicy(formData);
-
     await queryClient.invalidateQueries({ queryKey: ['users'] });
+
     router.back();
   }
 

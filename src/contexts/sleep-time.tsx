@@ -1,13 +1,14 @@
 'use client';
 
-import { createContext, useCallback, useEffect, useState } from 'react';
+import { getCookie } from 'cookies-next';
+import { createContext, useEffect, useState } from 'react';
 
-import { auth } from '@/lib/auth';
+import axios from '@/lib/axios';
 import { defaultSleepTime } from '@/lib/constants';
-import { fetchSleepTime } from '@/lib/data';
 import dayjs from '@/lib/dayjs';
 import { SleepTimeType } from '@/lib/types';
 import { getTimesGroupForSplitted, timeBlockList } from '@/lib/utils';
+import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 
 export const SleepTimeContext = createContext<{
@@ -16,29 +17,20 @@ export const SleepTimeContext = createContext<{
   sleepTimesList: string[];
   timesGroupForSplittedTimeBlock: string[][];
   timesGroupForSplittedTimeLabel: string[][];
-  revalidateSleepTime: () => void;
 }>({
   sleepTime: defaultSleepTime,
   setSleepTime: () => {},
   sleepTimesList: [],
   timesGroupForSplittedTimeBlock: [],
   timesGroupForSplittedTimeLabel: [],
-  revalidateSleepTime: () => {},
 });
 
 export default function SleepTimeContextProvider({
   children,
-  defaultSleepTime: fetchedSleepTime,
 }: {
   children: React.ReactNode;
-  defaultSleepTime: SleepTimeType | undefined;
 }) {
-  const [sleepTime, setSleepTime] = useState<SleepTimeType>(
-    fetchedSleepTime || defaultSleepTime,
-  );
-  const [sleepTimeData, setSleepTimeData] = useState<SleepTimeType>(
-    fetchedSleepTime || defaultSleepTime,
-  );
+  const [sleepTime, setSleepTime] = useState<SleepTimeType>(defaultSleepTime);
   const [sleepTimesList, setSleepTimesList] = useState<string[]>([]);
   const [timesGroupForSplittedTimeBlock, setTimesGroupForSplittedTimeBlock] =
     useState<string[][]>(
@@ -51,20 +43,24 @@ export default function SleepTimeContextProvider({
 
   const pathname = usePathname();
 
-  const resetSleepTime = useCallback(() => {
-    setSleepTime(sleepTimeData);
-  }, [sleepTimeData]);
+  const isLoggedIn = !!getCookie('session');
 
-  async function revalidateSleepTime() {
-    if (!(await auth())) return;
-    const data = await fetchSleepTime();
-    if (!data) return;
-    setSleepTime(data);
-    setSleepTimeData(data);
+  const { data: sleepTimeData } = useQuery<SleepTimeType>({
+    queryKey: ['users', 'sleep-time'],
+    queryFn: async () => {
+      const res = await axios.get('/users/sleep-time');
+      return res.data.payload;
+    },
+    enabled: isLoggedIn,
+  });
+
+  function resetSleepTime() {
+    setSleepTime(sleepTimeData || defaultSleepTime);
   }
 
   useEffect(() => {
-    revalidateSleepTime();
+    if (!sleepTimeData) return;
+    setSleepTime(sleepTimeData);
   }, []);
 
   useEffect(() => {
@@ -115,7 +111,6 @@ export default function SleepTimeContextProvider({
         sleepTimesList,
         timesGroupForSplittedTimeBlock,
         timesGroupForSplittedTimeLabel,
-        revalidateSleepTime,
       }}
     >
       {children}
