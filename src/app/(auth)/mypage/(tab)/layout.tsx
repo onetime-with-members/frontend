@@ -2,7 +2,7 @@ import { DesktopHeader, MobileHeader } from './header';
 import ScrollContainerWrapper from './scroll';
 import SideTab from './side-tab';
 import NavBar from '@/components/nav-bar';
-import { auth, currentUser } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth-action';
 
 export default async function Layout({
   children,

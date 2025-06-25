@@ -10,7 +10,7 @@ import SleepTimeScreen from './sleep-time-screen';
 import WelcomeScreen from './welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { createUser } from '@/lib/auth';
+import { createUser } from '@/lib/auth-action';
 import cn from '@/lib/cn';
 import { OnboardingValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';

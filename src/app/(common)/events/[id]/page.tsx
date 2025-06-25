@@ -7,7 +7,7 @@ import MobileContents from './mobile-contents';
 import { TimeBlockBoardContent } from './time-block-board';
 import BarBanner from '@/components/bar-banner';
 import NavBar from '@/components/nav-bar';
-import { auth, currentUser } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth-action';
 import { defaultScheduleDetail } from '@/lib/constants';
 import {
   fetchEvent,

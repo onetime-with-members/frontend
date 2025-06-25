@@ -1,5 +1,5 @@
 import ScheduleAddScreen from './content';
-import { auth, currentUser } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth-action';
 import {
   defaultMySchedule,
   defaultScheduleDetail,

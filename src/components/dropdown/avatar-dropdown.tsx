@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
 import Avatar from '../avatar';
-import { signOut } from '@/lib/auth';
+import { signOut } from '@/lib/auth-action';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
 

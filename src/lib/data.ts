@@ -1,4 +1,4 @@
-import { accessToken, auth } from './auth';
+import { accessToken, auth } from './auth-action';
 import {
   SERVER_API_URL,
   defaultEvent,

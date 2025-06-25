@@ -1,6 +1,6 @@
 import PolicyContent from './content';
 import NotFound from '@/app/not-found';
-import { auth, currentUser } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth-action';
 import { POLICY_KEY_LIST } from '@/lib/constants';
 import { PolicyKeyType } from '@/lib/types';
 import { policyPageTitle } from '@/lib/utils';

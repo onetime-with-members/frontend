@@ -11,7 +11,7 @@ import Button from '@/components/button';
 import BadgeButton from '@/components/button/badge-button';
 import { FooterContext } from '@/contexts/footer';
 import useKakaoShare from '@/hooks/useKakaoShare';
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth-action';
 import cn from '@/lib/cn';
 import { EventType, ScheduleType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';

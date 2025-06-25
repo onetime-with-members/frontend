@@ -8,7 +8,7 @@ import ScrollContextProvider from './scroll';
 import SleepTimeContextProvider from './sleep-time';
 import ToastContextProvider from './toast';
 import WeekdayLocaleContextProvider from './weekday-locale';
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth-action';
 import { fetchBarBanner, fetchMySchedule } from '@/lib/data';
 import { getLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';

@@ -1,6 +1,6 @@
 'use server';
 
-import { accessToken, auth } from './auth';
+import { accessToken, auth } from './auth-action';
 import { CRAWLING_SERVER_API_URL, SERVER_API_URL } from './constants';
 import { EventType, EverytimeSchedule, TimeType } from './types';
 import { revalidatePath } from 'next/cache';

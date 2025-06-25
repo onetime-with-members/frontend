@@ -1,5 +1,5 @@
 import NavBar from '@/components/nav-bar';
-import { auth, currentUser } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth-action';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 

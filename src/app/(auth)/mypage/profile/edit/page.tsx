@@ -2,7 +2,7 @@ import { DesktopBackButton, MobileBackButton } from './back-button';
 import FormContent from './form-content';
 import GrayBackground from '@/components/gray-background';
 import NavBar from '@/components/nav-bar';
-import { auth, currentUser } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth-action';
 import { getTranslations } from 'next-intl/server';
 import { redirect } from 'next/navigation';
 

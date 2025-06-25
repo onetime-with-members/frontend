@@ -9,7 +9,7 @@ import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { auth, currentUserForClient } from '@/lib/auth';
+import { auth, currentUserForClient } from '@/lib/auth-action';
 import axios from '@/lib/axios';
 import dayjs from '@/lib/dayjs';
 import { getQueryClient } from '@/lib/query-client';

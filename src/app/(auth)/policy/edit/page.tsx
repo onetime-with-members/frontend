@@ -1,6 +1,6 @@
 import FormContent from './form-content';
 import NavBar from '@/components/nav-bar';
-import { auth, currentUser } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth-action';
 import { fetchPolicy } from '@/lib/data';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';

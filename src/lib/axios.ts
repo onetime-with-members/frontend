@@ -2,8 +2,14 @@ import _axios, { AxiosError } from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 
-import { Session } from './auth';
+import { Session } from './auth-action';
 
+type ExtendedAxiosError = AxiosError & {
+  response: {
+    status: number;
+    data: { code: string };
+  };
+};
 const axios = _axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_API_URL,
   headers: {
@@ -44,18 +50,13 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   (response) => response,
   async (_error: AxiosError) => {
-    const error = _error as AxiosError & {
-      response: {
-        status: number;
-        data: { code: string };
-      };
-    };
+    const error = _error as ExtendedAxiosError;
 
     const originalRequest = { ...error.config };
 
     if (error.response && error.response.data.code === 'TOKEN-003') {
       const sessionCookie = getCookie('session');
-      if (sessionCookie) removeTokens();
+      if (!sessionCookie) removeTokens();
 
       const { accessToken, refreshToken }: Session = JSON.parse(
         sessionCookie as string,
@@ -94,7 +95,11 @@ axios.interceptors.response.use(
           return axios(originalRequest);
         } catch (error) {
           console.error(error);
-          removeTokens();
+          const axiosError = error as ExtendedAxiosError;
+          const errorCode = axiosError.response.data.code;
+          if (errorCode !== 'TOKEN-009') {
+            removeTokens();
+          }
         }
       } else {
         removeTokens();

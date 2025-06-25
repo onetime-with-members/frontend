@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth-action';
 import { defaultMySchedule } from '@/lib/constants';
 import { fetchMySchedule } from '@/lib/data';
 import { MyScheduleTimeType } from '@/lib/types';

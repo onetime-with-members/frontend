@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import { signOut } from '@/lib/auth';
+import { signOut } from '@/lib/auth-action';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import { useRouter } from 'next/navigation';

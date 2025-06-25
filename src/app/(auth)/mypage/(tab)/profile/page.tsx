@@ -1,7 +1,7 @@
 import ProfileActions from './profile-actions';
 import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import { auth, currentUser } from '@/lib/auth';
+import { auth, currentUser } from '@/lib/auth-action';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
 import { getTranslations } from 'next-intl/server';
