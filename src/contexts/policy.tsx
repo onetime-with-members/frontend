@@ -3,8 +3,8 @@
 import { getCookie } from 'cookies-next';
 import { createContext, useEffect, useState } from 'react';
 
-import axios from '@/lib/axios';
 import { defaultPolicy } from '@/lib/constants';
+import { userPolicyOption } from '@/lib/query-data';
 import { PolicyType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
 
@@ -25,12 +25,8 @@ export default function PolicyContextProvider({
 
   const isLoggedIn = !!getCookie('session');
 
-  const { data: policyData } = useQuery<PolicyType>({
-    queryKey: ['users', 'policy'],
-    queryFn: async () => {
-      const res = await axios.get('/users/policy');
-      return res.data.payload;
-    },
+  const { data: policyData } = useQuery({
+    ...userPolicyOption,
     enabled: isLoggedIn,
   });
 

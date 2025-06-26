@@ -1,6 +1,12 @@
 import axios from './axios';
 import { defaultMySchedule } from './constants';
-import { MyEventType, MyScheduleTimeType, UserType } from './types';
+import {
+  MyEventType,
+  MyScheduleTimeType,
+  PolicyType,
+  SleepTimeType,
+  UserType,
+} from './types';
 import { queryOptions } from '@tanstack/react-query';
 
 export const userQueryOption = queryOptions<UserType>({
@@ -37,10 +43,18 @@ export const myScheduleQueryOption = queryOptions<MyScheduleTimeType[]>({
   },
 });
 
-export const sleepTimeQueryOption = queryOptions({
+export const sleepTimeQueryOption = queryOptions<SleepTimeType>({
   queryKey: ['users', 'sleep-time'],
   queryFn: async () => {
     const res = await axios.get('/users/sleep-time');
+    return res.data.payload;
+  },
+});
+
+export const userPolicyOption = queryOptions<PolicyType>({
+  queryKey: ['users', 'policy'],
+  queryFn: async () => {
+    const res = await axios.get('/users/policy');
     return res.data.payload;
   },
 });

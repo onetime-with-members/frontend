@@ -3,23 +3,23 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
-import SubmitButton from './button';
-import SleepTimeAccordion from './sleep-time';
+import SleepTimeAccordion from './sleep-time-accordion';
 import BackButtonAlert from '@/components/alert/back-button-alert';
+import SmallButton from '@/components/button/small-button';
 import EverytimeUI from '@/components/everytime-ui';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import useToast from '@/hooks/useToast';
-import { editMySchedule, editSleepTime } from '@/lib/actions';
 import cn from '@/lib/cn';
+import { editMyScheduleApi, editSleepTimeApi } from '@/lib/mutation';
 import { TimeType } from '@/lib/types';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-export default function FormContent({
+export default function MyScheduleEditPage({
   myScheduleData,
 }: {
   myScheduleData: TimeType[];
@@ -32,7 +32,6 @@ export default function FormContent({
     setMySchedule,
     isMyScheduleEdited,
     setIsMyScheduleEdited,
-    revalidateMySchedule,
   } = useContext(MyScheduleContext);
   const { sleepTime, setSleepTime } = useContext(SleepTimeContext);
   const { everytimeSchedule, setEverytimeSchedule } = useContext(
@@ -46,20 +45,29 @@ export default function FormContent({
   const router = useRouter();
   const t = useTranslations();
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const { mutateAsync: editMySchedule, isPending: isMyScheduleEditPending } =
+    useMutation({
+      mutationFn: editMyScheduleApi,
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
+      },
+    });
 
-    const myScheduleFormData = new FormData();
-    myScheduleFormData.set('mySchedule', JSON.stringify(mySchedule));
-    await editMySchedule(myScheduleFormData);
-    revalidateMySchedule();
+  const { mutateAsync: editSleepTime, isPending: isSleepTimeEditPending } =
+    useMutation({
+      mutationFn: editSleepTimeApi,
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['users'] });
+        router.back();
+      },
+    });
 
-    const sleepTimeFormData = new FormData();
-    sleepTimeFormData.set('sleepTime', JSON.stringify(sleepTime));
-    await editSleepTime(sleepTimeFormData);
-    await queryClient.invalidateQueries({ queryKey: ['users'] });
+  const isSubmitPending = isMyScheduleEditPending || isSleepTimeEditPending;
 
-    router.back();
+  async function handleSubmit(e?: React.FormEvent<HTMLFormElement>) {
+    if (e) e.preventDefault();
+    await editMySchedule(mySchedule);
+    await editSleepTime(sleepTime);
   }
 
   useEffect(() => {
@@ -89,14 +97,13 @@ export default function FormContent({
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="flex flex-col">
+      <div className="flex flex-col">
         {/* Top App Bar */}
         <nav className="h-[64px]">
           <div className="fixed z-10 flex h-[4rem] w-full justify-center bg-gray-00 px-4">
             <div className="mx-auto grid w-full max-w-screen-sm grid-cols-3">
               <div className="flex items-center justify-start">
                 <button
-                  type="button"
                   onClick={() => {
                     if (isMyScheduleEdited) {
                       setIsBackButtonAlertOpen(true);
@@ -112,7 +119,14 @@ export default function FormContent({
                 {t('myScheduleEdit.editMySchedule')}
               </div>
               <div className="flex items-center justify-end">
-                <SubmitButton />
+                <SmallButton
+                  onClick={() => handleSubmit()}
+                  disabled={isSubmitPending}
+                >
+                  {isSubmitPending
+                    ? t('myScheduleEdit.saving')
+                    : t('myScheduleEdit.done')}
+                </SmallButton>
               </div>
             </div>
           </div>
@@ -120,7 +134,7 @@ export default function FormContent({
 
         {/* Main Content */}
         <main className="pb-24">
-          <div className="mx-auto max-w-screen-sm">
+          <form className="mx-auto max-w-screen-sm">
             <EverytimeUI className="sticky top-[64px] z-20 rounded-t-2xl" />
             <SleepTimeAccordion
               sleepTime={sleepTime}
@@ -138,9 +152,9 @@ export default function FormContent({
               })}
               setIsEdited={setIsMyScheduleEdited}
             />
-          </div>
+          </form>
         </main>
-      </form>
+      </div>
 
       {/* Back Button Alert */}
       {isBackButtonAlertOpen && (

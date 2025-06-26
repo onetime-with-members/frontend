@@ -2,10 +2,11 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { auth } from '@/lib/auth-action';
+import { useAuth } from '@/lib/auth';
 import { defaultMySchedule } from '@/lib/constants';
-import { fetchMySchedule } from '@/lib/data';
+import { myScheduleQueryOption } from '@/lib/query-data';
 import { MyScheduleTimeType } from '@/lib/types';
+import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 
 export const MyScheduleContext = createContext<{
@@ -14,14 +15,12 @@ export const MyScheduleContext = createContext<{
   isMyScheduleEdited: boolean;
   setIsMyScheduleEdited: React.Dispatch<React.SetStateAction<boolean>>;
   resetMySchedule: () => void;
-  revalidateMySchedule: () => void;
 }>({
   mySchedule: [],
   setMySchedule: () => {},
   isMyScheduleEdited: false,
   setIsMyScheduleEdited: () => {},
   resetMySchedule: () => {},
-  revalidateMySchedule: () => {},
 });
 
 export default function MyScheduleContextProvider({
@@ -38,21 +37,22 @@ export default function MyScheduleContextProvider({
 
   const pathname = usePathname();
 
+  const { isLoggedIn } = useAuth();
+
+  const { data: myScheduleData } = useQuery({
+    ...myScheduleQueryOption,
+    enabled: isLoggedIn,
+  });
+
   function resetMySchedule() {
-    setMySchedule(defaultMySchedule);
+    setMySchedule(myScheduleData || defaultMySchedule);
     setIsMyScheduleEdited(false);
   }
 
-  async function revalidateMySchedule() {
-    if (!(await auth())) return;
-    const data = await fetchMySchedule();
-    if (!data) return;
-    setMySchedule(data);
-  }
-
   useEffect(() => {
-    revalidateMySchedule();
-  }, []);
+    if (!myScheduleData) return;
+    setMySchedule(myScheduleData);
+  }, [myScheduleData]);
 
   useEffect(() => {
     const locationsNotToReset = [
@@ -71,7 +71,6 @@ export default function MyScheduleContextProvider({
         isMyScheduleEdited,
         setIsMyScheduleEdited,
         resetMySchedule,
-        revalidateMySchedule,
       }}
     >
       {children}

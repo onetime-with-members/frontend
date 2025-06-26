@@ -1,11 +1,11 @@
 'use client';
 
-import { getCookie } from 'cookies-next';
 import { createContext, useEffect, useState } from 'react';
 
-import axios from '@/lib/axios';
+import { useAuth } from '@/lib/auth';
 import { defaultSleepTime } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
+import { sleepTimeQueryOption } from '@/lib/query-data';
 import { SleepTimeType } from '@/lib/types';
 import { getTimesGroupForSplitted, timeBlockList } from '@/lib/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -43,14 +43,10 @@ export default function SleepTimeContextProvider({
 
   const pathname = usePathname();
 
-  const isLoggedIn = !!getCookie('session');
+  const { isLoggedIn } = useAuth();
 
-  const { data: sleepTimeData } = useQuery<SleepTimeType>({
-    queryKey: ['users', 'sleep-time'],
-    queryFn: async () => {
-      const res = await axios.get('/users/sleep-time');
-      return res.data.payload;
-    },
+  const { data: sleepTimeData } = useQuery({
+    ...sleepTimeQueryOption,
     enabled: isLoggedIn,
   });
 
