@@ -4,7 +4,7 @@ import { MyEventType, MyScheduleTimeType, UserType } from './types';
 import { queryOptions } from '@tanstack/react-query';
 
 export const userQueryOption = queryOptions<UserType>({
-  queryKey: ['user', 'profile'],
+  queryKey: ['users', 'profile'],
   queryFn: async () => {
     const res = await axios.get('/users/profile');
     return res.data.payload;
