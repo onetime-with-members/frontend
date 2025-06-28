@@ -4,15 +4,10 @@ import { cache } from 'react';
 
 import { SERVER_API_URL, defaultUser } from './constants';
 import dayjs from './dayjs';
-import { OnboardingValueType, UserType } from './types';
+import { OnboardingValueType, Session, UserType } from './types';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-
-export interface Session {
-  accessToken: string;
-  refreshToken: string;
-}
 
 export async function signIn(accessToken: string, refreshToken: string) {
   const cookieStore = await cookies();

@@ -1,3 +1,22 @@
+import { AxiosError } from 'axios';
+
+export interface Session {
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface AuthResponse {
+  data: Session | null;
+  isLoggedIn: boolean;
+}
+
+export type ExtendedAxiosError = AxiosError & {
+  response: {
+    status: number;
+    data: { code: string };
+  };
+};
+
 export interface EventType {
   event_id: string;
   title: string;

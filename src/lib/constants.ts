@@ -16,7 +16,9 @@ export const SERVER_API_URL =
   process.env.NEXT_PUBLIC_SERVER_API_URL ||
   'http://localhost:3000';
 export const CRAWLING_SERVER_API_URL =
-  process.env.CRAWLING_SERVER_API_URL || 'http://localhost:3000';
+  process.env.CRAWLING_SERVER_API_URL ||
+  process.env.NEXT_PUBLIC_CRAWLING_SERVER_API_URL ||
+  'http://localhost:3000';
 
 export const LOCALES = ['ko', 'en'] as const;
 export const POLICY_KEY_LIST = ['privacy', 'service'] as const;

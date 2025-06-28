@@ -1,6 +1,6 @@
 'use server';
 
-import { AuthResponse } from './auth';
+import { AuthResponse } from './types';
 import { cookies } from 'next/headers';
 
 export default async function auth(): Promise<AuthResponse> {

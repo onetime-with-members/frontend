@@ -1,4 +1,5 @@
 import axios from './axios';
+import { CRAWLING_SERVER_API_URL } from './constants';
 import { MyScheduleTimeType, SleepTimeType } from './types';
 
 export async function editUserNameApi(name: string) {
@@ -18,4 +19,14 @@ export async function editMyScheduleApi(mySchedule: MyScheduleTimeType[]) {
 export async function editSleepTimeApi(sleepTime: SleepTimeType) {
   const res = await axios.put('/users/sleep-time', sleepTime);
   return res.data.payload;
+}
+
+export async function submitEverytimeUrlApi(url: string) {
+  console.log(url);
+  const res = await axios.get(`${CRAWLING_SERVER_API_URL}/schedule`, {
+    params: {
+      url,
+    },
+  });
+  return res.data.payload.schedules;
 }

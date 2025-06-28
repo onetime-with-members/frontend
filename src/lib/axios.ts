@@ -2,14 +2,8 @@ import _axios, { AxiosError } from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 
-import { Session } from './auth-action';
+import { ExtendedAxiosError, Session } from './types';
 
-type ExtendedAxiosError = AxiosError & {
-  response: {
-    status: number;
-    data: { code: string };
-  };
-};
 const axios = _axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_API_URL,
   headers: {

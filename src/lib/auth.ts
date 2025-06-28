@@ -1,11 +1,6 @@
 import { getCookie } from 'cookies-next';
 
-import { Session } from './auth-action';
-
-export interface AuthResponse {
-  data: Session | null;
-  isLoggedIn: boolean;
-}
+import { AuthResponse } from './types';
 
 export function useAuth(): AuthResponse {
   const sessionCookie = getCookie('session');
