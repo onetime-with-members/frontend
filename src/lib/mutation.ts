@@ -27,11 +27,15 @@ export async function editSleepTimeApi(sleepTime: SleepTimeType) {
 }
 
 export async function submitEverytimeUrlApi(url: string) {
-  console.log(url);
   const res = await axios.get(`${CRAWLING_SERVER_API_URL}/schedule`, {
     params: {
       url,
     },
   });
   return res.data.payload.schedules;
+}
+
+export async function withdrawApi() {
+  const res = await axios.post('/users/action-withdraw');
+  return res.data.payload;
 }
