@@ -48,5 +48,3 @@ export default async function NotFound() {
     </div>
   );
 }
-
-export const NotFound404 = NotFound;

@@ -14,7 +14,7 @@ import { PolicyKeyType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
-import { notFound, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function PolicyEditPage() {
   const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
@@ -50,7 +50,7 @@ export default function PolicyEditPage() {
       policyData.privacy_policy_agreement &&
       policyData.service_policy_agreement
     ) {
-      notFound();
+      router.push('/');
     }
   }, [policyData]);
 
@@ -72,7 +72,9 @@ export default function PolicyEditPage() {
   return (
     <>
       <NavBar user={user || defaultUser} disabled />
-      {!isPolicyPending && (
+      {(!isPolicyPending ||
+        (!policyData.privacy_policy_agreement &&
+          !policyData.service_policy_agreement)) && (
         <div className="px-4 py-12">
           <div className="mx-auto flex w-full max-w-screen-xs flex-col gap-12">
             <h1 className="text-center text-gray-90 title-lg-300">
