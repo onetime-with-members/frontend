@@ -221,7 +221,7 @@ function MyScheduleContent() {
             <SleepIcon fill="#31333F" size={20} />
           </span>
           <span className="text-gray-80 text-lg-200">
-            {sleepTime.sleep_start_time} - {sleepTime.sleep_end_time}
+            {sleepTime?.sleep_start_time} - {sleepTime?.sleep_end_time}
           </span>
         </div>
         <ProgressLink

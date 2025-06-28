@@ -8,7 +8,9 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function MySchedulePage() {
   const { data: mySchedule } = useQuery({ ...myScheduleQueryOption });
-  const { data: sleepTime } = useQuery({ ...sleepTimeQueryOption });
+  const { data: sleepTime } = useQuery({
+    ...sleepTimeQueryOption,
+  });
 
   return (
     <div className="mx-auto w-full max-w-screen-md pb-32">
@@ -18,7 +20,7 @@ export default function MySchedulePage() {
           <SleepIcon fill="#4C65E5" size={20} />
         </span>
         <span className="text-primary-50 text-md-300">
-          {sleepTime.sleep_start_time} - {sleepTime.sleep_end_time}
+          {sleepTime?.sleep_start_time} - {sleepTime?.sleep_end_time}
         </span>
       </div>
 

@@ -1,5 +1,5 @@
 import axios from './axios';
-import { defaultMySchedule } from './constants';
+import { defaultMySchedule, defaultSleepTime } from './constants';
 import {
   MyEventType,
   MyScheduleTimeType,
@@ -49,6 +49,7 @@ export const sleepTimeQueryOption = queryOptions<SleepTimeType>({
     const res = await axios.get('/users/sleep-time');
     return res.data.payload;
   },
+  placeholderData: defaultSleepTime,
 });
 
 export const userPolicyOption = queryOptions<PolicyType>({
