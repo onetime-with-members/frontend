@@ -38,7 +38,6 @@ export default function ScheduleAddScreen({
   schedule,
   mySchedule,
   sleepTime,
-  user,
 }: {
   isLoggedIn: boolean;
   event: EventType;
@@ -170,7 +169,7 @@ export default function ScheduleAddScreen({
       }}
     >
       {/* Navigation Bar for Desktop */}
-      <NavBar user={user} className="hidden sm:flex" shadow={false} />
+      <NavBar className="hidden sm:flex" shadow={false} />
       {/* App Bar for Mobile */}
       <header className="block h-[69px] sm:hidden">
         <div className="fixed left-0 top-0 z-50 w-full bg-white px-4">

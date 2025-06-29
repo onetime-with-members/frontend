@@ -1,5 +1,4 @@
 import NavBar from '@/components/nav-bar';
-import { auth, currentUser } from '@/lib/auth-action';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
@@ -12,14 +11,12 @@ export async function generateMetadata() {
 }
 
 export default async function NotFound() {
-  const user = (await auth()) ? (await currentUser()).user : null;
-
   const t = await getTranslations('404');
 
   return (
     <div className="flex flex-1 flex-col">
       {/* Navigation Bar */}
-      <NavBar user={user} />
+      <NavBar />
 
       {/* Main Content */}
       <main className="flex flex-1 items-center justify-center px-4">

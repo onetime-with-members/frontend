@@ -99,7 +99,7 @@ export default function Content({
           </nav>
           {/* Navigation Bar for Desktop */}
           <div className="hidden md:block">
-            <NavBar user={null} isAuthHidden={true} />
+            <NavBar isAuthHidden={true} />
           </div>
         </header>
 

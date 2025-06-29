@@ -14,7 +14,6 @@ import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/toast';
 import ContextProviders from '@/contexts';
-import { auth, currentUser } from '@/lib/auth-action';
 import { getLocale, getMessages } from 'next-intl/server';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -56,8 +55,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = (await auth()) ? (await currentUser()).user : null;
-
   const locale = await getLocale();
 
   return (
@@ -73,7 +70,7 @@ export default async function RootLayout({
           <div id="pop-up" />
           <div id="alert" />
           <Toast />
-          <NetworkErrorScreen user={user} />
+          <NetworkErrorScreen />
         </Providers>
         <PreloadImages />
         <NoScripts />

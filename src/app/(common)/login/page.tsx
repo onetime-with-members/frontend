@@ -1,6 +1,5 @@
 import { SocialLoginButton, SocialLoginCallback } from './social-login';
 import NavBar from '@/components/nav-bar';
-import { auth, currentUser } from '@/lib/auth-action';
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
@@ -38,8 +37,6 @@ export default async function Page(props: {
 
   const lastLogin = cookieStore.get('last-login')?.value as SocialLoginType;
 
-  const user = (await auth()) ? (await currentUser()).user : null;
-
   const t = await getTranslations('login');
 
   return (
@@ -59,7 +56,7 @@ export default async function Page(props: {
       {/* Page */}
       <div className="flex h-screen flex-col">
         {/* Navigation Bar */}
-        <NavBar user={user} />
+        <NavBar />
 
         {/* Main Content */}
         <div className="flex flex-1 items-center justify-center px-4">

@@ -16,7 +16,6 @@ export default function PolicyDetailScreen({
   page,
   pageTitle,
   onClose,
-  user,
 }: {
   page: PolicyKeyType;
   pageTitle: string;
@@ -43,7 +42,7 @@ export default function PolicyDetailScreen({
 
       {/* Top Navigation Bar for Desktop */}
       <div className="hidden md:block">
-        <NavBar user={user} />
+        <NavBar />
       </div>
 
       <div className="mx-auto flex h-[calc(100%-4rem)] w-full max-w-screen-md flex-1 flex-col md:pb-6">
