@@ -2,10 +2,10 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { useAuth } from '@/lib/auth';
+import { useAuth } from '@/lib/api/auth.client';
+import { sleepTimeQueryOptions } from '@/lib/api/query-options';
 import { defaultSleepTime } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { sleepTimeQueryOption } from '@/lib/query-data';
 import { SleepTimeType } from '@/lib/types';
 import { getTimesGroupForSplitted, timeBlockList } from '@/lib/utils';
 import { useQuery } from '@tanstack/react-query';
@@ -46,7 +46,7 @@ export default function SleepTimeContextProvider({
   const { isLoggedIn } = useAuth();
 
   const { data: sleepTimeData } = useQuery({
-    ...sleepTimeQueryOption,
+    ...sleepTimeQueryOptions,
     enabled: isLoggedIn,
   });
 

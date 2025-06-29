@@ -1,6 +1,6 @@
 import { getCookie } from 'cookies-next';
 
-import { AuthResponse } from './types';
+import { AuthResponse } from '../types';
 
 export function useAuth(): AuthResponse {
   const sessionCookie = getCookie('session');

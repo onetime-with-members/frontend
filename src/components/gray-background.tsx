@@ -7,17 +7,21 @@ export default function GrayBackground({
   device,
   breakpoint: breakpointKey,
 }: {
-  device: 'mobile' | 'desktop';
-  breakpoint: 'sm' | 'md';
+  device?: 'mobile' | 'desktop';
+  breakpoint?: 'sm' | 'md';
 }) {
   useGrayBackground({
-    breakpointCondition: () => {
-      if (device === 'mobile') {
-        return window.innerWidth < breakpoint[breakpointKey];
-      } else {
-        return window.innerWidth >= breakpoint[breakpointKey];
-      }
-    },
+    ...(device && breakpointKey
+      ? {
+          breakpointCondition: () => {
+            if (device === 'mobile') {
+              return window.innerWidth < breakpoint[breakpointKey];
+            } else {
+              return window.innerWidth >= breakpoint[breakpointKey];
+            }
+          },
+        }
+      : {}),
   });
 
   return null;

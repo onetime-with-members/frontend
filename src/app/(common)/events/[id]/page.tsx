@@ -7,8 +7,7 @@ import MobileContents from './mobile-contents';
 import { TimeBlockBoardContent } from './time-block-board';
 import BarBanner from '@/components/bar-banner';
 import NavBar from '@/components/nav-bar';
-import { auth } from '@/lib/auth-action';
-import { defaultScheduleDetail } from '@/lib/constants';
+import auth from '@/lib/api/auth.server';
 import {
   fetchEvent,
   fetchQrCode,
@@ -16,7 +15,8 @@ import {
   fetchScheduleDetail,
   fetchSchedules,
   fetchShortenUrl,
-} from '@/lib/data';
+} from '@/lib/api/data';
+import { defaultScheduleDetail } from '@/lib/constants';
 import { getTranslations } from 'next-intl/server';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
@@ -67,7 +67,7 @@ export default async function Page({
   const protocol = headersList.get('x-forwarded-proto') || 'http';
   const pathname = headersList.get('x-pathname') || '';
 
-  const isLoggedIn = !!(await auth());
+  const { isLoggedIn } = await auth();
 
   const [shortenUrl, recommendedTimes, qrCode, schedules, scheduleDetail] =
     await Promise.all([
@@ -76,7 +76,7 @@ export default async function Page({
       fetchQrCode(id),
       fetchSchedules(event),
       isLoggedIn
-        ? fetchScheduleDetail(event, true, '')
+        ? fetchScheduleDetail(event, '')
         : Promise.resolve(defaultScheduleDetail),
     ]);
 
@@ -137,7 +137,7 @@ export default async function Page({
         qrCode={qrCode}
         shortenUrl={shortenUrl}
         scheduleDetail={scheduleDetail}
-        isLoggedIn={!!(await auth())}
+        isLoggedIn={isLoggedIn}
       />
     </div>
   );

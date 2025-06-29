@@ -1,4 +1,3 @@
-import { accessToken, auth } from './auth-action';
 import {
   SERVER_API_URL,
   defaultEvent,
@@ -6,7 +5,7 @@ import {
   defaultPolicy,
   defaultScheduleDetail,
   defaultSleepTime,
-} from './constants';
+} from '../constants';
 import {
   BarBanner,
   EventType,
@@ -16,14 +15,17 @@ import {
   RecommendScheduleType,
   ScheduleType,
   SleepTimeType,
-} from './types';
+} from '../types';
+import auth from './auth.server';
 import { notFound } from 'next/navigation';
 
 export async function fetchEvent(eventId: string) {
+  const { data: session, isLoggedIn } = await auth();
+
   const res = await fetch(`${SERVER_API_URL}/events/${eventId}`, {
     headers: {
-      ...((await auth())
-        ? { Authorization: `Bearer ${await accessToken()}` }
+      ...(isLoggedIn
+        ? { Authorization: `Bearer ${session?.accessToken}` }
         : {}),
     },
   });
@@ -42,11 +44,13 @@ export async function fetchEvent(eventId: string) {
 }
 
 export async function fetchShortenUrl(originalUrl: string) {
+  const { data: session, isLoggedIn } = await auth();
+
   const res = await fetch(`${SERVER_API_URL}/urls/action-shorten`, {
     method: 'POST',
     headers: {
-      ...((await auth())
-        ? { Authorization: `Bearer ${await accessToken()}` }
+      ...(isLoggedIn
+        ? { Authorization: `Bearer ${session?.accessToken}` }
         : {}),
       'Content-Type': 'application/json',
     },
@@ -65,10 +69,12 @@ export async function fetchShortenUrl(originalUrl: string) {
 }
 
 export async function fetchRecommendedTimes(eventId: string) {
+  const { data: session, isLoggedIn } = await auth();
+
   const res = await fetch(`${SERVER_API_URL}/events/${eventId}/most`, {
     headers: {
-      ...((await auth())
-        ? { Authorization: `Bearer ${await accessToken()}` }
+      ...(isLoggedIn
+        ? { Authorization: `Bearer ${session?.accessToken}` }
         : {}),
     },
   });
@@ -83,12 +89,14 @@ export async function fetchRecommendedTimes(eventId: string) {
 }
 
 export async function fetchSchedules(event: EventType) {
+  const { data: session, isLoggedIn } = await auth();
+
   const res = await fetch(
     `${SERVER_API_URL}/schedules/${event?.category.toLowerCase()}/${event?.event_id}`,
     {
       headers: {
-        ...((await auth())
-          ? { Authorization: `Bearer ${await accessToken()}` }
+        ...(isLoggedIn
+          ? { Authorization: `Bearer ${session?.accessToken}` }
           : {}),
       },
     },
@@ -105,15 +113,16 @@ export async function fetchSchedules(event: EventType) {
 
 export async function fetchScheduleDetail(
   event: EventType | undefined,
-  isLoggedIn: boolean,
   guestId: string,
 ) {
+  const { data: session, isLoggedIn } = await auth();
+
   const res = await fetch(
     `${SERVER_API_URL}/schedules/${event?.category.toLowerCase()}/${event?.event_id}/${isLoggedIn ? 'user' : guestId}`,
     {
       headers: {
-        ...((await auth())
-          ? { Authorization: `Bearer ${await accessToken()}` }
+        ...(isLoggedIn
+          ? { Authorization: `Bearer ${session?.accessToken}` }
           : {}),
       },
     },
@@ -129,9 +138,11 @@ export async function fetchScheduleDetail(
 }
 
 export async function fetchMyEvents() {
+  const { data: session } = await auth();
+
   const res = await fetch(`${SERVER_API_URL}/events/user/all`, {
     headers: {
-      Authorization: `Bearer ${await accessToken()}`,
+      Authorization: `Bearer ${session?.accessToken}`,
     },
   });
   if (!res.ok) {
@@ -145,9 +156,11 @@ export async function fetchMyEvents() {
 }
 
 export async function fetchMySchedule() {
+  const { data: session } = await auth();
+
   const res = await fetch(`${SERVER_API_URL}/fixed-schedules`, {
     headers: {
-      Authorization: `Bearer ${await accessToken()}`,
+      Authorization: `Bearer ${session?.accessToken}`,
     },
   });
   if (!res.ok) {
@@ -171,9 +184,11 @@ export async function fetchMySchedule() {
 }
 
 export async function fetchSleepTime() {
+  const { data: session } = await auth();
+
   const res = await fetch(`${SERVER_API_URL}/users/sleep-time`, {
     headers: {
-      Authorization: `Bearer ${await accessToken()}`,
+      Authorization: `Bearer ${session?.accessToken}`,
     },
   });
   if (!res.ok) {
@@ -212,9 +227,11 @@ export async function fetchOriginalUrl(shortUrl: string) {
 }
 
 export async function fetchPolicy() {
+  const { data: session } = await auth();
+
   const res = await fetch(`${SERVER_API_URL}/users/policy`, {
     headers: {
-      Authorization: `Bearer ${await accessToken()}`,
+      Authorization: `Bearer ${session?.accessToken}`,
     },
   });
   if (!res.ok) {

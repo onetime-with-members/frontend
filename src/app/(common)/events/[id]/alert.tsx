@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
-import { deleteEventApi } from '@/lib/mutation';
+import { deleteEventApi } from '@/lib/api/mutations';
 import { useProgressRouter } from '@/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, usePathname, useRouter } from 'next/navigation';

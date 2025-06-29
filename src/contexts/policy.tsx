@@ -2,9 +2,9 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { useAuth } from '@/lib/auth';
+import { useAuth } from '@/lib/api/auth.client';
+import { userPolicyQueryOptions } from '@/lib/api/query-options';
 import { defaultPolicy } from '@/lib/constants';
-import { userPolicyOption } from '@/lib/query-data';
 import { PolicyType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
 
@@ -30,7 +30,7 @@ export default function PolicyContextProvider({
   const { isLoggedIn } = useAuth();
 
   const { data: policyData, isPending: isPolicyPending } = useQuery({
-    ...userPolicyOption,
+    ...userPolicyQueryOptions,
     enabled: isLoggedIn,
   });
 

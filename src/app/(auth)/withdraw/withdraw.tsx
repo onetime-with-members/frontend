@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import Button from '@/components/button';
+import { withdrawApi } from '@/lib/api/mutations';
 import cn from '@/lib/cn';
-import { withdrawApi } from '@/lib/mutation';
 import { IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';

@@ -1,5 +1,5 @@
 import NotFound from '@/app/not-found';
-import { fetchEvent, fetchOriginalUrl } from '@/lib/data';
+import { fetchEvent, fetchOriginalUrl } from '@/lib/api/data';
 import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 

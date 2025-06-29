@@ -9,11 +9,13 @@ import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { auth, currentUserForClient } from '@/lib/auth-action';
-import axios from '@/lib/axios';
+import { useAuth } from '@/lib/api/auth.client';
+import { getQueryClient } from '@/lib/api/query-client';
+import {
+  userPolicyQueryOptions,
+  userQueryOptions,
+} from '@/lib/api/query-options';
 import dayjs from '@/lib/dayjs';
-import { getQueryClient } from '@/lib/query-client';
-import { PolicyType } from '@/lib/types';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
 import { QueryClientProvider, useQuery } from '@tanstack/react-query';
@@ -27,14 +29,15 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const isLoggedIn = !!getCookie('session');
+  const { isLoggedIn } = useAuth();
 
-  const { data: policy } = useQuery<PolicyType>({
-    queryKey: ['users', 'policy'],
-    queryFn: async () => {
-      const res = await axios.get('/users/policy');
-      return res.data.payload;
-    },
+  const { data: policy } = useQuery({
+    ...userPolicyQueryOptions,
+    enabled: isLoggedIn,
+  });
+
+  const { data: user } = useQuery({
+    ...userQueryOptions,
     enabled: isLoggedIn,
   });
 
@@ -75,7 +78,6 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function setUpBrowserLocale() {
       const localeCookie = getCookie('locale');
-      const isLoggedIn = !!(await auth());
       if (localeCookie || isLoggedIn) return;
       const locale = window.navigator.language.includes('ko') ? 'ko' : 'en';
       setCookie('locale', locale, {
@@ -89,18 +91,25 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     async function setUpUserLocaleLastLogin() {
-      if (!(await auth())) return;
-      const { user } = await currentUserForClient();
       if (!user) return;
-      setCookie('last-login', user.social_platform, {
-        expires: dayjs().add(1, 'year').toDate(),
-      });
+
+      const lastLoginTrigger = getCookie('last-login') !== user.social_platform;
+      if (lastLoginTrigger) {
+        setCookie('last-login', user.social_platform, {
+          expires: dayjs().add(1, 'year').toDate(),
+        });
+      }
+
       const newLocale = user.language === 'KOR' ? 'ko' : 'en';
-      setCookie('locale', newLocale, {
-        expires: dayjs().add(1, 'year').toDate(),
-      });
-      dayjs.locale(newLocale);
-      router.refresh();
+      const localeTrigger = getCookie('locale') !== newLocale;
+      if (localeTrigger) {
+        setCookie('locale', newLocale, {
+          expires: dayjs().add(1, 'year').toDate(),
+        });
+        dayjs.locale(newLocale);
+      }
+
+      if (lastLoginTrigger || localeTrigger) router.refresh();
     }
     setUpUserLocaleLastLogin();
   }, []);

@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 
 import { SleepTimeContext } from '@/contexts/sleep-time';
+import { fetchScheduleDetail } from '@/lib/api/data';
 import { defaultScheduleDetail, weekdaysShortKo } from '@/lib/constants';
-import { fetchScheduleDetail } from '@/lib/data';
 import dayjs from '@/lib/dayjs';
 import {
   EventType,
@@ -48,15 +48,11 @@ export default function useScheduleAdd({
   useEffect(() => {
     async function fetchSchedule() {
       if (!isLoggedIn && !guestId) return;
-      const scheduleDetail = await fetchScheduleDetail(
-        event,
-        isLoggedIn,
-        guestId,
-      );
+      const scheduleDetail = await fetchScheduleDetail(event, guestId);
       setSchedule(scheduleDetail);
     }
     fetchSchedule();
-  }, [event, guestId, isLoggedIn]);
+  }, [event, guestId]);
 
   useEffect(() => {
     setIsEmpty({

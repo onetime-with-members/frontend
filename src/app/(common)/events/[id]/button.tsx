@@ -11,7 +11,6 @@ import Button from '@/components/button';
 import BadgeButton from '@/components/button/badge-button';
 import { FooterContext } from '@/contexts/footer';
 import useKakaoShare from '@/hooks/useKakaoShare';
-import { auth } from '@/lib/auth-action';
 import cn from '@/lib/cn';
 import { EventType, ScheduleType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
@@ -41,7 +40,6 @@ export function BottomButtons({
 
   const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
-
   const t = useTranslations('eventDetail');
   const locale = useLocale();
 
@@ -51,7 +49,7 @@ export function BottomButtons({
     : false;
 
   async function handleBottomButtonClick() {
-    if (await auth()) {
+    if (isLoggedIn) {
       progressRouter.push(`/events/${params.id}/schedules/new`);
     } else {
       setIsLoginAlertOpen(true);

@@ -4,13 +4,15 @@ import clockLottie from '@/assets/lotties/landing-clock.json';
 import ClockPattern from '@/components/clock-pattern';
 import Lottie from '@/components/lottie';
 import NavBar from '@/components/nav-bar';
-import { auth } from '@/lib/auth-action';
+import auth from '@/lib/api/auth.server';
 import cn from '@/lib/cn';
 import { getLocale, getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
 export default async function Home() {
-  if (await auth()) {
+  const { isLoggedIn } = await auth();
+
+  if (isLoggedIn) {
     return <UserDashboardPage />;
   }
 

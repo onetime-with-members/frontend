@@ -5,7 +5,8 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
-import { auth, signIn } from '@/lib/auth-action';
+import { signIn } from '@/lib/api/actions';
+import { useAuth } from '@/lib/api/auth.client';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
@@ -26,6 +27,8 @@ export function SocialLoginCallback({
 }) {
   const progressRouter = useProgressRouter();
 
+  const { isLoggedIn } = useAuth();
+
   useEffect(() => {
     async function socialLogin() {
       if (searchParams.redirectUrl) {
@@ -37,7 +40,7 @@ export function SocialLoginCallback({
         const redirectUrl = (await getCookie('redirect-url')) || '/';
         await deleteCookie('redirect-url');
         progressRouter.push(redirectUrl);
-      } else if (await auth()) {
+      } else if (isLoggedIn) {
         progressRouter.replace(
           searchParams.redirectUrl || cookies.redirectUrl || '/',
         );

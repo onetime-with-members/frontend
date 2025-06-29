@@ -1,20 +1,74 @@
 'use server';
 
-import { accessToken, auth } from './auth-action';
-import { CRAWLING_SERVER_API_URL, SERVER_API_URL } from './constants';
-import { EventType, EverytimeSchedule, TimeType } from './types';
+import {
+  CRAWLING_SERVER_API_URL,
+  SERVER_API_URL,
+  defaultUser,
+} from '../constants';
+import dayjs from '../dayjs';
+import { EventType, EverytimeSchedule, Session, TimeType } from '../types';
+import auth from './auth.server';
 import { revalidatePath } from 'next/cache';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+export async function signIn(accessToken: string, refreshToken: string) {
+  const cookieStore = await cookies();
+  cookieStore.set(
+    'session',
+    JSON.stringify({
+      accessToken,
+      refreshToken,
+    } satisfies Session),
+    {
+      expires: dayjs().add(1, 'month').toDate(),
+    },
+  );
+
+  revalidatePath('/');
+}
+
+export async function signOut() {
+  const { data: session } = await auth();
+
+  const res = await fetch(`${SERVER_API_URL}/users/logout`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${await accessToken()}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      refresh_token: session?.refreshToken,
+    }),
+  });
+  if (!res.ok) {
+    console.error(await res.json());
+    return defaultUser;
+  }
+
+  const cookieStore = await cookies();
+  cookieStore.delete('session');
+
+  revalidatePath('/');
+}
+
+export async function accessToken() {
+  const { data: session } = await auth();
+  if (!session) throw new Error('Unauthorized Error');
+  return session.accessToken;
+}
+
 export async function createEvent(formData: FormData) {
+  const { data: session, isLoggedIn } = await auth();
+
   const event = JSON.parse(formData.get('event') as string);
 
   const res = await fetch(`${SERVER_API_URL}/events`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      ...((await auth())
-        ? { Authorization: `Bearer ${await accessToken()}` }
+      ...(isLoggedIn
+        ? { Authorization: `Bearer ${session?.accessToken}` }
         : {}),
     },
     body: JSON.stringify(event),
@@ -276,7 +330,7 @@ export async function updateSchedule(formData: FormData) {
   const guestId = formData.get('guestId');
   const schedules: TimeType[] = JSON.parse(formData.get('schedules') as string);
 
-  const session = await auth();
+  const { data: session, isLoggedIn } = await auth();
 
   const res = await fetch(
     `${SERVER_API_URL}/schedules/${event.category.toLowerCase()}`,
@@ -284,7 +338,9 @@ export async function updateSchedule(formData: FormData) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...(session ? { Authorization: `Bearer ${session.accessToken}` } : {}),
+        ...(isLoggedIn
+          ? { Authorization: `Bearer ${session?.accessToken}` }
+          : {}),
       },
       body: JSON.stringify({
         event_id: event.event_id,

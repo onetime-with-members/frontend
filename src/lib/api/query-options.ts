@@ -1,15 +1,15 @@
-import axios from './axios';
-import { defaultMySchedule, defaultSleepTime } from './constants';
+import { defaultMySchedule, defaultSleepTime } from '../constants';
 import {
   MyEventType,
   MyScheduleTimeType,
   PolicyType,
   SleepTimeType,
   UserType,
-} from './types';
+} from '../types';
+import axios from './axios';
 import { queryOptions } from '@tanstack/react-query';
 
-export const userQueryOption = queryOptions<UserType>({
+export const userQueryOptions = queryOptions<UserType>({
   queryKey: ['users', 'profile'],
   queryFn: async () => {
     const res = await axios.get('/users/profile');
@@ -17,7 +17,7 @@ export const userQueryOption = queryOptions<UserType>({
   },
 });
 
-export const myEventsQueryOption = queryOptions<MyEventType[]>({
+export const myEventsQueryOptions = queryOptions<MyEventType[]>({
   queryKey: ['events', 'user', 'all'],
   queryFn: async () => {
     const res = await axios.get('/events/user/all');
@@ -25,7 +25,7 @@ export const myEventsQueryOption = queryOptions<MyEventType[]>({
   },
 });
 
-export const myScheduleQueryOption = queryOptions<MyScheduleTimeType[]>({
+export const myScheduleQueryOptions = queryOptions<MyScheduleTimeType[]>({
   queryKey: ['fixed-schedules'],
   queryFn: async () => {
     const res = await axios.get('/fixed-schedules');
@@ -43,7 +43,7 @@ export const myScheduleQueryOption = queryOptions<MyScheduleTimeType[]>({
   },
 });
 
-export const sleepTimeQueryOption = queryOptions<SleepTimeType>({
+export const sleepTimeQueryOptions = queryOptions<SleepTimeType>({
   queryKey: ['users', 'sleep-time'],
   queryFn: async () => {
     const res = await axios.get('/users/sleep-time');
@@ -52,7 +52,7 @@ export const sleepTimeQueryOption = queryOptions<SleepTimeType>({
   placeholderData: defaultSleepTime,
 });
 
-export const userPolicyOption = queryOptions<PolicyType>({
+export const userPolicyQueryOptions = queryOptions<PolicyType>({
   queryKey: ['users', 'policy'],
   queryFn: async () => {
     const res = await axios.get('/users/policy');

@@ -1,4 +1,4 @@
-import { auth } from '@/lib/auth-action';
+import auth from '@/lib/api/auth.server';
 import { redirect } from 'next/navigation';
 
 export default async function AuthLayout({
@@ -6,7 +6,9 @@ export default async function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  if (!(await auth())) {
+  const { isLoggedIn } = await auth();
+
+  if (!isLoggedIn) {
     redirect('/login');
   }
 

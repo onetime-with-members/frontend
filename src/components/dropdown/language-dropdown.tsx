@@ -6,8 +6,8 @@ import { useRef } from 'react';
 
 import CheckIcon from '@/components/icon/check';
 import useDropdown from '@/hooks/useDropdown';
-import { editUserLanguage } from '@/lib/actions';
-import { auth } from '@/lib/auth-action';
+import { editUserLanguage } from '@/lib/api/actions';
+import { useAuth } from '@/lib/api/auth.client';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { IconLanguage } from '@tabler/icons-react';
@@ -35,8 +35,10 @@ export default function LanguageDropdown({
   const locale = useLocale();
   const router = useRouter();
 
+  const { isLoggedIn } = useAuth();
+
   async function handleDropdownMenuItemClick(language: string) {
-    if (await auth()) {
+    if (isLoggedIn) {
       const formData = new FormData();
       formData.set('language', language === 'ko' ? 'KOR' : 'ENG');
       await editUserLanguage(formData);

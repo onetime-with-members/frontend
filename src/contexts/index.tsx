@@ -8,8 +8,8 @@ import ScrollContextProvider from './scroll';
 import SleepTimeContextProvider from './sleep-time';
 import ToastContextProvider from './toast';
 import WeekdayLocaleContextProvider from './weekday-locale';
-import { auth } from '@/lib/auth-action';
-import { fetchBarBanner, fetchMySchedule } from '@/lib/data';
+import auth from '@/lib/api/auth.server';
+import { fetchBarBanner, fetchMySchedule } from '@/lib/api/data';
 import { getLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
 
@@ -18,8 +18,10 @@ export default async function ContextProviders({
 }: {
   children: React.ReactNode;
 }) {
+  const { isLoggedIn } = await auth();
+
   let mySchedule;
-  if (await auth()) {
+  if (isLoggedIn) {
     mySchedule = await fetchMySchedule();
   }
 

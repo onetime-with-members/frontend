@@ -1,16 +1,16 @@
 import ScheduleAddScreen from './content';
-import { auth, currentUser } from '@/lib/auth-action';
-import {
-  defaultMySchedule,
-  defaultScheduleDetail,
-  defaultSleepTime,
-} from '@/lib/constants';
+import auth from '@/lib/api/auth.server';
 import {
   fetchEvent,
   fetchMySchedule,
   fetchScheduleDetail,
   fetchSleepTime,
-} from '@/lib/data';
+} from '@/lib/api/data';
+import {
+  defaultMySchedule,
+  defaultScheduleDetail,
+  defaultSleepTime,
+} from '@/lib/constants';
 import { notFound } from 'next/navigation';
 
 export default async function Page({
@@ -20,7 +20,7 @@ export default async function Page({
 }) {
   const { id } = await params;
 
-  const isLoggedIn = !!(await auth());
+  const { isLoggedIn } = await auth();
 
   const event = await fetchEvent(id);
 
@@ -28,24 +28,21 @@ export default async function Page({
     notFound();
   }
 
-  const [schedule, mySchedule, sleepTime, userResponse] = await Promise.all([
+  const [schedule, mySchedule, sleepTime] = await Promise.all([
     isLoggedIn
-      ? fetchScheduleDetail(event, true, '')
+      ? fetchScheduleDetail(event, '')
       : Promise.resolve(defaultScheduleDetail),
     isLoggedIn ? fetchMySchedule() : Promise.resolve(defaultMySchedule),
     isLoggedIn ? fetchSleepTime() : Promise.resolve(defaultSleepTime),
-    isLoggedIn ? currentUser() : Promise.resolve(null),
   ]);
-  const user = userResponse?.user || null;
 
   return (
     <ScheduleAddScreen
-      isLoggedIn={!!(await auth())}
+      isLoggedIn={isLoggedIn}
       event={event}
       schedule={schedule}
       mySchedule={mySchedule}
       sleepTime={sleepTime}
-      user={user}
     />
   );
 }

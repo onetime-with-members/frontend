@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
 import useScroll from '@/hooks/useScroll';
-import { useAuth } from '@/lib/auth';
+import { useAuth } from '@/lib/api/auth.client';
+import { userQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { defaultUser } from '@/lib/constants';
-import { userQueryOption } from '@/lib/query-data';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -35,7 +35,7 @@ export default function NavBar({
   const { isScrolling } = useScroll();
 
   const { data: user } = useQuery({
-    ...userQueryOption,
+    ...userQueryOptions,
   });
 
   useEffect(() => {

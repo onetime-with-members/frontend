@@ -1,5 +1,5 @@
 import EventFormScreen from '@/components/event/form-screen';
-import { fetchEvent } from '@/lib/data';
+import { fetchEvent } from '@/lib/api/data';
 import { getTranslations } from 'next-intl/server';
 import { notFound, redirect } from 'next/navigation';
 

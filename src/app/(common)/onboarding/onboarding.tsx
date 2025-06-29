@@ -1,6 +1,6 @@
 'use client';
 
-import { getCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
@@ -10,12 +10,14 @@ import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
+import { createUserApi } from '@/lib/api/mutations';
 import cn from '@/lib/cn';
-import { createUserApi } from '@/lib/mutation';
-import { OnboardingValueType } from '@/lib/types';
+import dayjs from '@/lib/dayjs';
+import { OnboardingValueType, Session } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 export default function OnboardingPage({
   name,
@@ -41,15 +43,33 @@ export default function OnboardingPage({
   const { setFooterVisible } = useContext(FooterContext);
 
   const queryClient = useQueryClient();
+  const router = useRouter();
   const progressRouter = useProgressRouter();
 
   const redirectUrl = getCookie('redirect-url');
 
   const { mutateAsync: createUser } = useMutation({
     mutationFn: createUserApi,
-    onSuccess: async () => {
+    onSuccess: async ({
+      access_token: newAccessToken,
+      refresh_token: newRefreshToken,
+    }) => {
+      setCookie(
+        'session',
+        JSON.stringify({
+          accessToken: newAccessToken,
+          refreshToken: newRefreshToken,
+        } satisfies Session),
+        {
+          expires: dayjs().add(1, 'month').toDate(),
+        },
+      );
       await queryClient.invalidateQueries({ queryKey: ['users'] });
       setPage((prev) => prev + 1);
+    },
+    onError: (error) => {
+      console.error(error);
+      router.replace(`/login?redirect_url=${redirectUrl || '/'}`);
     },
   });
 
@@ -135,7 +155,6 @@ export default function OnboardingPage({
               setValue={setValue}
               onNextButtonClick={handleNextButtonClick}
               onBackButtonClick={handleBackButtonClick}
-              user={null}
             />
             <NicknameFormScreen
               isVisible={page === 2}

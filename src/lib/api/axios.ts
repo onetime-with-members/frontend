@@ -2,7 +2,7 @@ import _axios, { AxiosError } from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 
-import { ExtendedAxiosError, Session } from './types';
+import { ExtendedAxiosError, Session } from '../types';
 
 const axios = _axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_API_URL,

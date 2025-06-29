@@ -1,12 +1,12 @@
-import axios from './axios';
-import { CRAWLING_SERVER_API_URL } from './constants';
+import { CRAWLING_SERVER_API_URL } from '../constants';
 import {
   EventValueType,
   MyScheduleTimeType,
   OnboardingValueType,
   PolicyType,
   SleepTimeType,
-} from './types';
+} from '../types';
+import axios from './axios';
 
 export async function createUserApi(value: OnboardingValueType) {
   const res = await axios.post('/users/onboarding', value);

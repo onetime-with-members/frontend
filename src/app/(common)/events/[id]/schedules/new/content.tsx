@@ -17,7 +17,7 @@ import {
   createNewMemberSchedule,
   loginGuest,
   updateSchedule,
-} from '@/lib/actions';
+} from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { breakpoint } from '@/lib/constants';
 import {
@@ -26,7 +26,6 @@ import {
   MyScheduleTimeType,
   ScheduleType,
   SleepTimeType,
-  UserType,
 } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
@@ -44,7 +43,6 @@ export default function ScheduleAddScreen({
   schedule: ScheduleType;
   mySchedule: MyScheduleTimeType[];
   sleepTime: SleepTimeType;
-  user: UserType | null;
 }) {
   const [pageIndex, setPageIndex] = useState(isLoggedIn ? 1 : 0);
   const [isNewGuest, setIsNewGuest] = useState(false);

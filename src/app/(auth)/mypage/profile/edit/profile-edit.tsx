@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl';
 import FormContent from './form-content';
 import GrayBackground from '@/components/gray-background';
 import NavBar from '@/components/nav-bar';
+import { userQueryOptions } from '@/lib/api/query-options';
 import { defaultUser } from '@/lib/constants';
-import { userQueryOption } from '@/lib/query-data';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -16,7 +16,7 @@ export default function ProfileEditPage() {
 
   const t = useTranslations('profileEdit');
 
-  const { data: user } = useQuery({ ...userQueryOption });
+  const { data: user } = useQuery({ ...userQueryOptions });
 
   return (
     <>

@@ -4,14 +4,14 @@ import { useTranslations } from 'next-intl';
 
 import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import { signOut } from '@/lib/auth-action';
+import { signOut } from '@/lib/api/actions';
+import { userQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { userQueryOption } from '@/lib/query-data';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { useQuery } from '@tanstack/react-query';
 
 export default function ProfilePage() {
-  const { data: user } = useQuery({ ...userQueryOption });
+  const { data: user } = useQuery({ ...userQueryOptions });
 
   const progressRouter = useProgressRouter();
 

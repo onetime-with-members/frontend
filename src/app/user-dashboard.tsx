@@ -18,6 +18,12 @@ import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { BarBannerContext } from '@/contexts/bar-banner';
 import { FooterContext } from '@/contexts/footer';
 import useScroll from '@/hooks/useScroll';
+import {
+  myEventsQueryOptions,
+  myScheduleQueryOptions,
+  sleepTimeQueryOptions,
+  userQueryOptions,
+} from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import {
   SKELETON_DARK_GRAY,
@@ -25,12 +31,6 @@ import {
   defaultMyEvent,
   defaultMySchedule,
 } from '@/lib/constants';
-import {
-  myEventsQueryOption,
-  myScheduleQueryOption,
-  sleepTimeQueryOption,
-  userQueryOption,
-} from '@/lib/query-data';
 import { MyScheduleTimeType } from '@/lib/types';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconChevronRight, IconPlus } from '@tabler/icons-react';
@@ -39,7 +39,7 @@ import { useQuery } from '@tanstack/react-query';
 export default function UserDashboardPage() {
   const { isScrolling } = useScroll();
 
-  const { data: user } = useQuery({ ...userQueryOption });
+  const { data: user } = useQuery({ ...userQueryOptions });
 
   const t = useTranslations('userDashboard');
 
@@ -113,7 +113,7 @@ export default function UserDashboardPage() {
 }
 
 function MyEventsHeader() {
-  const { data: myEvents } = useQuery({ ...myEventsQueryOption });
+  const { data: myEvents } = useQuery({ ...myEventsQueryOptions });
 
   const t = useTranslations('userDashboard');
 
@@ -139,7 +139,7 @@ function MyEventsHeader() {
 
 function MyEventsContent() {
   const { data: myEvents, isPending: isMyEventsPending } = useQuery({
-    ...myEventsQueryOption,
+    ...myEventsQueryOptions,
   });
 
   const t = useTranslations('userDashboard');
@@ -190,10 +190,10 @@ function MyEventsSkeleton() {
 
 function MyScheduleContent() {
   const { data: mySchedule, isPending: isMySchedulePending } = useQuery({
-    ...myScheduleQueryOption,
+    ...myScheduleQueryOptions,
   });
   const { data: sleepTime, isPending: isSleepTimePending } = useQuery({
-    ...sleepTimeQueryOption,
+    ...sleepTimeQueryOptions,
   });
 
   if (isMySchedulePending || isSleepTimePending) {
