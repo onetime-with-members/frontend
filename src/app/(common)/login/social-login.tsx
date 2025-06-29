@@ -2,7 +2,7 @@
 
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
 import { auth, signIn } from '@/lib/auth';
@@ -24,32 +24,20 @@ export function SocialLoginCallback({
     redirectUrl?: string;
   };
 }) {
-  const [isProcessing, setIsProcessing] = useState(false);
-
   const progressRouter = useProgressRouter();
 
   useEffect(() => {
     async function socialLogin() {
-      if (isProcessing) {
-        return;
+      if (searchParams.redirectUrl) {
+        await setCookie('redirect-url', searchParams.redirectUrl);
       }
 
       if (searchParams.accessToken && searchParams.refreshToken) {
-        setIsProcessing(true);
-
-        if (searchParams.redirectUrl) {
-          await setCookie('redirect-url', searchParams.redirectUrl);
-        }
-
         await signIn(searchParams.accessToken, searchParams.refreshToken);
-
         const redirectUrl = (await getCookie('redirect-url')) || '/';
         await deleteCookie('redirect-url');
-
         progressRouter.push(redirectUrl);
       } else if (await auth()) {
-        setIsProcessing(true);
-
         progressRouter.replace(
           searchParams.redirectUrl || cookies.redirectUrl || '/',
         );
