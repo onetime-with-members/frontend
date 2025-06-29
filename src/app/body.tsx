@@ -9,14 +9,14 @@ import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { auth, currentUser } from '@/lib/auth';
-import { fetchPolicy } from '@/lib/data';
+import { auth, currentUserForClient } from '@/lib/auth';
+import axios from '@/lib/axios';
 import dayjs from '@/lib/dayjs';
 import { getQueryClient } from '@/lib/query-client';
-import { UserType } from '@/lib/types';
+import { PolicyType, UserType } from '@/lib/types';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
-import { QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
@@ -26,6 +26,17 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   const progressRouter = useProgressRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const isLoggedIn = !!getCookie('session');
+
+  const { data: policy } = useQuery<PolicyType>({
+    queryKey: ['users', 'policy'],
+    queryFn: async () => {
+      const res = await axios.get('/users/policy');
+      return res.data.payload;
+    },
+    enabled: isLoggedIn,
+  });
 
   useEffect(() => {
     if (location.hostname === '1-ti.me') {
@@ -79,7 +90,7 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function setUpUserLocaleLastLogin() {
       if (!(await auth())) return;
-      const { user } = await currentUser();
+      const { user } = await currentUserForClient();
       if (!user) return;
       setCookie('last-login', user.social_platform, {
         expires: dayjs().add(1, 'year').toDate(),
@@ -95,16 +106,12 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    async function checkPolicy() {
-      if (pathname.startsWith('/policy') || pathname === '/withdraw') return;
-      if (!(await auth())) return;
-      const policy = await fetchPolicy();
-      if (policy.service_policy_agreement && policy.privacy_policy_agreement)
-        return;
-      progressRouter.push('/policy/edit');
-    }
-    checkPolicy();
-  }, [pathname, progressRouter]);
+    if (pathname.startsWith('/policy') || pathname === '/withdraw') return;
+    if (!policy) return;
+    if (policy.service_policy_agreement && policy.privacy_policy_agreement)
+      return;
+    progressRouter.push('/policy/edit');
+  }, [pathname, policy]);
 
   return children;
 }

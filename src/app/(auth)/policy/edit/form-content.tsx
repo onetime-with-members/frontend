@@ -9,6 +9,7 @@ import { PolicyContext } from '@/contexts/policy';
 import { editPolicy } from '@/lib/actions';
 import { PolicyKeyType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -18,15 +19,20 @@ export default function FormContent() {
 
   const { policyValue, setPolicyValue } = useContext(PolicyContext);
 
+  const queryClient = useQueryClient();
+
   const router = useRouter();
   const progressRouter = useProgressRouter();
 
   const t = useTranslations('policyEdit');
 
-  async function handleSubmit() {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
     const formData = new FormData();
     formData.set('policy', JSON.stringify(policyValue));
     await editPolicy(formData);
+    await queryClient.invalidateQueries({ queryKey: ['users'] });
 
     router.back();
   }
@@ -52,6 +58,7 @@ export default function FormContent() {
       onKeyDown={(e) => {
         if (e.key === 'Enter') e.preventDefault();
       }}
+      className="flex flex-col gap-12"
     >
       <PolicyCheckboxContent
         value={policyValue}

@@ -16,6 +16,7 @@ import { editMySchedule, editSleepTime } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { TimeType } from '@/lib/types';
 import { IconChevronLeft } from '@tabler/icons-react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export default function FormContent({
@@ -33,11 +34,12 @@ export default function FormContent({
     setIsMyScheduleEdited,
     revalidateMySchedule,
   } = useContext(MyScheduleContext);
-  const { sleepTime, setSleepTime, revalidateSleepTime } =
-    useContext(SleepTimeContext);
+  const { sleepTime, setSleepTime } = useContext(SleepTimeContext);
   const { everytimeSchedule, setEverytimeSchedule } = useContext(
     EverytimeScheduleContext,
   );
+
+  const queryClient = useQueryClient();
 
   const toast = useToast();
 
@@ -55,7 +57,7 @@ export default function FormContent({
     const sleepTimeFormData = new FormData();
     sleepTimeFormData.set('sleepTime', JSON.stringify(sleepTime));
     await editSleepTime(sleepTimeFormData);
-    revalidateSleepTime();
+    await queryClient.invalidateQueries({ queryKey: ['users'] });
 
     router.back();
   }

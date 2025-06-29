@@ -155,7 +155,7 @@ export async function editSleepTime(formData: FormData) {
 export async function editPolicy(formData: FormData) {
   const policy = JSON.parse(formData.get('policy') as string);
 
-  const res = await fetch(`${SERVER_API_URL}/users/sleep-time`, {
+  const res = await fetch(`${SERVER_API_URL}/users/policy`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ export async function editPolicy(formData: FormData) {
   });
   if (!res.ok) {
     console.error(await res.json());
-    throw new Error('Failed to edit sleep time');
+    throw new Error('Failed to edit policy');
   }
 }
 

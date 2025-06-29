@@ -9,12 +9,7 @@ import SleepTimeContextProvider from './sleep-time';
 import ToastContextProvider from './toast';
 import WeekdayLocaleContextProvider from './weekday-locale';
 import { auth } from '@/lib/auth';
-import {
-  fetchBarBanner,
-  fetchMySchedule,
-  fetchPolicy,
-  fetchSleepTime,
-} from '@/lib/data';
+import { fetchBarBanner, fetchMySchedule } from '@/lib/data';
 import { getLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
 
@@ -23,11 +18,9 @@ export default async function ContextProviders({
 }: {
   children: React.ReactNode;
 }) {
-  let sleepTime, mySchedule, policy;
+  let mySchedule;
   if (await auth()) {
-    sleepTime = await fetchSleepTime();
     mySchedule = await fetchMySchedule();
-    policy = await fetchPolicy();
   }
 
   let barBanner = null;
@@ -41,8 +34,8 @@ export default async function ContextProviders({
     <PageModeContextProvider>
       <FooterContextProvider>
         <ScrollContextProvider>
-          <PolicyContextProvider defaultPolicy={policy}>
-            <SleepTimeContextProvider defaultSleepTime={sleepTime}>
+          <PolicyContextProvider>
+            <SleepTimeContextProvider>
               <MyScheduleContextProvider defaultMySchedule={mySchedule}>
                 <BarBannerContextProvider barBanner={barBanner}>
                   <WeekdayLocaleContextProvider initialLocale={locale}>

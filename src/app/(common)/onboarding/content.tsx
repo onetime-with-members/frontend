@@ -10,13 +10,12 @@ import SleepTimeScreen from './sleep-time-screen';
 import WelcomeScreen from './welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { PolicyContext } from '@/contexts/policy';
-import { SleepTimeContext } from '@/contexts/sleep-time';
 import { createUser } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { OnboardingValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Content({
   name,
@@ -40,8 +39,8 @@ export default function Content({
   });
 
   const { setFooterVisible } = useContext(FooterContext);
-  const { revalidateSleepTime } = useContext(SleepTimeContext);
-  const { revalidatePolicy } = useContext(PolicyContext);
+
+  const queryClient = useQueryClient();
 
   const progressRouter = useProgressRouter();
 
@@ -66,9 +65,7 @@ export default function Content({
     const formData = new FormData();
     formData.set('onboardingValue', JSON.stringify(value));
     await createUser(formData);
-
-    revalidateSleepTime();
-    revalidatePolicy();
+    await queryClient.invalidateQueries({ queryKey: ['users'] });
 
     setPage((prev) => prev + 1);
   }

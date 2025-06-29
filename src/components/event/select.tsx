@@ -147,6 +147,7 @@ export function CalendarSelect({
         </div>
         <div className="flex items-center gap-4">
           <button
+            type="button"
             className={cn(
               'flex w-6 -rotate-90 items-center justify-center text-gray-90',
               {
@@ -158,6 +159,7 @@ export function CalendarSelect({
             <IconTriangleFilled size={12} />
           </button>
           <button
+            type="button"
             className="flex w-6 rotate-90 items-center justify-center text-gray-90"
             onClick={handleNextMonth}
           >
