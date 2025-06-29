@@ -23,6 +23,11 @@ export async function editEventApi({
   return res.data.payload;
 }
 
+export async function deleteEventApi(eventId: string) {
+  const res = await axios.delete(`/events/${eventId}`);
+  return res.data.payload;
+}
+
 export async function editUserNameApi(name: string) {
   const res = await axios.patch('/users/profile/action-update', {
     nickname: name,

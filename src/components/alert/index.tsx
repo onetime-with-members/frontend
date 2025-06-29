@@ -1,4 +1,4 @@
-import { createPortal, useFormStatus } from 'react-dom';
+import { createPortal } from 'react-dom';
 
 export default function Alert({
   onConfirm,
@@ -7,6 +7,7 @@ export default function Alert({
   confirmText,
   pendingText,
   cancelText,
+  isPending,
   children,
 }: {
   onConfirm: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -15,6 +16,7 @@ export default function Alert({
   confirmText: string;
   pendingText?: string;
   cancelText: string;
+  isPending?: boolean;
   children: React.ReactNode;
 }) {
   return createPortal(
@@ -36,33 +38,16 @@ export default function Alert({
             >
               {cancelText}
             </button>
-            <ConfirmButton
-              confirmText={confirmText}
-              pendingText={pendingText}
-            />
+            <button
+              type="submit"
+              className="flex-1 bg-primary-50 px-3 py-4 text-gray-00 duration-150 text-lg-200 hover:bg-primary-60 active:bg-primary-60"
+            >
+              {isPending ? pendingText || confirmText : confirmText}
+            </button>
           </div>
         </div>
       </div>
     </form>,
     document.getElementById('alert') as HTMLElement,
-  );
-}
-
-function ConfirmButton({
-  confirmText,
-  pendingText,
-}: {
-  confirmText: string;
-  pendingText?: string;
-}) {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      type="submit"
-      className="flex-1 bg-primary-50 px-3 py-4 text-gray-00 duration-150 text-lg-200 hover:bg-primary-60 active:bg-primary-60"
-    >
-      {pending ? pendingText || confirmText : confirmText}
-    </button>
   );
 }
