@@ -1,5 +1,4 @@
 import EventFormScreen from '@/components/event/form-screen';
-import { auth, currentUser } from '@/lib/auth-action';
 import { fetchEvent } from '@/lib/data';
 import { getTranslations } from 'next-intl/server';
 import { notFound, redirect } from 'next/navigation';
@@ -45,8 +44,6 @@ export default async function Page({
     redirect(`/events/${eventId}`);
   }
 
-  const user = (await auth()) ? (await currentUser()).user : null;
-
   return (
     <EventFormScreen
       type="edit"
@@ -57,7 +54,6 @@ export default async function Page({
         category: event.category,
         ranges: event.ranges,
       }}
-      user={user}
     />
   );
 }

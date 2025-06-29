@@ -2,36 +2,57 @@
 
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
-import { useFormStatus } from 'react-dom';
 
 import InputContent from './input-content';
 import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
-import { createEvent, editEvent } from '@/lib/actions';
+import { editEvent } from '@/lib/actions';
 import cn from '@/lib/cn';
-import { breakpoint, defaultEventValue } from '@/lib/constants';
+import { breakpoint, defaultEventValue, defaultUser } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { EventValueType, UserType } from '@/lib/types';
+import { createEventApi } from '@/lib/mutation';
+import { userQueryOption } from '@/lib/query-data';
+import { EventValueType } from '@/lib/types';
+import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 
 export default function EventFormScreen({
   type,
   originData,
-  user,
 }: {
   type: 'create' | 'edit';
   originData?: EventValueType;
-  user: UserType | null;
 }) {
   const [value, setValue] = useState<EventValueType>(
     originData || defaultEventValue,
   );
   const [disabled, setDisabled] = useState(type === 'create');
 
+  const { pageMode } = useContext(PageModeContext);
+
   const router = useRouter();
+  const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
+  const queryClient = useQueryClient();
+  const t = useTranslations('eventForm');
+
+  const { data: user } = useQuery({
+    ...userQueryOption,
+  });
+
+  const { mutateAsync: createEvent, isPending: isEventCreatePending } =
+    useMutation({
+      mutationFn: createEventApi,
+      onSuccess: async (data) => {
+        await queryClient.invalidateQueries({ queryKey: ['events'] });
+        progressRouter.push(`/events/${data.event_id}`);
+      },
+    });
+
+  const isSubmitPending = isEventCreatePending;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -41,7 +62,7 @@ export default function EventFormScreen({
     formData.set('event', JSON.stringify(value));
 
     if (type === 'create') {
-      await createEvent(formData);
+      await createEvent(value);
     } else {
       formData.set('eventId', params.id);
       await editEvent(formData);
@@ -62,7 +83,8 @@ export default function EventFormScreen({
         value.title.trim().length > 50 ||
         value.ranges.length === 0 ||
         startTime.isAfter(endTime) ||
-        startTime.isSame(endTime),
+        startTime.isSame(endTime) ||
+        isEventCreatePending,
     );
   }, [value]);
 
@@ -88,9 +110,17 @@ export default function EventFormScreen({
     <form onSubmit={handleSubmit} className="flex flex-col items-center pb-40">
       <div className="w-full md:px-4">
         {/* Top Navigation Bar for Desktop */}
-        <NavBar user={user} variant="default" className="hidden md:flex" />
+        <NavBar
+          user={user || defaultUser}
+          variant="default"
+          className="hidden md:flex"
+        />
         {/* Top Navigation Bar for Mobile */}
-        <NavBar user={user} variant="black" className="flex md:hidden" />
+        <NavBar
+          user={user || defaultUser}
+          variant="black"
+          className="flex md:hidden"
+        />
 
         <main className="mx-auto flex w-full max-w-screen-md flex-col items-center justify-center md:pt-6">
           {/* Top Actions for Desktop */}
@@ -111,38 +141,18 @@ export default function EventFormScreen({
 
       {/* Bottom Floating Button */}
       <div className="sticky bottom-0 left-0 w-full bg-gray-00 px-4 py-4 md:static md:w-[25rem] md:bg-transparent">
-        <SubmitButton disabled={disabled} />
+        <Button
+          type="submit"
+          variant="dark"
+          fullWidth
+          className={cn({ 'cursor-default': isSubmitPending })}
+        >
+          {pageMode === 'create' &&
+            (isSubmitPending ? t('creatingEvent') : t('createEvent'))}
+          {pageMode === 'edit' &&
+            (isSubmitPending ? t('editingEvent') : t('editEvent'))}
+        </Button>
       </div>
     </form>
-  );
-}
-
-export function SubmitButton({
-  className,
-  ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
-  const { pending } = useFormStatus();
-
-  const { pageMode } = useContext(PageModeContext);
-
-  const t = useTranslations('eventForm');
-
-  return (
-    <Button
-      type="submit"
-      variant="dark"
-      fullWidth
-      className={cn(
-        {
-          'cursor-default': pending,
-        },
-        className,
-      )}
-      {...props}
-    >
-      {pageMode === 'create' &&
-        (pending ? t('creatingEvent') : t('createEvent'))}
-      {pageMode === 'edit' && (pending ? t('editingEvent') : t('editEvent'))}
-    </Button>
   );
 }

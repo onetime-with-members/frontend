@@ -1,6 +1,16 @@
 import axios from './axios';
 import { CRAWLING_SERVER_API_URL } from './constants';
-import { MyScheduleTimeType, PolicyType, SleepTimeType } from './types';
+import {
+  EventValueType,
+  MyScheduleTimeType,
+  PolicyType,
+  SleepTimeType,
+} from './types';
+
+export async function createEventApi(event: EventValueType) {
+  const res = await axios.post('/events', event);
+  return res.data.payload;
+}
 
 export async function editUserNameApi(name: string) {
   const res = await axios.patch('/users/profile/action-update', {
