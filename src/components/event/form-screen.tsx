@@ -8,13 +8,14 @@ import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
 import { createEventApi, editEventApi } from '@/lib/api/mutations';
+import { eventQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { breakpoint, defaultEventValue } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { EventValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 
 export default function EventFormScreen({
@@ -36,6 +37,12 @@ export default function EventFormScreen({
   const params = useParams<{ id: string }>();
   const queryClient = useQueryClient();
   const t = useTranslations('eventForm');
+
+  const { data: event } = useQuery({
+    ...eventQueryOptions(params.id),
+    queryKey: [...eventQueryOptions(params.id).queryKey, '_user'],
+    enabled: type === 'edit',
+  });
 
   const { mutateAsync: createEvent, isPending: isEventCreatePending } =
     useMutation({
@@ -67,6 +74,13 @@ export default function EventFormScreen({
       await editEvent({ eventId: params.id, event: value });
     }
   }
+
+  useEffect(() => {
+    if (!event) return;
+    if (event.event_status !== 'CREATOR') {
+      router.push(`/events/${params.id}`);
+    }
+  }, [event]);
 
   useEffect(() => {
     if (!originData) return;

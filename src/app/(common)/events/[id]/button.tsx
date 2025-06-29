@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import { LoginAlert } from './alert';
 import { ToolbarMenuDropdown } from './dropdown';
@@ -133,7 +133,14 @@ export function ToolbarButtons() {
   const t = useTranslations('eventDetail');
   const locale = useLocale();
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: event } = useQuery({
+    ...eventQueryOptions(params.id),
+    queryKey: [...eventQueryOptions(params.id).queryKey, '_user'],
+  });
+
+  useEffect(() => {
+    console.log(event);
+  }, [event]);
 
   return (
     <div className="flex items-center gap-2">
