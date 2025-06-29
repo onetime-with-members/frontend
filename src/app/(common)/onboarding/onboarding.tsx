@@ -4,20 +4,20 @@ import { getCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
-import NicknameFormScreen from './nickname-form-screen';
-import PolicyScreen from './policy-screen';
-import SleepTimeScreen from './sleep-time-screen';
-import WelcomeScreen from './welcome-screen';
+import NicknameFormScreen from './_screen/nickname-form-screen';
+import PolicyScreen from './_screen/policy-screen';
+import SleepTimeScreen from './_screen/sleep-time-screen';
+import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { createUser } from '@/lib/auth-action';
 import cn from '@/lib/cn';
+import { createUserApi } from '@/lib/mutation';
 import { OnboardingValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export default function Content({
+export default function OnboardingPage({
   name,
   registerToken,
 }: {
@@ -41,10 +41,17 @@ export default function Content({
   const { setFooterVisible } = useContext(FooterContext);
 
   const queryClient = useQueryClient();
-
   const progressRouter = useProgressRouter();
 
   const redirectUrl = getCookie('redirect-url');
+
+  const { mutateAsync: createUser } = useMutation({
+    mutationFn: createUserApi,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+      setPage((prev) => prev + 1);
+    },
+  });
 
   function handleNextButtonClick(disabled: boolean) {
     if (disabled) return;
@@ -61,13 +68,7 @@ export default function Content({
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.set('onboardingValue', JSON.stringify(value));
-    await createUser(formData);
-    await queryClient.invalidateQueries({ queryKey: ['users'] });
-
-    setPage((prev) => prev + 1);
+    await createUser(value);
   }
 
   useEffect(() => {

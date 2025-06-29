@@ -194,6 +194,13 @@ export function PreloadImages() {
         height={1}
         priority
       />
+      <Image
+        src="/images/welcome-clock.svg"
+        alt=""
+        width={1}
+        height={1}
+        priority
+      />
     </div>
   );
 }

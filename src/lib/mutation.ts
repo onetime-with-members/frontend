@@ -3,9 +3,15 @@ import { CRAWLING_SERVER_API_URL } from './constants';
 import {
   EventValueType,
   MyScheduleTimeType,
+  OnboardingValueType,
   PolicyType,
   SleepTimeType,
 } from './types';
+
+export async function createUserApi(value: OnboardingValueType) {
+  const res = await axios.post('/users/onboarding', value);
+  return res.data.payload;
+}
 
 export async function createEventApi(event: EventValueType) {
   const res = await axios.post('/events', event);
