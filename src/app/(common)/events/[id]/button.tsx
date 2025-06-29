@@ -13,19 +13,19 @@ import { FooterContext } from '@/contexts/footer';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import { useAuth } from '@/lib/api/auth.client';
 import {
+  eventQueryOptions,
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { defaultScheduleDetail } from '@/lib/constants';
-import { EventType } from '@/lib/types';
+import { defaultEvent, defaultScheduleDetail } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
 import { IconEdit, IconPlus } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
-export function BottomButtons({ event }: { event: EventType }) {
+export function BottomButtons() {
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
 
@@ -38,12 +38,13 @@ export function BottomButtons({ event }: { event: EventType }) {
 
   const { isLoggedIn } = useAuth();
 
-  const { data: schedules } = useQuery({ ...schedulesQueryOptions(event) });
-
-  const { data: scheduleDetailData } = useQuery({
-    ...scheduleDetailQueryOptions({ event, isLoggedIn }),
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: schedules } = useQuery({
+    ...schedulesQueryOptions(event || defaultEvent),
   });
-
+  const { data: scheduleDetailData } = useQuery({
+    ...scheduleDetailQueryOptions({ event: event || defaultEvent, isLoggedIn }),
+  });
   const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
 
   const hasUserSchedule = isLoggedIn
@@ -122,22 +123,23 @@ export function BottomButtons({ event }: { event: EventType }) {
 
       {/* Alert and Pop Up */}
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
-      {isSharePopUpOpen && (
-        <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
-      )}
+      {isSharePopUpOpen && <SharePopUp setIsOpen={setIsSharePopUpOpen} />}
     </>
   );
 }
 
-export function ToolbarButtons({ event }: { event: EventType }) {
+export function ToolbarButtons() {
+  const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
   const locale = useLocale();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
 
   return (
     <div className="flex items-center gap-2">
       <SpeechBalloon.Container className="hidden md:block">
         <SpeechBalloon.Wrapper>
-          <SendButton event={event} />
+          <SendButton />
         </SpeechBalloon.Wrapper>
         <SpeechBalloon.Main
           width={locale === 'ko' ? 101 : 111}
@@ -147,13 +149,13 @@ export function ToolbarButtons({ event }: { event: EventType }) {
           {t('shareMessage')}
         </SpeechBalloon.Main>
       </SpeechBalloon.Container>
-      <ShareKakaoButton event={event} />
-      {event.event_status === 'CREATOR' && <ToolbarMenuDropdown />}
+      <ShareKakaoButton />
+      {event?.event_status === 'CREATOR' && <ToolbarMenuDropdown />}
     </div>
   );
 }
 
-export function SendButton({ event }: { event: EventType }) {
+export function SendButton() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
 
   return (
@@ -173,14 +175,16 @@ export function SendButton({ event }: { event: EventType }) {
       </ToolbarButton>
 
       {/*  Pop Up */}
-      {isSharePopUpOpen && (
-        <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
-      )}
+      {isSharePopUpOpen && <SharePopUp setIsOpen={setIsSharePopUpOpen} />}
     </>
   );
 }
 
-export function ShareKakaoButton({ event }: { event: EventType }) {
+export function ShareKakaoButton() {
+  const params = useParams<{ id: string }>();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+
   const { handleKakaoShare } = useKakaoShare({
     event,
   });

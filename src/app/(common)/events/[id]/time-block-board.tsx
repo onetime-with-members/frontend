@@ -4,20 +4,29 @@ import { useContext } from 'react';
 
 import TimeBlockBoard from '@/components/time-block-board/event';
 import { BarBannerContext } from '@/contexts/bar-banner';
-import { schedulesQueryOptions } from '@/lib/api/query-options';
+import {
+  eventQueryOptions,
+  schedulesQueryOptions,
+} from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { EventType } from '@/lib/types';
+import { defaultEvent } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
-export function TimeBlockBoardContent({ event }: { event: EventType }) {
+export function TimeBlockBoardContent() {
   const { isBarBannerShown } = useContext(BarBannerContext);
 
-  const { data: schedules } = useQuery({ ...schedulesQueryOptions(event) });
+  const params = useParams<{ id: string }>();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: schedules } = useQuery({
+    ...schedulesQueryOptions(event || defaultEvent),
+  });
 
   return (
     <div className="w-full md:w-[55%]">
       <TimeBlockBoard
-        event={event}
+        event={event || defaultEvent}
         schedules={schedules || []}
         backgroundColor="white"
         topContentClassName={cn('top-[123px] bg-gray-05 md:top-[136px]', {

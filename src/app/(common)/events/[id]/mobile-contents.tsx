@@ -12,33 +12,34 @@ import MemberBadge from '@/components/member-badge';
 import useClientWidth from '@/hooks/useClientWidth';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 import {
+  eventQueryOptions,
   recommendedTimesQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { weekdaysShortKo } from '@/lib/constants';
+import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { EventType } from '@/lib/types';
 import { getParticipants } from '@/lib/utils';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
-export default function MobileContents({ event }: { event: EventType }) {
-  const { data: schedules } = useQuery({ ...schedulesQueryOptions(event) });
+export default function MobileContents() {
+  const params = useParams<{ id: string }>();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: schedules } = useQuery({
+    ...schedulesQueryOptions(event || defaultEvent),
+  });
 
   return (
     <div className="block md:hidden">
-      {schedules?.length === 0 ? (
-        <EmptyEventBanner event={event} />
-      ) : (
-        <BannerList event={event} />
-      )}
+      {schedules?.length === 0 ? <EmptyEventBanner /> : <BannerList />}
     </div>
   );
 }
 
-function BannerList({ event }: { event: EventType }) {
+function BannerList() {
   const [isHover, setIsHover] = useState(false);
 
   const topDialogListRef = useRef<HTMLDivElement>(null);
@@ -72,8 +73,8 @@ function BannerList({ event }: { event: EventType }) {
         className="scrollbar-hidden mt-4 flex w-full items-stretch gap-4 overflow-x-scroll"
         style={{ scrollSnapType: 'x mandatory' }}
       >
-        <RecommendTime event={event} />
-        <Participants event={event} />
+        <RecommendTime />
+        <Participants />
       </div>
 
       {/* Right Arrow Button */}
@@ -93,17 +94,20 @@ function BannerList({ event }: { event: EventType }) {
   );
 }
 
-function Participants({ event }: { event: EventType }) {
+function Participants() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const clientWidth = useClientWidth();
 
+  const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
 
-  const { data: schedules } = useQuery({ ...schedulesQueryOptions(event) });
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: schedules } = useQuery({
+    ...schedulesQueryOptions(event || defaultEvent),
+  });
 
   const shownMemberBadgesCount = clientWidth >= 440 ? 9 : 7;
-
   const participants = getParticipants(schedules || []);
 
   function handleDialogOpen() {
@@ -160,12 +164,13 @@ function Participants({ event }: { event: EventType }) {
   );
 }
 
-function RecommendTime({ event }: { event: EventType }) {
+function RecommendTime() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const params = useParams<{ id: string }>();
   const t = useTranslations();
 
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
   const { data: recommendedTimesData } = useQuery({
     ...recommendedTimesQueryOptions(params.id),
   });
@@ -258,7 +263,6 @@ function RecommendTime({ event }: { event: EventType }) {
       {isDialogOpen && (
         <RecommendTimePopUp
           onClose={handleDialogClose}
-          event={event}
           recommendedTimes={recommendedTimes}
         />
       )}

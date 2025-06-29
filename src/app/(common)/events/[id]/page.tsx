@@ -7,8 +7,9 @@ import MobileContents from './mobile-contents';
 import { TimeBlockBoardContent } from './time-block-board';
 import BarBanner from '@/components/bar-banner';
 import NavBar from '@/components/nav-bar';
-import { fetchEvent } from '@/lib/api/data';
+import { fetchEventServer } from '@/lib/api/data';
 import {
+  eventQueryOptions,
   qrCodeQueryOptions,
   recommendedTimesQueryOptions,
   schedulesQueryOptions,
@@ -29,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const event = await fetchEvent(id);
+  const event = await fetchEventServer(id);
 
   if (!event) {
     const t404 = await getTranslations('404');
@@ -57,15 +58,20 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id: eventId } = await params;
-  const event = await fetchEvent(eventId);
+
+  const queryClient = new QueryClient();
+
+  const event = await queryClient.fetchQuery({
+    ...eventQueryOptions(eventId),
+    queryFn: async () => fetchEventServer(eventId),
+  });
+
   if (!event) notFound();
 
   const headersList = await headers();
   const host = headersList.get('host');
   const protocol = headersList.get('x-forwarded-proto') || 'http';
   const pathname = headersList.get('x-pathname') || '';
-
-  const queryClient = new QueryClient();
 
   await Promise.all([
     queryClient.prefetchQuery({
@@ -96,7 +102,7 @@ export default async function Page({
                 <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
                   {event.title}
                 </h1>
-                <ToolbarButtons event={event} />
+                <ToolbarButtons />
               </div>
             </div>
             {/* Bar Banner */}
@@ -111,16 +117,16 @@ export default async function Page({
         <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6 bg-gray-05 px-4 pb-16 pt-6 md:px-6">
           <div className="flex gap-6">
             {/* Time Block Board */}
-            <TimeBlockBoardContent event={event} />
+            <TimeBlockBoardContent />
             {/* Right Contents for Desktop */}
-            <DesktopContents event={event} />
+            <DesktopContents />
           </div>
           {/* Bottom Contents for Mobile */}
-          <MobileContents event={event} />
+          <MobileContents />
         </main>
 
         {/* Bottom Button for Desktop and Mobile */}
-        <BottomButtons event={event} />
+        <BottomButtons />
       </div>
     </HydrationBoundary>
   );

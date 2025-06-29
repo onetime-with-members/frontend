@@ -1,7 +1,7 @@
 import ScheduleAddScreen from './content';
 import auth from '@/lib/api/auth.server';
 import {
-  fetchEvent,
+  fetchEventServer,
   fetchMySchedule,
   fetchScheduleDetail,
   fetchSleepTime,
@@ -22,7 +22,7 @@ export default async function Page({
 
   const { isLoggedIn } = await auth();
 
-  const event = await fetchEvent(id);
+  const event = await fetchEventServer(id);
 
   if (!event) {
     notFound();

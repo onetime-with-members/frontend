@@ -1,5 +1,5 @@
 import EventFormScreen from '@/components/event/form-screen';
-import { fetchEvent } from '@/lib/api/data';
+import { fetchEventServer } from '@/lib/api/data';
 import { getTranslations } from 'next-intl/server';
 import { notFound, redirect } from 'next/navigation';
 
@@ -9,7 +9,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }) {
   const { id: eventId } = await params;
-  const event = await fetchEvent(eventId);
+  const event = await fetchEventServer(eventId);
 
   const t404 = await getTranslations('404');
 
@@ -34,7 +34,7 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id: eventId } = await params;
-  const event = await fetchEvent(eventId);
+  const event = await fetchEventServer(eventId);
 
   if (!event) {
     notFound();

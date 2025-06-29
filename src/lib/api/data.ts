@@ -19,16 +19,8 @@ import {
 import auth from './auth.server';
 import { notFound } from 'next/navigation';
 
-export async function fetchEvent(eventId: string) {
-  const { data: session, isLoggedIn } = await auth();
-
-  const res = await fetch(`${SERVER_API_URL}/events/${eventId}`, {
-    headers: {
-      ...(isLoggedIn
-        ? { Authorization: `Bearer ${session?.accessToken}` }
-        : {}),
-    },
-  });
+export async function fetchEventServer(eventId: string) {
+  const res = await fetch(`${SERVER_API_URL}/events/${eventId}`);
   if (!res.ok) {
     const error = await res.json();
     console.error(error);

@@ -25,6 +25,15 @@ export const userQueryOptions = queryOptions<UserType>({
   },
 });
 
+export const eventQueryOptions = (eventId: string) =>
+  queryOptions<EventType>({
+    queryKey: ['events', eventId],
+    queryFn: async () => {
+      const res = await axios.get(`/events/${eventId}`);
+      return res.data.payload;
+    },
+  });
+
 export const shortenUrlQueryOptions = (url: string) =>
   queryOptions({
     queryKey: ['urls', 'action-shorten'],
