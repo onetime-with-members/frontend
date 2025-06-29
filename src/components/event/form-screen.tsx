@@ -8,14 +8,13 @@ import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
 import cn from '@/lib/cn';
-import { breakpoint, defaultEventValue, defaultUser } from '@/lib/constants';
+import { breakpoint, defaultEventValue } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { createEventApi, editEventApi } from '@/lib/mutation';
-import { userQueryOption } from '@/lib/query-data';
 import { EventValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 
 export default function EventFormScreen({
@@ -37,10 +36,6 @@ export default function EventFormScreen({
   const params = useParams<{ id: string }>();
   const queryClient = useQueryClient();
   const t = useTranslations('eventForm');
-
-  const { data: user } = useQuery({
-    ...userQueryOption,
-  });
 
   const { mutateAsync: createEvent, isPending: isEventCreatePending } =
     useMutation({
@@ -114,17 +109,9 @@ export default function EventFormScreen({
     <form onSubmit={handleSubmit} className="flex flex-col items-center pb-40">
       <div className="w-full md:px-4">
         {/* Top Navigation Bar for Desktop */}
-        <NavBar
-          user={user || defaultUser}
-          variant="default"
-          className="hidden md:flex"
-        />
+        <NavBar variant="default" className="hidden md:flex" />
         {/* Top Navigation Bar for Mobile */}
-        <NavBar
-          user={user || defaultUser}
-          variant="black"
-          className="flex md:hidden"
-        />
+        <NavBar variant="black" className="flex md:hidden" />
 
         <main className="mx-auto flex w-full max-w-screen-md flex-col items-center justify-center md:pt-6">
           {/* Top Actions for Desktop */}

@@ -24,7 +24,7 @@ export default function ProfileEditPage() {
       <GrayBackground device="desktop" breakpoint="sm" />
 
       {/* Navigation Bar for Desktop */}
-      <NavBar user={user || defaultUser} className="hidden sm:flex" />
+      <NavBar className="hidden sm:flex" />
 
       {/* App Bar for Mobile */}
       <header className="block h-[67px] sm:hidden">

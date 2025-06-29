@@ -9,12 +9,10 @@ import cn from '@/lib/cn';
 import { userQueryOption } from '@/lib/query-data';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 export default function ProfilePage() {
   const { data: user } = useQuery({ ...userQueryOption });
 
-  const router = useRouter();
   const progressRouter = useProgressRouter();
 
   const t = useTranslations('profile');
@@ -39,7 +37,7 @@ export default function ProfilePage() {
           <GrayButton
             onClick={async () => {
               await signOut();
-              router.push('/');
+              window.location.href = '/';
             }}
           >
             {t('logout')}

@@ -24,7 +24,6 @@ import {
   SKELETON_GRAY,
   defaultMyEvent,
   defaultMySchedule,
-  defaultUser,
 } from '@/lib/constants';
 import {
   myEventsQueryOption,
@@ -46,16 +45,8 @@ export default function UserDashboardPage() {
 
   return (
     <div className="flex flex-col">
-      <NavBar
-        user={user || defaultUser}
-        variant="default"
-        className="hidden md:flex"
-      />
-      <NavBar
-        user={user || defaultUser}
-        variant="black"
-        className="flex md:hidden"
-      />
+      <NavBar variant="default" className="hidden md:flex" />
+      <NavBar variant="black" className="flex md:hidden" />
 
       <main className="mx-auto w-full max-w-[calc(768px+2rem)]">
         {/* Top Toolbar */}

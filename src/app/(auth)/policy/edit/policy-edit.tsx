@@ -7,12 +7,10 @@ import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import { PolicyContext } from '@/contexts/policy';
-import { defaultUser } from '@/lib/constants';
 import { editUserPolicyApi } from '@/lib/mutation';
-import { userQueryOption } from '@/lib/query-data';
 import { PolicyKeyType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -27,10 +25,6 @@ export default function PolicyEditPage() {
   const router = useRouter();
   const progressRouter = useProgressRouter();
   const t = useTranslations('policyEdit');
-
-  const { data: user } = useQuery({
-    ...userQueryOption,
-  });
 
   const { mutateAsync: editPolicy } = useMutation({
     mutationFn: editUserPolicyApi,
@@ -71,7 +65,7 @@ export default function PolicyEditPage() {
 
   return (
     <>
-      <NavBar user={user || defaultUser} disabled />
+      <NavBar disabled />
       {(!isPolicyPending ||
         (!policyData.privacy_policy_agreement &&
           !policyData.service_policy_agreement)) && (

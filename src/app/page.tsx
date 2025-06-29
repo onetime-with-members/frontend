@@ -21,7 +21,7 @@ async function LandingPage() {
   return (
     <>
       <header>
-        <NavBar user={null} variant="transparent" heightZero />
+        <NavBar variant="transparent" heightZero />
       </header>
       <main className="w-full">
         <TopSection />

@@ -7,7 +7,7 @@ import MobileContents from './mobile-contents';
 import { TimeBlockBoardContent } from './time-block-board';
 import BarBanner from '@/components/bar-banner';
 import NavBar from '@/components/nav-bar';
-import { auth, currentUser } from '@/lib/auth-action';
+import { auth } from '@/lib/auth-action';
 import { defaultScheduleDetail } from '@/lib/constants';
 import {
   fetchEvent,
@@ -69,35 +69,22 @@ export default async function Page({
 
   const isLoggedIn = !!(await auth());
 
-  const [
-    shortenUrl,
-    recommendedTimes,
-    qrCode,
-    schedules,
-    scheduleDetail,
-    userResponse,
-  ] = await Promise.all([
-    fetchShortenUrl(`${protocol}://${host}${pathname}`),
-    fetchRecommendedTimes(id),
-    fetchQrCode(id),
-    fetchSchedules(event),
-    isLoggedIn
-      ? fetchScheduleDetail(event, true, '')
-      : Promise.resolve(defaultScheduleDetail),
-    isLoggedIn ? currentUser() : Promise.resolve(null),
-  ]);
-  const user = userResponse?.user || null;
+  const [shortenUrl, recommendedTimes, qrCode, schedules, scheduleDetail] =
+    await Promise.all([
+      fetchShortenUrl(`${protocol}://${host}${pathname}`),
+      fetchRecommendedTimes(id),
+      fetchQrCode(id),
+      fetchSchedules(event),
+      isLoggedIn
+        ? fetchScheduleDetail(event, true, '')
+        : Promise.resolve(defaultScheduleDetail),
+    ]);
 
   return (
     <div className="flex min-h-[110vh] flex-col">
       {/* Navigation Bar */}
-      <NavBar user={user} variant="default" className="hidden md:flex" />
-      <NavBar
-        user={user}
-        variant="black"
-        className="flex md:hidden"
-        shadow={false}
-      />
+      <NavBar variant="default" className="hidden md:flex" />
+      <NavBar variant="black" className="flex md:hidden" shadow={false} />
 
       {/* Top Toolbar and Bar Banner */}
       <ToolbarHeading>

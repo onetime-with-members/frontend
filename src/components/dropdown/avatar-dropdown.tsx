@@ -104,6 +104,7 @@ function AvatarDropdownMenu({
 
   async function handleLogout() {
     await signOut();
+    window.location.reload();
   }
 
   function handleMenuItemClick() {

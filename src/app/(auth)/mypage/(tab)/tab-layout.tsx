@@ -10,13 +10,10 @@ import ProfileIcon from '@/components/icon/profile';
 import NavBar from '@/components/nav-bar';
 import { ScrollContext } from '@/contexts/scroll';
 import cn from '@/lib/cn';
-import { defaultUser } from '@/lib/constants';
-import { userQueryOption } from '@/lib/query-data';
 import { TabActiveType } from '@/lib/types';
 import { myPageTabActive, myPageTitle } from '@/lib/utils';
 import { ProgressLink } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation';
 
 export default function TabLayout({ children }: { children: React.ReactNode }) {
@@ -30,10 +27,6 @@ export default function TabLayout({ children }: { children: React.ReactNode }) {
 
   const router = useRouter();
   const t = useTranslations('mypage');
-
-  const { data: user } = useQuery({
-    ...userQueryOption,
-  });
 
   const pageTitle = myPageTitle(tabActive, t);
 
@@ -76,7 +69,7 @@ export default function TabLayout({ children }: { children: React.ReactNode }) {
       {/* Desktop */}
       <div className="hidden min-h-screen flex-col md:flex">
         {/* Navigation Bar */}
-        <NavBar user={user || defaultUser} shadow={false} />
+        <NavBar shadow={false} />
         <div className="px-4">
           <div className="mx-auto flex w-full max-w-screen-md gap-10">
             {/* Side Tab */}

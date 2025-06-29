@@ -1,5 +1,5 @@
 import axios from './axios';
-import { defaultMySchedule, defaultSleepTime } from './constants';
+import { defaultMySchedule, defaultSleepTime, defaultUser } from './constants';
 import {
   MyEventType,
   MyScheduleTimeType,

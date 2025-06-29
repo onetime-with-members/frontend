@@ -13,7 +13,7 @@ import { auth, currentUserForClient } from '@/lib/auth-action';
 import axios from '@/lib/axios';
 import dayjs from '@/lib/dayjs';
 import { getQueryClient } from '@/lib/query-client';
-import { PolicyType, UserType } from '@/lib/types';
+import { PolicyType } from '@/lib/types';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
 import { QueryClientProvider, useQuery } from '@tanstack/react-query';
@@ -215,7 +215,7 @@ export function Footer() {
   );
 }
 
-export function NetworkErrorScreen({ user }: { user: UserType | null }) {
+export function NetworkErrorScreen() {
   const [isOffline, setIsOffline] = useState(false);
 
   const t = useTranslations('networkError');
@@ -243,7 +243,7 @@ export function NetworkErrorScreen({ user }: { user: UserType | null }) {
   return (
     isOffline && (
       <div className="fixed left-0 right-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center bg-gray-00 px-4">
-        <NavBar user={user} variant="black" disabled />
+        <NavBar variant="black" disabled />
         <main className="flex -translate-y-6 flex-col items-center">
           <div>
             <Image
