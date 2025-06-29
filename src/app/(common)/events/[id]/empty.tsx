@@ -58,9 +58,9 @@ export default function EmptyEventBanner({
         <Image
           src="/images/empty-event-banner.png"
           alt="클립보드 이미지"
-          className="h-full w-full object-cover"
-          width={252}
-          height={139}
+          className="h-full w-full"
+          width={170}
+          height={133}
         />
       </div>
     </div>

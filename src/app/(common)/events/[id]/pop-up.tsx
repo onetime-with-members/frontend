@@ -10,6 +10,10 @@ import Input from '@/components/input';
 import MemberBadge from '@/components/member-badge';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import useToast from '@/hooks/useToast';
+import {
+  qrCodeQueryOptions,
+  shortenUrlQueryOptions,
+} from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
@@ -22,18 +26,15 @@ import {
   IconQrcode,
   IconX,
 } from '@tabler/icons-react';
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 
 export default function SharePopUp({
   setIsOpen,
-  qrCode,
   event,
-  shortenUrl,
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  qrCode: string;
   event: EventType;
-  shortenUrl: string;
 }) {
   const [isQrCodeScreenOpen, setIsQrCodeScreenOpen] = useState(false);
 
@@ -44,8 +45,12 @@ export default function SharePopUp({
   const t = useTranslations('sharePopUp');
   const tToast = useTranslations('toast');
 
+  const { data: shortenUrl } = useQuery({
+    ...shortenUrlQueryOptions(window.location.href),
+  });
+
   function handleCopyLink() {
-    navigator.clipboard.writeText(shortenUrl);
+    navigator.clipboard.writeText(shortenUrl || '');
     if (urlInputRef.current) {
       urlInputRef.current.select();
     }
@@ -94,7 +99,7 @@ export default function SharePopUp({
                 <ShareKakaoButton event={event} />
               </ShareButtonWrapper>
               <ShareButtonWrapper label={t('more')}>
-                <ShareMoreButton event={event} shortenUrl={shortenUrl} />
+                <ShareMoreButton event={event} />
               </ShareButtonWrapper>
             </div>
           </div>
@@ -105,7 +110,6 @@ export default function SharePopUp({
         {isQrCodeScreenOpen && (
           <QRCodeScreen
             onClose={() => setIsQrCodeScreenOpen(false)}
-            qrCode={qrCode}
             event={event}
           />
         )}
@@ -181,18 +185,16 @@ export function ShareKakaoButton({
   );
 }
 
-export function ShareMoreButton({
-  event,
-  shortenUrl,
-}: {
-  event: EventType;
-  shortenUrl: string;
-}) {
+export function ShareMoreButton({ event }: { event: EventType }) {
+  const { data: shortenUrl } = useQuery({
+    ...shortenUrlQueryOptions(window.location.href),
+  });
+
   function handleClick() {
     const shareData = {
       title: `${event.title} - OneTime`,
       text: '스케줄 등록 요청이 도착했습니다.',
-      url: shortenUrl,
+      url: shortenUrl || '',
     };
 
     if (navigator.share) {
@@ -214,14 +216,14 @@ export function ShareMoreButton({
 
 export function QRCodeScreen({
   onClose,
-  qrCode,
   event,
 }: {
   onClose?: () => void;
-  qrCode: string;
   event: EventType;
 }) {
   const t = useTranslations('sharePopUp');
+
+  const { data: qrCode } = useQuery({ ...qrCodeQueryOptions(event.event_id) });
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -260,7 +262,7 @@ export function QRCodeScreen({
             </div>
             <div className="h-[230px] w-[230px] overflow-hidden rounded-3xl bg-gray-00 sm:h-[280px] sm:w-[280px]">
               <Image
-                src={qrCode}
+                src={qrCode || ''}
                 alt="QR 코드 이미지"
                 className="h-full w-full object-cover"
                 width={230}

@@ -11,28 +11,21 @@ import Button from '@/components/button';
 import BadgeButton from '@/components/button/badge-button';
 import { FooterContext } from '@/contexts/footer';
 import useKakaoShare from '@/hooks/useKakaoShare';
+import { useAuth } from '@/lib/api/auth.client';
+import {
+  scheduleDetailQueryOptions,
+  schedulesQueryOptions,
+} from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { EventType, ScheduleType } from '@/lib/types';
+import { defaultScheduleDetail } from '@/lib/constants';
+import { EventType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconEdit, IconPlus } from '@tabler/icons-react';
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
-export function BottomButtons({
-  schedules,
-  event,
-  qrCode,
-  shortenUrl,
-  scheduleDetail,
-  isLoggedIn,
-}: {
-  schedules: ScheduleType[];
-  event: EventType;
-  qrCode: string;
-  shortenUrl: string;
-  scheduleDetail: ScheduleType;
-  isLoggedIn: boolean;
-}) {
+export function BottomButtons({ event }: { event: EventType }) {
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
 
@@ -42,6 +35,16 @@ export function BottomButtons({
   const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
   const locale = useLocale();
+
+  const { isLoggedIn } = useAuth();
+
+  const { data: schedules } = useQuery({ ...schedulesQueryOptions(event) });
+
+  const { data: scheduleDetailData } = useQuery({
+    ...scheduleDetailQueryOptions({ event, isLoggedIn }),
+  });
+
+  const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
 
   const hasUserSchedule = isLoggedIn
     ? scheduleDetail.schedules.length !== 0 &&
@@ -120,26 +123,13 @@ export function BottomButtons({
       {/* Alert and Pop Up */}
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
       {isSharePopUpOpen && (
-        <SharePopUp
-          setIsOpen={setIsSharePopUpOpen}
-          event={event}
-          qrCode={qrCode}
-          shortenUrl={shortenUrl}
-        />
+        <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
       )}
     </>
   );
 }
 
-export function ToolbarButtons({
-  event,
-  qrCode,
-  shortenUrl,
-}: {
-  event: EventType;
-  qrCode: string;
-  shortenUrl: string;
-}) {
+export function ToolbarButtons({ event }: { event: EventType }) {
   const t = useTranslations('eventDetail');
   const locale = useLocale();
 
@@ -147,7 +137,7 @@ export function ToolbarButtons({
     <div className="flex items-center gap-2">
       <SpeechBalloon.Container className="hidden md:block">
         <SpeechBalloon.Wrapper>
-          <SendButton qrCode={qrCode} event={event} shortenUrl={shortenUrl} />
+          <SendButton event={event} />
         </SpeechBalloon.Wrapper>
         <SpeechBalloon.Main
           width={locale === 'ko' ? 101 : 111}
@@ -163,15 +153,7 @@ export function ToolbarButtons({
   );
 }
 
-export function SendButton({
-  qrCode,
-  event,
-  shortenUrl,
-}: {
-  qrCode: string;
-  event: EventType;
-  shortenUrl: string;
-}) {
+export function SendButton({ event }: { event: EventType }) {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
 
   return (
@@ -192,12 +174,7 @@ export function SendButton({
 
       {/*  Pop Up */}
       {isSharePopUpOpen && (
-        <SharePopUp
-          setIsOpen={setIsSharePopUpOpen}
-          qrCode={qrCode}
-          event={event}
-          shortenUrl={shortenUrl}
-        />
+        <SharePopUp setIsOpen={setIsSharePopUpOpen} event={event} />
       )}
     </>
   );
