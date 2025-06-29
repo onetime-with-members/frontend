@@ -10,7 +10,6 @@ import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
 import { useAuth } from '@/lib/api/auth.client';
-import { getQueryClient } from '@/lib/api/query-client';
 import {
   userPolicyQueryOptions,
   userQueryOptions,
@@ -18,7 +17,11 @@ import {
 import dayjs from '@/lib/dayjs';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
-import { QueryClientProvider, useQuery } from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
@@ -126,7 +129,9 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function QueryProvider({ children }: { children: React.ReactNode }) {
-  const queryClient = getQueryClient();
+  const [queryClient] = useState(
+    new QueryClient({ defaultOptions: { queries: { retry: false } } }),
+  );
 
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
