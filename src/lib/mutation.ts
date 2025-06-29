@@ -12,6 +12,17 @@ export async function createEventApi(event: EventValueType) {
   return res.data.payload;
 }
 
+export async function editEventApi({
+  eventId,
+  event,
+}: {
+  eventId: string;
+  event: EventValueType;
+}) {
+  const res = await axios.patch(`/events/${eventId}`, event);
+  return res.data.payload;
+}
+
 export async function editUserNameApi(name: string) {
   const res = await axios.patch('/users/profile/action-update', {
     nickname: name,

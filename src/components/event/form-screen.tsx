@@ -7,11 +7,10 @@ import InputContent from './input-content';
 import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
-import { editEvent } from '@/lib/actions';
 import cn from '@/lib/cn';
 import { breakpoint, defaultEventValue, defaultUser } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { createEventApi } from '@/lib/mutation';
+import { createEventApi, editEventApi } from '@/lib/mutation';
 import { userQueryOption } from '@/lib/query-data';
 import { EventValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
@@ -52,20 +51,25 @@ export default function EventFormScreen({
       },
     });
 
-  const isSubmitPending = isEventCreatePending;
+  const { mutateAsync: editEvent, isPending: isEventEditPending } = useMutation(
+    {
+      mutationFn: editEventApi,
+      onSuccess: async (_, { eventId }) => {
+        await queryClient.invalidateQueries({ queryKey: ['events'] });
+        progressRouter.push(`/events/${eventId}`);
+      },
+    },
+  );
+
+  const isSubmitPending = isEventCreatePending || isEventEditPending;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (disabled) return;
-
-    const formData = new FormData();
-    formData.set('event', JSON.stringify(value));
-
     if (type === 'create') {
       await createEvent(value);
     } else {
-      formData.set('eventId', params.id);
-      await editEvent(formData);
+      await editEvent({ eventId: params.id, event: value });
     }
   }
 
