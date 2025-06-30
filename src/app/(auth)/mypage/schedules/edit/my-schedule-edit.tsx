@@ -13,17 +13,13 @@ import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import useToast from '@/hooks/useToast';
 import { editMyScheduleApi, editSleepTimeApi } from '@/lib/api/mutations';
+import { myScheduleQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { TimeType } from '@/lib/types';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-export default function MyScheduleEditPage({
-  myScheduleData,
-}: {
-  myScheduleData: TimeType[];
-}) {
+export default function MyScheduleEditPage() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
 
@@ -45,6 +41,10 @@ export default function MyScheduleEditPage({
   const router = useRouter();
   const t = useTranslations();
 
+  const { data: myScheduleData } = useQuery({
+    ...myScheduleQueryOptions,
+  });
+
   const { mutateAsync: editMySchedule, isPending: isMyScheduleEditPending } =
     useMutation({
       mutationFn: editMyScheduleApi,
@@ -52,7 +52,6 @@ export default function MyScheduleEditPage({
         await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
       },
     });
-
   const { mutateAsync: editSleepTime, isPending: isSleepTimeEditPending } =
     useMutation({
       mutationFn: editSleepTimeApi,
