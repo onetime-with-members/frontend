@@ -1,4 +1,4 @@
-import { defaultMySchedule, defaultSleepTime } from '../constants';
+import { defaultSleepTime } from '../constants';
 import {
   EventType,
   MyEventType,
@@ -8,37 +8,37 @@ import {
   SleepTimeType,
   UserType,
 } from '../types';
-import axios from './axios';
 import {
   fetchEvent,
+  fetchEventWithAuth,
+  fetchMyEvents,
+  fetchMySchedule,
   fetchQrCode,
   fetchRecommendedTimes,
+  fetchScheduleDetail,
   fetchSchedules,
   fetchShortenUrl,
+  fetchSleepTime,
+  fetchUserPolicy,
+  fetchUserProfile,
 } from './data';
 import { queryOptions } from '@tanstack/react-query';
 
 export const userQueryOptions = queryOptions<UserType>({
   queryKey: ['users', 'profile'],
-  queryFn: async () => {
-    const res = await axios.get('/users/profile');
-    return res.data.payload;
-  },
+  queryFn: fetchUserProfile,
 });
 
 export const eventQueryOptions = (eventId: string) =>
   queryOptions<EventType>({
     queryKey: ['events', eventId],
-    queryFn: async () => fetchEvent(eventId),
+    queryFn: async () => await fetchEvent(eventId),
   });
 
 export const eventQueryWithAuthOptions = (eventId: string) =>
   queryOptions<EventType>({
     queryKey: ['events', eventId, '_user'],
-    queryFn: async () => {
-      const res = await axios.get(`/events/${eventId}`);
-      return res.data.payload;
-    },
+    queryFn: async () => await fetchEventWithAuth(eventId),
   });
 
 export const shortenUrlQueryOptions = (url: string) =>
@@ -81,53 +81,27 @@ export const scheduleDetailQueryOptions = ({
       event.event_id,
       isLoggedIn ? 'user' : guestId,
     ],
-    queryFn: async () => {
-      const res = await axios.get(
-        `/schedules/${event.category.toLowerCase()}/${event.event_id}/${isLoggedIn ? 'user' : guestId}`,
-      );
-      return res.data.payload;
-    },
+    queryFn: async () =>
+      await fetchScheduleDetail({ event, isLoggedIn, guestId }),
   });
 
 export const myEventsQueryOptions = queryOptions<MyEventType[]>({
   queryKey: ['events', 'user', 'all'],
-  queryFn: async () => {
-    const res = await axios.get('/events/user/all');
-    return res.data.payload;
-  },
+  queryFn: fetchMyEvents,
 });
 
 export const myScheduleQueryOptions = queryOptions<MyScheduleTimeType[]>({
   queryKey: ['fixed-schedules'],
-  queryFn: async () => {
-    const res = await axios.get('/fixed-schedules');
-    const myScheduleData: MyScheduleTimeType[] = res.data.payload.schedules;
-    const mySchedule =
-      myScheduleData.length !== 7
-        ? defaultMySchedule.map((s1) => ({
-            time_point: s1.time_point,
-            times:
-              myScheduleData.find((s2) => s1.time_point === s2.time_point)
-                ?.times || [],
-          }))
-        : myScheduleData;
-    return mySchedule;
-  },
+  queryFn: fetchMySchedule,
 });
 
 export const sleepTimeQueryOptions = queryOptions<SleepTimeType>({
   queryKey: ['users', 'sleep-time'],
-  queryFn: async () => {
-    const res = await axios.get('/users/sleep-time');
-    return res.data.payload;
-  },
+  queryFn: fetchSleepTime,
   placeholderData: defaultSleepTime,
 });
 
 export const userPolicyQueryOptions = queryOptions<PolicyType>({
   queryKey: ['users', 'policy'],
-  queryFn: async () => {
-    const res = await axios.get('/users/policy');
-    return res.data.payload;
-  },
+  queryFn: fetchUserPolicy,
 });

@@ -1,10 +1,12 @@
-import { SERVER_API_URL, defaultEvent } from '../constants';
+import { SERVER_API_URL, defaultEvent, defaultMySchedule } from '../constants';
 import {
   BarBanner,
   EventType,
+  MyScheduleTimeType,
   RecommendScheduleType,
   ScheduleType,
 } from '../types';
+import axios from './axios';
 import { notFound } from 'next/navigation';
 
 export async function fetchEvent(eventId: string) {
@@ -116,4 +118,59 @@ export async function fetchQrCode(eventId: string) {
   const qrCode: string = data.payload.qr_code_img_url;
 
   return qrCode;
+}
+
+export async function fetchUserProfile() {
+  const res = await axios.get('/users/profile');
+  return res.data.payload;
+}
+
+export async function fetchEventWithAuth(eventId: string) {
+  const res = await axios.get(`/events/${eventId}`);
+  return res.data.payload;
+}
+
+export async function fetchScheduleDetail({
+  event,
+  isLoggedIn,
+  guestId,
+}: {
+  event: EventType;
+  isLoggedIn: boolean;
+  guestId: string | undefined;
+}) {
+  const res = await axios.get(
+    `/schedules/${event.category.toLowerCase()}/${event.event_id}/${isLoggedIn ? 'user' : guestId}`,
+  );
+  return res.data.payload;
+}
+
+export async function fetchMyEvents() {
+  const res = await axios.get('/events/user/all');
+  return res.data.payload;
+}
+
+export async function fetchMySchedule() {
+  const res = await axios.get('/fixed-schedules');
+  const myScheduleData: MyScheduleTimeType[] = res.data.payload.schedules;
+  const mySchedule =
+    myScheduleData.length !== 7
+      ? defaultMySchedule.map((s1) => ({
+          time_point: s1.time_point,
+          times:
+            myScheduleData.find((s2) => s1.time_point === s2.time_point)
+              ?.times || [],
+        }))
+      : myScheduleData;
+  return mySchedule;
+}
+
+export async function fetchSleepTime() {
+  const res = await axios.get('/users/sleep-time');
+  return res.data.payload;
+}
+
+export async function fetchUserPolicy() {
+  const res = await axios.get('/users/policy');
+  return res.data.payload;
 }
