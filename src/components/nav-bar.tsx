@@ -1,17 +1,20 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
 import useScroll from '@/hooks/useScroll';
+import { useAuth } from '@/lib/api/auth.client';
+import { userQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { UserType } from '@/lib/types';
+import { defaultUser } from '@/lib/constants';
 import { ProgressLink, useProgressRouter } from '@/navigation';
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
 export default function NavBar({
-  user,
   variant = 'default',
   shadow = true,
   className,
@@ -19,7 +22,6 @@ export default function NavBar({
   isAuthHidden = false,
   heightZero = false,
 }: {
-  user: UserType | null;
   variant?: 'default' | 'black' | 'transparent';
   shadow?: boolean;
   className?: string;
@@ -27,7 +29,18 @@ export default function NavBar({
   isAuthHidden?: boolean;
   heightZero?: boolean;
 }) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  const { isLoggedIn } = useAuth();
   const { isScrolling } = useScroll();
+
+  const { data: user } = useQuery({
+    ...userQueryOptions,
+  });
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <nav
@@ -73,10 +86,15 @@ export default function NavBar({
               priority
             />
           </ProgressLink>
-          {!isAuthHidden && (
+          {!isAuthHidden && isMounted && (
             <>
               {user ? (
                 <AvatarDropdown name={user.nickname} disabled={disabled} />
+              ) : isLoggedIn ? (
+                <AvatarDropdown
+                  name={defaultUser.nickname}
+                  disabled={disabled}
+                />
               ) : (
                 <LoginButton disabled={disabled} />
               )}

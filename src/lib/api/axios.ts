@@ -2,14 +2,8 @@ import _axios, { AxiosError } from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 
-import { Session } from './auth';
+import { ExtendedAxiosError, Session } from '../types';
 
-type ExtendedAxiosError = AxiosError & {
-  response: {
-    status: number;
-    data: { code: string };
-  };
-};
 const axios = _axios.create({
   baseURL: process.env.NEXT_PUBLIC_SERVER_API_URL,
   headers: {
@@ -87,6 +81,8 @@ axios.interceptors.response.use(
               expires: dayjs().add(1, 'month').toDate(),
             },
           );
+
+          window.location.reload();
 
           if (originalRequest.headers) {
             originalRequest.headers.Authorization = `Bearer ${newTokens.access_token}`;

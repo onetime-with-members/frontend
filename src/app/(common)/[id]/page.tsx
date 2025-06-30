@@ -1,5 +1,5 @@
 import NotFound from '@/app/not-found';
-import { fetchEvent, fetchOriginalUrl } from '@/lib/data';
+import { fetchEventServer, fetchOriginalUrl } from '@/lib/api/data';
 import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 
@@ -17,7 +17,7 @@ export async function generateMetadata() {
   }
 
   const eventId = originalUrl.split('/').at(-1);
-  const event = await fetchEvent(eventId);
+  const event = await fetchEventServer(eventId);
 
   return {
     title: `${event.title || ''} | OneTime`,

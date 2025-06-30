@@ -3,9 +3,10 @@
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
-import { deleteEvent } from '@/lib/actions';
+import { deleteEventApi } from '@/lib/api/mutations';
 import { useProgressRouter } from '@/navigation';
-import { useParams, usePathname } from 'next/navigation';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 
 export function LoginAlert({
   setIsOpen,
@@ -46,18 +47,22 @@ export function EventDeleteAlert({
 }: {
   setIsEventDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const router = useRouter();
   const params = useParams<{ id: string }>();
-
+  const queryClient = useQueryClient();
   const t = useTranslations('alert');
+
+  const { mutateAsync: deleteEvent, isPending } = useMutation({
+    mutationFn: deleteEventApi,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      router.push('/');
+    },
+  });
 
   async function handleDelete(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.set('eventId', params.id);
-    await deleteEvent(formData);
-
-    setIsEventDeleteAlertOpen(false);
+    await deleteEvent(params.id);
   }
 
   return (
@@ -68,6 +73,7 @@ export function EventDeleteAlert({
       confirmText={t('deleteEventConfirm')}
       cancelText={t('deleteEventCancel')}
       pendingText={t('deleteEventConfirming')}
+      isPending={isPending}
     >
       <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">
         <h2 className="text-gray-80 text-lg-300">{t('deleteEventTitle')}</h2>

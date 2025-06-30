@@ -1,5 +1,5 @@
-import FormContent from './form-content';
-import { fetchMySchedule } from '@/lib/data';
+import MyScheduleEditPage from './my-schedule-edit';
+import { fetchMySchedule } from '@/lib/api/data';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
@@ -13,5 +13,5 @@ export async function generateMetadata() {
 export default async function MyScheduleEdit() {
   const myScheduleData = await fetchMySchedule();
 
-  return <FormContent myScheduleData={myScheduleData} />;
+  return <MyScheduleEditPage myScheduleData={myScheduleData} />;
 }

@@ -1,4 +1,4 @@
-import Content from './content';
+import OnboardingPage from './onboarding';
 import { getTranslations } from 'next-intl/server';
 import { redirect } from 'next/navigation';
 
@@ -21,5 +21,5 @@ export default async function Page({
     redirect('/login');
   }
 
-  return <Content name={name} registerToken={register_token} />;
+  return <OnboardingPage name={name} registerToken={register_token} />;
 }

@@ -9,14 +9,19 @@ import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { auth, currentUserForClient } from '@/lib/auth';
-import axios from '@/lib/axios';
+import { useAuth } from '@/lib/api/auth.client';
+import {
+  userPolicyQueryOptions,
+  userQueryOptions,
+} from '@/lib/api/query-options';
 import dayjs from '@/lib/dayjs';
-import { getQueryClient } from '@/lib/query-client';
-import { PolicyType, UserType } from '@/lib/types';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
-import { QueryClientProvider, useQuery } from '@tanstack/react-query';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from '@tanstack/react-query';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
@@ -27,14 +32,15 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const isLoggedIn = !!getCookie('session');
+  const { isLoggedIn } = useAuth();
 
-  const { data: policy } = useQuery<PolicyType>({
-    queryKey: ['users', 'policy'],
-    queryFn: async () => {
-      const res = await axios.get('/users/policy');
-      return res.data.payload;
-    },
+  const { data: policy } = useQuery({
+    ...userPolicyQueryOptions,
+    enabled: isLoggedIn,
+  });
+
+  const { data: user } = useQuery({
+    ...userQueryOptions,
     enabled: isLoggedIn,
   });
 
@@ -75,7 +81,6 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     async function setUpBrowserLocale() {
       const localeCookie = getCookie('locale');
-      const isLoggedIn = !!(await auth());
       if (localeCookie || isLoggedIn) return;
       const locale = window.navigator.language.includes('ko') ? 'ko' : 'en';
       setCookie('locale', locale, {
@@ -89,18 +94,25 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     async function setUpUserLocaleLastLogin() {
-      if (!(await auth())) return;
-      const { user } = await currentUserForClient();
       if (!user) return;
-      setCookie('last-login', user.social_platform, {
-        expires: dayjs().add(1, 'year').toDate(),
-      });
+
+      const lastLoginTrigger = getCookie('last-login') !== user.social_platform;
+      if (lastLoginTrigger) {
+        setCookie('last-login', user.social_platform, {
+          expires: dayjs().add(1, 'year').toDate(),
+        });
+      }
+
       const newLocale = user.language === 'KOR' ? 'ko' : 'en';
-      setCookie('locale', newLocale, {
-        expires: dayjs().add(1, 'year').toDate(),
-      });
-      dayjs.locale(newLocale);
-      router.refresh();
+      const localeTrigger = getCookie('locale') !== newLocale;
+      if (localeTrigger) {
+        setCookie('locale', newLocale, {
+          expires: dayjs().add(1, 'year').toDate(),
+        });
+        dayjs.locale(newLocale);
+      }
+
+      if (lastLoginTrigger || localeTrigger) router.refresh();
     }
     setUpUserLocaleLastLogin();
   }, []);
@@ -117,7 +129,9 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function QueryProvider({ children }: { children: React.ReactNode }) {
-  const queryClient = getQueryClient();
+  const [queryClient] = useState(
+    new QueryClient({ defaultOptions: { queries: { retry: false } } }),
+  );
 
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
@@ -215,7 +229,7 @@ export function Footer() {
   );
 }
 
-export function NetworkErrorScreen({ user }: { user: UserType | null }) {
+export function NetworkErrorScreen() {
   const [isOffline, setIsOffline] = useState(false);
 
   const t = useTranslations('networkError');
@@ -243,7 +257,7 @@ export function NetworkErrorScreen({ user }: { user: UserType | null }) {
   return (
     isOffline && (
       <div className="fixed left-0 right-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center bg-gray-00 px-4">
-        <NavBar user={user} variant="black" disabled />
+        <NavBar variant="black" disabled />
         <main className="flex -translate-y-6 flex-col items-center">
           <div>
             <Image

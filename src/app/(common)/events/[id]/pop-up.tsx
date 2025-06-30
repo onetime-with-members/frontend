@@ -10,10 +10,15 @@ import Input from '@/components/input';
 import MemberBadge from '@/components/member-badge';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import useToast from '@/hooks/useToast';
+import {
+  eventQueryOptions,
+  qrCodeQueryOptions,
+  shortenUrlQueryOptions,
+} from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { EventType, RecommendScheduleType } from '@/lib/types';
+import { RecommendScheduleType } from '@/lib/types';
 import {
   IconChevronDown,
   IconChevronUp,
@@ -22,18 +27,14 @@ import {
   IconQrcode,
   IconX,
 } from '@tabler/icons-react';
+import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 
 export default function SharePopUp({
   setIsOpen,
-  qrCode,
-  event,
-  shortenUrl,
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  qrCode: string;
-  event: EventType;
-  shortenUrl: string;
 }) {
   const [isQrCodeScreenOpen, setIsQrCodeScreenOpen] = useState(false);
 
@@ -44,8 +45,12 @@ export default function SharePopUp({
   const t = useTranslations('sharePopUp');
   const tToast = useTranslations('toast');
 
+  const { data: shortenUrl } = useQuery({
+    ...shortenUrlQueryOptions(window.location.href),
+  });
+
   function handleCopyLink() {
-    navigator.clipboard.writeText(shortenUrl);
+    navigator.clipboard.writeText(shortenUrl || '');
     if (urlInputRef.current) {
       urlInputRef.current.select();
     }
@@ -91,10 +96,10 @@ export default function SharePopUp({
                 </ShareBlueButton>
               </ShareButtonWrapper>
               <ShareButtonWrapper label={t('kakao')}>
-                <ShareKakaoButton event={event} />
+                <ShareKakaoButton />
               </ShareButtonWrapper>
               <ShareButtonWrapper label={t('more')}>
-                <ShareMoreButton event={event} shortenUrl={shortenUrl} />
+                <ShareMoreButton />
               </ShareButtonWrapper>
             </div>
           </div>
@@ -103,11 +108,7 @@ export default function SharePopUp({
 
       <AnimatePresence>
         {isQrCodeScreenOpen && (
-          <QRCodeScreen
-            onClose={() => setIsQrCodeScreenOpen(false)}
-            qrCode={qrCode}
-            event={event}
-          />
+          <QRCodeScreen onClose={() => setIsQrCodeScreenOpen(false)} />
         )}
       </AnimatePresence>
     </>,
@@ -152,13 +153,11 @@ export function ShareBlueButton({
   );
 }
 
-export function ShareKakaoButton({
-  size = 48,
-  event,
-}: {
-  size?: number;
-  event: EventType;
-}) {
+export function ShareKakaoButton({ size = 48 }: { size?: number }) {
+  const params = useParams<{ id: string }>();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+
   const { handleKakaoShare } = useKakaoShare({
     event,
   });
@@ -181,18 +180,19 @@ export function ShareKakaoButton({
   );
 }
 
-export function ShareMoreButton({
-  event,
-  shortenUrl,
-}: {
-  event: EventType;
-  shortenUrl: string;
-}) {
+export function ShareMoreButton() {
+  const params = useParams<{ id: string }>();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: shortenUrl } = useQuery({
+    ...shortenUrlQueryOptions(window.location.href),
+  });
+
   function handleClick() {
     const shareData = {
-      title: `${event.title} - OneTime`,
+      title: `${event?.title} - OneTime`,
       text: '스케줄 등록 요청이 도착했습니다.',
-      url: shortenUrl,
+      url: shortenUrl || '',
     };
 
     if (navigator.share) {
@@ -212,16 +212,12 @@ export function ShareMoreButton({
   );
 }
 
-export function QRCodeScreen({
-  onClose,
-  qrCode,
-  event,
-}: {
-  onClose?: () => void;
-  qrCode: string;
-  event: EventType;
-}) {
+export function QRCodeScreen({ onClose }: { onClose?: () => void }) {
   const t = useTranslations('sharePopUp');
+  const params = useParams<{ id: string }>();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: qrCode } = useQuery({ ...qrCodeQueryOptions(params.id) });
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -260,7 +256,7 @@ export function QRCodeScreen({
             </div>
             <div className="h-[230px] w-[230px] overflow-hidden rounded-3xl bg-gray-00 sm:h-[280px] sm:w-[280px]">
               <Image
-                src={qrCode}
+                src={qrCode || ''}
                 alt="QR 코드 이미지"
                 className="h-full w-full object-cover"
                 width={230}
@@ -269,7 +265,7 @@ export function QRCodeScreen({
             </div>
             <p className="text-center text-primary-10 title-sm-300">
               {t.rich('qrCodeScreen', {
-                eventName: event.title,
+                eventName: event?.title,
                 br: () => <br />,
                 Name: (children) => (
                   <span className="text-primary-00">{children}</span>
@@ -330,14 +326,15 @@ export function ParticipantsPopUp({
 
 export function RecommendTimePopUp({
   onClose,
-  event,
   recommendedTimes,
 }: {
   onClose: () => void;
-  event: EventType;
   recommendedTimes: RecommendScheduleType[];
 }) {
+  const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
 
   const formattedRecommendTimes = recommendedTimes
     ? Array.from(

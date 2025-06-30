@@ -1,23 +1,25 @@
 'use client';
 
-import { getCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
-import NicknameFormScreen from './nickname-form-screen';
-import PolicyScreen from './policy-screen';
-import SleepTimeScreen from './sleep-time-screen';
-import WelcomeScreen from './welcome-screen';
+import NicknameFormScreen from './_screen/nickname-form-screen';
+import PolicyScreen from './_screen/policy-screen';
+import SleepTimeScreen from './_screen/sleep-time-screen';
+import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { createUser } from '@/lib/auth';
+import { createUserApi } from '@/lib/api/mutations';
 import cn from '@/lib/cn';
-import { OnboardingValueType } from '@/lib/types';
+import dayjs from '@/lib/dayjs';
+import { OnboardingValueType, Session } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
-export default function Content({
+export default function OnboardingPage({
   name,
   registerToken,
 }: {
@@ -41,10 +43,35 @@ export default function Content({
   const { setFooterVisible } = useContext(FooterContext);
 
   const queryClient = useQueryClient();
-
+  const router = useRouter();
   const progressRouter = useProgressRouter();
 
   const redirectUrl = getCookie('redirect-url');
+
+  const { mutateAsync: createUser } = useMutation({
+    mutationFn: createUserApi,
+    onSuccess: async ({
+      access_token: newAccessToken,
+      refresh_token: newRefreshToken,
+    }) => {
+      setCookie(
+        'session',
+        JSON.stringify({
+          accessToken: newAccessToken,
+          refreshToken: newRefreshToken,
+        } satisfies Session),
+        {
+          expires: dayjs().add(1, 'month').toDate(),
+        },
+      );
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+      setPage((prev) => prev + 1);
+    },
+    onError: (error) => {
+      console.error(error);
+      router.replace(`/login?redirect_url=${redirectUrl || '/'}`);
+    },
+  });
 
   function handleNextButtonClick(disabled: boolean) {
     if (disabled) return;
@@ -61,13 +88,7 @@ export default function Content({
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.set('onboardingValue', JSON.stringify(value));
-    await createUser(formData);
-    await queryClient.invalidateQueries({ queryKey: ['users'] });
-
-    setPage((prev) => prev + 1);
+    await createUser(value);
   }
 
   useEffect(() => {
@@ -99,7 +120,7 @@ export default function Content({
           </nav>
           {/* Navigation Bar for Desktop */}
           <div className="hidden md:block">
-            <NavBar user={null} isAuthHidden={true} />
+            <NavBar isAuthHidden={true} />
           </div>
         </header>
 
@@ -134,7 +155,6 @@ export default function Content({
               setValue={setValue}
               onNextButtonClick={handleNextButtonClick}
               onBackButtonClick={handleBackButtonClick}
-              user={null}
             />
             <NicknameFormScreen
               isVisible={page === 2}

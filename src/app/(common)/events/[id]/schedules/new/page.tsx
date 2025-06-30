@@ -1,16 +1,6 @@
-import ScheduleAddScreen from './content';
-import { auth, currentUser } from '@/lib/auth';
-import {
-  defaultMySchedule,
-  defaultScheduleDetail,
-  defaultSleepTime,
-} from '@/lib/constants';
-import {
-  fetchEvent,
-  fetchMySchedule,
-  fetchScheduleDetail,
-  fetchSleepTime,
-} from '@/lib/data';
+import ScheduleAddScreen from './schedule-new';
+import { eventQueryOptions } from '@/lib/api/query-options';
+import { QueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 
 export default async function Page({
@@ -18,34 +8,15 @@ export default async function Page({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
+  const { id: eventId } = await params;
 
-  const isLoggedIn = !!(await auth());
+  const queryClient = new QueryClient();
 
-  const event = await fetchEvent(id);
+  const event = await queryClient.fetchQuery({
+    ...eventQueryOptions(eventId),
+  });
 
-  if (!event) {
-    notFound();
-  }
+  if (!event) notFound();
 
-  const [schedule, mySchedule, sleepTime, userResponse] = await Promise.all([
-    isLoggedIn
-      ? fetchScheduleDetail(event, true, '')
-      : Promise.resolve(defaultScheduleDetail),
-    isLoggedIn ? fetchMySchedule() : Promise.resolve(defaultMySchedule),
-    isLoggedIn ? fetchSleepTime() : Promise.resolve(defaultSleepTime),
-    isLoggedIn ? currentUser() : Promise.resolve(null),
-  ]);
-  const user = userResponse?.user || null;
-
-  return (
-    <ScheduleAddScreen
-      isLoggedIn={!!(await auth())}
-      event={event}
-      schedule={schedule}
-      mySchedule={mySchedule}
-      sleepTime={sleepTime}
-      user={user}
-    />
-  );
+  return <ScheduleAddScreen />;
 }
