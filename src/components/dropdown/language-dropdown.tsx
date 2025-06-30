@@ -6,11 +6,12 @@ import { useRef } from 'react';
 
 import CheckIcon from '@/components/icon/check';
 import useDropdown from '@/hooks/useDropdown';
-import { editUserLanguage } from '@/lib/api/actions';
 import { useAuth } from '@/lib/api/auth.client';
+import { editUserLanguageApi } from '@/lib/api/mutations';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { IconLanguage } from '@tabler/icons-react';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 const languages: { key: 'ko' | 'en'; label: string }[] = [
@@ -37,12 +38,12 @@ export default function LanguageDropdown({
 
   const { isLoggedIn } = useAuth();
 
+  const { mutateAsync: editUserLanguage } = useMutation({
+    mutationFn: editUserLanguageApi,
+  });
+
   async function handleDropdownMenuItemClick(language: string) {
-    if (isLoggedIn) {
-      const formData = new FormData();
-      formData.set('language', language === 'ko' ? 'KOR' : 'ENG');
-      await editUserLanguage(formData);
-    }
+    if (isLoggedIn) await editUserLanguage(language === 'ko' ? 'KOR' : 'ENG');
     setIsDropdownMenuOpen(false);
     setCookie('locale', language, {
       expires: dayjs().add(1, 'year').toDate(),

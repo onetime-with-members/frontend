@@ -45,6 +45,13 @@ export async function editUserNameApi(name: string) {
   return res.data.payload;
 }
 
+export async function editUserLanguageApi(language: 'KOR' | 'ENG') {
+  const res = await axios.patch('/users/profile/action-update', {
+    language,
+  });
+  return res.data.payload;
+}
+
 export async function editUserPolicyApi(policy: PolicyType) {
   const res = await axios.patch('/users/profile/action-update', policy);
   return res.data.payload;
