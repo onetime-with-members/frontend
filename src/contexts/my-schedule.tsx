@@ -25,14 +25,9 @@ export const MyScheduleContext = createContext<{
 
 export default function MyScheduleContextProvider({
   children,
-  defaultMySchedule: fetchedMySchedule,
 }: {
   children: React.ReactNode;
-  defaultMySchedule: MyScheduleTimeType[] | undefined;
 }) {
-  const [mySchedule, setMySchedule] = useState<MyScheduleTimeType[]>(
-    fetchedMySchedule || defaultMySchedule,
-  );
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
 
   const pathname = usePathname();
@@ -43,6 +38,10 @@ export default function MyScheduleContextProvider({
     ...myScheduleQueryOptions,
     enabled: isLoggedIn,
   });
+
+  const [mySchedule, setMySchedule] = useState<MyScheduleTimeType[]>(
+    myScheduleData || defaultMySchedule,
+  );
 
   function resetMySchedule() {
     setMySchedule(myScheduleData || defaultMySchedule);

@@ -8,8 +8,7 @@ import ScrollContextProvider from './scroll';
 import SleepTimeContextProvider from './sleep-time';
 import ToastContextProvider from './toast';
 import WeekdayLocaleContextProvider from './weekday-locale';
-import auth from '@/lib/api/auth.server';
-import { fetchBarBanner, fetchMySchedule } from '@/lib/api/data';
+import { fetchBarBanner } from '@/lib/api/data';
 import { getLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
 
@@ -18,13 +17,6 @@ export default async function ContextProviders({
 }: {
   children: React.ReactNode;
 }) {
-  const { isLoggedIn } = await auth();
-
-  let mySchedule;
-  if (isLoggedIn) {
-    mySchedule = await fetchMySchedule();
-  }
-
   let barBanner = null;
   if (!(await cookies()).get('bar-banner')) {
     barBanner = await fetchBarBanner();
@@ -38,7 +30,7 @@ export default async function ContextProviders({
         <ScrollContextProvider>
           <PolicyContextProvider>
             <SleepTimeContextProvider>
-              <MyScheduleContextProvider defaultMySchedule={mySchedule}>
+              <MyScheduleContextProvider>
                 <BarBannerContextProvider barBanner={barBanner}>
                   <WeekdayLocaleContextProvider initialLocale={locale}>
                     <ToastContextProvider>
