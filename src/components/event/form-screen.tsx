@@ -8,7 +8,7 @@ import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
 import { createEventApi, editEventApi } from '@/lib/api/mutations';
-import { eventQueryOptions } from '@/lib/api/query-options';
+import { eventQueryWithAuthOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { breakpoint, defaultEventValue } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
@@ -39,8 +39,7 @@ export default function EventFormScreen({
   const t = useTranslations('eventForm');
 
   const { data: event } = useQuery({
-    ...eventQueryOptions(params.id),
-    queryKey: [...eventQueryOptions(params.id).queryKey, '_user'],
+    ...eventQueryWithAuthOptions(params.id),
     enabled: type === 'edit',
   });
 

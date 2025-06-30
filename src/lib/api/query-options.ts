@@ -10,6 +10,7 @@ import {
 } from '../types';
 import axios from './axios';
 import {
+  fetchEventServer,
   fetchQrCode,
   fetchRecommendedTimes,
   fetchSchedules,
@@ -28,6 +29,12 @@ export const userQueryOptions = queryOptions<UserType>({
 export const eventQueryOptions = (eventId: string) =>
   queryOptions<EventType>({
     queryKey: ['events', eventId],
+    queryFn: async () => fetchEventServer(eventId),
+  });
+
+export const eventQueryWithAuthOptions = (eventId: string) =>
+  queryOptions<EventType>({
+    queryKey: ['events', eventId, '_user'],
     queryFn: async () => {
       const res = await axios.get(`/events/${eventId}`);
       return res.data.payload;

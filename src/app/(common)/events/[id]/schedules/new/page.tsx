@@ -1,5 +1,4 @@
 import ScheduleAddScreen from './schedule-new';
-import { fetchEventServer } from '@/lib/api/data';
 import { eventQueryOptions } from '@/lib/api/query-options';
 import { QueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
@@ -15,7 +14,6 @@ export default async function Page({
 
   const event = await queryClient.fetchQuery({
     ...eventQueryOptions(eventId),
-    queryFn: async () => await fetchEventServer(eventId),
   });
 
   if (!event) notFound();

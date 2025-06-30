@@ -41,7 +41,6 @@ export default async function Page({
 
   const event = await queryClient.fetchQuery({
     ...eventQueryOptions(eventId),
-    queryFn: async () => fetchEventServer(eventId),
   });
 
   if (!event) {
