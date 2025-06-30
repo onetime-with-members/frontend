@@ -2,7 +2,6 @@
 
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
-import { useFormStatus } from 'react-dom';
 
 import MemberLoginSubScreen from './member-login';
 import ScheduleFormSubScreen from './schedule-form';
@@ -12,38 +11,25 @@ import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
+import { useAuth } from '@/lib/api/auth.client';
 import {
-  checkNewGuest,
-  createNewMemberSchedule,
-  loginGuest,
-  updateSchedule,
-} from '@/lib/api/actions';
+  checkNewGuestApi,
+  createNewMemberScheduleApi,
+  loginGuestApi,
+  updateScheduleApi,
+} from '@/lib/api/mutations';
+import { eventQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { breakpoint } from '@/lib/constants';
-import {
-  EventType,
-  GuestValueType,
-  MyScheduleTimeType,
-  ScheduleType,
-  SleepTimeType,
-} from '@/lib/types';
+import { breakpoint, defaultEvent } from '@/lib/constants';
+import { GuestValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
-export default function ScheduleAddScreen({
-  isLoggedIn,
-  event,
-  schedule,
-  mySchedule,
-  sleepTime,
-}: {
-  isLoggedIn: boolean;
-  event: EventType;
-  schedule: ScheduleType;
-  mySchedule: MyScheduleTimeType[];
-  sleepTime: SleepTimeType;
-}) {
+export default function ScheduleAddScreen() {
+  const { isLoggedIn } = useAuth();
+
   const [pageIndex, setPageIndex] = useState(isLoggedIn ? 1 : 0);
   const [isNewGuest, setIsNewGuest] = useState(false);
   const [guestId, setGuestId] = useState('');
@@ -60,7 +46,7 @@ export default function ScheduleAddScreen({
 
   const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
-
+  const queryClient = useQueryClient();
   const t = useTranslations('scheduleAdd');
 
   const {
@@ -71,15 +57,39 @@ export default function ScheduleAddScreen({
     isFixedScheduleEmpty,
     isSleepTimeEmpty,
   } = useScheduleAdd({
-    event,
-    schedule,
-    mySchedule,
-    sleepTime,
     isLoggedIn,
     guestId,
+    eventId: params.id,
   });
   useGrayBackground({
     breakpointCondition: () => window.innerWidth >= breakpoint.sm,
+  });
+
+  const { data: event } = useQuery({
+    ...eventQueryOptions(params.id),
+  });
+
+  const { mutateAsync: checkNewGuest } = useMutation({
+    mutationFn: checkNewGuestApi,
+  });
+  const { mutateAsync: loginGuest } = useMutation({
+    mutationFn: loginGuestApi,
+  });
+  const { mutateAsync: createNewMemberSchedule } = useMutation({
+    mutationFn: createNewMemberScheduleApi,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+      progressRouter.push(`/events/${params.id}`);
+    },
+  });
+  const { mutateAsync: updateSchedule } = useMutation({
+    mutationFn: updateScheduleApi,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+      progressRouter.push(`/events/${params.id}`);
+    },
   });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -90,35 +100,40 @@ export default function ScheduleAddScreen({
     if (pageIndex === 0) {
       if (disabled) return;
 
-      const formData = new FormData();
-      formData.set('eventId', params.id);
-      formData.set('name', guestValue.name);
-      const { isNewGuest } = await checkNewGuest(formData);
-      setIsNewGuest(isNewGuest);
-      if (isNewGuest) {
+      const { is_possible: isNewGuestData } = await checkNewGuest({
+        eventId: params.id,
+        name: guestValue.name,
+      });
+      setIsNewGuest(isNewGuestData);
+      if (isNewGuestData) {
         return setPageIndex(1);
       }
 
-      formData.set('pin', guestValue.pin);
-      const { guestId, pinNotCorrect } = await loginGuest(formData);
+      const { guestId, pinNotCorrect } = await loginGuest({
+        eventId: params.id,
+        name: guestValue.name,
+        pin: guestValue.pin,
+      });
       if (pinNotCorrect) {
         return alert('PIN 번호가 올바르지 않습니다.');
+      } else if (!guestId) {
+        return alert('로그인 도중 에러가 발생했습니다.');
       }
       setGuestId(guestId);
       setPageIndex(1);
     } else if (isNewGuest) {
-      const formData = new FormData();
-      formData.set('eventId', params.id);
-      formData.set('name', guestValue.name);
-      formData.set('pin', guestValue.pin);
-      formData.set('schedules', JSON.stringify(scheduleValue[0].schedules));
-      await createNewMemberSchedule(formData);
+      await createNewMemberSchedule({
+        eventId: params.id,
+        name: guestValue.name,
+        pin: guestValue.pin,
+        schedule: scheduleValue[0].schedules,
+      });
     } else {
-      const formData = new FormData();
-      formData.set('event', JSON.stringify(event));
-      formData.set('guestId', guestId);
-      formData.set('schedules', JSON.stringify(scheduleValue[0].schedules));
-      await updateSchedule(formData);
+      await updateSchedule({
+        event: event || defaultEvent,
+        guestId,
+        schedule: scheduleValue[0].schedules,
+      });
     }
   }
 
@@ -141,6 +156,10 @@ export default function ScheduleAddScreen({
       }
     }
   }
+
+  useEffect(() => {
+    setPageIndex(isLoggedIn ? 1 : 0);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     setFooterVisible(false);
@@ -182,7 +201,7 @@ export default function ScheduleAddScreen({
             </h2>
             {pageIndex === 1 && (
               <div className="flex items-center justify-end">
-                <TopSubmitButton />
+                <SmallButton>{t('done')}</SmallButton>
               </div>
             )}
           </div>
@@ -242,17 +261,5 @@ export default function ScheduleAddScreen({
         />
       )}
     </form>
-  );
-}
-
-export function TopSubmitButton() {
-  const { pending } = useFormStatus();
-
-  const t = useTranslations('scheduleAdd');
-
-  return (
-    <SmallButton disabled={pending}>
-      {pending ? t('saving') : t('done')}
-    </SmallButton>
   );
 }

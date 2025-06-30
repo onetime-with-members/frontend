@@ -1,16 +1,7 @@
-import ScheduleAddScreen from './content';
-import auth from '@/lib/api/auth.server';
-import {
-  fetchEventServer,
-  fetchMySchedule,
-  fetchScheduleDetail,
-  fetchSleepTime,
-} from '@/lib/api/data';
-import {
-  defaultMySchedule,
-  defaultScheduleDetail,
-  defaultSleepTime,
-} from '@/lib/constants';
+import ScheduleAddScreen from './schedule-new';
+import { fetchEventServer } from '@/lib/api/data';
+import { eventQueryOptions } from '@/lib/api/query-options';
+import { QueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 
 export default async function Page({
@@ -18,31 +9,16 @@ export default async function Page({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
+  const { id: eventId } = await params;
 
-  const { isLoggedIn } = await auth();
+  const queryClient = new QueryClient();
 
-  const event = await fetchEventServer(id);
+  const event = await queryClient.fetchQuery({
+    ...eventQueryOptions(eventId),
+    queryFn: async () => await fetchEventServer(eventId),
+  });
 
-  if (!event) {
-    notFound();
-  }
+  if (!event) notFound();
 
-  const [schedule, mySchedule, sleepTime] = await Promise.all([
-    isLoggedIn
-      ? fetchScheduleDetail(event, '')
-      : Promise.resolve(defaultScheduleDetail),
-    isLoggedIn ? fetchMySchedule() : Promise.resolve(defaultMySchedule),
-    isLoggedIn ? fetchSleepTime() : Promise.resolve(defaultSleepTime),
-  ]);
-
-  return (
-    <ScheduleAddScreen
-      isLoggedIn={isLoggedIn}
-      event={event}
-      schedule={schedule}
-      mySchedule={mySchedule}
-      sleepTime={sleepTime}
-    />
-  );
+  return <ScheduleAddScreen />;
 }

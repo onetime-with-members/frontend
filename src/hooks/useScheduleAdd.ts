@@ -1,31 +1,25 @@
 import { useContext, useEffect, useState } from 'react';
 
+import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
-import { fetchScheduleDetail } from '@/lib/api/data';
-import { defaultScheduleDetail, weekdaysShortKo } from '@/lib/constants';
-import dayjs from '@/lib/dayjs';
 import {
-  EventType,
-  MyScheduleTimeType,
-  ScheduleType,
-  SleepTimeType,
-} from '@/lib/types';
+  eventQueryOptions,
+  scheduleDetailQueryOptions,
+} from '@/lib/api/query-options';
+import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
+import dayjs from '@/lib/dayjs';
+import { MyScheduleTimeType, ScheduleType, SleepTimeType } from '@/lib/types';
 import { timeBlockList } from '@/lib/utils';
+import { useQuery } from '@tanstack/react-query';
 
 export default function useScheduleAdd({
-  event,
-  schedule: fetchedSchedule,
-  mySchedule,
-  sleepTime,
   isLoggedIn,
   guestId,
+  eventId,
 }: {
-  event: EventType;
-  schedule: ScheduleType;
-  mySchedule: MyScheduleTimeType[];
-  sleepTime: SleepTimeType;
   isLoggedIn: boolean;
   guestId: string;
+  eventId: string;
 }) {
   const [initialSchedule, setInitialSchedule] = useState<ScheduleType[]>([]);
   const [scheduleValue, setScheduleValue] = useState<ScheduleType[]>([
@@ -34,25 +28,26 @@ export default function useScheduleAdd({
       schedules: [],
     },
   ]);
-  const [schedule, setSchedule] = useState<ScheduleType>(
-    isLoggedIn ? fetchedSchedule : defaultScheduleDetail,
-  );
+
+  const { mySchedule } = useContext(MyScheduleContext);
+  const { sleepTime, sleepTimesList } = useContext(SleepTimeContext);
+
+  const { data: event } = useQuery({
+    ...eventQueryOptions(eventId),
+  });
+  const { data: schedule } = useQuery({
+    ...scheduleDetailQueryOptions({
+      event: event || defaultEvent,
+      isLoggedIn,
+      guestId,
+    }),
+  });
+
   const [isEmpty, setIsEmpty] = useState({
-    schedule: isScheduleEmpty(isLoggedIn ? fetchedSchedule : schedule),
+    schedule: isScheduleEmpty(schedule),
     fixedSchedule: isFixedScheduleEmpty(mySchedule),
     sleepTime: isSleepTimeEmpty(sleepTime),
   });
-
-  const { sleepTimesList } = useContext(SleepTimeContext);
-
-  useEffect(() => {
-    async function fetchSchedule() {
-      if (!isLoggedIn && !guestId) return;
-      const scheduleDetail = await fetchScheduleDetail(event, guestId);
-      setSchedule(scheduleDetail);
-    }
-    fetchSchedule();
-  }, [event, guestId]);
 
   useEffect(() => {
     setIsEmpty({
@@ -63,14 +58,15 @@ export default function useScheduleAdd({
   }, [schedule, mySchedule, sleepTime]);
 
   useEffect(() => {
-    const defaultSchedule = event.ranges.map((time_point) => ({
-      time_point,
-      times: [],
-    }));
+    const defaultSchedule =
+      event?.ranges.map((time_point) => ({
+        time_point,
+        times: [],
+      })) || [];
 
     const initialSchedule = [
       {
-        name: schedule.name,
+        name: schedule?.name || '',
         schedules: isEmpty.schedule
           ? isEmpty.fixedSchedule && isEmpty.sleepTime
             ? defaultSchedule
@@ -78,7 +74,7 @@ export default function useScheduleAdd({
           : defaultSchedule.map((scheduleTime) => ({
               ...scheduleTime,
               times:
-                schedule.schedules.find(
+                schedule?.schedules.find(
                   (s) => s.time_point === scheduleTime.time_point,
                 )?.times || [],
             })),
@@ -90,7 +86,7 @@ export default function useScheduleAdd({
 
     function fixedAndSleepTimeSchedule() {
       return (
-        event.ranges.map((time_point) => ({
+        event?.ranges.map((time_point) => ({
           time_point,
           times: newTimes(
             event.start_time,
