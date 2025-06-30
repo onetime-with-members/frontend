@@ -7,6 +7,7 @@ import Avatar from '../avatar';
 import { signOut } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function AvatarDropdown({
   size = 40,
@@ -63,6 +64,7 @@ function AvatarDropdownMenu({
 }: {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const router = useRouter();
   const t = useTranslations('navbar');
 
   const menuItems: {
@@ -104,6 +106,7 @@ function AvatarDropdownMenu({
 
   async function handleLogout() {
     await signOut();
+    router.refresh();
     window.location.reload();
   }
 
