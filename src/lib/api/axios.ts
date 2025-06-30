@@ -82,6 +82,8 @@ axios.interceptors.response.use(
             },
           );
 
+          window.location.reload();
+
           if (originalRequest.headers) {
             originalRequest.headers.Authorization = `Bearer ${newTokens.access_token}`;
           }
