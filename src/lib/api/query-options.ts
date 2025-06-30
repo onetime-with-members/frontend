@@ -10,7 +10,7 @@ import {
 } from '../types';
 import axios from './axios';
 import {
-  fetchEventServer,
+  fetchEvent,
   fetchQrCode,
   fetchRecommendedTimes,
   fetchSchedules,
@@ -29,7 +29,7 @@ export const userQueryOptions = queryOptions<UserType>({
 export const eventQueryOptions = (eventId: string) =>
   queryOptions<EventType>({
     queryKey: ['events', eventId],
-    queryFn: async () => fetchEventServer(eventId),
+    queryFn: async () => fetchEvent(eventId),
   });
 
 export const eventQueryWithAuthOptions = (eventId: string) =>
