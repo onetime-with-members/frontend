@@ -7,7 +7,7 @@ import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import { PolicyContext } from '@/contexts/policy';
-import { editUserPolicyApi } from '@/lib/api/mutations';
+import { editUserPolicyApi } from '@/lib/api/actions';
 import { PolicyKeyType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

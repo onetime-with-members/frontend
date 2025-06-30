@@ -12,7 +12,7 @@ import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import useToast from '@/hooks/useToast';
-import { editMyScheduleApi, editSleepTimeApi } from '@/lib/api/mutations';
+import { editMyScheduleApi, editSleepTimeApi } from '@/lib/api/actions';
 import { myScheduleQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { IconChevronLeft } from '@tabler/icons-react';

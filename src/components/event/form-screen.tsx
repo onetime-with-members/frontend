@@ -7,7 +7,7 @@ import InputContent from './input-content';
 import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
-import { createEventApi, editEventApi } from '@/lib/api/mutations';
+import { createEventApi, editEventApi } from '@/lib/api/actions';
 import { eventQueryWithAuthOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { breakpoint, defaultEventValue } from '@/lib/constants';

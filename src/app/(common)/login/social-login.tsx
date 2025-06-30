@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
-import { signIn } from '@/lib/api/actions';
+import { signIn } from '@/lib/api/auth.action.ts';
 import { useAuth } from '@/lib/api/auth.client';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';

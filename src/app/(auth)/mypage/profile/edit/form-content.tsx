@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import NicknameFormControl from '@/components/user/nickname-form-control';
-import { editUserNameApi } from '@/lib/api/mutations';
+import { editUserNameApi } from '@/lib/api/actions';
 import { UserType } from '@/lib/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';

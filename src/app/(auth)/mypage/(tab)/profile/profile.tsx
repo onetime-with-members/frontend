@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 
 import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import { signOut } from '@/lib/api/actions';
+import { signOut } from '@/lib/api/auth.action.ts';
 import { userQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';

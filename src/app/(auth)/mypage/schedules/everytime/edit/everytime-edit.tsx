@@ -8,7 +8,7 @@ import Button from '@/components/button';
 import Input from '@/components/input';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { FooterContext } from '@/contexts/footer';
-import { submitEverytimeUrlApi } from '@/lib/api/mutations';
+import { submitEverytimeUrlApi } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { ExtendedAxiosError } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
