@@ -35,7 +35,7 @@ export const eventQueryOptions = (eventId: string) =>
     queryFn: async () => await fetchEvent(eventId),
   });
 
-export const eventQueryWithAuthOptions = (eventId: string) =>
+export const eventWithAuthQueryOptions = (eventId: string) =>
   queryOptions<EventType>({
     queryKey: ['events', eventId, '_user'],
     queryFn: async () => await fetchEventWithAuth(eventId),

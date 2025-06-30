@@ -14,7 +14,7 @@ import useKakaoShare from '@/hooks/useKakaoShare';
 import { useAuth } from '@/lib/api/auth.client';
 import {
   eventQueryOptions,
-  eventQueryWithAuthOptions,
+  eventWithAuthQueryOptions,
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';
@@ -135,7 +135,7 @@ export function ToolbarButtons() {
   const locale = useLocale();
 
   const { data: event } = useQuery({
-    ...eventQueryWithAuthOptions(params.id),
+    ...eventWithAuthQueryOptions(params.id),
   });
 
   return (

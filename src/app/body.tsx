@@ -15,13 +15,11 @@ import {
   userQueryOptions,
 } from '@/lib/api/query-options';
 import dayjs from '@/lib/dayjs';
+import getQueryClient from '@/lib/query-client';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from '@tanstack/react-query';
+import { QueryClientProvider, useQuery } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
@@ -129,12 +127,13 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function QueryProvider({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(
-    new QueryClient({ defaultOptions: { queries: { retry: false } } }),
-  );
+  const queryClient = getQueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
 

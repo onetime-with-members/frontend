@@ -64,7 +64,6 @@ export default function MyScheduleEverytimeEditPage() {
     e.preventDefault();
     setIsTouched(false);
     await submitEverytimeUrl(everytimeUrl);
-    console.log(error);
   }
 
   return (
