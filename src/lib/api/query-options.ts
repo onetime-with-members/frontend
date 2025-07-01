@@ -30,7 +30,7 @@ export const userQueryOptions = queryOptions<UserType>({
 });
 
 export const eventQueryOptions = (eventId: string) =>
-  queryOptions<EventType>({
+  queryOptions<EventType | null>({
     queryKey: ['events', eventId],
     queryFn: async () => await fetchEvent(eventId),
   });

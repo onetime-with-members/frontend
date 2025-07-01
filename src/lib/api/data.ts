@@ -1,4 +1,4 @@
-import { SERVER_API_URL, defaultEvent, defaultMySchedule } from '../constants';
+import { SERVER_API_URL, defaultMySchedule } from '../constants';
 import {
   BarBanner,
   EventType,
@@ -7,17 +7,13 @@ import {
   ScheduleType,
 } from '../types';
 import axios from './axios';
-import { notFound } from 'next/navigation';
 
 export async function fetchEvent(eventId: string) {
   const res = await fetch(`${SERVER_API_URL}/events/${eventId}`);
   if (!res.ok) {
     const error = await res.json();
     console.error(error);
-    if (error.code === 'EVENT-001') {
-      notFound();
-    }
-    return defaultEvent;
+    return null;
   }
   const data = await res.json();
   const event: EventType = data.payload;

@@ -65,6 +65,8 @@ export default async function Page({
     ...eventQueryOptions(eventId),
   });
 
+  console.log(event);
+
   if (!event) notFound();
 
   const headersList = await headers();

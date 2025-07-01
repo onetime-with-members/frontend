@@ -60,6 +60,7 @@ async function reissueTokens() {
 
     return newAccessToken;
   } catch (error) {
+    console.log('error');
     removeTokens();
     throw error;
   }

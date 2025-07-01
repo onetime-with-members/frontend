@@ -36,6 +36,7 @@ export default function NavBar({
 
   const { data: user } = useQuery({
     ...userQueryOptions,
+    enabled: isLoggedIn,
   });
 
   useEffect(() => {
