@@ -9,7 +9,6 @@ import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
 import { createEventApi, editEventApi } from '@/lib/api/actions';
 import { eventWithAuthQueryOptions } from '@/lib/api/query-options';
-import cn from '@/lib/cn';
 import { breakpoint, defaultEventValue } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { EventValueType } from '@/lib/types';
@@ -43,26 +42,21 @@ export default function EventFormScreen({
     enabled: type === 'edit',
   });
 
-  const { mutateAsync: createEvent, isPending: isEventCreatePending } =
-    useMutation({
-      mutationFn: createEventApi,
-      onSuccess: async (data) => {
-        await queryClient.invalidateQueries({ queryKey: ['events'] });
-        progressRouter.push(`/events/${data.event_id}`);
-      },
-    });
-
-  const { mutateAsync: editEvent, isPending: isEventEditPending } = useMutation(
-    {
-      mutationFn: editEventApi,
-      onSuccess: async (_, { eventId }) => {
-        await queryClient.invalidateQueries({ queryKey: ['events'] });
-        progressRouter.push(`/events/${eventId}`);
-      },
+  const { mutateAsync: createEvent } = useMutation({
+    mutationFn: createEventApi,
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      progressRouter.push(`/events/${data.event_id}`);
     },
-  );
+  });
 
-  const isSubmitPending = isEventCreatePending || isEventEditPending;
+  const { mutateAsync: editEvent } = useMutation({
+    mutationFn: editEventApi,
+    onSuccess: async (_, { eventId }) => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      progressRouter.push(`/events/${eventId}`);
+    },
+  });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -95,8 +89,7 @@ export default function EventFormScreen({
         value.title.trim().length > 50 ||
         value.ranges.length === 0 ||
         startTime.isAfter(endTime) ||
-        startTime.isSame(endTime) ||
-        isEventCreatePending,
+        startTime.isSame(endTime),
     );
   }, [value]);
 
@@ -145,16 +138,9 @@ export default function EventFormScreen({
 
       {/* Bottom Floating Button */}
       <div className="sticky bottom-0 left-0 w-full bg-gray-00 px-4 py-4 md:static md:w-[25rem] md:bg-transparent">
-        <Button
-          type="submit"
-          variant="dark"
-          fullWidth
-          className={cn({ 'cursor-default': isSubmitPending })}
-        >
-          {pageMode === 'create' &&
-            (isSubmitPending ? t('creatingEvent') : t('createEvent'))}
-          {pageMode === 'edit' &&
-            (isSubmitPending ? t('editingEvent') : t('editEvent'))}
+        <Button type="submit" variant="dark" fullWidth>
+          {pageMode === 'create' && t('createEvent')}
+          {pageMode === 'edit' && t('editEvent')}
         </Button>
       </div>
     </form>

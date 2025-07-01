@@ -52,7 +52,7 @@ export function EventDeleteAlert({
   const queryClient = useQueryClient();
   const t = useTranslations('alert');
 
-  const { mutateAsync: deleteEvent, isPending } = useMutation({
+  const { mutateAsync: deleteEvent } = useMutation({
     mutationFn: deleteEventApi,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
@@ -73,7 +73,6 @@ export function EventDeleteAlert({
       confirmText={t('deleteEventConfirm')}
       cancelText={t('deleteEventCancel')}
       pendingText={t('deleteEventConfirming')}
-      isPending={isPending}
     >
       <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">
         <h2 className="text-gray-80 text-lg-300">{t('deleteEventTitle')}</h2>

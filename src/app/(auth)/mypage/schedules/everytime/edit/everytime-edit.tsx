@@ -200,7 +200,7 @@ function BottomButton({
               disabled={disabled}
               className="relative"
             >
-              {isPending ? t('submitting') : t('submit')}
+              {t('submit')}
             </Button>
           </div>
         </motion.div>

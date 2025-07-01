@@ -45,23 +45,19 @@ export default function MyScheduleEditPage() {
     ...myScheduleQueryOptions,
   });
 
-  const { mutateAsync: editMySchedule, isPending: isMyScheduleEditPending } =
-    useMutation({
-      mutationFn: editMyScheduleApi,
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
-      },
-    });
-  const { mutateAsync: editSleepTime, isPending: isSleepTimeEditPending } =
-    useMutation({
-      mutationFn: editSleepTimeApi,
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ['users'] });
-        router.back();
-      },
-    });
-
-  const isSubmitPending = isMyScheduleEditPending || isSleepTimeEditPending;
+  const { mutateAsync: editMySchedule } = useMutation({
+    mutationFn: editMyScheduleApi,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
+    },
+  });
+  const { mutateAsync: editSleepTime } = useMutation({
+    mutationFn: editSleepTimeApi,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+      router.back();
+    },
+  });
 
   async function handleSubmit(e?: React.FormEvent<HTMLFormElement>) {
     if (e) e.preventDefault();
@@ -118,13 +114,8 @@ export default function MyScheduleEditPage() {
                 {t('myScheduleEdit.editMySchedule')}
               </div>
               <div className="flex items-center justify-end">
-                <SmallButton
-                  onClick={() => handleSubmit()}
-                  disabled={isSubmitPending}
-                >
-                  {isSubmitPending
-                    ? t('myScheduleEdit.saving')
-                    : t('myScheduleEdit.done')}
+                <SmallButton onClick={() => handleSubmit()}>
+                  {t('myScheduleEdit.done')}
                 </SmallButton>
               </div>
             </div>

@@ -19,7 +19,7 @@ export default function FormContent({ user }: { user: UserType }) {
   const queryClient = useQueryClient();
   const t = useTranslations('profileEdit');
 
-  const { mutate: editUserName, isPending } = useMutation({
+  const { mutate: editUserName } = useMutation({
     mutationFn: (data: string) => editUserNameApi(data),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['users'] });
@@ -56,7 +56,7 @@ export default function FormContent({ user }: { user: UserType }) {
           fullWidth
           disabled={isDisabled}
         >
-          {isPending ? t('saving') : t('save')}
+          {t('save')}
         </Button>
       </div>
       {/* Mobile Submit Button */}
@@ -66,7 +66,7 @@ export default function FormContent({ user }: { user: UserType }) {
         className="sm:hidden"
         disabled={isDisabled}
       >
-        {isPending ? t('saving') : t('save')}
+        {t('save')}
       </FloatingBottomButton>
     </form>
   );
