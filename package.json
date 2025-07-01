@@ -23,6 +23,7 @@
     "next": "^15.3.2",
     "next-intl": "^3.26.5",
     "nprogress": "^0.2.0",
+    "p-memoize": "^7.1.1",
     "react": "^19.0.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^19.0.0",

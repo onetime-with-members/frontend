@@ -1,6 +1,7 @@
 import _axios, { AxiosError } from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
+import pMemoize from 'p-memoize';
 
 import { ExtendedAxiosError, Session } from '../types';
 
@@ -23,11 +24,53 @@ async function removeTokens() {
   window.location.reload();
 }
 
+async function reissueTokens() {
+  try {
+    const sessionCookie = getCookie('session');
+    const { accessToken, refreshToken }: Session = JSON.parse(
+      sessionCookie as string,
+    );
+
+    const res = await reissuer.post(
+      '/tokens/action-reissue',
+      {
+        refresh_token: refreshToken,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
+    const { access_token: newAccessToken, refresh_token: newRefreshToken } =
+      res.data.payload;
+
+    await setCookie(
+      'session',
+      JSON.stringify({
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+      } satisfies Session),
+      {
+        expires: dayjs().add(1, 'month').toDate(),
+      },
+    );
+
+    axios.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+
+    return newAccessToken;
+  } catch (error) {
+    removeTokens();
+    throw error;
+  }
+}
+
+const memoizedReissueTokens = pMemoize(reissueTokens);
+
 axios.interceptors.request.use(
   async (config) => {
     const sessionCookie = getCookie('session');
     if (!sessionCookie) return config;
-
     const { accessToken, refreshToken }: Session = JSON.parse(
       sessionCookie as string,
     );
@@ -45,60 +88,19 @@ axios.interceptors.response.use(
   (response) => response,
   async (_error: AxiosError) => {
     const error = _error as ExtendedAxiosError;
-
     const originalRequest = { ...error.config };
 
-    if (error.response && error.response.data.code === 'TOKEN-003') {
-      const sessionCookie = getCookie('session');
-      if (!sessionCookie) removeTokens();
+    if (error.response?.data.code === 'TOKEN-003' && !originalRequest._retry) {
+      originalRequest._retry = true;
 
-      const { accessToken, refreshToken }: Session = JSON.parse(
-        sessionCookie as string,
-      );
-
-      if (accessToken && refreshToken) {
-        try {
-          const res = await reissuer.post(
-            '/tokens/action-reissue',
-            {
-              refresh_token: refreshToken,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            },
-          );
-          const newTokens = res.data.payload;
-
-          await setCookie(
-            'session',
-            JSON.stringify({
-              accessToken: newTokens.access_token,
-              refreshToken: newTokens.refresh_token,
-            } satisfies Session),
-            {
-              expires: dayjs().add(1, 'month').toDate(),
-            },
-          );
-
-          window.location.reload();
-
-          if (originalRequest.headers) {
-            originalRequest.headers.Authorization = `Bearer ${newTokens.access_token}`;
-          }
-
-          return axios(originalRequest);
-        } catch (error) {
-          console.error(error);
-          const axiosError = error as ExtendedAxiosError;
-          const errorCode = axiosError.response.data.code;
-          if (errorCode !== 'TOKEN-009') {
-            removeTokens();
-          }
+      try {
+        const newAccessToken = await memoizedReissueTokens();
+        if (originalRequest.headers) {
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         }
-      } else {
-        removeTokens();
+        return axios(originalRequest);
+      } catch (reissueError) {
+        return Promise.reject(reissueError);
       }
     } else if (error.response && error.response.data.code === 'USER-003') {
       removeTokens();
