@@ -1,7 +1,7 @@
 import { EventType } from '@/lib/types';
 
 interface useKakaoShareProps {
-  event: EventType | undefined;
+  event: EventType | null | undefined;
 }
 
 export default function useKakaoShare({ event }: useKakaoShareProps) {
