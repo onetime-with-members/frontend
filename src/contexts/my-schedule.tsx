@@ -2,10 +2,11 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { auth } from '@/lib/auth';
+import { useAuth } from '@/lib/api/auth.client';
+import { myScheduleQueryOptions } from '@/lib/api/query-options';
 import { defaultMySchedule } from '@/lib/constants';
-import { fetchMySchedule } from '@/lib/data';
 import { MyScheduleTimeType } from '@/lib/types';
+import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 
 export const MyScheduleContext = createContext<{
@@ -14,45 +15,43 @@ export const MyScheduleContext = createContext<{
   isMyScheduleEdited: boolean;
   setIsMyScheduleEdited: React.Dispatch<React.SetStateAction<boolean>>;
   resetMySchedule: () => void;
-  revalidateMySchedule: () => void;
 }>({
   mySchedule: [],
   setMySchedule: () => {},
   isMyScheduleEdited: false,
   setIsMyScheduleEdited: () => {},
   resetMySchedule: () => {},
-  revalidateMySchedule: () => {},
 });
 
 export default function MyScheduleContextProvider({
   children,
-  defaultMySchedule: fetchedMySchedule,
 }: {
   children: React.ReactNode;
-  defaultMySchedule: MyScheduleTimeType[] | undefined;
 }) {
-  const [mySchedule, setMySchedule] = useState<MyScheduleTimeType[]>(
-    fetchedMySchedule || defaultMySchedule,
-  );
   const [isMyScheduleEdited, setIsMyScheduleEdited] = useState(false);
 
   const pathname = usePathname();
 
+  const { isLoggedIn } = useAuth();
+
+  const { data: myScheduleData } = useQuery({
+    ...myScheduleQueryOptions,
+    enabled: isLoggedIn,
+  });
+
+  const [mySchedule, setMySchedule] = useState<MyScheduleTimeType[]>(
+    myScheduleData || defaultMySchedule,
+  );
+
   function resetMySchedule() {
-    setMySchedule(defaultMySchedule);
+    setMySchedule(myScheduleData || defaultMySchedule);
     setIsMyScheduleEdited(false);
   }
 
-  async function revalidateMySchedule() {
-    if (!(await auth())) return;
-    const data = await fetchMySchedule();
-    if (!data) return;
-    setMySchedule(data);
-  }
-
   useEffect(() => {
-    revalidateMySchedule();
-  }, []);
+    if (!myScheduleData) return;
+    setMySchedule(myScheduleData);
+  }, [myScheduleData]);
 
   useEffect(() => {
     const locationsNotToReset = [
@@ -71,7 +70,6 @@ export default function MyScheduleContextProvider({
         isMyScheduleEdited,
         setIsMyScheduleEdited,
         resetMySchedule,
-        revalidateMySchedule,
       }}
     >
       {children}

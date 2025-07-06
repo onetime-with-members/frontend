@@ -1,6 +1,6 @@
 {
   "name": "onetime",
-  "version": "1.4.9",
+  "version": "1.4.10",
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "@tabler/icons-react": "^3.11.0",
-    "@tanstack/react-query": "^5.62.2",
+    "@tanstack/react-query": "^5.81.5",
+    "@tanstack/react-query-devtools": "^5.81.5",
     "axios": "^1.7.9",
     "clsx": "^2.1.1",
     "cookies-next": "^5.1.0",
@@ -22,6 +23,7 @@
     "next": "^15.3.2",
     "next-intl": "^3.26.5",
     "nprogress": "^0.2.0",
+    "p-memoize": "^7.1.1",
     "react": "^19.0.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "^19.0.0",

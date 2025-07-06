@@ -6,37 +6,50 @@ import EmptyEventBanner from './empty';
 import { HeadingForDesktop } from './heading';
 import ClockIcon from '@/components/icon/clock';
 import MemberBadge from '@/components/member-badge';
+import {
+  eventQueryOptions,
+  recommendedTimesQueryOptions,
+  schedulesQueryOptions,
+} from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { weekdaysShortKo } from '@/lib/constants';
+import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { EventType, RecommendScheduleType, ScheduleType } from '@/lib/types';
+import { RecommendScheduleType } from '@/lib/types';
 import { getParticipants } from '@/lib/utils';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
-export default function DesktopContents({
-  event,
-  schedules,
-  recommendedTimes,
-}: {
-  event: EventType;
-  schedules: ScheduleType[];
-  recommendedTimes: RecommendScheduleType[];
-}) {
+export default function DesktopContents() {
+  const params = useParams<{ id: string }>();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: schedules } = useQuery({
+    ...schedulesQueryOptions(event || defaultEvent),
+  });
+
   return (
     <div className="hidden flex-col md:flex md:w-[45%]">
       {schedules?.length === 0 ? (
-        <EmptyEventBanner event={event} />
+        <EmptyEventBanner />
       ) : (
         <>
-          <Participants schedules={schedules} />
-          <RecommendedTimes event={event} recommendedTimes={recommendedTimes} />
+          <Participants />
+          <RecommendedTimes />
         </>
       )}
     </div>
   );
 }
 
-function Participants({ schedules }: { schedules: ScheduleType[] }) {
-  const participants = getParticipants(schedules);
+function Participants() {
+  const params = useParams<{ id: string }>();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: schedules } = useQuery({
+    ...schedulesQueryOptions(event || defaultEvent),
+  });
+
+  const participants = getParticipants(schedules || []);
 
   const t = useTranslations('eventDetail');
 
@@ -63,25 +76,20 @@ function Participants({ schedules }: { schedules: ScheduleType[] }) {
   );
 }
 
-function RecommendedTimes({
-  event,
-  recommendedTimes,
-}: {
-  event: EventType | undefined;
-  recommendedTimes: RecommendScheduleType[];
-}) {
+function RecommendedTimes() {
+  const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
+
+  const { data: recommendedTimes } = useQuery({
+    ...recommendedTimesQueryOptions(params.id),
+  });
 
   return (
     <div className="flex flex-col gap-1">
       <HeadingForDesktop>{t('mostAvailable')}</HeadingForDesktop>
       <div className="flex flex-col gap-6">
-        {recommendedTimes.map((recommendedTime, index) => (
-          <RecommendedTime
-            key={index}
-            event={event}
-            recommendedTime={recommendedTime}
-          />
+        {recommendedTimes?.map((recommendedTime, index) => (
+          <RecommendedTime key={index} recommendedTime={recommendedTime} />
         ))}
       </div>
     </div>
@@ -89,15 +97,16 @@ function RecommendedTimes({
 }
 
 function RecommendedTime({
-  event,
   recommendedTime,
 }: {
-  event: EventType | undefined;
   recommendedTime: RecommendScheduleType;
 }) {
+  const params = useParams<{ id: string }>();
   const locale = useLocale();
 
   dayjs.locale(locale);
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
 
   return (
     <div className="flex flex-col gap-3 rounded-2xl bg-gray-00 p-5">

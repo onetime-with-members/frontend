@@ -1,9 +1,9 @@
 'use client';
 
-import { getCookie } from 'cookies-next';
 import { createContext, useEffect, useState } from 'react';
 
-import axios from '@/lib/axios';
+import { useAuth } from '@/lib/api/auth.client';
+import { userPolicyQueryOptions } from '@/lib/api/query-options';
 import { defaultPolicy } from '@/lib/constants';
 import { PolicyType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
@@ -11,9 +11,13 @@ import { useQuery } from '@tanstack/react-query';
 export const PolicyContext = createContext<{
   policyValue: PolicyType;
   setPolicyValue: React.Dispatch<React.SetStateAction<PolicyType>>;
+  policyData: PolicyType;
+  isPolicyPending: boolean;
 }>({
   policyValue: defaultPolicy,
   setPolicyValue: () => {},
+  policyData: defaultPolicy,
+  isPolicyPending: true,
 });
 
 export default function PolicyContextProvider({
@@ -23,14 +27,10 @@ export default function PolicyContextProvider({
 }) {
   const [policyValue, setPolicyValue] = useState<PolicyType>(defaultPolicy);
 
-  const isLoggedIn = !!getCookie('session');
+  const { isLoggedIn } = useAuth();
 
-  const { data: policyData } = useQuery<PolicyType>({
-    queryKey: ['users', 'policy'],
-    queryFn: async () => {
-      const res = await axios.get('/users/policy');
-      return res.data.payload;
-    },
+  const { data: policyData, isPending: isPolicyPending } = useQuery({
+    ...userPolicyQueryOptions,
     enabled: isLoggedIn,
   });
 
@@ -44,6 +44,8 @@ export default function PolicyContextProvider({
       value={{
         policyValue,
         setPolicyValue,
+        policyData: policyData || defaultPolicy,
+        isPolicyPending,
       }}
     >
       {children}

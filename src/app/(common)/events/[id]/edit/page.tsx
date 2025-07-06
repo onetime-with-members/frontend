@@ -1,8 +1,9 @@
 import EventFormScreen from '@/components/event/form-screen';
-import { auth, currentUser } from '@/lib/auth';
-import { fetchEvent } from '@/lib/data';
+import { fetchEvent } from '@/lib/api/data';
+import { eventQueryOptions } from '@/lib/api/query-options';
+import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
   params,
@@ -35,17 +36,16 @@ export default async function Page({
   params: Promise<{ id: string }>;
 }) {
   const { id: eventId } = await params;
-  const event = await fetchEvent(eventId);
+
+  const queryClient = new QueryClient();
+
+  const event = await queryClient.fetchQuery({
+    ...eventQueryOptions(eventId),
+  });
 
   if (!event) {
     notFound();
   }
-
-  if (event.event_status !== 'CREATOR') {
-    redirect(`/events/${eventId}`);
-  }
-
-  const user = (await auth()) ? (await currentUser()).user : null;
 
   return (
     <EventFormScreen
@@ -57,7 +57,6 @@ export default async function Page({
         category: event.category,
         ranges: event.ranges,
       }}
-      user={user}
     />
   );
 }
