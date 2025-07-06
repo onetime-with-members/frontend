@@ -7,7 +7,7 @@ import MobileContents from './mobile-contents';
 import { TimeBlockBoardContent } from './time-block-board';
 import BarBanner from '@/components/bar-banner';
 import NavBar from '@/components/nav-bar';
-import { fetchEventServer } from '@/lib/api/data';
+import { fetchEvent } from '@/lib/api/data';
 import {
   eventQueryOptions,
   qrCodeQueryOptions,
@@ -30,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const event = await fetchEventServer(id);
+  const event = await fetchEvent(id);
 
   if (!event) {
     const t404 = await getTranslations('404');

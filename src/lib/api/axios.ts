@@ -1,4 +1,4 @@
-import _axios, { AxiosError } from 'axios';
+import _axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
 
@@ -18,24 +18,23 @@ const reissuer = _axios.create({
   },
 });
 
-async function removeTokens() {
-  await deleteCookie('session');
+function removeTokensAndReload() {
+  deleteCookie('session');
   window.location.reload();
 }
 
+let isReissuingToken = false;
+let tokenReissuePromise: Promise<string> | null = null;
+
 axios.interceptors.request.use(
-  async (config) => {
+  (config) => {
     const sessionCookie = getCookie('session');
-    if (!sessionCookie) return config;
-
-    const { accessToken, refreshToken }: Session = JSON.parse(
-      sessionCookie as string,
-    );
-
-    if (accessToken && refreshToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    if (sessionCookie) {
+      const { accessToken }: Session = JSON.parse(sessionCookie as string);
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
     }
-
     return config;
   },
   (error) => Promise.reject(error),
@@ -45,63 +44,85 @@ axios.interceptors.response.use(
   (response) => response,
   async (_error: AxiosError) => {
     const error = _error as ExtendedAxiosError;
+    const originalRequest = error.config as InternalAxiosRequestConfig;
 
-    const originalRequest = { ...error.config };
+    if (error.response?.data.code === 'TOKEN-003') {
+      if (isReissuingToken && tokenReissuePromise) {
+        try {
+          const newAccessToken = await tokenReissuePromise;
+          if (originalRequest.headers) {
+            originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+          }
+          return axios(originalRequest);
+        } catch (e) {
+          return Promise.reject(e);
+        }
+      }
 
-    if (error.response && error.response.data.code === 'TOKEN-003') {
-      const sessionCookie = getCookie('session');
-      if (!sessionCookie) removeTokens();
+      isReissuingToken = true;
 
-      const { accessToken, refreshToken }: Session = JSON.parse(
-        sessionCookie as string,
-      );
+      tokenReissuePromise = new Promise(async (resolve, reject) => {
+        const sessionCookie = getCookie('session');
+        if (!sessionCookie) {
+          removeTokensAndReload();
+          return reject(new Error('No session cookie found.'));
+        }
 
-      if (accessToken && refreshToken) {
+        const { accessToken, refreshToken }: Session = JSON.parse(
+          sessionCookie as string,
+        );
+
+        if (!refreshToken) {
+          removeTokensAndReload();
+          return reject(new Error('No refresh token found.'));
+        }
+
         try {
           const res = await reissuer.post(
             '/tokens/action-reissue',
-            {
-              refresh_token: refreshToken,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
-            },
+            { refresh_token: refreshToken },
+            { headers: { Authorization: `Bearer ${accessToken}` } },
           );
+
           const newTokens = res.data.payload;
+          const newAccessToken = newTokens.access_token;
+          const newRefreshToken = newTokens.refresh_token;
 
           await setCookie(
             'session',
             JSON.stringify({
-              accessToken: newTokens.access_token,
-              refreshToken: newTokens.refresh_token,
+              accessToken: newAccessToken,
+              refreshToken: newRefreshToken,
             } satisfies Session),
-            {
-              expires: dayjs().add(1, 'month').toDate(),
-            },
+            { expires: dayjs().add(1, 'month').toDate() },
           );
 
-          window.location.reload();
+          axios.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
 
-          if (originalRequest.headers) {
-            originalRequest.headers.Authorization = `Bearer ${newTokens.access_token}`;
-          }
+          resolve(newAccessToken);
+        } catch (reissueError) {
+          removeTokensAndReload();
 
-          return axios(originalRequest);
-        } catch (error) {
-          console.error(error);
-          const axiosError = error as ExtendedAxiosError;
-          const errorCode = axiosError.response.data.code;
-          if (errorCode !== 'TOKEN-009') {
-            removeTokens();
-          }
+          reject(reissueError);
+        } finally {
+          isReissuingToken = false;
+          tokenReissuePromise = null;
         }
-      } else {
-        removeTokens();
+      });
+
+      try {
+        const newAccessToken = await tokenReissuePromise;
+        if (originalRequest.headers) {
+          originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        }
+        return axios(originalRequest);
+      } catch (e) {
+        return Promise.reject(e);
       }
-    } else if (error.response && error.response.data.code === 'USER-003') {
-      removeTokens();
+    }
+
+    if (error.response?.data.code === 'USER-003') {
+      removeTokensAndReload();
     }
 
     return Promise.reject(error);

@@ -8,7 +8,7 @@ import Button from '@/components/button';
 import Input from '@/components/input';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { FooterContext } from '@/contexts/footer';
-import { submitEverytimeUrlApi } from '@/lib/api/mutations';
+import { submitEverytimeUrlApi } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { ExtendedAxiosError } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
@@ -64,7 +64,6 @@ export default function MyScheduleEverytimeEditPage() {
     e.preventDefault();
     setIsTouched(false);
     await submitEverytimeUrl(everytimeUrl);
-    console.log(error);
   }
 
   return (
@@ -201,7 +200,7 @@ function BottomButton({
               disabled={disabled}
               className="relative"
             >
-              {isPending ? t('submitting') : t('submit')}
+              {t('submit')}
             </Button>
           </div>
         </motion.div>

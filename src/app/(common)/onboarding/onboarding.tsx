@@ -10,7 +10,7 @@ import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { createUserApi } from '@/lib/api/mutations';
+import { createUserApi } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { OnboardingValueType, Session } from '@/lib/types';

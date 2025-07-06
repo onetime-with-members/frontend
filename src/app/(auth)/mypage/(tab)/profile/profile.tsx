@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 
 import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import { signOut } from '@/lib/api/actions';
+import { signOut } from '@/lib/api/auth.action';
 import { userQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';
@@ -68,7 +68,7 @@ export default function ProfilePage() {
             </SettingItem>
             <SettingItem>
               <span>{t('version')}</span>
-              <span className="text-primary-40">v 1.4.9</span>
+              <span className="text-primary-40">v 1.4.10</span>
             </SettingItem>
             <SettingItem href="/withdraw" className="text-gray-30 text-sm-200">
               {t('withdraw')}

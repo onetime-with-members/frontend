@@ -11,13 +11,13 @@ import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
-import { useAuth } from '@/lib/api/auth.client';
 import {
   checkNewGuestApi,
   createNewMemberScheduleApi,
   loginGuestApi,
   updateScheduleApi,
-} from '@/lib/api/mutations';
+} from '@/lib/api/actions';
+import { useAuth } from '@/lib/api/auth.client';
 import { eventQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { breakpoint, defaultEvent } from '@/lib/constants';

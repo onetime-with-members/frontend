@@ -12,8 +12,11 @@ importers:
         specifier: ^3.11.0
         version: 3.30.0(react@19.0.0)
       '@tanstack/react-query':
-        specifier: ^5.62.2
-        version: 5.66.11(react@19.0.0)
+        specifier: ^5.81.5
+        version: 5.81.5(react@19.0.0)
+      '@tanstack/react-query-devtools':
+        specifier: ^5.81.5
+        version: 5.81.5(@tanstack/react-query@5.81.5(react@19.0.0))(react@19.0.0)
       axios:
         specifier: ^1.7.9
         version: 1.8.2
@@ -44,6 +47,9 @@ importers:
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
+      p-memoize:
+        specifier: ^7.1.1
+        version: 7.1.1
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -482,11 +488,20 @@ packages:
   '@tabler/icons@3.30.0':
     resolution: {integrity: sha512-c8OKLM48l00u9TFbh2qhSODMONIzML8ajtCyq95rW8vzkWcBrKRPM61tdkThz2j4kd5u17srPGIjqdeRUZdfdw==}
 
-  '@tanstack/query-core@5.66.11':
-    resolution: {integrity: sha512-ZEYxgHUcohj3sHkbRaw0gYwFxjY5O6M3IXOYXEun7E1rqNhsP8fOtqjJTKPZpVHcdIdrmX4lzZctT4+pts0OgA==}
+  '@tanstack/query-core@5.81.5':
+    resolution: {integrity: sha512-ZJOgCy/z2qpZXWaj/oxvodDx07XcQa9BF92c0oINjHkoqUPsmm3uG08HpTaviviZ/N9eP1f9CM7mKSEkIo7O1Q==}
 
-  '@tanstack/react-query@5.66.11':
-    resolution: {integrity: sha512-uPDiQbZScWkAeihmZ9gAm3wOBA1TmLB1KCB1fJ1hIiEKq3dTT+ja/aYM7wGUD+XiEsY4sDSE7p8VIz/21L2Dow==}
+  '@tanstack/query-devtools@5.81.2':
+    resolution: {integrity: sha512-jCeJcDCwKfoyyBXjXe9+Lo8aTkavygHHsUHAlxQKKaDeyT0qyQNLKl7+UyqYH2dDF6UN/14873IPBHchcsU+Zg==}
+
+  '@tanstack/react-query-devtools@5.81.5':
+    resolution: {integrity: sha512-lCGMu4RX0uGnlrlLeSckBfnW/UV+KMlTBVqa97cwK7Z2ED5JKnZRSjNXwoma6sQBTJrcULvzgx2K6jEPvNUpDw==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.81.5
+      react: ^18 || ^19
+
+  '@tanstack/react-query@5.81.5':
+    resolution: {integrity: sha512-lOf2KqRRiYWpQT86eeeftAGnjuTR35myTP8MXyvHa81VlomoAWNEd8x5vkcAfQefu0qtYCvyqLropFZqgI2EQw==}
     peerDependencies:
       react: ^18 || ^19
 
@@ -1688,6 +1703,10 @@ packages:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
 
+  mimic-fn@4.0.0:
+    resolution: {integrity: sha512-vqiC06CuhBTUdZH+RYl8sFrL096vA45Ok5ISO6sE/Mr1jRbGH4Csnhi8f3wKVl7x8mO4Au7Ir9D3Oyv1VYMFJw==}
+    engines: {node: '>=12'}
+
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
 
@@ -1818,6 +1837,10 @@ packages:
   p-locate@5.0.0:
     resolution: {integrity: sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==}
     engines: {node: '>=10'}
+
+  p-memoize@7.1.1:
+    resolution: {integrity: sha512-DZ/bONJILHkQ721hSr/E9wMz5Am/OTJ9P6LhLFo2Tu+jL8044tgc9LwHO8g4PiaYePnlVVRAJcKmgy8J9MVFrA==}
+    engines: {node: '>=14.16'}
 
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
@@ -2300,6 +2323,10 @@ packages:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
+  type-fest@3.13.1:
+    resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
+    engines: {node: '>=14.16'}
+
   typed-array-buffer@1.0.3:
     resolution: {integrity: sha512-nAYYwfY3qnzX30IkA6AQZjVbtK6duGontcQm1WSG1MD94YLqK0515GNApXkoxKOWMusVssAHWLh9SeaoefYFGw==}
     engines: {node: '>= 0.4'}
@@ -2756,11 +2783,19 @@ snapshots:
 
   '@tabler/icons@3.30.0': {}
 
-  '@tanstack/query-core@5.66.11': {}
+  '@tanstack/query-core@5.81.5': {}
 
-  '@tanstack/react-query@5.66.11(react@19.0.0)':
+  '@tanstack/query-devtools@5.81.2': {}
+
+  '@tanstack/react-query-devtools@5.81.5(@tanstack/react-query@5.81.5(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@tanstack/query-core': 5.66.11
+      '@tanstack/query-devtools': 5.81.2
+      '@tanstack/react-query': 5.81.5(react@19.0.0)
+      react: 19.0.0
+
+  '@tanstack/react-query@5.81.5(react@19.0.0)':
+    dependencies:
+      '@tanstack/query-core': 5.81.5
       react: 19.0.0
 
   '@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.5.3)':
@@ -4291,6 +4326,8 @@ snapshots:
     dependencies:
       mime-db: 1.52.0
 
+  mimic-fn@4.0.0: {}
+
   minimatch@3.1.2:
     dependencies:
       brace-expansion: 1.1.11
@@ -4429,6 +4466,11 @@ snapshots:
   p-locate@5.0.0:
     dependencies:
       p-limit: 3.1.0
+
+  p-memoize@7.1.1:
+    dependencies:
+      mimic-fn: 4.0.0
+      type-fest: 3.13.1
 
   package-json-from-dist@1.0.1: {}
 
@@ -4955,6 +4997,8 @@ snapshots:
   type-check@0.4.0:
     dependencies:
       prelude-ls: 1.2.1
+
+  type-fest@3.13.1: {}
 
   typed-array-buffer@1.0.3:
     dependencies:

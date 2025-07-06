@@ -15,22 +15,19 @@ import {
   userQueryOptions,
 } from '@/lib/api/query-options';
 import dayjs from '@/lib/dayjs';
+import getQueryClient from '@/lib/query-client';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from '@tanstack/react-query';
+import { QueryClientProvider, useQuery } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Script from 'next/script';
 
 export function SetUpProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const progressRouter = useProgressRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const { isLoggedIn } = useAuth();
 
@@ -43,13 +40,6 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
     ...userQueryOptions,
     enabled: isLoggedIn,
   });
-
-  useEffect(() => {
-    if (location.hostname === '1-ti.me') {
-      const searchParamsStr = new URLSearchParams(searchParams).toString();
-      location.href = `${process.env.NEXT_PUBLIC_SITE_DOMAIN}${pathname}${searchParamsStr && `?${searchParamsStr}`}`;
-    }
-  }, [pathname, searchParams]);
 
   useEffect(() => {
     localStorage.removeItem('access-token');
@@ -72,10 +62,8 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const localeCookie = getCookie('locale');
     if (!localeCookie) return;
-    if (['ko', 'en'].includes(localeCookie as string)) {
-      dayjs.locale(localeCookie as string);
-      router.refresh();
-    }
+    if (!['ko', 'en'].includes(localeCookie as string)) return;
+    dayjs.locale(localeCookie as string);
   }, []);
 
   useEffect(() => {
@@ -129,12 +117,13 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function QueryProvider({ children }: { children: React.ReactNode }) {
-  const [queryClient] = useState(
-    new QueryClient({ defaultOptions: { queries: { retry: false } } }),
-  );
+  const queryClient = getQueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
 

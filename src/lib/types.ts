@@ -15,6 +15,7 @@ export type ExtendedAxiosError = AxiosError & {
     status: number;
     data: { code: string };
   };
+  config: AxiosError & { _retry: boolean };
 };
 
 export interface EventType {

@@ -12,18 +12,14 @@ import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import useToast from '@/hooks/useToast';
-import { editMyScheduleApi, editSleepTimeApi } from '@/lib/api/mutations';
+import { editMyScheduleApi, editSleepTimeApi } from '@/lib/api/actions';
+import { myScheduleQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { TimeType } from '@/lib/types';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-export default function MyScheduleEditPage({
-  myScheduleData,
-}: {
-  myScheduleData: TimeType[];
-}) {
+export default function MyScheduleEditPage() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
 
@@ -45,24 +41,23 @@ export default function MyScheduleEditPage({
   const router = useRouter();
   const t = useTranslations();
 
-  const { mutateAsync: editMySchedule, isPending: isMyScheduleEditPending } =
-    useMutation({
-      mutationFn: editMyScheduleApi,
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
-      },
-    });
+  const { data: myScheduleData } = useQuery({
+    ...myScheduleQueryOptions,
+  });
 
-  const { mutateAsync: editSleepTime, isPending: isSleepTimeEditPending } =
-    useMutation({
-      mutationFn: editSleepTimeApi,
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ['users'] });
-        router.back();
-      },
-    });
-
-  const isSubmitPending = isMyScheduleEditPending || isSleepTimeEditPending;
+  const { mutateAsync: editMySchedule } = useMutation({
+    mutationFn: editMyScheduleApi,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
+    },
+  });
+  const { mutateAsync: editSleepTime } = useMutation({
+    mutationFn: editSleepTimeApi,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+      router.back();
+    },
+  });
 
   async function handleSubmit(e?: React.FormEvent<HTMLFormElement>) {
     if (e) e.preventDefault();
@@ -119,13 +114,8 @@ export default function MyScheduleEditPage({
                 {t('myScheduleEdit.editMySchedule')}
               </div>
               <div className="flex items-center justify-end">
-                <SmallButton
-                  onClick={() => handleSubmit()}
-                  disabled={isSubmitPending}
-                >
-                  {isSubmitPending
-                    ? t('myScheduleEdit.saving')
-                    : t('myScheduleEdit.done')}
+                <SmallButton onClick={() => handleSubmit()}>
+                  {t('myScheduleEdit.done')}
                 </SmallButton>
               </div>
             </div>

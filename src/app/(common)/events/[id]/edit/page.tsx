@@ -1,5 +1,5 @@
 import EventFormScreen from '@/components/event/form-screen';
-import { fetchEventServer } from '@/lib/api/data';
+import { fetchEvent } from '@/lib/api/data';
 import { eventQueryOptions } from '@/lib/api/query-options';
 import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
@@ -11,7 +11,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }) {
   const { id: eventId } = await params;
-  const event = await fetchEventServer(eventId);
+  const event = await fetchEvent(eventId);
 
   const t404 = await getTranslations('404');
 
