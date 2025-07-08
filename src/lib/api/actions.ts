@@ -53,7 +53,7 @@ export async function editUserLanguageApi(language: 'KOR' | 'ENG') {
 }
 
 export async function editUserPolicyApi(policy: PolicyType) {
-  const res = await axios.patch('/users/profile/action-update', policy);
+  const res = await axios.put('/users/policy', policy);
   return res.data.payload;
 }
 
