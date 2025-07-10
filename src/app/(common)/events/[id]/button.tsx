@@ -137,6 +137,9 @@ export function ToolbarButtons() {
   const { data: event } = useQuery({
     ...eventWithAuthQueryOptions(params.id),
   });
+  const { data: schedules } = useQuery({
+    ...schedulesQueryOptions(event || defaultEvent),
+  });
 
   return (
     <div className="flex items-center gap-2">
@@ -144,13 +147,15 @@ export function ToolbarButtons() {
         <SpeechBalloon.Wrapper>
           <SendButton />
         </SpeechBalloon.Wrapper>
-        <SpeechBalloon.Main
-          width={locale === 'ko' ? 101 : 111}
-          offset={4}
-          position="bottom"
-        >
-          {t('shareMessage')}
-        </SpeechBalloon.Main>
+        {schedules?.length === 0 && (
+          <SpeechBalloon.Main
+            width={locale === 'ko' ? 101 : 111}
+            offset={4}
+            position="bottom"
+          >
+            {t('shareMessage')}
+          </SpeechBalloon.Main>
+        )}
       </SpeechBalloon.Container>
       <ShareKakaoButton />
       {event?.event_status === 'CREATOR' && <ToolbarMenuDropdown />}

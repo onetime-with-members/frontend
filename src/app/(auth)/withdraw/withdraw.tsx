@@ -24,6 +24,7 @@ export default function WithdrawPage() {
       await deleteCookie('session');
       router.push('/');
       router.refresh();
+      window.location.href = '/';
     },
   });
 

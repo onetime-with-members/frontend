@@ -60,50 +60,53 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const localeCookie = getCookie('locale');
-    if (!localeCookie) return;
-    if (!['ko', 'en'].includes(localeCookie as string)) return;
-    dayjs.locale(localeCookie as string);
-  }, []);
-
-  useEffect(() => {
-    async function setUpBrowserLocale() {
-      const localeCookie = getCookie('locale');
-      if (localeCookie || isLoggedIn) return;
-      const locale = window.navigator.language.includes('ko') ? 'ko' : 'en';
-      setCookie('locale', locale, {
-        expires: dayjs().add(1, 'year').toDate(),
-      });
-      dayjs.locale(locale);
-      router.refresh();
-    }
-    setUpBrowserLocale();
-  }, []);
-
-  useEffect(() => {
-    async function setUpUserLocaleLastLogin() {
-      if (!user) return;
-
-      const lastLoginTrigger = getCookie('last-login') !== user.social_platform;
-      if (lastLoginTrigger) {
-        setCookie('last-login', user.social_platform, {
+    async function setUpLocale() {
+      let newLocale: string;
+      const cookieLocale = getCookie('locale');
+      if (cookieLocale) {
+        const parsedCookieLocale = ['ko', 'en'].includes(cookieLocale as string)
+          ? (cookieLocale as string)
+          : 'en';
+        newLocale = parsedCookieLocale;
+        if (isLoggedIn) {
+          const userLocale = user?.language === 'KOR' ? 'ko' : 'en';
+          if (parsedCookieLocale !== userLocale) {
+            await setCookie('locale', userLocale, {
+              expires: dayjs().add(1, 'year').toDate(),
+            });
+            newLocale = userLocale;
+          }
+        }
+      } else {
+        newLocale = isLoggedIn
+          ? user?.language === 'KOR'
+            ? 'ko'
+            : 'en'
+          : window.navigator.language.includes('ko')
+            ? 'ko'
+            : 'en';
+        await setCookie('locale', newLocale, {
           expires: dayjs().add(1, 'year').toDate(),
         });
       }
+      dayjs.locale(newLocale);
+    }
 
-      const newLocale = user.language === 'KOR' ? 'ko' : 'en';
-      const localeTrigger = getCookie('locale') !== newLocale;
-      if (localeTrigger) {
-        setCookie('locale', newLocale, {
+    async function setUpLastLogin() {
+      if (user && getCookie('last-login') !== user.social_platform) {
+        await setCookie('last-login', user.social_platform, {
           expires: dayjs().add(1, 'year').toDate(),
         });
-        dayjs.locale(newLocale);
       }
-
-      if (lastLoginTrigger || localeTrigger) router.refresh();
     }
-    setUpUserLocaleLastLogin();
-  }, []);
+
+    setUpLocale();
+    setUpLastLogin();
+
+    router.refresh();
+  }, [user]);
+
+  useEffect(() => {}, [user]);
 
   useEffect(() => {
     if (pathname.startsWith('/policy') || pathname === '/withdraw') return;
