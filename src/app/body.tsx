@@ -9,11 +9,11 @@ import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/speak-phone';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { useAuth } from '@/lib/api/auth.client';
 import {
   userPolicyQueryOptions,
   userQueryOptions,
 } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import dayjs from '@/lib/dayjs';
 import getQueryClient from '@/lib/query-client';
 import { ProgressLink, useProgressRouter } from '@/navigation';

@@ -17,8 +17,8 @@ import {
   loginGuestApi,
   updateScheduleApi,
 } from '@/lib/api/actions';
-import { useAuth } from '@/lib/api/auth.client';
 import { eventQueryOptions } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { breakpoint, defaultEvent } from '@/lib/constants';
 import { GuestValueType } from '@/lib/types';

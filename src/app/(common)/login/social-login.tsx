@@ -5,10 +5,11 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
-import { signIn } from '@/lib/api/auth.action';
-import { useAuth } from '@/lib/api/auth.client';
+import { signInApi } from '@/lib/api/actions';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -29,6 +30,15 @@ export function SocialLoginCallback({
 
   const { isLoggedIn } = useAuth();
 
+  const { mutateAsync: signIn } = useMutation({
+    mutationFn: signInApi,
+    onSuccess: async () => {
+      const redirectUrl = (await getCookie('redirect-url')) || '/';
+      progressRouter.replace(redirectUrl);
+      await deleteCookie('redirect-url');
+    },
+  });
+
   useEffect(() => {
     async function socialLogin() {
       if (searchParams.redirectUrl) {
@@ -36,10 +46,10 @@ export function SocialLoginCallback({
       }
 
       if (searchParams.accessToken && searchParams.refreshToken) {
-        await signIn(searchParams.accessToken, searchParams.refreshToken);
-        const redirectUrl = (await getCookie('redirect-url')) || '/';
-        await deleteCookie('redirect-url');
-        progressRouter.push(redirectUrl);
+        await signIn({
+          accessToken: searchParams.accessToken,
+          refreshToken: searchParams.refreshToken,
+        });
       } else if (isLoggedIn) {
         progressRouter.replace(
           searchParams.redirectUrl || cookies.redirectUrl || '/',

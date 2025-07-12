@@ -4,7 +4,7 @@ import clockLottie from '@/assets/lotties/landing-clock.json';
 import ClockPattern from '@/components/clock-pattern';
 import Lottie from '@/components/lottie';
 import NavBar from '@/components/nav-bar';
-import auth from '@/lib/api/auth.server';
+import auth from '@/lib/auth/auth.server';
 import cn from '@/lib/cn';
 import { getLocale, getTranslations } from 'next-intl/server';
 import Image from 'next/image';

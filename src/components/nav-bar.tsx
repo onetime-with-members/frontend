@@ -5,8 +5,8 @@ import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
 import useScroll from '@/hooks/useScroll';
-import { useAuth } from '@/lib/api/auth.client';
 import { userQueryOptions } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { defaultUser } from '@/lib/constants';
 import { ProgressLink, useProgressRouter } from '@/navigation';

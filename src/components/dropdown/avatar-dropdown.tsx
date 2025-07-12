@@ -4,10 +4,10 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
 import Avatar from '../avatar';
-import { signOut } from '@/lib/api/auth.action';
+import { signOutApi } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
-import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
 
 export default function AvatarDropdown({
   size = 40,
@@ -64,8 +64,12 @@ function AvatarDropdownMenu({
 }: {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const router = useRouter();
   const t = useTranslations('navbar');
+
+  const { mutateAsync: signOut } = useMutation({
+    mutationFn: signOutApi,
+    onSuccess: async () => window.location.reload(),
+  });
 
   const menuItems: {
     href: string;
@@ -106,8 +110,6 @@ function AvatarDropdownMenu({
 
   async function handleLogout() {
     await signOut();
-    router.refresh();
-    window.location.reload();
   }
 
   function handleMenuItemClick() {

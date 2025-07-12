@@ -2,8 +2,8 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { useAuth } from '@/lib/api/auth.client';
 import { myScheduleQueryOptions } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import { defaultMySchedule } from '@/lib/constants';
 import { MyScheduleTimeType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';

@@ -2,8 +2,8 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { useAuth } from '@/lib/api/auth.client';
 import { sleepTimeQueryOptions } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import { defaultSleepTime } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { SleepTimeType } from '@/lib/types';

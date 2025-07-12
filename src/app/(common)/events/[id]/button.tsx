@@ -11,13 +11,13 @@ import Button from '@/components/button';
 import BadgeButton from '@/components/button/badge-button';
 import { FooterContext } from '@/contexts/footer';
 import useKakaoShare from '@/hooks/useKakaoShare';
-import { useAuth } from '@/lib/api/auth.client';
 import {
   eventQueryOptions,
   eventWithAuthQueryOptions,
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { defaultEvent, defaultScheduleDetail } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
