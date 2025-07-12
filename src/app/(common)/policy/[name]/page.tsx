@@ -1,4 +1,4 @@
-import PolicyContent from './policy-detail';
+import PolicyPage from './policy-detail';
 import NotFound from '@/app/not-found';
 import { POLICY_KEY_LIST } from '@/lib/constants';
 import { PolicyKeyType } from '@/lib/types';
@@ -41,9 +41,5 @@ export default async function Page({
       : 'service_policy_agreement';
   const pageTitle = policyPageTitle(name, locale);
 
-  return (
-    <div className="flex h-full flex-col">
-      <PolicyContent page={page} pageTitle={pageTitle} />
-    </div>
-  );
+  return <PolicyPage page={page} pageTitle={pageTitle} />;
 }

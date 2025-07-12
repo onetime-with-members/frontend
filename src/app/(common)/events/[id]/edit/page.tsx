@@ -1,4 +1,4 @@
-import EventFormScreen from '@/components/event/form-screen';
+import EventEditPage from './event-edit';
 import { fetchEvent } from '@/lib/api/data';
 import { eventQueryOptions } from '@/lib/api/query-options';
 import { QueryClient } from '@tanstack/react-query';
@@ -13,9 +13,9 @@ export async function generateMetadata({
   const { id: eventId } = await params;
   const event = await fetchEvent(eventId);
 
-  const t404 = await getTranslations('404');
-
   if (!event) {
+    const t404 = await getTranslations('404');
+
     return {
       title: `${t404('notFound')} | OneTime`,
     };
@@ -47,16 +47,5 @@ export default async function Page({
     notFound();
   }
 
-  return (
-    <EventFormScreen
-      type="edit"
-      originData={{
-        title: event.title,
-        start_time: event.start_time,
-        end_time: event.end_time,
-        category: event.category,
-        ranges: event.ranges,
-      }}
-    />
-  );
+  return <EventEditPage eventId={eventId} />;
 }

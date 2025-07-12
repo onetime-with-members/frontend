@@ -4,7 +4,7 @@ import PolicyDetailScreen from '@/components/user/policy-detail-screen';
 import { PolicyKeyType } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 
-export default function PolicyContent({
+export default function PolicyPage({
   page,
   pageTitle,
 }: {
@@ -14,10 +14,12 @@ export default function PolicyContent({
   const router = useRouter();
 
   return (
-    <PolicyDetailScreen
-      page={page}
-      pageTitle={pageTitle}
-      onClose={() => router.back()}
-    />
+    <div className="flex h-full flex-col">
+      <PolicyDetailScreen
+        page={page}
+        pageTitle={pageTitle}
+        onClose={() => router.back()}
+      />
+    </div>
   );
 }

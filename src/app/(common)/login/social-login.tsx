@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
+import NavBar from '@/components/nav-bar';
 import { signInAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
@@ -13,7 +14,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-export function SocialLoginCallback({
+export default function LoginPage({
   searchParams,
   cookies,
 }: {
@@ -24,9 +25,11 @@ export function SocialLoginCallback({
   };
   cookies: {
     redirectUrl?: string;
+    lastLogin?: string;
   };
 }) {
   const router = useRouter();
+  const t = useTranslations('login');
 
   const { isLoggedIn } = useAuth();
 
@@ -58,6 +61,50 @@ export function SocialLoginCallback({
     socialLogin();
   }, [searchParams, cookies]);
 
+  return (
+    <div className="flex h-screen flex-col">
+      {/* Navigation Bar */}
+      <NavBar />
+
+      {/* Main Content */}
+      <div className="flex flex-1 items-center justify-center px-4">
+        <div className="mx-auto flex w-full max-w-[22rem] -translate-y-12 flex-col gap-12">
+          {/* Logo Content */}
+          <div className="flex flex-col items-center gap-4">
+            <div className="text-primary-50 title-md-200">{t('logoTitle')}</div>
+            <div>
+              <Image
+                src="/images/logo-auth.svg"
+                alt="로그인 원타임 로고"
+                width={256}
+                height={52}
+                className="w-[16rem] object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Social Login Buttons */}
+          <div className="flex w-full flex-col gap-4">
+            <SocialLoginButton
+              provider="naver"
+              lastLogin={cookies.lastLogin === 'naver'}
+            />
+            <SocialLoginButton
+              provider="kakao"
+              lastLogin={cookies.lastLogin === 'kakao'}
+            />
+            <SocialLoginButton
+              provider="google"
+              lastLogin={cookies.lastLogin === 'google'}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function SocialLoginCallback() {
   return null;
 }
 
