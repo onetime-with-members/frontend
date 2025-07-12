@@ -53,7 +53,7 @@ export default function TabLayout({ children }: { children: React.ReactNode }) {
                 </h1>
                 <div className="flex items-center justify-end">
                   {tabActive === 'schedules' && (
-                    <ProgressLink href="/mypage/schedules/edit">
+                    <ProgressLink href="/mypage/schedule/edit">
                       <PenIcon fill="#31333F" />
                     </ProgressLink>
                   )}
@@ -118,7 +118,7 @@ export default function TabLayout({ children }: { children: React.ReactNode }) {
               <header className="sticky top-[64px] z-20 flex items-center justify-between bg-gray-00 py-2">
                 <h1 className="text-[1.75rem] font-semibold">{pageTitle}</h1>
                 {tabActive === 'schedules' && (
-                  <ProgressLink href="/mypage/schedules/edit">
+                  <ProgressLink href="/mypage/schedule/edit">
                     <PenIcon fill="#31333F" />
                   </ProgressLink>
                 )}

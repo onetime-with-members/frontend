@@ -39,7 +39,7 @@ export default function MyScheduleEverytimeEditPage() {
     mutationFn: submitEverytimeUrlAction,
     onSuccess: (data) => {
       setEverytimeSchedule(data);
-      const editPagePathname = '/mypage/schedules/edit';
+      const editPagePathname = '/mypage/schedule/edit';
       if (searchParams.get('from') !== editPagePathname) {
         progressRouter.replace(editPagePathname);
       } else {

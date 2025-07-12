@@ -30,7 +30,7 @@ export default function EverytimeUI({ className }: { className?: string }) {
         <span className="text-md-300">{t('everytime')}</span>
       </div>
       <ProgressLink
-        href={`/mypage/schedules/everytime/edit?from=${pathname}`}
+        href={`/mypage/schedule/everytime/edit?from=${pathname}`}
         onClick={handleEditButtonClick}
       >
         <IconPlus size={24} />

@@ -216,7 +216,7 @@ function MyScheduleContent() {
           </span>
         </div>
         <ProgressLink
-          href="/mypage/schedules/edit"
+          href="/mypage/schedule/edit"
           className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-05 duration-150 hover:bg-gray-10 active:bg-gray-10"
         >
           <PenIcon fill="#474A5C" size={24} />

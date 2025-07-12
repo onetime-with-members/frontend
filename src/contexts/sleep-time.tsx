@@ -92,8 +92,8 @@ export default function SleepTimeContextProvider({
 
   useEffect(() => {
     const locationsNotToReset = [
-      '/mypage/schedules/edit',
-      '/mypage/schedules/everytime/edit',
+      '/mypage/schedule/edit',
+      '/mypage/schedule/everytime/edit',
     ];
     if (locationsNotToReset.includes(pathname)) return;
     resetSleepTime();
