@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 
 import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import { signOutApi } from '@/lib/api/actions';
+import { signOutAction } from '@/lib/api/actions';
 import { userQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';
@@ -17,7 +17,7 @@ export default function ProfilePage() {
   const t = useTranslations('profile');
 
   const { mutateAsync: signOut } = useMutation({
-    mutationFn: signOutApi,
+    mutationFn: signOutAction,
     onSuccess: async () => (window.location.href = '/'),
   });
 

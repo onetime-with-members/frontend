@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
-import { deleteEventApi } from '@/lib/api/actions';
+import { deleteEventAction } from '@/lib/api/actions';
 import { useProgressRouter } from '@/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, usePathname, useRouter } from 'next/navigation';
@@ -53,7 +53,7 @@ export function EventDeleteAlert({
   const t = useTranslations('alert');
 
   const { mutateAsync: deleteEvent } = useMutation({
-    mutationFn: deleteEventApi,
+    mutationFn: deleteEventAction,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
       router.push('/');

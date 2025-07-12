@@ -6,7 +6,7 @@ import { useState } from 'react';
 import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import NicknameFormControl from '@/components/user/nickname-form-control';
-import { editUserNameApi } from '@/lib/api/actions';
+import { editUserNameAction } from '@/lib/api/actions';
 import { UserType } from '@/lib/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -20,7 +20,7 @@ export default function FormContent({ user }: { user: UserType }) {
   const t = useTranslations('profileEdit');
 
   const { mutate: editUserName } = useMutation({
-    mutationFn: (data: string) => editUserNameApi(data),
+    mutationFn: (data: string) => editUserNameAction(data),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['users'] });
       router.back();

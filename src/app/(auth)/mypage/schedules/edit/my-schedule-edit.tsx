@@ -12,7 +12,7 @@ import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import useToast from '@/hooks/useToast';
-import { editMyScheduleApi, editSleepTimeApi } from '@/lib/api/actions';
+import { editMyScheduleAction, editSleepTimeAction } from '@/lib/api/actions';
 import { myScheduleQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { IconChevronLeft } from '@tabler/icons-react';
@@ -46,13 +46,13 @@ export default function MyScheduleEditPage() {
   });
 
   const { mutateAsync: editMySchedule } = useMutation({
-    mutationFn: editMyScheduleApi,
+    mutationFn: editMyScheduleAction,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
     },
   });
   const { mutateAsync: editSleepTime } = useMutation({
-    mutationFn: editSleepTimeApi,
+    mutationFn: editSleepTimeAction,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['users'] });
       router.back();

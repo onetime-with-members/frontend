@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
-import { signInApi } from '@/lib/api/actions';
+import { signInAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
@@ -31,7 +31,7 @@ export function SocialLoginCallback({
   const { isLoggedIn } = useAuth();
 
   const { mutateAsync: signIn } = useMutation({
-    mutationFn: signInApi,
+    mutationFn: signInAction,
     onSuccess: async () => {
       const redirectUrl = (await getCookie('redirect-url')) || '/';
       progressRouter.replace(redirectUrl);

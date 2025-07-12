@@ -12,10 +12,10 @@ import { FooterContext } from '@/contexts/footer';
 import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
 import {
-  checkNewGuestApi,
-  createNewMemberScheduleApi,
-  loginGuestApi,
-  updateScheduleApi,
+  checkNewGuestAction,
+  createNewMemberScheduleAction,
+  loginGuestAction,
+  updateScheduleAction,
 } from '@/lib/api/actions';
 import { eventQueryOptions } from '@/lib/api/query-options';
 import { useAuth } from '@/lib/auth/auth.client';
@@ -70,13 +70,13 @@ export default function ScheduleAddScreen() {
   });
 
   const { mutateAsync: checkNewGuest } = useMutation({
-    mutationFn: checkNewGuestApi,
+    mutationFn: checkNewGuestAction,
   });
   const { mutateAsync: loginGuest } = useMutation({
-    mutationFn: loginGuestApi,
+    mutationFn: loginGuestAction,
   });
   const { mutateAsync: createNewMemberSchedule } = useMutation({
-    mutationFn: createNewMemberScheduleApi,
+    mutationFn: createNewMemberScheduleAction,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
       await queryClient.invalidateQueries({ queryKey: ['schedules'] });
@@ -84,7 +84,7 @@ export default function ScheduleAddScreen() {
     },
   });
   const { mutateAsync: updateSchedule } = useMutation({
-    mutationFn: updateScheduleApi,
+    mutationFn: updateScheduleAction,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
       await queryClient.invalidateQueries({ queryKey: ['schedules'] });

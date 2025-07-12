@@ -10,7 +10,7 @@ import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { createUserApi } from '@/lib/api/actions';
+import { createUserAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { OnboardingValueType, Session } from '@/lib/types';
@@ -49,7 +49,7 @@ export default function OnboardingPage({
   const redirectUrl = getCookie('redirect-url');
 
   const { mutateAsync: createUser } = useMutation({
-    mutationFn: createUserApi,
+    mutationFn: createUserAction,
     onSuccess: async ({
       access_token: newAccessToken,
       refresh_token: newRefreshToken,

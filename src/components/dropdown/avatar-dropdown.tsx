@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
 import Avatar from '../avatar';
-import { signOutApi } from '@/lib/api/actions';
+import { signOutAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
 import { useMutation } from '@tanstack/react-query';
@@ -67,7 +67,7 @@ function AvatarDropdownMenu({
   const t = useTranslations('navbar');
 
   const { mutateAsync: signOut } = useMutation({
-    mutationFn: signOutApi,
+    mutationFn: signOutAction,
     onSuccess: async () => window.location.reload(),
   });
 

@@ -7,7 +7,7 @@ import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import { PolicyContext } from '@/contexts/policy';
-import { editUserPolicyApi } from '@/lib/api/actions';
+import { editUserPolicyAction } from '@/lib/api/actions';
 import { PolicyKeyType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -27,7 +27,7 @@ export default function PolicyEditPage() {
   const t = useTranslations('policyEdit');
 
   const { mutateAsync: editPolicy } = useMutation({
-    mutationFn: editUserPolicyApi,
+    mutationFn: editUserPolicyAction,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['users'] });
       router.back();

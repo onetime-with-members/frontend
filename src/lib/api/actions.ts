@@ -15,17 +15,17 @@ import {
 } from '../types';
 import axios from './axios';
 
-export async function createUserApi(value: OnboardingValueType) {
+export async function createUserAction(value: OnboardingValueType) {
   const res = await axios.post('/users/onboarding', value);
   return res.data.payload;
 }
 
-export async function createEventApi(event: EventValueType) {
+export async function createEventAction(event: EventValueType) {
   const res = await axios.post('/events', event);
   return res.data.payload;
 }
 
-export async function editEventApi({
+export async function editEventAction({
   eventId,
   event,
 }: {
@@ -36,43 +36,43 @@ export async function editEventApi({
   return res.data.payload;
 }
 
-export async function deleteEventApi(eventId: string) {
+export async function deleteEventAction(eventId: string) {
   const res = await axios.delete(`/events/${eventId}`);
   return res.data.payload;
 }
 
-export async function editUserNameApi(name: string) {
+export async function editUserNameAction(name: string) {
   const res = await axios.patch('/users/profile/action-update', {
     nickname: name,
   });
   return res.data.payload;
 }
 
-export async function editUserLanguageApi(language: 'KOR' | 'ENG') {
+export async function editUserLanguageAction(language: 'KOR' | 'ENG') {
   const res = await axios.patch('/users/profile/action-update', {
     language,
   });
   return res.data.payload;
 }
 
-export async function editUserPolicyApi(policy: PolicyType) {
+export async function editUserPolicyAction(policy: PolicyType) {
   const res = await axios.put('/users/policy', policy);
   return res.data.payload;
 }
 
-export async function editMyScheduleApi(mySchedule: MyScheduleTimeType[]) {
+export async function editMyScheduleAction(mySchedule: MyScheduleTimeType[]) {
   const res = await axios.put('/fixed-schedules', {
     schedules: mySchedule,
   });
   return res.data.payload;
 }
 
-export async function editSleepTimeApi(sleepTime: SleepTimeType) {
+export async function editSleepTimeAction(sleepTime: SleepTimeType) {
   const res = await axios.put('/users/sleep-time', sleepTime);
   return res.data.payload;
 }
 
-export async function submitEverytimeUrlApi(url: string) {
+export async function submitEverytimeUrlAction(url: string) {
   const res = await axios.get(`${CRAWLING_SERVER_API_URL}/schedule`, {
     params: {
       url,
@@ -81,12 +81,12 @@ export async function submitEverytimeUrlApi(url: string) {
   return res.data.payload.schedules;
 }
 
-export async function withdrawApi() {
+export async function withdrawAction() {
   const res = await axios.post('/users/action-withdraw');
   return res.data.payload;
 }
 
-export async function checkNewGuestApi({
+export async function checkNewGuestAction({
   eventId,
   name,
 }: {
@@ -100,7 +100,7 @@ export async function checkNewGuestApi({
   return res.data.payload;
 }
 
-export async function loginGuestApi({
+export async function loginGuestAction({
   eventId,
   name,
   pin,
@@ -128,7 +128,7 @@ export async function loginGuestApi({
   }
 }
 
-export async function createNewMemberScheduleApi({
+export async function createNewMemberScheduleAction({
   eventId,
   name,
   pin,
@@ -148,7 +148,7 @@ export async function createNewMemberScheduleApi({
   return res.data.payload;
 }
 
-export async function updateScheduleApi({
+export async function updateScheduleAction({
   event,
   guestId,
   schedule,
@@ -165,7 +165,7 @@ export async function updateScheduleApi({
   return res.data.payload;
 }
 
-export async function signInApi({
+export async function signInAction({
   accessToken,
   refreshToken,
 }: {
@@ -182,7 +182,7 @@ export async function signInApi({
   return newSession;
 }
 
-export async function signOutApi() {
+export async function signOutAction() {
   const { refreshToken }: Session = JSON.parse(getCookie('session') as string);
   const res = await axios.post('/users/logout', {
     refresh_token: refreshToken,

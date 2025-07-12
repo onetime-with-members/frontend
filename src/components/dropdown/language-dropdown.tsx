@@ -6,7 +6,7 @@ import { useRef } from 'react';
 
 import CheckIcon from '@/components/icon/check';
 import useDropdown from '@/hooks/useDropdown';
-import { editUserLanguageApi } from '@/lib/api/actions';
+import { editUserLanguageAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
@@ -39,7 +39,7 @@ export default function LanguageDropdown({
   const { isLoggedIn } = useAuth();
 
   const { mutateAsync: editUserLanguage } = useMutation({
-    mutationFn: editUserLanguageApi,
+    mutationFn: editUserLanguageAction,
   });
 
   async function handleDropdownMenuItemClick(language: string) {
