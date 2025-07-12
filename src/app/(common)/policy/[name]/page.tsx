@@ -1,4 +1,4 @@
-import PolicyContent from './content';
+import PolicyContent from './policy-detail';
 import NotFound from '@/app/not-found';
 import { POLICY_KEY_LIST } from '@/lib/constants';
 import { PolicyKeyType } from '@/lib/types';
