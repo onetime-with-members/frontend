@@ -6,7 +6,7 @@ export async function generateMetadata() {
   const t = await getTranslations('404');
 
   return {
-    title: `${t('notFound')} | OneTime`,
+    title: t('notFound'),
   };
 }
 

@@ -27,7 +27,10 @@ declare global {
 }
 
 export const metadata: Metadata = {
-  title: 'OneTime',
+  title: {
+    template: '%s | OneTime',
+    default: 'OneTime',
+  },
   description:
     'For our perfect time, share a link just once to coordinate schedules with many people quickly and easily with OneTime',
   keywords:

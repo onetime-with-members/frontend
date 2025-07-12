@@ -17,16 +17,16 @@ export async function generateMetadata({
     const t404 = await getTranslations('404');
 
     return {
-      title: `${t404('notFound')} | OneTime`,
+      title: t404('notFound'),
     };
   }
 
   const t = await getTranslations('editEvent');
 
   return {
-    title: `${t('editEvent', {
+    title: t('editEvent', {
       name: event?.title || '',
-    })} | OneTime`,
+    }),
   };
 }
 

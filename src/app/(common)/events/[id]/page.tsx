@@ -30,12 +30,12 @@ export async function generateMetadata({
     const t404 = await getTranslations('404');
 
     return {
-      title: `${t404('notFound')} | OneTime`,
+      title: t404('notFound'),
     };
   }
 
   return {
-    title: `${event.title || ''} | OneTime`,
+    title: event.title || '',
     openGraph: {
       title: `${event.title || ''} | OneTime`,
       description:

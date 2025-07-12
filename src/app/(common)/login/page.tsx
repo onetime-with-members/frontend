@@ -9,7 +9,7 @@ export async function generateMetadata() {
   const t = await getTranslations('login');
 
   return {
-    title: `${t('login')} | OneTime`,
+    title: t('login'),
   };
 }
 

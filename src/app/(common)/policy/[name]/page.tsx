@@ -19,7 +19,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${policyPageTitle(name, locale)} | OneTime`,
+    title: policyPageTitle(name, locale),
   };
 }
 
