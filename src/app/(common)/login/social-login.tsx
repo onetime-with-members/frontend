@@ -8,10 +8,10 @@ import { SocialLoginType } from './page';
 import { signInAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import { useProgressRouter } from '@/navigation';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export function SocialLoginCallback({
   searchParams,
@@ -26,7 +26,7 @@ export function SocialLoginCallback({
     redirectUrl?: string;
   };
 }) {
-  const progressRouter = useProgressRouter();
+  const router = useRouter();
 
   const { isLoggedIn } = useAuth();
 
@@ -34,7 +34,7 @@ export function SocialLoginCallback({
     mutationFn: signInAction,
     onSuccess: async () => {
       const redirectUrl = (await getCookie('redirect-url')) || '/';
-      progressRouter.replace(redirectUrl);
+      router.replace(redirectUrl);
       await deleteCookie('redirect-url');
     },
   });
@@ -51,9 +51,7 @@ export function SocialLoginCallback({
           refreshToken: searchParams.refreshToken,
         });
       } else if (isLoggedIn) {
-        progressRouter.replace(
-          searchParams.redirectUrl || cookies.redirectUrl || '/',
-        );
+        router.replace(searchParams.redirectUrl || cookies.redirectUrl || '/');
         await deleteCookie('redirect-url');
       }
     }
