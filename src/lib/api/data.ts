@@ -54,8 +54,10 @@ export async function fetchRecommendedTimes(eventId: string) {
 }
 
 export async function fetchSchedules(event: EventType) {
+  if (!event.event_id) return [];
+
   const res = await fetch(
-    `${SERVER_API_URL}/schedules/${event?.category.toLowerCase()}/${event?.event_id}`,
+    `${SERVER_API_URL}/schedules/${event.category.toLowerCase()}/${event.event_id}`,
   );
   if (!res.ok) {
     console.error(await res.json());

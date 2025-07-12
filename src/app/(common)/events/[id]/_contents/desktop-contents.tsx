@@ -1,11 +1,12 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
-import EmptyEventBanner from './empty';
-import { HeadingForDesktop } from './heading';
+import EmptyEventBanner from '../_ui/empty';
 import ClockIcon from '@/components/icon/clock';
 import MemberBadge from '@/components/member-badge';
+import { BarBannerContext } from '@/contexts/bar-banner';
 import {
   eventQueryOptions,
   recommendedTimesQueryOptions,
@@ -182,5 +183,28 @@ function ParticipantsSection({
         </div>
       </div>
     )
+  );
+}
+
+function HeadingForDesktop({
+  children,
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
+  const { isBarBannerShown } = useContext(BarBannerContext);
+
+  return (
+    <h2
+      className={cn(
+        'sticky top-[123px] z-10 bg-gray-05 py-1 text-gray-90 text-lg-300 md:top-[136px]',
+        {
+          'top-[179px] md:top-[192px]': isBarBannerShown,
+        },
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </h2>
   );
 }

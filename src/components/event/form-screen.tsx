@@ -7,7 +7,7 @@ import InputContent from './input-content';
 import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
-import { createEventAction, editEventActuib } from '@/lib/api/actions';
+import { createEventAction, editEventAction } from '@/lib/api/actions';
 import { eventWithAuthQueryOptions } from '@/lib/api/query-options';
 import { breakpoint, defaultEventValue } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
@@ -51,7 +51,7 @@ export default function EventFormScreen({
   });
 
   const { mutateAsync: editEvent } = useMutation({
-    mutationFn: editEventActuib,
+    mutationFn: editEventAction,
     onSuccess: async (_, { eventId }) => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
       progressRouter.push(`/events/${eventId}`);

@@ -5,8 +5,8 @@ import { useTranslations } from 'next-intl';
 import { useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
-import EmptyEventBanner from './empty';
-import { ParticipantsPopUp, RecommendTimePopUp } from './pop-up';
+import EmptyEventBanner from '../_ui/empty';
+import { ParticipantsPopUp, RecommendTimePopUp } from '../_ui/pop-up';
 import CircleArrowButton from '@/components/button/circle-arrow-button';
 import MemberBadge from '@/components/member-badge';
 import useClientWidth from '@/hooks/useClientWidth';
