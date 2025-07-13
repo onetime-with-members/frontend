@@ -38,8 +38,8 @@ export default function LoginPage({
     onSuccess: async () => {
       const redirectUrl =
         searchParams.redirectUrl || (await getCookie('redirect-url')) || '/';
-      router.push(redirectUrl);
       await deleteCookie('redirect-url');
+      window.location.href = redirectUrl;
     },
   });
 
