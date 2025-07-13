@@ -39,7 +39,7 @@ export default function LoginPage({
       const redirectUrl =
         searchParams.redirectUrl || (await getCookie('redirect-url')) || '/';
       await deleteCookie('redirect-url');
-      window.location.href = redirectUrl;
+      router.push(redirectUrl);
     },
   });
 
