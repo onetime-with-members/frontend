@@ -9,7 +9,6 @@ import NavBar from '@/components/nav-bar';
 import { signInAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -33,16 +32,6 @@ export default function LoginPage({
 
   const { isLoggedIn } = useAuth();
 
-  const { mutateAsync: signIn } = useMutation({
-    mutationFn: signInAction,
-    onSuccess: async () => {
-      const redirectUrl =
-        searchParams.redirectUrl || (await getCookie('redirect-url')) || '/';
-      await deleteCookie('redirect-url');
-      router.push(redirectUrl);
-    },
-  });
-
   useEffect(() => {
     async function socialLogin() {
       if (searchParams.redirectUrl) {
@@ -50,10 +39,14 @@ export default function LoginPage({
       }
 
       if (searchParams.accessToken && searchParams.refreshToken) {
-        await signIn({
+        await signInAction({
           accessToken: searchParams.accessToken,
           refreshToken: searchParams.refreshToken,
         });
+        const redirectUrl =
+          searchParams.redirectUrl || (await getCookie('redirect-url')) || '/';
+        await deleteCookie('redirect-url');
+        router.replace(redirectUrl);
       } else if (isLoggedIn) {
         router.replace(searchParams.redirectUrl || cookies.redirectUrl || '/');
         await deleteCookie('redirect-url');
