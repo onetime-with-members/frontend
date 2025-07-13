@@ -1,4 +1,4 @@
-import LoginPage from './social-login';
+import LoginPage from './login';
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';

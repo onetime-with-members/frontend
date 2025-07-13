@@ -36,8 +36,9 @@ export default function LoginPage({
   const { mutateAsync: signIn } = useMutation({
     mutationFn: signInAction,
     onSuccess: async () => {
-      const redirectUrl = (await getCookie('redirect-url')) || '/';
-      router.replace(redirectUrl);
+      const redirectUrl =
+        searchParams.redirectUrl || (await getCookie('redirect-url')) || '/';
+      router.push(redirectUrl);
       await deleteCookie('redirect-url');
     },
   });
