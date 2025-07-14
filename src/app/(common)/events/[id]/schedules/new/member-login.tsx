@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import PinPasswordInput from './pin-password';
 import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
-import NicknameFormControl from '@/components/user/nickname-form-control';
+import NicknameFormControl from '@/components/user/nickname-form-control-legacy';
 import { GuestValueType } from '@/lib/types';
 
 export default function MemberLoginSubScreen({

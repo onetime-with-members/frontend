@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import ScreenLayout from './screen-layout';
-import NicknameFormControl from '@/components/user/nickname-form-control';
+import NicknameFormControl from '@/components/user/nickname-form-control-legacy';
 import { OnboardingValueType } from '@/lib/types';
 
 export default function NicknameFormScreen({
