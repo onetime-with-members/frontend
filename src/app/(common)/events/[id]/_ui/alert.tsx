@@ -21,10 +21,7 @@ export function LoginAlert({
 
   return (
     <Alert
-      onConfirm={(e) => {
-        e.preventDefault();
-        progressRouter.push(`/login?redirect_url=${pathname}`);
-      }}
+      onConfirm={() => progressRouter.push(`/login?redirect_url=${pathname}`)}
       onCancel={() => progressRouter.push(`/events/${params.id}/schedules/new`)}
       onClose={() => setIsOpen(false)}
       confirmText={t('loginConfirm')}
@@ -54,25 +51,20 @@ export function EventDeleteAlert({
 
   const { mutateAsync: deleteEvent } = useMutation({
     mutationFn: deleteEventAction,
-    onSuccess: async () => {
+    onSuccess: async (_, eventId) => {
+      queryClient.removeQueries({ queryKey: ['events', eventId] });
       await queryClient.invalidateQueries({ queryKey: ['events'] });
       router.push('/');
     },
   });
 
-  async function handleDelete(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    await deleteEvent(params.id);
-  }
-
   return (
     <Alert
-      onConfirm={handleDelete}
+      onConfirm={async () => await deleteEvent(params.id)}
       onCancel={() => setIsEventDeleteAlertOpen(false)}
       onClose={() => setIsEventDeleteAlertOpen(false)}
       confirmText={t('deleteEventConfirm')}
       cancelText={t('deleteEventCancel')}
-      pendingText={t('deleteEventConfirming')}
     >
       <div className="flex h-full flex-col items-center gap-1 pb-8 pt-10 text-center">
         <h2 className="text-gray-80 text-lg-300">{t('deleteEventTitle')}</h2>

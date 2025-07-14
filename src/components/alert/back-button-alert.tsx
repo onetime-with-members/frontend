@@ -15,28 +15,17 @@ export default function BackButtonAlert({
   const progressRouter = useProgressRouter();
   const t = useTranslations('alert');
 
-  function handleBackButtonConfirm(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setIsOpen(false);
-  }
-
-  function handleBackButtonCancel() {
-    if (backHref === -1) {
-      router.back();
-    } else {
-      progressRouter.push(backHref);
-    }
-  }
-
-  function handleBackButtonClose() {
-    setIsOpen(false);
-  }
-
   return (
     <Alert
-      onConfirm={handleBackButtonConfirm}
-      onCancel={handleBackButtonCancel}
-      onClose={handleBackButtonClose}
+      onConfirm={() => setIsOpen(false)}
+      onCancel={() => {
+        if (backHref === -1) {
+          router.back();
+        } else {
+          progressRouter.push(backHref);
+        }
+      }}
+      onClose={() => setIsOpen(false)}
       confirmText={t('backButtonConfirm')}
       cancelText={t('backButtonCancel')}
     >
