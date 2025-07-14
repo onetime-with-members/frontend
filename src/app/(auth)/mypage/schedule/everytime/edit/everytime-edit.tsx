@@ -12,10 +12,8 @@ import { FooterContext } from '@/contexts/footer';
 import { submitEverytimeUrlAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { ExtendedAxiosError } from '@/lib/types';
-import {
-  EverytimeUrlSchema,
-  everytimeUrlSchema,
-} from '@/lib/validation/schema';
+import { EverytimeUrlFormType } from '@/lib/validation/form-types';
+import { everytimeUrlSchema } from '@/lib/validation/schema';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft } from '@tabler/icons-react';
@@ -68,7 +66,7 @@ function FormContent() {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<EverytimeUrlSchema>({
+  } = useForm<EverytimeUrlFormType>({
     resolver: zodResolver(everytimeUrlSchema),
   });
 
@@ -91,7 +89,7 @@ function FormContent() {
 
   const axiosError = error as ExtendedAxiosError | null;
 
-  const onSubmit: SubmitHandler<EverytimeUrlSchema> = async ({ url }) => {
+  const onSubmit: SubmitHandler<EverytimeUrlFormType> = async ({ url }) => {
     setIsTouched(false);
     await submitEverytimeUrl(url);
   };

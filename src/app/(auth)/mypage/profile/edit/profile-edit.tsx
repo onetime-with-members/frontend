@@ -15,10 +15,8 @@ import cn from '@/lib/cn';
 import { defaultUser } from '@/lib/constants';
 import { UserType } from '@/lib/types';
 import validationCodes from '@/lib/validation/codes';
-import {
-  ProfileNicknameSchema,
-  profileNicknameSchema,
-} from '@/lib/validation/schema';
+import { ProfileNicknameFormType } from '@/lib/validation/form-types';
+import { profileNicknameSchema } from '@/lib/validation/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -82,7 +80,7 @@ function FormContent({ user }: { user: UserType }) {
     register,
     formState: { errors, isValid },
     reset,
-  } = useForm<ProfileNicknameSchema>({
+  } = useForm<ProfileNicknameFormType>({
     mode: 'onChange',
     resolver: zodResolver(profileNicknameSchema),
     defaultValues: {
@@ -101,7 +99,7 @@ function FormContent({ user }: { user: UserType }) {
 
   const { MAX, REGEX } = validationCodes.profileNickname;
 
-  const onSubmit: SubmitHandler<ProfileNicknameSchema> = async ({
+  const onSubmit: SubmitHandler<ProfileNicknameFormType> = async ({
     nickname,
   }) => {
     await editUserName(nickname);
