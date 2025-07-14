@@ -7,18 +7,17 @@ import useDragSelect from '@/hooks/useDragSelect';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { EventValueType } from '@/lib/types';
 import { eventTarget } from '@/lib/utils';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 export function WeekdaySelect({
   className,
-  value,
-  setValue,
+  ranges,
+  setRanges,
 }: {
   className?: string;
-  value: EventValueType;
-  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
+  ranges: string[];
+  setRanges: (ranges: string[]) => void;
 }) {
   const { weekdaysShort } = useContext(WeekdayLocaleContext);
 
@@ -38,12 +37,11 @@ export function WeekdaySelect({
     const weekdayData = target.dataset.weekday;
     if (!weekdayData) return;
     const weekday = weekdayKOR(weekdayData);
-    setValue((prev) => ({
-      ...prev,
-      ranges: isFilling
-        ? Array.from(new Set([...prev.ranges, weekday]))
-        : prev.ranges.filter((range) => range !== weekday),
-    }));
+    setRanges(
+      isFilling
+        ? Array.from(new Set([...ranges, weekday]))
+        : ranges.filter((range) => range !== weekday),
+    );
   }
 
   function weekdayKOR(weekday: string) {
@@ -51,7 +49,7 @@ export function WeekdaySelect({
   }
 
   function isActive(weekday: string) {
-    return value.ranges.includes(weekdayKOR(weekday));
+    return ranges.includes(weekdayKOR(weekday));
   }
 
   return (
@@ -80,12 +78,12 @@ export function WeekdaySelect({
 
 export function CalendarSelect({
   className,
-  value,
-  setValue,
+  ranges,
+  setRanges,
 }: {
   className?: string;
-  value: EventValueType;
-  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
+  ranges: string[];
+  setRanges: (ranges: string[]) => void;
 }) {
   const [currentDate, setCurrentDate] = useState(dayjs());
 
@@ -128,12 +126,11 @@ export function CalendarSelect({
     if (target.getAttribute('aria-disabled') === 'true') return;
     const date = target.dataset.date;
     if (!date) return;
-    setValue((prev) => ({
-      ...prev,
-      ranges: isFilling
-        ? Array.from(new Set([...prev.ranges, date]))
-        : prev.ranges.filter((range) => range !== date),
-    }));
+    setRanges(
+      isFilling
+        ? Array.from(new Set([...ranges, date]))
+        : ranges.filter((range) => range !== date),
+    );
   }
 
   return (
@@ -184,19 +181,19 @@ export function CalendarSelect({
               <DateItem
                 key={date}
                 data-date={currentDateFormat(date)}
-                active={value.ranges.includes(currentDateFormat(date))}
+                active={ranges.includes(currentDateFormat(date))}
                 disabled={currentDate.date(date).isBefore(dayjs(), 'date')}
                 aria-disabled={currentDate.date(date).isBefore(dayjs(), 'date')}
                 onMouseDown={() =>
                   handleDragStart({
-                    isFilling: !value.ranges.includes(currentDateFormat(date)),
+                    isFilling: !ranges.includes(currentDateFormat(date)),
                   })
                 }
                 onMouseMove={handleDragMove}
                 onMouseUp={handleDragEnd}
                 onTouchStart={() =>
                   handleDragStart({
-                    isFilling: !value.ranges.includes(currentDateFormat(date)),
+                    isFilling: !ranges.includes(currentDateFormat(date)),
                   })
                 }
                 onTouchMove={handleDragMove}

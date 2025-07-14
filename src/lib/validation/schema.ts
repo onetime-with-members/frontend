@@ -1,5 +1,6 @@
 import z from 'zod';
 
+import dayjs from '../dayjs';
 import validationCodes from './codes';
 
 const { profileNickname } = validationCodes;
@@ -17,3 +18,15 @@ export const profileNicknameSchema = z.object({
 export const everytimeUrlSchema = z.object({
   url: z.string().min(1),
 });
+
+export const eventSchema = z
+  .object({
+    title: z.string().trim().min(1).max(50),
+    start_time: z.iso.time(),
+    end_time: z.union([z.iso.time(), z.literal('24:00')]),
+    category: z.union([z.literal('DATE'), z.literal('DAY')]),
+    ranges: z.array(z.string()).min(1),
+  })
+  .refine(({ start_time, end_time }) =>
+    dayjs(start_time, 'HH:mm').isBefore(dayjs(end_time, 'HH:mm')),
+  );

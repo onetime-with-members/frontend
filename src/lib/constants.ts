@@ -1,7 +1,7 @@
+import { EventFormType } from './validation/form-types';
 import {
   BarBanner,
   EventType,
-  EventValueType,
   MyEventType,
   MyScheduleTimeType,
   PolicyType,
@@ -49,7 +49,7 @@ export const defaultEvent: EventType = {
   event_status: 'PARTICIPANT',
 };
 
-export const defaultEventValue: EventValueType = {
+export const defaultEventValue: EventFormType = {
   title: '',
   start_time: '09:00',
   end_time: '24:00',

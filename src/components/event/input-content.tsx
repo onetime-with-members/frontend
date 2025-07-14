@@ -1,50 +1,38 @@
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
+import {
+  Control,
+  UseFormRegister,
+  UseFormSetValue,
+  useFieldArray,
+} from 'react-hook-form';
 
 import { CalendarSelect, WeekdaySelect } from './select';
 import TimeDropdown from '@/components/dropdown/time-dropdown';
 import Input from '@/components/input';
 import { PageModeContext } from '@/contexts/page-mode';
 import cn from '@/lib/cn';
-import { EventType, EventValueType } from '@/lib/types';
-
-interface InputContentBlockProps {
-  value: EventValueType;
-  setValue: React.Dispatch<React.SetStateAction<EventValueType>>;
-}
+import { EventFormType } from '@/lib/validation/form-types';
 
 export default function InputContent({
   value,
+  register,
   setValue,
-}: InputContentBlockProps) {
+  control,
+}: {
+  value: EventFormType;
+  register: UseFormRegister<EventFormType>;
+  setValue: UseFormSetValue<EventFormType>;
+  control: Control<EventFormType>;
+}) {
+  const { replace: setRanges } = useFieldArray<EventFormType>({
+    control,
+    name: 'ranges' as never,
+  });
+
   const t = useTranslations('eventForm');
 
   const { pageMode } = useContext(PageModeContext);
-
-  function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if (e.target.value.length > 50) return;
-    setValue((prev) => ({
-      ...prev,
-      title: e.target.value,
-    }));
-  }
-
-  function handleSelectTime(key: keyof EventType) {
-    return function (time: string) {
-      setValue((prev) => ({
-        ...prev,
-        [key]: time,
-      }));
-    };
-  }
-
-  function handleSelectChip(chip: 'DATE' | 'DAY') {
-    setValue((prev) => ({
-      ...prev,
-      category: chip,
-      ranges: [],
-    }));
-  }
 
   return (
     <div className="flex w-full flex-col justify-center gap-10 rounded-3xl bg-gray-00 px-4 py-6 md:flex-row md:px-6">
@@ -57,12 +45,9 @@ export default function InputContent({
             description={t('max50Characters')}
           />
           <Input
-            type="text"
+            {...register('title')}
             id="title"
-            name="title"
             placeholder={t('enterEventName')}
-            value={value.title}
-            onChange={handleTitleChange}
           />
         </div>
 
@@ -78,13 +63,13 @@ export default function InputContent({
               <TimeDropdown
                 className="w-[7.5rem]"
                 time={value.start_time}
-                setTime={handleSelectTime('start_time')}
+                setTime={(time: string) => setValue('start_time', time)}
               />
               <span className="text-gray-70 text-md-300">-</span>
               <TimeDropdown
                 className="w-[7.5rem]"
                 time={value.end_time}
-                setTime={handleSelectTime('end_time')}
+                setTime={(time: string) => setValue('end_time', time)}
               />
             </div>
           </div>
@@ -110,24 +95,36 @@ export default function InputContent({
                 <Chip
                   type="button"
                   active={value.category === 'DATE'}
-                  onClick={() => handleSelectChip('DATE')}
+                  onClick={() => {
+                    setValue('category', 'DATE');
+                    setRanges([]);
+                  }}
                 >
                   {t('date')}
                 </Chip>
                 <Chip
                   type="button"
                   active={value.category === 'DAY'}
-                  onClick={() => handleSelectChip('DAY')}
+                  onClick={() => {
+                    setValue('category', 'DAY');
+                    setRanges([]);
+                  }}
                 >
                   {t('weekday')}
                 </Chip>
               </div>
             )}
             {value.category === 'DAY' ? (
-              <WeekdaySelect value={value} setValue={setValue} />
+              <WeekdaySelect
+                ranges={value.ranges}
+                setRanges={(ranges) => setRanges(ranges)}
+              />
             ) : (
               value.category === 'DATE' && (
-                <CalendarSelect value={value} setValue={setValue} />
+                <CalendarSelect
+                  ranges={value.ranges}
+                  setRanges={(ranges) => setRanges(ranges)}
+                />
               )
             )}
           </div>
