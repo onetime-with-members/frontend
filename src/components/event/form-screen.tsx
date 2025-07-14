@@ -23,6 +23,7 @@ import { useParams, useRouter } from 'next/navigation';
 
 export default function EventFormScreen({
   type,
+  originData,
 }: {
   type: 'create' | 'edit';
   originData?: EventValueType;
@@ -36,9 +37,10 @@ export default function EventFormScreen({
     formState: { isValid },
     control,
     watch,
+    reset,
   } = useForm<EventFormType>({
     mode: 'onChange',
-    defaultValues: defaultEventValue,
+    defaultValues: originData || defaultEventValue,
     resolver: zodResolver(eventSchema),
   });
 
@@ -76,6 +78,10 @@ export default function EventFormScreen({
       await editEvent({ eventId: params.id, event: data });
     }
   };
+
+  useEffect(() => {
+    if (originData) reset(originData);
+  }, [originData]);
 
   useEffect(() => {
     if (!event) return;
