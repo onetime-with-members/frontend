@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import Button from '@/components/button';
 import Input from '@/components/input';
@@ -11,60 +12,20 @@ import { FooterContext } from '@/contexts/footer';
 import { submitEverytimeUrlAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { ExtendedAxiosError } from '@/lib/types';
+import {
+  EverytimeUrlSchema,
+  everytimeUrlSchema,
+} from '@/lib/validation/schema';
 import { useProgressRouter } from '@/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function MyScheduleEverytimeEditPage() {
-  const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [isTouched, setIsTouched] = useState(false);
-  const [everytimeUrl, setEverytimeUrl] = useState('');
-
-  const { setEverytimeSchedule } = useContext(EverytimeScheduleContext);
-
-  const router = useRouter();
   const progressRouter = useProgressRouter();
-  const searchParams = useSearchParams();
-
   const t = useTranslations('everytimeScheduleEdit');
-  const locale = useLocale();
-
-  const {
-    mutateAsync: submitEverytimeUrl,
-    error,
-    isPending,
-  } = useMutation({
-    mutationFn: submitEverytimeUrlAction,
-    onSuccess: (data) => {
-      setEverytimeSchedule(data);
-      const editPagePathname = '/mypage/schedule/edit';
-      if (searchParams.get('from') !== editPagePathname) {
-        progressRouter.replace(editPagePathname);
-      } else {
-        router.back();
-      }
-    },
-  });
-
-  const axiosError = error as ExtendedAxiosError | null;
-
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setEverytimeUrl(e.target.value);
-    setIsTouched(true);
-    if (e.target.value === '') {
-      setButtonDisabled(true);
-    } else {
-      setButtonDisabled(false);
-    }
-  }
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setIsTouched(false);
-    await submitEverytimeUrl(everytimeUrl);
-  }
 
   return (
     <>
@@ -86,45 +47,96 @@ export default function MyScheduleEverytimeEditPage() {
 
       {/* Main Content */}
       <main className="px-4 pb-20 pt-4">
-        <form
-          onSubmit={handleSubmit}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') e.preventDefault();
-          }}
-        >
-          <div className="mx-auto flex max-w-screen-sm flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <p className="text-gray-40 text-md-100">{t('description')}</p>
-              <Input
-                value={everytimeUrl}
-                onChange={handleInputChange}
-                placeholder={t('placeholder')}
-              />
-              <p className="text-gray-40 text-sm-100">* {t('publicWarning')}</p>
-            </div>
-            <div className="overflow-hidden rounded-2xl">
-              <Image
-                src={
-                  locale === 'ko'
-                    ? '/images/everytime-url-guide-ko.png'
-                    : '/images/everytime-url-guide-en.png'
-                }
-                alt="Setting Icon -> Copy URL"
-                width={640}
-                height={792}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </div>
-          <BottomButton
-            disabled={buttonDisabled}
-            errorCode={axiosError?.response.data.code || null}
-            isTouched={isTouched}
-            isPending={isPending}
-          />
-        </form>
+        <FormContent />
       </main>
     </>
+  );
+}
+
+function FormContent() {
+  const [isTouched, setIsTouched] = useState(false);
+
+  const { setEverytimeSchedule } = useContext(EverytimeScheduleContext);
+
+  const router = useRouter();
+  const progressRouter = useProgressRouter();
+  const searchParams = useSearchParams();
+  const locale = useLocale();
+  const t = useTranslations('everytimeScheduleEdit');
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm<EverytimeUrlSchema>({
+    resolver: zodResolver(everytimeUrlSchema),
+  });
+
+  const {
+    mutateAsync: submitEverytimeUrl,
+    error,
+    isPending,
+  } = useMutation({
+    mutationFn: submitEverytimeUrlAction,
+    onSuccess: (data) => {
+      setEverytimeSchedule(data);
+      const editPagePathname = '/mypage/schedule/edit';
+      if (searchParams.get('from') !== editPagePathname) {
+        progressRouter.replace(editPagePathname);
+      } else {
+        router.back();
+      }
+    },
+  });
+
+  const axiosError = error as ExtendedAxiosError | null;
+
+  const onSubmit: SubmitHandler<EverytimeUrlSchema> = async ({ url }) => {
+    setIsTouched(false);
+    await submitEverytimeUrl(url);
+  };
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') e.preventDefault();
+      }}
+    >
+      <div className="mx-auto flex max-w-screen-sm flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <p className="text-gray-40 text-md-100">{t('description')}</p>
+          <Input
+            {...register('url')}
+            onChange={(e) => {
+              setIsTouched(true);
+              register('url').onChange(e);
+            }}
+            placeholder={t('placeholder')}
+          />
+          <p className="text-gray-40 text-sm-100">* {t('publicWarning')}</p>
+        </div>
+        <div className="overflow-hidden rounded-2xl">
+          <Image
+            src={
+              locale === 'ko'
+                ? '/images/everytime-url-guide-ko.png'
+                : '/images/everytime-url-guide-en.png'
+            }
+            alt="Setting Icon -> Copy URL"
+            width={640}
+            height={792}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+      <BottomButton
+        disabled={!isValid}
+        errorCode={axiosError?.response.data.code || null}
+        isTouched={isTouched}
+        isPending={isPending}
+      />
+    </form>
   );
 }
 

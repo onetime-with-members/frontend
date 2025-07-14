@@ -15,3 +15,9 @@ export const profileNicknameSchema = z.object({
 });
 
 export type ProfileNicknameSchema = z.infer<typeof profileNicknameSchema>;
+
+export const everytimeUrlSchema = z.object({
+  url: z.string().min(1),
+});
+
+export type EverytimeUrlSchema = z.infer<typeof everytimeUrlSchema>;
