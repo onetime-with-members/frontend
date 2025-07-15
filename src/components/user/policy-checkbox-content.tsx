@@ -2,13 +2,15 @@ import { useTranslations } from 'next-intl';
 
 import CheckIcon from '@/components/icon/check';
 import cn from '@/lib/cn';
-import { PolicyKeyType, PolicyType } from '@/lib/types';
+import { PolicyFormType } from '@/lib/validation/form-types';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface PolicyCheckboxContentProps {
-  value: PolicyType;
-  setValue: React.Dispatch<React.SetStateAction<PolicyType>>;
-  setPageDetail: React.Dispatch<React.SetStateAction<PolicyKeyType | null>>;
+  value: PolicyFormType;
+  setValue: React.Dispatch<React.SetStateAction<PolicyFormType>>;
+  setPageDetail: React.Dispatch<
+    React.SetStateAction<keyof PolicyFormType | null>
+  >;
 }
 
 export default function PolicyCheckboxContent({
@@ -23,7 +25,7 @@ export default function PolicyCheckboxContent({
       <AllCheckItem value={value} setValue={setValue} />
       <div className="flex flex-col gap-6 px-4">
         <CheckItem
-          checkedKey="service_policy_agreement"
+          checkedKey="servicePolicy"
           value={value}
           setValue={setValue}
           setPageDetail={setPageDetail}
@@ -32,7 +34,7 @@ export default function PolicyCheckboxContent({
           {t('termsOfService')}
         </CheckItem>
         <CheckItem
-          checkedKey="privacy_policy_agreement"
+          checkedKey="privacyPolicy"
           value={value}
           setValue={setValue}
           setPageDetail={setPageDetail}
@@ -41,7 +43,7 @@ export default function PolicyCheckboxContent({
           {t('privacyPolicy')}
         </CheckItem>
         <CheckItem
-          checkedKey="marketing_policy_agreement"
+          checkedKey="marketingPolicy"
           value={value}
           setValue={setValue}
           setPageDetail={setPageDetail}
@@ -62,10 +64,12 @@ function CheckItem({
   hasPageDetail,
 }: {
   children: React.ReactNode;
-  checkedKey: keyof PolicyType;
-  value: PolicyType;
-  setValue: React.Dispatch<React.SetStateAction<PolicyType>>;
-  setPageDetail: React.Dispatch<React.SetStateAction<PolicyKeyType | null>>;
+  checkedKey: keyof PolicyFormType;
+  value: PolicyFormType;
+  setValue: React.Dispatch<React.SetStateAction<PolicyFormType>>;
+  setPageDetail: React.Dispatch<
+    React.SetStateAction<keyof PolicyFormType | null>
+  >;
   hasPageDetail?: boolean;
 }) {
   function handleCheckboxClick(event: React.MouseEvent) {
@@ -77,10 +81,7 @@ function CheckItem({
   }
 
   function handlePageDetailOpen() {
-    if (
-      checkedKey === 'service_policy_agreement' ||
-      checkedKey === 'privacy_policy_agreement'
-    ) {
+    if (checkedKey === 'servicePolicy' || checkedKey === 'privacyPolicy') {
       setPageDetail(checkedKey);
     } else {
       setPageDetail(null);
@@ -114,22 +115,20 @@ function AllCheckItem({
   value,
   setValue,
 }: {
-  value: PolicyType;
-  setValue: React.Dispatch<React.SetStateAction<PolicyType>>;
+  value: PolicyFormType;
+  setValue: React.Dispatch<React.SetStateAction<PolicyFormType>>;
 }) {
   const t = useTranslations('policyEdit');
 
   function handleAllCheckboxClick() {
     const isNewAllChecked =
-      !value.service_policy_agreement ||
-      !value.privacy_policy_agreement ||
-      !value.marketing_policy_agreement;
+      !value.servicePolicy || !value.privacyPolicy || !value.marketingPolicy;
 
     setValue((prevValue) => ({
       ...prevValue,
-      service_policy_agreement: isNewAllChecked,
-      privacy_policy_agreement: isNewAllChecked,
-      marketing_policy_agreement: isNewAllChecked,
+      servicePolicy: isNewAllChecked,
+      privacyPolicy: isNewAllChecked,
+      marketingPolicy: isNewAllChecked,
     }));
   }
 
@@ -140,9 +139,7 @@ function AllCheckItem({
     >
       <Checkbox
         checked={
-          value.service_policy_agreement &&
-          value.privacy_policy_agreement &&
-          value.marketing_policy_agreement
+          value.servicePolicy && value.privacyPolicy && value.marketingPolicy
         }
       />
       <span className="text-gray-90 text-md-300">{t('all')}</span>

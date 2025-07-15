@@ -1,10 +1,9 @@
-import { EventFormType } from './validation/form-types';
+import { EventFormType, PolicyFormType } from './validation/form-types';
 import {
   BarBanner,
   EventType,
   MyEventType,
   MyScheduleTimeType,
-  PolicyType,
   ScheduleType,
   SleepTimeType,
   UserType,
@@ -110,10 +109,10 @@ export const defaultUser: UserType = {
   social_platform: 'google',
 };
 
-export const defaultPolicy: PolicyType = {
-  service_policy_agreement: true,
-  privacy_policy_agreement: true,
-  marketing_policy_agreement: true,
+export const defaultPolicy: PolicyFormType = {
+  servicePolicy: true,
+  privacyPolicy: true,
+  marketingPolicy: true,
 };
 
 export const SKELETON_GRAY = '#e8e9ed77';

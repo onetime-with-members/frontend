@@ -17,6 +17,12 @@ export const profileNicknameSchema = z.object({
   nickname: nicknameSchema,
 });
 
+export const policySchema = z.object({
+  servicePolicy: z.boolean().refine((value) => value),
+  privacyPolicy: z.boolean().refine((value) => value),
+  marketingPolicy: z.boolean(),
+});
+
 export const everytimeUrlSchema = z.object({
   url: z.string().min(1),
 });

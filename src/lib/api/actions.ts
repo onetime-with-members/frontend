@@ -7,12 +7,11 @@ import {
   EventType,
   MyScheduleTimeType,
   OnboardingValueType,
-  PolicyType,
   ScheduleType,
   Session,
   SleepTimeType,
 } from '../types';
-import { EventFormType } from '../validation/form-types';
+import { EventFormType, PolicyFormType } from '../validation/form-types';
 import axios from './axios';
 
 export async function createUserAction(value: OnboardingValueType) {
@@ -55,8 +54,12 @@ export async function editUserLanguageAction(language: 'KOR' | 'ENG') {
   return res.data.payload;
 }
 
-export async function editUserPolicyAction(policy: PolicyType) {
-  const res = await axios.put('/users/policy', policy);
+export async function editUserPolicyAction(policy: PolicyFormType) {
+  const res = await axios.put('/users/policy', {
+    service_policy_agreement: policy.servicePolicy,
+    privacy_policy_agreement: policy.privacyPolicy,
+    marketing_policy_agreement: policy.marketingPolicy,
+  });
   return res.data.payload;
 }
 

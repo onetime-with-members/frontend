@@ -3,11 +3,11 @@ import {
   EventType,
   MyEventType,
   MyScheduleTimeType,
-  PolicyType,
   ScheduleType,
   SleepTimeType,
   UserType,
 } from '../types';
+import { PolicyFormType } from '../validation/form-types';
 import {
   fetchEvent,
   fetchEventWithAuth,
@@ -101,7 +101,7 @@ export const sleepTimeQueryOptions = queryOptions<SleepTimeType>({
   placeholderData: defaultSleepTime,
 });
 
-export const userPolicyQueryOptions = queryOptions<PolicyType>({
+export const userPolicyQueryOptions = queryOptions<PolicyFormType>({
   queryKey: ['users', 'policy'],
   queryFn: fetchUserPolicy,
 });
