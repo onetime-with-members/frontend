@@ -1,5 +1,5 @@
 const validationCodes = {
-  profileNickname: {
+  nickname: {
     MIN: 'MIN',
     MAX: 'MAX',
     REGEX: 'REGEX',

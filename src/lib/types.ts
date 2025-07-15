@@ -28,14 +28,6 @@ export interface EventType {
   event_status: 'CREATOR' | 'PARTICIPANT';
 }
 
-export interface EventValueType {
-  title: string;
-  start_time: string;
-  end_time: string;
-  category: 'DATE' | 'DAY';
-  ranges: string[];
-}
-
 export interface MyEventType {
   title: string;
   participant_count: number;
@@ -85,6 +77,8 @@ export interface UserType {
 }
 
 export interface GuestValueType {
+  isNewGuest: boolean;
+  guestId: string;
   name: string;
   pin: string;
 }

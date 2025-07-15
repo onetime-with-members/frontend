@@ -6,39 +6,29 @@ import { useContext, useEffect, useState } from 'react';
 import MemberLoginSubScreen from './member-login';
 import ScheduleFormSubScreen from './schedule-form';
 import BackButtonAlert from '@/components/alert/back-button-alert';
-import SmallButton from '@/components/button/small-button';
+import GrayBackground from '@/components/gray-background';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import useGrayBackground from '@/hooks/useGrayBackground';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
-import {
-  checkNewGuestAction,
-  createNewMemberScheduleAction,
-  loginGuestAction,
-  updateScheduleAction,
-} from '@/lib/api/actions';
 import { eventQueryOptions } from '@/lib/api/query-options';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import { breakpoint, defaultEvent } from '@/lib/constants';
 import { GuestValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export default function ScheduleAddScreen() {
   const { isLoggedIn } = useAuth();
 
   const [pageIndex, setPageIndex] = useState(isLoggedIn ? 1 : 0);
-  const [isNewGuest, setIsNewGuest] = useState(false);
-  const [guestId, setGuestId] = useState('');
   const [guestValue, setGuestValue] = useState<GuestValueType>({
+    isNewGuest: false,
+    guestId: '',
     name: '',
     pin: '',
   });
-  const [disabled, setDisabled] = useState(true);
-  const [nicknameDisabled, setNicknameDisabled] = useState(true);
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);
   const [isScheduleEdited, setIsScheduleEdited] = useState(false);
 
@@ -46,7 +36,6 @@ export default function ScheduleAddScreen() {
 
   const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
-  const queryClient = useQueryClient();
   const t = useTranslations('scheduleAdd');
 
   const {
@@ -58,84 +47,13 @@ export default function ScheduleAddScreen() {
     isSleepTimeEmpty,
   } = useScheduleAdd({
     isLoggedIn,
-    guestId,
+    guestId: guestValue.guestId,
     eventId: params.id,
-  });
-  useGrayBackground({
-    breakpointCondition: () => window.innerWidth >= breakpoint.sm,
   });
 
   const { data: event } = useQuery({
     ...eventQueryOptions(params.id),
   });
-
-  const { mutateAsync: checkNewGuest } = useMutation({
-    mutationFn: checkNewGuestAction,
-  });
-  const { mutateAsync: loginGuest } = useMutation({
-    mutationFn: loginGuestAction,
-  });
-  const { mutateAsync: createNewMemberSchedule } = useMutation({
-    mutationFn: createNewMemberScheduleAction,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
-      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
-      progressRouter.push(`/events/${params.id}`);
-    },
-  });
-  const { mutateAsync: updateSchedule } = useMutation({
-    mutationFn: updateScheduleAction,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
-      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
-      progressRouter.push(`/events/${params.id}`);
-    },
-  });
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    if ((e.target as HTMLElement).getAttribute('id') !== 'schedule-add') return;
-
-    if (pageIndex === 0) {
-      if (disabled) return;
-
-      const { is_possible: isNewGuestData } = await checkNewGuest({
-        eventId: params.id,
-        name: guestValue.name,
-      });
-      setIsNewGuest(isNewGuestData);
-      if (isNewGuestData) {
-        return setPageIndex(1);
-      }
-
-      const { guestId, pinNotCorrect } = await loginGuest({
-        eventId: params.id,
-        name: guestValue.name,
-        pin: guestValue.pin,
-      });
-      if (pinNotCorrect) {
-        return alert('PIN 번호가 올바르지 않습니다.');
-      } else if (!guestId) {
-        return alert('로그인 도중 에러가 발생했습니다.');
-      }
-      setGuestId(guestId);
-      setPageIndex(1);
-    } else if (isNewGuest) {
-      await createNewMemberSchedule({
-        eventId: params.id,
-        name: guestValue.name,
-        pin: guestValue.pin,
-        schedule: scheduleValue[0].schedules,
-      });
-    } else {
-      await updateSchedule({
-        event: event || defaultEvent,
-        guestId,
-        schedule: scheduleValue[0].schedules,
-      });
-    }
-  }
 
   function handleBackButtonClick() {
     if (pageIndex === 0) {
@@ -168,23 +86,11 @@ export default function ScheduleAddScreen() {
     };
   });
 
-  useEffect(() => {
-    setDisabled(
-      guestValue.name === '' ||
-        guestValue.pin.length !== 4 ||
-        guestValue.pin.includes('-') ||
-        nicknameDisabled,
-    );
-  }, [guestValue, nicknameDisabled]);
-
   return (
-    <form
-      id="schedule-add"
-      onSubmit={handleSubmit}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') e.preventDefault();
-      }}
-    >
+    <>
+      {/* Gray Background */}
+      <GrayBackground device="desktop" breakpoint="sm" />
+
       {/* Navigation Bar for Desktop */}
       <NavBar className="hidden sm:flex" shadow={false} />
       {/* App Bar for Mobile */}
@@ -199,11 +105,7 @@ export default function ScheduleAddScreen() {
             <h2 className="flex items-center justify-center whitespace-nowrap text-center text-gray-90 text-lg-300">
               {t('enterSchedule')}
             </h2>
-            {pageIndex === 1 && (
-              <div className="flex items-center justify-end">
-                <SmallButton>{t('done')}</SmallButton>
-              </div>
-            )}
+            <div id="schedule-submit-button" />
           </div>
         </div>
       </header>
@@ -230,24 +132,23 @@ export default function ScheduleAddScreen() {
         >
           {pageIndex === 0 && (
             <MemberLoginSubScreen
-              guestValue={guestValue}
+              setPageIndex={setPageIndex}
               setGuestValue={setGuestValue}
-              setNicknameDisabled={setNicknameDisabled}
-              disabled={disabled}
             />
           )}
           {pageIndex === 1 && event && (
             <ScheduleFormSubScreen
               scheduleValue={scheduleValue}
               setScheduleValue={setScheduleValue}
-              event={event}
               isScheduleEdited={isScheduleEdited}
               setIsScheduleEdited={setIsScheduleEdited}
-              isNewGuest={isNewGuest}
               initialSchedule={initialSchedule}
-              isScheduleEmpty={isScheduleEmpty}
-              isFixedScheduleEmpty={isFixedScheduleEmpty}
-              isSleepTimeEmpty={isSleepTimeEmpty}
+              emptyStatus={{
+                isFixedScheduleEmpty,
+                isScheduleEmpty,
+                isSleepTimeEmpty,
+              }}
+              guestValue={guestValue}
             />
           )}
         </main>
@@ -260,6 +161,6 @@ export default function ScheduleAddScreen() {
           setIsOpen={setIsBackButtonAlertOpen}
         />
       )}
-    </form>
+    </>
   );
 }

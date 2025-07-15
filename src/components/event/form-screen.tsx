@@ -12,7 +12,6 @@ import { PageModeContext } from '@/contexts/page-mode';
 import { createEventAction, editEventAction } from '@/lib/api/actions';
 import { eventWithAuthQueryOptions } from '@/lib/api/query-options';
 import { defaultEventValue } from '@/lib/constants';
-import { EventValueType } from '@/lib/types';
 import { EventFormType } from '@/lib/validation/form-types';
 import { eventSchema } from '@/lib/validation/schema';
 import { useProgressRouter } from '@/navigation';
@@ -26,7 +25,7 @@ export default function EventFormScreen({
   originData,
 }: {
   type: 'create' | 'edit';
-  originData?: EventValueType;
+  originData?: EventFormType;
 }) {
   const { pageMode } = useContext(PageModeContext);
 
@@ -71,11 +70,11 @@ export default function EventFormScreen({
     },
   });
 
-  const onSubmit: SubmitHandler<EventFormType> = async (data) => {
+  const onSubmit: SubmitHandler<EventFormType> = async (value) => {
     if (type === 'create') {
-      await createEvent(data);
+      await createEvent(value);
     } else {
-      await editEvent({ eventId: params.id, event: data });
+      await editEvent({ eventId: params.id, event: value });
     }
   };
 

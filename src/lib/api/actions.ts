@@ -5,7 +5,6 @@ import { CRAWLING_SERVER_API_URL } from '../constants';
 import dayjs from '../dayjs';
 import {
   EventType,
-  EventValueType,
   MyScheduleTimeType,
   OnboardingValueType,
   PolicyType,
@@ -13,6 +12,7 @@ import {
   Session,
   SleepTimeType,
 } from '../types';
+import { EventFormType } from '../validation/form-types';
 import axios from './axios';
 
 export async function createUserAction(value: OnboardingValueType) {
@@ -20,7 +20,7 @@ export async function createUserAction(value: OnboardingValueType) {
   return res.data.payload;
 }
 
-export async function createEventAction(event: EventValueType) {
+export async function createEventAction(event: EventFormType) {
   const res = await axios.post('/events', event);
   return res.data.payload;
 }
@@ -30,7 +30,7 @@ export async function editEventAction({
   event,
 }: {
   eventId: string;
-  event: EventValueType;
+  event: EventFormType;
 }) {
   const res = await axios.patch(`/events/${eventId}`, event);
   return res.data.payload;
@@ -129,18 +129,18 @@ export async function loginGuestAction({
 }
 
 export async function createNewMemberScheduleAction({
-  eventId,
+  event,
   name,
   pin,
   schedule,
 }: {
-  eventId: string;
+  event: EventType;
   name: string;
   pin: string;
   schedule: ScheduleType['schedules'];
 }) {
   const res = await axios.post('/members/action-register', {
-    event_id: eventId,
+    event_id: event.event_id,
     name,
     pin,
     schedules: schedule,

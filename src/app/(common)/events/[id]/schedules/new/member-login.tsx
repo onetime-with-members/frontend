@@ -1,42 +1,83 @@
 import { useTranslations } from 'next-intl';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import PinPasswordInput from './pin-password';
 import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
-import NicknameFormControl from '@/components/user/nickname-form-control-legacy';
+import NicknameFormControl from '@/components/user/nickname-form-control';
+import { checkNewGuestAction, loginGuestAction } from '@/lib/api/actions';
 import { GuestValueType } from '@/lib/types';
+import { GuestFormType } from '@/lib/validation/form-types';
+import { guestSchema } from '@/lib/validation/schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { useParams } from 'next/navigation';
 
 export default function MemberLoginSubScreen({
-  guestValue,
+  setPageIndex,
   setGuestValue,
-  setNicknameDisabled,
-  disabled,
 }: {
-  guestValue: GuestValueType;
+  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
   setGuestValue: React.Dispatch<React.SetStateAction<GuestValueType>>;
-  setNicknameDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  disabled: boolean;
 }) {
-  const t = useTranslations('scheduleAdd');
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isValid },
+    watch,
+    setValue,
+  } = useForm<GuestFormType>({
+    resolver: zodResolver(guestSchema),
+  });
 
-  function handleInputChange<T>(key: keyof GuestValueType) {
-    return function (value: T) {
-      setGuestValue((prev) => ({
-        ...prev,
-        [key]: value,
-      }));
-    };
-  }
+  const t = useTranslations('scheduleAdd');
+  const params = useParams<{ id: string }>();
+
+  const { mutateAsync: checkNewGuest } = useMutation({
+    mutationFn: checkNewGuestAction,
+  });
+  const { mutateAsync: loginGuest } = useMutation({
+    mutationFn: loginGuestAction,
+  });
+
+  const onSubmit: SubmitHandler<GuestFormType> = async (value) => {
+    const { is_possible: isNewGuestData } = await checkNewGuest({
+      eventId: params.id,
+      name: value.name,
+    });
+    setGuestValue((prev) => ({
+      ...prev,
+      name: value.name,
+      pin: value.pin,
+      isNewGuest: isNewGuestData,
+    }));
+    if (isNewGuestData) return setPageIndex(1);
+
+    const { guestId, pinNotCorrect } = await loginGuest({
+      eventId: params.id,
+      name: value.name,
+      pin: value.pin,
+    });
+    if (pinNotCorrect) {
+      return alert('PIN 번호가 올바르지 않습니다.');
+    } else if (!guestId) {
+      return alert('로그인 도중 에러가 발생했습니다.');
+    }
+    setGuestValue((prev) => ({ ...prev, guestId: guestId }));
+    setPageIndex(1);
+  };
 
   return (
-    <div className="flex flex-col gap-[60px]">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-[60px]"
+    >
       {/* Input Content */}
       <div className="flex flex-col gap-12">
         {/* Nickname */}
         <NicknameFormControl
-          value={guestValue.name}
-          onChange={(e) => handleInputChange('name')(e.target.value)}
-          setSubmitDisabled={setNicknameDisabled}
+          registerNickname={register('name')}
+          errors={errors}
         />
         {/* Pin Password */}
         <div className="flex flex-col gap-4">
@@ -46,8 +87,8 @@ export default function MemberLoginSubScreen({
             </label>
             <PinPasswordInput
               inputId="pin"
-              pin={guestValue.pin}
-              setPin={handleInputChange('pin')}
+              pin={watch('pin')}
+              setPin={(pin) => setValue('pin', pin)}
             />
           </div>
           <div
@@ -62,7 +103,7 @@ export default function MemberLoginSubScreen({
 
       {/* Bottom Button for Desktop */}
       <div className="hidden sm:block">
-        <Button type="submit" variant="dark" disabled={disabled} fullWidth>
+        <Button type="submit" variant="dark" disabled={!isValid} fullWidth>
           {t('next')}
         </Button>
       </div>
@@ -71,12 +112,12 @@ export default function MemberLoginSubScreen({
         <FloatingBottomButton
           type="submit"
           variant="black"
-          disabled={disabled}
+          disabled={!isValid}
           fullWidth
         >
           {t('next')}
         </FloatingBottomButton>
       </div>
-    </div>
+    </form>
   );
 }
