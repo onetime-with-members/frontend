@@ -111,8 +111,7 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (pathname.startsWith('/policy') || pathname === '/withdraw') return;
     if (!policy) return;
-    if (policy.service_policy_agreement && policy.privacy_policy_agreement)
-      return;
+    if (policy.servicePolicy && policy.privacyPolicy) return;
     progressRouter.push('/policy/edit');
   }, [pathname, policy]);
 

@@ -1,8 +1,8 @@
 import PolicyPage from './policy-detail';
 import NotFound from '@/app/not-found';
 import { POLICY_KEY_LIST } from '@/lib/constants';
-import { PolicyKeyType } from '@/lib/types';
 import { policyPageTitle } from '@/lib/utils';
+import { PolicyFormType } from '@/lib/validation/form-types';
 import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
@@ -35,10 +35,8 @@ export default async function Page({
     return NotFound();
   }
 
-  const page: PolicyKeyType =
-    name === 'privacy'
-      ? 'privacy_policy_agreement'
-      : 'service_policy_agreement';
+  const page: keyof PolicyFormType =
+    name === 'privacy' ? 'privacyPolicy' : 'servicePolicy';
   const pageTitle = policyPageTitle(name, locale);
 
   return <PolicyPage page={page} pageTitle={pageTitle} />;

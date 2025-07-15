@@ -90,14 +90,6 @@ export interface SleepTimeType {
   sleep_end_time: string;
 }
 
-export interface PolicyType {
-  service_policy_agreement: boolean;
-  privacy_policy_agreement: boolean;
-  marketing_policy_agreement: boolean;
-}
-
-export type PolicyKeyType = keyof PolicyType;
-
 export interface OnboardingType extends OnboardingFormType {
   registerToken: string;
   language: 'KOR' | 'ENG';
