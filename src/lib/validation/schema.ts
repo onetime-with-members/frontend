@@ -47,7 +47,13 @@ export const eventSchema = z
   );
 
 export const guestSchema = z.object({
-  name: nicknameSchema,
+  nickname: z
+    .string()
+    .min(1, { error: nickname.MIN })
+    .max(50, { error: nickname.MAX })
+    .refine((value) => (value ? /^[\p{L} ]+$/u.test(value) : true), {
+      error: nickname.REGEX,
+    }),
   pin: z
     .string()
     .length(4)

@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 import PinPasswordInput from './pin-password';
 import Button from '@/components/button';
@@ -24,10 +24,15 @@ export default function MemberLoginSubScreen({
     handleSubmit,
     register,
     formState: { errors, isValid },
-    watch,
-    setValue,
+    control,
   } = useForm<GuestFormType>({
     resolver: zodResolver(guestSchema),
+    defaultValues: {
+      nickname: '',
+      pin: '----',
+    },
+    mode: 'onTouched',
+    criteriaMode: 'all',
   });
 
   const t = useTranslations('scheduleAdd');
@@ -43,11 +48,11 @@ export default function MemberLoginSubScreen({
   const onSubmit: SubmitHandler<GuestFormType> = async (data) => {
     const { is_possible: isNewGuestData } = await checkNewGuest({
       eventId: params.id,
-      name: data.name,
+      name: data.nickname,
     });
     setGuestValue((prev) => ({
       ...prev,
-      name: data.name,
+      name: data.nickname,
       pin: data.pin,
       isNewGuest: isNewGuestData,
     }));
@@ -55,7 +60,7 @@ export default function MemberLoginSubScreen({
 
     const { guestId, pinNotCorrect } = await loginGuest({
       eventId: params.id,
-      name: data.name,
+      name: data.nickname,
       pin: data.pin,
     });
     if (pinNotCorrect) {
@@ -76,7 +81,7 @@ export default function MemberLoginSubScreen({
       <div className="flex flex-col gap-12">
         {/* Nickname */}
         <NicknameFormControl
-          registerNickname={register('name')}
+          registerNickname={register('nickname')}
           errors={errors}
         />
         {/* Pin Password */}
@@ -85,10 +90,16 @@ export default function MemberLoginSubScreen({
             <label htmlFor="pin" className="text-gray-80 text-lg-200">
               {t('password')}
             </label>
-            <PinPasswordInput
-              inputId="pin"
-              pin={watch('pin')}
-              setPin={(pin) => setValue('pin', pin)}
+            <Controller
+              name="pin"
+              control={control}
+              render={({ field }) => (
+                <PinPasswordInput
+                  inputId="pin"
+                  pin={field.value}
+                  setPin={field.onChange}
+                />
+              )}
             />
           </div>
           <div

@@ -141,7 +141,19 @@ function BottomSubmitButton() {
 }
 
 function TopSubmitButton({ onClick }: { onClick: () => void }) {
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(
+    null,
+  );
+
   const t = useTranslations('scheduleAdd');
+
+  useEffect(() => {
+    setPortalContainer(document.getElementById('schedule-submit-button'));
+  }, []);
+
+  if (!portalContainer) {
+    return null;
+  }
 
   return createPortal(
     <div className="flex items-center justify-end">

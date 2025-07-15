@@ -11,7 +11,6 @@ import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
 import { eventQueryOptions } from '@/lib/api/query-options';
-import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { GuestValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
@@ -19,9 +18,11 @@ import { IconChevronLeft } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
-export default function ScheduleAddScreen() {
-  const { isLoggedIn } = useAuth();
-
+export default function ScheduleAddScreen({
+  isLoggedIn,
+}: {
+  isLoggedIn: boolean;
+}) {
   const [pageIndex, setPageIndex] = useState(isLoggedIn ? 1 : 0);
   const [guestValue, setGuestValue] = useState<GuestValueType>({
     isNewGuest: false,
