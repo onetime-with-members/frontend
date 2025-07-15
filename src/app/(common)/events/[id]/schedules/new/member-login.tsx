@@ -40,23 +40,23 @@ export default function MemberLoginSubScreen({
     mutationFn: loginGuestAction,
   });
 
-  const onSubmit: SubmitHandler<GuestFormType> = async (value) => {
+  const onSubmit: SubmitHandler<GuestFormType> = async (data) => {
     const { is_possible: isNewGuestData } = await checkNewGuest({
       eventId: params.id,
-      name: value.name,
+      name: data.name,
     });
     setGuestValue((prev) => ({
       ...prev,
-      name: value.name,
-      pin: value.pin,
+      name: data.name,
+      pin: data.pin,
       isNewGuest: isNewGuestData,
     }));
     if (isNewGuestData) return setPageIndex(1);
 
     const { guestId, pinNotCorrect } = await loginGuest({
       eventId: params.id,
-      name: value.name,
-      pin: value.pin,
+      name: data.name,
+      pin: data.pin,
     });
     if (pinNotCorrect) {
       return alert('PIN 번호가 올바르지 않습니다.');

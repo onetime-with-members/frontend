@@ -46,8 +46,8 @@ export default function PolicyEditPage() {
     },
   });
 
-  const onSubmit: SubmitHandler<PolicyFormType> = async (value) => {
-    await editPolicy(value);
+  const onSubmit: SubmitHandler<PolicyFormType> = async (data) => {
+    await editPolicy(data);
   };
 
   useEffect(() => {

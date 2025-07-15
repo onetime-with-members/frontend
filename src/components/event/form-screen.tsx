@@ -70,11 +70,11 @@ export default function EventFormScreen({
     },
   });
 
-  const onSubmit: SubmitHandler<EventFormType> = async (value) => {
+  const onSubmit: SubmitHandler<EventFormType> = async (data) => {
     if (type === 'create') {
-      await createEvent(value);
+      await createEvent(data);
     } else {
-      await editEvent({ eventId: params.id, event: value });
+      await editEvent({ eventId: params.id, event: data });
     }
   };
 

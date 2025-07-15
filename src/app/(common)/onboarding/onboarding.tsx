@@ -1,8 +1,9 @@
 'use client';
 
-import { getCookie, setCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import NicknameFormScreen from './_screen/nickname-form-screen';
 import PolicyScreen from './_screen/policy-screen';
@@ -10,10 +11,10 @@ import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { createUserAction } from '@/lib/api/actions';
+import { createUserAction, signInAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
-import dayjs from '@/lib/dayjs';
-import { OnboardingValueType, Session } from '@/lib/types';
+import { defaultOnboardingValue } from '@/lib/constants';
+import { OnboardingFormType } from '@/lib/validation/form-types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -29,18 +30,12 @@ export default function OnboardingPage({
   const locale = useLocale();
 
   const [page, setPage] = useState(1);
-  const [value, setValue] = useState<OnboardingValueType>({
-    register_token: registerToken,
-    nickname: name,
-    service_policy_agreement: false,
-    privacy_policy_agreement: false,
-    marketing_policy_agreement: false,
-    sleep_start_time: '23:00',
-    sleep_end_time: '07:00',
-    language: locale === 'ko' ? 'KOR' : 'ENG',
-  });
 
   const { setFooterVisible } = useContext(FooterContext);
+
+  const { handleSubmit, watch, setValue } = useForm<OnboardingFormType>({
+    defaultValues: defaultOnboardingValue,
+  });
 
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -54,16 +49,10 @@ export default function OnboardingPage({
       access_token: newAccessToken,
       refresh_token: newRefreshToken,
     }) => {
-      setCookie(
-        'session',
-        JSON.stringify({
-          accessToken: newAccessToken,
-          refreshToken: newRefreshToken,
-        } satisfies Session),
-        {
-          expires: dayjs().add(1, 'month').toDate(),
-        },
-      );
+      await signInAction({
+        accessToken: newAccessToken,
+        refreshToken: newRefreshToken,
+      });
       await queryClient.invalidateQueries({ queryKey: ['users'] });
       setPage((prev) => prev + 1);
     },
@@ -73,11 +62,6 @@ export default function OnboardingPage({
     },
   });
 
-  function handleNextButtonClick(disabled: boolean) {
-    if (disabled) return;
-    setPage((prevPage) => prevPage + 1);
-  }
-
   function handleBackButtonClick() {
     if (page === 1) {
       progressRouter.push(`/login?redirect_url=${redirectUrl}`);
@@ -86,10 +70,13 @@ export default function OnboardingPage({
     }
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    await createUser(value);
-  }
+  const onSubmit: SubmitHandler<OnboardingFormType> = async (data) => {
+    await createUser({
+      ...data,
+      registerToken,
+      language: locale === 'ko' ? 'KOR' : 'ENG',
+    });
+  };
 
   useEffect(() => {
     setFooterVisible(false);
@@ -151,28 +138,28 @@ export default function OnboardingPage({
             <PolicyScreen
               isVisible={page === 1}
               page={page}
-              value={value}
-              setValue={setValue}
-              onNextButtonClick={handleNextButtonClick}
-              onBackButtonClick={handleBackButtonClick}
+              setPage={setPage}
+              setOnboardingValue={setValue}
             />
             <NicknameFormScreen
               isVisible={page === 2}
               page={page}
-              value={value}
-              setValue={setValue}
-              onNextButtonClick={handleNextButtonClick}
-              onBackButtonClick={handleBackButtonClick}
+              setPage={setPage}
+              setOnboardingValue={setValue}
+              initialNickname={name}
             />
             <SleepTimeScreen
               isVisible={page === 3}
               page={page}
-              value={value}
-              setValue={setValue}
-              onSubmit={handleSubmit}
-              onBackButtonClick={handleBackButtonClick}
+              setPage={setPage}
+              onSubmit={handleSubmit(onSubmit)}
+              onboardingValue={watch()}
+              setOnboardingValue={setValue}
             />
-            <WelcomeScreen isVisible={page === 4} value={value} />
+            <WelcomeScreen
+              isVisible={page === 4}
+              nickname={watch('nickname')}
+            />
           </div>
         </main>
       </div>

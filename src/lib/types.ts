@@ -1,5 +1,7 @@
 import { AxiosError } from 'axios';
 
+import { OnboardingFormType } from './validation/form-types';
+
 export interface Session {
   accessToken: string;
   refreshToken: string;
@@ -96,9 +98,8 @@ export interface PolicyType {
 
 export type PolicyKeyType = keyof PolicyType;
 
-export interface OnboardingValueType extends PolicyType, SleepTimeType {
-  register_token: string;
-  nickname: string;
+export interface OnboardingType extends OnboardingFormType {
+  registerToken: string;
   language: 'KOR' | 'ENG';
 }
 

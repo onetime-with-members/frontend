@@ -20,7 +20,7 @@ export default function ScreenLayout({
   page: number;
   title: React.ReactNode;
   disabled?: boolean;
-  onNextButtonClick: () => void;
+  onNextButtonClick?: () => void;
   onBackButtonClick: () => void;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
   children: React.ReactNode;

@@ -1,4 +1,8 @@
-import { EventFormType, PolicyFormType } from './validation/form-types';
+import {
+  EventFormType,
+  OnboardingFormType,
+  PolicyFormType,
+} from './validation/form-types';
 import {
   BarBanner,
   EventType,
@@ -113,6 +117,13 @@ export const defaultPolicy: PolicyFormType = {
   servicePolicy: true,
   privacyPolicy: true,
   marketingPolicy: true,
+};
+
+export const defaultOnboardingValue: OnboardingFormType = {
+  ...defaultPolicy,
+  nickname: '',
+  startSleepTime: '23:00',
+  endSleepTime: '07:00',
 };
 
 export const SKELETON_GRAY = '#e8e9ed77';

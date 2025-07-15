@@ -3,16 +3,15 @@ import { useTranslations } from 'next-intl';
 
 import Button from '@/components/button';
 import cn from '@/lib/cn';
-import { OnboardingValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 
 export default function WelcomeScreen({
   isVisible,
-  value,
+  nickname,
 }: {
   isVisible: boolean;
-  value: OnboardingValueType;
+  nickname: string;
 }) {
   const progressRouter = useProgressRouter();
   const t = useTranslations('onboarding');
@@ -50,7 +49,7 @@ export default function WelcomeScreen({
         <div className="flex flex-col items-center gap-4">
           <h1 className="text-center text-[2rem] font-bold text-gray-90">
             {t.rich('title4', {
-              name: value.nickname,
+              name: nickname,
               br: () => <br className="block md:hidden" />,
             })}
           </h1>

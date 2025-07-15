@@ -1,51 +1,59 @@
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
-import NicknameFormControl from '@/components/user/nickname-form-control-legacy';
-import { OnboardingValueType } from '@/lib/types';
+import NicknameFormControl from '@/components/user/nickname-form-control';
+import {
+  OnboardingFormType,
+  ProfileNicknameFormType,
+} from '@/lib/validation/form-types';
+import { profileNicknameSchema } from '@/lib/validation/schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function NicknameFormScreen({
   isVisible,
   page,
-  value,
-  setValue,
-  onNextButtonClick: handleNextButtonClick,
-  onBackButtonClick: handleBackButtonClick,
+  setPage,
+  setOnboardingValue,
+  initialNickname,
 }: {
   isVisible: boolean;
   page: number;
-  value: OnboardingValueType;
-  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
-  onNextButtonClick: (disabled: boolean) => void;
-  onBackButtonClick: () => void;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setOnboardingValue: UseFormSetValue<OnboardingFormType>;
+  initialNickname: string;
 }) {
-  const [disabled, setDisabled] = useState(true);
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+  } = useForm<ProfileNicknameFormType>({
+    resolver: zodResolver(profileNicknameSchema),
+    defaultValues: { nickname: initialNickname },
+  });
 
   const t = useTranslations('onboarding');
 
-  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setValue({
-      ...value,
-      [e.target.name]: e.target.value,
-    });
-  }
+  const onSubmit: SubmitHandler<ProfileNicknameFormType> = ({ nickname }) => {
+    setOnboardingValue('nickname', nickname);
+    setPage((prev) => prev + 1);
+  };
 
   return (
     <ScreenLayout
+      type="submit"
       isVisible={isVisible}
       page={page}
       title={t.rich('title2', {
         br: () => <br className="md:hidden" />,
       })}
-      disabled={disabled}
-      onNextButtonClick={() => handleNextButtonClick(disabled)}
-      onBackButtonClick={handleBackButtonClick}
+      disabled={!isValid}
+      onBackButtonClick={() => setPage((prev) => prev - 1)}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <NicknameFormControl
-        value={value.nickname}
-        onChange={handleInputChange}
-        setSubmitDisabled={setDisabled}
+        registerNickname={register('nickname')}
+        errors={errors}
       />
     </ScreenLayout>
   );

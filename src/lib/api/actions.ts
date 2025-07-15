@@ -6,7 +6,7 @@ import dayjs from '../dayjs';
 import {
   EventType,
   MyScheduleTimeType,
-  OnboardingValueType,
+  OnboardingType,
   ScheduleType,
   Session,
   SleepTimeType,
@@ -14,8 +14,17 @@ import {
 import { EventFormType, PolicyFormType } from '../validation/form-types';
 import axios from './axios';
 
-export async function createUserAction(value: OnboardingValueType) {
-  const res = await axios.post('/users/onboarding', value);
+export async function createUserAction(value: OnboardingType) {
+  const res = await axios.post('/users/onboarding', {
+    register_token: value.registerToken,
+    nickname: value.nickname,
+    service_policy_agreement: value.servicePolicy,
+    privacy_policy_agreement: value.privacyPolicy,
+    marketing_policy_agreement: value.marketingPolicy,
+    sleep_start_time: value.startSleepTime,
+    sleep_end_time: value.endSleepTime,
+    language: value.language,
+  });
   return res.data.payload;
 }
 
