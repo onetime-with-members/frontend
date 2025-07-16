@@ -3,7 +3,6 @@
 import { getCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
 
 import NicknameFormScreen from './_screen/nickname-form-screen';
 import PolicyScreen from './_screen/policy-screen';
@@ -11,14 +10,11 @@ import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { createUserAction, signInAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { defaultOnboardingValue } from '@/lib/constants';
-import { OnboardingFormType } from '@/lib/validation/form-types';
+import { OnboardingType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 export default function OnboardingPage({
   name,
@@ -29,54 +25,19 @@ export default function OnboardingPage({
 }) {
   const locale = useLocale();
 
-  const [page, setPage] = useState(1);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [onboardingValue, setOnboardingValue] = useState<OnboardingType>({
+    ...defaultOnboardingValue,
+    nickname: name,
+    registerToken,
+    language: locale === 'ko' ? 'KOR' : 'ENG',
+  });
 
   const { setFooterVisible } = useContext(FooterContext);
 
-  const { handleSubmit, watch, setValue } = useForm<OnboardingFormType>({
-    defaultValues: defaultOnboardingValue,
-  });
-
-  const queryClient = useQueryClient();
-  const router = useRouter();
   const progressRouter = useProgressRouter();
 
   const redirectUrl = getCookie('redirect-url');
-
-  const { mutateAsync: createUser } = useMutation({
-    mutationFn: createUserAction,
-    onSuccess: async ({
-      access_token: newAccessToken,
-      refresh_token: newRefreshToken,
-    }) => {
-      await signInAction({
-        accessToken: newAccessToken,
-        refreshToken: newRefreshToken,
-      });
-      await queryClient.invalidateQueries({ queryKey: ['users'] });
-      setPage((prev) => prev + 1);
-    },
-    onError: (error) => {
-      console.error(error);
-      router.replace(`/login?redirect_url=${redirectUrl || '/'}`);
-    },
-  });
-
-  function handleBackButtonClick() {
-    if (page === 1) {
-      progressRouter.push(`/login?redirect_url=${redirectUrl}`);
-    } else {
-      setPage((prevPage) => prevPage - 1);
-    }
-  }
-
-  const onSubmit: SubmitHandler<OnboardingFormType> = async (data) => {
-    await createUser({
-      ...data,
-      registerToken,
-      language: locale === 'ko' ? 'KOR' : 'ENG',
-    });
-  };
 
   useEffect(() => {
     setFooterVisible(false);
@@ -92,11 +53,20 @@ export default function OnboardingPage({
           {/* App Bar for Mobile */}
           <nav
             className={cn('block h-[4rem] md:hidden', {
-              hidden: page === 4,
+              hidden: pageIndex === 3,
             })}
           >
             <div className="fixed left-0 top-0 flex h-[4rem] w-full items-center bg-gray-00 p-4">
-              <button className="w-6" onClick={handleBackButtonClick}>
+              <button
+                className="w-6"
+                onClick={() => {
+                  if (pageIndex === 0) {
+                    progressRouter.push(`/login?redirect_url=${redirectUrl}`);
+                  } else {
+                    setPageIndex((prevPage) => prevPage - 1);
+                  }
+                }}
+              >
                 <IconChevronLeft />
               </button>
               <div className="flex flex-1 items-center justify-center">
@@ -116,16 +86,16 @@ export default function OnboardingPage({
           <div className="mx-auto flex w-full max-w-screen-sm flex-1 flex-col">
             <div
               className={cn('flex items-center gap-2 py-4 md:justify-center', {
-                hidden: page === 4,
+                hidden: pageIndex === 3,
               })}
             >
-              {Array.from({ length: 3 }, (_, i) => i + 1).map((pageNumber) => (
+              {Array.from({ length: 3 }, (_, i) => i).map((pageNumber) => (
                 <div
                   key={pageNumber}
                   className={cn(
                     'flex h-6 w-6 items-center justify-center rounded-full bg-gray-05 text-gray-20 text-sm-300',
                     {
-                      'bg-primary-40 text-white': page === pageNumber,
+                      'bg-primary-40 text-white': pageIndex === pageNumber,
                     },
                   )}
                 >
@@ -135,31 +105,33 @@ export default function OnboardingPage({
             </div>
 
             {/* Screen */}
-            <PolicyScreen
-              isVisible={page === 1}
-              page={page}
-              setPage={setPage}
-              setOnboardingValue={setValue}
-            />
-            <NicknameFormScreen
-              isVisible={page === 2}
-              page={page}
-              setPage={setPage}
-              setOnboardingValue={setValue}
-              initialNickname={name}
-            />
-            <SleepTimeScreen
-              isVisible={page === 3}
-              page={page}
-              setPage={setPage}
-              onSubmit={handleSubmit(onSubmit)}
-              onboardingValue={watch()}
-              setOnboardingValue={setValue}
-            />
-            <WelcomeScreen
-              isVisible={page === 4}
-              nickname={watch('nickname')}
-            />
+            {pageIndex === 0 && (
+              <PolicyScreen
+                page={pageIndex}
+                setPage={setPageIndex}
+                onboardingValue={onboardingValue}
+                setOnboardingValue={setOnboardingValue}
+              />
+            )}
+            {pageIndex === 1 && (
+              <NicknameFormScreen
+                pageIndex={pageIndex}
+                setPageIndex={setPageIndex}
+                onboardingValue={onboardingValue}
+                setOnboardingValue={setOnboardingValue}
+              />
+            )}
+            {pageIndex === 2 && (
+              <SleepTimeScreen
+                pageIndex={pageIndex}
+                setPageIndex={setPageIndex}
+                onboardingValue={onboardingValue}
+                setOnboardingValue={setOnboardingValue}
+              />
+            )}
+            {pageIndex === 3 && (
+              <WelcomeScreen nickname={onboardingValue.nickname} />
+            )}
           </div>
         </main>
       </div>

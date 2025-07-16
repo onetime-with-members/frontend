@@ -1,29 +1,27 @@
 import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import PolicyDetailScreen from '@/components/user/policy-detail-screen';
-import {
-  OnboardingFormType,
-  PolicyFormType,
-} from '@/lib/validation/form-types';
+import { OnboardingType } from '@/lib/types';
+import { PolicyFormType } from '@/lib/validation/form-types';
 import { policySchema } from '@/lib/validation/schema';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function PolicyScreen({
-  isVisible,
   page,
   setPage,
+  onboardingValue,
   setOnboardingValue,
 }: {
-  isVisible: boolean;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  setOnboardingValue: UseFormSetValue<OnboardingFormType>;
+  onboardingValue: OnboardingType;
+  setOnboardingValue: React.Dispatch<React.SetStateAction<OnboardingType>>;
 }) {
   const [pageDetail, setPageDetail] = useState<keyof PolicyFormType | null>(
     null,
@@ -37,9 +35,9 @@ export default function PolicyScreen({
   } = useForm<PolicyFormType>({
     resolver: zodResolver(policySchema),
     defaultValues: {
-      servicePolicy: false,
-      privacyPolicy: false,
-      marketingPolicy: false,
+      servicePolicy: onboardingValue.servicePolicy,
+      privacyPolicy: onboardingValue.privacyPolicy,
+      marketingPolicy: onboardingValue.marketingPolicy,
     },
   });
 
@@ -56,9 +54,12 @@ export default function PolicyScreen({
     privacyPolicy,
     marketingPolicy,
   }) => {
-    setOnboardingValue('servicePolicy', servicePolicy);
-    setOnboardingValue('privacyPolicy', privacyPolicy);
-    setOnboardingValue('marketingPolicy', marketingPolicy);
+    setOnboardingValue((prev) => ({
+      ...prev,
+      servicePolicy,
+      privacyPolicy,
+      marketingPolicy,
+    }));
     setPage((prev) => prev + 1);
   };
 
@@ -69,9 +70,7 @@ export default function PolicyScreen({
   return (
     <>
       <ScreenLayout
-        type="submit"
-        isVisible={isVisible}
-        page={page}
+        pageIndex={page}
         title={t.rich('title1', {
           br: () => <br className="hidden xs:block" />,
         })}

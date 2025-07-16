@@ -2,25 +2,18 @@ import { useTranslations } from 'next-intl';
 
 import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
-import cn from '@/lib/cn';
 
 export default function ScreenLayout({
-  type = 'default',
-  isVisible,
-  page,
+  pageIndex,
   title,
   disabled = false,
-  onNextButtonClick,
   onBackButtonClick,
   onSubmit,
   children,
 }: {
-  type?: 'submit' | 'default';
-  isVisible: boolean;
-  page: number;
+  pageIndex: number;
   title: React.ReactNode;
   disabled?: boolean;
-  onNextButtonClick?: () => void;
   onBackButtonClick: () => void;
   onSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
   children: React.ReactNode;
@@ -28,13 +21,9 @@ export default function ScreenLayout({
   const t = useTranslations('onboarding');
 
   return (
-    <section
-      className={cn('flex flex-col gap-3', {
-        hidden: !isVisible,
-      })}
-    >
+    <section className="flex flex-col gap-3">
       <form
-        onSubmit={type === 'submit' ? onSubmit : () => {}}
+        onSubmit={onSubmit}
         onKeyDown={(e) => {
           if (e.key === 'Enter') e.preventDefault();
         }}
@@ -49,9 +38,8 @@ export default function ScreenLayout({
         {/* Bottom Button for Mobile */}
         <div className="block md:hidden">
           <FloatingBottomButton
-            type={type === 'submit' ? 'submit' : 'button'}
+            type="submit"
             variant="black"
-            onClick={onNextButtonClick}
             disabled={disabled}
             fullWidth
           >
@@ -60,13 +48,7 @@ export default function ScreenLayout({
         </div>
         {/* Bottom Button for Desktop */}
         <div className="hidden flex-col gap-4 md:flex">
-          <Button
-            type={type === 'submit' ? 'submit' : 'button'}
-            onClick={onNextButtonClick}
-            disabled={disabled}
-            variant="dark"
-            fullWidth
-          >
+          <Button type="submit" disabled={disabled} variant="dark" fullWidth>
             {t('next')}
           </Button>
           <button
@@ -74,7 +56,7 @@ export default function ScreenLayout({
             className="text-gray-40 text-md-200"
             onClick={onBackButtonClick}
           >
-            {page === 1 ? t('goBack') : t('previous')}
+            {pageIndex === 0 ? t('goBack') : t('previous')}
           </button>
         </div>
       </form>

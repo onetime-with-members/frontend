@@ -1,38 +1,80 @@
+import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
-import { UseFormSetValue } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
 import TimeDropdown from '@/components/dropdown/time-dropdown';
 import SleepIcon from '@/components/icon/sleep';
-import { OnboardingFormType } from '@/lib/validation/form-types';
+import { createUserAction, signInAction } from '@/lib/api/actions';
+import { OnboardingType } from '@/lib/types';
+import { SleepTimeFormType } from '@/lib/validation/form-types';
+import { sleepTimeSchema } from '@/lib/validation/schema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 export default function SleepTimeScreen({
-  isVisible,
-  page,
-  setPage,
-  onSubmit,
+  pageIndex,
+  setPageIndex,
   onboardingValue,
   setOnboardingValue,
 }: {
-  isVisible: boolean;
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  onboardingValue: OnboardingFormType;
-  setOnboardingValue: UseFormSetValue<OnboardingFormType>;
+  pageIndex: number;
+  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
+  onboardingValue: OnboardingType;
+  setOnboardingValue: React.Dispatch<React.SetStateAction<OnboardingType>>;
 }) {
+  const { handleSubmit, watch, setValue } = useForm<SleepTimeFormType>({
+    resolver: zodResolver(sleepTimeSchema),
+    defaultValues: {
+      startSleepTime: onboardingValue.startSleepTime,
+      endSleepTime: onboardingValue.endSleepTime,
+    },
+  });
+
   const t = useTranslations('onboarding');
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const redirectUrl = getCookie('redirect-url');
+
+  const { mutateAsync: createUser } = useMutation({
+    mutationFn: createUserAction,
+    onSuccess: async (data) => {
+      await signInAction({
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token,
+      });
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+      setPageIndex((prev) => prev + 1);
+    },
+    onError: (error) => {
+      console.error(error);
+      router.replace(`/login?redirect_url=${redirectUrl || '/'}`);
+    },
+  });
+
+  const onSubmit: SubmitHandler<SleepTimeFormType> = async ({
+    startSleepTime,
+    endSleepTime,
+  }) => {
+    const finalOnboardingValue = {
+      ...onboardingValue,
+      startSleepTime,
+      endSleepTime,
+    };
+    setOnboardingValue(finalOnboardingValue);
+    await createUser(finalOnboardingValue);
+  };
 
   return (
     <ScreenLayout
-      type="submit"
-      isVisible={isVisible}
-      page={page}
+      pageIndex={pageIndex}
       title={t.rich('title3', {
         br: () => <br />,
       })}
-      onSubmit={onSubmit}
-      onBackButtonClick={() => setPage((prev) => prev - 1)}
+      onSubmit={handleSubmit(onSubmit)}
+      onBackButtonClick={() => setPageIndex((prev) => prev - 1)}
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-1.5">
@@ -43,14 +85,14 @@ export default function SleepTimeScreen({
         </div>
         <div className="flex items-center gap-4">
           <TimeDropdown
-            time={onboardingValue.startSleepTime}
-            setTime={(time) => setOnboardingValue('startSleepTime', time)}
+            time={watch('startSleepTime')}
+            setTime={(time) => setValue('startSleepTime', time)}
             className="flex-1"
           />
           <span className="text-gray-40 text-md-300">-</span>
           <TimeDropdown
-            time={onboardingValue.endSleepTime}
-            setTime={(time) => setOnboardingValue('endSleepTime', time)}
+            time={watch('endSleepTime')}
+            setTime={(time) => setValue('endSleepTime', time)}
             className="flex-1"
           />
         </div>

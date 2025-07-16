@@ -2,17 +2,10 @@ import { deleteCookie, getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
 import Button from '@/components/button';
-import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 
-export default function WelcomeScreen({
-  isVisible,
-  nickname,
-}: {
-  isVisible: boolean;
-  nickname: string;
-}) {
+export default function WelcomeScreen({ nickname }: { nickname: string }) {
   const progressRouter = useProgressRouter();
   const t = useTranslations('onboarding');
 
@@ -28,14 +21,7 @@ export default function WelcomeScreen({
   }
 
   return (
-    <section
-      className={cn(
-        'flex flex-1 -translate-y-6 flex-col items-center justify-center gap-12 md:-translate-y-16',
-        {
-          hidden: !isVisible,
-        },
-      )}
-    >
+    <section className="flex flex-1 -translate-y-6 flex-col items-center justify-center gap-12 md:-translate-y-16">
       <div className="flex flex-col items-center gap-6">
         <div>
           <Image

@@ -23,11 +23,15 @@ export const policySchema = z.object({
   marketingPolicy: z.boolean(),
 });
 
+export const sleepTimeSchema = z.object({
+  startSleepTime: z.union([z.iso.time(), z.literal('24:00')]),
+  endSleepTime: z.union([z.iso.time(), z.literal('24:00')]),
+});
+
 export const onboardingSchema = z.object({
   ...profileNicknameSchema.shape,
   ...policySchema.shape,
-  startSleepTime: z.union([z.iso.time(), z.literal('24:00')]),
-  endSleepTime: z.union([z.iso.time(), z.literal('24:00')]),
+  ...sleepTimeSchema.shape,
 });
 
 export const everytimeUrlSchema = z.object({
@@ -47,13 +51,7 @@ export const eventSchema = z
   );
 
 export const guestSchema = z.object({
-  nickname: z
-    .string()
-    .min(1, { error: nickname.MIN })
-    .max(50, { error: nickname.MAX })
-    .refine((value) => (value ? /^[\p{L} ]+$/u.test(value) : true), {
-      error: nickname.REGEX,
-    }),
+  nickname: nicknameSchema,
   pin: z
     .string()
     .length(4)

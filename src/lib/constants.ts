@@ -2,6 +2,7 @@ import {
   EventFormType,
   OnboardingFormType,
   PolicyFormType,
+  SleepTimeFormType,
 } from './validation/form-types';
 import {
   BarBanner,
@@ -119,11 +120,15 @@ export const defaultPolicy: PolicyFormType = {
   marketingPolicy: true,
 };
 
-export const defaultOnboardingValue: OnboardingFormType = {
-  ...defaultPolicy,
-  nickname: '',
+export const defaultSleepTimeValue: SleepTimeFormType = {
   startSleepTime: '23:00',
   endSleepTime: '07:00',
+};
+
+export const defaultOnboardingValue: OnboardingFormType = {
+  ...defaultPolicy,
+  ...defaultSleepTimeValue,
+  nickname: '',
 };
 
 export const SKELETON_GRAY = '#e8e9ed77';

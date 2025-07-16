@@ -1,27 +1,23 @@
 import { useTranslations } from 'next-intl';
-import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
 import NicknameFormControl from '@/components/user/nickname-form-control';
-import {
-  OnboardingFormType,
-  ProfileNicknameFormType,
-} from '@/lib/validation/form-types';
+import { OnboardingType } from '@/lib/types';
+import { ProfileNicknameFormType } from '@/lib/validation/form-types';
 import { profileNicknameSchema } from '@/lib/validation/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function NicknameFormScreen({
-  isVisible,
-  page,
-  setPage,
+  pageIndex,
+  setPageIndex,
+  onboardingValue,
   setOnboardingValue,
-  initialNickname,
 }: {
-  isVisible: boolean;
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  setOnboardingValue: UseFormSetValue<OnboardingFormType>;
-  initialNickname: string;
+  pageIndex: number;
+  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
+  onboardingValue: OnboardingType;
+  setOnboardingValue: React.Dispatch<React.SetStateAction<OnboardingType>>;
 }) {
   const {
     register,
@@ -29,26 +25,24 @@ export default function NicknameFormScreen({
     handleSubmit,
   } = useForm<ProfileNicknameFormType>({
     resolver: zodResolver(profileNicknameSchema),
-    defaultValues: { nickname: initialNickname },
+    defaultValues: { nickname: onboardingValue.nickname },
   });
 
   const t = useTranslations('onboarding');
 
   const onSubmit: SubmitHandler<ProfileNicknameFormType> = ({ nickname }) => {
-    setOnboardingValue('nickname', nickname);
-    setPage((prev) => prev + 1);
+    setOnboardingValue((prev) => ({ ...prev, nickname }));
+    setPageIndex((prev) => prev + 1);
   };
 
   return (
     <ScreenLayout
-      type="submit"
-      isVisible={isVisible}
-      page={page}
+      pageIndex={pageIndex}
       title={t.rich('title2', {
         br: () => <br className="md:hidden" />,
       })}
       disabled={!isValid}
-      onBackButtonClick={() => setPage((prev) => prev - 1)}
+      onBackButtonClick={() => setPageIndex((prev) => prev - 1)}
       onSubmit={handleSubmit(onSubmit)}
     >
       <NicknameFormControl
