@@ -11,6 +11,7 @@ import NavBar from '@/components/nav-bar';
 import { PageModeContext } from '@/contexts/page-mode';
 import { createEventAction, editEventAction } from '@/lib/api/actions';
 import { eventWithAuthQueryOptions } from '@/lib/api/query-options';
+import cn from '@/lib/cn';
 import { defaultEventValue } from '@/lib/constants';
 import { EventFormType } from '@/lib/validation/form-types';
 import { eventSchema } from '@/lib/validation/schema';
@@ -54,7 +55,7 @@ export default function EventFormScreen({
     enabled: type === 'edit',
   });
 
-  const { mutateAsync: createEvent } = useMutation({
+  const { mutateAsync: createEvent, isPending: isCreatePending } = useMutation({
     mutationFn: createEventAction,
     onSuccess: async (data) => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
@@ -62,7 +63,7 @@ export default function EventFormScreen({
     },
   });
 
-  const { mutateAsync: editEvent } = useMutation({
+  const { mutateAsync: editEvent, isPending: isEditPending } = useMutation({
     mutationFn: editEventAction,
     onSuccess: async (_, { eventId }) => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
@@ -129,7 +130,16 @@ export default function EventFormScreen({
 
         {/* Bottom Floating Button */}
         <div className="sticky bottom-0 left-0 w-full bg-gray-00 px-4 py-4 md:static md:w-[25rem] md:bg-transparent">
-          <Button type="submit" variant="dark" disabled={!isValid} fullWidth>
+          <Button
+            type="submit"
+            variant="dark"
+            fullWidth
+            className={cn({
+              'pointer-events-none cursor-default':
+                isCreatePending || isEditPending,
+            })}
+            disabled={!isValid}
+          >
             {pageMode === 'create' && t('createEvent')}
             {pageMode === 'edit' && t('editEvent')}
           </Button>
