@@ -3,6 +3,7 @@
 import { getCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import NicknameFormScreen from './_screen/nickname-form-screen';
 import PolicyScreen from './_screen/policy-screen';
@@ -10,11 +11,16 @@ import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
+import { createUserAction, signInAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { defaultOnboardingValue } from '@/lib/constants';
-import { OnboardingType } from '@/lib/types';
+import { OnboardingFormType } from '@/lib/validation/form-types';
+import { onboardingSchema } from '@/lib/validation/schema';
 import { useProgressRouter } from '@/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft } from '@tabler/icons-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 export default function OnboardingPage({
   name,
@@ -23,21 +29,45 @@ export default function OnboardingPage({
   name: string;
   registerToken: string;
 }) {
-  const locale = useLocale();
-
   const [pageIndex, setPageIndex] = useState(0);
-  const [onboardingValue, setOnboardingValue] = useState<OnboardingType>({
-    ...defaultOnboardingValue,
-    nickname: name,
-    registerToken,
-    language: locale === 'ko' ? 'KOR' : 'ENG',
-  });
 
   const { setFooterVisible } = useContext(FooterContext);
 
+  const { handleSubmit, watch, setValue } = useForm<OnboardingFormType>({
+    resolver: zodResolver(onboardingSchema),
+    defaultValues: { ...defaultOnboardingValue, nickname: name },
+  });
+
+  const router = useRouter();
   const progressRouter = useProgressRouter();
+  const queryClient = useQueryClient();
+  const locale = useLocale();
 
   const redirectUrl = getCookie('redirect-url');
+
+  const { mutateAsync: createUser } = useMutation({
+    mutationFn: createUserAction,
+    onSuccess: async (data) => {
+      await signInAction({
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token,
+      });
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+      setPageIndex((prev) => prev + 1);
+    },
+    onError: (error) => {
+      console.error(error);
+      router.replace(`/login?redirect_url=${redirectUrl || '/'}`);
+    },
+  });
+
+  const onSubmit: SubmitHandler<OnboardingFormType> = async (data) => {
+    await createUser({
+      ...data,
+      registerToken,
+      language: locale === 'ko' ? 'KOR' : 'ENG',
+    });
+  };
 
   useEffect(() => {
     setFooterVisible(false);
@@ -89,19 +119,21 @@ export default function OnboardingPage({
                 hidden: pageIndex === 3,
               })}
             >
-              {Array.from({ length: 3 }, (_, i) => i).map((pageNumber) => (
-                <div
-                  key={pageNumber}
-                  className={cn(
-                    'flex h-6 w-6 items-center justify-center rounded-full bg-gray-05 text-gray-20 text-sm-300',
-                    {
-                      'bg-primary-40 text-white': pageIndex === pageNumber,
-                    },
-                  )}
-                >
-                  {pageNumber}
-                </div>
-              ))}
+              {Array.from({ length: 3 }, (_, i) => i + 1).map(
+                (pageNumber, index) => (
+                  <div
+                    key={index}
+                    className={cn(
+                      'flex h-6 w-6 items-center justify-center rounded-full bg-gray-05 text-gray-20 text-sm-300',
+                      {
+                        'bg-primary-40 text-white': pageIndex === index,
+                      },
+                    )}
+                  >
+                    {pageNumber}
+                  </div>
+                ),
+              )}
             </div>
 
             {/* Screen */}
@@ -109,29 +141,28 @@ export default function OnboardingPage({
               <PolicyScreen
                 page={pageIndex}
                 setPage={setPageIndex}
-                onboardingValue={onboardingValue}
-                setOnboardingValue={setOnboardingValue}
+                onboardingValue={watch()}
+                setOnboardingValue={setValue}
               />
             )}
             {pageIndex === 1 && (
               <NicknameFormScreen
                 pageIndex={pageIndex}
                 setPageIndex={setPageIndex}
-                onboardingValue={onboardingValue}
-                setOnboardingValue={setOnboardingValue}
+                onboardingValue={watch()}
+                setOnboardingValue={setValue}
               />
             )}
             {pageIndex === 2 && (
               <SleepTimeScreen
                 pageIndex={pageIndex}
                 setPageIndex={setPageIndex}
-                onboardingValue={onboardingValue}
-                setOnboardingValue={setOnboardingValue}
+                onboardingValue={watch()}
+                setOnboardingValue={setValue}
+                onSubmit={handleSubmit(onSubmit)}
               />
             )}
-            {pageIndex === 3 && (
-              <WelcomeScreen nickname={onboardingValue.nickname} />
-            )}
+            {pageIndex === 3 && <WelcomeScreen nickname={watch('nickname')} />}
           </div>
         </main>
       </div>

@@ -1,10 +1,12 @@
 import { useTranslations } from 'next-intl';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
 import NicknameFormControl from '@/components/user/nickname-form-control';
-import { OnboardingType } from '@/lib/types';
-import { ProfileNicknameFormType } from '@/lib/validation/form-types';
+import {
+  OnboardingFormType,
+  ProfileNicknameFormType,
+} from '@/lib/validation/form-types';
 import { profileNicknameSchema } from '@/lib/validation/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -16,8 +18,8 @@ export default function NicknameFormScreen({
 }: {
   pageIndex: number;
   setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-  onboardingValue: OnboardingType;
-  setOnboardingValue: React.Dispatch<React.SetStateAction<OnboardingType>>;
+  onboardingValue: OnboardingFormType;
+  setOnboardingValue: UseFormSetValue<OnboardingFormType>;
 }) {
   const {
     register,
@@ -31,7 +33,7 @@ export default function NicknameFormScreen({
   const t = useTranslations('onboarding');
 
   const onSubmit: SubmitHandler<ProfileNicknameFormType> = ({ nickname }) => {
-    setOnboardingValue((prev) => ({ ...prev, nickname }));
+    setOnboardingValue('nickname', nickname);
     setPageIndex((prev) => prev + 1);
   };
 
