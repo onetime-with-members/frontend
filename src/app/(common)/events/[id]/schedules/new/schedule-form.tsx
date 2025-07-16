@@ -95,7 +95,11 @@ export default function ScheduleFormSubScreen({
     if (isScheduleEmpty && (!isFixedScheduleEmpty || !isSleepTimeEmpty)) {
       toast(t('toast.loadedMySchedule'));
     }
-  }, [emptyStatus]);
+  }, [
+    emptyStatus.isFixedScheduleEmpty,
+    emptyStatus.isScheduleEmpty,
+    emptyStatus.isSleepTimeEmpty,
+  ]);
 
   return (
     <>
