@@ -120,10 +120,12 @@ export const defaultPolicy: PolicyFormType = {
 };
 
 export const defaultOnboardingValue: OnboardingFormType = {
-  ...defaultPolicy,
   nickname: '',
   startSleepTime: '23:00',
-  endSleepTime: '00:00',
+  endSleepTime: '07:00',
+  servicePolicy: false,
+  privacyPolicy: false,
+  marketingPolicy: false,
 };
 
 export const SKELETON_GRAY = '#e8e9ed77';
