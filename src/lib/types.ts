@@ -7,11 +7,6 @@ export interface Session {
   refreshToken: string;
 }
 
-export interface AuthResponse {
-  data: Session | null;
-  isLoggedIn: boolean;
-}
-
 export type ExtendedAxiosError = AxiosError & {
   response: {
     status: number;

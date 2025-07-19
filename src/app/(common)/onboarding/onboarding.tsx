@@ -11,7 +11,8 @@ import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { createUserAction, signInAction } from '@/lib/api/actions';
+import { createUserAction } from '@/lib/api/actions';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { defaultOnboardingValue } from '@/lib/constants';
 import { OnboardingFormType } from '@/lib/validation/form-types';
@@ -43,12 +44,14 @@ export default function OnboardingPage({
   const queryClient = useQueryClient();
   const locale = useLocale();
 
+  const { signIn } = useAuth();
+
   const redirectUrl = getCookie('redirect-url');
 
   const { mutateAsync: createUser } = useMutation({
     mutationFn: createUserAction,
     onSuccess: async (data) => {
-      await signInAction({
+      await signIn({
         accessToken: data.access_token,
         refreshToken: data.refresh_token,
       });

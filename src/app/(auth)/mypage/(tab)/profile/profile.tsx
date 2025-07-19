@@ -4,22 +4,15 @@ import { useTranslations } from 'next-intl';
 
 import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import { signOutAction } from '@/lib/api/actions';
-import { userQueryOptions } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';
-import { useMutation, useQuery } from '@tanstack/react-query';
 
 export default function ProfilePage() {
-  const { data: user } = useQuery({ ...userQueryOptions });
-
   const progressRouter = useProgressRouter();
   const t = useTranslations('profile');
 
-  const { mutateAsync: signOut } = useMutation({
-    mutationFn: signOutAction,
-    onSuccess: async () => (window.location.href = '/'),
-  });
+  const { user, signOut } = useAuth();
 
   return (
     <div className="flex flex-col gap-7 px-4">
@@ -38,7 +31,7 @@ export default function ProfilePage() {
           >
             {t('editProfile')}
           </GrayButton>
-          <GrayButton onClick={async () => await signOut()}>
+          <GrayButton onClick={async () => await signOut({ redirectTo: '/' })}>
             {t('logout')}
           </GrayButton>
         </div>

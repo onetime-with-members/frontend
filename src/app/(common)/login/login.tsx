@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
 import NavBar from '@/components/nav-bar';
-import { signInAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import Image from 'next/image';
@@ -30,7 +29,7 @@ export default function LoginPage({
   const router = useRouter();
   const t = useTranslations('login');
 
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, signIn } = useAuth();
 
   useEffect(() => {
     async function socialLogin() {
@@ -39,7 +38,7 @@ export default function LoginPage({
       }
 
       if (searchParams.accessToken && searchParams.refreshToken) {
-        await signInAction({
+        await signIn({
           accessToken: searchParams.accessToken,
           refreshToken: searchParams.refreshToken,
         });

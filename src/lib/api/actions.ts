@@ -1,8 +1,7 @@
 import { AxiosError } from 'axios';
-import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 
 import { CRAWLING_SERVER_API_URL } from '../constants';
-import dayjs from '../dayjs';
 import {
   EventType,
   MyScheduleTimeType,
@@ -177,28 +176,10 @@ export async function updateScheduleAction({
   return res.data.payload;
 }
 
-export async function signInAction({
-  accessToken,
-  refreshToken,
-}: {
-  accessToken: string;
-  refreshToken: string;
-}) {
-  const newSession: Session = {
-    accessToken,
-    refreshToken,
-  };
-  await setCookie('session', JSON.stringify(newSession), {
-    expires: dayjs().add(1, 'month').toDate(),
-  });
-  return newSession;
-}
-
 export async function signOutAction() {
   const { refreshToken }: Session = JSON.parse(getCookie('session') as string);
   const res = await axios.post('/users/logout', {
     refresh_token: refreshToken,
   });
-  await deleteCookie('session');
   return res.data.payload;
 }

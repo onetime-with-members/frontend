@@ -5,12 +5,10 @@ import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
 import useScroll from '@/hooks/useScroll';
-import { userQueryOptions } from '@/lib/api/query-options';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { defaultUser } from '@/lib/constants';
 import { ProgressLink, useProgressRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
@@ -31,13 +29,8 @@ export default function NavBar({
 }) {
   const [isMounted, setIsMounted] = useState(false);
 
-  const { isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useAuth();
   const { isScrolling } = useScroll();
-
-  const { data: user } = useQuery({
-    ...userQueryOptions,
-    enabled: isLoggedIn,
-  });
 
   useEffect(() => {
     setIsMounted(true);
