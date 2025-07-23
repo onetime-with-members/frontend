@@ -17,7 +17,7 @@ import { useAuth } from '@/lib/auth/auth.client';
 import dayjs from '@/lib/dayjs';
 import getQueryClient from '@/lib/query-client';
 import { ProgressLink, useProgressRouter } from '@/navigation';
-import { IconBrandInstagram } from '@tabler/icons-react';
+import { IconBrandInstagram, IconX } from '@tabler/icons-react';
 import { QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Image from 'next/image';
@@ -281,5 +281,38 @@ export function KakaoShareScript() {
       src="https://developers.kakao.com/sdk/js/kakao.js"
       onLoad={onLoad}
     />
+  );
+}
+
+export function LandingPopUp({ initialIsShown }: { initialIsShown: boolean }) {
+  const [isShown, setIsShown] = useState(initialIsShown);
+
+  function handleCloseButtonClick() {
+    setCookie('landing-pop-up', 'false', {
+      expires: dayjs().add(1, 'day').hour(0).minute(0).second(0).toDate(),
+    });
+    setIsShown(false);
+  }
+
+  return (
+    isShown && (
+      <div className="fixed left-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center gap-6 bg-gray-90 bg-opacity-50">
+        <div className="h-[30rem] w-[24rem] overflow-hidden rounded-3xl bg-gray-00">
+          <Image
+            src="/images/sample-landing-pop-up.png"
+            alt="샘플 랜딩 팝업 이미지"
+            width={384}
+            height={480}
+          />
+        </div>
+        <button
+          type="button"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-30"
+          onClick={handleCloseButtonClick}
+        >
+          <IconX size={28} className="text-gray-00" />
+        </button>
+      </div>
+    )
   );
 }
