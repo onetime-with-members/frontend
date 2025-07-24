@@ -87,7 +87,11 @@ export function BottomButtons() {
             </button>
           </SpeechBalloon.Wrapper>
           {schedules?.length === 0 && (
-            <SpeechBalloon.Main width={locale === 'ko' ? 101 : 111} offset={4}>
+            <SpeechBalloon.Main
+              width={locale === 'ko' ? 101 : 111}
+              offset={4}
+              tilt="right"
+            >
               {t('shareMessage')}
             </SpeechBalloon.Main>
           )}

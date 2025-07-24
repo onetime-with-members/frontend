@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 
 import EmptyEventBanner from '../_ui/empty';
-import { HeadingForDesktop } from '../_ui/heading';
+import { EventSectionHeading } from '../_ui/heading';
 import ClockIcon from '@/components/icon/clock';
 import HumanIcon from '@/components/icon/human';
 import MemberBadge from '@/components/member-badge';
@@ -44,9 +44,9 @@ function RecommendedTimes() {
 
   return (
     <div className="flex flex-col gap-1">
-      <HeadingForDesktop icon={<ClockIcon fill="#474A5C" className="mr-1" />}>
+      <EventSectionHeading icon={<ClockIcon fill="#474A5C" className="mr-1" />}>
         {t('mostAvailable')}
-      </HeadingForDesktop>
+      </EventSectionHeading>
       <div className="flex flex-col gap-6">
         {recommendedTimes?.map((recommendedTime, index) => (
           <RecommendedTime key={index} recommendedTime={recommendedTime} />

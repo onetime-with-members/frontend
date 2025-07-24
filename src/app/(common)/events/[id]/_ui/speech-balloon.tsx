@@ -39,11 +39,13 @@ function SpeechBalloonMain({
   width,
   offset,
   position = 'top',
+  tilt = 'none',
   ...props
 }: {
   width: number;
   offset: number;
   position?: 'top' | 'bottom';
+  tilt?: 'right' | 'left' | 'none';
   children: React.ReactNode;
 } & HTMLMotionProps<'div'>) {
   const [isShown, setIsShown] = useState(true);
@@ -79,15 +81,15 @@ function SpeechBalloonMain({
               opacity: 0,
               transform:
                 position === 'bottom'
-                  ? `translateY(calc(100% + ${offset + ANIMATION_OFFSET + TRIANGLE_HEIGHT}px))`
-                  : `translateY(calc(-100% - ${offset + ANIMATION_OFFSET + TRIANGLE_HEIGHT}px))`,
+                  ? `translate(4px, calc(100% + ${offset + ANIMATION_OFFSET + TRIANGLE_HEIGHT}px))`
+                  : `translate(4px, calc(-100% - ${offset + ANIMATION_OFFSET + TRIANGLE_HEIGHT}px))`,
             },
             visible: {
               opacity: 1,
               transform:
                 position === 'bottom'
-                  ? `translateY(calc(100% + ${offset + TRIANGLE_HEIGHT}px))`
-                  : `translateY(calc(-100% - ${offset + TRIANGLE_HEIGHT}px))`,
+                  ? `translate(4px, calc(100% + ${offset + TRIANGLE_HEIGHT}px))`
+                  : `translate(4px, calc(-100% - ${offset + TRIANGLE_HEIGHT}px))`,
             },
             exit: {
               opacity: 0,
@@ -106,7 +108,7 @@ function SpeechBalloonMain({
             'absolute z-10',
             {
               '-left-1/2 top-0': position === 'top',
-              'bottom-0': position === 'bottom',
+              '-left-1/2 bottom-0': position === 'bottom',
             },
             className,
           )}
@@ -121,7 +123,15 @@ function SpeechBalloonMain({
               <RoundedTriangle className="rotate-180" />
             </div>
           )}
-          <div className="w-full rounded-lg bg-primary-50 px-3 py-1.5 text-center text-gray-00 text-sm-200">
+          <div
+            className={cn(
+              'w-full rounded-lg bg-primary-50 px-3 py-1.5 text-center text-gray-00 text-sm-200',
+              {
+                'translate-x-6': tilt === 'right',
+                '-translate-x-6': tilt === 'left',
+              },
+            )}
+          >
             {children}
           </div>
           {position === 'top' && (

@@ -4,8 +4,9 @@ import { useContext } from 'react';
 
 import DesktopContents from './_contents/desktop-contents';
 import MobileContents from './_contents/mobile-contents';
-import { BottomButtons, ToolbarButtons } from './_ui/button';
+import { BottomButtons } from './_ui/button';
 import ParticipantFilter from './_ui/filter';
+import TopToolbar from './_ui/top-toolbar';
 import BarBanner from '@/components/bar-banner';
 import GrayBackground from '@/components/gray-background';
 import NavBar from '@/components/nav-bar';
@@ -30,6 +31,11 @@ export default function EventDetailPage() {
     ...schedulesQueryOptions(event || defaultEvent),
   });
 
+  const navBarHeight = 64;
+  const headerHeight = 72;
+  const participantHeight = schedules && schedules.length > 0 ? 39 : 0;
+  const barBannerHeight = isBarBannerShown ? 56 : 0;
+
   return (
     <div className="flex min-h-[110vh] flex-col">
       {/* Gray Background */}
@@ -41,20 +47,13 @@ export default function EventDetailPage() {
 
       {/* Top Toolbar and Bar Banner */}
       <header
-        className={cn('flex h-[59px] w-full justify-center md:h-[72px]', {
-          'h-[115px] md:h-[128px]': isBarBannerShown,
+        className={cn('flex h-[72px] w-full justify-center', {
+          'h-[128px]': isBarBannerShown,
         })}
       >
         <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
           {/* Top Toolbar */}
-          <div className="bg-gray-80 px-6 py-4 md:rounded-t-3xl">
-            <div className="flex items-center justify-between md:h-10">
-              <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
-                {event?.title}
-              </h1>
-              <ToolbarButtons />
-            </div>
-          </div>
+          <TopToolbar />
           {/* Bar Banner */}
           <BarBanner
             className="h-[56px]"
@@ -73,12 +72,16 @@ export default function EventDetailPage() {
               event={event || defaultEvent}
               schedules={schedules || []}
               backgroundColor="gray"
-              topContentClassName={cn(
-                'mt-6 top-[158px] bg-gray-00 md:top-[171px]',
-                {
-                  'top-[214px] md:top-[227px]': isBarBannerShown,
-                },
-              )}
+              topContentClassName={cn('top-[136px] bg-gray-00 md:top-[136px]', {
+                'top-[214px] md:top-[227px]': isBarBannerShown,
+              })}
+              topContentStyle={{
+                top:
+                  navBarHeight +
+                  headerHeight +
+                  participantHeight +
+                  barBannerHeight,
+              }}
             />
           </div>
           {/* Right Contents for Desktop */}

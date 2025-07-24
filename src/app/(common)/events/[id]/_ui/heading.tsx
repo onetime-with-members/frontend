@@ -3,24 +3,27 @@ import React, { useContext } from 'react';
 import { BarBannerContext } from '@/contexts/bar-banner';
 import cn from '@/lib/cn';
 
-export function HeadingForDesktop({
+export function EventSectionHeading({
   children,
   icon,
   status,
+  className,
 }: {
   icon?: React.ReactNode;
   status?: React.ReactNode;
   children: React.ReactNode;
+  className?: string;
 }) {
   const { isBarBannerShown } = useContext(BarBannerContext);
 
   return (
     <div
       className={cn(
-        'sticky top-[123px] z-10 flex items-center gap-2 bg-gray-00 py-1 pt-2 text-gray-70 text-lg-300 md:top-[136px]',
+        'sticky top-[136px] z-10 flex items-center gap-2 bg-gray-00 py-1 pt-2 text-gray-70 text-lg-300',
         {
-          'top-[179px] md:top-[192px]': isBarBannerShown,
+          'top-[192px]': isBarBannerShown,
         },
+        className,
       )}
     >
       <div className="flex items-center">

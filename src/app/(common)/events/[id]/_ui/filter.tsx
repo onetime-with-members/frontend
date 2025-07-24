@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import { HeadingForDesktop } from './heading';
+import { EventSectionHeading } from './heading';
 import HumanIcon from '@/components/icon/human';
 import {
   eventQueryOptions,
@@ -24,13 +24,14 @@ export default function ParticipantFilter() {
   return (
     participants.length > 0 && (
       <>
-        <HeadingForDesktop
+        <EventSectionHeading
           icon={<HumanIcon fill="#474A5C" size={20} className="mr-0.5" />}
           status={<>{participants.length}</>}
+          className="pt-2"
         >
           {t('participant', { count: participants.length })}
-        </HeadingForDesktop>
-        <ul className="mt-2 flex flex-wrap gap-1.5">
+        </EventSectionHeading>
+        <ul className="mt-2 flex flex-wrap gap-1.5 pb-4 pt-0 md:pb-6">
           {participants.map((participant, index) => (
             <ParticipantFilterItem key={index}>
               {participant}
