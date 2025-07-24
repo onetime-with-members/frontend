@@ -1,13 +1,12 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { useContext } from 'react';
 
 import EmptyEventBanner from '../_ui/empty';
+import { HeadingForDesktop } from '../_ui/heading';
 import ClockIcon from '@/components/icon/clock';
 import HumanIcon from '@/components/icon/human';
 import MemberBadge from '@/components/member-badge';
-import { BarBannerContext } from '@/contexts/bar-banner';
 import {
   eventQueryOptions,
   recommendedTimesQueryOptions,
@@ -45,7 +44,7 @@ function RecommendedTimes() {
 
   return (
     <div className="flex flex-col gap-1">
-      <HeadingForDesktop icon={<ClockIcon fill="#474A5C" />}>
+      <HeadingForDesktop icon={<ClockIcon fill="#474A5C" className="mr-1" />}>
         {t('mostAvailable')}
       </HeadingForDesktop>
       <div className="flex flex-col gap-6">
@@ -125,34 +124,6 @@ function ParticipantsSection({
   );
 }
 
-function HeadingForDesktop({
-  children,
-  className,
-  icon,
-  ...props
-}: React.HTMLAttributes<HTMLHeadingElement> & { icon: React.ReactNode }) {
-  const { isBarBannerShown } = useContext(BarBannerContext);
-
-  return (
-    <div className="flex items-center gap-1">
-      {icon}
-
-      <h2
-        className={cn(
-          'sticky top-[123px] z-10 bg-gray-05 py-1 text-gray-70 text-lg-300 md:top-[136px]',
-          {
-            'top-[179px] md:top-[192px]': isBarBannerShown,
-          },
-          className,
-        )}
-        {...props}
-      >
-        {children}
-      </h2>
-    </div>
-  );
-}
-
 function RecommendTimeHeading({
   recommendedTime,
 }: {
@@ -195,7 +166,7 @@ function PaticipantStatus({
   return (
     <div className="flex items-center">
       <span>
-        <HumanIcon fill={isAllPossible ? '#16B18C' : '#CBCDD7'} />
+        <HumanIcon fill={isAllPossible ? '#16B18C' : '#CBCDD7'} size={18} />
       </span>
       <span
         className={cn('text-gray-30 text-sm-200', {

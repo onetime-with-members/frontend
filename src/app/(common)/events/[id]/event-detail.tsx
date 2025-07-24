@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import DesktopContents from './_contents/desktop-contents';
 import MobileContents from './_contents/mobile-contents';
 import { BottomButtons, ToolbarButtons } from './_ui/button';
+import ParticipantFilter from './_ui/filter';
 import BarBanner from '@/components/bar-banner';
 import GrayBackground from '@/components/gray-background';
 import NavBar from '@/components/nav-bar';
@@ -63,16 +64,17 @@ export default function EventDetailPage() {
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6 bg-gray-00 px-4 pb-16 pt-6 md:px-6">
+      <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6 bg-gray-00 px-4 pb-16 pt-4 md:px-6">
         <div className="flex gap-6">
           {/* Time Block Board */}
           <div className="w-full md:w-1/2">
+            <ParticipantFilter />
             <TimeBlockBoard
               event={event || defaultEvent}
               schedules={schedules || []}
               backgroundColor="white"
-              topContentClassName={cn('top-[123px] bg-gray-00 md:top-[136px]', {
-                'top-[179px] md:top-[192px]': isBarBannerShown,
+              topContentClassName={cn('top-[158px] bg-gray-00 md:top-[171px]', {
+                'top-[214px] md:top-[227px]': isBarBannerShown,
               })}
             />
           </div>

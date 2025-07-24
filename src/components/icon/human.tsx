@@ -1,10 +1,26 @@
-export default function HumanIcon({ fill = '#16B18C' }: { fill?: string }) {
+import cn from '@/lib/cn';
+
+export default function HumanIcon({
+  fill = '#16B18C',
+  size = 20,
+  className,
+}: {
+  fill?: string;
+  size?: number;
+  className?: string;
+}) {
+  const width = Math.round(size * 0.55);
+  const height = Math.round(size * 0.72);
+
   return (
-    <div className="flex h-[18px] w-[18px] items-center justify-center">
+    <div
+      className={cn('flex items-center justify-center', className)}
+      style={{ width: size, height: size }}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="10"
-        height="13"
+        width={width}
+        height={height}
         viewBox="0 0 10 13"
         fill="none"
       >
