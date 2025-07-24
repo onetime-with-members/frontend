@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import { HeadingForDesktop } from './heading';
 import HumanIcon from '@/components/icon/human';
 import {
@@ -10,6 +12,7 @@ import { useParams } from 'next/navigation';
 
 export default function ParticipantFilter() {
   const params = useParams<{ id: string }>();
+  const t = useTranslations('eventDetail');
 
   const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
   const { data: schedules } = useQuery({
@@ -25,9 +28,9 @@ export default function ParticipantFilter() {
           icon={<HumanIcon fill="#474A5C" size={20} className="mr-0.5" />}
           status={<>{participants.length}</>}
         >
-          참여자
+          {t('participant', { count: participants.length })}
         </HeadingForDesktop>
-        <ul className="flex flex-wrap gap-1.5">
+        <ul className="mt-2 flex flex-wrap gap-1.5">
           {participants.map((participant, index) => (
             <ParticipantFilterItem key={index}>
               {participant}

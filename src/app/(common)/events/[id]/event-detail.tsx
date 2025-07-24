@@ -72,10 +72,13 @@ export default function EventDetailPage() {
             <TimeBlockBoard
               event={event || defaultEvent}
               schedules={schedules || []}
-              backgroundColor="white"
-              topContentClassName={cn('top-[158px] bg-gray-00 md:top-[171px]', {
-                'top-[214px] md:top-[227px]': isBarBannerShown,
-              })}
+              backgroundColor="gray"
+              topContentClassName={cn(
+                'mt-6 top-[158px] bg-gray-00 md:top-[171px]',
+                {
+                  'top-[214px] md:top-[227px]': isBarBannerShown,
+                },
+              )}
             />
           </div>
           {/* Right Contents for Desktop */}

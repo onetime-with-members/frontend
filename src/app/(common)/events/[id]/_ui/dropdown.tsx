@@ -38,11 +38,7 @@ export function ToolbarMenuDropdown() {
         className="relative flex items-center justify-center"
         ref={dropdownRef}
       >
-        <ToolbarButton
-          variant="gray"
-          onClick={handleDropdownClick}
-          className="hidden md:flex"
-        >
+        <ToolbarButton onClick={handleDropdownClick} className="hidden md:flex">
           <IconDots size={28} />
         </ToolbarButton>
         <button

@@ -3,14 +3,14 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
-import { LoginAlert } from './alert';
-import { ToolbarMenuDropdown } from './dropdown';
+import { EventDeleteAlert, LoginAlert } from './alert';
 import SharePopUp from './pop-up';
 import SpeechBalloon from './speech-balloon';
 import Button from '@/components/button';
 import BadgeButton from '@/components/button/badge-button';
+import EditIcon from '@/components/icon/edit';
+import TrashIcon from '@/components/icon/trash';
 import { FooterContext } from '@/contexts/footer';
-import useKakaoShare from '@/hooks/useKakaoShare';
 import {
   eventQueryOptions,
   eventWithAuthQueryOptions,
@@ -130,106 +130,45 @@ export function BottomButtons() {
 }
 
 export function ToolbarButtons() {
+  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
+
   const params = useParams<{ id: string }>();
-  const t = useTranslations('eventDetail');
-  const locale = useLocale();
+  const progressRouter = useProgressRouter();
 
   const { data: event } = useQuery({
     ...eventWithAuthQueryOptions(params.id),
   });
-  const { data: schedules } = useQuery({
-    ...schedulesQueryOptions(event || defaultEvent),
-  });
 
   return (
-    <div className="flex items-center gap-2">
-      <SpeechBalloon.Container className="hidden md:block">
-        <SpeechBalloon.Wrapper>
-          <SendButton />
-        </SpeechBalloon.Wrapper>
-        {schedules?.length === 0 && (
-          <SpeechBalloon.Main
-            width={locale === 'ko' ? 101 : 111}
-            offset={4}
-            position="bottom"
+    event?.event_status === 'CREATOR' && (
+      <>
+        <div className="flex items-center gap-2">
+          <ToolbarButton
+            onClick={() => progressRouter.push(`/events/${params.id}/edit`)}
           >
-            {t('shareMessage')}
-          </SpeechBalloon.Main>
+            <EditIcon fill="#FFFFFF" size={25} />
+          </ToolbarButton>
+          <ToolbarButton onClick={() => setIsDeleteAlertOpen(true)}>
+            <TrashIcon fill="#FFFFFF" innerFill="#474A5C" size={25} />
+          </ToolbarButton>
+        </div>
+        {isDeleteAlertOpen && (
+          <EventDeleteAlert setIsEventDeleteAlertOpen={setIsDeleteAlertOpen} />
         )}
-      </SpeechBalloon.Container>
-      <ShareKakaoButton />
-      {event?.event_status === 'CREATOR' && <ToolbarMenuDropdown />}
-    </div>
-  );
-}
-
-export function SendButton() {
-  const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
-
-  return (
-    <>
-      {/* Button */}
-      <ToolbarButton
-        variant="primary"
-        onClick={() => setIsSharePopUpOpen(true)}
-        className="hidden md:flex"
-      >
-        <Image
-          src="/images/send.svg"
-          alt="보내기 아이콘"
-          width={28}
-          height={28}
-        />
-      </ToolbarButton>
-
-      {/*  Pop Up */}
-      {isSharePopUpOpen && <SharePopUp setIsOpen={setIsSharePopUpOpen} />}
-    </>
-  );
-}
-
-export function ShareKakaoButton() {
-  const params = useParams<{ id: string }>();
-
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-
-  const { handleKakaoShare } = useKakaoShare({
-    event,
-  });
-
-  return (
-    <ToolbarButton
-      variant="yellow"
-      onClick={handleKakaoShare}
-      className="hidden md:flex"
-    >
-      <Image
-        src="/images/kakao-icon.svg"
-        alt="카카오톡 아이콘"
-        width={28}
-        height={28}
-      />
-    </ToolbarButton>
+      </>
+    )
   );
 }
 
 export function ToolbarButton({
-  className,
   children,
-  variant = 'primary',
+  className,
   ...props
-}: {
-  children: React.ReactNode;
-  variant?: 'primary' | 'yellow' | 'gray';
-} & React.HTMLAttributes<HTMLButtonElement>) {
+}: React.HTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       className={cn(
-        'flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-primary-40 p-1.5 text-gray-00',
-        {
-          'bg-[#FAE100]': variant === 'yellow',
-          'bg-gray-50': variant === 'gray',
-        },
+        'flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-70 p-1.5 text-gray-00',
         className,
       )}
       {...props}
