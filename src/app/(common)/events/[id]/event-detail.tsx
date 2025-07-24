@@ -63,7 +63,7 @@ export default function EventDetailPage() {
       </header>
 
       {/* Main Content */}
-      <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6 bg-gray-00 px-4 pb-16 pt-4 md:px-6">
+      <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6 bg-gray-00 px-4 pb-16 pt-2 md:px-6">
         <div className="flex gap-6">
           {/* Time Block Board */}
           <div className="w-full md:w-1/2">

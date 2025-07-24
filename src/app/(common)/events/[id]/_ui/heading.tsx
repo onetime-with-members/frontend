@@ -19,7 +19,7 @@ export function EventSectionHeading({
   return (
     <div
       className={cn(
-        'sticky top-[136px] z-10 flex items-center gap-2 bg-gray-00 py-1 pt-2 text-gray-70 text-lg-300',
+        'sticky top-[136px] z-10 flex items-center gap-2 bg-gray-00 pb-1 pt-2 text-gray-70 text-lg-300',
         {
           'top-[192px]': isBarBannerShown,
         },
