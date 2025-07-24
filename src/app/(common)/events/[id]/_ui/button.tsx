@@ -117,7 +117,7 @@ export function BottomButtons() {
         variant="black"
         icon={hasUserSchedule ? 'edit' : 'plus'}
         onClick={handleBottomButtonClick}
-        className={cn('hidden duration-150 md:block', {
+        className={cn('hidden duration-150 md:flex', {
           'pointer-events-none opacity-0': isFooterShown,
         })}
       />
@@ -197,24 +197,60 @@ export function BadgeFloatingBottomButton({
     <>
       <div
         className={cn(
-          'fixed bottom-8 left-1/2 flex -translate-x-1/2 justify-center',
+          'fixed bottom-8 left-1/2 flex -translate-x-1/2 items-center justify-center gap-4',
           className,
         )}
         style={style}
       >
-        <BadgeButton onClick={onClick} variant={variant}>
-          <span className="flex items-center justify-center gap-1">
-            <span>{name}</span>
-            <span>
-              {icon === 'plus' ? (
-                <IconPlus size={24} />
-              ) : (
-                <IconEdit size={24} />
-              )}
-            </span>
-          </span>
+        <SendButton />
+        <BadgeButton
+          onClick={onClick}
+          variant={variant}
+          icon={
+            icon === 'plus' ? (
+              <IconPlus size={24} />
+            ) : (
+              <EditIcon size={20} fill="#FFFFFF" />
+            )
+          }
+        >
+          {name}
         </BadgeButton>
       </div>
     </>
+  );
+}
+
+function SendButton() {
+  const params = useParams<{ id: string }>();
+  const t = useTranslations('eventDetail');
+  const locale = useLocale();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: schedules } = useQuery({
+    ...schedulesQueryOptions(event || defaultEvent),
+  });
+
+  return (
+    <SpeechBalloon.Container>
+      <SpeechBalloon.Wrapper>
+        <button
+          type="button"
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-80"
+        >
+          <Image
+            src="/images/send.svg"
+            alt="종이비행기 아이콘"
+            width={36}
+            height={36}
+          />
+        </button>
+      </SpeechBalloon.Wrapper>
+      {schedules?.length === 0 && (
+        <SpeechBalloon.Main width={locale === 'ko' ? 101 : 111} offset={2}>
+          {t('shareMessage')}
+        </SpeechBalloon.Main>
+      )}
+    </SpeechBalloon.Container>
   );
 }

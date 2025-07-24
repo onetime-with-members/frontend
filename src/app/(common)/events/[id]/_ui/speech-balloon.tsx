@@ -5,6 +5,9 @@ import { useEffect, useRef, useState } from 'react';
 
 import cn from '@/lib/cn';
 
+const ANIMATION_OFFSET = 20;
+const TRIANGLE_HEIGHT = 6;
+
 export default function SpeechBalloon() {
   return <></>;
 }
@@ -76,15 +79,15 @@ function SpeechBalloonMain({
               opacity: 0,
               transform:
                 position === 'bottom'
-                  ? `translateY(calc(100% + ${offset + 20}px))`
-                  : `translateY(calc(-100% - ${offset + 20}px))`,
+                  ? `translateY(calc(100% + ${offset + ANIMATION_OFFSET + TRIANGLE_HEIGHT}px))`
+                  : `translateY(calc(-100% - ${offset + ANIMATION_OFFSET + TRIANGLE_HEIGHT}px))`,
             },
             visible: {
               opacity: 1,
               transform:
                 position === 'bottom'
-                  ? `translateY(calc(100% + ${offset}px))`
-                  : `translateY(calc(-100% - ${offset}px))`,
+                  ? `translateY(calc(100% + ${offset + TRIANGLE_HEIGHT}px))`
+                  : `translateY(calc(-100% - ${offset + TRIANGLE_HEIGHT}px))`,
             },
             exit: {
               opacity: 0,
@@ -100,9 +103,9 @@ function SpeechBalloonMain({
             duration: 0.5,
           }}
           className={cn(
-            'absolute z-10 shadow-lg',
+            'absolute z-10',
             {
-              'top-0': position === 'top',
+              '-left-1/2 top-0': position === 'top',
               'bottom-0': position === 'bottom',
             },
             className,
@@ -114,15 +117,15 @@ function SpeechBalloonMain({
           {...props}
         >
           {position === 'bottom' && (
-            <div className="ml-4">
+            <div className="absolute left-1/2 -translate-x-1/2">
               <RoundedTriangle className="rotate-180" />
             </div>
           )}
-          <div className="w-full rounded-lg bg-primary-40 px-3 py-1.5 text-center text-gray-00 text-sm-200">
+          <div className="w-full rounded-lg bg-primary-50 px-3 py-1.5 text-center text-gray-00 text-sm-200">
             {children}
           </div>
           {position === 'top' && (
-            <div className="ml-4">
+            <div className="absolute left-1/2 -translate-x-1/2">
               <RoundedTriangle />
             </div>
           )}
