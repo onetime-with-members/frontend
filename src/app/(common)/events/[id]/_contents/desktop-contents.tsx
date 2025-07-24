@@ -5,6 +5,7 @@ import { useContext } from 'react';
 
 import EmptyEventBanner from '../_ui/empty';
 import ClockIcon from '@/components/icon/clock';
+import HumanIcon from '@/components/icon/human';
 import MemberBadge from '@/components/member-badge';
 import { BarBannerContext } from '@/contexts/bar-banner';
 import {
@@ -16,7 +17,6 @@ import cn from '@/lib/cn';
 import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { RecommendScheduleType } from '@/lib/types';
-import { getParticipants } from '@/lib/utils';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
@@ -29,50 +29,8 @@ export default function DesktopContents() {
   });
 
   return (
-    <div className="hidden flex-col md:flex md:w-[45%]">
-      {schedules?.length === 0 ? (
-        <EmptyEventBanner />
-      ) : (
-        <>
-          <Participants />
-          <RecommendedTimes />
-        </>
-      )}
-    </div>
-  );
-}
-
-function Participants() {
-  const params = useParams<{ id: string }>();
-
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: schedules } = useQuery({
-    ...schedulesQueryOptions(event || defaultEvent),
-  });
-
-  const participants = getParticipants(schedules || []);
-
-  const t = useTranslations('eventDetail');
-
-  return (
-    <div className="flex flex-col gap-1">
-      <HeadingForDesktop>
-        <span className="flex items-center gap-2">
-          <span>
-            {t('participant', {
-              count: participants.length,
-            })}
-          </span>
-          <span className="text-primary-50">{participants.length}</span>
-        </span>
-      </HeadingForDesktop>
-      <div className="flex flex-wrap gap-2 pb-9">
-        {participants.map((participant, index) => (
-          <MemberBadge key={index} variant="white">
-            {participant}
-          </MemberBadge>
-        ))}
-      </div>
+    <div className="hidden flex-col md:flex md:w-1/2">
+      {schedules?.length === 0 ? <EmptyEventBanner /> : <RecommendedTimes />}
     </div>
   );
 }
@@ -87,7 +45,9 @@ function RecommendedTimes() {
 
   return (
     <div className="flex flex-col gap-1">
-      <HeadingForDesktop>{t('mostAvailable')}</HeadingForDesktop>
+      <HeadingForDesktop icon={<ClockIcon fill="#474A5C" />}>
+        {t('mostAvailable')}
+      </HeadingForDesktop>
       <div className="flex flex-col gap-6">
         {recommendedTimes?.map((recommendedTime, index) => (
           <RecommendedTime key={index} recommendedTime={recommendedTime} />
@@ -102,38 +62,20 @@ function RecommendedTime({
 }: {
   recommendedTime: RecommendScheduleType;
 }) {
-  const params = useParams<{ id: string }>();
-  const locale = useLocale();
-
-  dayjs.locale(locale);
-
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-
   return (
-    <div className="flex flex-col gap-3 rounded-2xl bg-gray-00 p-5">
-      <h3 className="flex items-center gap-1 text-primary-50 text-md-300">
-        <span>
-          <ClockIcon fill="#4c65e5" size={20} />
-        </span>
-        <span className="flex items-center gap-2">
-          <span>
-            {event && event.category === 'DATE'
-              ? dayjs(recommendedTime.time_point, 'YYYY.MM.DD').format(
-                  'YYYY.MM.DD (ddd)',
-                )
-              : dayjs()
-                  .day(
-                    weekdaysShortKo.findIndex(
-                      (weekday) => weekday === recommendedTime.time_point,
-                    ),
-                  )
-                  .format('dddd')}
-          </span>
-          <span>
-            {recommendedTime.start_time} - {recommendedTime.end_time}
-          </span>
-        </span>
-      </h3>
+    <div className="flex flex-col gap-6 rounded-2xl border border-gray-10 bg-gray-00 p-5">
+      <header className="flex items-start justify-between">
+        <RecommendTimeHeading recommendedTime={recommendedTime} />
+        <PaticipantStatus
+          participantCount={{
+            possible: recommendedTime.possible_count,
+            total:
+              recommendedTime.possible_names.length +
+              recommendedTime.impossible_names.length,
+          }}
+        />
+      </header>
+
       <div className="flex flex-col gap-5">
         <ParticipantsSection
           type="available"
@@ -161,17 +103,14 @@ function ParticipantsSection({
     participants.length > 0 && (
       <div className="flex flex-col gap-2">
         <h4
-          className={cn('flex items-center gap-1 text-md-300', {
-            'text-primary-50': type === 'available',
-            'text-gray-50': type === 'unavailable',
+          className={cn('flex items-center gap-1 text-sm-200', {
+            'text-primary-60': type === 'available',
+            'text-gray-40': type === 'unavailable',
           })}
         >
-          <span>
-            {type === 'available' ? t('available') : t('unavailable')}
-          </span>
-          <span>{participants.length}</span>
+          {type === 'available' ? t('available') : t('unavailable')}
         </h4>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           {participants.map((name, index) => (
             <MemberBadge
               key={index}
@@ -189,22 +128,82 @@ function ParticipantsSection({
 function HeadingForDesktop({
   children,
   className,
+  icon,
   ...props
-}: React.HTMLAttributes<HTMLHeadingElement>) {
+}: React.HTMLAttributes<HTMLHeadingElement> & { icon: React.ReactNode }) {
   const { isBarBannerShown } = useContext(BarBannerContext);
 
   return (
-    <h2
-      className={cn(
-        'sticky top-[123px] z-10 bg-gray-05 py-1 text-gray-90 text-lg-300 md:top-[136px]',
-        {
-          'top-[179px] md:top-[192px]': isBarBannerShown,
-        },
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </h2>
+    <div className="flex items-center gap-1">
+      {icon}
+
+      <h2
+        className={cn(
+          'sticky top-[123px] z-10 bg-gray-05 py-1 text-gray-70 text-lg-300 md:top-[136px]',
+          {
+            'top-[179px] md:top-[192px]': isBarBannerShown,
+          },
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </h2>
+    </div>
+  );
+}
+
+function RecommendTimeHeading({
+  recommendedTime,
+}: {
+  recommendedTime: RecommendScheduleType;
+}) {
+  const params = useParams<{ id: string }>();
+  const locale = useLocale();
+
+  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+
+  return (
+    <div className="flex flex-col text-gray-60">
+      <h2 className="text-sm-200">
+        {event && event.category === 'DATE'
+          ? dayjs(recommendedTime.time_point, 'YYYY.MM.DD').format(
+              locale === 'ko' ? 'M월 D일 dddd' : 'ddd, MMMM Do',
+            )
+          : dayjs()
+              .day(
+                weekdaysShortKo.findIndex(
+                  (weekday) => weekday === recommendedTime.time_point,
+                ),
+              )
+              .format('dddd')}
+      </h2>
+      <h3 className="text-lg-300">
+        {recommendedTime.start_time} - {recommendedTime.end_time}
+      </h3>
+    </div>
+  );
+}
+
+function PaticipantStatus({
+  participantCount,
+}: {
+  participantCount: { possible: number; total: number };
+}) {
+  const isAllPossible = participantCount.possible === participantCount.total;
+
+  return (
+    <div className="flex items-center">
+      <span>
+        <HumanIcon fill={isAllPossible ? '#16B18C' : '#CBCDD7'} />
+      </span>
+      <span
+        className={cn('text-gray-30 text-sm-200', {
+          'text-success-60': isAllPossible,
+        })}
+      >
+        {participantCount.possible}/{participantCount.total}
+      </span>
+    </div>
   );
 }

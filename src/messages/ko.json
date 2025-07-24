@@ -81,7 +81,7 @@
     "delete": "삭제",
     "addSchedule": "스케줄 추가",
     "editSchedule": "스케줄 수정",
-    "mostAvailable": "가장 많이 되는 시간대",
+    "mostAvailable": "추천 시간",
     "allAvailable": "모두가 되는 시간",
     "peopleWhoAddedSchedules": "스케줄을 추가한 사람{count, plural, =1 {} other {들}}",
     "whenAvailableTimes": "가능한 시간은 언제일까요?",
