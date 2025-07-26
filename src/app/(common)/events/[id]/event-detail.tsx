@@ -3,8 +3,8 @@
 import { useContext } from 'react';
 
 import DesktopContents from './_contents/desktop-contents';
-import MobileContents from './_contents/mobile-contents';
-import { BottomButtons } from './_ui/button';
+import RecommededTimesBottomSheet from './_ui/bottom-sheet/RecommededTimesBottomSheet';
+import { BottomButtonsForDesktop } from './_ui/button';
 import ParticipantFilter from './_ui/filter';
 import TopToolbar from './_ui/top-toolbar';
 import BarBanner from '@/components/bar-banner';
@@ -38,23 +38,18 @@ export default function EventDetailPage() {
 
   return (
     <div className="flex min-h-[110vh] flex-col">
-      {/* Gray Background */}
       <GrayBackground />
 
-      {/* Navigation Bar */}
       <NavBar variant="default" className="hidden md:flex" />
       <NavBar variant="black" className="flex md:hidden" shadow={false} />
 
-      {/* Top Toolbar and Bar Banner */}
       <header
         className={cn('flex h-[72px] w-full justify-center', {
           'h-[128px]': isBarBannerShown,
         })}
       >
         <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
-          {/* Top Toolbar */}
           <TopToolbar />
-          {/* Bar Banner */}
           <BarBanner
             className="h-[56px]"
             innnerClassName="fixed max-w-[calc(768px+2rem)] w-full"
@@ -62,37 +57,31 @@ export default function EventDetailPage() {
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6 bg-gray-00 px-4 pb-16 pt-2 md:px-6">
-        <div className="flex gap-6">
-          {/* Time Block Board */}
-          <div className="w-full md:w-1/2">
-            <ParticipantFilter />
-            <TimeBlockBoard
-              event={event || defaultEvent}
-              schedules={schedules || []}
-              backgroundColor="gray"
-              topContentClassName={cn('top-[136px] bg-gray-00 md:top-[136px]', {
-                'top-[214px] md:top-[227px]': isBarBannerShown,
-              })}
-              topContentStyle={{
-                top:
-                  navBarHeight +
-                  headerHeight +
-                  participantHeight +
-                  barBannerHeight,
-              }}
-            />
-          </div>
-          {/* Right Contents for Desktop */}
-          <DesktopContents />
+      <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] gap-6 bg-gray-00 px-4 pb-16 pt-2 md:px-6">
+        <div className="w-full md:w-1/2">
+          <ParticipantFilter />
+          <TimeBlockBoard
+            event={event || defaultEvent}
+            schedules={schedules || []}
+            backgroundColor="gray"
+            topContentClassName={cn('top-[136px] bg-gray-00 md:top-[136px]', {
+              'top-[214px] md:top-[227px]': isBarBannerShown,
+            })}
+            topContentStyle={{
+              top:
+                navBarHeight +
+                headerHeight +
+                participantHeight +
+                barBannerHeight,
+            }}
+          />
         </div>
-        {/* Bottom Contents for Mobile */}
-        <MobileContents />
+        <DesktopContents />
       </main>
 
-      {/* Bottom Button for Desktop and Mobile */}
-      <BottomButtons />
+      <BottomButtonsForDesktop />
+
+      <RecommededTimesBottomSheet />
     </div>
   );
 }

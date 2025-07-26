@@ -32,6 +32,7 @@
     "react-markdown": "^9.0.3",
     "react-player": "^2.16.0",
     "tailwind-merge": "^2.6.0",
+    "vaul": "^1.1.2",
     "zod": "^4.0.5"
   },
   "devDependencies": {

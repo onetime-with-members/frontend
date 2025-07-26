@@ -296,7 +296,7 @@ export function LandingPopUp({ initialIsShown }: { initialIsShown: boolean }) {
 
   return (
     isShown && (
-      <div className="fixed left-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center gap-6 bg-gray-90 bg-opacity-50">
+      <div className="fixed left-0 top-0 z-[99] flex h-full w-full flex-col items-center justify-center gap-6 bg-gray-90 bg-opacity-50">
         <div className="h-[30rem] w-full max-w-[24rem] overflow-hidden rounded-3xl bg-gray-00">
           <Image
             src="/images/sample-landing-pop-up.png"

@@ -1,5 +1,6 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
@@ -20,13 +21,14 @@ import {
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { defaultEvent, defaultScheduleDetail } from '@/lib/constants';
+import { ScheduleType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import { IconEdit, IconPlus } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
-export function BottomButtons() {
+export function BottomButtonsForDesktop() {
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
 
@@ -35,14 +37,10 @@ export function BottomButtons() {
   const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
-  const locale = useLocale();
 
   const { isLoggedIn } = useAuth();
 
   const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: schedules } = useQuery({
-    ...schedulesQueryOptions(event || defaultEvent),
-  });
   const { data: scheduleDetailData } = useQuery({
     ...scheduleDetailQueryOptions({ event: event || defaultEvent, isLoggedIn }),
   });
@@ -63,58 +61,6 @@ export function BottomButtons() {
 
   return (
     <>
-      {/* Bottom Button for Mobile */}
-      <div
-        className={cn(
-          'fixed bottom-0 z-10 flex w-full items-center justify-center gap-2 bg-gray-00 p-4 duration-150 md:hidden',
-          {
-            'pointer-events-none opacity-0': isFooterShown,
-          },
-        )}
-      >
-        <SpeechBalloon.Container>
-          <SpeechBalloon.Wrapper>
-            <button
-              className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-gray-80 duration-150 hover:bg-gray-90 active:bg-gray-90"
-              onClick={() => setIsSharePopUpOpen(true)}
-            >
-              <Image
-                src="/images/send.svg"
-                alt="공유 아이콘"
-                width={36}
-                height={36}
-              />
-            </button>
-          </SpeechBalloon.Wrapper>
-          {schedules?.length === 0 && (
-            <SpeechBalloon.Main
-              width={locale === 'ko' ? 101 : 111}
-              offset={4}
-              tilt="right"
-            >
-              {t('shareMessage')}
-            </SpeechBalloon.Main>
-          )}
-        </SpeechBalloon.Container>
-        <Button
-          onClick={handleBottomButtonClick}
-          variant="dark"
-          className="flex-1"
-        >
-          <span className="flex items-center justify-center gap-1">
-            <span>
-              {hasUserSchedule ? t('editSchedule') : t('addSchedule')}
-            </span>
-            <span>
-              {hasUserSchedule ? (
-                <IconEdit size={24} />
-              ) : (
-                <IconPlus size={24} />
-              )}
-            </span>
-          </span>
-        </Button>
-      </div>
       {/* Bottom Button for Desktop */}
       <BadgeFloatingBottomButton
         name={hasUserSchedule ? t('editSchedule') : t('addSchedule')}
@@ -130,6 +76,71 @@ export function BottomButtons() {
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
       {isSharePopUpOpen && <SharePopUp setIsOpen={setIsSharePopUpOpen} />}
     </>
+  );
+}
+
+export function BottomButtonForMobile({
+  schedules,
+  hasUserSchedule,
+  onShareButtonClick,
+  onEditButtonClick,
+}: {
+  schedules: ScheduleType[];
+  hasUserSchedule: boolean;
+  onShareButtonClick: () => void;
+  onEditButtonClick: () => void;
+}) {
+  const t = useTranslations('eventDetail');
+  const locale = useLocale();
+
+  return (
+    <motion.div
+      className="fixed bottom-0 left-0 right-0 z-[60] flex w-full items-center justify-center gap-2 bg-gray-00 p-4 md:hidden"
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 0.15 },
+      }}
+      exit={{
+        opacity: 0,
+        transition: { duration: 0.15 },
+      }}
+    >
+      <SpeechBalloon.Container>
+        <SpeechBalloon.Wrapper>
+          <button
+            className="flex h-[56px] w-[56px] items-center justify-center rounded-2xl bg-gray-80 duration-150 hover:bg-gray-90 active:bg-gray-90"
+            onClick={onShareButtonClick}
+          >
+            <Image
+              src="/images/send.svg"
+              alt="공유 아이콘"
+              width={36}
+              height={36}
+            />
+          </button>
+        </SpeechBalloon.Wrapper>
+        {schedules?.length === 0 && (
+          <SpeechBalloon.Main
+            width={locale === 'ko' ? 101 : 111}
+            offset={4}
+            tilt="right"
+          >
+            {t('shareMessage')}
+          </SpeechBalloon.Main>
+        )}
+      </SpeechBalloon.Container>
+      <Button onClick={onEditButtonClick} variant="dark" className="flex-1">
+        <span className="flex items-center justify-center gap-1">
+          <span>{hasUserSchedule ? t('editSchedule') : t('addSchedule')}</span>
+          <span>
+            {hasUserSchedule ? <IconEdit size={24} /> : <IconPlus size={24} />}
+          </span>
+        </span>
+      </Button>
+    </motion.div>
   );
 }
 

@@ -17,8 +17,10 @@ export default async function ContextProviders({
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = await cookies();
+
   let barBanner = null;
-  if (!(await cookies()).get('bar-banner')) {
+  if (!cookieStore.get('bar-banner')) {
     barBanner = await fetchBarBanner();
   }
 

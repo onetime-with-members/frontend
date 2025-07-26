@@ -28,6 +28,7 @@ export default function ParticipantFilter() {
           icon={<HumanIcon fill="#474A5C" size={20} className="mr-0.5" />}
           status={<>{participants.length}</>}
           className="pt-2"
+          sticky
         >
           {t('participant', { count: participants.length })}
         </EventSectionHeading>

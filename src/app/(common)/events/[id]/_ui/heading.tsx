@@ -8,20 +8,23 @@ export function EventSectionHeading({
   icon,
   status,
   className,
+  sticky,
 }: {
   icon?: React.ReactNode;
   status?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
+  sticky?: boolean;
 }) {
   const { isBarBannerShown } = useContext(BarBannerContext);
 
   return (
     <div
       className={cn(
-        'sticky top-[136px] z-10 flex items-center gap-2 bg-gray-00 pb-1 pt-2 text-gray-70 text-lg-300',
+        'top-[136px] z-10 flex items-center gap-2 bg-gray-00 pb-1 pt-2 text-gray-70 text-lg-300',
         {
           'top-[192px]': isBarBannerShown,
+          sticky: sticky,
         },
         className,
       )}

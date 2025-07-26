@@ -44,7 +44,10 @@ function RecommendedTimes() {
 
   return (
     <div className="flex flex-col gap-1">
-      <EventSectionHeading icon={<ClockIcon fill="#474A5C" className="mr-1" />}>
+      <EventSectionHeading
+        icon={<ClockIcon fill="#474A5C" className="mr-1" />}
+        sticky
+      >
         {t('mostAvailable')}
       </EventSectionHeading>
       <div className="flex flex-col gap-6">
@@ -56,7 +59,7 @@ function RecommendedTimes() {
   );
 }
 
-function RecommendedTime({
+export function RecommendedTime({
   recommendedTime,
 }: {
   recommendedTime: RecommendScheduleType;
@@ -89,7 +92,7 @@ function RecommendedTime({
   );
 }
 
-function ParticipantsSection({
+export function ParticipantsSection({
   type,
   participants,
 }: {
@@ -124,7 +127,7 @@ function ParticipantsSection({
   );
 }
 
-function RecommendTimeHeading({
+export function RecommendTimeHeading({
   recommendedTime,
 }: {
   recommendedTime: RecommendScheduleType;
@@ -156,7 +159,7 @@ function RecommendTimeHeading({
   );
 }
 
-function PaticipantStatus({
+export function PaticipantStatus({
   participantCount,
 }: {
   participantCount: { possible: number; total: number };
