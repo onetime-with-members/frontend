@@ -106,8 +106,7 @@ export default function MemberLoginSubScreen({
             className="rounded-xl bg-[#e8ebfc80] px-4 py-3 leading-loose text-primary-40 text-sm-100"
             style={{ lineHeight: '150%' }}
           >
-            비밀번호를 설정하면, 같은 이름과 비밀번호를 입력했을 때 스케줄을
-            수정할 수 있어요.
+            {t('passwordInfo')}
           </div>
         </div>
       </div>
