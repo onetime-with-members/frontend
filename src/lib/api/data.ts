@@ -3,6 +3,8 @@ import {
   BarBanner,
   EventType,
   MyScheduleTimeType,
+  ParticipantResponseType,
+  ParticipantType,
   RecommendScheduleType,
   ScheduleType,
 } from '../types';
@@ -67,6 +69,28 @@ export async function fetchSchedules(event: EventType) {
   const schedules: ScheduleType[] = data.payload;
 
   return schedules;
+}
+
+export async function fetchParticipants(eventId: string) {
+  const res = await fetch(`${SERVER_API_URL}/events/${eventId}/participants`);
+  if (!res.ok) {
+    console.error(await res.json());
+    return [];
+  }
+  const data = await res.json();
+  const guests: ParticipantResponseType[] = data.payload.members;
+  const users: ParticipantResponseType[] = data.payload.users;
+
+  const participants: ParticipantType[] = guests
+    .map((guest) => ({ ...guest, type: 'GUEST' as ParticipantType['type'] }))
+    .concat(
+      users.map((user) => ({
+        ...user,
+        type: 'USER' as ParticipantType['type'],
+      })),
+    );
+
+  return participants;
 }
 
 export async function fetchOriginalUrl(shortUrl: string) {

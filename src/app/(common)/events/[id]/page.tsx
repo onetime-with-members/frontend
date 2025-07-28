@@ -4,6 +4,7 @@ import EventDetailPage from './event-detail';
 import { fetchEvent } from '@/lib/api/data';
 import {
   eventQueryOptions,
+  participantsQueryOptions,
   qrCodeQueryOptions,
   recommendedTimesQueryOptions,
   schedulesQueryOptions,
@@ -76,6 +77,9 @@ export default async function Page({
     }),
     queryClient.prefetchQuery({
       ...schedulesQueryOptions(event),
+    }),
+    queryClient.prefetchQuery({
+      ...participantsQueryOptions(eventId),
     }),
   ]);
 

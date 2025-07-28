@@ -57,6 +57,20 @@ export interface RecommendScheduleType {
   impossible_names: string[];
 }
 
+export interface ParticipantResponseType {
+  id: number;
+  name: string;
+}
+
+export interface ParticipantType extends ParticipantResponseType {
+  type: 'GUEST' | 'USER';
+}
+
+export interface MemberFilterType {
+  users: number[];
+  guests: number[];
+}
+
 export type MyScheduleTimeType = TimeType;
 export type EverytimeSchedule = TimeType[];
 

@@ -12,6 +12,7 @@ import { FooterContext } from '@/contexts/footer';
 import useClientWidth from '@/hooks/useClientWidth';
 import {
   eventQueryOptions,
+  filteredRecommendedTimesQueryOptions,
   recommendedTimesQueryOptions,
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
@@ -49,10 +50,17 @@ export default function RecommededTimesBottomSheet() {
   const { data: scheduleDetailData } = useQuery({
     ...scheduleDetailQueryOptions({ event: event || defaultEvent, isLoggedIn }),
   });
-  const { data: recommendedTimes } = useQuery({
+  const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
+  const { data: recommendedTimesData } = useQuery({
     ...recommendedTimesQueryOptions(params.id),
   });
-  const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
+  const { data: filteredRecommendedTimesData } = useQuery({
+    ...filteredRecommendedTimesQueryOptions(params.id),
+  });
+  const recommendedTimes =
+    filteredRecommendedTimesData && filteredRecommendedTimesData.length > 0
+      ? filteredRecommendedTimesData
+      : recommendedTimesData;
 
   const hasUserSchedule = isLoggedIn
     ? scheduleDetail.schedules.length !== 0 &&

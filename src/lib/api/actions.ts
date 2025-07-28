@@ -4,14 +4,51 @@ import { getCookie } from 'cookies-next';
 import { CRAWLING_SERVER_API_URL } from '../constants';
 import {
   EventType,
+  MemberFilterType,
   MyScheduleTimeType,
   OnboardingType,
+  RecommendScheduleType,
   ScheduleType,
   Session,
   SleepTimeType,
 } from '../types';
 import { EventFormType, PolicyFormType } from '../validation/form-types';
 import axios from './axios';
+
+export async function fetchFilteredRecommendedTimes({
+  eventId,
+  filter,
+}: {
+  eventId: string;
+  filter: MemberFilterType;
+}) {
+  const res = await axios.post(`/events/${eventId}/filtering`, {
+    users: filter.users,
+    members: filter.guests,
+  });
+  const recommendedTimes: RecommendScheduleType[] = res.data.payload;
+  return recommendedTimes;
+}
+
+export async function fetchFilteredSchedules({
+  eventId,
+  category,
+  filter,
+}: {
+  eventId: string;
+  category: EventType['category'];
+  filter: MemberFilterType;
+}) {
+  const res = await axios.post(
+    `/schedules/${category.toLowerCase()}/${eventId}/filtering`,
+    {
+      users: filter.users,
+      members: filter.guests,
+    },
+  );
+  const schedules: ScheduleType[] = res.data.payload;
+  return schedules;
+}
 
 export async function createUserAction(value: OnboardingType) {
   const res = await axios.post('/users/onboarding', {

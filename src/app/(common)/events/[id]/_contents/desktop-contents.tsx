@@ -9,6 +9,7 @@ import HumanIcon from '@/components/icon/human';
 import MemberBadge from '@/components/member-badge';
 import {
   eventQueryOptions,
+  filteredRecommendedTimesQueryOptions,
   recommendedTimesQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';
@@ -35,12 +36,19 @@ export default function DesktopContents() {
 }
 
 function RecommendedTimes() {
-  const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
+  const params = useParams<{ id: string }>();
 
-  const { data: recommendedTimes } = useQuery({
+  const { data: recommendedTimesData } = useQuery({
     ...recommendedTimesQueryOptions(params.id),
   });
+  const { data: filteredRecommendedTimesData } = useQuery({
+    ...filteredRecommendedTimesQueryOptions(params.id),
+  });
+  const recommendedTimes =
+    filteredRecommendedTimesData && filteredRecommendedTimesData.length > 0
+      ? filteredRecommendedTimesData
+      : recommendedTimesData;
 
   return (
     <div className="flex flex-col gap-1">

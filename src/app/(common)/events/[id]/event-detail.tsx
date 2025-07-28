@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import DesktopContents from './_contents/desktop-contents';
 import RecommededTimesBottomSheet from './_ui/bottom-sheet/RecommededTimesBottomSheet';
 import { BottomButtonsForDesktop } from './_ui/button';
-import ParticipantFilter from './_ui/filter';
+import ParticipantFilter from './_ui/filter/ParticipantFilter';
 import TopToolbar from './_ui/top-toolbar';
 import BarBanner from '@/components/bar-banner';
 import GrayBackground from '@/components/gray-background';
@@ -14,6 +14,7 @@ import TimeBlockBoard from '@/components/time-block-board/event';
 import { BarBannerContext } from '@/contexts/bar-banner';
 import {
   eventQueryOptions,
+  filteredSchedulesQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
@@ -27,9 +28,19 @@ export default function EventDetailPage() {
   const params = useParams<{ id: string }>();
 
   const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: schedules } = useQuery({
+  const { data: schedulesData } = useQuery({
     ...schedulesQueryOptions(event || defaultEvent),
   });
+  const { data: filteredSchedulesData } = useQuery({
+    ...filteredSchedulesQueryOptions({
+      eventId: params.id,
+      category: event?.category || 'DATE',
+    }),
+  });
+  const schedules =
+    filteredSchedulesData && filteredSchedulesData.length > 0
+      ? filteredSchedulesData
+      : schedulesData;
 
   const navBarHeight = 64;
   const headerHeight = 72;

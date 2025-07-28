@@ -3,6 +3,8 @@ import {
   EventType,
   MyEventType,
   MyScheduleTimeType,
+  ParticipantType,
+  RecommendScheduleType,
   ScheduleType,
   SleepTimeType,
   UserType,
@@ -13,6 +15,7 @@ import {
   fetchEventWithAuth,
   fetchMyEvents,
   fetchMySchedule,
+  fetchParticipants,
   fetchQrCode,
   fetchRecommendedTimes,
   fetchScheduleDetail,
@@ -53,6 +56,24 @@ export const recommendedTimesQueryOptions = (eventId: string) =>
     queryFn: async () => await fetchRecommendedTimes(eventId),
   });
 
+export const filteredRecommendedTimesQueryOptions = (eventId: string) =>
+  queryOptions<RecommendScheduleType[]>({
+    queryKey: ['events', eventId, 'filtering'],
+    queryFn: () => [],
+  });
+
+export const filteredSchedulesQueryOptions = ({
+  eventId,
+  category,
+}: {
+  eventId: string;
+  category: EventType['category'];
+}) =>
+  queryOptions<ScheduleType[]>({
+    queryKey: ['schedules', category.toLowerCase(), eventId, 'filtering'],
+    queryFn: () => [],
+  });
+
 export const qrCodeQueryOptions = (eventId: string) =>
   queryOptions({
     queryKey: ['events', 'qr', eventId],
@@ -83,6 +104,12 @@ export const scheduleDetailQueryOptions = ({
     ],
     queryFn: async () =>
       await fetchScheduleDetail({ event, isLoggedIn, guestId }),
+  });
+
+export const participantsQueryOptions = (eventId: string) =>
+  queryOptions<ParticipantType[]>({
+    queryKey: ['events', eventId, 'participants'],
+    queryFn: async () => await fetchParticipants(eventId),
   });
 
 export const myEventsQueryOptions = queryOptions<MyEventType[]>({
