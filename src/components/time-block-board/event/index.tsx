@@ -72,6 +72,7 @@ export default function TimeBlockBoard({
   const { arrowButtonVisible, handleScrollLeft, handleScrollRight } =
     useScrollArrowButton({
       ref: boardContentRef,
+      scrollSyncRef: topLabelRef,
     });
   const { isTargetOnBottom } = useTargetSticky({
     topRef: topLabelRef,
@@ -236,20 +237,6 @@ export default function TimeBlockBoard({
     );
   }, [schedules, editable, event.start_time, event.end_time]);
 
-  useEffect(() => {
-    function handleScroll() {
-      if (boardContentRef.current && topLabelRef.current) {
-        topLabelRef.current.scrollLeft = boardContentRef.current.scrollLeft;
-      }
-    }
-
-    boardContentRef.current?.addEventListener('scroll', handleScroll);
-
-    return () => {
-      boardContentRef.current?.removeEventListener('scroll', handleScroll);
-    };
-  }, [topLabelRef, boardContentRef]);
-
   return (
     <motion.div
       onHoverStart={() => setIsBoardContentHover(true)}
@@ -310,6 +297,7 @@ export default function TimeBlockBoard({
           editable={editable}
           isPossibleTime={isPossibleTime}
           backgroundColor={backgroundColor}
+          topLabelRef={topLabelRef}
         />
       </div>
       {isDialogOpen && (

@@ -14,6 +14,7 @@ export default function BlockContent({
   editable,
   isPossibleTime,
   backgroundColor,
+  topLabelRef,
 }: {
   boardContentRef: React.RefObject<HTMLDivElement | null>;
   event: EventType;
@@ -33,6 +34,7 @@ export default function BlockContent({
   editable: boolean | undefined;
   isPossibleTime: boolean;
   backgroundColor: 'white' | 'gray';
+  topLabelRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const {
     isDragEvent,
@@ -40,7 +42,7 @@ export default function BlockContent({
     handleDragMove,
     handleDragEnd,
     handleDragLeave,
-  } = useDragScroll({ ref: boardContentRef });
+  } = useDragScroll({ ref: boardContentRef, scrollSyncRef: topLabelRef });
   const { clickedTimeBlock, handleTimeBlockClick } = useTimeBlockFill({
     isFilled,
     fillTimeBlocks: ({ timePoint, times, isFilling }) =>
