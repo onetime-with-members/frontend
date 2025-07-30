@@ -87,7 +87,7 @@ export default function RecommededTimesBottomSheet() {
           open={shouldBottomSheetShown}
           handleOnly
           dismissible={false}
-          modal={false}
+          modal={!shouldBottomSheetShown}
         >
           <Drawer.Portal>
             <Drawer.Content
