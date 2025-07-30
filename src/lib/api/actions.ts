@@ -22,7 +22,7 @@ export async function fetchFilteredRecommendedTimes({
   eventId: string;
   filter: MemberFilterType;
 }) {
-  const res = await axios.post(`/events/${eventId}/filtering`, {
+  const res = await axios.post(`/events/${eventId}/most/filtering`, {
     users: filter.users,
     members: filter.guests,
   });
