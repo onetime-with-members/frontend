@@ -1,11 +1,14 @@
-export default function EverytimeIcon({ size = 20 }: { size?: number }) {
+import { SVGProps } from 'react';
+
+export default function EverytimeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
+      width="1em"
+      height="1em"
       viewBox="0 0 20 20"
       fill="none"
+      {...props}
     >
       <path
         d="M16.7191 7.29168C17.7834 7.29168 18.6461 6.42889 18.6461 5.36458C18.6461 4.30028 17.7834 3.4375 16.7191 3.4375C15.6548 3.4375 14.792 4.30028 14.792 5.36458C14.792 6.42889 15.6548 7.29168 16.7191 7.29168Z"

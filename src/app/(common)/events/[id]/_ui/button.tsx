@@ -4,17 +4,15 @@ import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
-import { EventDeleteAlert, LoginAlert } from './alert';
+import { LoginAlert } from './alert';
 import SharePopUp from './pop-up';
 import SpeechBalloon from './speech-balloon';
 import Button from '@/components/button';
 import BadgeButton from '@/components/button/badge-button';
-import EditIcon from '@/components/icon/edit';
-import TrashIcon from '@/components/icon/trash';
+import EditIcon from '@/components/icon/EditIcon';
 import { FooterContext } from '@/contexts/footer';
 import {
   eventQueryOptions,
-  eventWithAuthQueryOptions,
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';
@@ -144,55 +142,6 @@ export function BottomButtonForMobile({
   );
 }
 
-export function ToolbarButtons() {
-  const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
-
-  const params = useParams<{ id: string }>();
-  const progressRouter = useProgressRouter();
-
-  const { data: event } = useQuery({
-    ...eventWithAuthQueryOptions(params.id),
-  });
-
-  return (
-    event?.event_status === 'CREATOR' && (
-      <>
-        <div className="flex items-center gap-2">
-          <ToolbarButton
-            onClick={() => progressRouter.push(`/events/${params.id}/edit`)}
-          >
-            <EditIcon fill="#FFFFFF" size={25} />
-          </ToolbarButton>
-          <ToolbarButton onClick={() => setIsDeleteAlertOpen(true)}>
-            <TrashIcon fill="#FFFFFF" innerFill="#474A5C" size={25} />
-          </ToolbarButton>
-        </div>
-        {isDeleteAlertOpen && (
-          <EventDeleteAlert setIsEventDeleteAlertOpen={setIsDeleteAlertOpen} />
-        )}
-      </>
-    )
-  );
-}
-
-export function ToolbarButton({
-  children,
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLButtonElement>) {
-  return (
-    <button
-      className={cn(
-        'flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-70 p-1.5 text-gray-00',
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-}
-
 export function BadgeFloatingBottomButton({
   onClick,
   name,
@@ -225,7 +174,7 @@ export function BadgeFloatingBottomButton({
             icon === 'plus' ? (
               <IconPlus size={24} />
             ) : (
-              <EditIcon size={20} fill="#FFFFFF" />
+              <EditIcon fontSize={24} />
             )
           }
         >

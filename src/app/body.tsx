@@ -6,7 +6,7 @@ import nProgress from 'nprogress';
 import { useContext, useEffect, useRef, useState } from 'react';
 
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import SpeakerPhoneIcon from '@/components/icon/speak-phone';
+import SpeakerPhoneIcon from '@/components/icon/SpeakerPhoneIcon';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
 import {
@@ -193,14 +193,14 @@ export function Footer() {
             <div className="flex flex-col gap-2">
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfDuttkDxmZDZbHhawL5GSJOgOOelOTFFgoomRVWYHWlEP9Qg/viewform?usp=dialog"
-                className="flex items-center gap-1 text-gray-00 text-sm-300"
+                className="flex items-center gap-1 text-gray-00"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span>
+                <span className="text-base">
                   <SpeakerPhoneIcon />
                 </span>
-                <span>{t('feedbackIssue')}</span>
+                <span className="text-sm-300">{t('feedbackIssue')}</span>
               </a>
               <div className="flex items-center gap-2 text-gray-40">
                 <ProgressLink href="/policy/privacy">

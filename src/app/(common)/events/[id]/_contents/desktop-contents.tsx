@@ -4,8 +4,8 @@ import { useLocale, useTranslations } from 'next-intl';
 
 import EmptyEventBanner from '../_ui/empty';
 import { EventSectionHeading } from '../_ui/heading';
-import ClockIcon from '@/components/icon/clock';
-import HumanIcon from '@/components/icon/human';
+import ClockIcon from '@/components/icon/ClockIcon';
+import HumanIcon from '@/components/icon/HumanIcon';
 import MemberBadge from '@/components/member-badge';
 import {
   eventQueryOptions,
@@ -52,10 +52,7 @@ function RecommendedTimes() {
 
   return (
     <div className="flex flex-col gap-1">
-      <EventSectionHeading
-        icon={<ClockIcon fill="#474A5C" className="mr-1" />}
-        sticky
-      >
+      <EventSectionHeading icon={<ClockIcon className="mr-1" />} sticky>
         {t('mostAvailable')}
       </EventSectionHeading>
       <div className="flex flex-col gap-6">
@@ -176,8 +173,12 @@ export function PaticipantStatus({
 
   return (
     <div className="flex items-center">
-      <span>
-        <HumanIcon fill={isAllPossible ? '#16B18C' : '#CBCDD7'} size={18} />
+      <span
+        className={cn('text-lg text-gray-20', {
+          'text-success-60': isAllPossible,
+        })}
+      >
+        <HumanIcon />
       </span>
       <span
         className={cn('text-gray-30 text-sm-200', {

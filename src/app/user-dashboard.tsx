@@ -9,8 +9,8 @@ import Button from '@/components/button';
 import EmptyUI from '@/components/empty-ui';
 import MyEvent from '@/components/event/my-event';
 import EverytimeUI from '@/components/everytime-ui';
-import PenIcon from '@/components/icon/pen';
-import SleepIcon from '@/components/icon/sleep';
+import PenIcon from '@/components/icon/PenIcon';
+import SleepIcon from '@/components/icon/SleepTimeIcon';
 import NavBar from '@/components/nav-bar';
 import TimeBlockBoardSkeleton from '@/components/skeleton/time-block-board-skeleton';
 import ToolbarTitleSkeleton from '@/components/skeleton/toolbar-title-skeleton';
@@ -207,19 +207,19 @@ function MyScheduleContent() {
 
       {/* Sleep Time UI */}
       <div className="flex items-stretch justify-between gap-3 px-6 py-3">
-        <div className="flex items-center gap-1.5">
-          <span>
-            <SleepIcon fill="#31333F" size={20} />
+        <div className="flex items-center gap-1.5 text-gray-80">
+          <span className="text-xl">
+            <SleepIcon />
           </span>
-          <span className="text-gray-80 text-lg-200">
+          <span className="text-lg-200">
             {sleepTime?.sleep_start_time} - {sleepTime?.sleep_end_time}
           </span>
         </div>
         <ProgressLink
           href="/mypage/schedule/edit"
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-05 duration-150 hover:bg-gray-10 active:bg-gray-10"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-05 text-2xl text-gray-70 duration-150 hover:bg-gray-10 active:bg-gray-10"
         >
-          <PenIcon fill="#474A5C" size={24} />
+          <PenIcon />
         </ProgressLink>
       </div>
 

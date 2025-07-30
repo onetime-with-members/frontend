@@ -30,7 +30,7 @@ export function EventSectionHeading({
       )}
     >
       <div className="flex items-center">
-        <span>{icon}</span>
+        <span className="text-xl">{icon}</span>
         <h2>{children}</h2>
       </div>
       <span className="text-primary-50 text-md-300">{status}</span>

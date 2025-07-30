@@ -6,7 +6,7 @@ import DesktopContents from './_contents/desktop-contents';
 import RecommededTimesBottomSheet from './_ui/bottom-sheet/RecommededTimesBottomSheet';
 import { BottomButtonsForDesktop } from './_ui/button';
 import ParticipantFilter from './_ui/filter/ParticipantFilter';
-import TopToolbar from './_ui/top-toolbar';
+import TopToolbar from './_ui/toolbar/TopToolbar';
 import BarBanner from '@/components/bar-banner';
 import GrayBackground from '@/components/gray-background';
 import NavBar from '@/components/nav-bar';

@@ -3,10 +3,10 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
-import CalendarIcon from '@/components/icon/calendar';
-import EventIcon from '@/components/icon/event';
-import PenIcon from '@/components/icon/pen';
-import ProfileIcon from '@/components/icon/profile';
+import CalendarIcon from '@/components/icon/CalendarIcon';
+import EventIcon from '@/components/icon/EventIcon';
+import PenIcon from '@/components/icon/PenIcon';
+import ProfileIcon from '@/components/icon/ProfileIcon';
 import NavBar from '@/components/nav-bar';
 import { ScrollContext } from '@/contexts/scroll';
 import cn from '@/lib/cn';
@@ -53,8 +53,11 @@ export default function TabLayout({ children }: { children: React.ReactNode }) {
                 </h1>
                 <div className="flex items-center justify-end">
                   {tabActive === 'schedules' && (
-                    <ProgressLink href="/mypage/schedule/edit">
-                      <PenIcon fill="#31333F" />
+                    <ProgressLink
+                      href="/mypage/schedule/edit"
+                      className="text-2xl text-gray-80"
+                    >
+                      <PenIcon />
                     </ProgressLink>
                   )}
                 </div>
@@ -78,11 +81,7 @@ export default function TabLayout({ children }: { children: React.ReactNode }) {
                 <SideTabItem
                   href="/mypage/events"
                   active={tabActive === 'events'}
-                  icon={
-                    <EventIcon
-                      fill={tabActive === 'events' ? '#4C65E5' : '#9296AB'}
-                    />
-                  }
+                  icon={<EventIcon />}
                   className="w-[10rem]"
                 >
                   {t('allEvents')}
@@ -90,23 +89,14 @@ export default function TabLayout({ children }: { children: React.ReactNode }) {
                 <SideTabItem
                   href="/mypage/schedules"
                   active={tabActive === 'schedules'}
-                  icon={
-                    <CalendarIcon
-                      fill={tabActive === 'schedules' ? '#4C65E5' : '#9296AB'}
-                      innerFill="#FFFFFF"
-                    />
-                  }
+                  icon={<CalendarIcon />}
                 >
                   {t('mySchedule')}
                 </SideTabItem>
                 <SideTabItem
                   href="/mypage/profile"
                   active={tabActive === 'profile'}
-                  icon={
-                    <ProfileIcon
-                      fill={tabActive === 'profile' ? '#4C65E5' : '#9296AB'}
-                    />
-                  }
+                  icon={<ProfileIcon />}
                 >
                   {t('profile')}
                 </SideTabItem>
@@ -118,8 +108,11 @@ export default function TabLayout({ children }: { children: React.ReactNode }) {
               <header className="sticky top-[64px] z-20 flex items-center justify-between bg-gray-00 py-2">
                 <h1 className="text-[1.75rem] font-semibold">{pageTitle}</h1>
                 {tabActive === 'schedules' && (
-                  <ProgressLink href="/mypage/schedule/edit">
-                    <PenIcon fill="#31333F" />
+                  <ProgressLink
+                    href="/mypage/schedule/edit"
+                    className="text-2xl text-gray-70"
+                  >
+                    <PenIcon />
                   </ProgressLink>
                 )}
               </header>
@@ -163,7 +156,7 @@ function SideTabItem({
         href={href}
         className="flex w-[10rem] items-center justify-start gap-2 p-3 text-md-300"
       >
-        <span className="flex h-[24px] w-[24px] items-center justify-center">
+        <span className="flex items-center justify-center text-2xl">
           {icon}
         </span>
         <span>{children}</span>

@@ -4,7 +4,7 @@ import { setCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useRef } from 'react';
 
-import CheckIcon from '@/components/icon/check';
+import CheckIcon from '@/components/icon/CheckIcon';
 import useDropdown from '@/hooks/useDropdown';
 import { editUserLanguageAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth/auth.client';
@@ -113,7 +113,7 @@ function LanguageDropdownMenu({
           <span>{language.label}</span>
           {locale === language.key && (
             <span>
-              <CheckIcon size={16} fill="#677CEE" />
+              <CheckIcon />
             </span>
           )}
         </li>

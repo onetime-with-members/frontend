@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { EventSectionHeading } from '../heading';
 import ParticipantFilterItem from './ParticipantFilterItem';
-import HumanIcon from '@/components/icon/human';
+import HumanIcon from '@/components/icon/HumanIcon';
 import {
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,
@@ -89,7 +89,7 @@ export default function ParticipantFilter() {
     participants.length > 0 && (
       <>
         <EventSectionHeading
-          icon={<HumanIcon fill="#474A5C" size={20} className="mr-0.5" />}
+          icon={<HumanIcon fontSize={20} className="mr-0.5" />}
           status={<>{participants.length}</>}
           className="pt-2"
           sticky

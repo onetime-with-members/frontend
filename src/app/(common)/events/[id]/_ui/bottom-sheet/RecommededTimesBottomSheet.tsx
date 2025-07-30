@@ -7,7 +7,7 @@ import { BottomButtonForMobile } from '../button';
 import { EventSectionHeading } from '../heading';
 import SharePopUp from '../pop-up';
 import MobileRecommededTimeItem from './MobileRecommededTimeItem';
-import ClockIcon from '@/components/icon/clock';
+import ClockIcon from '@/components/icon/ClockIcon';
 import { FooterContext } from '@/contexts/footer';
 import useClientWidth from '@/hooks/useClientWidth';
 import {
@@ -111,7 +111,7 @@ export default function RecommededTimesBottomSheet() {
               >
                 <Drawer.Title>
                   <EventSectionHeading
-                    icon={<ClockIcon className="mr-1" fill="#474A5C" />}
+                    icon={<ClockIcon className="mr-1" />}
                     className="px-0 py-0"
                   >
                     추천 시간
