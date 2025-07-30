@@ -67,7 +67,8 @@ export default function RecommededTimesBottomSheet() {
       scheduleDetail.schedules.every((schedule) => schedule.times.length !== 0)
     : false;
 
-  const shouldBottomSheetShown = !isFooterShown;
+  const shouldBottomButtonShown = !isFooterShown;
+  const shouldBottomSheetShown = !isFooterShown && schedules?.length !== 0;
 
   async function handleBottomButtonClick() {
     if (isLoggedIn) {
@@ -132,7 +133,7 @@ export default function RecommededTimesBottomSheet() {
       )}
 
       <AnimatePresence>
-        {shouldBottomSheetShown && (
+        {shouldBottomButtonShown && (
           <BottomButtonForMobile
             schedules={schedules || []}
             hasUserSchedule={hasUserSchedule}
