@@ -28,7 +28,7 @@ import { useProgressRouter } from '@/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
-const snapPoints = ['350px', 1];
+const snapPoints = ['170px', '500px'];
 
 export default function RecommededTimesBottomSheet() {
   const [snap, setSnap] = useState<number | string | null>(snapPoints[0]);
@@ -92,7 +92,7 @@ export default function RecommededTimesBottomSheet() {
           <Drawer.Portal>
             <Drawer.Content
               data-testid="content"
-              className="fixed bottom-0 left-0 right-0 z-50 flex h-full max-h-[75%] flex-col overflow-hidden rounded-t-3xl bg-gray-00 shadow-[0_-6px_40px_0_rgba(49,51,63,0.20)]"
+              className="fixed bottom-0 left-0 right-0 z-50 h-full max-h-[97%] overflow-hidden rounded-t-3xl bg-gray-00 shadow-[0_-6px_40px_0_rgba(49,51,63,0.20)]"
             >
               <div className="pointer-events-none absolute left-0 right-0 top-3 mx-auto h-1.5 w-12 rounded-full bg-gray-10" />
               <Drawer.Handle
