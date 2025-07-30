@@ -140,8 +140,10 @@ export default function EventFormScreen({
             })}
             disabled={!isValid}
           >
-            {pageMode === 'create' && t('createEvent')}
-            {pageMode === 'edit' && t('editEvent')}
+            {pageMode === 'create' &&
+              (isCreatePending ? t('creatingEvent') : t('createEvent'))}
+            {pageMode === 'edit' &&
+              (isEditPending ? t('editingEvent') : t('editEvent'))}
           </Button>
         </div>
       </form>
