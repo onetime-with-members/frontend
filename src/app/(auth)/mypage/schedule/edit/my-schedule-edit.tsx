@@ -35,29 +35,32 @@ export default function MyScheduleEditPage() {
   );
 
   const queryClient = useQueryClient();
-
-  const toast = useToast();
-
   const router = useRouter();
   const t = useTranslations();
+
+  const toast = useToast();
 
   const { data: myScheduleData } = useQuery({
     ...myScheduleQueryOptions,
   });
 
-  const { mutateAsync: editMySchedule } = useMutation({
-    mutationFn: editMyScheduleAction,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
-    },
-  });
-  const { mutateAsync: editSleepTime } = useMutation({
-    mutationFn: editSleepTimeAction,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['users'] });
-      router.back();
-    },
-  });
+  const { mutateAsync: editMySchedule, isPending: isMySchedulePending } =
+    useMutation({
+      mutationFn: editMyScheduleAction,
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['fixed-schedules'] });
+      },
+    });
+  const { mutateAsync: editSleepTime, isPending: isSleepTimePending } =
+    useMutation({
+      mutationFn: editSleepTimeAction,
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['users'] });
+        router.back();
+      },
+    });
+
+  const isPending = isMySchedulePending || isSleepTimePending;
 
   async function handleSubmit(e?: React.FormEvent<HTMLFormElement>) {
     if (e) e.preventDefault();
@@ -114,8 +117,13 @@ export default function MyScheduleEditPage() {
                 {t('myScheduleEdit.editMySchedule')}
               </div>
               <div className="flex items-center justify-end">
-                <SmallButton onClick={() => handleSubmit()}>
-                  {t('myScheduleEdit.done')}
+                <SmallButton
+                  disabled={isPending}
+                  onClick={() => handleSubmit()}
+                >
+                  {isPending
+                    ? t('myScheduleEdit.saving')
+                    : t('myScheduleEdit.save')}
                 </SmallButton>
               </div>
             </div>

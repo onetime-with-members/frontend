@@ -11,6 +11,7 @@ import NavBar from '@/components/nav-bar';
 import NicknameFormControl from '@/components/user/nickname-form-control';
 import { editUserNameAction } from '@/lib/api/actions';
 import { userQueryOptions } from '@/lib/api/query-options';
+import cn from '@/lib/cn';
 import { defaultUser } from '@/lib/constants';
 import { UserType } from '@/lib/types';
 import { ProfileNicknameFormType } from '@/lib/validation/form-types';
@@ -87,7 +88,7 @@ function FormContent({ user }: { user: UserType }) {
     criteriaMode: 'all',
   });
 
-  const { mutateAsync: editUserName } = useMutation({
+  const { mutateAsync: editUserName, isPending: isPending } = useMutation({
     mutationFn: (data: string) => editUserNameAction(data),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['users'] });
@@ -133,10 +134,12 @@ function FormContent({ user }: { user: UserType }) {
       <FloatingBottomButton
         type="submit"
         variant="dark"
-        className="sm:hidden"
+        className={cn('sm:hidden', {
+          'pointer-events-none cursor-default': isPending,
+        })}
         disabled={!isValid}
       >
-        {t('profileEdit.save')}
+        {isPending ? t('profileEdit.saving') : t('profileEdit.save')}
       </FloatingBottomButton>
     </form>
   );
