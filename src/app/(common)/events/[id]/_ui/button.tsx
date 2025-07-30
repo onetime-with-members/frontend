@@ -57,6 +57,10 @@ export function BottomButtonsForDesktop() {
     }
   }
 
+  function handleSendButtonClick() {
+    setIsSharePopUpOpen(true);
+  }
+
   return (
     <>
       {/* Bottom Button for Desktop */}
@@ -64,7 +68,8 @@ export function BottomButtonsForDesktop() {
         name={hasUserSchedule ? t('editSchedule') : t('addSchedule')}
         variant="black"
         icon={hasUserSchedule ? 'edit' : 'plus'}
-        onClick={handleBottomButtonClick}
+        onNewScheduleButtonClick={handleBottomButtonClick}
+        onSendButtonClick={handleSendButtonClick}
         className={cn('hidden duration-150 md:flex', {
           'pointer-events-none opacity-0': isFooterShown,
         })}
@@ -143,14 +148,16 @@ export function BottomButtonForMobile({
 }
 
 export function BadgeFloatingBottomButton({
-  onClick,
+  onNewScheduleButtonClick,
+  onSendButtonClick,
   name,
   className,
   variant = 'primary',
   icon,
   style,
 }: {
-  onClick: () => void;
+  onNewScheduleButtonClick: () => void;
+  onSendButtonClick: () => void;
   name: string;
   className?: string;
   variant?: 'primary' | 'black';
@@ -166,9 +173,9 @@ export function BadgeFloatingBottomButton({
         )}
         style={style}
       >
-        <SendButton />
+        <SendButton onClick={onSendButtonClick} />
         <BadgeButton
-          onClick={onClick}
+          onClick={onNewScheduleButtonClick}
           variant={variant}
           icon={
             icon === 'plus' ? (
@@ -185,7 +192,7 @@ export function BadgeFloatingBottomButton({
   );
 }
 
-function SendButton() {
+function SendButton({ onClick }: { onClick: () => void }) {
   const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
   const locale = useLocale();
@@ -201,6 +208,7 @@ function SendButton() {
         <button
           type="button"
           className="flex h-14 w-14 items-center justify-center rounded-full bg-gray-80"
+          onClick={onClick}
         >
           <Image
             src="/images/send.svg"
