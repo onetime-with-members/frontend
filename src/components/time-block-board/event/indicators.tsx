@@ -25,9 +25,11 @@ export function DateIndicator({
             category={event.category}
             timePoint={timePoint}
             className={cn('min-w-[52px] flex-1 py-2 text-center', {
-              'mr-2': !dayjs(event.ranges[index], 'YYYY.MM.DD')
-                .add(1, 'day')
-                .isSame(dayjs(event.ranges[index + 1], 'YYYY.MM.DD')),
+              'mr-2':
+                event.category === 'DATE' &&
+                !dayjs(event.ranges[index], 'YYYY.MM.DD')
+                  .add(1, 'day')
+                  .isSame(dayjs(event.ranges[index + 1], 'YYYY.MM.DD')),
             })}
           />
         ))}

@@ -103,9 +103,11 @@ export default function BlockContent({
           backgroundColor={backgroundColor}
           isBoardContentDragging={isDragEvent}
           className={cn({
-            'mr-2': !dayjs(event.ranges[index], 'YYYY.MM.DD')
-              .add(1, 'day')
-              .isSame(dayjs(event.ranges[index + 1], 'YYYY.MM.DD')),
+            'mr-2':
+              event.category === 'DATE' &&
+              !dayjs(event.ranges[index], 'YYYY.MM.DD')
+                .add(1, 'day')
+                .isSame(dayjs(event.ranges[index + 1], 'YYYY.MM.DD')),
           })}
         />
       ))}
