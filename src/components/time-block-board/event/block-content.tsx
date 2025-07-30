@@ -75,11 +75,14 @@ export default function BlockContent({
   return (
     <div
       ref={boardContentRef}
-      className="scrollbar-hidden flex flex-1 gap-2 overflow-x-scroll"
+      className="scrollbar-hidden flex flex-1 gap-2 overflow-x-hidden"
       onMouseDown={handleDragStart}
       onMouseMove={handleDragMove}
       onMouseUp={handleDragEnd}
       onMouseLeave={handleDragLeave}
+      onTouchStart={handleDragStart}
+      onTouchMove={handleDragMove}
+      onTouchEnd={handleDragEnd}
     >
       {event.ranges.map((timePoint, index) => (
         <TimeBlockLine

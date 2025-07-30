@@ -237,21 +237,16 @@ export default function TimeBlockBoard({
   }, [schedules, editable, event.start_time, event.end_time]);
 
   useEffect(() => {
-    const boardContent = boardContentRef.current;
-    const topLabel = topLabelRef.current;
-
     function handleScroll() {
-      if (boardContent && topLabel) {
-        topLabel.scrollLeft = boardContent.scrollLeft;
+      if (boardContentRef.current && topLabelRef.current) {
+        topLabelRef.current.scrollLeft = boardContentRef.current.scrollLeft;
       }
     }
 
-    if (boardContent && topLabel) {
-      boardContent.addEventListener('scroll', handleScroll);
-    }
+    boardContentRef.current?.addEventListener('scroll', handleScroll);
 
     return () => {
-      boardContent?.removeEventListener('scroll', handleScroll);
+      boardContentRef.current?.removeEventListener('scroll', handleScroll);
     };
   }, [topLabelRef, boardContentRef]);
 

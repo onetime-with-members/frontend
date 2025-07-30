@@ -17,7 +17,7 @@ export function DateIndicator({
     <div className="pl-6">
       <div
         ref={topLabelRef}
-        className="scrollbar-hidden flex flex-1 items-center gap-2 overflow-x-scroll"
+        className="scrollbar-hidden flex flex-1 items-center gap-2 overflow-x-hidden"
       >
         {event?.ranges.map((timePoint, index) => (
           <TopDateLabel
