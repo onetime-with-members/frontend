@@ -103,7 +103,7 @@ export default function RecommededTimesBottomSheet() {
                   opacity: 1,
                 }}
               />
-              <div className="flex h-full flex-col">
+              <div className="flex h-[454px] flex-col">
                 <Drawer.Title className="px-4 pb-3">
                   <EventSectionHeading
                     icon={<ClockIcon className="mr-1" />}
@@ -113,7 +113,7 @@ export default function RecommededTimesBottomSheet() {
                   </EventSectionHeading>
                 </Drawer.Title>
                 <div
-                  className={cn('flex h-[460px] flex-1 flex-col gap-3 px-4', {
+                  className={cn('flex flex-1 flex-col gap-3 px-4 pb-12', {
                     'overflow-y-auto': snapIndex === 1,
                     'overflow-hidden': snapIndex !== 1,
                   })}
@@ -125,6 +125,7 @@ export default function RecommededTimesBottomSheet() {
                     />
                   ))}
                 </div>
+                <div className="h-[88px]" />
               </div>
             </Drawer.Content>
           </Drawer.Portal>
