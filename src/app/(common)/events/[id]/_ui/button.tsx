@@ -98,7 +98,7 @@ export function BottomButtonForMobile({
 
   return (
     <motion.div
-      className="fixed bottom-0 left-0 right-0 z-[60] flex w-full items-center justify-center gap-2 bg-gray-00 p-4 md:hidden"
+      className="fixed bottom-0 left-0 right-0 z-[45] flex w-full items-center justify-center gap-2 bg-gray-00 p-4 md:hidden"
       initial={{
         opacity: 0,
       }}

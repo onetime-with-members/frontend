@@ -70,6 +70,8 @@ export default function RecommededTimesBottomSheet() {
   const shouldBottomButtonShown = !isFooterShown;
   const shouldBottomSheetShown = !isFooterShown && schedules?.length !== 0;
 
+  const snapIndex = snapPoints.findIndex((snapPoint) => snapPoint === snap);
+
   async function handleBottomButtonClick() {
     if (isLoggedIn) {
       progressRouter.push(`/events/${params.id}/schedules/new`);
@@ -91,10 +93,7 @@ export default function RecommededTimesBottomSheet() {
           modal={!shouldBottomSheetShown}
         >
           <Drawer.Portal>
-            <Drawer.Content
-              data-testid="content"
-              className="fixed bottom-0 left-0 right-0 z-50 h-full max-h-[97%] overflow-hidden rounded-t-3xl bg-gray-00 shadow-[0_-6px_40px_0_rgba(49,51,63,0.20)]"
-            >
+            <Drawer.Content className="fixed bottom-0 left-0 right-0 z-40 h-full max-h-[97%] overflow-hidden rounded-t-3xl bg-gray-00 shadow-[0_-6px_40px_0_rgba(49,51,63,0.20)]">
               <div className="pointer-events-none absolute left-0 right-0 top-3 mx-auto h-1.5 w-12 rounded-full bg-gray-10" />
               <Drawer.Handle
                 className="py-3"
@@ -104,13 +103,8 @@ export default function RecommededTimesBottomSheet() {
                   opacity: 1,
                 }}
               />
-              <div
-                className={cn('flex flex-col gap-3 px-4', {
-                  'overflow-y-auto': snap === 1,
-                  'overflow-hidden': snap !== 1,
-                })}
-              >
-                <Drawer.Title>
+              <div className="flex h-full flex-col">
+                <Drawer.Title className="px-4 pb-3">
                   <EventSectionHeading
                     icon={<ClockIcon className="mr-1" />}
                     className="px-0 py-0"
@@ -118,7 +112,12 @@ export default function RecommededTimesBottomSheet() {
                     추천 시간
                   </EventSectionHeading>
                 </Drawer.Title>
-                <div className="flex flex-col gap-3">
+                <div
+                  className={cn('flex h-[460px] flex-1 flex-col gap-3 px-4', {
+                    'overflow-y-auto': snapIndex === 1,
+                    'overflow-hidden': snapIndex !== 1,
+                  })}
+                >
                   {recommendedTimes?.map((recommendedTime, index) => (
                     <MobileRecommededTimeItem
                       key={index}
