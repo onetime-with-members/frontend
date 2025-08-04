@@ -44,8 +44,11 @@ export default function EventDetailPage() {
 
   const navBarHeight = 64;
   const headerHeight = 72;
-  const participantHeight = schedules && schedules.length > 0 ? 39 : 0;
+  const participantHeight = schedules && schedules.length > 0 ? 36 : 0;
   const barBannerHeight = isBarBannerShown ? 56 : 0;
+
+  const timeBlockTopContentTopPx =
+    navBarHeight + headerHeight + participantHeight + barBannerHeight;
 
   return (
     <div className="flex min-h-[110vh] flex-col">
@@ -75,15 +78,8 @@ export default function EventDetailPage() {
             event={event || defaultEvent}
             schedules={schedules || []}
             backgroundColor="gray"
-            topContentClassName={cn('top-[136px] bg-gray-00 md:top-[136px]', {
-              'top-[214px] md:top-[227px]': isBarBannerShown,
-            })}
             topContentStyle={{
-              top:
-                navBarHeight +
-                headerHeight +
-                participantHeight +
-                barBannerHeight,
+              top: timeBlockTopContentTopPx,
             }}
           />
         </div>
