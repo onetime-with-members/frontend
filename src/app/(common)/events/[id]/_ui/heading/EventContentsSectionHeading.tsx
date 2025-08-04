@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { BarBannerContext } from '@/contexts/bar-banner';
 import cn from '@/lib/cn';
 
-export function EventSectionHeading({
+export function EventContentsSectionHeading({
   children,
   icon,
   status,
@@ -21,10 +21,10 @@ export function EventSectionHeading({
   return (
     <div
       className={cn(
-        'top-[136px] z-10 flex items-center gap-2 bg-gray-00 pb-1 pt-2 text-gray-70 text-lg-300',
+        'top-[136px] z-10 flex items-center gap-2 bg-gray-00 pb-1 pt-2 text-gray-70 text-md-300 md:text-lg-300',
         {
           'top-[192px]': isBarBannerShown,
-          sticky: sticky,
+          sticky,
         },
         className,
       )}
@@ -33,7 +33,7 @@ export function EventSectionHeading({
         <span className="text-xl">{icon}</span>
         <h2>{children}</h2>
       </div>
-      <span className="text-primary-50 text-md-300">{status}</span>
+      <span className="text-primary-50">{status}</span>
     </div>
   );
 }

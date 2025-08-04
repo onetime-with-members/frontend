@@ -4,7 +4,7 @@ import { Drawer } from 'vaul';
 
 import { LoginAlert } from '../alert';
 import { BottomButtonForMobile } from '../button';
-import { EventSectionHeading } from '../heading';
+import { EventContentsSectionHeading } from '../heading/EventContentsSectionHeading';
 import SharePopUp from '../pop-up';
 import MobileRecommededTimeItem from './MobileRecommededTimeItem';
 import ClockIcon from '@/components/icon/ClockIcon';
@@ -105,12 +105,12 @@ export default function RecommededTimesBottomSheet() {
               />
               <div className="flex h-[454px] flex-col">
                 <Drawer.Title className="px-4 pb-3">
-                  <EventSectionHeading
+                  <EventContentsSectionHeading
                     icon={<ClockIcon className="mr-1" />}
                     className="px-0 py-0"
                   >
                     추천 시간
-                  </EventSectionHeading>
+                  </EventContentsSectionHeading>
                 </Drawer.Title>
                 <div
                   className={cn('flex flex-1 flex-col gap-3 px-4 pb-12', {
