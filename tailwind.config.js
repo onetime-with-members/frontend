@@ -143,17 +143,17 @@ export default {
         '.text-sm-300': {
           fontSize: '0.875rem',
           fontWeight: 600,
-          lineHeight: 'normal',
+          lineHeight: '150%',
         },
         '.text-sm-200': {
           fontSize: '0.875rem',
           fontWeight: 500,
-          lineHeight: 'normal',
+          lineHeight: '150%',
         },
         '.text-sm-100': {
           fontSize: '0.875rem',
           fontWeight: 400,
-          lineHeight: 'normal',
+          lineHeight: '150%',
         },
       });
     },
