@@ -61,18 +61,11 @@ export default function ParticipantFilter() {
     },
   });
 
-  function handleFilterItemClick(participantId: number) {
+  function handleFilterItemClick(participant: ParticipantType) {
     setFilteredParticipants((prev) => {
-      const newFilteredParticipants = prev
-        .map((participant) => participant.id)
-        .includes(participantId)
-        ? prev.filter((participant) => participant.id !== participantId)
-        : [
-            ...prev,
-            participants.find(
-              (participant) => participant.id === participantId,
-            )!,
-          ];
+      const newFilteredParticipants = prev.includes(participant)
+        ? prev.filter((p) => p !== participant)
+        : [...prev, participant];
       changeFilteredData({
         users: newFilteredParticipants
           .filter((p) => p.type === 'USER')
@@ -99,9 +92,9 @@ export default function ParticipantFilter() {
         <ul className="mt-2 flex flex-wrap gap-1.5 pb-4 pt-0 md:pb-6">
           {participants.map((participant) => (
             <ParticipantFilterItem
-              key={participant.id}
+              key={`${participant.type}${participant.id}`}
               active={filteredParticipants.includes(participant)}
-              onClick={() => handleFilterItemClick(participant.id)}
+              onClick={() => handleFilterItemClick(participant)}
             >
               {participant.name}
             </ParticipantFilterItem>
