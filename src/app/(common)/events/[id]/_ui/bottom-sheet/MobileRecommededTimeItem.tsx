@@ -6,6 +6,7 @@ import {
   RecommendTimeHeading,
 } from '../../_contents/desktop-contents';
 import ParticipantsDivider from './ParticipantsDivider';
+import cn from '@/lib/cn';
 import { RecommendScheduleType } from '@/lib/types';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
@@ -16,12 +17,23 @@ export default function MobileRecommededTimeItem({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const isOnlyOneFiltered =
+    recommendedTime.possible_count === 1 &&
+    recommendedTime.impossible_names.length === 0;
+
   function handleClick() {
     setIsOpen((prev) => !prev);
   }
 
   return (
-    <div className="flex cursor-pointer flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 px-4 py-3">
+    <div
+      className={cn(
+        'flex cursor-pointer flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 px-4 py-3',
+        {
+          'cursor-default': isOnlyOneFiltered,
+        },
+      )}
+    >
       <header
         className="flex items-center justify-between gap-2"
         onClick={handleClick}
@@ -36,13 +48,15 @@ export default function MobileRecommededTimeItem({
                 recommendedTime.impossible_names.length,
             }}
           />
-          <span className="text-2xl text-gray-40">
-            {isOpen ? <IconChevronUp /> : <IconChevronDown />}
-          </span>
+          {!isOnlyOneFiltered && (
+            <span className="text-2xl text-gray-40">
+              {isOpen ? <IconChevronUp /> : <IconChevronDown />}
+            </span>
+          )}
         </div>
       </header>
 
-      {isOpen && (
+      {isOpen && !isOnlyOneFiltered && (
         <>
           <ParticipantsDivider />
           <div className="flex flex-col gap-5">

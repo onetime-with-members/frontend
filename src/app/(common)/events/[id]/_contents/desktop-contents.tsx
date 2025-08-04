@@ -69,6 +69,10 @@ export function RecommendedTime({
 }: {
   recommendedTime: RecommendScheduleType;
 }) {
+  const isOnlyOneFiltered =
+    recommendedTime.possible_count === 1 &&
+    recommendedTime.impossible_names.length === 0;
+
   return (
     <div className="flex flex-col gap-6 rounded-2xl border border-gray-10 bg-gray-00 p-5">
       <header className="flex items-start justify-between">
@@ -83,16 +87,18 @@ export function RecommendedTime({
         />
       </header>
 
-      <div className="flex flex-col gap-5">
-        <ParticipantsSection
-          type="available"
-          participants={recommendedTime.possible_names}
-        />
-        <ParticipantsSection
-          type="unavailable"
-          participants={recommendedTime.impossible_names}
-        />
-      </div>
+      {!isOnlyOneFiltered && (
+        <div className="flex flex-col gap-5">
+          <ParticipantsSection
+            type="available"
+            participants={recommendedTime.possible_names}
+          />
+          <ParticipantsSection
+            type="unavailable"
+            participants={recommendedTime.impossible_names}
+          />
+        </div>
+      )}
     </div>
   );
 }
