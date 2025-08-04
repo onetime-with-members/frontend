@@ -1,4 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 import { Drawer } from 'vaul';
 
@@ -39,6 +40,7 @@ export default function RecommededTimesBottomSheet() {
 
   const params = useParams<{ id: string }>();
   const progressRouter = useProgressRouter();
+  const t = useTranslations('eventDetail');
 
   const { isLoggedIn } = useAuth();
   const clientWidth = useClientWidth();
@@ -109,7 +111,7 @@ export default function RecommededTimesBottomSheet() {
                     icon={<ClockIcon className="mr-1" />}
                     className="px-0 py-0"
                   >
-                    추천 시간
+                    {t('recommendedTime', { count: recommendedTimes?.length })}
                   </EventContentsSectionHeading>
                 </Drawer.Title>
                 <div

@@ -81,7 +81,7 @@
     "delete": "Delete",
     "addSchedule": "Add Schedule",
     "editSchedule": "Edit Schedule",
-    "mostAvailable": "Best Available Times",
+    "recommendedTime": "Recommended Time{count, plural, =1 {} other {s}}",
     "allAvailable": "All Available Times",
     "peopleWhoAddedSchedules": "Person who added schedule{count, plural, =1 {} other {s}}",
     "whenAvailableTimes": "When are the available times?",

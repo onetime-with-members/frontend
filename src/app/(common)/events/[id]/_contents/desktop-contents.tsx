@@ -54,7 +54,9 @@ function RecommendedTimes() {
   return (
     <div className="flex flex-col gap-1">
       <EventContentsSectionHeading icon={<ClockIcon className="mr-1" />} sticky>
-        {t('mostAvailable')}
+        {t('recommendedTime', {
+          count: recommendedTimes?.length,
+        })}
       </EventContentsSectionHeading>
       <div className="flex flex-col gap-6">
         {recommendedTimes?.map((recommendedTime, index) => (
