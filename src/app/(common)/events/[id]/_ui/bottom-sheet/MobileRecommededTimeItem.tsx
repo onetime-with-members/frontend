@@ -5,6 +5,7 @@ import {
   PaticipantStatus,
   RecommendTimeHeading,
 } from '../../_contents/desktop-contents';
+import ParticipantsDivider from './ParticipantsDivider';
 import { RecommendScheduleType } from '@/lib/types';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
@@ -20,7 +21,7 @@ export default function MobileRecommededTimeItem({
   }
 
   return (
-    <div className="flex cursor-pointer flex-col gap-6 rounded-2xl border border-gray-10 bg-gray-00 px-4 py-3">
+    <div className="flex cursor-pointer flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 px-4 py-3">
       <header
         className="flex items-center justify-between gap-2"
         onClick={handleClick}
@@ -42,16 +43,19 @@ export default function MobileRecommededTimeItem({
       </header>
 
       {isOpen && (
-        <div className="flex flex-col gap-5">
-          <ParticipantsSection
-            type="available"
-            participants={recommendedTime.possible_names}
-          />
-          <ParticipantsSection
-            type="unavailable"
-            participants={recommendedTime.impossible_names}
-          />
-        </div>
+        <>
+          <ParticipantsDivider />
+          <div className="flex flex-col gap-5">
+            <ParticipantsSection
+              type="available"
+              participants={recommendedTime.possible_names}
+            />
+            <ParticipantsSection
+              type="unavailable"
+              participants={recommendedTime.impossible_names}
+            />
+          </div>
+        </>
       )}
     </div>
   );
