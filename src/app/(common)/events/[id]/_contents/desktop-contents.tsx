@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 
+import ParticipantsDivider from '../_ui/ParticipantsDivider';
 import EmptyEventBanner from '../_ui/empty';
 import { EventContentsSectionHeading } from '../_ui/heading/EventContentsSectionHeading';
 import ClockIcon from '@/components/icon/ClockIcon';
@@ -74,7 +75,7 @@ export function RecommendedTime({
     recommendedTime.impossible_names.length === 0;
 
   return (
-    <div className="flex flex-col gap-6 rounded-2xl border border-gray-10 bg-gray-00 p-5">
+    <div className="flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5">
       <header className="flex items-start justify-between">
         <RecommendTimeHeading recommendedTime={recommendedTime} />
         <PaticipantStatus
@@ -88,16 +89,19 @@ export function RecommendedTime({
       </header>
 
       {!isOnlyOneFiltered && (
-        <div className="flex flex-col gap-5">
-          <ParticipantsSection
-            type="available"
-            participants={recommendedTime.possible_names}
-          />
-          <ParticipantsSection
-            type="unavailable"
-            participants={recommendedTime.impossible_names}
-          />
-        </div>
+        <>
+          <ParticipantsDivider />
+          <div className="flex flex-col gap-5">
+            <ParticipantsSection
+              type="available"
+              participants={recommendedTime.possible_names}
+            />
+            <ParticipantsSection
+              type="unavailable"
+              participants={recommendedTime.impossible_names}
+            />
+          </div>
+        </>
       )}
     </div>
   );

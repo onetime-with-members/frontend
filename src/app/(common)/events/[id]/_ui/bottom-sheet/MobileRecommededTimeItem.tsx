@@ -5,7 +5,7 @@ import {
   PaticipantStatus,
   RecommendTimeHeading,
 } from '../../_contents/desktop-contents';
-import ParticipantsDivider from './ParticipantsDivider';
+import ParticipantsDivider from '../ParticipantsDivider';
 import cn from '@/lib/cn';
 import { RecommendScheduleType } from '@/lib/types';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
