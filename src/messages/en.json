@@ -141,7 +141,7 @@
     "password": "Password",
     "passwordInfo": "If you set a password, you can edit the schedule by entering the same name and password.",
     "next": "Next",
-    "done": "Done",
+    "save": "Save",
     "saving": "Saving..."
   },
   "timeBlockBoard": {

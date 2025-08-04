@@ -141,8 +141,8 @@
     "password": "비밀번호",
     "passwordInfo": "비밀번호를 설정하면, 같은 이름과 비밀번호를 입력했을 때 스케줄을 수정할 수 있어요.",
     "next": "다음",
-    "done": "완료",
-    "saving": "진행 중..."
+    "save": "저장",
+    "saving": "저장 중..."
   },
   "timeBlockBoard": {
     "availableToggleText": "되는 시간 체크",

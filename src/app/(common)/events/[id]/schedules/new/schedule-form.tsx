@@ -11,6 +11,7 @@ import {
   updateScheduleAction,
 } from '@/lib/api/actions';
 import { eventQueryOptions } from '@/lib/api/query-options';
+import cn from '@/lib/cn';
 import { defaultEvent } from '@/lib/constants';
 import { GuestValueType, ScheduleType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
@@ -51,22 +52,24 @@ export default function ScheduleFormSubScreen({
     ...eventQueryOptions(params.id),
   });
 
-  const { mutateAsync: createNewMemberSchedule } = useMutation({
-    mutationFn: createNewMemberScheduleAction,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
-      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
-      progressRouter.push(`/events/${params.id}`);
-    },
-  });
-  const { mutateAsync: updateSchedule } = useMutation({
-    mutationFn: updateScheduleAction,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
-      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
-      progressRouter.push(`/events/${params.id}`);
-    },
-  });
+  const { mutateAsync: createNewMemberSchedule, isPending: isCreatePending } =
+    useMutation({
+      mutationFn: createNewMemberScheduleAction,
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['events'] });
+        await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+        progressRouter.push(`/events/${params.id}`);
+      },
+    });
+  const { mutateAsync: updateSchedule, isPending: isUpdatePending } =
+    useMutation({
+      mutationFn: updateScheduleAction,
+      onSuccess: async () => {
+        await queryClient.invalidateQueries({ queryKey: ['events'] });
+        await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+        progressRouter.push(`/events/${params.id}`);
+      },
+    });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -127,7 +130,10 @@ export default function ScheduleFormSubScreen({
       </form>
 
       {/* Top Submit Button */}
-      <TopSubmitButton onClick={handleScheduleSubmit} />
+      <TopSubmitButton
+        onClick={handleScheduleSubmit}
+        isPending={isCreatePending || isUpdatePending}
+      />
     </>
   );
 }
@@ -144,7 +150,13 @@ function BottomSubmitButton() {
   );
 }
 
-function TopSubmitButton({ onClick }: { onClick: () => void }) {
+function TopSubmitButton({
+  onClick,
+  isPending,
+}: {
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  isPending: boolean;
+}) {
   const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(
     null,
   );
@@ -161,8 +173,13 @@ function TopSubmitButton({ onClick }: { onClick: () => void }) {
 
   return createPortal(
     <div className="flex items-center justify-end">
-      <SmallButton type="button" onClick={onClick}>
-        {t('done')}
+      <SmallButton
+        type="button"
+        onClick={onClick}
+        disabled={isPending}
+        className={cn({ 'pointer-events-none': isPending })}
+      >
+        {isPending ? t('saving') : t('save')}
       </SmallButton>
     </div>,
     document.getElementById('schedule-submit-button') as HTMLElement,
