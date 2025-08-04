@@ -54,7 +54,7 @@ export default function EventDetailPage() {
     <div className="flex min-h-[110vh] flex-col">
       <GrayBackground />
 
-      <NavBar variant="default" className="hidden md:flex" />
+      <NavBar variant="gray" className="hidden md:flex" shadow={false} />
       <NavBar variant="black" className="flex md:hidden" shadow={false} />
 
       <header

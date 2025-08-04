@@ -20,7 +20,7 @@ export default function NavBar({
   isAuthHidden = false,
   heightZero = false,
 }: {
-  variant?: 'default' | 'black' | 'transparent';
+  variant?: 'default' | 'black' | 'transparent' | 'gray';
   shadow?: boolean;
   className?: string;
   disabled?: boolean;
@@ -52,8 +52,8 @@ export default function NavBar({
           {
             'shadow-lg': isScrolling && shadow,
             'bg-gray-80 text-gray-00': variant === 'black',
-            'bg-transparent text-gray-80':
-              variant === 'transparent' && !isScrolling,
+            'bg-gray-05': variant === 'gray',
+            'bg-transparent': variant === 'transparent' && !isScrolling,
           },
           {
             'h-[4rem]': !heightZero,
@@ -69,7 +69,9 @@ export default function NavBar({
           >
             <Image
               src={
-                variant === 'default' || variant === 'transparent'
+                variant === 'default' ||
+                variant === 'transparent' ||
+                variant === 'gray'
                   ? '/images/logo.svg'
                   : '/images/logo-white.svg'
               }
