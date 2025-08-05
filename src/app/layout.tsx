@@ -27,7 +27,10 @@ declare global {
 }
 
 export const metadata: Metadata = {
-  title: 'OneTime',
+  title: {
+    template: '%s | OneTime',
+    default: 'OneTime',
+  },
   description:
     'For our perfect time, share a link just once to coordinate schedules with many people quickly and easily with OneTime',
   keywords:
@@ -57,6 +60,10 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
 
+  // const cookieStore = await cookies();
+  // const initialIsLandingPopUpShown =
+  //   !!cookieStore.get('landing-pop-up') === false;
+
   return (
     <html lang={locale}>
       <head>
@@ -67,6 +74,7 @@ export default async function RootLayout({
           <ProgressBar />
           <div className="flex min-h-[110vh] flex-col">{children}</div>
           <Footer />
+          {/* <LandingPopUp initialIsShown={initialIsLandingPopUpShown} /> */}
           <div id="pop-up" />
           <div id="alert" />
           <Toast />

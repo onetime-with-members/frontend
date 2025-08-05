@@ -1,10 +1,13 @@
 import {
+  EventFormType,
+  OnboardingFormType,
+  PolicyFormType,
+} from './validation/form-types';
+import {
   BarBanner,
   EventType,
-  EventValueType,
   MyEventType,
   MyScheduleTimeType,
-  PolicyType,
   ScheduleType,
   SleepTimeType,
   UserType,
@@ -49,7 +52,7 @@ export const defaultEvent: EventType = {
   event_status: 'PARTICIPANT',
 };
 
-export const defaultEventValue: EventValueType = {
+export const defaultEventValue: EventFormType = {
   title: '',
   start_time: '09:00',
   end_time: '24:00',
@@ -110,10 +113,19 @@ export const defaultUser: UserType = {
   social_platform: 'google',
 };
 
-export const defaultPolicy: PolicyType = {
-  service_policy_agreement: true,
-  privacy_policy_agreement: true,
-  marketing_policy_agreement: true,
+export const defaultPolicy: PolicyFormType = {
+  servicePolicy: true,
+  privacyPolicy: true,
+  marketingPolicy: true,
+};
+
+export const defaultOnboardingValue: OnboardingFormType = {
+  nickname: '',
+  startSleepTime: '23:00',
+  endSleepTime: '07:00',
+  servicePolicy: false,
+  privacyPolicy: false,
+  marketingPolicy: false,
 };
 
 export const SKELETON_GRAY = '#e8e9ed77';

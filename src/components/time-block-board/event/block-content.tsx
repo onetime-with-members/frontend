@@ -1,6 +1,7 @@
 import useDragScroll from '@/hooks/useDragScroll';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';
+import dayjs from '@/lib/dayjs';
 import { EventType, ScheduleType, TimeType } from '@/lib/types';
 import { eventTarget, timeBlockList } from '@/lib/utils';
 
@@ -13,6 +14,7 @@ export default function BlockContent({
   editable,
   isPossibleTime,
   backgroundColor,
+  topLabelRef,
 }: {
   boardContentRef: React.RefObject<HTMLDivElement | null>;
   event: EventType;
@@ -32,6 +34,7 @@ export default function BlockContent({
   editable: boolean | undefined;
   isPossibleTime: boolean;
   backgroundColor: 'white' | 'gray';
+  topLabelRef: React.RefObject<HTMLDivElement | null>;
 }) {
   const {
     isDragEvent,
@@ -39,7 +42,7 @@ export default function BlockContent({
     handleDragMove,
     handleDragEnd,
     handleDragLeave,
-  } = useDragScroll({ ref: boardContentRef });
+  } = useDragScroll({ ref: boardContentRef, scrollSyncRef: topLabelRef });
   const { clickedTimeBlock, handleTimeBlockClick } = useTimeBlockFill({
     isFilled,
     fillTimeBlocks: ({ timePoint, times, isFilling }) =>
@@ -74,13 +77,16 @@ export default function BlockContent({
   return (
     <div
       ref={boardContentRef}
-      className="scrollbar-hidden flex flex-1 gap-2 overflow-x-scroll"
+      className="scrollbar-hidden flex flex-1 gap-2 overflow-x-hidden"
       onMouseDown={handleDragStart}
       onMouseMove={handleDragMove}
       onMouseUp={handleDragEnd}
       onMouseLeave={handleDragLeave}
+      onTouchStart={handleDragStart}
+      onTouchMove={handleDragMove}
+      onTouchEnd={handleDragEnd}
     >
-      {event.ranges.map((timePoint) => (
+      {event.ranges.map((timePoint, index) => (
         <TimeBlockLine
           key={timePoint}
           timePoint={timePoint}
@@ -96,6 +102,13 @@ export default function BlockContent({
           isPossibleTime={isPossibleTime}
           backgroundColor={backgroundColor}
           isBoardContentDragging={isDragEvent}
+          className={cn({
+            'mr-2':
+              event.category === 'DATE' &&
+              !dayjs(event.ranges[index], 'YYYY.MM.DD')
+                .add(1, 'day')
+                .isSame(dayjs(event.ranges[index + 1], 'YYYY.MM.DD')),
+          })}
         />
       ))}
     </div>
@@ -103,6 +116,7 @@ export default function BlockContent({
 }
 
 export function TimeBlockLine({
+  className,
   timePoint,
   startTime,
   endTime,
@@ -117,6 +131,7 @@ export function TimeBlockLine({
   backgroundColor,
   isBoardContentDragging,
 }: {
+  className?: string;
   timePoint: string;
   startTime: string;
   endTime: string;
@@ -162,7 +177,7 @@ export function TimeBlockLine({
   }
 
   return (
-    <div className="min-w-[52px] flex-1">
+    <div className={cn('min-w-[52px] flex-1', className)}>
       <div className="flex flex-col overflow-hidden rounded-lg">
         {timeList.map((time, index) => (
           <TimeBlock

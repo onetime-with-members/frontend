@@ -4,19 +4,15 @@ import { useTranslations } from 'next-intl';
 
 import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import { signOut } from '@/lib/api/auth.action';
-import { userQueryOptions } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 export default function ProfilePage() {
-  const { data: user } = useQuery({ ...userQueryOptions });
-
-  const router = useRouter();
   const progressRouter = useProgressRouter();
   const t = useTranslations('profile');
+
+  const { user, signOut } = useAuth();
 
   return (
     <div className="flex flex-col gap-7 px-4">
@@ -35,13 +31,7 @@ export default function ProfilePage() {
           >
             {t('editProfile')}
           </GrayButton>
-          <GrayButton
-            onClick={async () => {
-              await signOut();
-              router.refresh();
-              window.location.href = '/';
-            }}
-          >
+          <GrayButton onClick={async () => await signOut({ redirectTo: '/' })}>
             {t('logout')}
           </GrayButton>
         </div>
@@ -68,7 +58,7 @@ export default function ProfilePage() {
             </SettingItem>
             <SettingItem>
               <span>{t('version')}</span>
-              <span className="text-primary-40">v 1.4.10</span>
+              <span className="text-primary-40">v 1.5.0</span>
             </SettingItem>
             <SettingItem href="/withdraw" className="text-gray-30 text-sm-200">
               {t('withdraw')}

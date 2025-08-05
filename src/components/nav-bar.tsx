@@ -5,12 +5,10 @@ import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
 import useScroll from '@/hooks/useScroll';
-import { useAuth } from '@/lib/api/auth.client';
-import { userQueryOptions } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { defaultUser } from '@/lib/constants';
 import { ProgressLink, useProgressRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
@@ -22,7 +20,7 @@ export default function NavBar({
   isAuthHidden = false,
   heightZero = false,
 }: {
-  variant?: 'default' | 'black' | 'transparent';
+  variant?: 'default' | 'black' | 'transparent' | 'gray';
   shadow?: boolean;
   className?: string;
   disabled?: boolean;
@@ -31,13 +29,8 @@ export default function NavBar({
 }) {
   const [isMounted, setIsMounted] = useState(false);
 
-  const { isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useAuth();
   const { isScrolling } = useScroll();
-
-  const { data: user } = useQuery({
-    ...userQueryOptions,
-    enabled: isLoggedIn,
-  });
 
   useEffect(() => {
     setIsMounted(true);
@@ -59,8 +52,8 @@ export default function NavBar({
           {
             'shadow-lg': isScrolling && shadow,
             'bg-gray-80 text-gray-00': variant === 'black',
-            'bg-transparent text-gray-80':
-              variant === 'transparent' && !isScrolling,
+            'bg-gray-05': variant === 'gray',
+            'bg-transparent': variant === 'transparent' && !isScrolling,
           },
           {
             'h-[4rem]': !heightZero,
@@ -76,7 +69,9 @@ export default function NavBar({
           >
             <Image
               src={
-                variant === 'default' || variant === 'transparent'
+                variant === 'default' ||
+                variant === 'transparent' ||
+                variant === 'gray'
                   ? '/images/logo.svg'
                   : '/images/logo-white.svg'
               }

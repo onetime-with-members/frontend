@@ -81,7 +81,7 @@
     "delete": "Delete",
     "addSchedule": "Add Schedule",
     "editSchedule": "Edit Schedule",
-    "mostAvailable": "Best Available Times",
+    "recommendedTime": "Recommended Time{count, plural, =1 {} other {s}}",
     "allAvailable": "All Available Times",
     "peopleWhoAddedSchedules": "Person who added schedule{count, plural, =1 {} other {s}}",
     "whenAvailableTimes": "When are the available times?",
@@ -141,7 +141,7 @@
     "password": "Password",
     "passwordInfo": "If you set a password, you can edit the schedule by entering the same name and password.",
     "next": "Next",
-    "done": "Done",
+    "save": "Save",
     "saving": "Saving..."
   },
   "timeBlockBoard": {
@@ -179,6 +179,7 @@
     "sleepTime": "Sleep Time",
     "everytime": "Add Everytime timetable",
     "done": "Done",
+    "save": "Save",
     "saving": "Saving..."
   },
   "everytimeScheduleEdit": {

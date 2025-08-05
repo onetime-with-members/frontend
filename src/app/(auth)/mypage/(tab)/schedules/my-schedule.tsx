@@ -1,6 +1,6 @@
 'use client';
 
-import SleepIcon from '@/components/icon/sleep';
+import SleepIcon from '@/components/icon/SleepTimeIcon';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import {
   myScheduleQueryOptions,
@@ -18,11 +18,11 @@ export default function MySchedulePage() {
   return (
     <div className="mx-auto w-full max-w-screen-md pb-32">
       {/* Sleep Time */}
-      <div className="sticky top-[64px] z-10 flex h-[56px] items-center gap-1.5 rounded-t-2xl bg-primary-00 px-5 py-4 md:top-[122px]">
-        <span>
-          <SleepIcon fill="#4C65E5" size={20} />
+      <div className="sticky top-[64px] z-10 flex h-[56px] items-center gap-1.5 rounded-t-2xl bg-primary-00 px-5 py-4 text-primary-50 md:top-[122px]">
+        <span className="text-xl">
+          <SleepIcon />
         </span>
-        <span className="text-primary-50 text-md-300">
+        <span className="text-md-300">
           {sleepTime?.sleep_start_time} - {sleepTime?.sleep_end_time}
         </span>
       </div>

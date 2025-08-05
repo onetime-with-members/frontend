@@ -4,10 +4,10 @@ import { setCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useRef } from 'react';
 
-import CheckIcon from '@/components/icon/check';
+import CheckIcon from '@/components/icon/CheckIcon';
 import useDropdown from '@/hooks/useDropdown';
-import { editUserLanguageApi } from '@/lib/api/actions';
-import { useAuth } from '@/lib/api/auth.client';
+import { editUserLanguageAction } from '@/lib/api/actions';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { IconLanguage } from '@tabler/icons-react';
@@ -39,7 +39,7 @@ export default function LanguageDropdown({
   const { isLoggedIn } = useAuth();
 
   const { mutateAsync: editUserLanguage } = useMutation({
-    mutationFn: editUserLanguageApi,
+    mutationFn: editUserLanguageAction,
   });
 
   async function handleDropdownMenuItemClick(language: string) {
@@ -113,7 +113,7 @@ function LanguageDropdownMenu({
           <span>{language.label}</span>
           {locale === language.key && (
             <span>
-              <CheckIcon size={16} fill="#677CEE" />
+              <CheckIcon />
             </span>
           )}
         </li>

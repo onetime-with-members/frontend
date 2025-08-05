@@ -1,8 +1,9 @@
 'use client';
 
-import { getCookie, setCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import NicknameFormScreen from './_screen/nickname-form-screen';
 import PolicyScreen from './_screen/policy-screen';
@@ -10,11 +11,14 @@ import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { createUserApi } from '@/lib/api/actions';
+import { createUserAction } from '@/lib/api/actions';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import dayjs from '@/lib/dayjs';
-import { OnboardingValueType, Session } from '@/lib/types';
+import { defaultOnboardingValue } from '@/lib/constants';
+import { OnboardingFormType } from '@/lib/validation/form-types';
+import { onboardingSchema } from '@/lib/validation/schema';
 import { useProgressRouter } from '@/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -26,46 +30,33 @@ export default function OnboardingPage({
   name: string;
   registerToken: string;
 }) {
-  const locale = useLocale();
-
-  const [page, setPage] = useState(1);
-  const [value, setValue] = useState<OnboardingValueType>({
-    register_token: registerToken,
-    nickname: name,
-    service_policy_agreement: false,
-    privacy_policy_agreement: false,
-    marketing_policy_agreement: false,
-    sleep_start_time: '23:00',
-    sleep_end_time: '07:00',
-    language: locale === 'ko' ? 'KOR' : 'ENG',
-  });
+  const [pageIndex, setPageIndex] = useState(0);
 
   const { setFooterVisible } = useContext(FooterContext);
 
-  const queryClient = useQueryClient();
+  const { handleSubmit, watch, setValue } = useForm<OnboardingFormType>({
+    resolver: zodResolver(onboardingSchema),
+    defaultValues: { ...defaultOnboardingValue, nickname: name },
+  });
+
   const router = useRouter();
   const progressRouter = useProgressRouter();
+  const queryClient = useQueryClient();
+  const locale = useLocale();
+
+  const { signIn } = useAuth();
 
   const redirectUrl = getCookie('redirect-url');
 
   const { mutateAsync: createUser } = useMutation({
-    mutationFn: createUserApi,
-    onSuccess: async ({
-      access_token: newAccessToken,
-      refresh_token: newRefreshToken,
-    }) => {
-      setCookie(
-        'session',
-        JSON.stringify({
-          accessToken: newAccessToken,
-          refreshToken: newRefreshToken,
-        } satisfies Session),
-        {
-          expires: dayjs().add(1, 'month').toDate(),
-        },
-      );
+    mutationFn: createUserAction,
+    onSuccess: async (data) => {
+      await signIn({
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token,
+      });
       await queryClient.invalidateQueries({ queryKey: ['users'] });
-      setPage((prev) => prev + 1);
+      setPageIndex((prev) => prev + 1);
     },
     onError: (error) => {
       console.error(error);
@@ -73,23 +64,13 @@ export default function OnboardingPage({
     },
   });
 
-  function handleNextButtonClick(disabled: boolean) {
-    if (disabled) return;
-    setPage((prevPage) => prevPage + 1);
-  }
-
-  function handleBackButtonClick() {
-    if (page === 1) {
-      progressRouter.push(`/login?redirect_url=${redirectUrl}`);
-    } else {
-      setPage((prevPage) => prevPage - 1);
-    }
-  }
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    await createUser(value);
-  }
+  const onSubmit: SubmitHandler<OnboardingFormType> = async (data) => {
+    await createUser({
+      ...data,
+      registerToken,
+      language: locale === 'ko' ? 'KOR' : 'ENG',
+    });
+  };
 
   useEffect(() => {
     setFooterVisible(false);
@@ -105,11 +86,20 @@ export default function OnboardingPage({
           {/* App Bar for Mobile */}
           <nav
             className={cn('block h-[4rem] md:hidden', {
-              hidden: page === 4,
+              hidden: pageIndex === 3,
             })}
           >
             <div className="fixed left-0 top-0 flex h-[4rem] w-full items-center bg-gray-00 p-4">
-              <button className="w-6" onClick={handleBackButtonClick}>
+              <button
+                className="w-6"
+                onClick={() => {
+                  if (pageIndex === 0) {
+                    progressRouter.push(`/login?redirect_url=${redirectUrl}`);
+                  } else {
+                    setPageIndex((prevPage) => prevPage - 1);
+                  }
+                }}
+              >
                 <IconChevronLeft />
               </button>
               <div className="flex flex-1 items-center justify-center">
@@ -129,50 +119,53 @@ export default function OnboardingPage({
           <div className="mx-auto flex w-full max-w-screen-sm flex-1 flex-col">
             <div
               className={cn('flex items-center gap-2 py-4 md:justify-center', {
-                hidden: page === 4,
+                hidden: pageIndex === 3,
               })}
             >
-              {Array.from({ length: 3 }, (_, i) => i + 1).map((pageNumber) => (
-                <div
-                  key={pageNumber}
-                  className={cn(
-                    'flex h-6 w-6 items-center justify-center rounded-full bg-gray-05 text-gray-20 text-sm-300',
-                    {
-                      'bg-primary-40 text-white': page === pageNumber,
-                    },
-                  )}
-                >
-                  {pageNumber}
-                </div>
-              ))}
+              {Array.from({ length: 3 }, (_, i) => i + 1).map(
+                (pageNumber, index) => (
+                  <div
+                    key={index}
+                    className={cn(
+                      'flex h-6 w-6 items-center justify-center rounded-full bg-gray-05 text-gray-20 text-sm-300',
+                      {
+                        'bg-primary-40 text-white': pageIndex === index,
+                      },
+                    )}
+                  >
+                    {pageNumber}
+                  </div>
+                ),
+              )}
             </div>
 
             {/* Screen */}
-            <PolicyScreen
-              isVisible={page === 1}
-              page={page}
-              value={value}
-              setValue={setValue}
-              onNextButtonClick={handleNextButtonClick}
-              onBackButtonClick={handleBackButtonClick}
-            />
-            <NicknameFormScreen
-              isVisible={page === 2}
-              page={page}
-              value={value}
-              setValue={setValue}
-              onNextButtonClick={handleNextButtonClick}
-              onBackButtonClick={handleBackButtonClick}
-            />
-            <SleepTimeScreen
-              isVisible={page === 3}
-              page={page}
-              value={value}
-              setValue={setValue}
-              onSubmit={handleSubmit}
-              onBackButtonClick={handleBackButtonClick}
-            />
-            <WelcomeScreen isVisible={page === 4} value={value} />
+            {pageIndex === 0 && (
+              <PolicyScreen
+                page={pageIndex}
+                setPage={setPageIndex}
+                onboardingValue={watch()}
+                setOnboardingValue={setValue}
+              />
+            )}
+            {pageIndex === 1 && (
+              <NicknameFormScreen
+                pageIndex={pageIndex}
+                setPageIndex={setPageIndex}
+                onboardingValue={watch()}
+                setOnboardingValue={setValue}
+              />
+            )}
+            {pageIndex === 2 && (
+              <SleepTimeScreen
+                pageIndex={pageIndex}
+                setPageIndex={setPageIndex}
+                onboardingValue={watch()}
+                setOnboardingValue={setValue}
+                onSubmit={handleSubmit(onSubmit)}
+              />
+            )}
+            {pageIndex === 3 && <WelcomeScreen nickname={watch('nickname')} />}
           </div>
         </main>
       </div>

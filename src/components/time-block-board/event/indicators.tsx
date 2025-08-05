@@ -17,14 +17,20 @@ export function DateIndicator({
     <div className="pl-6">
       <div
         ref={topLabelRef}
-        className="scrollbar-hidden flex flex-1 items-center gap-2 overflow-x-scroll"
+        className="scrollbar-hidden flex flex-1 items-center gap-2 overflow-x-hidden"
       >
-        {event?.ranges.map((timePoint) => (
+        {event?.ranges.map((timePoint, index) => (
           <TopDateLabel
             key={timePoint}
             category={event.category}
             timePoint={timePoint}
-            className="min-w-[52px] flex-1 py-2 text-center"
+            className={cn('min-w-[52px] flex-1 py-2 text-center', {
+              'mr-2':
+                event.category === 'DATE' &&
+                !dayjs(event.ranges[index], 'YYYY.MM.DD')
+                  .add(1, 'day')
+                  .isSame(dayjs(event.ranges[index + 1], 'YYYY.MM.DD')),
+            })}
           />
         ))}
       </div>

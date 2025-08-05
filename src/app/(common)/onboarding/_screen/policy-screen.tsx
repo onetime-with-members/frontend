@@ -1,73 +1,87 @@
+import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import PolicyDetailScreen from '@/components/user/policy-detail-screen';
-import { OnboardingValueType, PolicyKeyType, PolicyType } from '@/lib/types';
+import {
+  OnboardingFormType,
+  PolicyFormType,
+} from '@/lib/validation/form-types';
+import { policySchema } from '@/lib/validation/schema';
+import { useProgressRouter } from '@/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function PolicyScreen({
-  isVisible,
   page,
-  value,
-  setValue,
-  onNextButtonClick: handleNextButtonClick,
-  onBackButtonClick: handleBackButtonClick,
+  setPage,
+  onboardingValue,
+  setOnboardingValue,
 }: {
-  isVisible: boolean;
   page: number;
-  value: OnboardingValueType;
-  setValue: React.Dispatch<React.SetStateAction<OnboardingValueType>>;
-  onNextButtonClick: (disabled: boolean) => void;
-  onBackButtonClick: () => void;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  onboardingValue: OnboardingFormType;
+  setOnboardingValue: UseFormSetValue<OnboardingFormType>;
 }) {
-  const [disabled, setDisabled] = useState(true);
-  const [pageDetail, setPageDetail] = useState<PolicyKeyType | null>(null);
-  const [policyValue, setPolicyValue] = useState<PolicyType>({
-    service_policy_agreement: false,
-    privacy_policy_agreement: false,
-    marketing_policy_agreement: false,
+  const [pageDetail, setPageDetail] = useState<keyof PolicyFormType | null>(
+    null,
+  );
+
+  const {
+    reset,
+    watch,
+    formState: { isValid },
+    handleSubmit,
+  } = useForm<PolicyFormType>({
+    resolver: zodResolver(policySchema),
+    defaultValues: {
+      servicePolicy: onboardingValue.servicePolicy,
+      privacyPolicy: onboardingValue.privacyPolicy,
+      marketingPolicy: onboardingValue.marketingPolicy,
+    },
   });
 
   const t = useTranslations('onboarding');
+  const progressRouter = useProgressRouter();
+
+  const redirectUrl = getCookie('redirect-url');
 
   const pageTitle =
-    pageDetail === 'service_policy_agreement'
-      ? t('termsOfService')
-      : t('privacyPolicy');
+    pageDetail === 'servicePolicy' ? t('termsOfService') : t('privacyPolicy');
+
+  const onSubmit: SubmitHandler<PolicyFormType> = ({
+    servicePolicy,
+    privacyPolicy,
+    marketingPolicy,
+  }) => {
+    setOnboardingValue('servicePolicy', servicePolicy);
+    setOnboardingValue('privacyPolicy', privacyPolicy);
+    setOnboardingValue('marketingPolicy', marketingPolicy);
+    setPage((prev) => prev + 1);
+  };
 
   function handlePageDetailClose() {
     setPageDetail(null);
   }
 
-  useEffect(() => {
-    setDisabled(
-      !value.service_policy_agreement || !value.privacy_policy_agreement,
-    );
-  }, [value]);
-
-  useEffect(() => {
-    setValue((prevValue) => ({
-      ...prevValue,
-      ...policyValue,
-    }));
-  }, [policyValue, setValue]);
-
   return (
     <>
       <ScreenLayout
-        isVisible={isVisible}
-        page={page}
+        pageIndex={page}
         title={t.rich('title1', {
           br: () => <br className="hidden xs:block" />,
         })}
-        disabled={disabled}
-        onNextButtonClick={() => handleNextButtonClick(disabled)}
-        onBackButtonClick={handleBackButtonClick}
+        disabled={!isValid}
+        onBackButtonClick={() =>
+          progressRouter.push(`/login?redirect_url=${redirectUrl}`)
+        }
+        onSubmit={handleSubmit(onSubmit)}
       >
         <PolicyCheckboxContent
-          value={policyValue}
-          setValue={setPolicyValue}
+          value={watch()}
+          setValue={reset}
           setPageDetail={setPageDetail}
         />
       </ScreenLayout>

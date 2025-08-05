@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import BlockContent from './block-content';
@@ -29,6 +29,7 @@ export default function TimeBlockBoard({
   isPossibleTime = true,
   setIsPossibleTime,
   topContentClassName,
+  topContentStyle,
   bottomContentClassName,
   isEdited,
   setIsEdited,
@@ -44,6 +45,7 @@ export default function TimeBlockBoard({
   isPossibleTime?: boolean;
   setIsPossibleTime?: React.Dispatch<React.SetStateAction<boolean>>;
   topContentClassName?: string;
+  topContentStyle?: CSSProperties;
   bottomContentClassName?: string;
   isEdited?: boolean;
   setIsEdited?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -70,6 +72,7 @@ export default function TimeBlockBoard({
   const { arrowButtonVisible, handleScrollLeft, handleScrollRight } =
     useScrollArrowButton({
       ref: boardContentRef,
+      scrollSyncRef: topLabelRef,
     });
   const { isTargetOnBottom } = useTargetSticky({
     topRef: topLabelRef,
@@ -234,25 +237,6 @@ export default function TimeBlockBoard({
     );
   }, [schedules, editable, event.start_time, event.end_time]);
 
-  useEffect(() => {
-    const boardContent = boardContentRef.current;
-    const topLabel = topLabelRef.current;
-
-    function handleScroll() {
-      if (boardContent && topLabel) {
-        topLabel.scrollLeft = boardContent.scrollLeft;
-      }
-    }
-
-    if (boardContent && topLabel) {
-      boardContent.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      boardContent?.removeEventListener('scroll', handleScroll);
-    };
-  }, [topLabelRef, boardContentRef]);
-
   return (
     <motion.div
       onHoverStart={() => setIsBoardContentHover(true)}
@@ -272,7 +256,10 @@ export default function TimeBlockBoard({
         isTargetOnBottom={isTargetOnBottom}
       />
 
-      <div className={cn('sticky top-0 z-10 bg-gray-00', topContentClassName)}>
+      <div
+        style={topContentStyle}
+        className={cn('sticky top-0 z-10 bg-gray-00', topContentClassName)}
+      >
         {editable && (
           <div className="flex items-center justify-between pt-2">
             <PossibleTimeToggle
@@ -310,6 +297,7 @@ export default function TimeBlockBoard({
           editable={editable}
           isPossibleTime={isPossibleTime}
           backgroundColor={backgroundColor}
+          topLabelRef={topLabelRef}
         />
       </div>
       {isDialogOpen && (

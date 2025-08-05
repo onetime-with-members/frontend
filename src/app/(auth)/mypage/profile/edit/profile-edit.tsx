@@ -1,14 +1,24 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-import FormContent from './form-content';
+import Button from '@/components/button';
+import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import GrayBackground from '@/components/gray-background';
 import NavBar from '@/components/nav-bar';
+import NicknameFormControl from '@/components/user/nickname-form-control';
+import { editUserNameAction } from '@/lib/api/actions';
 import { userQueryOptions } from '@/lib/api/query-options';
+import cn from '@/lib/cn';
 import { defaultUser } from '@/lib/constants';
+import { UserType } from '@/lib/types';
+import { ProfileNicknameFormType } from '@/lib/validation/form-types';
+import { profileNicknameSchema } from '@/lib/validation/schema';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export default function ProfileEditPage() {
@@ -56,5 +66,81 @@ export default function ProfileEditPage() {
         <FormContent user={user || defaultUser} />
       </main>
     </>
+  );
+}
+
+function FormContent({ user }: { user: UserType }) {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const t = useTranslations();
+
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isValid },
+    reset,
+  } = useForm<ProfileNicknameFormType>({
+    mode: 'onChange',
+    resolver: zodResolver(profileNicknameSchema),
+    defaultValues: {
+      nickname: user.nickname,
+    },
+    criteriaMode: 'all',
+  });
+
+  const { mutateAsync: editUserName, isPending: isPending } = useMutation({
+    mutationFn: (data: string) => editUserNameAction(data),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+      router.back();
+    },
+  });
+
+  const onSubmit: SubmitHandler<ProfileNicknameFormType> = async ({
+    nickname,
+  }) => {
+    await editUserName(nickname);
+  };
+
+  useEffect(() => {
+    if (user) reset(user);
+  }, [user, reset]);
+
+  return (
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') e.preventDefault();
+      }}
+    >
+      <div className="mx-auto flex flex-col gap-[3.75rem] bg-gray-00 px-4 pb-40 pt-8 sm:max-w-[480px] sm:rounded-3xl sm:px-9 sm:py-10">
+        {/* Nickname Form Control */}
+        <NicknameFormControl
+          registerNickname={register('nickname')}
+          errors={errors}
+        />
+        {/* Desktop Submit Button */}
+        <Button
+          type="submit"
+          variant="dark"
+          className="hidden sm:flex"
+          fullWidth
+          disabled={!isValid}
+        >
+          {t('profileEdit.save')}
+        </Button>
+      </div>
+      {/* Mobile Submit Button */}
+      <FloatingBottomButton
+        type="submit"
+        variant="dark"
+        className={cn('sm:hidden', {
+          'pointer-events-none cursor-default': isPending,
+        })}
+        disabled={!isValid}
+      >
+        {isPending ? t('profileEdit.saving') : t('profileEdit.save')}
+      </FloatingBottomButton>
+    </form>
   );
 }

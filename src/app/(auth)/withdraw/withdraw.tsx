@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import Button from '@/components/button';
-import { withdrawApi } from '@/lib/api/actions';
+import { withdrawAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
@@ -19,7 +19,7 @@ export default function WithdrawPage() {
   const t = useTranslations('withdraw');
 
   const { mutateAsync: withdraw } = useMutation({
-    mutationFn: withdrawApi,
+    mutationFn: withdrawAction,
     onSuccess: async () => {
       await deleteCookie('session');
       router.push('/');

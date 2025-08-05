@@ -1,13 +1,10 @@
 import { AxiosError } from 'axios';
 
+import { OnboardingFormType } from './validation/form-types';
+
 export interface Session {
   accessToken: string;
   refreshToken: string;
-}
-
-export interface AuthResponse {
-  data: Session | null;
-  isLoggedIn: boolean;
 }
 
 export type ExtendedAxiosError = AxiosError & {
@@ -26,14 +23,6 @@ export interface EventType {
   category: 'DATE' | 'DAY';
   ranges: string[];
   event_status: 'CREATOR' | 'PARTICIPANT';
-}
-
-export interface EventValueType {
-  title: string;
-  start_time: string;
-  end_time: string;
-  category: 'DATE' | 'DAY';
-  ranges: string[];
 }
 
 export interface MyEventType {
@@ -68,6 +57,20 @@ export interface RecommendScheduleType {
   impossible_names: string[];
 }
 
+export interface ParticipantResponseType {
+  id: number;
+  name: string;
+}
+
+export interface ParticipantType extends ParticipantResponseType {
+  type: 'GUEST' | 'USER';
+}
+
+export interface MemberFilterType {
+  users: number[];
+  guests: number[];
+}
+
 export type MyScheduleTimeType = TimeType;
 export type EverytimeSchedule = TimeType[];
 
@@ -85,6 +88,8 @@ export interface UserType {
 }
 
 export interface GuestValueType {
+  isNewGuest: boolean;
+  guestId: string;
   name: string;
   pin: string;
 }
@@ -94,17 +99,8 @@ export interface SleepTimeType {
   sleep_end_time: string;
 }
 
-export interface PolicyType {
-  service_policy_agreement: boolean;
-  privacy_policy_agreement: boolean;
-  marketing_policy_agreement: boolean;
-}
-
-export type PolicyKeyType = keyof PolicyType;
-
-export interface OnboardingValueType extends PolicyType, SleepTimeType {
-  register_token: string;
-  nickname: string;
+export interface OnboardingType extends OnboardingFormType {
+  registerToken: string;
   language: 'KOR' | 'ENG';
 }
 

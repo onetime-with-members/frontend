@@ -1,15 +1,10 @@
 import { Metadata } from 'next';
 
-import { BottomButtons, ToolbarButtons } from './button';
-import DesktopContents from './desktop-contents';
-import { ToolbarHeading } from './heading';
-import MobileContents from './mobile-contents';
-import { TimeBlockBoardContent } from './time-block-board';
-import BarBanner from '@/components/bar-banner';
-import NavBar from '@/components/nav-bar';
+import EventDetailPage from './event-detail';
 import { fetchEvent } from '@/lib/api/data';
 import {
   eventQueryOptions,
+  participantsQueryOptions,
   qrCodeQueryOptions,
   recommendedTimesQueryOptions,
   schedulesQueryOptions,
@@ -36,12 +31,12 @@ export async function generateMetadata({
     const t404 = await getTranslations('404');
 
     return {
-      title: `${t404('notFound')} | OneTime`,
+      title: t404('notFound'),
     };
   }
 
   return {
-    title: `${event.title || ''} | OneTime`,
+    title: event.title || '',
     openGraph: {
       title: `${event.title || ''} | OneTime`,
       description:
@@ -83,50 +78,14 @@ export default async function Page({
     queryClient.prefetchQuery({
       ...schedulesQueryOptions(event),
     }),
+    queryClient.prefetchQuery({
+      ...participantsQueryOptions(eventId),
+    }),
   ]);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="flex min-h-[110vh] flex-col">
-        {/* Navigation Bar */}
-        <NavBar variant="default" className="hidden md:flex" />
-        <NavBar variant="black" className="flex md:hidden" shadow={false} />
-
-        {/* Top Toolbar and Bar Banner */}
-        <ToolbarHeading>
-          <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
-            {/* Top Toolbar */}
-            <div className="bg-gray-80 px-6 py-4 md:rounded-t-3xl">
-              <div className="flex items-center justify-between md:h-10">
-                <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
-                  {event.title}
-                </h1>
-                <ToolbarButtons />
-              </div>
-            </div>
-            {/* Bar Banner */}
-            <BarBanner
-              className="h-[56px]"
-              innnerClassName="fixed max-w-[calc(768px+2rem)] w-full"
-            />
-          </div>
-        </ToolbarHeading>
-
-        {/* Main Content */}
-        <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] flex-col gap-6 bg-gray-05 px-4 pb-16 pt-6 md:px-6">
-          <div className="flex gap-6">
-            {/* Time Block Board */}
-            <TimeBlockBoardContent />
-            {/* Right Contents for Desktop */}
-            <DesktopContents />
-          </div>
-          {/* Bottom Contents for Mobile */}
-          <MobileContents />
-        </main>
-
-        {/* Bottom Button for Desktop and Mobile */}
-        <BottomButtons />
-      </div>
+      <EventDetailPage />
     </HydrationBoundary>
   );
 }
