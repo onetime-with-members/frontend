@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import EverytimeIcon from '@/components/icon/everytime';
+import EverytimeIcon from '@/components/icon/EverytimeIcon';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
@@ -26,11 +26,11 @@ export default function EverytimeUI({ className }: { className?: string }) {
       )}
     >
       <div className="flex items-center gap-2.5">
-        <EverytimeIcon size={20} />
+        <EverytimeIcon fontSize={20} />
         <span className="text-md-300">{t('everytime')}</span>
       </div>
       <ProgressLink
-        href={`/mypage/schedules/everytime/edit?from=${pathname}`}
+        href={`/mypage/schedule/everytime/edit?from=${pathname}`}
         onClick={handleEditButtonClick}
       >
         <IconPlus size={24} />

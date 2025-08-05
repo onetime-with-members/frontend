@@ -1,75 +1,126 @@
 import { AxiosError } from 'axios';
+import { getCookie } from 'cookies-next';
 
 import { CRAWLING_SERVER_API_URL } from '../constants';
 import {
   EventType,
-  EventValueType,
+  MemberFilterType,
   MyScheduleTimeType,
-  OnboardingValueType,
-  PolicyType,
+  OnboardingType,
+  RecommendScheduleType,
   ScheduleType,
+  Session,
   SleepTimeType,
 } from '../types';
+import { EventFormType, PolicyFormType } from '../validation/form-types';
 import axios from './axios';
 
-export async function createUserApi(value: OnboardingValueType) {
-  const res = await axios.post('/users/onboarding', value);
+export async function fetchFilteredRecommendedTimes({
+  eventId,
+  filter,
+}: {
+  eventId: string;
+  filter: MemberFilterType;
+}) {
+  const res = await axios.post(`/events/${eventId}/most/filtering`, {
+    users: filter.users,
+    members: filter.guests,
+  });
+  const recommendedTimes: RecommendScheduleType[] = res.data.payload;
+  return recommendedTimes;
+}
+
+export async function fetchFilteredSchedules({
+  eventId,
+  category,
+  filter,
+}: {
+  eventId: string;
+  category: EventType['category'];
+  filter: MemberFilterType;
+}) {
+  const res = await axios.post(
+    `/schedules/${category.toLowerCase()}/${eventId}/filtering`,
+    {
+      users: filter.users,
+      members: filter.guests,
+    },
+  );
+  const schedules: ScheduleType[] = res.data.payload;
+  return schedules;
+}
+
+export async function createUserAction(value: OnboardingType) {
+  const res = await axios.post('/users/onboarding', {
+    register_token: value.registerToken,
+    nickname: value.nickname,
+    service_policy_agreement: value.servicePolicy,
+    privacy_policy_agreement: value.privacyPolicy,
+    marketing_policy_agreement: value.marketingPolicy,
+    sleep_start_time: value.startSleepTime,
+    sleep_end_time: value.endSleepTime,
+    language: value.language,
+  });
   return res.data.payload;
 }
 
-export async function createEventApi(event: EventValueType) {
+export async function createEventAction(event: EventFormType) {
   const res = await axios.post('/events', event);
   return res.data.payload;
 }
 
-export async function editEventApi({
+export async function editEventAction({
   eventId,
   event,
 }: {
   eventId: string;
-  event: EventValueType;
+  event: EventFormType;
 }) {
   const res = await axios.patch(`/events/${eventId}`, event);
   return res.data.payload;
 }
 
-export async function deleteEventApi(eventId: string) {
+export async function deleteEventAction(eventId: string) {
   const res = await axios.delete(`/events/${eventId}`);
   return res.data.payload;
 }
 
-export async function editUserNameApi(name: string) {
+export async function editUserNameAction(name: string) {
   const res = await axios.patch('/users/profile/action-update', {
     nickname: name,
   });
   return res.data.payload;
 }
 
-export async function editUserLanguageApi(language: 'KOR' | 'ENG') {
+export async function editUserLanguageAction(language: 'KOR' | 'ENG') {
   const res = await axios.patch('/users/profile/action-update', {
     language,
   });
   return res.data.payload;
 }
 
-export async function editUserPolicyApi(policy: PolicyType) {
-  const res = await axios.put('/users/policy', policy);
+export async function editUserPolicyAction(policy: PolicyFormType) {
+  const res = await axios.put('/users/policy', {
+    service_policy_agreement: policy.servicePolicy,
+    privacy_policy_agreement: policy.privacyPolicy,
+    marketing_policy_agreement: policy.marketingPolicy,
+  });
   return res.data.payload;
 }
 
-export async function editMyScheduleApi(mySchedule: MyScheduleTimeType[]) {
+export async function editMyScheduleAction(mySchedule: MyScheduleTimeType[]) {
   const res = await axios.put('/fixed-schedules', {
     schedules: mySchedule,
   });
   return res.data.payload;
 }
 
-export async function editSleepTimeApi(sleepTime: SleepTimeType) {
+export async function editSleepTimeAction(sleepTime: SleepTimeType) {
   const res = await axios.put('/users/sleep-time', sleepTime);
   return res.data.payload;
 }
 
-export async function submitEverytimeUrlApi(url: string) {
+export async function submitEverytimeUrlAction(url: string) {
   const res = await axios.get(`${CRAWLING_SERVER_API_URL}/schedule`, {
     params: {
       url,
@@ -78,12 +129,12 @@ export async function submitEverytimeUrlApi(url: string) {
   return res.data.payload.schedules;
 }
 
-export async function withdrawApi() {
+export async function withdrawAction() {
   const res = await axios.post('/users/action-withdraw');
   return res.data.payload;
 }
 
-export async function checkNewGuestApi({
+export async function checkNewGuestAction({
   eventId,
   name,
 }: {
@@ -97,7 +148,7 @@ export async function checkNewGuestApi({
   return res.data.payload;
 }
 
-export async function loginGuestApi({
+export async function loginGuestAction({
   eventId,
   name,
   pin,
@@ -125,19 +176,19 @@ export async function loginGuestApi({
   }
 }
 
-export async function createNewMemberScheduleApi({
-  eventId,
+export async function createNewMemberScheduleAction({
+  event,
   name,
   pin,
   schedule,
 }: {
-  eventId: string;
+  event: EventType;
   name: string;
   pin: string;
   schedule: ScheduleType['schedules'];
 }) {
   const res = await axios.post('/members/action-register', {
-    event_id: eventId,
+    event_id: event.event_id,
     name,
     pin,
     schedules: schedule,
@@ -145,7 +196,7 @@ export async function createNewMemberScheduleApi({
   return res.data.payload;
 }
 
-export async function updateScheduleApi({
+export async function updateScheduleAction({
   event,
   guestId,
   schedule,
@@ -158,6 +209,14 @@ export async function updateScheduleApi({
     event_id: event.event_id,
     member_id: guestId,
     schedules: schedule,
+  });
+  return res.data.payload;
+}
+
+export async function signOutAction() {
+  const { refreshToken }: Session = JSON.parse(getCookie('session') as string);
+  const res = await axios.post('/users/logout', {
+    refresh_token: refreshToken,
   });
   return res.data.payload;
 }

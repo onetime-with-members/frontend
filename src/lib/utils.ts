@@ -1,3 +1,5 @@
+import { FieldErrors } from 'react-hook-form';
+
 import dayjs from './dayjs';
 import { ScheduleType, SleepTimeType, TabActiveType } from './types';
 
@@ -163,4 +165,8 @@ export function getTimesGroupForSplitted(
 
 export function getParticipants(schedules: ScheduleType[]) {
   return schedules.map((schedule) => schedule.name).sort();
+}
+
+export function errorCodes(errors: FieldErrors, key: keyof typeof errors) {
+  return Object.values(errors[key]?.types || errors[key]?.type || {});
 }

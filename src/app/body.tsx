@@ -6,18 +6,18 @@ import nProgress from 'nprogress';
 import { useContext, useEffect, useRef, useState } from 'react';
 
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
-import SpeakerPhoneIcon from '@/components/icon/speak-phone';
+import SpeakerPhoneIcon from '@/components/icon/SpeakerPhoneIcon';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import { useAuth } from '@/lib/api/auth.client';
 import {
   userPolicyQueryOptions,
   userQueryOptions,
 } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import dayjs from '@/lib/dayjs';
 import getQueryClient from '@/lib/query-client';
 import { ProgressLink, useProgressRouter } from '@/navigation';
-import { IconBrandInstagram } from '@tabler/icons-react';
+import { IconBrandInstagram, IconX } from '@tabler/icons-react';
 import { QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Image from 'next/image';
@@ -106,13 +106,10 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
     router.refresh();
   }, [user]);
 
-  useEffect(() => {}, [user]);
-
   useEffect(() => {
     if (pathname.startsWith('/policy') || pathname === '/withdraw') return;
     if (!policy) return;
-    if (policy.service_policy_agreement && policy.privacy_policy_agreement)
-      return;
+    if (policy.servicePolicy && policy.privacyPolicy) return;
     progressRouter.push('/policy/edit');
   }, [pathname, policy]);
 
@@ -194,14 +191,14 @@ export function Footer() {
             <div className="flex flex-col gap-2">
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfDuttkDxmZDZbHhawL5GSJOgOOelOTFFgoomRVWYHWlEP9Qg/viewform?usp=dialog"
-                className="flex items-center gap-1 text-gray-00 text-sm-300"
+                className="flex items-center gap-1 text-gray-00"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <span>
+                <span className="text-base">
                   <SpeakerPhoneIcon />
                 </span>
-                <span>{t('feedbackIssue')}</span>
+                <span className="text-sm-300">{t('feedbackIssue')}</span>
               </a>
               <div className="flex items-center gap-2 text-gray-40">
                 <ProgressLink href="/policy/privacy">
@@ -282,5 +279,39 @@ export function KakaoShareScript() {
       src="https://developers.kakao.com/sdk/js/kakao.js"
       onLoad={onLoad}
     />
+  );
+}
+
+export function LandingPopUp({ initialIsShown }: { initialIsShown: boolean }) {
+  const [isShown, setIsShown] = useState(initialIsShown);
+
+  function handleCloseButtonClick() {
+    setCookie('landing-pop-up', 'false', {
+      expires: dayjs().add(1, 'day').hour(0).minute(0).second(0).toDate(),
+    });
+    setIsShown(false);
+  }
+
+  return (
+    isShown && (
+      <div className="fixed left-0 top-0 z-[99] flex h-full w-full flex-col items-center justify-center gap-6 bg-gray-90 bg-opacity-50">
+        <div className="h-[25rem] w-full max-w-[20rem] overflow-hidden rounded-3xl bg-gray-00">
+          <Image
+            src="/images/sample-landing-pop-up.png"
+            alt="샘플 랜딩 팝업 이미지"
+            width={384}
+            height={480}
+            className="h-full object-cover"
+          />
+        </div>
+        <button
+          type="button"
+          className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-30"
+          onClick={handleCloseButtonClick}
+        >
+          <IconX size={28} className="text-gray-00" />
+        </button>
+      </div>
+    )
   );
 }

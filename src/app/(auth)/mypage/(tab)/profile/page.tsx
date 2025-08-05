@@ -5,7 +5,7 @@ export async function generateMetadata() {
   const t = await getTranslations('profile');
 
   return {
-    title: `${t('profile')} | OneTime`,
+    title: t('profile'),
   };
 }
 

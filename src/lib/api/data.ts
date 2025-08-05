@@ -3,6 +3,8 @@ import {
   BarBanner,
   EventType,
   MyScheduleTimeType,
+  ParticipantResponseType,
+  ParticipantType,
   RecommendScheduleType,
   ScheduleType,
 } from '../types';
@@ -54,8 +56,10 @@ export async function fetchRecommendedTimes(eventId: string) {
 }
 
 export async function fetchSchedules(event: EventType) {
+  if (!event.event_id) return [];
+
   const res = await fetch(
-    `${SERVER_API_URL}/schedules/${event?.category.toLowerCase()}/${event?.event_id}`,
+    `${SERVER_API_URL}/schedules/${event.category.toLowerCase()}/${event.event_id}`,
   );
   if (!res.ok) {
     console.error(await res.json());
@@ -65,6 +69,28 @@ export async function fetchSchedules(event: EventType) {
   const schedules: ScheduleType[] = data.payload;
 
   return schedules;
+}
+
+export async function fetchParticipants(eventId: string) {
+  const res = await fetch(`${SERVER_API_URL}/events/${eventId}/participants`);
+  if (!res.ok) {
+    console.error(await res.json());
+    return [];
+  }
+  const data = await res.json();
+  const guests: ParticipantResponseType[] = data.payload.members;
+  const users: ParticipantResponseType[] = data.payload.users;
+
+  const participants: ParticipantType[] = guests
+    .map((guest) => ({ ...guest, type: 'GUEST' as ParticipantType['type'] }))
+    .concat(
+      users.map((user) => ({
+        ...user,
+        type: 'USER' as ParticipantType['type'],
+      })),
+    );
+
+  return participants;
 }
 
 export async function fetchOriginalUrl(shortUrl: string) {
@@ -168,5 +194,14 @@ export async function fetchSleepTime() {
 
 export async function fetchUserPolicy() {
   const res = await axios.get('/users/policy');
-  return res.data.payload;
+  const {
+    service_policy_agreement,
+    privacy_policy_agreement,
+    marketing_policy_agreement,
+  } = res.data.payload;
+  return {
+    servicePolicy: service_policy_agreement,
+    privacyPolicy: privacy_policy_agreement,
+    marketingPolicy: marketing_policy_agreement,
+  };
 }

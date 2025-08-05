@@ -5,7 +5,7 @@ export async function generateMetadata() {
   const t = await getTranslations('policyEdit');
 
   return {
-    title: `${t('agreeToTerms')} | OneTime`,
+    title: t('agreeToTerms'),
   };
 }
 

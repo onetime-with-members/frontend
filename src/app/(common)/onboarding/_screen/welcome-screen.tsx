@@ -2,18 +2,10 @@ import { deleteCookie, getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
 import Button from '@/components/button';
-import cn from '@/lib/cn';
-import { OnboardingValueType } from '@/lib/types';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 
-export default function WelcomeScreen({
-  isVisible,
-  value,
-}: {
-  isVisible: boolean;
-  value: OnboardingValueType;
-}) {
+export default function WelcomeScreen({ nickname }: { nickname: string }) {
   const progressRouter = useProgressRouter();
   const t = useTranslations('onboarding');
 
@@ -29,14 +21,7 @@ export default function WelcomeScreen({
   }
 
   return (
-    <section
-      className={cn(
-        'flex flex-1 -translate-y-6 flex-col items-center justify-center gap-12 md:-translate-y-16',
-        {
-          hidden: !isVisible,
-        },
-      )}
-    >
+    <section className="flex flex-1 -translate-y-6 flex-col items-center justify-center gap-12 md:-translate-y-16">
       <div className="flex flex-col items-center gap-6">
         <div>
           <Image
@@ -50,7 +35,7 @@ export default function WelcomeScreen({
         <div className="flex flex-col items-center gap-4">
           <h1 className="text-center text-[2rem] font-bold text-gray-90">
             {t.rich('title4', {
-              name: value.nickname,
+              name: nickname,
               br: () => <br className="block md:hidden" />,
             })}
           </h1>

@@ -1,8 +1,4 @@
-import { useEffect, useState } from 'react';
-
-interface useDragScrollProps {
-  ref: React.RefObject<HTMLElement | null>;
-}
+import React, { useEffect, useState } from 'react';
 
 type DragX = {
   init: number;
@@ -10,9 +6,13 @@ type DragX = {
   max: number;
 };
 
-export default function useDragScroll({ ref }: useDragScrollProps) {
-  const [scrollContainerRef, setScrollContainerRef] =
-    useState<React.RefObject<HTMLElement | null>>();
+export default function useDragScroll({
+  ref: scrollContainerRef,
+  scrollSyncRef,
+}: {
+  ref: React.RefObject<HTMLElement | null>;
+  scrollSyncRef?: React.RefObject<HTMLElement | null>;
+}) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragX, setDragX] = useState<DragX>({
     init: 0,
@@ -22,23 +22,40 @@ export default function useDragScroll({ ref }: useDragScrollProps) {
   const [initScrollLeft, setInitScrollLeft] = useState<number>(0);
   const [isDragEvent, setIsDragEvent] = useState<boolean>(false);
 
-  function handleDragStart(e: React.MouseEvent) {
+  const getClientX = (e: React.MouseEvent | React.TouchEvent): number => {
+    if ('touches' in e) {
+      return e.touches[0].clientX;
+    }
+    return e.clientX;
+  };
+
+  function handleDragStart(e: React.MouseEvent | React.TouchEvent) {
     if (!scrollContainerRef?.current) return;
-    e.preventDefault();
+
+    if (!('touches' in e)) {
+      e.preventDefault();
+    }
+
     setIsDragging(true);
+    const startX = getClientX(e);
     setDragX({
-      init: e.clientX,
-      min: e.clientX,
-      max: e.clientX,
+      init: startX,
+      min: startX,
+      max: startX,
     });
-    setInitScrollLeft(scrollContainerRef.current.scrollLeft);
+    if (scrollContainerRef.current) {
+      setInitScrollLeft(scrollContainerRef.current.scrollLeft);
+    }
   }
 
-  function handleDragMove(e: React.MouseEvent) {
+  function handleDragMove(e: React.MouseEvent | React.TouchEvent) {
     if (!isDragging || !scrollContainerRef?.current) return;
-    const newDragX = e.clientX;
+    const newDragX = getClientX(e);
     const dragDistance = dragX.init - newDragX;
     scrollContainerRef.current.scrollLeft = initScrollLeft + dragDistance;
+    if (scrollSyncRef && scrollSyncRef.current) {
+      scrollSyncRef.current.scrollLeft = initScrollLeft + dragDistance;
+    }
     setDragX((prevDragX) => ({
       ...prevDragX,
       min: Math.min(prevDragX.min, newDragX),
@@ -54,12 +71,6 @@ export default function useDragScroll({ ref }: useDragScrollProps) {
   function handleDragLeave() {
     handleDragEnd();
   }
-
-  useEffect(() => {
-    if (ref.current) {
-      setScrollContainerRef(ref);
-    }
-  }, [ref]);
 
   useEffect(() => {
     setIsDragEvent(dragX.max - dragX.min >= 10);

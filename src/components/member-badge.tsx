@@ -13,7 +13,7 @@ export default function MemberBadge({
   return (
     <span
       className={cn(
-        'overflow-hidden text-ellipsis whitespace-nowrap rounded-full px-3 py-1 text-sm-200',
+        'overflow-hidden text-ellipsis whitespace-nowrap rounded-lg px-2 py-0.5 text-sm-200',
         className,
         {
           'bg-primary-00 text-primary-60': variant === 'primary',

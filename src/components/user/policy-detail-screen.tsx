@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 
 import GrayBackground from '../gray-background';
 import NavBar from '@/components/nav-bar';
-import { PolicyKeyType } from '@/lib/types';
+import { PolicyFormType } from '@/lib/validation/form-types';
 import privacyMarkdownEN from '@/markdowns/privacy-en';
 import privacyMarkdownKO from '@/markdowns/privacy-ko';
 import serviceMarkdownEN from '@/markdowns/service-en';
@@ -17,7 +17,7 @@ export default function PolicyDetailScreen({
   pageTitle,
   onClose,
 }: {
-  page: PolicyKeyType;
+  page: keyof PolicyFormType;
   pageTitle: string;
   onClose: () => void;
 }) {
@@ -57,12 +57,12 @@ export default function PolicyDetailScreen({
 
           {/* Markdown Content */}
           <div className="markdown-body scrollbar-hidden flex-1 overflow-scroll bg-gray-00 px-4 md:rounded-2xl md:p-8">
-            {page === 'service_policy_agreement' && (
+            {page === 'servicePolicy' && (
               <ReactMarkdown>
                 {locale === 'ko' ? serviceMarkdownKO : serviceMarkdownEN}
               </ReactMarkdown>
             )}
-            {page === 'privacy_policy_agreement' && (
+            {page === 'privacyPolicy' && (
               <ReactMarkdown>
                 {locale === 'ko' ? privacyMarkdownKO : privacyMarkdownEN}
               </ReactMarkdown>

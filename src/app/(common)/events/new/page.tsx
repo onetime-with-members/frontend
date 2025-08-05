@@ -1,14 +1,14 @@
-import EventFormScreen from '@/components/event/form-screen';
+import EventCreatePage from './event-create';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
   const t = await getTranslations('createEvent');
 
   return {
-    title: `${t('createEvent')} | OneTime`,
+    title: t('createEvent'),
   };
 }
 
 export default async function EventCreate() {
-  return <EventFormScreen type="create" />;
+  return <EventCreatePage />;
 }

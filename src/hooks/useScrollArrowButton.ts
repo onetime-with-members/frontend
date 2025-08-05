@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react';
 
 interface UseScrollArrowButtonProps {
   ref: React.RefObject<HTMLElement | null>;
+  scrollSyncRef?: React.RefObject<HTMLElement | null>;
 }
 
 export default function useScrollArrowButton({
   ref,
+  scrollSyncRef,
 }: UseScrollArrowButtonProps) {
   const [arrowButtonVisible, setArrowButtonVisible] = useState({
     left: false,
@@ -17,11 +19,19 @@ export default function useScrollArrowButton({
       left: -ref.current.clientWidth,
       behavior: 'smooth',
     });
+    scrollSyncRef?.current?.scrollBy({
+      left: -scrollSyncRef.current.clientWidth,
+      behavior: 'smooth',
+    });
   }
 
   function handleScrollRight() {
     ref.current?.scrollBy({
       left: ref.current.clientWidth,
+      behavior: 'smooth',
+    });
+    scrollSyncRef?.current?.scrollBy({
+      left: scrollSyncRef.current.clientWidth,
       behavior: 'smooth',
     });
   }

@@ -2,8 +2,8 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { useAuth } from '@/lib/api/auth.client';
 import { myScheduleQueryOptions } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import { defaultMySchedule } from '@/lib/constants';
 import { MyScheduleTimeType } from '@/lib/types';
 import { useQuery } from '@tanstack/react-query';
@@ -55,8 +55,8 @@ export default function MyScheduleContextProvider({
 
   useEffect(() => {
     const locationsNotToReset = [
-      '/mypage/schedules/edit',
-      '/mypage/schedules/everytime/edit',
+      '/mypage/schedule/edit',
+      '/mypage/schedule/everytime/edit',
     ];
     if (locationsNotToReset.includes(pathname)) return;
     resetMySchedule();

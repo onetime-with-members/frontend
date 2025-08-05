@@ -4,10 +4,9 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
 import Avatar from '../avatar';
-import { signOut } from '@/lib/api/auth.action';
+import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
-import { useRouter } from 'next/navigation';
 
 export default function AvatarDropdown({
   size = 40,
@@ -64,8 +63,9 @@ function AvatarDropdownMenu({
 }: {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const router = useRouter();
   const t = useTranslations('navbar');
+
+  const { signOut } = useAuth();
 
   const menuItems: {
     href: string;
@@ -98,17 +98,11 @@ function AvatarDropdownMenu({
     {
       href: '#',
       label: t('logout'),
-      onClick: handleLogout,
+      onClick: signOut,
       variant: 'danger',
       progressBar: false,
     },
   ];
-
-  async function handleLogout() {
-    await signOut();
-    router.refresh();
-    window.location.reload();
-  }
 
   function handleMenuItemClick() {
     setIsMenuOpen(false);

@@ -2,8 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
 import CircleArrowButton from '@/components/button/circle-arrow-button';
-import LoadIcon from '@/components/icon/load';
-import RefreshIcon from '@/components/icon/refresh';
+import LoadIcon from '@/components/icon/LoadIcon';
+import RefreshIcon from '@/components/icon/RefreshIcon';
 import cn from '@/lib/cn';
 import { IconX } from '@tabler/icons-react';
 
@@ -83,7 +83,7 @@ export function ReloadButton({
       {...props}
     >
       <span>
-        <LoadIcon size={16} />
+        <LoadIcon fontSize={16} />
       </span>
       <span>{t('timeBlockBoard.reload')}</span>
     </button>
@@ -105,8 +105,8 @@ export function ResetButton({
       )}
       {...props}
     >
-      <span>
-        <RefreshIcon size={14} fill="#9296AB" />
+      <span className="text-[14px]">
+        <RefreshIcon />
       </span>
       <span>{t('reset')}</span>
     </button>

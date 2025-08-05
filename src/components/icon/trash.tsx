@@ -1,48 +1,41 @@
-export default function TrashIcon({
-  fill = '#DD3C6C',
-  innerFill = '#FBE9EF',
-  size = 16,
-}: {
-  fill?: string;
-  innerFill?: string;
-  size?: number;
-}) {
+import { SVGProps } from 'react';
+
+export default function TrashIcon(
+  props: SVGProps<SVGSVGElement> & {
+    innerfill: string;
+  },
+) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 16 16"
+      width="1em"
+      height="1em"
       fill="none"
+      viewBox="0 0 20 20"
+      {...props}
     >
       <path
-        d="M4 6V12C4 13.1046 4.89543 14 6 14H10C11.1046 14 12 13.1046 12 12V6C12 4.89543 11.1046 4 10 4H6C4.89543 4 4 4.89543 4 6Z"
-        fill={fill}
-        stroke={fill}
-        strokeWidth="1.33333"
+        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="1.667"
+        d="M5 7.5V15a2.5 2.5 0 0 0 2.5 2.5h5A2.5 2.5 0 0 0 15 15V7.5A2.5 2.5 0 0 0 12.5 5h-5A2.5 2.5 0 0 0 5 7.5Z"
       />
       <path
-        d="M6.66699 8V10.6667M9.33366 8V10.6667"
-        stroke={innerFill}
-        strokeWidth="1.33333"
+        stroke={props.innerfill}
         strokeLinecap="round"
+        strokeWidth="1.667"
+        d="M8.333 10v3.333M11.667 10v3.333"
       />
       <path
-        d="M6 4V3.33333C6 2.59695 6.59695 2 7.33333 2H8.66667C9.40305 2 10 2.59695 10 3.33333V4"
-        stroke={fill}
-        strokeWidth="1.33333"
+        stroke="currentColor"
+        strokeWidth="1.667"
+        d="M7.5 5v-.833c0-.92.746-1.667 1.667-1.667h1.666c.92 0 1.667.746 1.667 1.667V5"
       />
       <path
-        d="M3.33301 4.66663L12.6663 4.66663"
-        stroke={fill}
-        strokeWidth="1.33333"
+        stroke="currentColor"
         strokeLinecap="round"
-      />
-      <path
-        d="M3.33301 4.66663V4.66663C3.33301 4.29844 3.63148 3.99996 3.99967 3.99996H11.9997C12.3679 3.99996 12.6663 4.29844 12.6663 4.66663V4.66663"
-        stroke={fill}
-        strokeWidth="1.33333"
-        strokeLinecap="round"
+        strokeWidth="1.667"
+        d="M4.167 5.833h11.666M4.167 5.833v0C4.167 5.373 4.54 5 5 5h10c.46 0 .833.373.833.833v0"
       />
     </svg>
   );

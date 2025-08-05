@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useContext, useEffect } from 'react';
 
-import CheckIcon from '@/components/icon/check';
+import CheckIcon from '@/components/icon/CheckIcon';
 import { ToastContext } from '@/contexts/toast';
 
 export default function Toast({
@@ -32,14 +32,12 @@ export default function Toast({
           initial={{ opacity: 0, bottom: 0 }}
           animate={{ opacity: 1, bottom }}
           exit={{ opacity: 0, bottom: 0 }}
-          className="fixed left-1/2 z-50 flex -translate-x-1/2 translate-y-full items-center gap-2 rounded-full bg-[#31333F] p-2 pr-5"
+          className="fixed left-1/2 z-50 flex -translate-x-1/2 translate-y-full items-center gap-2 rounded-full bg-[#31333F] p-2 pr-5 text-gray-00"
         >
-          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-success-50">
-            <CheckIcon fill="#FFFFFF" size={15} />
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-success-50 text-[15px]">
+            <CheckIcon />
           </div>
-          <span className="whitespace-nowrap text-gray-00 text-md-200">
-            {message}
-          </span>
+          <span className="whitespace-nowrap text-md-200">{message}</span>
         </motion.div>
       )}
     </AnimatePresence>

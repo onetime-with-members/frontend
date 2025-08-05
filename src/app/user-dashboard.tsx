@@ -9,15 +9,14 @@ import Button from '@/components/button';
 import EmptyUI from '@/components/empty-ui';
 import MyEvent from '@/components/event/my-event';
 import EverytimeUI from '@/components/everytime-ui';
-import PenIcon from '@/components/icon/pen';
-import SleepIcon from '@/components/icon/sleep';
+import PenIcon from '@/components/icon/PenIcon';
+import SleepIcon from '@/components/icon/SleepTimeIcon';
 import NavBar from '@/components/nav-bar';
 import TimeBlockBoardSkeleton from '@/components/skeleton/time-block-board-skeleton';
 import ToolbarTitleSkeleton from '@/components/skeleton/toolbar-title-skeleton';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { BarBannerContext } from '@/contexts/bar-banner';
 import { FooterContext } from '@/contexts/footer';
-import useScroll from '@/hooks/useScroll';
 import {
   myEventsQueryOptions,
   myScheduleQueryOptions,
@@ -37,28 +36,19 @@ import { IconChevronRight, IconPlus } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 
 export default function UserDashboardPage() {
-  const { isScrolling } = useScroll();
-
   const { data: user } = useQuery({ ...userQueryOptions });
 
   const t = useTranslations('userDashboard');
 
   return (
     <div className="flex flex-col">
-      <NavBar variant="default" className="hidden md:flex" />
-      <NavBar variant="black" className="flex md:hidden" />
+      <NavBar variant="default" className="hidden md:flex" shadow={false} />
+      <NavBar variant="black" className="flex md:hidden" shadow={false} />
 
       <main className="mx-auto w-full max-w-[calc(768px+2rem)]">
         {/* Top Toolbar */}
         <header className="hidden h-[72px] w-full justify-center md:flex">
-          <div
-            className={cn(
-              'fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150',
-              {
-                'shadow-lg': isScrolling,
-              },
-            )}
-          >
+          <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
             <div className="flex h-[72px] items-center rounded-t-3xl bg-gray-80 px-6 text-gray-00">
               <div className="mx-auto flex w-full max-w-screen-md items-center justify-between gap-2">
                 <h1 className="flex-1 title-lg-300">
@@ -207,19 +197,19 @@ function MyScheduleContent() {
 
       {/* Sleep Time UI */}
       <div className="flex items-stretch justify-between gap-3 px-6 py-3">
-        <div className="flex items-center gap-1.5">
-          <span>
-            <SleepIcon fill="#31333F" size={20} />
+        <div className="flex items-center gap-1.5 text-gray-80">
+          <span className="text-xl">
+            <SleepIcon />
           </span>
-          <span className="text-gray-80 text-lg-200">
+          <span className="text-lg-200">
             {sleepTime?.sleep_start_time} - {sleepTime?.sleep_end_time}
           </span>
         </div>
         <ProgressLink
-          href="/mypage/schedules/edit"
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-05 duration-150 hover:bg-gray-10 active:bg-gray-10"
+          href="/mypage/schedule/edit"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-05 text-2xl text-gray-70 duration-150 hover:bg-gray-10 active:bg-gray-10"
         >
-          <PenIcon fill="#474A5C" size={24} />
+          <PenIcon />
         </ProgressLink>
       </div>
 

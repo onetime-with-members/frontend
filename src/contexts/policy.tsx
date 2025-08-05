@@ -2,16 +2,16 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { useAuth } from '@/lib/api/auth.client';
 import { userPolicyQueryOptions } from '@/lib/api/query-options';
+import { useAuth } from '@/lib/auth/auth.client';
 import { defaultPolicy } from '@/lib/constants';
-import { PolicyType } from '@/lib/types';
+import { PolicyFormType } from '@/lib/validation/form-types';
 import { useQuery } from '@tanstack/react-query';
 
 export const PolicyContext = createContext<{
-  policyValue: PolicyType;
-  setPolicyValue: React.Dispatch<React.SetStateAction<PolicyType>>;
-  policyData: PolicyType;
+  policyValue: PolicyFormType;
+  setPolicyValue: React.Dispatch<React.SetStateAction<PolicyFormType>>;
+  policyData: PolicyFormType;
   isPolicyPending: boolean;
 }>({
   policyValue: defaultPolicy,
@@ -25,7 +25,7 @@ export default function PolicyContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [policyValue, setPolicyValue] = useState<PolicyType>(defaultPolicy);
+  const [policyValue, setPolicyValue] = useState<PolicyFormType>(defaultPolicy);
 
   const { isLoggedIn } = useAuth();
 
