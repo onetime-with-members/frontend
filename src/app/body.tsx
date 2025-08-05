@@ -106,8 +106,6 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
     router.refresh();
   }, [user]);
 
-  useEffect(() => {}, [user]);
-
   useEffect(() => {
     if (pathname.startsWith('/policy') || pathname === '/withdraw') return;
     if (!policy) return;

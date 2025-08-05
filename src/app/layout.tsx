@@ -4,7 +4,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import {
   Footer,
   KakaoShareScript,
-  LandingPopUp,
   NetworkErrorScreen,
   ProgressBar,
   QueryProvider,
@@ -16,7 +15,6 @@ import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/toast';
 import ContextProviders from '@/contexts';
 import { getLocale, getMessages } from 'next-intl/server';
-import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Script from 'next/script';
 import 'react-loading-skeleton/dist/skeleton.css';
@@ -62,9 +60,9 @@ export default async function RootLayout({
 }>) {
   const locale = await getLocale();
 
-  const cookieStore = await cookies();
-  const initialIsLandingPopUpShown =
-    !!cookieStore.get('landing-pop-up') === false;
+  // const cookieStore = await cookies();
+  // const initialIsLandingPopUpShown =
+  //   !!cookieStore.get('landing-pop-up') === false;
 
   return (
     <html lang={locale}>
@@ -76,7 +74,7 @@ export default async function RootLayout({
           <ProgressBar />
           <div className="flex min-h-[110vh] flex-col">{children}</div>
           <Footer />
-          <LandingPopUp initialIsShown={initialIsLandingPopUpShown} />
+          {/* <LandingPopUp initialIsShown={initialIsLandingPopUpShown} /> */}
           <div id="pop-up" />
           <div id="alert" />
           <Toast />
