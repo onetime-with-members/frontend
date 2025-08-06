@@ -1,6 +1,7 @@
 'use client';
 
 import { useLocale, useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
 import ParticipantsDivider from '../_ui/ParticipantsDivider';
 import EmptyEventBanner from '../_ui/empty';
@@ -8,10 +9,9 @@ import { EventContentsSectionHeading } from '../_ui/heading/EventContentsSection
 import ClockIcon from '@/components/icon/ClockIcon';
 import HumanIcon from '@/components/icon/HumanIcon';
 import MemberBadge from '@/components/member-badge';
+import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
 import {
   eventQueryOptions,
-  filteredRecommendedTimesQueryOptions,
-  recommendedTimesQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
@@ -37,29 +37,19 @@ export default function DesktopContents() {
 }
 
 function RecommendedTimes() {
-  const t = useTranslations('eventDetail');
-  const params = useParams<{ id: string }>();
+  const { recommendedTimes } = useContext(EventParticipantFilterContext);
 
-  const { data: recommendedTimesData } = useQuery({
-    ...recommendedTimesQueryOptions(params.id),
-  });
-  const { data: filteredRecommendedTimesData } = useQuery({
-    ...filteredRecommendedTimesQueryOptions(params.id),
-  });
-  const recommendedTimes =
-    filteredRecommendedTimesData && filteredRecommendedTimesData.length > 0
-      ? filteredRecommendedTimesData
-      : recommendedTimesData;
+  const t = useTranslations('eventDetail');
 
   return (
     <div className="flex flex-col gap-1">
       <EventContentsSectionHeading icon={<ClockIcon className="mr-1" />} sticky>
         {t('recommendedTime', {
-          count: recommendedTimes?.length,
+          count: recommendedTimes.length,
         })}
       </EventContentsSectionHeading>
       <div className="flex flex-col gap-6">
-        {recommendedTimes?.map((recommendedTime, index) => (
+        {recommendedTimes.map((recommendedTime, index) => (
           <RecommendedTime key={index} recommendedTime={recommendedTime} />
         ))}
       </div>

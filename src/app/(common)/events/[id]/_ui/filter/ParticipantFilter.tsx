@@ -1,81 +1,31 @@
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useContext } from 'react';
 
 import { EventContentsSectionHeading } from '../heading/EventContentsSectionHeading';
 import ParticipantFilterItem from './ParticipantFilterItem';
 import HumanIcon from '@/components/icon/HumanIcon';
-import {
-  fetchFilteredRecommendedTimes,
-  fetchFilteredSchedules,
-} from '@/lib/api/actions';
-import {
-  eventQueryOptions,
-  filteredRecommendedTimesQueryOptions,
-  filteredSchedulesQueryOptions,
-  participantsQueryOptions,
-} from '@/lib/api/query-options';
-import { MemberFilterType, ParticipantType } from '@/lib/types';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
+import { participantsQueryOptions } from '@/lib/api/query-options';
+import { ParticipantType } from '@/lib/types';
+import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export default function ParticipantFilter() {
-  const [filteredParticipants, setFilteredParticipants] = useState<
-    ParticipantType[]
-  >([]);
+  const { filteredParticipants, changeFilteredParticipants } = useContext(
+    EventParticipantFilterContext,
+  );
 
   const params = useParams<{ id: string }>();
-  const queryClient = useQueryClient();
   const t = useTranslations('eventDetail');
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
   const { data: participantsData } = useQuery({
     ...participantsQueryOptions(params.id),
   });
+
   const participants = participantsData || [];
 
-  const { mutate: changeFilteredData } = useMutation({
-    mutationFn: async (filter: MemberFilterType) => {
-      const recommededTimes = await fetchFilteredRecommendedTimes({
-        eventId: params.id,
-        filter,
-      });
-      const schedules = await fetchFilteredSchedules({
-        eventId: params.id,
-        category: event?.category || 'DATE',
-        filter,
-      });
-      return { recommededTimes, schedules };
-    },
-    onSuccess: ({ recommededTimes, schedules }) => {
-      queryClient.setQueryData(
-        filteredRecommendedTimesQueryOptions(params.id).queryKey,
-        recommededTimes,
-      );
-      queryClient.setQueryData(
-        filteredSchedulesQueryOptions({
-          eventId: params.id,
-          category: event?.category || 'DATE',
-        }).queryKey,
-        schedules,
-      );
-    },
-  });
-
   function handleFilterItemClick(participant: ParticipantType) {
-    setFilteredParticipants((prev) => {
-      const newFilteredParticipants = prev.includes(participant)
-        ? prev.filter((p) => p !== participant)
-        : [...prev, participant];
-      changeFilteredData({
-        users: newFilteredParticipants
-          .filter((p) => p.type === 'USER')
-          .map((p) => p.id),
-        guests: newFilteredParticipants
-          .filter((p) => p.type === 'GUEST')
-          .map((p) => p.id),
-      });
-      return newFilteredParticipants;
-    });
+    changeFilteredParticipants(participant);
   }
 
   return (
