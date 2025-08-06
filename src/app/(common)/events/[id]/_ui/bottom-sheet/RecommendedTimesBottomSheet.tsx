@@ -7,14 +7,12 @@ import { LoginAlert } from '../alert';
 import { BottomButtonForMobile } from '../button';
 import { EventContentsSectionHeading } from '../heading/EventContentsSectionHeading';
 import SharePopUp from '../pop-up';
-import MobileRecommededTimeItem from './MobileRecommededTimeItem';
+import MobileRecommendedTimeItem from './MobileRecommendedTimeItem';
 import ClockIcon from '@/components/icon/ClockIcon';
 import { FooterContext } from '@/contexts/footer';
 import useClientWidth from '@/hooks/useClientWidth';
 import {
   eventQueryOptions,
-  filteredRecommendedTimesQueryOptions,
-  recommendedTimesQueryOptions,
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';
@@ -28,15 +26,17 @@ import {
 import { useProgressRouter } from '@/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
+import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
 
 const snapPoints = ['170px', '500px'];
 
-export default function RecommededTimesBottomSheet() {
+export default function RecommendedTimesBottomSheet() {
   const [snap, setSnap] = useState<number | string | null>(snapPoints[0]);
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
 
   const { isFooterShown } = useContext(FooterContext);
+  const {recommendedTimes} = useContext(EventParticipantFilterContext)
 
   const params = useParams<{ id: string }>();
   const progressRouter = useProgressRouter();
@@ -53,16 +53,6 @@ export default function RecommededTimesBottomSheet() {
     ...scheduleDetailQueryOptions({ event: event || defaultEvent, isLoggedIn }),
   });
   const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
-  const { data: recommendedTimesData } = useQuery({
-    ...recommendedTimesQueryOptions(params.id),
-  });
-  const { data: filteredRecommendedTimesData } = useQuery({
-    ...filteredRecommendedTimesQueryOptions(params.id),
-  });
-  const recommendedTimes =
-    filteredRecommendedTimesData && filteredRecommendedTimesData.length > 0
-      ? filteredRecommendedTimesData
-      : recommendedTimesData;
 
   const hasUserSchedule = isLoggedIn
     ? scheduleDetail.schedules.length !== 0 &&
@@ -121,7 +111,7 @@ export default function RecommededTimesBottomSheet() {
                   })}
                 >
                   {recommendedTimes?.map((recommendedTime, index) => (
-                    <MobileRecommededTimeItem
+                    <MobileRecommendedTimeItem
                       key={index}
                       recommendedTime={recommendedTime}
                     />

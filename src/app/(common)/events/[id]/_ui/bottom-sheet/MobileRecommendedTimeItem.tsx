@@ -10,7 +10,7 @@ import cn from '@/lib/cn';
 import { RecommendScheduleType } from '@/lib/types';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
-export default function MobileRecommededTimeItem({
+export default function MobileRecommendedTimeItem({
   recommendedTime,
 }: {
   recommendedTime: RecommendScheduleType;
@@ -22,7 +22,7 @@ export default function MobileRecommededTimeItem({
     recommendedTime.impossible_names.length === 0;
 
   function handleClick() {
-    setIsOpen((prev) => !prev);
+    if (!isOnlyOneFiltered) setIsOpen((prev) => !prev);
   }
 
   return (
@@ -56,7 +56,7 @@ export default function MobileRecommededTimeItem({
         </div>
       </header>
 
-      {isOpen && !isOnlyOneFiltered && (
+      {isOpen && (
         <>
           <ParticipantsDivider />
           <div className="flex flex-col gap-5">
