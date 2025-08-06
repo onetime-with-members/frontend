@@ -2,8 +2,6 @@
 
 import { useContext } from 'react';
 
-
-
 import DesktopContents from './_contents/desktop-contents';
 import RecommendedTimesBottomSheet from './_ui/bottom-sheet/RecommendedTimesBottomSheet';
 import { BottomButtonsForDesktop } from './_ui/button';
@@ -20,7 +18,6 @@ import cn from '@/lib/cn';
 import { defaultEvent } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-
 
 export default function EventDetailPage() {
   const { isBarBannerShown } = useContext(BarBannerContext);

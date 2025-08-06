@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 
+import EventParticipantFilterContextProvider from '../../../../contexts/event-participant-filter';
 import EventDetailPage from './event-detail';
 import { fetchEvent } from '@/lib/api/data';
 import {
@@ -85,7 +86,9 @@ export default async function Page({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <EventDetailPage />
+      <EventParticipantFilterContextProvider>
+        <EventDetailPage />
+      </EventParticipantFilterContextProvider>
     </HydrationBoundary>
   );
 }
