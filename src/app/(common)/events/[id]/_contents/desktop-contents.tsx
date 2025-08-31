@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import ParticipantsDivider from '../_ui/ParticipantsDivider';
 import EmptyEventBanner from '../_ui/empty';
 import { EventContentsSectionHeading } from '../_ui/heading/EventContentsSectionHeading';
+import BannerList from './bannerList';
 import ClockIcon from '@/components/icon/ClockIcon';
 import HumanIcon from '@/components/icon/HumanIcon';
 import MemberBadge from '@/components/member-badge';
@@ -30,7 +31,8 @@ export default function DesktopContents() {
   });
 
   return (
-    <div className="hidden flex-col md:flex md:w-1/2">
+    <div className="hidden flex-col overflow-auto md:flex md:w-1/2">
+      <BannerList />
       {schedules?.length === 0 ? <EmptyEventBanner /> : <RecommendedTimes />}
     </div>
   );
