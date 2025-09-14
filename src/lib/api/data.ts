@@ -138,9 +138,9 @@ export async function fetchBarBanner() {
     return null;
   }
   const data = await res.json();
-  const barBanner: BarBanner = data.payload;
+  const barBanners: BarBanner[] = data.payload.bar_banners;
 
-  return barBanner || null;
+  return barBanners.length !== 0 ? barBanners[0] : null;
 }
 
 export async function fetchQrCode(eventId: string) {

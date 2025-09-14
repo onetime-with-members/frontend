@@ -59,7 +59,7 @@ export default function EventDetailPage() {
 
       <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] gap-6 bg-gray-00 px-4 pb-16 pt-2 md:px-6">
         <div className="w-full md:w-1/2">
-          <BannerList ishidden={true} />
+          <BannerList className="md:hidden" />
           <ParticipantFilter />
           <TimeBlockBoard
             event={event || defaultEvent}
