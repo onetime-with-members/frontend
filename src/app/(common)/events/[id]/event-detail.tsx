@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 
-import BannerList from './_contents/BannerGroup';
+import BannerList from './_contents/BannerList';
 import DesktopContents from './_contents/desktop-contents';
 import RecommendedTimesBottomSheet from './_ui/bottom-sheet/RecommendedTimesBottomSheet';
 import { BottomButtonsForDesktop } from './_ui/button';
