@@ -83,7 +83,7 @@ export default async function Page({
     queryClient.prefetchQuery({
       ...participantsQueryOptions(eventId),
     }),
-    queryClient.prefetchQuery(bannerQueryOptions),
+    queryClient.prefetchQuery({ ...bannerQueryOptions }),
   ]);
 
   return (

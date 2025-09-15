@@ -1,7 +1,7 @@
 'use client';
 
+import BannerImageAndBlur from './BannerImageAndBlur';
 import { Banner as BannerType } from '@/lib/types';
-import Image from 'next/image';
 
 export default function Banner({
   banner,
@@ -16,7 +16,7 @@ export default function Banner({
     <div
       data-banner
       key={banner.id}
-      className="border-gray-5 relative z-20 flex w-[360px] flex-shrink-0 justify-between rounded-xl border bg-gray-10 md:w-[328px]"
+      className="border-gray-5 relative z-20 flex h-[88px] w-[360px] flex-shrink-0 justify-between overflow-hidden rounded-xl border bg-gray-10 md:w-[328px]"
       onClick={() => {
         window.open(banner.link_url, '_blank');
       }}
@@ -33,12 +33,9 @@ export default function Banner({
       </div>
 
       {banner.image_url && (
-        <Image
-          src={banner.image_url}
-          alt="img"
-          width={112}
-          height={88}
-          className="relative z-10 h-[88px] w-[112px] rounded-r-xl object-cover"
+        <BannerImageAndBlur
+          imageUrl={banner.image_url}
+          alt={`${banner.organization} image`}
         />
       )}
       <div className="absolute bottom-[10px] right-4 z-10 rounded-2xl bg-black bg-opacity-40 px-[6px] py-[2px] text-[10px] font-semibold text-white">
