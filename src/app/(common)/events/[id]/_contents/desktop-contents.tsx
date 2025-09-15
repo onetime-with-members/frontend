@@ -6,7 +6,7 @@ import { useContext } from 'react';
 import ParticipantsDivider from '../_ui/ParticipantsDivider';
 import EmptyEventBanner from '../_ui/empty';
 import { EventContentsSectionHeading } from '../_ui/heading/EventContentsSectionHeading';
-import BannerList from './bannerList';
+import BannerList from './BannerList';
 import ClockIcon from '@/components/icon/ClockIcon';
 import HumanIcon from '@/components/icon/HumanIcon';
 import MemberBadge from '@/components/member-badge';

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import Banner from './banner';
+import Banner from './Banner';
 import { bannerQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { useQuery } from '@tanstack/react-query';
