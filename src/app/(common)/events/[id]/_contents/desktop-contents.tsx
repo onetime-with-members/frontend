@@ -31,7 +31,7 @@ export default function DesktopContents() {
   });
 
   return (
-    <div className="hidden flex-col overflow-auto md:flex md:w-1/2">
+    <div className="hidden flex-col md:flex md:w-1/2">
       <BannerList className="pt-2" />
       {schedules?.length === 0 ? <EmptyEventBanner /> : <RecommendedTimes />}
     </div>
