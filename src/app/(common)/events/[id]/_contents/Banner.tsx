@@ -15,12 +15,12 @@ export default function Banner({ banner }: { banner: BannerType }) {
     >
       <div className="flex flex-col justify-between py-3 pl-3">
         <span className="text-sm font-bold text-gray-60">{banner.title}</span>
-        <p className="text-xs text-gray-40">{banner.organization}</p>
+        <p className="text-xs text-gray-40">{banner.sub_title}</p>
         <span
           className="text-xs font-bold"
           style={{ color: banner.color_code }}
         >
-          {banner.sub_title}
+          {banner.button_text}
         </span>
       </div>
 

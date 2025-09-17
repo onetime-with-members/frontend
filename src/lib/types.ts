@@ -109,6 +109,7 @@ export interface Banner {
   organization: string;
   title: string;
   sub_title: string;
+  button_text: string;
   color_code: string;
   image_url: string;
   is_actived: boolean;

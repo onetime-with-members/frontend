@@ -6,7 +6,7 @@ import cn from '@/lib/cn';
 import { useQuery } from '@tanstack/react-query';
 
 export default function BannerList({ className }: { className?: string }) {
-  const { data: banners, isLoading } = useQuery(bannerQueryOptions);
+  const { data: banners, isLoading } = useQuery({ ...bannerQueryOptions });
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   const [bannerIndex, setBannerIndex] = useState(0);
