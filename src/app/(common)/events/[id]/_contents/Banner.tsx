@@ -3,20 +3,12 @@
 import BannerImageAndBlur from './BannerImageAndBlur';
 import { Banner as BannerType } from '@/lib/types';
 
-export default function Banner({
-  banner,
-  currentIndex,
-  totalCount,
-}: {
-  banner: BannerType;
-  currentIndex: number;
-  totalCount: number;
-}) {
+export default function Banner({ banner }: { banner: BannerType }) {
   return (
     <div
       data-banner
       key={banner.id}
-      className="border-gray-5 relative z-20 flex h-[88px] w-[360px] flex-shrink-0 justify-between overflow-hidden rounded-xl border bg-gray-10 md:w-[328px]"
+      className="relative z-20 flex h-[88px] w-[360px] flex-shrink-0 justify-between overflow-hidden rounded-xl border border-gray-10 bg-gray-05 md:w-[328px]"
       onClick={() => {
         window.open(banner.link_url, '_blank');
       }}
@@ -38,9 +30,6 @@ export default function Banner({
           alt={`${banner.organization} image`}
         />
       )}
-      <div className="absolute bottom-[10px] right-4 z-10 rounded-2xl bg-black bg-opacity-40 px-[6px] py-[2px] text-[10px] font-semibold text-white">
-        {currentIndex + 1}/{totalCount}
-      </div>
     </div>
   );
 }

@@ -33,18 +33,22 @@ export default function DesktopContents() {
   return (
     <div className="hidden flex-col md:flex md:w-1/2">
       <BannerList className="pt-2" />
-      {schedules?.length === 0 ? <EmptyEventBanner /> : <RecommendedTimes />}
+      {schedules?.length === 0 ? (
+        <EmptyEventBanner className="pr-6" />
+      ) : (
+        <RecommendedTimes className="pr-6" />
+      )}
     </div>
   );
 }
 
-function RecommendedTimes() {
+function RecommendedTimes({ className }: { className?: string }) {
   const { recommendedTimes } = useContext(EventParticipantFilterContext);
 
   const t = useTranslations('eventDetail');
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className={cn('flex flex-col gap-1', className)}>
       <EventContentsSectionHeading icon={<ClockIcon className="mr-1" />} sticky>
         {t('recommendedTime', {
           count: recommendedTimes.length,

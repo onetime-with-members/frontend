@@ -50,13 +50,8 @@ export default function BannerList({ className }: { className?: string }) {
         className="scrollbar-hidden flex w-full gap-3 overflow-x-scroll"
         style={{ WebkitOverflowScrolling: 'touch' }}
       >
-        {banners.map((banner, index) => (
-          <Banner
-            key={banner.id}
-            banner={banner}
-            currentIndex={index}
-            totalCount={total}
-          />
+        {banners.map((banner) => (
+          <Banner key={banner.id} banner={banner} />
         ))}
       </div>
     </div>
