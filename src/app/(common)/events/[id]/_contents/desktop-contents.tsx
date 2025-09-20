@@ -33,11 +33,7 @@ export default function DesktopContents() {
   return (
     <div className="hidden flex-col md:flex md:w-1/2">
       <BannerList className="pt-2" />
-      {schedules?.length === 0 ? (
-        <EmptyEventBanner className="pr-6" />
-      ) : (
-        <RecommendedTimes className="pr-6" />
-      )}
+      {schedules?.length === 0 ? <EmptyEventBanner /> : <RecommendedTimes />}
     </div>
   );
 }

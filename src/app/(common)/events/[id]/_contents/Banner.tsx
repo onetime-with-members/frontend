@@ -8,7 +8,7 @@ export default function Banner({ banner }: { banner: BannerType }) {
     <div
       data-banner
       key={banner.id}
-      className="relative z-20 flex h-[88px] w-[360px] flex-shrink-0 justify-between overflow-hidden rounded-xl border border-gray-10 bg-gray-05 md:w-[328px]"
+      className="relative z-20 flex h-[88px] w-full flex-shrink-0 justify-between overflow-hidden rounded-xl border border-gray-10 bg-gray-05"
       onClick={() => {
         window.open(banner.link_url, '_blank');
       }}
