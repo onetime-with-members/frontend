@@ -21,7 +21,7 @@ export default function BannerImageAndBlur({
         alt={`${alt} blur`}
         width={0}
         height={0}
-        className="h-full w-full object-cover blur-lg"
+        className="h-full w-full object-cover blur-[32px]"
       />
     </div>
   );
