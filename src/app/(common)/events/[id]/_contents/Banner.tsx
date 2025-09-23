@@ -13,7 +13,14 @@ export default function Banner({ banner }: { banner: BannerType }) {
         window.open(banner.link_url, '_blank');
       }}
     >
-      <div className="flex flex-col justify-between py-3 pl-3">
+      {banner.image_url && (
+        <BannerImageAndBlur
+          imageUrl={banner.image_url}
+          alt={`${banner.organization} image`}
+        />
+      )}
+
+      <div className="z-10 flex flex-col justify-between py-3 pl-3">
         <span className="text-sm font-bold text-gray-60">{banner.title}</span>
         <p className="text-xs text-gray-40">{banner.sub_title}</p>
         <span
@@ -23,13 +30,6 @@ export default function Banner({ banner }: { banner: BannerType }) {
           {banner.button_text}
         </span>
       </div>
-
-      {banner.image_url && (
-        <BannerImageAndBlur
-          imageUrl={banner.image_url}
-          alt={`${banner.organization} image`}
-        />
-      )}
     </div>
   );
 }
