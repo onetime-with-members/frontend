@@ -8,20 +8,18 @@ export default function BannerImageAndBlur({
   alt: string;
 }) {
   return (
-    <div className="absolute right-0 top-0 h-full">
+    <div className="absolute h-full w-full">
       <NextImage
         src={imageUrl}
         alt={alt}
-        width={112}
-        height={88}
-        className="absolute z-10 h-full w-full object-cover"
+        fill
+        className="z-10 h-full w-full object-contain object-right"
       />
       <NextImage
         src={imageUrl}
         alt={`${alt} blur`}
-        width={0}
-        height={0}
-        className="h-full w-full object-cover blur-[32px]"
+        fill
+        className="absolute top-0 h-full w-full object-contain object-right blur-[32px]"
       />
     </div>
   );
