@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import { getCookie } from 'cookies-next';
 
-import { CRAWLING_SERVER_API_URL } from '../constants';
+import { CRAWLING_SERVER_API_KEY, CRAWLING_SERVER_API_URL } from '../constants';
 import {
   EventType,
   MemberFilterType,
@@ -122,6 +122,9 @@ export async function editSleepTimeAction(sleepTime: SleepTimeType) {
 
 export async function submitEverytimeUrlAction(url: string) {
   const res = await axios.get(`${CRAWLING_SERVER_API_URL}/schedule`, {
+    headers: {
+      'X-API-Key': CRAWLING_SERVER_API_KEY,
+    },
     params: {
       url,
     },

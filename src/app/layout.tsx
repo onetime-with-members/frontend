@@ -35,6 +35,7 @@ export const metadata: Metadata = {
     'For our perfect time, share a link just once to coordinate schedules with many people quickly and easily with OneTime',
   keywords:
     '원타임, 일정, 회의시간, 스케줄, 이벤트, 약속, 시간추천, 타임블록, OneTime, meeting, appointment, schedule, event, time recommendation, time block',
+  icons: '/favicon/favicon-96x96.png',
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_DOMAIN ||
       'https://www.onetime-with-members.com',
