@@ -48,7 +48,7 @@ export default function UserDashboardPage() {
       <main className="mx-auto w-full max-w-[calc(768px+2rem)]">
         {/* Top Toolbar */}
         <header className="hidden h-[72px] w-full justify-center md:flex">
-          <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
+          <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] rounded-t-3xl bg-gray-00 duration-150">
             <div className="flex h-[72px] items-center rounded-t-3xl bg-gray-80 px-6 text-gray-00">
               <div className="mx-auto flex w-full max-w-screen-md items-center justify-between gap-2">
                 <h1 className="flex-1 title-lg-300">

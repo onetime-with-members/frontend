@@ -48,7 +48,7 @@ export default function EventDetailPage() {
           'h-[128px]': isBarBannerShown,
         })}
       >
-        <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
+        <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] rounded-t-3xl bg-gray-00 duration-150">
           <TopToolbar />
           <BarBanner
             className="h-[56px]"
