@@ -1,5 +1,6 @@
 import { defaultSleepTime } from '../constants';
 import {
+  Banner,
   EventType,
   MyEventType,
   MyScheduleTimeType,
@@ -11,6 +12,7 @@ import {
 } from '../types';
 import { PolicyFormType } from '../validation/form-types';
 import {
+  fetchBanner,
   fetchEvent,
   fetchEventWithAuth,
   fetchMyEvents,
@@ -131,4 +133,9 @@ export const sleepTimeQueryOptions = queryOptions<SleepTimeType>({
 export const userPolicyQueryOptions = queryOptions<PolicyFormType>({
   queryKey: ['users', 'policy'],
   queryFn: fetchUserPolicy,
+});
+
+export const bannerQueryOptions = queryOptions<Banner[]>({
+  queryKey: ['banner'],
+  queryFn: fetchBanner,
 });

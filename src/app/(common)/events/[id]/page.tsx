@@ -4,6 +4,7 @@ import EventParticipantFilterContextProvider from '../../../../contexts/event-pa
 import EventDetailPage from './event-detail';
 import { fetchEvent } from '@/lib/api/data';
 import {
+  bannerQueryOptions,
   eventQueryOptions,
   participantsQueryOptions,
   qrCodeQueryOptions,
@@ -82,6 +83,7 @@ export default async function Page({
     queryClient.prefetchQuery({
       ...participantsQueryOptions(eventId),
     }),
+    queryClient.prefetchQuery({ ...bannerQueryOptions }),
   ]);
 
   return (

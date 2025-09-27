@@ -1,5 +1,6 @@
 import { SERVER_API_URL, defaultMySchedule } from '../constants';
 import {
+  Banner,
   BarBanner,
   EventType,
   MyScheduleTimeType,
@@ -118,16 +119,28 @@ export async function fetchOriginalUrl(shortUrl: string) {
   };
 }
 
+export async function fetchBanner() {
+  const res = await fetch(`${SERVER_API_URL}/admin/banners/activated/all`);
+  if (!res.ok) {
+    console.error(await res.json());
+    return [];
+  }
+  const data = await res.json();
+  const banners: Banner[] = data.payload.banners;
+
+  return banners || [];
+}
+
 export async function fetchBarBanner() {
-  const res = await fetch(`${SERVER_API_URL}/banners/activated`);
+  const res = await fetch(`${SERVER_API_URL}/admin/bar-banners/activated/all`);
   if (!res.ok) {
     console.error(await res.json());
     return null;
   }
   const data = await res.json();
-  const barBanner: BarBanner = data.payload;
+  const barBanners: BarBanner[] = data.payload.bar_banners;
 
-  return barBanner || null;
+  return barBanners.length !== 0 ? barBanners[0] : null;
 }
 
 export async function fetchQrCode(eventId: string) {

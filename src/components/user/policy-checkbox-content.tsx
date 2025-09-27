@@ -164,7 +164,7 @@ function Checkbox({
       )}
       onClick={onCheck}
     >
-      <CheckIcon />
+      <CheckIcon className="text-white" />
     </div>
   );
 }
