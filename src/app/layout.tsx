@@ -14,6 +14,7 @@ import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/toast';
 import ContextProviders from '@/contexts';
+import CookieModal from '@/features/overlays/components/CookieModal';
 import { getLocale, getMessages } from 'next-intl/server';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -76,6 +77,7 @@ export default async function RootLayout({
           <div className="flex min-h-[110vh] flex-col">{children}</div>
           <Footer />
           {/* <LandingPopUp initialIsShown={initialIsLandingPopUpShown} /> */}
+          <CookieModal />
           <div id="pop-up" />
           <div id="alert" />
           <Toast />
