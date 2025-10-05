@@ -92,6 +92,13 @@ export async function editUserNameAction(name: string) {
   return res.data.payload;
 }
 
+export async function bannerClickAction(id: number) {
+  const res = await axios.patch(`/banners/${id}/clicks`, {
+    click_count: id,
+  });
+  return res.data.payload;
+}
+
 export async function editUserLanguageAction(language: 'KOR' | 'ENG') {
   const res = await axios.patch('/users/profile/action-update', {
     language,

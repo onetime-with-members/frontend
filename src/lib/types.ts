@@ -115,6 +115,7 @@ export interface Banner {
   is_actived: boolean;
   created_date: string;
   link_url: string;
+  click_count: number;
 }
 
 export interface BarBanner {

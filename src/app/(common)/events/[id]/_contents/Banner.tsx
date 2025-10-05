@@ -1,17 +1,30 @@
 'use client';
 
 import BannerImageAndBlur from './BannerImageAndBlur';
+import { bannerClickAction } from '@/lib/api/actions';
 import { Banner as BannerType } from '@/lib/types';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function Banner({ banner }: { banner: BannerType }) {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync: bannerClick } = useMutation({
+    mutationFn: (id: number) => bannerClickAction(id),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['banner'] });
+    },
+  });
+
+  const handleClick = () => {
+    bannerClick(banner.id);
+  };
+
   return (
     <div
       data-banner
       key={banner.id}
-      className="relative z-20 flex h-[88px] w-full flex-shrink-0 justify-between overflow-hidden rounded-xl border border-gray-10 bg-gray-05"
-      onClick={() => {
-        window.open(banner.link_url, '_blank');
-      }}
+      className="relative z-20 flex h-[88px] w-full flex-shrink-0 cursor-pointer justify-between overflow-hidden rounded-xl border border-gray-10 bg-gray-05"
+      onClick={handleClick}
     >
       {banner.image_url && (
         <BannerImageAndBlur
