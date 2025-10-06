@@ -14,7 +14,9 @@ import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/toast';
 import ContextProviders from '@/contexts';
-import CookieModal from '@/features/overlays/components/CookieModal';
+import CookieModal from '@/features/set-up/components/CookieModal';
+import GoogleAnalytics from '@/features/set-up/components/GoogleAnalytics';
+import MSClarity from '@/features/set-up/components/MSClarity';
 import { getLocale, getMessages } from 'next-intl/server';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -246,17 +248,8 @@ export function NoScripts() {
 export function Scripts() {
   return (
     <>
-      {/* Google Analytics */}
-      <Script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-8BKF2RFBH6"
-      />
-      <Script
-        id="google-analytics-script"
-        dangerouslySetInnerHTML={{
-          __html: `window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-8BKF2RFBH6');`,
-        }}
-      />
+      <GoogleAnalytics />
+      <MSClarity />
 
       {/* Google Tag Manager */}
       <Script
@@ -271,14 +264,6 @@ export function Scripts() {
         id="meta-pixel-script"
         dangerouslySetInnerHTML={{
           __html: `!function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s) }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '9521381771234481'); fbq('track', 'PageView');`,
-        }}
-      />
-
-      {/* Microsoft Clarity */}
-      <Script
-        id="microsoft-clarity-script"
-        dangerouslySetInnerHTML={{
-          __html: `(function (c, l, a, r, i, t, y) { c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) }; t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y); })(window, document, "clarity", "script", "ns3tssi1ea");`,
         }}
       />
 

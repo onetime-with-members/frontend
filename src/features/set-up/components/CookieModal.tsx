@@ -2,17 +2,22 @@
 
 import { useState } from 'react';
 
+import useConsentUpdate from '../hooks/useConsentUpdate';
 import CookieModalButton from './CookieModalButton';
 
 export default function CookieModal() {
   const [isShown, setIsShown] = useState(true);
 
+  const { acceptCookies, rejectCookies } = useConsentUpdate();
+
   function handleReject() {
+    rejectCookies();
     setIsShown(false);
   }
 
   function handleAccept() {
-    setIsShown(true);
+    acceptCookies();
+    setIsShown(false);
   }
 
   return (
