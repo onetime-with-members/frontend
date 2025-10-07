@@ -1,6 +1,6 @@
 'use client';
 
-import { GRANT, REVOKE } from '../constants';
+import { GRANT, META_PIXEL_ID, REVOKE } from '../constants';
 import useConsentMode from '../hooks/useConsentMode';
 import Script from 'next/script';
 
@@ -25,7 +25,7 @@ export default function MetaPixel() {
           }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
           fbq('consent', '${isAccepted ? GRANT : REVOKE}');
-          fbq('init', '9521381771234481');
+          fbq('init', '${META_PIXEL_ID}');
           fbq('track', 'PageView');
           `,
         }}

@@ -1,6 +1,9 @@
 export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || process.env.GA_ID;
+export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || process.env.GTM_ID;
 export const MS_CLARITY_ID =
   process.env.NEXT_PUBLIC_MS_CLARITY_ID || process.env.MS_CLARITY_ID;
+export const META_PIXEL_ID =
+  process.env.NEXT_PUBLIC_META_PIXEL_ID || process.env.META_PIXEL_ID;
 
 export const CONSENT_MODE_COOKIE_KEY = 'consent-mode';
 export const CONSENT_MODE_COOKIE_ACCEPTED_VALUE = 'true';

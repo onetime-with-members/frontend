@@ -16,11 +16,11 @@ import Toast from '@/components/toast';
 import ContextProviders from '@/contexts';
 import CookieModal from '@/features/set-up/components/CookieModal';
 import GoogleAnalytics from '@/features/set-up/components/GoogleAnalytics';
+import GoogleTagManager from '@/features/set-up/components/GoogleTagManager';
 import MSClarity from '@/features/set-up/components/MSClarity';
 import MetaPixel from '@/features/set-up/components/MetaPixel';
 import { getLocale, getMessages } from 'next-intl/server';
 import Image from 'next/image';
-import Script from 'next/script';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 declare global {
@@ -252,16 +252,7 @@ export function Scripts() {
       <GoogleAnalytics />
       <MSClarity />
       <MetaPixel />
-
-      {/* Google Tag Manager */}
-      <Script
-        id="google-tag-manager-script"
-        dangerouslySetInnerHTML={{
-          __html: `(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-WWCRBGGN');`,
-        }}
-      />
-
-      {/* Kakao */}
+      <GoogleTagManager />
       <KakaoShareScript />
     </>
   );
