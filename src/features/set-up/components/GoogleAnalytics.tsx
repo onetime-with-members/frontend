@@ -1,7 +1,12 @@
-import { GA_ID } from '../constants';
+'use client';
+
+import { DENIED, GA_ID, GRANTED } from '../constants';
+import useConsentMode from '../hooks/useConsentMode';
 import Script from 'next/script';
 
 export default function GoogleAnalytics() {
+  const { isAccepted } = useConsentMode();
+
   return (
     <>
       <Script
@@ -16,21 +21,15 @@ export default function GoogleAnalytics() {
           function gtag() { dataLayer.push(arguments); }
 
           gtag('consent', 'default', {
-            'ad_storage': 'denied',
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'analytics_storage': 'denied'
+            'ad_storage': '${isAccepted ? GRANTED : DENIED}',
+            'ad_user_data': '${isAccepted ? GRANTED : DENIED}',
+            'ad_personalization': '${isAccepted ? GRANTED : DENIED}',
+            'analytics_storage': '${isAccepted ? GRANTED : DENIED}'
           });
 
           gtag('js', new Date());
           gtag('config', '${GA_ID}');
           `,
-        }}
-      />
-      <Script
-        id="google-consent-init"
-        dangerouslySetInnerHTML={{
-          __html: `gtag('consent', 'default', { 'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied', 'analytics_storage': 'denied' });`,
         }}
       />
     </>

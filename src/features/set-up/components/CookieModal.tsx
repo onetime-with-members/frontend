@@ -2,13 +2,14 @@
 
 import { useState } from 'react';
 
-import useConsentUpdate from '../hooks/useConsentUpdate';
+import useConsentMode from '../hooks/useConsentMode';
 import CookieModalButton from './CookieModalButton';
 
 export default function CookieModal() {
   const [isShown, setIsShown] = useState(true);
 
-  const { acceptCookies, rejectCookies } = useConsentUpdate();
+  const { acceptCookies, rejectCookies, hasConsentMode, isLoading } =
+    useConsentMode();
 
   function handleReject() {
     rejectCookies();
@@ -21,6 +22,8 @@ export default function CookieModal() {
   }
 
   return (
+    !isLoading &&
+    !hasConsentMode &&
     isShown && (
       <div className="fixed bottom-4 right-6 z-[98] flex w-full max-w-[20rem] flex-col gap-4 rounded-2xl bg-gray-00 p-5 shadow-[0_4px_32px_0_rgba(0,0,0,0.10)]">
         <div className="flex flex-col gap-1">
