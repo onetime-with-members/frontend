@@ -17,6 +17,7 @@ import ContextProviders from '@/contexts';
 import CookieModal from '@/features/set-up/components/CookieModal';
 import GoogleAnalytics from '@/features/set-up/components/GoogleAnalytics';
 import MSClarity from '@/features/set-up/components/MSClarity';
+import MetaPixel from '@/features/set-up/components/MetaPixel';
 import { getLocale, getMessages } from 'next-intl/server';
 import Image from 'next/image';
 import Script from 'next/script';
@@ -250,20 +251,13 @@ export function Scripts() {
     <>
       <GoogleAnalytics />
       <MSClarity />
+      <MetaPixel />
 
       {/* Google Tag Manager */}
       <Script
         id="google-tag-manager-script"
         dangerouslySetInnerHTML={{
           __html: `(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-WWCRBGGN');`,
-        }}
-      />
-
-      {/* Meta Pixel */}
-      <Script
-        id="meta-pixel-script"
-        dangerouslySetInnerHTML={{
-          __html: `!function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s) }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '9521381771234481'); fbq('track', 'PageView');`,
         }}
       />
 

@@ -5,18 +5,19 @@ import useConsentMode from '../hooks/useConsentMode';
 import Script from 'next/script';
 
 export default function GoogleAnalytics() {
-  const { isAccepted } = useConsentMode();
+  const { isAccepted, isLoading } = useConsentMode();
 
   return (
-    <>
-      <Script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-      />
-      <Script
-        id="google-analytics-script"
-        dangerouslySetInnerHTML={{
-          __html: `
+    !isLoading && (
+      <>
+        <Script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+        />
+        <Script
+          id="google-analytics-script"
+          dangerouslySetInnerHTML={{
+            __html: `
           window.dataLayer = window.dataLayer || [];
           function gtag() { dataLayer.push(arguments); }
 
@@ -30,8 +31,9 @@ export default function GoogleAnalytics() {
           gtag('js', new Date());
           gtag('config', '${GA_ID}');
           `,
-        }}
-      />
-    </>
+          }}
+        />
+      </>
+    )
   );
 }

@@ -7,13 +7,16 @@ import {
   CONSENT_MODE_COOKIE_DENIED_VALUE,
   CONSENT_MODE_COOKIE_KEY,
   DENIED,
+  GRANT,
   GRANTED,
+  REVOKE,
 } from '../constants';
 
 declare global {
   interface Window {
     gtag: unknown;
     clarity: unknown;
+    fbq: unknown;
   }
 }
 
@@ -37,8 +40,13 @@ export default function useConsentMode() {
   }
 
   function updateConsentMode(isAccepted: boolean) {
-    const value = isAccepted ? GRANTED : DENIED;
+    updateGoogleConsent(isAccepted);
+    updateMSClarityConsent(isAccepted);
+    updateMetaPixelConsent(isAccepted);
+  }
 
+  function updateGoogleConsent(isAccepted: boolean) {
+    const value = isAccepted ? GRANTED : DENIED;
     if (typeof window.gtag === 'function') {
       window.gtag('consent', 'update', {
         ad_storage: value,
@@ -47,12 +55,22 @@ export default function useConsentMode() {
         analytics_storage: value,
       });
     }
+  }
 
+  function updateMSClarityConsent(isAccepted: boolean) {
+    const value = isAccepted ? GRANTED : DENIED;
     if (typeof window.clarity === 'function') {
       window.clarity('consentv2', {
         ad_Storage: value,
         analytics_Storage: value,
       });
+    }
+  }
+
+  function updateMetaPixelConsent(isAccepted: boolean) {
+    const value = isAccepted ? GRANT : REVOKE;
+    if (typeof window.fbq === 'function') {
+      window.fbq('consent', value);
     }
   }
 
@@ -78,6 +96,5 @@ export default function useConsentMode() {
     hasConsentMode,
     isLoading: isCookieLoading,
     isAccepted,
-    updateConsentMode,
   };
 }
