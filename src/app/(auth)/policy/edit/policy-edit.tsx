@@ -8,6 +8,7 @@ import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import { PolicyContext } from '@/contexts/policy';
+import useHomeUrl from '@/hooks/useHomeUrl';
 import { editUserPolicyAction } from '@/lib/api/actions';
 import { PolicyFormType } from '@/lib/validation/form-types';
 import { policySchema } from '@/lib/validation/schema';
@@ -33,6 +34,8 @@ export default function PolicyEditPage() {
     defaultValues: policyValue,
   });
 
+  const homeUrl = useHomeUrl();
+
   const queryClient = useQueryClient();
   const router = useRouter();
   const progressRouter = useProgressRouter();
@@ -51,7 +54,8 @@ export default function PolicyEditPage() {
   };
 
   useEffect(() => {
-    if (policyData.privacyPolicy && policyData.servicePolicy) router.push('/');
+    if (policyData.privacyPolicy && policyData.servicePolicy)
+      router.push(homeUrl);
   }, [policyData]);
 
   useEffect(() => {

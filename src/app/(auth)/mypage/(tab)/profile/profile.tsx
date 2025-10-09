@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 
 import Avatar from '@/components/avatar';
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
+import useHomeUrl from '@/hooks/useHomeUrl';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';
@@ -13,6 +14,7 @@ export default function ProfilePage() {
   const t = useTranslations('profile');
 
   const { user, signOut } = useAuth();
+  const homeUrl = useHomeUrl();
 
   return (
     <div className="flex flex-col gap-7 px-4">
@@ -31,7 +33,9 @@ export default function ProfilePage() {
           >
             {t('editProfile')}
           </GrayButton>
-          <GrayButton onClick={async () => await signOut({ redirectTo: '/' })}>
+          <GrayButton
+            onClick={async () => await signOut({ redirectTo: homeUrl })}
+          >
             {t('logout')}
           </GrayButton>
         </div>

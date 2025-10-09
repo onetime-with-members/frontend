@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
+import useHomeUrl from '@/hooks/useHomeUrl';
 import useScroll from '@/hooks/useScroll';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
@@ -32,7 +33,7 @@ export default function NavBar({
   const { user, isLoggedIn } = useAuth();
   const { isScrolling } = useScroll();
 
-  const pathname = usePathname();
+  const homeUrl = useHomeUrl();
 
   useEffect(() => {
     setIsMounted(true);
@@ -64,9 +65,7 @@ export default function NavBar({
       >
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
           <ProgressLink
-            href={
-              ['/dashboard', '/landing'].includes(pathname) ? pathname : '/'
-            }
+            href={homeUrl}
             className={cn({
               'pointer-events-none cursor-default': disabled,
             })}
