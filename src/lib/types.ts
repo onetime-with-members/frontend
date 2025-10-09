@@ -2,11 +2,6 @@ import { AxiosError } from 'axios';
 
 import { OnboardingFormType } from './validation/form-types';
 
-export interface Session {
-  accessToken: string;
-  refreshToken: string;
-}
-
 export type ExtendedAxiosError = AxiosError & {
   response: {
     status: number;

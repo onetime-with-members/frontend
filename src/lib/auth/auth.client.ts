@@ -3,7 +3,7 @@ import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { signOutAction } from '../api/actions';
 import { userQueryOptions } from '../api/query-options';
 import dayjs from '../dayjs';
-import { Session } from '../types';
+import { Session } from '@/models';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
