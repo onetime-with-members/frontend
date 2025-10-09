@@ -46,7 +46,7 @@ export default function useConsentMode() {
       : true;
     setIsAccepted(isAcceptedValue);
     updateConsentMode(isAcceptedValue);
-  }, [isLoading, isConsentRequired, consentCookieValue]);
+  }, [isLoading, isConsentRequired, consentCookieValue, hasConsentCookie]);
 
   return {
     acceptCookies,
