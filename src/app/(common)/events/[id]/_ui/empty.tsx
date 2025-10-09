@@ -3,7 +3,10 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import { eventQueryOptions } from '@/lib/api/query-options';
+import {
+  eventQueryOptions,
+  shortenUrlQueryOptions,
+} from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
@@ -21,12 +24,13 @@ export default function EmptyEventBanner({
   const t = useTranslations('eventDetail');
 
   const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: shortUrl } = useQuery({
+    ...shortenUrlQueryOptions(window.location.href),
+  });
 
   const handleCopyButtonClick = () => {
     if (!event) return;
-    navigator.clipboard.writeText(
-      `${window.location.origin}/events/${event.event_id}`,
-    );
+    navigator.clipboard.writeText(shortUrl || '');
     setIsCopied(true);
   };
 
