@@ -32,6 +32,8 @@ export default function NavBar({
   const { user, isLoggedIn } = useAuth();
   const { isScrolling } = useScroll();
 
+  const pathname = usePathname();
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -62,7 +64,9 @@ export default function NavBar({
       >
         <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
           <ProgressLink
-            href="/"
+            href={
+              ['/dashboard', '/landing'].includes(pathname) ? pathname : '/'
+            }
             className={cn({
               'pointer-events-none cursor-default': disabled,
             })}

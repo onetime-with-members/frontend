@@ -1,7 +1,9 @@
+import { setCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 
 import { signOutAction } from '../api/actions';
 import { userQueryOptions } from '../api/query-options';
+import dayjs from '../dayjs';
 import { Session, sessionManager } from '@/models';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -24,6 +26,9 @@ export function useAuth() {
       } else {
         router.refresh();
       }
+      await setCookie('sign-out', true, {
+        expires: dayjs().add(1, 'hour').toDate(),
+      });
       await sessionManager.remove();
       setTimeout(() => {
         queryClient.removeQueries({ queryKey: ['users'] });
