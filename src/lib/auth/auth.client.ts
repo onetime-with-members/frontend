@@ -1,17 +1,16 @@
-import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import { useEffect, useState } from 'react';
 
 import { signOutAction } from '../api/actions';
 import { userQueryOptions } from '../api/query-options';
-import dayjs from '../dayjs';
-import { Session } from '@/models';
+import { Session, sessionManager } from '@/models';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export function useAuth() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const queryClient = useQueryClient();
   const router = useRouter();
-
-  const sessionCookie = getCookie('session');
 
   const { data: user } = useQuery({
     ...userQueryOptions,
@@ -25,7 +24,7 @@ export function useAuth() {
       } else {
         router.refresh();
       }
-      await deleteCookie('session');
+      await sessionManager.remove();
       setTimeout(() => {
         queryClient.removeQueries({ queryKey: ['users'] });
       }, 500);
@@ -39,13 +38,8 @@ export function useAuth() {
     accessToken: string;
     refreshToken: string;
   }) {
-    const newSession: Session = {
-      accessToken,
-      refreshToken,
-    };
-    await setCookie('session', JSON.stringify(newSession), {
-      expires: dayjs().add(1, 'month').toDate(),
-    });
+    const newSession: Session = { accessToken, refreshToken };
+    await sessionManager.set(newSession);
     return newSession;
   }
 
@@ -53,5 +47,12 @@ export function useAuth() {
     await signOutMutation(params);
   }
 
-  return { user, isLoggedIn: !!sessionCookie, signIn, signOut };
+  useEffect(() => {
+    async function fetchIsLoggedIn() {
+      setIsLoggedIn(sessionManager.isLoggedIn);
+    }
+    fetchIsLoggedIn();
+  }, []);
+
+  return { user, isLoggedIn, signIn, signOut };
 }

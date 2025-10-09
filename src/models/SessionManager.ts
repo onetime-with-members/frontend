@@ -6,8 +6,14 @@ import dayjs from '../lib/dayjs';
 import { SERVER_API_URL } from '@/lib/constants';
 
 class SessionManager {
-  private accessToken: string = '';
-  private refreshToken: string = '';
+  private accessToken = '';
+  private refreshToken = '';
+
+  private _isLoggedIn = false;
+
+  get isLoggedIn() {
+    return this._isLoggedIn;
+  }
 
   async init() {
     const sessionCookie = await getCookie('session');
@@ -16,6 +22,8 @@ class SessionManager {
 
       this.accessToken = session.accessToken;
       this.refreshToken = session.refreshToken;
+
+      this._isLoggedIn = true;
     }
   }
 
@@ -38,6 +46,8 @@ class SessionManager {
 
     this.accessToken = accessToken;
     this.refreshToken = refreshToken;
+
+    this._isLoggedIn = true;
   }
 
   async reissue() {

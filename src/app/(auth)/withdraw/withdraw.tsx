@@ -1,12 +1,12 @@
 'use client';
 
-import { deleteCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import Button from '@/components/button';
 import { withdrawAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
+import { sessionManager } from '@/models';
 import { IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -21,7 +21,7 @@ export default function WithdrawPage() {
   const { mutateAsync: withdraw } = useMutation({
     mutationFn: withdrawAction,
     onSuccess: async () => {
-      await deleteCookie('session');
+      await sessionManager.remove();
       router.push('/');
       router.refresh();
       window.location.href = '/';

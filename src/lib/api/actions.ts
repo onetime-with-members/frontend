@@ -227,7 +227,9 @@ export async function updateScheduleAction({
 }
 
 export async function signOutAction() {
-  const { refreshToken }: Session = JSON.parse(getCookie('session') as string);
+  const { refreshToken }: Session = JSON.parse(
+    (await getCookie('session')) as string,
+  );
   const res = await apiClient.post('/users/logout', {
     refresh_token: refreshToken,
   });
