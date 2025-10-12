@@ -15,8 +15,16 @@ export default function Banner({ banner }: { banner: BannerType }) {
     },
   });
 
-  const handleClick = () => {
-    bannerClick(banner.id);
+  const handleClick = async () => {
+    try {
+      await bannerClick(banner.id);
+    } catch (err) {
+      console.error('배너를 클릭하는데에 에러가 발생했습니다.', err);
+    } finally {
+      if (banner.link_url) {
+        window.open(banner.link_url, '_blank');
+      }
+    }
   };
 
   return (
