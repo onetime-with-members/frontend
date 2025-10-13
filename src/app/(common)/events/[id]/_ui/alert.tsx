@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
+import useHomeUrl from '@/hooks/useHomeUrl';
 import { deleteEventAction } from '@/lib/api/actions';
 import { useProgressRouter } from '@/navigation';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -44,6 +45,8 @@ export function EventDeleteAlert({
 }: {
   setIsEventDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const homeUrl = useHomeUrl();
+
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const queryClient = useQueryClient();
@@ -54,7 +57,7 @@ export function EventDeleteAlert({
     onSuccess: async (_, eventId) => {
       queryClient.removeQueries({ queryKey: ['events', eventId] });
       await queryClient.invalidateQueries({ queryKey: ['events'] });
-      router.push('/');
+      router.push(homeUrl);
     },
   });
 

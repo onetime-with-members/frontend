@@ -11,6 +11,7 @@ import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
+import useHomeUrl from '@/hooks/useHomeUrl';
 import { createUserAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
@@ -45,6 +46,7 @@ export default function OnboardingPage({
   const locale = useLocale();
 
   const { signIn } = useAuth();
+  const homeUrl = useHomeUrl();
 
   const redirectUrl = getCookie('redirect-url');
 
@@ -60,7 +62,7 @@ export default function OnboardingPage({
     },
     onError: (error) => {
       console.error(error);
-      router.replace(`/login?redirect_url=${redirectUrl || '/'}`);
+      router.replace(`/login?redirect_url=${redirectUrl || homeUrl}`);
     },
   });
 

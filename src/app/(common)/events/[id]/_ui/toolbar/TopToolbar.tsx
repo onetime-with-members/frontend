@@ -9,11 +9,13 @@ export default function TopToolbar() {
   const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
 
   return (
-    <div className="flex h-[72px] items-center justify-between bg-gray-80 px-4 py-4 md:rounded-t-3xl md:px-6">
-      <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
-        {event?.title}
-      </h1>
-      <ToolbarButtons />
+    <div className="bg-gray-05">
+      <div className="flex h-[72px] items-center justify-between bg-gray-80 px-4 py-4 md:rounded-t-3xl md:px-6">
+        <h1 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-gray-00 text-lg-300 md:title-sm-300">
+          {event?.title}
+        </h1>
+        <ToolbarButtons />
+      </div>
     </div>
   );
 }

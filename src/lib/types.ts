@@ -2,11 +2,6 @@ import { AxiosError } from 'axios';
 
 import { OnboardingFormType } from './validation/form-types';
 
-export interface Session {
-  accessToken: string;
-  refreshToken: string;
-}
-
 export type ExtendedAxiosError = AxiosError & {
   response: {
     status: number;
@@ -115,6 +110,7 @@ export interface Banner {
   is_actived: boolean;
   created_date: string;
   link_url: string;
+  click_count: number;
 }
 
 export interface BarBanner {

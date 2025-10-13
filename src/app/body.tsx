@@ -113,6 +113,13 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
     progressRouter.push('/policy/edit');
   }, [pathname, policy]);
 
+  useEffect(() => {
+    async function deleteIsSignedOutCookie() {
+      await deleteCookie('sign-out');
+    }
+    deleteIsSignedOutCookie();
+  }, []);
+
   return children;
 }
 

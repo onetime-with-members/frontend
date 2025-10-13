@@ -1,12 +1,13 @@
 'use client';
 
-import { deleteCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import Button from '@/components/button';
+import useHomeUrl from '@/hooks/useHomeUrl';
 import { withdrawAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
+import { sessionManager } from '@/models';
 import { IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -15,16 +16,18 @@ import { useRouter } from 'next/navigation';
 export default function WithdrawPage() {
   const [isChecked, setIsChecked] = useState(false);
 
+  const homeUrl = useHomeUrl();
+
   const router = useRouter();
   const t = useTranslations('withdraw');
 
   const { mutateAsync: withdraw } = useMutation({
     mutationFn: withdrawAction,
     onSuccess: async () => {
-      await deleteCookie('session');
-      router.push('/');
+      await sessionManager.remove();
+      router.push(homeUrl);
       router.refresh();
-      window.location.href = '/';
+      window.location.href = homeUrl;
     },
   });
 
