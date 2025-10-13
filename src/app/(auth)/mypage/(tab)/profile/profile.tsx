@@ -62,7 +62,7 @@ export default function ProfilePage() {
             </SettingItem>
             <SettingItem>
               <span>{t('version')}</span>
-              <span className="text-primary-40">v 1.5.0</span>
+              <span className="text-primary-40">v 1.6.2</span>
             </SettingItem>
             <SettingItem href="/withdraw" className="text-gray-30 text-sm-200">
               {t('withdraw')}
