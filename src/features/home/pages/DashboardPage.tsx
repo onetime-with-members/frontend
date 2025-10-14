@@ -1,10 +1,10 @@
 'use client';
 
-import BottomButtonForMobile from '../components/BottomButtonForMobile';
-import DashboardNavBar from '../components/DashboardNavBar';
-import MyScheduleSection from '../components/MyScheduleSection';
-import RecentEventsSection from '../components/RecentEventsSection';
-import TopToolbarForDesktop from '../components/TopToolbarForDesktop';
+import BottomButtonForMobile from '../components/dashboard/BottomButtonForMobile';
+import DashboardNavBar from '../components/dashboard/DashboardNavBar';
+import MyScheduleSection from '../components/dashboard/MyScheduleSection';
+import RecentEventsSection from '../components/dashboard/RecentEventsSection';
+import TopToolbarForDesktop from '../components/dashboard/TopToolbarForDesktop';
 import BarBanner from '@/components/bar-banner';
 
 export default function DashboardPage() {
