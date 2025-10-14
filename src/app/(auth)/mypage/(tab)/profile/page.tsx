@@ -1,4 +1,4 @@
-import ProfilePage from './profile';
+import ProfilePage from '@/features/user/pages/ProfilePage';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {
