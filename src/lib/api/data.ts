@@ -1,5 +1,6 @@
 import { SERVER_API_URL, defaultMySchedule } from '../constants';
 import {
+  Banner,
   BarBanner,
   EventType,
   MyScheduleTimeType,
@@ -8,7 +9,7 @@ import {
   RecommendScheduleType,
   ScheduleType,
 } from '../types';
-import axios from './axios';
+import apiClient from './axios';
 
 export async function fetchEvent(eventId: string) {
   const res = await fetch(`${SERVER_API_URL}/events/${eventId}`);
@@ -118,16 +119,28 @@ export async function fetchOriginalUrl(shortUrl: string) {
   };
 }
 
+export async function fetchBanner() {
+  const res = await fetch(`${SERVER_API_URL}/admin/banners/activated/all`);
+  if (!res.ok) {
+    console.error(await res.json());
+    return [];
+  }
+  const data = await res.json();
+  const banners: Banner[] = data.payload.banners;
+
+  return banners || [];
+}
+
 export async function fetchBarBanner() {
-  const res = await fetch(`${SERVER_API_URL}/banners/activated`);
+  const res = await fetch(`${SERVER_API_URL}/admin/bar-banners/activated/all`);
   if (!res.ok) {
     console.error(await res.json());
     return null;
   }
   const data = await res.json();
-  const barBanner: BarBanner = data.payload;
+  const barBanners: BarBanner[] = data.payload.bar_banners;
 
-  return barBanner || null;
+  return barBanners.length !== 0 ? barBanners[0] : null;
 }
 
 export async function fetchQrCode(eventId: string) {
@@ -143,12 +156,12 @@ export async function fetchQrCode(eventId: string) {
 }
 
 export async function fetchUserProfile() {
-  const res = await axios.get('/users/profile');
+  const res = await apiClient.get('/users/profile');
   return res.data.payload;
 }
 
 export async function fetchEventWithAuth(eventId: string) {
-  const res = await axios.get(`/events/${eventId}`);
+  const res = await apiClient.get(`/events/${eventId}`);
   return res.data.payload;
 }
 
@@ -161,19 +174,19 @@ export async function fetchScheduleDetail({
   isLoggedIn: boolean;
   guestId: string | undefined;
 }) {
-  const res = await axios.get(
+  const res = await apiClient.get(
     `/schedules/${event.category.toLowerCase()}/${event.event_id}/${isLoggedIn ? 'user' : guestId}`,
   );
   return res.data.payload;
 }
 
 export async function fetchMyEvents() {
-  const res = await axios.get('/events/user/all');
+  const res = await apiClient.get('/events/user/all');
   return res.data.payload;
 }
 
 export async function fetchMySchedule() {
-  const res = await axios.get('/fixed-schedules');
+  const res = await apiClient.get('/fixed-schedules');
   const myScheduleData: MyScheduleTimeType[] = res.data.payload.schedules;
   const mySchedule =
     myScheduleData.length !== 7
@@ -188,12 +201,12 @@ export async function fetchMySchedule() {
 }
 
 export async function fetchSleepTime() {
-  const res = await axios.get('/users/sleep-time');
+  const res = await apiClient.get('/users/sleep-time');
   return res.data.payload;
 }
 
 export async function fetchUserPolicy() {
-  const res = await axios.get('/users/policy');
+  const res = await apiClient.get('/users/policy');
   const {
     service_policy_agreement,
     privacy_policy_agreement,

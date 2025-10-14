@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
 import NavBar from '@/components/nav-bar';
+import useHomeUrl from '@/hooks/useHomeUrl';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import Image from 'next/image';
@@ -30,6 +31,7 @@ export default function LoginPage({
   const t = useTranslations('login');
 
   const { isLoggedIn, signIn } = useAuth();
+  const homeUrl = useHomeUrl();
 
   useEffect(() => {
     async function socialLogin() {
@@ -43,12 +45,16 @@ export default function LoginPage({
           refreshToken: searchParams.refreshToken,
         });
         const redirectUrl =
-          searchParams.redirectUrl || (await getCookie('redirect-url')) || '/';
+          searchParams.redirectUrl ||
+          (await getCookie('redirect-url')) ||
+          homeUrl;
         await deleteCookie('redirect-url');
         router.refresh();
         router.replace(redirectUrl);
       } else if (isLoggedIn) {
-        router.replace(searchParams.redirectUrl || cookies.redirectUrl || '/');
+        router.replace(
+          searchParams.redirectUrl || cookies.redirectUrl || homeUrl,
+        );
         await deleteCookie('redirect-url');
       }
     }

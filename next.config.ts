@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'onetime-bucket.s3.ap-northeast-2.amazonaws.com',
-        pathname: '/qr/**',
+        pathname: '/**',
       },
     ],
   },

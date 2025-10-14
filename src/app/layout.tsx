@@ -14,9 +14,13 @@ import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/toast';
 import ContextProviders from '@/contexts';
+import CookieModal from '@/features/set-up/components/CookieModal';
+import GoogleAnalytics from '@/features/set-up/components/GoogleAnalytics';
+import GoogleTagManager from '@/features/set-up/components/GoogleTagManager';
+import MSClarity from '@/features/set-up/components/MSClarity';
+import MetaPixel from '@/features/set-up/components/MetaPixel';
 import { getLocale, getMessages } from 'next-intl/server';
 import Image from 'next/image';
-import Script from 'next/script';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 declare global {
@@ -76,6 +80,7 @@ export default async function RootLayout({
           <div className="flex min-h-[110vh] flex-col">{children}</div>
           <Footer />
           {/* <LandingPopUp initialIsShown={initialIsLandingPopUpShown} /> */}
+          <CookieModal />
           <div id="pop-up" />
           <div id="alert" />
           <Toast />
@@ -244,43 +249,10 @@ export function NoScripts() {
 export function Scripts() {
   return (
     <>
-      {/* Google Analytics */}
-      <Script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-8BKF2RFBH6"
-      />
-      <Script
-        id="google-analytics-script"
-        dangerouslySetInnerHTML={{
-          __html: `window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-8BKF2RFBH6');`,
-        }}
-      />
-
-      {/* Google Tag Manager */}
-      <Script
-        id="google-tag-manager-script"
-        dangerouslySetInnerHTML={{
-          __html: `(function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', 'GTM-WWCRBGGN');`,
-        }}
-      />
-
-      {/* Meta Pixel */}
-      <Script
-        id="meta-pixel-script"
-        dangerouslySetInnerHTML={{
-          __html: `!function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s) }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '9521381771234481'); fbq('track', 'PageView');`,
-        }}
-      />
-
-      {/* Microsoft Clarity */}
-      <Script
-        id="microsoft-clarity-script"
-        dangerouslySetInnerHTML={{
-          __html: `(function (c, l, a, r, i, t, y) { c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) }; t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y); })(window, document, "clarity", "script", "ns3tssi1ea");`,
-        }}
-      />
-
-      {/* Kakao */}
+      <GoogleAnalytics />
+      <MSClarity />
+      <MetaPixel />
+      <GoogleTagManager />
       <KakaoShareScript />
     </>
   );

@@ -6,6 +6,7 @@ import {
   RecommendTimeHeading,
 } from '../../_contents/desktop-contents';
 import ParticipantsDivider from '../ParticipantsDivider';
+import useIsOnlyOneFiltered from '@/hooks/useIsOnlyOneFiltered';
 import cn from '@/lib/cn';
 import { RecommendScheduleType } from '@/lib/types';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
@@ -17,9 +18,7 @@ export default function MobileRecommendedTimeItem({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const isOnlyOneFiltered =
-    recommendedTime.possible_count === 1 &&
-    recommendedTime.impossible_names.length === 0;
+  const isOnlyOneFiltered = useIsOnlyOneFiltered({ recommendedTime });
 
   function handleClick() {
     if (!isOnlyOneFiltered) setIsOpen((prev) => !prev);

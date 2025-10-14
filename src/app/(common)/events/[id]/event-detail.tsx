@@ -2,6 +2,7 @@
 
 import { useContext } from 'react';
 
+import BannerList from './_contents/BannerList';
 import DesktopContents from './_contents/desktop-contents';
 import RecommendedTimesBottomSheet from './_ui/bottom-sheet/RecommendedTimesBottomSheet';
 import { BottomButtonsForDesktop } from './_ui/button';
@@ -47,7 +48,7 @@ export default function EventDetailPage() {
           'h-[128px]': isBarBannerShown,
         })}
       >
-        <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] bg-gray-00 duration-150">
+        <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] rounded-t-3xl bg-gray-00 duration-150">
           <TopToolbar />
           <BarBanner
             className="h-[56px]"
@@ -58,6 +59,7 @@ export default function EventDetailPage() {
 
       <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] gap-6 bg-gray-00 px-4 pb-16 pt-2 md:px-6">
         <div className="w-full md:w-1/2">
+          <BannerList className="md:hidden" />
           <ParticipantFilter />
           <TimeBlockBoard
             event={event || defaultEvent}

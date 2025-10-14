@@ -3,25 +3,34 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import { eventQueryOptions } from '@/lib/api/query-options';
+import {
+  eventQueryOptions,
+  shortenUrlQueryOptions,
+} from '@/lib/api/query-options';
+import cn from '@/lib/cn';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
-export default function EmptyEventBanner() {
+export default function EmptyEventBanner({
+  className,
+}: {
+  className?: string;
+}) {
   const [isCopied, setIsCopied] = useState(false);
 
   const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
 
   const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: shortUrl } = useQuery({
+    ...shortenUrlQueryOptions(window.location.href),
+  });
 
   const handleCopyButtonClick = () => {
     if (!event) return;
-    navigator.clipboard.writeText(
-      `${window.location.origin}/events/${event.event_id}`,
-    );
+    navigator.clipboard.writeText(shortUrl || '');
     setIsCopied(true);
   };
 
@@ -38,7 +47,12 @@ export default function EmptyEventBanner() {
   }, [isCopied]);
 
   return (
-    <div className="relative mt-2 overflow-hidden rounded-2xl bg-primary-40 px-4 py-5">
+    <div
+      className={cn(
+        'relative mt-2 overflow-hidden rounded-2xl bg-primary-40 px-4 py-5',
+        className,
+      )}
+    >
       <div className="relative z-10 flex flex-col items-start gap-3">
         <span className="leading-6 text-gray-00 text-lg-300 md:text-md-300">
           {t.rich('emptyEventBanner', {
