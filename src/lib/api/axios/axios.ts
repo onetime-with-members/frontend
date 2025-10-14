@@ -6,7 +6,7 @@ import {
 } from './axios-error';
 import { SERVER_API_URL } from '@/lib/constants';
 import { ExtendedAxiosError } from '@/lib/types';
-import { sessionManager } from '@/models';
+import { sessionService } from '@/services/SessionService';
 
 const apiClient = axios.create({
   baseURL: SERVER_API_URL,
@@ -17,7 +17,7 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   async (config) => {
-    const { accessToken } = await sessionManager.get();
+    const { accessToken } = await sessionService.get();
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }

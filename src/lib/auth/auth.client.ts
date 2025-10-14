@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import { signOutAction } from '../api/actions';
 import { userQueryOptions } from '../api/query-options';
 import dayjs from '../dayjs';
-import { Session, sessionManager } from '@/models';
+import { Session } from '@/models';
+import { sessionService } from '@/services/SessionService';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
@@ -29,7 +30,7 @@ export function useAuth() {
       await setCookie('sign-out', true, {
         expires: dayjs().add(1, 'hour').toDate(),
       });
-      await sessionManager.remove();
+      await sessionService.remove();
       setTimeout(() => {
         queryClient.removeQueries({ queryKey: ['users'] });
       }, 500);
@@ -44,7 +45,7 @@ export function useAuth() {
     refreshToken: string;
   }) {
     const newSession: Session = { accessToken, refreshToken };
-    await sessionManager.set(newSession);
+    await sessionService.set(newSession);
     return newSession;
   }
 
@@ -54,7 +55,7 @@ export function useAuth() {
 
   useEffect(() => {
     async function fetchIsLoggedIn() {
-      setIsLoggedIn(sessionManager.isLoggedIn);
+      setIsLoggedIn(sessionService.isLoggedIn);
     }
     fetchIsLoggedIn();
   }, []);

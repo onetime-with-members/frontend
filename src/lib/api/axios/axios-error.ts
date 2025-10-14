@@ -2,7 +2,8 @@ import { InternalAxiosRequestConfig } from 'axios';
 
 import apiClient from './axios';
 import { ExtendedAxiosError } from '@/lib/types';
-import { retryApiQueue, sessionManager } from '@/models';
+import { retryApiQueue } from '@/services/RetryApiQueue';
+import { sessionService } from '@/services/SessionService';
 
 let isTokenRefreshing = false;
 
@@ -21,7 +22,7 @@ export async function reissueWhenTokenExpired(
   isTokenRefreshing = true;
 
   try {
-    const { accessToken } = await sessionManager.reissue();
+    const { accessToken } = await sessionService.reissue();
     retryApiQueue.retry((apiRequest) => apiRequest(accessToken));
 
     originalRequest.headers.Authorization = `Bearer ${accessToken}`;
@@ -29,7 +30,7 @@ export async function reissueWhenTokenExpired(
 
     return apiClient(originalRequest);
   } catch (error) {
-    sessionManager.remove();
+    sessionService.remove();
     retryApiQueue.clear();
 
     isTokenRefreshing = false;
@@ -41,7 +42,7 @@ export async function reissueWhenTokenExpired(
 }
 
 export function removeSessionWhenWithdrawal(error: ExtendedAxiosError) {
-  sessionManager.remove();
+  sessionService.remove();
 
   return Promise.reject(error);
 }

@@ -1,11 +1,11 @@
-import { Session } from '.';
 import axios from 'axios';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 
 import dayjs from '../lib/dayjs';
+import { Session } from '../models';
 import { SERVER_API_URL } from '@/lib/constants';
 
-class SessionManager {
+class SessionService {
   private accessToken = '';
   private refreshToken = '';
 
@@ -76,5 +76,5 @@ class SessionManager {
   }
 }
 
-export const sessionManager = new SessionManager();
-await sessionManager.init();
+export const sessionService = new SessionService();
+await sessionService.init();

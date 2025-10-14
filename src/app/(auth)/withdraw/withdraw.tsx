@@ -7,7 +7,7 @@ import Button from '@/components/button';
 import useHomeUrl from '@/hooks/useHomeUrl';
 import { withdrawAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
-import { sessionManager } from '@/models';
+import { sessionService } from '@/services/SessionService';
 import { IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -24,7 +24,7 @@ export default function WithdrawPage() {
   const { mutateAsync: withdraw } = useMutation({
     mutationFn: withdrawAction,
     onSuccess: async () => {
-      await sessionManager.remove();
+      await sessionService.remove();
       router.push(homeUrl);
       router.refresh();
       window.location.href = homeUrl;
