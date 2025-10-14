@@ -20,19 +20,6 @@ export interface EventType {
   event_status: 'CREATOR' | 'PARTICIPANT';
 }
 
-export interface MyEventType {
-  title: string;
-  participant_count: number;
-  created_date: string;
-  event_id: string;
-  category: 'DATE' | 'DAY';
-  most_possible_times: {
-    time_point: string;
-    start_time: string;
-    end_time: string;
-  }[];
-}
-
 export interface TimeType {
   time_point: string;
   times: string[];
@@ -72,13 +59,6 @@ export interface TimeBlockPopUpDataType {
   timePoint: string;
   time: string;
   members: { possible: string[]; impossible: string[] };
-}
-
-export interface UserType {
-  nickname: string;
-  email: string;
-  language: 'KOR' | 'ENG';
-  social_platform: 'google' | 'naver' | 'kakao';
 }
 
 export interface GuestValueType {

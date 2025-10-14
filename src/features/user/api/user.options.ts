@@ -1,5 +1,5 @@
+import { MyEventType, UserType } from '../models';
 import { fetchMyEvents, fetchUserProfile } from './user.api';
-import { MyEventType, UserType } from '@/lib/types';
 import { queryOptions } from '@tanstack/react-query';
 
 export const userQueryOptions = queryOptions<UserType>({

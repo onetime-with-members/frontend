@@ -5,13 +5,8 @@ import {
 } from './validation/form-types';
 import { MyScheduleTimeType } from '@/features/my-schedule/models/MyScheduleTimeType';
 import { SleepTimeType } from '@/features/my-schedule/models/SleepTimeType';
-import {
-  BarBanner,
-  EventType,
-  MyEventType,
-  ScheduleType,
-  UserType,
-} from '@/lib/types';
+import { MyEventType, UserType } from '@/features/user/models';
+import { BarBanner, EventType, ScheduleType } from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 
 export const SERVER_API_URL =
