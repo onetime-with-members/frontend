@@ -9,16 +9,16 @@ import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import GrayBackground from '@/components/gray-background';
 import NavBar from '@/components/nav-bar';
 import NicknameFormControl from '@/components/user/nickname-form-control';
+import { useUserQuery } from '@/features/user/api';
+import { UserType } from '@/features/user/models';
 import { editUserNameAction } from '@/lib/api/actions';
-import { userQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { defaultUser } from '@/lib/constants';
-import { UserType } from '@/lib/types';
 import { ProfileNicknameFormType } from '@/lib/validation/form-types';
 import { profileNicknameSchema } from '@/lib/validation/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export default function ProfileEditPage() {
@@ -26,7 +26,7 @@ export default function ProfileEditPage() {
 
   const t = useTranslations('profileEdit');
 
-  const { data: user } = useQuery({ ...userQueryOptions });
+  const { data: user } = useUserQuery();
 
   return (
     <>

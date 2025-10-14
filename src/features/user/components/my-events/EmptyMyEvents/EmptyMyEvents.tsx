@@ -1,34 +1,9 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
 
-import MyEvent from '@/components/event/my-event';
-import GrayBackground from '@/components/gray-background';
-import { myEventsQueryOptions } from '@/lib/api/query-options';
 import { ProgressLink } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
 
-export default function MyEventsPage() {
-  const { data: myEvents } = useQuery({ ...myEventsQueryOptions });
-
-  return myEvents?.length === 0 ? (
-    <EmptyMyEvent />
-  ) : (
-    <div className="flex flex-col gap-5 px-4 py-5">
-      {myEvents?.map((event) => (
-        <MyEvent
-          key={event.event_id}
-          event={event}
-          className="border-0 md:border"
-        />
-      ))}
-      <GrayBackground device="mobile" breakpoint="md" />
-    </div>
-  );
-}
-
-function EmptyMyEvent() {
+export default function EmptyMyEvent() {
   const t = useTranslations('myEvents');
 
   return (

@@ -2,11 +2,11 @@ import { setCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 
 import { signOutAction } from '../api/actions';
-import { userQueryOptions } from '../api/query-options';
 import dayjs from '../dayjs';
+import { useUserQuery } from '@/features/user/api';
 import { Session } from '@/models';
 import { sessionService } from '@/services/SessionService';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export function useAuth() {
@@ -15,9 +15,7 @@ export function useAuth() {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  const { data: user } = useQuery({
-    ...userQueryOptions,
-  });
+  const { data: user } = useUserQuery();
 
   const { mutateAsync: signOutMutation } = useMutation({
     mutationFn: signOutAction,

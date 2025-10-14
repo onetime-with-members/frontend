@@ -3,15 +3,10 @@ import {
   OnboardingFormType,
   PolicyFormType,
 } from './validation/form-types';
-import {
-  BarBanner,
-  EventType,
-  MyEventType,
-  MyScheduleTimeType,
-  ScheduleType,
-  SleepTimeType,
-  UserType,
-} from '@/lib/types';
+import { MyScheduleTimeType } from '@/features/my-schedule/models/MyScheduleTimeType';
+import { SleepTimeType } from '@/features/my-schedule/models/SleepTimeType';
+import { MyEventType, UserType } from '@/features/user/models';
+import { BarBanner, EventType, ScheduleType } from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 
 export const SERVER_API_URL =

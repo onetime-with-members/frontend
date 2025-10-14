@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import Skeleton from 'react-loading-skeleton';
 
+import { MyEventType } from '@/features/user/models';
 import cn from '@/lib/cn';
 import {
   SKELETON_DARK_GRAY,
@@ -10,7 +11,6 @@ import {
   weekdaysShortKo,
 } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { MyEventType } from '@/lib/types';
 import { ProgressLink } from '@/navigation';
 import { IconChevronRight } from '@tabler/icons-react';
 import Image from 'next/image';

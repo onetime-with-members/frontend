@@ -9,10 +9,8 @@ import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/SpeakerPhoneIcon';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
-import {
-  userPolicyQueryOptions,
-  userQueryOptions,
-} from '@/lib/api/query-options';
+import { useUserQuery } from '@/features/user/api/user.queries';
+import { userPolicyQueryOptions } from '@/lib/api/query-options';
 import { useAuth } from '@/lib/auth/auth.client';
 import dayjs from '@/lib/dayjs';
 import getQueryClient from '@/lib/query-client';
@@ -37,10 +35,7 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
     enabled: isLoggedIn,
   });
 
-  const { data: user } = useQuery({
-    ...userQueryOptions,
-    enabled: isLoggedIn,
-  });
+  const { data: user } = useUserQuery({ enabled: isLoggedIn });
 
   useEffect(() => {
     localStorage.removeItem('access-token');
