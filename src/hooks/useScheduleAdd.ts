@@ -3,12 +3,16 @@ import { useContext, useEffect, useState } from 'react';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import {
+  MyScheduleTimeType,
+  SleepTimeType,
+} from '@/features/my-schedule/models';
+import {
   eventQueryOptions,
   scheduleDetailQueryOptions,
 } from '@/lib/api/query-options';
 import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { MyScheduleTimeType, ScheduleType, SleepTimeType } from '@/lib/types';
+import { ScheduleType } from '@/lib/types';
 import { timeBlockList } from '@/lib/utils';
 import { useQuery } from '@tanstack/react-query';
 

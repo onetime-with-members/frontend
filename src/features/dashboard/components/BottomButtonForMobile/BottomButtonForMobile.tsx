@@ -13,7 +13,7 @@ export default function BottomButtonForMobile() {
   const progressRouter = useProgressRouter();
   const t = useTranslations('userDashboard');
 
-  function handleFloatingBottomButtonClick() {
+  function handleButtonClick() {
     progressRouter.push('/events/new');
   }
 
@@ -27,11 +27,7 @@ export default function BottomButtonForMobile() {
       )}
     >
       <div className="mx-auto w-full max-w-screen-md">
-        <Button
-          variant="dark"
-          onClick={handleFloatingBottomButtonClick}
-          fullWidth
-        >
+        <Button variant="dark" onClick={handleButtonClick} fullWidth>
           <span className="flex items-center justify-center gap-1">
             <span>{t('createEvent')}</span>
             <span>

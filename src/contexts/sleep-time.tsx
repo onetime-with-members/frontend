@@ -2,13 +2,12 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { sleepTimeQueryOptions } from '@/lib/api/query-options';
+import { useSleepTimeQuery } from '@/features/my-schedule/api';
+import { SleepTimeType } from '@/features/my-schedule/models/SleepTimeType';
 import { useAuth } from '@/lib/auth/auth.client';
 import { defaultSleepTime } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { SleepTimeType } from '@/lib/types';
 import { getTimesGroupForSplitted, timeBlockList } from '@/lib/utils';
-import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 
 export const SleepTimeContext = createContext<{
@@ -45,10 +44,7 @@ export default function SleepTimeContextProvider({
 
   const { isLoggedIn } = useAuth();
 
-  const { data: sleepTimeData } = useQuery({
-    ...sleepTimeQueryOptions,
-    enabled: isLoggedIn,
-  });
+  const { data: sleepTimeData } = useSleepTimeQuery({ enabled: isLoggedIn });
 
   function resetSleepTime() {
     setSleepTime(sleepTimeData || defaultSleepTime);

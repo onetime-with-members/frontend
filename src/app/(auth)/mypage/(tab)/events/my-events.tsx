@@ -4,13 +4,12 @@ import { useTranslations } from 'next-intl';
 
 import MyEvent from '@/components/event/my-event';
 import GrayBackground from '@/components/gray-background';
-import { myEventsQueryOptions } from '@/lib/api/query-options';
+import { useMyEventsQuery } from '@/features/user/api';
 import { ProgressLink } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
 
 export default function MyEventsPage() {
-  const { data: myEvents } = useQuery({ ...myEventsQueryOptions });
+  const { data: myEvents } = useMyEventsQuery();
 
   return myEvents?.length === 0 ? (
     <EmptyMyEvent />

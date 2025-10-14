@@ -3,13 +3,13 @@ import {
   OnboardingFormType,
   PolicyFormType,
 } from './validation/form-types';
+import { MyScheduleTimeType } from '@/features/my-schedule/models/MyScheduleTimeType';
+import { SleepTimeType } from '@/features/my-schedule/models/SleepTimeType';
 import {
   BarBanner,
   EventType,
   MyEventType,
-  MyScheduleTimeType,
   ScheduleType,
-  SleepTimeType,
   UserType,
 } from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';

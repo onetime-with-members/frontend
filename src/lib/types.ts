@@ -66,7 +66,6 @@ export interface MemberFilterType {
   guests: number[];
 }
 
-export type MyScheduleTimeType = TimeType;
 export type EverytimeSchedule = TimeType[];
 
 export interface TimeBlockPopUpDataType {
@@ -87,11 +86,6 @@ export interface GuestValueType {
   guestId: string;
   name: string;
   pin: string;
-}
-
-export interface SleepTimeType {
-  sleep_start_time: string;
-  sleep_end_time: string;
 }
 
 export interface OnboardingType extends OnboardingFormType {

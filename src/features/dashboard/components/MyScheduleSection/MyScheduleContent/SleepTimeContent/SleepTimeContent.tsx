@@ -1,13 +1,10 @@
 import PenIcon from '@/components/icon/PenIcon';
 import SleepIcon from '@/components/icon/SleepTimeIcon';
-import { sleepTimeQueryOptions } from '@/lib/api/query-options';
+import { useSleepTimeQuery } from '@/features/my-schedule/api';
 import { ProgressLink } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 
 export default function SleepTimeContent() {
-  const { data: sleepTime } = useQuery({
-    ...sleepTimeQueryOptions,
-  });
+  const { data: sleepTime } = useSleepTimeQuery();
 
   return (
     <div className="flex items-stretch justify-between gap-3 px-6 py-3">

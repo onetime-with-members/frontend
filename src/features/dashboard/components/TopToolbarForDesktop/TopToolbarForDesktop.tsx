@@ -1,12 +1,11 @@
 import { useTranslations } from 'next-intl';
 
 import ToolbarTitleSkeleton from '@/components/skeleton/toolbar-title-skeleton';
-import { userQueryOptions } from '@/lib/api/query-options';
+import { useUserQuery } from '@/features/user/api/user.queries';
 import { ProgressLink } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 
 export default function TopToolbarForDesktop() {
-  const { data: user } = useQuery({ ...userQueryOptions });
+  const { data: user } = useUserQuery();
 
   const t = useTranslations('userDashboard');
 

@@ -1,38 +1,24 @@
-import { defaultSleepTime } from '../constants';
 import {
   Banner,
   EventType,
-  MyEventType,
-  MyScheduleTimeType,
   ParticipantType,
   RecommendScheduleType,
   ScheduleType,
-  SleepTimeType,
-  UserType,
 } from '../types';
 import { PolicyFormType } from '../validation/form-types';
 import {
   fetchBanner,
   fetchEvent,
   fetchEventWithAuth,
-  fetchMyEvents,
-  fetchMySchedule,
   fetchParticipants,
   fetchQrCode,
   fetchRecommendedTimes,
   fetchScheduleDetail,
   fetchSchedules,
   fetchShortenUrl,
-  fetchSleepTime,
   fetchUserPolicy,
-  fetchUserProfile,
 } from './data';
 import { queryOptions } from '@tanstack/react-query';
-
-export const userQueryOptions = queryOptions<UserType>({
-  queryKey: ['users', 'profile'],
-  queryFn: fetchUserProfile,
-});
 
 export const eventQueryOptions = (eventId: string) =>
   queryOptions<EventType | null>({
@@ -113,22 +99,6 @@ export const participantsQueryOptions = (eventId: string) =>
     queryKey: ['events', eventId, 'participants'],
     queryFn: async () => await fetchParticipants(eventId),
   });
-
-export const myEventsQueryOptions = queryOptions<MyEventType[]>({
-  queryKey: ['events', 'user', 'all'],
-  queryFn: fetchMyEvents,
-});
-
-export const myScheduleQueryOptions = queryOptions<MyScheduleTimeType[]>({
-  queryKey: ['fixed-schedules'],
-  queryFn: fetchMySchedule,
-});
-
-export const sleepTimeQueryOptions = queryOptions<SleepTimeType>({
-  queryKey: ['users', 'sleep-time'],
-  queryFn: fetchSleepTime,
-  placeholderData: defaultSleepTime,
-});
 
 export const userPolicyQueryOptions = queryOptions<PolicyFormType>({
   queryKey: ['users', 'policy'],

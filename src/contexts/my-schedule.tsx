@@ -2,11 +2,10 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { myScheduleQueryOptions } from '@/lib/api/query-options';
+import { useMyScheduleQuery } from '@/features/my-schedule/api';
+import { MyScheduleTimeType } from '@/features/my-schedule/models';
 import { useAuth } from '@/lib/auth/auth.client';
 import { defaultMySchedule } from '@/lib/constants';
-import { MyScheduleTimeType } from '@/lib/types';
-import { useQuery } from '@tanstack/react-query';
 import { usePathname } from 'next/navigation';
 
 export const MyScheduleContext = createContext<{
@@ -34,10 +33,7 @@ export default function MyScheduleContextProvider({
 
   const { isLoggedIn } = useAuth();
 
-  const { data: myScheduleData } = useQuery({
-    ...myScheduleQueryOptions,
-    enabled: isLoggedIn,
-  });
+  const { data: myScheduleData } = useMyScheduleQuery({ enabled: isLoggedIn });
 
   const [mySchedule, setMySchedule] = useState<MyScheduleTimeType[]>(
     myScheduleData || defaultMySchedule,

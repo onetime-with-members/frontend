@@ -1,12 +1,11 @@
 import { useTranslations } from 'next-intl';
 
 import Header from '../../Header';
-import { myEventsQueryOptions } from '@/lib/api/query-options';
+import { useMyEventsQuery } from '@/features/user/api/user.queries';
 import cn from '@/lib/cn';
-import { useQuery } from '@tanstack/react-query';
 
 export default function MyEventsHeader() {
-  const { data: myEvents } = useQuery({ ...myEventsQueryOptions });
+  const { data: myEvents } = useMyEventsQuery();
 
   const t = useTranslations('userDashboard');
 

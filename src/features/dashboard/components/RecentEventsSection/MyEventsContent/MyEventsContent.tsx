@@ -3,14 +3,11 @@ import { useTranslations } from 'next-intl';
 import MyEventsSkeleton from './MyEventsSkeleton';
 import EmptyUI from '@/components/empty-ui';
 import MyEvent from '@/components/event/my-event';
-import { myEventsQueryOptions } from '@/lib/api/query-options';
+import { useMyEventsQuery } from '@/features/user/api/user.queries';
 import cn from '@/lib/cn';
-import { useQuery } from '@tanstack/react-query';
 
 export default function MyEventsContent() {
-  const { data: myEvents, isPending: isMyEventsPending } = useQuery({
-    ...myEventsQueryOptions,
-  });
+  const { data: myEvents, isPending: isMyEventsPending } = useMyEventsQuery();
 
   const t = useTranslations('userDashboard');
 
