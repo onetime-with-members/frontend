@@ -53,8 +53,6 @@ export interface MemberFilterType {
   guests: number[];
 }
 
-export type EverytimeSchedule = TimeType[];
-
 export interface TimeBlockPopUpDataType {
   timePoint: string;
   time: string;
@@ -97,5 +95,3 @@ export interface BarBanner {
   created_date: string;
   link_url: string;
 }
-
-export type TabActiveType = 'events' | 'schedules' | 'profile' | null;
