@@ -53,7 +53,7 @@ export default function SleepTimeContextProvider({
   useEffect(() => {
     if (!sleepTimeData) return;
     setSleepTime(sleepTimeData);
-  }, []);
+  }, [sleepTimeData]);
 
   useEffect(() => {
     setSleepTimesList(

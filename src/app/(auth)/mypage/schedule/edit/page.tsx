@@ -1,4 +1,4 @@
-import MyScheduleEditPage from './my-schedule-edit';
+import MyScheduleEditPage from '@/features/my-schedule/pages/MyScheduleEditPage';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {

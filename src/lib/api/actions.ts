@@ -11,10 +11,6 @@ import {
 } from '../types';
 import { EventFormType, PolicyFormType } from '../validation/form-types';
 import apiClient from './axios';
-import {
-  MyScheduleTimeType,
-  SleepTimeType,
-} from '@/features/my-schedule/models';
 import { Session } from '@/models';
 
 export async function fetchFilteredRecommendedTimes({
@@ -107,18 +103,6 @@ export async function editUserPolicyAction(policy: PolicyFormType) {
     privacy_policy_agreement: policy.privacyPolicy,
     marketing_policy_agreement: policy.marketingPolicy,
   });
-  return res.data.payload;
-}
-
-export async function editMyScheduleAction(mySchedule: MyScheduleTimeType[]) {
-  const res = await apiClient.put('/fixed-schedules', {
-    schedules: mySchedule,
-  });
-  return res.data.payload;
-}
-
-export async function editSleepTimeAction(sleepTime: SleepTimeType) {
-  const res = await apiClient.put('/users/sleep-time', sleepTime);
   return res.data.payload;
 }
 
