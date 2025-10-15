@@ -1,6 +1,6 @@
+import { defaultMySchedule } from '../constants';
 import { MyScheduleTimeType } from '../models/MyScheduleTimeType';
 import apiClient from '@/lib/api/axios';
-import { defaultMySchedule } from '@/lib/constants';
 
 export async function fetchMySchedule() {
   const res = await apiClient.get('/fixed-schedules');

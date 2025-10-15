@@ -3,9 +3,9 @@
 import { createContext, useEffect, useState } from 'react';
 
 import { useMyScheduleQuery } from '@/features/my-schedule/api';
+import { defaultMySchedule } from '@/features/my-schedule/constants';
 import { MyScheduleTimeType } from '@/features/my-schedule/models';
 import { useAuth } from '@/lib/auth/auth.client';
-import { defaultMySchedule } from '@/lib/constants';
 import { usePathname } from 'next/navigation';
 
 export const MyScheduleContext = createContext<{

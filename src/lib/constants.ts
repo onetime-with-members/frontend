@@ -3,8 +3,6 @@ import {
   OnboardingFormType,
   PolicyFormType,
 } from './validation/form-types';
-import { MyScheduleTimeType } from '@/features/my-schedule/models/MyScheduleTimeType';
-import { SleepTimeType } from '@/features/my-schedule/models/SleepTimeType';
 import { MyEventType, UserType } from '@/features/user/models';
 import { BarBanner, EventType, ScheduleType } from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
@@ -76,18 +74,6 @@ export const defaultRecommendTime: RecommendTimeType = {
   possible_names: [],
   impossible_names: [],
 };
-
-export const defaultSleepTime: SleepTimeType = {
-  sleep_start_time: '00:00',
-  sleep_end_time: '00:00',
-};
-
-export const defaultMySchedule: MyScheduleTimeType[] = weekdaysShortKo.map(
-  (weekday) => ({
-    time_point: weekday,
-    times: [],
-  }),
-);
 
 export const defaultBarBanner: BarBanner = {
   id: 0,

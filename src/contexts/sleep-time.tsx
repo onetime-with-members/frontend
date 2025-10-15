@@ -3,9 +3,9 @@
 import { createContext, useEffect, useState } from 'react';
 
 import { useSleepTimeQuery } from '@/features/my-schedule/api';
+import { defaultSleepTime } from '@/features/my-schedule/constants';
 import { SleepTimeType } from '@/features/my-schedule/models/SleepTimeType';
 import { useAuth } from '@/lib/auth/auth.client';
-import { defaultSleepTime } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { getTimesGroupForSplitted, timeBlockList } from '@/lib/utils';
 import { usePathname } from 'next/navigation';

@@ -1,7 +1,7 @@
+import { defaultSleepTime } from '../constants';
 import { MyScheduleTimeType } from '../models/MyScheduleTimeType';
 import { SleepTimeType } from '../models/SleepTimeType';
 import { fetchMySchedule, fetchSleepTime } from './my-schedule.api';
-import { defaultSleepTime } from '@/lib/constants';
 import { queryOptions } from '@tanstack/react-query';
 
 export const myScheduleQueryOptions = queryOptions<MyScheduleTimeType[]>({
