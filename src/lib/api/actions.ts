@@ -87,13 +87,6 @@ export async function deleteEventAction(eventId: string) {
   return res.data.payload;
 }
 
-export async function editUserNameAction(name: string) {
-  const res = await apiClient.patch('/users/profile/action-update', {
-    nickname: name,
-  });
-  return res.data.payload;
-}
-
 export async function bannerClickAction(id: number) {
   const res = await apiClient.patch(`/banners/${id}/clicks`, {
     click_count: id,
