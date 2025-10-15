@@ -15,7 +15,6 @@ import { useAuth } from '@/lib/auth/auth.client';
 import dayjs from '@/lib/dayjs';
 import getQueryClient from '@/lib/query-client';
 import { ProgressLink, useProgressRouter } from '@/navigation';
-import { sessionService } from '@/services/SessionService';
 import { IconBrandInstagram, IconX } from '@tabler/icons-react';
 import { QueryClientProvider, useQuery } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -114,13 +113,6 @@ export function SetUpProvider({ children }: { children: React.ReactNode }) {
       await deleteCookie('sign-out');
     }
     deleteIsSignedOutCookie();
-  }, []);
-
-  useEffect(() => {
-    async function initializeServices() {
-      await sessionService.init();
-    }
-    initializeServices();
   }, []);
 
   return children;
