@@ -3,18 +3,18 @@
 import { useUserQuery } from '../api';
 import AppBarForMobile from '../components/profile-edit/AppBarForMobile';
 import FormContent from '../components/profile-edit/FormContent';
-import GrayBackgroundForDesktop from '../components/profile-edit/GrayBackgroundForDesktop';
 import HeaderForDesktop from '../components/profile-edit/HeaderForDesktop';
-import NavBarForDesktop from '../components/profile-edit/NavBarForDesktop';
 import { defaultUser } from '../constants';
+import GrayBackground from '@/components/gray-background';
+import NavBar from '@/components/nav-bar';
 
 export default function ProfileEditPage() {
   const { data: user } = useUserQuery();
 
   return (
     <>
-      <GrayBackgroundForDesktop />
-      <NavBarForDesktop />
+      <GrayBackground device="desktop" breakpoint="sm" />
+      <NavBar className="hidden sm:flex" />
       <AppBarForMobile />
       <main>
         <HeaderForDesktop />
