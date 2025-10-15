@@ -3,14 +3,17 @@
 import SleepIcon from '@/components/icon/SleepTimeIcon';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import {
-  useMyScheduleQuery,
-  useSleepTimeQuery,
-} from '@/features/my-schedule/api';
+  myScheduleQueryOptions,
+  sleepTimeQueryOptions,
+} from '@/lib/api/query-options';
 import { defaultMySchedule } from '@/lib/constants';
+import { useQuery } from '@tanstack/react-query';
 
 export default function MySchedulePage() {
-  const { data: mySchedule } = useMyScheduleQuery();
-  const { data: sleepTime } = useSleepTimeQuery();
+  const { data: mySchedule } = useQuery({ ...myScheduleQueryOptions });
+  const { data: sleepTime } = useQuery({
+    ...sleepTimeQueryOptions,
+  });
 
   return (
     <div className="mx-auto w-full max-w-screen-md pb-32">

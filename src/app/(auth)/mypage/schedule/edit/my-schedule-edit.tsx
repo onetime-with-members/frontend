@@ -11,12 +11,12 @@ import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
-import { useMyScheduleQuery } from '@/features/my-schedule/api/my-schedule.queries';
 import useToast from '@/hooks/useToast';
 import { editMyScheduleAction, editSleepTimeAction } from '@/lib/api/actions';
+import { myScheduleQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export default function MyScheduleEditPage() {
@@ -40,7 +40,9 @@ export default function MyScheduleEditPage() {
 
   const toast = useToast();
 
-  const { data: myScheduleData } = useMyScheduleQuery();
+  const { data: myScheduleData } = useQuery({
+    ...myScheduleQueryOptions,
+  });
 
   const { mutateAsync: editMySchedule, isPending: isMySchedulePending } =
     useMutation({

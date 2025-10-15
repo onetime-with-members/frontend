@@ -1,8 +1,9 @@
-import { SERVER_API_URL } from '../constants';
+import { SERVER_API_URL, defaultMySchedule } from '../constants';
 import {
   Banner,
   BarBanner,
   EventType,
+  MyScheduleTimeType,
   ParticipantResponseType,
   ParticipantType,
   RecommendScheduleType,
@@ -154,6 +155,11 @@ export async function fetchQrCode(eventId: string) {
   return qrCode;
 }
 
+export async function fetchUserProfile() {
+  const res = await apiClient.get('/users/profile');
+  return res.data.payload;
+}
+
 export async function fetchEventWithAuth(eventId: string) {
   const res = await apiClient.get(`/events/${eventId}`);
   return res.data.payload;
@@ -171,6 +177,31 @@ export async function fetchScheduleDetail({
   const res = await apiClient.get(
     `/schedules/${event.category.toLowerCase()}/${event.event_id}/${isLoggedIn ? 'user' : guestId}`,
   );
+  return res.data.payload;
+}
+
+export async function fetchMyEvents() {
+  const res = await apiClient.get('/events/user/all');
+  return res.data.payload;
+}
+
+export async function fetchMySchedule() {
+  const res = await apiClient.get('/fixed-schedules');
+  const myScheduleData: MyScheduleTimeType[] = res.data.payload.schedules;
+  const mySchedule =
+    myScheduleData.length !== 7
+      ? defaultMySchedule.map((s1) => ({
+          time_point: s1.time_point,
+          times:
+            myScheduleData.find((s2) => s1.time_point === s2.time_point)
+              ?.times || [],
+        }))
+      : myScheduleData;
+  return mySchedule;
+}
+
+export async function fetchSleepTime() {
+  const res = await apiClient.get('/users/sleep-time');
   return res.data.payload;
 }
 

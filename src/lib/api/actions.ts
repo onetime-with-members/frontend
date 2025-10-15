@@ -5,16 +5,14 @@ import { CRAWLING_SERVER_API_KEY, CRAWLING_SERVER_API_URL } from '../constants';
 import {
   EventType,
   MemberFilterType,
+  MyScheduleTimeType,
   OnboardingType,
   RecommendScheduleType,
   ScheduleType,
+  SleepTimeType,
 } from '../types';
 import { EventFormType, PolicyFormType } from '../validation/form-types';
 import apiClient from './axios';
-import {
-  MyScheduleTimeType,
-  SleepTimeType,
-} from '@/features/my-schedule/models';
 import { Session } from '@/models';
 
 export async function fetchFilteredRecommendedTimes({

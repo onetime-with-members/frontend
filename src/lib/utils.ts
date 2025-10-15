@@ -1,8 +1,7 @@
 import { FieldErrors } from 'react-hook-form';
 
 import dayjs from './dayjs';
-import { ScheduleType, TabActiveType } from './types';
-import { SleepTimeType } from '@/features/my-schedule/models';
+import { ScheduleType, SleepTimeType, TabActiveType } from './types';
 
 export function eventTarget(event: React.UIEvent): HTMLElement | null {
   if (event.type.includes('mouse') || event.type.includes('click')) {
