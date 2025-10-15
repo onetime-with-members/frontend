@@ -77,4 +77,4 @@ class SessionService {
 }
 
 export const sessionService = new SessionService();
-sessionService.init().then();
+await sessionService.init();
