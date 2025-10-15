@@ -2,6 +2,10 @@ import { defaultMySchedule } from '../constants';
 import { SleepTimeType } from '../models';
 import { MyScheduleTimeType } from '../models/MyScheduleTimeType';
 import apiClient from '@/lib/api/axios';
+import {
+  CRAWLING_SERVER_API_KEY,
+  CRAWLING_SERVER_API_URL,
+} from '@/lib/constants';
 
 export async function fetchMySchedule() {
   const res = await apiClient.get('/fixed-schedules');
@@ -33,4 +37,16 @@ export async function editMyScheduleAction(mySchedule: MyScheduleTimeType[]) {
 export async function editSleepTimeAction(sleepTime: SleepTimeType) {
   const res = await apiClient.put('/users/sleep-time', sleepTime);
   return res.data.payload;
+}
+
+export async function submitEverytimeUrlAction(url: string) {
+  const res = await apiClient.get(`${CRAWLING_SERVER_API_URL}/schedule`, {
+    headers: {
+      'X-API-Key': CRAWLING_SERVER_API_KEY,
+    },
+    params: {
+      url,
+    },
+  });
+  return res.data.payload.schedules;
 }

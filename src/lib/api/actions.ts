@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { getCookie } from 'cookies-next';
 
-import { CRAWLING_SERVER_API_KEY, CRAWLING_SERVER_API_URL } from '../constants';
 import {
   EventType,
   MemberFilterType,
@@ -104,18 +103,6 @@ export async function editUserPolicyAction(policy: PolicyFormType) {
     marketing_policy_agreement: policy.marketingPolicy,
   });
   return res.data.payload;
-}
-
-export async function submitEverytimeUrlAction(url: string) {
-  const res = await apiClient.get(`${CRAWLING_SERVER_API_URL}/schedule`, {
-    headers: {
-      'X-API-Key': CRAWLING_SERVER_API_KEY,
-    },
-    params: {
-      url,
-    },
-  });
-  return res.data.payload.schedules;
 }
 
 export async function withdrawAction() {
