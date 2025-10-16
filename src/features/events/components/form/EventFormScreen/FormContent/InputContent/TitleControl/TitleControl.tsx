@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import EventInputLabel from '../EventInputLabel';
-import Input from '@/components/input';
+import Input from '@/components/Input';
 import { EventFormContext } from '@/features/events/contexts/EventFormContext';
 
 export default function TitleControl() {

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
 
-import Input from '../input';
+import Input from '../Input';
 import cn from '@/lib/cn';
 import { errorCodes } from '@/lib/utils';
 import validationCodes from '@/lib/validation/codes';
