@@ -2,8 +2,9 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import EventInputLabel from '../EventInputLabel';
+import CalendarSelect from './CalendarSelect';
 import ChipList from './ChipList';
-import { CalendarSelect, WeekdaySelect } from '@/components/event/select';
+import WeekdaySelect from './WeekdaySelect';
 import { PageModeContext } from '@/contexts/page-mode';
 import { EventFormContext } from '@/features/events/contexts/EventFormContext';
 import cn from '@/lib/cn';

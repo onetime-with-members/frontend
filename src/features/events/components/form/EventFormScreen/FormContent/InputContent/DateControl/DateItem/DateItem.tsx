@@ -3,9 +3,9 @@ import { isDesktop } from 'react-device-detect';
 
 import cn from '@/lib/cn';
 
-interface DateItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type DateItemProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   active?: boolean;
-}
+};
 
 const DateItem = forwardRef<HTMLButtonElement, DateItemProps>(function (
   { children, active, className, ...props },
