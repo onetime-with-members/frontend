@@ -1,9 +1,9 @@
 import cn from '@/lib/cn';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   inputRef?: React.Ref<HTMLInputElement>;
   inputClassName?: string;
-}
+};
 
 export default function Input({
   className,
