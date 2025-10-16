@@ -1,3 +1,5 @@
+'use client';
+
 import { useMyEventsQuery } from '../api';
 import EmptyMyEvent from '../components/my-events/EmptyMyEvents';
 import MyEventList from '../components/my-events/MyEventList';
