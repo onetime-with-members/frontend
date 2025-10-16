@@ -2,12 +2,12 @@
 
 import { createContext, useState } from 'react';
 
+import { eventQueryOptions } from '@/features/events/api/events.option';
 import {
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,
 } from '@/lib/api/actions';
 import {
-  eventQueryOptions,
   recommendedTimesQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';

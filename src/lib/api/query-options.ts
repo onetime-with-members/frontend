@@ -8,8 +8,6 @@ import {
 import { PolicyFormType } from '../validation/form-types';
 import {
   fetchBanner,
-  fetchEvent,
-  fetchEventWithAuth,
   fetchParticipants,
   fetchQrCode,
   fetchRecommendedTimes,
@@ -19,18 +17,6 @@ import {
   fetchUserPolicy,
 } from './data';
 import { queryOptions } from '@tanstack/react-query';
-
-export const eventQueryOptions = (eventId: string) =>
-  queryOptions<EventType | null>({
-    queryKey: ['events', eventId],
-    queryFn: async () => await fetchEvent(eventId),
-  });
-
-export const eventWithAuthQueryOptions = (eventId: string) =>
-  queryOptions<EventType>({
-    queryKey: ['events', eventId, '_user'],
-    queryFn: async () => await fetchEventWithAuth(eventId),
-  });
 
 export const shortenUrlQueryOptions = (url: string) =>
   queryOptions({

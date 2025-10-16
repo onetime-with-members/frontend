@@ -2,14 +2,12 @@ import { useContext, useEffect, useState } from 'react';
 
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
+import { eventQueryOptions } from '@/features/events/api/events.option';
 import {
   MyScheduleTimeType,
   SleepTimeType,
 } from '@/features/my-schedule/models';
-import {
-  eventQueryOptions,
-  scheduleDetailQueryOptions,
-} from '@/lib/api/query-options';
+import { scheduleDetailQueryOptions } from '@/lib/api/query-options';
 import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { ScheduleType } from '@/lib/types';

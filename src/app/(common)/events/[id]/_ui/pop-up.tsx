@@ -8,10 +8,10 @@ import { createPortal } from 'react-dom';
 import ClockPattern from '@/components/clock-pattern';
 import Input from '@/components/input';
 import MemberBadge from '@/components/member-badge';
+import { eventQueryOptions } from '@/features/events/api/events.option';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import useToast from '@/hooks/useToast';
 import {
-  eventQueryOptions,
   qrCodeQueryOptions,
   shortenUrlQueryOptions,
 } from '@/lib/api/query-options';

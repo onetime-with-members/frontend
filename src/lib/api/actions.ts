@@ -8,7 +8,7 @@ import {
   RecommendScheduleType,
   ScheduleType,
 } from '../types';
-import { EventFormType, PolicyFormType } from '../validation/form-types';
+import { PolicyFormType } from '../validation/form-types';
 import apiClient from './axios';
 import { Session } from '@/models';
 
@@ -58,22 +58,6 @@ export async function createUserAction(value: OnboardingType) {
     sleep_end_time: value.endSleepTime,
     language: value.language,
   });
-  return res.data.payload;
-}
-
-export async function createEventAction(event: EventFormType) {
-  const res = await apiClient.post('/events', event);
-  return res.data.payload;
-}
-
-export async function editEventAction({
-  eventId,
-  event,
-}: {
-  eventId: string;
-  event: EventFormType;
-}) {
-  const res = await apiClient.patch(`/events/${eventId}`, event);
   return res.data.payload;
 }
 

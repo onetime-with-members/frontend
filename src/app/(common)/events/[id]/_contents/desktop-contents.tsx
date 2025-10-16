@@ -11,10 +11,8 @@ import ClockIcon from '@/components/icon/ClockIcon';
 import HumanIcon from '@/components/icon/HumanIcon';
 import MemberBadge from '@/components/member-badge';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
-import {
-  eventQueryOptions,
-  schedulesQueryOptions,
-} from '@/lib/api/query-options';
+import { eventQueryOptions } from '@/features/events/api/events.option';
+import { schedulesQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';

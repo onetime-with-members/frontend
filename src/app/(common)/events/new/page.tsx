@@ -1,4 +1,4 @@
-import EventCreatePage from './event-create';
+import EventCreatePage from '@/features/events/pages/EventCreatePage';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {

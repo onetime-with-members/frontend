@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 
-import EventParticipantFilterContextProvider from '../../../../contexts/event-participant-filter';
 import EventDetailPage from './event-detail';
-import { fetchEvent } from '@/lib/api/data';
+import EventParticipantFilterContextProvider from '@/contexts/event-participant-filter';
+import { fetchEvent } from '@/features/events/api/events.api';
+import { eventQueryOptions } from '@/features/events/api/events.option';
 import {
   bannerQueryOptions,
-  eventQueryOptions,
   participantsQueryOptions,
   qrCodeQueryOptions,
   recommendedTimesQueryOptions,

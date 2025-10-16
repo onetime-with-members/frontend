@@ -9,10 +9,11 @@ import { EventContentsSectionHeading } from '../heading/EventContentsSectionHead
 import SharePopUp from '../pop-up';
 import MobileRecommendedTimeItem from './MobileRecommendedTimeItem';
 import ClockIcon from '@/components/icon/ClockIcon';
+import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
 import { FooterContext } from '@/contexts/footer';
+import { eventQueryOptions } from '@/features/events/api/events.option';
 import useClientWidth from '@/hooks/useClientWidth';
 import {
-  eventQueryOptions,
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';
@@ -26,7 +27,6 @@ import {
 import { useProgressRouter } from '@/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
-import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
 
 const snapPoints = ['170px', '500px'];
 
@@ -36,7 +36,7 @@ export default function RecommendedTimesBottomSheet() {
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
 
   const { isFooterShown } = useContext(FooterContext);
-  const {recommendedTimes} = useContext(EventParticipantFilterContext)
+  const { recommendedTimes } = useContext(EventParticipantFilterContext);
 
   const params = useParams<{ id: string }>();
   const progressRouter = useProgressRouter();
