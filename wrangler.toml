@@ -1,7 +1,8 @@
 main = ".open-next/worker.js"
-name = "onetime-test"
+name = "dev-app"
 compatibility_date = "2025-03-25"
 compatibility_flags = ["nodejs_compat"]
+
 [assets]
 directory = ".open-next/assets"
 binding = "ASSETS"
@@ -9,3 +10,9 @@ binding = "ASSETS"
 [observability]
 enabled = true
 head_sampling_rate = 1 # optional. default = 1.
+
+[env.dev]
+name = "dev-app"
+
+[env.main]
+name = "app"
