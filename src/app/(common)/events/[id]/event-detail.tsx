@@ -14,7 +14,7 @@ import NavBar from '@/components/nav-bar';
 import TimeBlockBoard from '@/components/time-block-board/event';
 import { BarBannerContext } from '@/contexts/bar-banner';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
-import { eventQueryOptions } from '@/lib/api/query-options';
+import { eventQueryOptions } from '@/features/events/api/events.option';
 import cn from '@/lib/cn';
 import { defaultEvent } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';

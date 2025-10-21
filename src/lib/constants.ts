@@ -3,7 +3,6 @@ import {
   OnboardingFormType,
   PolicyFormType,
 } from './validation/form-types';
-import { MyEventType, UserType } from '@/features/user/models';
 import { BarBanner, EventType, ScheduleType } from '@/lib/types';
 import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
 
@@ -57,15 +56,6 @@ export const defaultEventValue: EventFormType = {
   ranges: [],
 };
 
-export const defaultMyEvent: MyEventType = {
-  title: '',
-  participant_count: 0,
-  created_date: '',
-  event_id: '',
-  category: 'DATE',
-  most_possible_times: [],
-};
-
 export const defaultRecommendTime: RecommendTimeType = {
   time_point: '',
   start_time: '',
@@ -89,13 +79,6 @@ export const defaultBarBanner: BarBanner = {
 export const defaultScheduleDetail: ScheduleType = {
   name: '',
   schedules: [],
-};
-
-export const defaultUser: UserType = {
-  nickname: '',
-  email: '',
-  language: 'ENG',
-  social_platform: 'google',
 };
 
 export const defaultPolicy: PolicyFormType = {

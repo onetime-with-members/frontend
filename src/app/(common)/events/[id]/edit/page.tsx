@@ -1,6 +1,6 @@
-import EventEditPage from './event-edit';
-import { fetchEvent } from '@/lib/api/data';
-import { eventQueryOptions } from '@/lib/api/query-options';
+import { fetchEvent } from '@/features/events/api/events.api';
+import { eventQueryOptions } from '@/features/events/api/events.option';
+import EventEditPage from '@/features/events/pages/EventEditPage';
 import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';

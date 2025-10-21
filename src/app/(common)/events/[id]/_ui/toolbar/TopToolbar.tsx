@@ -1,5 +1,5 @@
 import ToolbarButtons from '../button/ToolbarButtons';
-import { eventQueryOptions } from '@/lib/api/query-options';
+import { eventQueryOptions } from '@/features/events/api/events.option';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 

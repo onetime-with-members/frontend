@@ -4,11 +4,11 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
+import { defaultUser } from '@/features/user/constants';
 import useHomeUrl from '@/hooks/useHomeUrl';
 import useScroll from '@/hooks/useScroll';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import { defaultUser } from '@/lib/constants';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';

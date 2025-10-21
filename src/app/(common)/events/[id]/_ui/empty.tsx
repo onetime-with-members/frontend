@@ -3,10 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import {
-  eventQueryOptions,
-  shortenUrlQueryOptions,
-} from '@/lib/api/query-options';
+import { eventQueryOptions } from '@/features/events/api/events.option';
+import { shortenUrlQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';

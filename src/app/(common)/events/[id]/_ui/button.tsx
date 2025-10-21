@@ -11,8 +11,8 @@ import Button from '@/components/button';
 import BadgeButton from '@/components/button/badge-button';
 import EditIcon from '@/components/icon/EditIcon';
 import { FooterContext } from '@/contexts/footer';
+import { eventQueryOptions } from '@/features/events/api/events.option';
 import {
-  eventQueryOptions,
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
 } from '@/lib/api/query-options';

@@ -5,12 +5,12 @@ import { createPortal, useFormStatus } from 'react-dom';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import SmallButton from '@/components/button/small-button';
 import TimeBlockBoard from '@/components/time-block-board/event';
+import { eventQueryOptions } from '@/features/events/api/events.option';
 import useToast from '@/hooks/useToast';
 import {
   createNewMemberScheduleAction,
   updateScheduleAction,
 } from '@/lib/api/actions';
-import { eventQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { defaultEvent } from '@/lib/constants';
 import { GuestValueType, ScheduleType } from '@/lib/types';

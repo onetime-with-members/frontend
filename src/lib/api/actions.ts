@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { getCookie } from 'cookies-next';
 
-import { CRAWLING_SERVER_API_KEY, CRAWLING_SERVER_API_URL } from '../constants';
 import {
   EventType,
   MemberFilterType,
@@ -9,12 +8,8 @@ import {
   RecommendScheduleType,
   ScheduleType,
 } from '../types';
-import { EventFormType, PolicyFormType } from '../validation/form-types';
+import { PolicyFormType } from '../validation/form-types';
 import apiClient from './axios';
-import {
-  MyScheduleTimeType,
-  SleepTimeType,
-} from '@/features/my-schedule/models';
 import { Session } from '@/models';
 
 export async function fetchFilteredRecommendedTimes({
@@ -66,31 +61,8 @@ export async function createUserAction(value: OnboardingType) {
   return res.data.payload;
 }
 
-export async function createEventAction(event: EventFormType) {
-  const res = await apiClient.post('/events', event);
-  return res.data.payload;
-}
-
-export async function editEventAction({
-  eventId,
-  event,
-}: {
-  eventId: string;
-  event: EventFormType;
-}) {
-  const res = await apiClient.patch(`/events/${eventId}`, event);
-  return res.data.payload;
-}
-
 export async function deleteEventAction(eventId: string) {
   const res = await apiClient.delete(`/events/${eventId}`);
-  return res.data.payload;
-}
-
-export async function editUserNameAction(name: string) {
-  const res = await apiClient.patch('/users/profile/action-update', {
-    nickname: name,
-  });
   return res.data.payload;
 }
 
@@ -115,30 +87,6 @@ export async function editUserPolicyAction(policy: PolicyFormType) {
     marketing_policy_agreement: policy.marketingPolicy,
   });
   return res.data.payload;
-}
-
-export async function editMyScheduleAction(mySchedule: MyScheduleTimeType[]) {
-  const res = await apiClient.put('/fixed-schedules', {
-    schedules: mySchedule,
-  });
-  return res.data.payload;
-}
-
-export async function editSleepTimeAction(sleepTime: SleepTimeType) {
-  const res = await apiClient.put('/users/sleep-time', sleepTime);
-  return res.data.payload;
-}
-
-export async function submitEverytimeUrlAction(url: string) {
-  const res = await apiClient.get(`${CRAWLING_SERVER_API_URL}/schedule`, {
-    headers: {
-      'X-API-Key': CRAWLING_SERVER_API_KEY,
-    },
-    params: {
-      url,
-    },
-  });
-  return res.data.payload.schedules;
 }
 
 export async function withdrawAction() {

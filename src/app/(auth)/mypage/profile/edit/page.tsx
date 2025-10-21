@@ -1,4 +1,4 @@
-import ProfileEditPage from './profile-edit';
+import ProfileEditPage from '@/features/user/pages/ProfileEditPage';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata() {

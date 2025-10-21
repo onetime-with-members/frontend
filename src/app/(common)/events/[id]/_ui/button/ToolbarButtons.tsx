@@ -4,7 +4,7 @@ import { EventDeleteAlert } from '../alert';
 import ToolbarButton from './ToolbarButton';
 import EditIcon from '@/components/icon/EditIcon';
 import TrashIcon from '@/components/icon/trash';
-import { eventWithAuthQueryOptions } from '@/lib/api/query-options';
+import { eventWithAuthQueryOptions } from '@/features/events/api/events.option';
 import { useProgressRouter } from '@/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';

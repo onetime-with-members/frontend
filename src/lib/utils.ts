@@ -1,7 +1,7 @@
 import { FieldErrors } from 'react-hook-form';
 
 import dayjs from './dayjs';
-import { ScheduleType, TabActiveType } from './types';
+import { ScheduleType } from './types';
 import { SleepTimeType } from '@/features/my-schedule/models';
 
 export function eventTarget(event: React.UIEvent): HTMLElement | null {
@@ -88,33 +88,6 @@ export function leftTimeLabelFormat(time: string) {
 export function isNumber(value: string): boolean {
   const regex = /^[0-9]*$/;
   return regex.test(value);
-}
-
-export function myPageTabActive(pathname: string): TabActiveType {
-  if (pathname.startsWith('/mypage/events')) {
-    return 'events';
-  }
-  if (pathname.startsWith('/mypage/schedules')) {
-    return 'schedules';
-  }
-  if (pathname.startsWith('/mypage/profile')) {
-    return 'profile';
-  }
-  return null;
-}
-
-export function myPageTitle(
-  tabActive: string | null,
-  t: (key: string) => string,
-) {
-  return (
-    tabActive &&
-    {
-      events: t('allEvents'),
-      schedules: t('mySchedule'),
-      profile: t('profile'),
-    }[tabActive]
-  );
 }
 
 export function policyPageTitle(name: string, locale: string) {

@@ -10,19 +10,6 @@ import {
 } from '../types';
 import apiClient from './axios';
 
-export async function fetchEvent(eventId: string) {
-  const res = await fetch(`${SERVER_API_URL}/events/${eventId}`);
-  if (!res.ok) {
-    const error = await res.json();
-    console.error(error);
-    return null;
-  }
-  const data = await res.json();
-  const event: EventType = data.payload;
-
-  return event;
-}
-
 export async function fetchShortenUrl(originalUrl: string) {
   const res = await fetch(`${SERVER_API_URL}/urls/action-shorten`, {
     method: 'POST',
@@ -152,11 +139,6 @@ export async function fetchQrCode(eventId: string) {
   const qrCode: string = data.payload.qr_code_img_url;
 
   return qrCode;
-}
-
-export async function fetchEventWithAuth(eventId: string) {
-  const res = await apiClient.get(`/events/${eventId}`);
-  return res.data.payload;
 }
 
 export async function fetchScheduleDetail({
