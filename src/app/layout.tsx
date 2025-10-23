@@ -1,26 +1,19 @@
 import type { Metadata } from 'next';
-import { NextIntlClientProvider } from 'next-intl';
 
-import {
-  Footer,
-  KakaoShareScript,
-  NetworkErrorScreen,
-  ProgressBar,
-  QueryProvider,
-  SetUpProvider,
-} from './body';
 import './globals.css';
 import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/toast';
-import ContextProviders from '@/contexts';
 import CookieModal from '@/features/set-up/components/CookieModal';
-import GoogleAnalytics from '@/features/set-up/components/GoogleAnalytics';
-import GoogleTagManager from '@/features/set-up/components/GoogleTagManager';
-import MSClarity from '@/features/set-up/components/MSClarity';
-import MetaPixel from '@/features/set-up/components/MetaPixel';
-import { getLocale, getMessages } from 'next-intl/server';
-import Image from 'next/image';
+import Favicon from '@/features/set-up/components/Favicon';
+import Footer from '@/features/set-up/components/Footer';
+import NetworkErrorScreen from '@/features/set-up/components/NetworkErrorScreen';
+import NoScripts from '@/features/set-up/components/NoScripts';
+import PreloadImages from '@/features/set-up/components/PreloadImages';
+import ProgressBar from '@/features/set-up/components/ProgressBar';
+import Providers from '@/features/set-up/components/Providers';
+import Scripts from '@/features/set-up/components/Scripts';
+import { getLocale } from 'next-intl/server';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 declare global {
@@ -58,7 +51,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default async function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -91,169 +84,5 @@ export default async function RootLayout({
       </body>
       <Scripts />
     </html>
-  );
-}
-
-export function Favicon() {
-  return (
-    <>
-      <link
-        rel="apple-touch-icon"
-        sizes="57x57"
-        href="/favicon/apple-icon-57x57.png"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="60x60"
-        href="/favicon/apple-icon-60x60.png"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="72x72"
-        href="/favicon/apple-icon-72x72.png"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="76x76"
-        href="/favicon/apple-icon-76x76.png"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="114x114"
-        href="/favicon/apple-icon-114x114.png"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="120x120"
-        href="/favicon/apple-icon-120x120.png"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="144x144"
-        href="/favicon/apple-icon-144x144.png"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="152x152"
-        href="/favicon/apple-icon-152x152.png"
-      />
-      <link
-        rel="apple-touch-icon"
-        sizes="180x180"
-        href="/favicon/apple-icon-180x180.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="192x192"
-        href="/favicon/android-icon-192x192.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="32x32"
-        href="/favicon/favicon-32x32.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="96x96"
-        href="/favicon/favicon-96x96.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
-        href="/favicon/favicon-16x16.png"
-      />
-      <link rel="manifest" href="/favicon/manifest.json" />
-      <meta name="msapplication-TileColor" content="#ffffff" />
-      <meta
-        name="msapplication-TileImage"
-        content="/favicon/ms-icon-144x144.png"
-      />
-      <meta name="theme-color" content="#ffffff" />
-    </>
-  );
-}
-
-export async function Providers({ children }: { children: React.ReactNode }) {
-  const messages = await getMessages();
-
-  return (
-    <NextIntlClientProvider messages={messages}>
-      <QueryProvider>
-        <ContextProviders>
-          <SetUpProvider>{children}</SetUpProvider>
-        </ContextProviders>
-      </QueryProvider>
-    </NextIntlClientProvider>
-  );
-}
-
-export function PreloadImages() {
-  return (
-    <div className="hidden">
-      <Image
-        src="/images/logo-white.svg"
-        alt=""
-        width={1}
-        height={1}
-        priority
-      />
-      <Image
-        src="/images/network-error-clock.svg"
-        alt=""
-        width={1}
-        height={1}
-        priority
-      />
-      <Image
-        src="/images/welcome-clock.svg"
-        alt=""
-        width={1}
-        height={1}
-        priority
-      />
-    </div>
-  );
-}
-
-export function NoScripts() {
-  return (
-    <>
-      {/* Google Tag Manager */}
-      <noscript>
-        <iframe
-          src="https://www.googletagmanager.com/ns.html?id=GTM-WWCRBGGN"
-          height="0"
-          width="0"
-          style={{ display: 'none', visibility: 'hidden' }}
-        ></iframe>
-      </noscript>
-
-      {/* Meta Pixel */}
-      <noscript>
-        {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
-        <img
-          height="1"
-          width="1"
-          style={{ display: 'none' }}
-          src="https://www.facebook.com/tr?id=9521381771234481&ev=PageView&noscript=1"
-        />
-      </noscript>
-    </>
-  );
-}
-
-export function Scripts() {
-  return (
-    <>
-      <GoogleAnalytics />
-      <MSClarity />
-      <MetaPixel />
-      <GoogleTagManager />
-      <KakaoShareScript />
-    </>
   );
 }

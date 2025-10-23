@@ -1,7 +1,7 @@
 'use client';
 
-import { DENIED, GRANTED, MS_CLARITY_ID } from '../constants';
-import useConsentMode from '../hooks/useConsentMode';
+import { DENIED, GRANTED, MS_CLARITY_ID } from '@/features/set-up/constants';
+import useConsentMode from '@/features/set-up/hooks/useConsentMode';
 import Script from 'next/script';
 
 export default function MSClarity() {

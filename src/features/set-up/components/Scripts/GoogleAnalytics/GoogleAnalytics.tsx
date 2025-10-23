@@ -1,7 +1,5 @@
-'use client';
-
-import { DENIED, GA_ID, GRANTED } from '../constants';
-import useConsentMode from '../hooks/useConsentMode';
+import { DENIED, GA_ID, GRANTED } from '@/features/set-up/constants';
+import useConsentMode from '@/features/set-up/hooks/useConsentMode';
 import Script from 'next/script';
 
 export default function GoogleAnalytics() {
