@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import Banner from './Banner';
 import { bannerQueryOptions } from '@/lib/api/query-options';
-import cn from '@/lib/cn';
 import { useQuery } from '@tanstack/react-query';
 
-export default function BannerList({ className }: { className?: string }) {
+export default function useBannerList() {
   const { data: banners, isLoading } = useQuery({ ...bannerQueryOptions });
-  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [bannerIndex, setBannerIndex] = useState(0);
 
   const total = useMemo(
@@ -21,7 +19,7 @@ export default function BannerList({ className }: { className?: string }) {
   }, [banners, total]);
 
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
+    const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) return;
 
     const target = scrollContainer.children[bannerIndex] as
@@ -56,18 +54,7 @@ export default function BannerList({ className }: { className?: string }) {
     return () => clearInterval(timer);
   }, [total]);
 
-  if (isLoading || total === 0) return null;
+  const isShown = !isLoading && total !== 0;
 
-  return (
-    <div className={cn('relative', className)}>
-      <div
-        ref={scrollRef}
-        className="scrollbar-hidden flex w-full gap-3 overflow-x-scroll"
-      >
-        {loopedBanner.map((banner, idx) => (
-          <Banner key={`${banner.id}-${idx}`} banner={banner} />
-        ))}
-      </div>
-    </div>
-  );
+  return { scrollContainerRef, isShown, loopedBanner };
 }

@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 
-import EventDetailPage from './event-detail';
 import EventParticipantFilterContextProvider from '@/contexts/event-participant-filter';
 import { fetchEvent } from '@/features/events/api/events.api';
 import { eventQueryOptions } from '@/features/events/api/events.option';
+import EventDetailPage from '@/features/events/pages/EventDetailPage';
 import {
   bannerQueryOptions,
   participantsQueryOptions,

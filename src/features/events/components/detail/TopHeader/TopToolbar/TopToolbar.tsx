@@ -1,4 +1,4 @@
-import ToolbarButtons from '../button/ToolbarButtons';
+import ToolbarButtons from './ToolbarButtons/ToolbarButtons';
 import { eventQueryOptions } from '@/features/events/api/events.option';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';

@@ -1,9 +1,7 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import { eventQueryOptions } from '@/features/events/api/events.option';
+import { useEventQuery } from '@/features/events/api';
 import { shortenUrlQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
@@ -21,7 +19,7 @@ export default function EmptyEventBanner({
   const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: event } = useEventQuery(params.id);
   const { data: shortUrl } = useQuery({
     ...shortenUrlQueryOptions(window.location.href),
   });

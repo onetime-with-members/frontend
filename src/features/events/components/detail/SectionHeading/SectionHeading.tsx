@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import { BarBannerContext } from '@/contexts/bar-banner';
 import cn from '@/lib/cn';
 
-export function EventContentsSectionHeading({
+export default function SectionHeading({
   children,
   icon,
   status,

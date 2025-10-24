@@ -1,11 +1,9 @@
 import { useState } from 'react';
 
-import {
-  ParticipantsSection,
-  PaticipantStatus,
-  RecommendTimeHeading,
-} from '../../_contents/desktop-contents';
-import ParticipantsDivider from '../ParticipantsDivider';
+import ParticipantsDivider from '@/features/events/components/detail/ParticipantsDivider';
+import ParticipantsSection from '@/features/events/components/detail/ParticipantsSection';
+import PaticipantStatus from '@/features/events/components/detail/PaticipantStatus';
+import RecommendedTimeHeading from '@/features/events/components/detail/RecommendedTimeHeading';
 import useIsOnlyOneFiltered from '@/hooks/useIsOnlyOneFiltered';
 import cn from '@/lib/cn';
 import { RecommendScheduleType } from '@/lib/types';
@@ -37,7 +35,7 @@ export default function MobileRecommendedTimeItem({
         className="flex items-center justify-between gap-2"
         onClick={handleClick}
       >
-        <RecommendTimeHeading recommendedTime={recommendedTime} />
+        <RecommendedTimeHeading recommendedTime={recommendedTime} />
         <div className="flex items-center gap-2">
           <PaticipantStatus
             participantCount={{

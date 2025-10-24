@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { EventDeleteAlert } from '../alert';
+import EventDeleteAlert from './EventDeleteAlert';
 import ToolbarButton from './ToolbarButton';
 import EditIcon from '@/components/icon/EditIcon';
 import TrashIcon from '@/components/icon/trash';

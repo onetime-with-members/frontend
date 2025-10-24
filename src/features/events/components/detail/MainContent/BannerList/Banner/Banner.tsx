@@ -40,7 +40,6 @@ export default function Banner({ banner }: { banner: BannerType }) {
           alt={`${banner.organization} image`}
         />
       )}
-
       <div className="z-10 flex flex-col justify-between py-3 pl-3">
         <span className="text-sm font-bold text-gray-60">{banner.title}</span>
         <p className="text-xs text-gray-40">{banner.sub_title}</p>

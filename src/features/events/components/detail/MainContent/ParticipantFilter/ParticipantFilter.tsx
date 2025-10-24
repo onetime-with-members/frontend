@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
-import { EventContentsSectionHeading } from '../heading/EventContentsSectionHeading';
+import SectionHeading from '../../SectionHeading';
 import ParticipantFilterItem from './ParticipantFilterItem';
 import HumanIcon from '@/components/icon/HumanIcon';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
@@ -31,14 +31,14 @@ export default function ParticipantFilter() {
   return (
     participants.length > 0 && (
       <>
-        <EventContentsSectionHeading
+        <SectionHeading
           icon={<HumanIcon fontSize={20} className="mr-0.5" />}
           status={<>{participants.length}</>}
           className="pt-2"
           sticky
         >
           {t('participant', { count: participants.length })}
-        </EventContentsSectionHeading>
+        </SectionHeading>
         <ul className="mt-2 flex flex-wrap gap-1.5 pb-4 pt-0 md:pb-6">
           {participants.map((participant) => (
             <ParticipantFilterItem
