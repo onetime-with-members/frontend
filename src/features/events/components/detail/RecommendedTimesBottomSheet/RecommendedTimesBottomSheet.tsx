@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 import { Drawer } from 'vaul';
 
-import { BottomButtonForMobile } from '../button';
+import BottomButtonForMobile from './BottomButtonForMobile';
 import MobileRecommendedTimeItem from './MobileRecommendedTimeItem';
 import ClockIcon from '@/components/icon/ClockIcon';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';

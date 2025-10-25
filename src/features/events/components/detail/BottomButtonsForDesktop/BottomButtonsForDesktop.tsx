@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 
 import LoginAlert from '../shared/LoginAlert';
 import SharePopUp from '../shared/SharePopUp';
-import { BadgeFloatingBottomButton } from '@/app/(common)/events/[id]/_ui/button';
+import BadgeFloatingBottomButton from './BadgeFloatingBottomButton';
 import { FooterContext } from '@/contexts/footer';
 import { eventQueryOptions } from '@/features/events/api/events.option';
 import { scheduleDetailQueryOptions } from '@/lib/api/query-options';
