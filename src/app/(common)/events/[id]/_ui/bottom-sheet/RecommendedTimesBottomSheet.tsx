@@ -3,15 +3,15 @@ import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 import { Drawer } from 'vaul';
 
-import { LoginAlert } from '../alert';
 import { BottomButtonForMobile } from '../button';
-import { EventContentsSectionHeading } from '../heading/EventContentsSectionHeading';
-import SharePopUp from '../pop-up';
 import MobileRecommendedTimeItem from './MobileRecommendedTimeItem';
 import ClockIcon from '@/components/icon/ClockIcon';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
 import { FooterContext } from '@/contexts/footer';
 import { eventQueryOptions } from '@/features/events/api/events.option';
+import LoginAlert from '@/features/events/components/detail/shared/LoginAlert';
+import SectionHeading from '@/features/events/components/detail/shared/SectionHeading';
+import SharePopUp from '@/features/events/components/detail/shared/SharePopUp';
 import useClientWidth from '@/hooks/useClientWidth';
 import {
   scheduleDetailQueryOptions,
@@ -97,12 +97,12 @@ export default function RecommendedTimesBottomSheet() {
               />
               <div className="flex h-[454px] flex-col">
                 <Drawer.Title className="px-4 pb-3">
-                  <EventContentsSectionHeading
+                  <SectionHeading
                     icon={<ClockIcon className="mr-1" />}
                     className="px-0 py-0"
                   >
                     {t('recommendedTime', { count: recommendedTimes?.length })}
-                  </EventContentsSectionHeading>
+                  </SectionHeading>
                 </Drawer.Title>
                 <div
                   className={cn('flex flex-1 flex-col gap-3 px-4 pb-12', {

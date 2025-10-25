@@ -2,85 +2,20 @@
 
 import { motion } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
-import { useContext, useState } from 'react';
 
-import { LoginAlert } from './alert';
-import SharePopUp from './pop-up';
 import SpeechBalloon from './speech-balloon';
 import Button from '@/components/button';
 import BadgeButton from '@/components/button/badge-button';
 import EditIcon from '@/components/icon/EditIcon';
-import { FooterContext } from '@/contexts/footer';
 import { eventQueryOptions } from '@/features/events/api/events.option';
-import {
-  scheduleDetailQueryOptions,
-  schedulesQueryOptions,
-} from '@/lib/api/query-options';
-import { useAuth } from '@/lib/auth/auth.client';
+import { schedulesQueryOptions } from '@/lib/api/query-options';
 import cn from '@/lib/cn';
-import { defaultEvent, defaultScheduleDetail } from '@/lib/constants';
+import { defaultEvent } from '@/lib/constants';
 import { ScheduleType } from '@/lib/types';
-import { useProgressRouter } from '@/navigation';
 import { IconEdit, IconPlus } from '@tabler/icons-react';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-
-export function BottomButtonsForDesktop() {
-  const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
-  const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
-
-  const { isFooterShown } = useContext(FooterContext);
-
-  const progressRouter = useProgressRouter();
-  const params = useParams<{ id: string }>();
-  const t = useTranslations('eventDetail');
-
-  const { isLoggedIn } = useAuth();
-
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: scheduleDetailData } = useQuery({
-    ...scheduleDetailQueryOptions({ event: event || defaultEvent, isLoggedIn }),
-  });
-  const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
-
-  const hasUserSchedule = isLoggedIn
-    ? scheduleDetail.schedules.length !== 0 &&
-      scheduleDetail.schedules.every((schedule) => schedule.times.length !== 0)
-    : false;
-
-  async function handleBottomButtonClick() {
-    if (isLoggedIn) {
-      progressRouter.push(`/events/${params.id}/schedules/new`);
-    } else {
-      setIsLoginAlertOpen(true);
-    }
-  }
-
-  function handleSendButtonClick() {
-    setIsSharePopUpOpen(true);
-  }
-
-  return (
-    <>
-      {/* Bottom Button for Desktop */}
-      <BadgeFloatingBottomButton
-        name={hasUserSchedule ? t('editSchedule') : t('addSchedule')}
-        variant="black"
-        icon={hasUserSchedule ? 'edit' : 'plus'}
-        onNewScheduleButtonClick={handleBottomButtonClick}
-        onSendButtonClick={handleSendButtonClick}
-        className={cn('hidden duration-150 md:flex', {
-          'pointer-events-none opacity-0': isFooterShown,
-        })}
-      />
-
-      {/* Alert and Pop Up */}
-      {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
-      {isSharePopUpOpen && <SharePopUp setIsOpen={setIsSharePopUpOpen} />}
-    </>
-  );
-}
 
 export function BottomButtonForMobile({
   schedules,

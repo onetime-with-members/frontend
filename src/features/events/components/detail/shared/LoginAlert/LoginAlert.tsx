@@ -1,12 +1,10 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
 import { useProgressRouter } from '@/navigation';
 import { useParams, usePathname } from 'next/navigation';
 
-export function LoginAlert({
+export default function LoginAlert({
   setIsOpen,
 }: {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;

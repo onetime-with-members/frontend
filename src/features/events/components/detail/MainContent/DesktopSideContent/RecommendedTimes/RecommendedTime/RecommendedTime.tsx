@@ -1,7 +1,7 @@
-import ParticipantsDivider from '../../../../ParticipantsDivider';
-import ParticipantsSection from '../../../../ParticipantsSection';
-import PaticipantStatus from '../../../../PaticipantStatus';
-import RecommendedTimeHeading from '../../../../RecommendedTimeHeading';
+import ParticipantsDivider from '../../../../shared/ParticipantsDivider';
+import ParticipantsSection from '../../../../shared/ParticipantsSection';
+import PaticipantStatus from '../../../../shared/PaticipantStatus';
+import RecommendedTimeHeading from '../../../../shared/RecommendedTimeHeading';
 import { RecommendScheduleType } from '@/lib/types';
 
 export default function RecommendedTime({

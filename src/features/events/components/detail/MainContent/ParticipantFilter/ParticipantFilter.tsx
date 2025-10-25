@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
-import SectionHeading from '../../SectionHeading';
+import SectionHeading from '../../shared/SectionHeading';
 import ParticipantFilterItem from './ParticipantFilterItem';
 import HumanIcon from '@/components/icon/HumanIcon';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';

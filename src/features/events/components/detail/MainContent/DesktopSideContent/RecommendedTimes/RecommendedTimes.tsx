@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
-import SectionHeading from '../../../SectionHeading';
+import SectionHeading from '../../../shared/SectionHeading';
 import RecommendedTime from './RecommendedTime';
 import ClockIcon from '@/components/icon/ClockIcon';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';

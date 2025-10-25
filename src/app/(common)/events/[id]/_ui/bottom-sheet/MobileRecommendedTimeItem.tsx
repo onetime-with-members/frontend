@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
-import ParticipantsDivider from '@/features/events/components/detail/ParticipantsDivider';
-import ParticipantsSection from '@/features/events/components/detail/ParticipantsSection';
-import PaticipantStatus from '@/features/events/components/detail/PaticipantStatus';
-import RecommendedTimeHeading from '@/features/events/components/detail/RecommendedTimeHeading';
+import ParticipantsDivider from '@/features/events/components/detail/shared/ParticipantsDivider';
+import ParticipantsSection from '@/features/events/components/detail/shared/ParticipantsSection';
+import PaticipantStatus from '@/features/events/components/detail/shared/PaticipantStatus';
+import RecommendedTimeHeading from '@/features/events/components/detail/shared/RecommendedTimeHeading';
 import useIsOnlyOneFiltered from '@/hooks/useIsOnlyOneFiltered';
 import cn from '@/lib/cn';
 import { RecommendScheduleType } from '@/lib/types';
