@@ -1,39 +1,27 @@
 import { useTranslations } from 'next-intl';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useContext } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
-import PinPasswordInput from './pin-password';
+import { ScheduleFormContext } from '../../../contexts/ScheduleFormContext';
+import useGuestForm from '../../../hooks/useGuestForm';
+import PinPasswordControl from './PinPasswordControl/PinPasswordControl';
 import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import NicknameFormControl from '@/components/user/nickname-form-control';
 import { checkNewGuestAction, loginGuestAction } from '@/lib/api/actions';
-import { GuestValueType } from '@/lib/types';
 import { GuestFormType } from '@/lib/validation/form-types';
-import { guestSchema } from '@/lib/validation/schema';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
-export default function MemberLoginSubScreen({
-  setPageIndex,
-  setGuestValue,
-}: {
-  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-  setGuestValue: React.Dispatch<React.SetStateAction<GuestValueType>>;
-}) {
+export default function MemberLoginSubScreen() {
+  const { setGuestValue, setPageIndex } = useContext(ScheduleFormContext);
+
   const {
     handleSubmit,
     register,
     formState: { errors, isValid },
     control,
-  } = useForm<GuestFormType>({
-    resolver: zodResolver(guestSchema),
-    defaultValues: {
-      nickname: '',
-      pin: '----',
-    },
-    mode: 'onTouched',
-    criteriaMode: 'all',
-  });
+  } = useGuestForm();
 
   const t = useTranslations('scheduleAdd');
   const params = useParams<{ id: string }>();
@@ -77,47 +65,18 @@ export default function MemberLoginSubScreen({
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-[60px]"
     >
-      {/* Input Content */}
       <div className="flex flex-col gap-12">
-        {/* Nickname */}
         <NicknameFormControl
           registerNickname={register('nickname')}
           errors={errors}
         />
-        {/* Pin Password */}
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="pin" className="text-gray-80 text-lg-200">
-              {t('password')}
-            </label>
-            <Controller
-              name="pin"
-              control={control}
-              render={({ field }) => (
-                <PinPasswordInput
-                  inputId="pin"
-                  pin={field.value}
-                  setPin={field.onChange}
-                />
-              )}
-            />
-          </div>
-          <div
-            className="rounded-xl bg-[#e8ebfc80] px-4 py-3 leading-loose text-primary-40 text-sm-100"
-            style={{ lineHeight: '150%' }}
-          >
-            {t('passwordInfo')}
-          </div>
-        </div>
+        <PinPasswordControl control={control} />
       </div>
-
-      {/* Bottom Button for Desktop */}
       <div className="hidden sm:block">
         <Button type="submit" variant="dark" disabled={!isValid} fullWidth>
           {t('next')}
         </Button>
       </div>
-      {/* Bottom Button for Mobile */}
       <div className="block sm:hidden">
         <FloatingBottomButton
           type="submit"

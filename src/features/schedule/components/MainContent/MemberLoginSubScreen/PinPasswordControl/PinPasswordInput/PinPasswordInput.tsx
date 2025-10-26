@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-import cn from '@/lib/cn';
+import PinPasswordInputField from './PinPasswordInputField';
 import { isNumber } from '@/lib/utils';
 
 export default function PinPasswordInput({
@@ -72,26 +72,5 @@ export default function PinPasswordInput({
         />
       ))}
     </div>
-  );
-}
-
-export function PinPasswordInputField({
-  inputRef,
-  className,
-  ...props
-}: {
-  inputRef: React.Ref<HTMLInputElement>;
-} & React.InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <input
-      ref={inputRef}
-      className={cn(
-        'rounded-xl bg-gray-05 px-5 py-4 text-center text-gray-90 outline-none text-md-200 placeholder:text-gray-30 focus:outline-2 focus:outline-primary-30',
-        className,
-      )}
-      autoComplete="off"
-      placeholder="_"
-      {...props}
-    />
   );
 }
