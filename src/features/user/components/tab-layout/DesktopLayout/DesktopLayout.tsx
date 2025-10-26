@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext } from 'react';
 
 import DesktopHeader from './DesktopHeader';
