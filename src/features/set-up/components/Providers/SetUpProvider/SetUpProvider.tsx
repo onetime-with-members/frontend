@@ -3,7 +3,7 @@
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
-import { useUserQuery } from '@/features/user/api';
+import { useUserQuery } from '@/features/user/api/user.queries';
 import { userPolicyQueryOptions } from '@/lib/api/query-options';
 import { useAuth } from '@/lib/auth/auth.client';
 import dayjs from '@/lib/dayjs';

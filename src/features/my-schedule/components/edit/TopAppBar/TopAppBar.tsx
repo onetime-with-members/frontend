@@ -7,7 +7,7 @@ import { SleepTimeContext } from '@/contexts/sleep-time';
 import {
   useEditMyScheduleMutation,
   useEditSleepTimeMutation,
-} from '@/features/my-schedule/api';
+} from '@/features/my-schedule/api/my-schedule.queries';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 

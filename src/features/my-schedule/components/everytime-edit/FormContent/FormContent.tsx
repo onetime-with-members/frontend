@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import BottomButton from './BottomButton';
 import ImageGuide from './ImageGuide';
 import InputContent from './InputContent';
-import { useSubmitEverytimeURLMutation } from '@/features/my-schedule/api';
+import { useSubmitEverytimeURLMutation } from '@/features/my-schedule/api/my-schedule.queries';
 import { EverytimeUrlFormType } from '@/lib/validation/form-types';
 import { everytimeUrlSchema } from '@/lib/validation/schema';
 import { useProgressRouter } from '@/navigation';

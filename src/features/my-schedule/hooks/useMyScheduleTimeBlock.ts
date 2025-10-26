@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect } from 'react';
 
-import { useMyScheduleQuery } from '../api';
+import { useMyScheduleQuery } from '../api/my-schedule.queries';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import useToast from '@/hooks/useToast';

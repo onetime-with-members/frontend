@@ -1,7 +1,7 @@
 'use client';
 
 import SleepIcon from '@/components/icon/SleepTimeIcon';
-import { useSleepTimeQuery } from '@/features/my-schedule/api';
+import { useSleepTimeQuery } from '@/features/my-schedule/api/my-schedule.queries';
 
 export default function SleepTimeSection() {
   const { data: sleepTime } = useSleepTimeQuery();

@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { useSleepTimeQuery } from '@/features/my-schedule/api';
+import { useSleepTimeQuery } from '@/features/my-schedule/api/my-schedule.queries';
 import { defaultSleepTime } from '@/features/my-schedule/constants';
 import { SleepTimeType } from '@/features/my-schedule/models/SleepTimeType';
 import { useAuth } from '@/lib/auth/auth.client';

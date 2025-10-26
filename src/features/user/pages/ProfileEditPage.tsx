@@ -1,6 +1,6 @@
 'use client';
 
-import { useUserQuery } from '../api';
+import { useUserQuery } from '../api/user.queries';
 import AppBarForMobile from '../components/profile-edit/AppBarForMobile';
 import FormContent from '../components/profile-edit/FormContent';
 import HeaderForDesktop from '../components/profile-edit/HeaderForDesktop';

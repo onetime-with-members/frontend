@@ -1,6 +1,6 @@
 import MyEvent from '@/components/event/my-event';
 import GrayBackground from '@/components/gray-background';
-import { useMyEventsQuery } from '@/features/user/api';
+import { useMyEventsQuery } from '@/features/user/api/user.queries';
 
 export default function MyEventList() {
   const { data: myEvents } = useMyEventsQuery();

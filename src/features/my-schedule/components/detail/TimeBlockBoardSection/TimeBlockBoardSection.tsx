@@ -1,7 +1,7 @@
 'use client';
 
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
-import { useMyScheduleQuery } from '@/features/my-schedule/api';
+import { useMyScheduleQuery } from '@/features/my-schedule/api/my-schedule.queries';
 import { defaultMySchedule } from '@/features/my-schedule/constants';
 
 export default function TimeBlockBoardSection() {

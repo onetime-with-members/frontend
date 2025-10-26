@@ -5,7 +5,7 @@ import EverytimeUI from '@/components/everytime-ui';
 import {
   useMyScheduleQuery,
   useSleepTimeQuery,
-} from '@/features/my-schedule/api';
+} from '@/features/my-schedule/api/my-schedule.queries';
 
 export default function MyScheduleContent() {
   const { isPending: isMySchedulePending } = useMyScheduleQuery();
