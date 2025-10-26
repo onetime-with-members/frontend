@@ -42,7 +42,7 @@ export async function editEventAction({
   return res.data.payload;
 }
 
-export async function fetchShortenUrl(originalUrl: string) {
+export async function fetchShortUrl(originalUrl: string) {
   const res = await fetch(`${SERVER_API_URL}/urls/action-shorten`, {
     method: 'POST',
     headers: {
@@ -57,9 +57,9 @@ export async function fetchShortenUrl(originalUrl: string) {
     return '';
   }
   const data = await res.json();
-  const shortenUrl: string = data.payload.shorten_url;
+  const shortUrl: string = data.payload.shorten_url;
 
-  return shortenUrl;
+  return shortUrl;
 }
 
 export async function fetchRecommendedTimes(eventId: string) {

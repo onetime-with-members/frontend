@@ -1,10 +1,10 @@
 import {
   fetchEvent,
-  fetchShortenUrl as fetchEventShortUrl,
   fetchEventWithAuth,
   fetchParticipants,
   fetchQrCode,
   fetchRecommendedTimes,
+  fetchShortUrl,
 } from './events.api';
 import { EventType, ParticipantType } from '@/lib/types';
 import { queryOptions } from '@tanstack/react-query';
@@ -24,7 +24,7 @@ export const eventWithAuthQueryOptions = (eventId: string) =>
 export const eventShortUrlQueryOptions = (url: string) =>
   queryOptions({
     queryKey: ['urls', 'action-shorten'],
-    queryFn: async () => await fetchEventShortUrl(url),
+    queryFn: async () => await fetchShortUrl(url),
   });
 
 export const recommendedTimesQueryOptions = (eventId: string) =>

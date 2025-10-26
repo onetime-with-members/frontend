@@ -18,31 +18,6 @@ export async function fetchSchedules(event: EventType) {
   return schedules;
 }
 
-export async function fetchOriginalUrl(shortUrl: string) {
-  const res = await fetch(`${SERVER_API_URL}/urls/action-original`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      shorten_url: shortUrl,
-    }),
-  });
-  if (!res.ok) {
-    return {
-      originalUrl: null,
-      error: await res.json(),
-    };
-  }
-  const data = await res.json();
-  const { original_url } = data.payload;
-
-  return {
-    originalUrl: original_url,
-    error: null,
-  };
-}
-
 export async function fetchBanner() {
   const res = await fetch(`${SERVER_API_URL}/admin/banners/activated/all`);
   if (!res.ok) {
