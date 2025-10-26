@@ -7,7 +7,7 @@ import {
   CONSENT_MODE_COOKIE_ACCEPTED_VALUE,
   CONSENT_MODE_COOKIE_DENIED_VALUE,
   CONSENT_MODE_COOKIE_KEY,
-} from '../constants';
+} from '@/features/set-up/constants';
 import dayjs from '@/lib/dayjs';
 
 export default function useConsentCookie() {

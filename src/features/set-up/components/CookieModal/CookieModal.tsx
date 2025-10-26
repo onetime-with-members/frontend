@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import useConsentMode from '../hooks/useConsentMode';
+import useConsentMode from '../../hooks/useConsentMode';
 import CookieModalButton from './CookieModalButton';
 
 export default function CookieModal() {

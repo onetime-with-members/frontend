@@ -4,7 +4,7 @@ import './globals.css';
 import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/toast';
-import CookieModal from '@/features/set-up/components/CookieModal';
+import CookieModal from '@/features/set-up/components/CookieModal/CookieModal';
 import Favicon from '@/features/set-up/components/Favicon';
 import Footer from '@/features/set-up/components/Footer';
 import NetworkErrorScreen from '@/features/set-up/components/NetworkErrorScreen';

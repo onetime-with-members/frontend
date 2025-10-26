@@ -1,4 +1,4 @@
-import { DENIED, GRANT, GRANTED, REVOKE } from '../constants';
+import { DENIED, GRANT, GRANTED, REVOKE } from '@/features/set-up/constants';
 
 export default function useUpdateConsent() {
   function updateConsentMode(isAccepted: boolean) {

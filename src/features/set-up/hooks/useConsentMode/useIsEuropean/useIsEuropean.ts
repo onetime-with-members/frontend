@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { IP_API_URL, europeanCountryCodes } from '../constants';
+import { IP_API_URL, europeanCountryCodes } from '@/features/set-up/constants';
 
 export default function useIsEuropean() {
   const [isEuropean, setIsEuropean] = useState(false);
