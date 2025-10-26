@@ -1,6 +1,5 @@
-import { participantsQueryOptions } from '@/lib/api/query-options';
+import { useParticipantsQuery } from '@/features/events/api/events.query';
 import { RecommendScheduleType } from '@/lib/types';
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export default function useIsOnlyOneFiltered({
@@ -10,14 +9,10 @@ export default function useIsOnlyOneFiltered({
 }) {
   const params = useParams<{ id: string }>();
 
-  const { data: participantsData } = useQuery({
-    ...participantsQueryOptions(params.id),
-  });
-
-  const pariticpants = participantsData || [];
+  const { data: participants } = useParticipantsQuery(params.id);
 
   return (
-    pariticpants.length > 1 &&
+    participants.length > 1 &&
     recommendedTime.possible_count === 1 &&
     recommendedTime.impossible_names.length === 0
   );

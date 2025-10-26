@@ -3,10 +3,11 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import ClockPattern from '@/components/clock-pattern';
-import { eventQueryOptions } from '@/features/events/api/events.option';
-import { qrCodeQueryOptions } from '@/lib/api/query-options';
+import {
+  useEventQuery,
+  useQrCodeQuery,
+} from '@/features/events/api/events.query';
 import { IconX } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
@@ -14,8 +15,8 @@ export default function QRCodeScreen({ onClose }: { onClose?: () => void }) {
   const t = useTranslations('sharePopUp');
   const params = useParams<{ id: string }>();
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: qrCode } = useQuery({ ...qrCodeQueryOptions(params.id) });
+  const { data: event } = useEventQuery(params.id);
+  const { data: qrCode } = useQrCodeQuery(params.id);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';

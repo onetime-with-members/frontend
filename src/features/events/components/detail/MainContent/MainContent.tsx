@@ -5,7 +5,7 @@ import DesktopSideContent from './DesktopSideContent';
 import ParticipantFilter from './ParticipantFilter';
 import TimeBlockBoard from '@/components/time-block-board/event';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
-import { useEventQuery } from '@/features/events/api';
+import { useEventQuery } from '@/features/events/api/events.query';
 import useTimeBlockTopContentTopPx from '@/features/events/hooks/useTimeBlockTopContentTopPx';
 import { defaultEvent } from '@/lib/constants';
 import { useParams } from 'next/navigation';

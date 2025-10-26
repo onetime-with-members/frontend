@@ -1,16 +1,15 @@
-import { eventQueryOptions } from '@/features/events/api/events.option';
-import { shortenUrlQueryOptions } from '@/lib/api/query-options';
+import {
+  useEventQuery,
+  useShortUrlQuery,
+} from '@/features/events/api/events.query';
 import { IconDots } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export default function ShareMoreButton() {
   const params = useParams<{ id: string }>();
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: shortenUrl } = useQuery({
-    ...shortenUrlQueryOptions(window.location.href),
-  });
+  const { data: event } = useEventQuery(params.id);
+  const { data: shortenUrl } = useShortUrlQuery(window.location.href);
 
   function handleClick() {
     const shareData = {

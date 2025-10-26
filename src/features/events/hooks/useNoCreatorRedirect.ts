@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 
-import { useEventWithAuthQuery } from '../api';
+import { useEventWithAuthQuery } from '../api/events.query';
 import { EventFormContext } from '../contexts/EventFormContext';
 import { useParams, useRouter } from 'next/navigation';
 

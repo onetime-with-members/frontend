@@ -1,5 +1,12 @@
 import { createEventAction, editEventAction } from './events.api';
-import { eventQueryOptions, eventWithAuthQueryOptions } from './events.option';
+import {
+  eventQueryOptions,
+  eventShortUrlQueryOptions,
+  eventWithAuthQueryOptions,
+  participantsQueryOptions,
+  qrCodeQueryOptions,
+  recommendedTimesQueryOptions,
+} from './events.option';
 import { defaultEvent } from '@/lib/constants';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -22,6 +29,38 @@ export function useEventWithAuthQuery({
   });
 
   return { data };
+}
+
+export function useShortUrlQuery(url: string) {
+  const { data } = useQuery({
+    ...eventShortUrlQueryOptions(url),
+  });
+
+  return { data };
+}
+
+export function useRecommendedTimesQuery(eventId: string) {
+  const { data } = useQuery({
+    ...recommendedTimesQueryOptions(eventId),
+  });
+
+  return { data };
+}
+
+export function useQrCodeQuery(eventId: string) {
+  const { data } = useQuery({
+    ...qrCodeQueryOptions(eventId),
+  });
+
+  return { data };
+}
+
+export function useParticipantsQuery(eventId: string) {
+  const { data } = useQuery({
+    ...participantsQueryOptions(eventId),
+  });
+
+  return { data: data || [] };
 }
 
 export function useCreateEventMutation() {

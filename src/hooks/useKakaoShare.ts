@@ -1,15 +1,12 @@
-import { shortenUrlQueryOptions } from '@/lib/api/query-options';
+import { useShortUrlQuery } from '@/features/events/api/events.query';
 import { EventType } from '@/lib/types';
-import { useQuery } from '@tanstack/react-query';
 
 interface useKakaoShareProps {
   event: EventType | null | undefined;
 }
 
 export default function useKakaoShare({ event }: useKakaoShareProps) {
-  const { data: shortUrl } = useQuery({
-    ...shortenUrlQueryOptions(window.location.href),
-  });
+  const { data: shortUrl } = useShortUrlQuery(window.location.href);
 
   function handleKakaoShare() {
     if (!event) return;

@@ -1,46 +1,6 @@
 import { SERVER_API_URL } from '../constants';
-import {
-  Banner,
-  BarBanner,
-  EventType,
-  ParticipantResponseType,
-  ParticipantType,
-  RecommendScheduleType,
-  ScheduleType,
-} from '../types';
+import { Banner, BarBanner, EventType, ScheduleType } from '../types';
 import apiClient from './axios';
-
-export async function fetchShortenUrl(originalUrl: string) {
-  const res = await fetch(`${SERVER_API_URL}/urls/action-shorten`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      original_url: originalUrl,
-    }),
-  });
-  if (!res.ok) {
-    console.error(await res.json());
-    return '';
-  }
-  const data = await res.json();
-  const shortenUrl: string = data.payload.shorten_url;
-
-  return shortenUrl;
-}
-
-export async function fetchRecommendedTimes(eventId: string) {
-  const res = await fetch(`${SERVER_API_URL}/events/${eventId}/most`);
-  if (!res.ok) {
-    console.error(await res.json());
-    return [];
-  }
-  const data = await res.json();
-  const recommendedTimes: RecommendScheduleType[] = data.payload;
-
-  return recommendedTimes;
-}
 
 export async function fetchSchedules(event: EventType) {
   if (!event.event_id) return [];
@@ -56,28 +16,6 @@ export async function fetchSchedules(event: EventType) {
   const schedules: ScheduleType[] = data.payload;
 
   return schedules;
-}
-
-export async function fetchParticipants(eventId: string) {
-  const res = await fetch(`${SERVER_API_URL}/events/${eventId}/participants`);
-  if (!res.ok) {
-    console.error(await res.json());
-    return [];
-  }
-  const data = await res.json();
-  const guests: ParticipantResponseType[] = data.payload.members;
-  const users: ParticipantResponseType[] = data.payload.users;
-
-  const participants: ParticipantType[] = guests
-    .map((guest) => ({ ...guest, type: 'GUEST' as ParticipantType['type'] }))
-    .concat(
-      users.map((user) => ({
-        ...user,
-        type: 'USER' as ParticipantType['type'],
-      })),
-    );
-
-  return participants;
 }
 
 export async function fetchOriginalUrl(shortUrl: string) {
@@ -127,18 +65,6 @@ export async function fetchBarBanner() {
   const barBanners: BarBanner[] = data.payload.bar_banners;
 
   return barBanners.length !== 0 ? barBanners[0] : null;
-}
-
-export async function fetchQrCode(eventId: string) {
-  const res = await fetch(`${SERVER_API_URL}/events/qr/${eventId}`);
-  if (!res.ok) {
-    console.error(await res.json());
-    return '';
-  }
-  const data = await res.json();
-  const qrCode: string = data.payload.qr_code_img_url;
-
-  return qrCode;
 }
 
 export async function fetchScheduleDetail({

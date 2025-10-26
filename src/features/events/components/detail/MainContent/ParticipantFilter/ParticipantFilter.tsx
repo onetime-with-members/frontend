@@ -5,9 +5,8 @@ import SectionHeading from '../../shared/SectionHeading';
 import ParticipantFilterItem from './ParticipantFilterItem';
 import HumanIcon from '@/components/icon/HumanIcon';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
-import { participantsQueryOptions } from '@/lib/api/query-options';
+import { useParticipantsQuery } from '@/features/events/api/events.query';
 import { ParticipantType } from '@/lib/types';
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export default function ParticipantFilter() {
@@ -18,11 +17,7 @@ export default function ParticipantFilter() {
   const params = useParams<{ id: string }>();
   const t = useTranslations('eventDetail');
 
-  const { data: participantsData } = useQuery({
-    ...participantsQueryOptions(params.id),
-  });
-
-  const participants = participantsData || [];
+  const { data: participants } = useParticipantsQuery(params.id);
 
   function handleFilterItemClick(participant: ParticipantType) {
     changeFilteredParticipants(participant);

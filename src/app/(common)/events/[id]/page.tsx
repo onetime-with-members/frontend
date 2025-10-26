@@ -2,15 +2,17 @@ import { Metadata } from 'next';
 
 import EventParticipantFilterContextProvider from '@/contexts/event-participant-filter';
 import { fetchEvent } from '@/features/events/api/events.api';
-import { eventQueryOptions } from '@/features/events/api/events.option';
-import EventDetailPage from '@/features/events/pages/EventDetailPage';
 import {
-  bannerQueryOptions,
+  eventQueryOptions,
+  eventShortUrlQueryOptions,
   participantsQueryOptions,
   qrCodeQueryOptions,
   recommendedTimesQueryOptions,
+} from '@/features/events/api/events.option';
+import EventDetailPage from '@/features/events/pages/EventDetailPage';
+import {
+  bannerQueryOptions,
   schedulesQueryOptions,
-  shortenUrlQueryOptions,
 } from '@/lib/api/query-options';
 import {
   HydrationBoundary,
@@ -71,7 +73,7 @@ export default async function Page({
 
   await Promise.all([
     queryClient.prefetchQuery({
-      ...shortenUrlQueryOptions(`${protocol}://${host}${pathname}`),
+      ...eventShortUrlQueryOptions(`${protocol}://${host}${pathname}`),
     }),
     queryClient.prefetchQuery({ ...recommendedTimesQueryOptions(eventId) }),
     queryClient.prefetchQuery({

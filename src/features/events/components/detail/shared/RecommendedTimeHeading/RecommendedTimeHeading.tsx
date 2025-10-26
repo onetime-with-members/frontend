@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useLocale } from 'next-intl';
 
-import { useEventQuery } from '@/features/events/api';
+import { useEventQuery } from '@/features/events/api/events.query';
 import { weekdaysShortKo } from '@/lib/constants';
 import { RecommendScheduleType } from '@/lib/types';
 import { useParams } from 'next/navigation';

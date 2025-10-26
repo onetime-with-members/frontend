@@ -9,10 +9,9 @@ import ShareButtonWrapper from './ShareButtonWrapper';
 import ShareKakaoButton from './ShareKakaoButton';
 import ShareMoreButton from './ShareMoreButton';
 import Input from '@/components/Input';
+import { useShortUrlQuery } from '@/features/events/api/events.query';
 import useToast from '@/hooks/useToast';
-import { shortenUrlQueryOptions } from '@/lib/api/query-options';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';
-import { useQuery } from '@tanstack/react-query';
 
 export default function SharePopUp({
   setIsOpen,
@@ -28,9 +27,7 @@ export default function SharePopUp({
   const t = useTranslations('sharePopUp');
   const tToast = useTranslations('toast');
 
-  const { data: shortenUrl } = useQuery({
-    ...shortenUrlQueryOptions(window.location.href),
-  });
+  const { data: shortenUrl } = useShortUrlQuery(window.location.href);
 
   function handleCopyLink() {
     navigator.clipboard.writeText(shortenUrl || '');

@@ -1,7 +1,7 @@
 import BannerList from '../BannerList';
 import EmptyEventBanner from './EmptyEventBanner';
 import RecommendedTimes from './RecommendedTimes';
-import { useEventQuery } from '@/features/events/api';
+import { useEventQuery } from '@/features/events/api/events.query';
 import { schedulesQueryOptions } from '@/lib/api/query-options';
 import { defaultEvent } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';

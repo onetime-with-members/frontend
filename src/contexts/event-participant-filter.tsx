@@ -2,15 +2,15 @@
 
 import { createContext, useState } from 'react';
 
-import { eventQueryOptions } from '@/features/events/api/events.option';
+import {
+  useEventQuery,
+  useRecommendedTimesQuery,
+} from '@/features/events/api/events.query';
 import {
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,
 } from '@/lib/api/actions';
-import {
-  recommendedTimesQueryOptions,
-  schedulesQueryOptions,
-} from '@/lib/api/query-options';
+import { schedulesQueryOptions } from '@/lib/api/query-options';
 import { defaultEvent } from '@/lib/constants';
 import {
   MemberFilterType,
@@ -48,10 +48,8 @@ export default function EventParticipantFilterContextProvider({
 
   const params = useParams<{ id: string }>();
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: recommendedTimesData } = useQuery({
-    ...recommendedTimesQueryOptions(params.id),
-  });
+  const { data: event } = useEventQuery(params.id);
+  const { data: recommendedTimesData } = useRecommendedTimesQuery(params.id);
   const { data: schedulesData } = useQuery({
     ...schedulesQueryOptions(event || defaultEvent),
   });

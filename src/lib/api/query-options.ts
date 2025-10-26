@@ -1,58 +1,12 @@
-import {
-  Banner,
-  EventType,
-  ParticipantType,
-  RecommendScheduleType,
-  ScheduleType,
-} from '../types';
+import { Banner, EventType, ScheduleType } from '../types';
 import { PolicyFormType } from '../validation/form-types';
 import {
   fetchBanner,
-  fetchParticipants,
-  fetchQrCode,
-  fetchRecommendedTimes,
   fetchScheduleDetail,
   fetchSchedules,
-  fetchShortenUrl,
   fetchUserPolicy,
 } from './data';
 import { queryOptions } from '@tanstack/react-query';
-
-export const shortenUrlQueryOptions = (url: string) =>
-  queryOptions({
-    queryKey: ['urls', 'action-shorten'],
-    queryFn: async () => await fetchShortenUrl(url),
-  });
-
-export const recommendedTimesQueryOptions = (eventId: string) =>
-  queryOptions({
-    queryKey: ['events', eventId, 'most'],
-    queryFn: async () => await fetchRecommendedTimes(eventId),
-  });
-
-export const filteredRecommendedTimesQueryOptions = (eventId: string) =>
-  queryOptions<RecommendScheduleType[]>({
-    queryKey: ['events', eventId, 'filtering'],
-    queryFn: () => [],
-  });
-
-export const filteredSchedulesQueryOptions = ({
-  eventId,
-  category,
-}: {
-  eventId: string;
-  category: EventType['category'];
-}) =>
-  queryOptions<ScheduleType[]>({
-    queryKey: ['schedules', category.toLowerCase(), eventId, 'filtering'],
-    queryFn: () => [],
-  });
-
-export const qrCodeQueryOptions = (eventId: string) =>
-  queryOptions({
-    queryKey: ['events', 'qr', eventId],
-    queryFn: async () => await fetchQrCode(eventId),
-  });
 
 export const schedulesQueryOptions = (event: EventType) =>
   queryOptions({
@@ -78,12 +32,6 @@ export const scheduleDetailQueryOptions = ({
     ],
     queryFn: async () =>
       await fetchScheduleDetail({ event, isLoggedIn, guestId }),
-  });
-
-export const participantsQueryOptions = (eventId: string) =>
-  queryOptions<ParticipantType[]>({
-    queryKey: ['events', eventId, 'participants'],
-    queryFn: async () => await fetchParticipants(eventId),
   });
 
 export const userPolicyQueryOptions = queryOptions<PolicyFormType>({
