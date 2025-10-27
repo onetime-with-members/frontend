@@ -4,7 +4,6 @@ import {
   PolicyFormType,
 } from './validation/form-types';
 import { BarBanner } from '@/features/banner/models';
-import { ScheduleType } from '@/features/schedule/models';
 
 export const SERVER_API_URL =
   process.env.SERVER_API_URL ||
@@ -55,11 +54,6 @@ export const defaultBarBanner: BarBanner = {
   is_activated: false,
   created_date: '',
   link_url: '',
-};
-
-export const defaultScheduleDetail: ScheduleType = {
-  name: '',
-  schedules: [],
 };
 
 export const defaultPolicy: PolicyFormType = {

@@ -3,7 +3,6 @@
 import { createContext, useEffect, useState } from 'react';
 
 import { useMyScheduleQuery } from '@/features/my-schedule/api/my-schedule.queries';
-import { defaultMySchedule } from '@/features/my-schedule/constants';
 import { MyScheduleTimeType } from '@/features/my-schedule/models';
 import { useAuth } from '@/lib/auth/auth.client';
 import { usePathname } from 'next/navigation';
@@ -35,12 +34,11 @@ export default function MyScheduleContextProvider({
 
   const { data: myScheduleData } = useMyScheduleQuery({ enabled: isLoggedIn });
 
-  const [mySchedule, setMySchedule] = useState<MyScheduleTimeType[]>(
-    myScheduleData || defaultMySchedule,
-  );
+  const [mySchedule, setMySchedule] =
+    useState<MyScheduleTimeType[]>(myScheduleData);
 
   function resetMySchedule() {
-    setMySchedule(myScheduleData || defaultMySchedule);
+    setMySchedule(myScheduleData);
     setIsMyScheduleEdited(false);
   }
 

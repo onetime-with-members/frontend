@@ -4,6 +4,7 @@ import { useContext, useEffect } from 'react';
 import { useMyScheduleQuery } from '../api/my-schedule.queries';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
 import { MyScheduleContext } from '@/contexts/my-schedule';
+import { TimeType } from '@/features/schedule/models';
 import useToast from '@/hooks/useToast';
 
 export default function useMyScheduleTimeBlock() {
@@ -25,21 +26,25 @@ export default function useMyScheduleTimeBlock() {
 
   useEffect(() => {
     setMySchedule((prevMySchedule) =>
-      prevMySchedule.map((schedule) => ({
-        ...schedule,
-        times: Array.from(
-          new Set([
-            ...schedule.times,
-            ...((!isMyScheduleEdited &&
-              myScheduleData?.find((s) => s.time_point === schedule.time_point)
-                ?.times) ||
-              []),
-            ...(everytimeSchedule.find(
-              (s) => s.time_point === schedule.time_point,
-            )?.times || []),
-          ]),
-        ).sort(),
-      })),
+      prevMySchedule.map(
+        (schedule) =>
+          new TimeType({
+            time_point: schedule.timePoint,
+            times: Array.from(
+              new Set([
+                ...schedule.times,
+                ...((!isMyScheduleEdited &&
+                  myScheduleData?.find(
+                    (s) => s.timePoint === schedule.timePoint,
+                  )?.times) ||
+                  []),
+                ...(everytimeSchedule.find(
+                  (s) => s.timePoint === schedule.timePoint,
+                )?.times || []),
+              ]),
+            ).sort(),
+          }),
+      ),
     );
     if (everytimeSchedule.length > 0) {
       setEverytimeSchedule([]);

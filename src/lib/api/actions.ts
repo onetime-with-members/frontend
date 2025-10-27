@@ -46,8 +46,7 @@ export async function fetchFilteredSchedules({
       members: filter.guests,
     },
   );
-  const schedules: ScheduleType[] = res.data.payload;
-  return schedules;
+  return ScheduleType.fromResponse(res.data.payload);
 }
 
 export async function createUserAction(values: OnboardingValuesType) {

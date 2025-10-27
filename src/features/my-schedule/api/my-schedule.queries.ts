@@ -20,7 +20,7 @@ export function useMyScheduleQuery({ enabled }: { enabled?: boolean } = {}) {
     enabled,
   });
 
-  return { data, isPending };
+  return { data: data || [], isPending };
 }
 
 export function useSleepTimeQuery({ enabled }: { enabled?: boolean } = {}) {

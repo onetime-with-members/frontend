@@ -98,18 +98,18 @@ export default function TimeBlockBoard({
     function editTimeBlock() {
       if (!setSchedules) return;
       setSchedules((prev) => [
-        {
+        new ScheduleType({
           name: prev[0].name,
           schedules: prev[0].schedules.map((schedule) => ({
-            ...schedule,
+            time_point: schedule.timePoint,
             times:
-              schedule.time_point === day
+              schedule.timePoint === day
                 ? newStatus
                   ? Array.from(new Set([...schedule.times, time])).sort()
                   : schedule.times.filter((t) => t !== time)
                 : schedule.times,
           })),
-        },
+        }),
       ]);
     }
 
@@ -136,7 +136,7 @@ export default function TimeBlockBoard({
     schedules.forEach((schedule) => {
       if (
         schedule.schedules
-          .find((s) => s.time_point === timePoint)
+          .find((s) => s.timePoint === timePoint)
           ?.times.includes(time)
       ) {
         members.possible.push(schedule.name);
@@ -173,25 +173,31 @@ export default function TimeBlockBoard({
 
     if (prevIsAvailable && isEmpty) {
       setSchedules(
-        schedules.map((schedule) => ({
-          ...schedule,
-          schedules: schedule.schedules.map((daySchedule) => ({
-            ...daySchedule,
-            times: timeBlockList(event.startTime, event.endTime),
-          })),
-        })),
+        schedules.map(
+          (schedule) =>
+            new ScheduleType({
+              name: schedule.name,
+              schedules: schedule.schedules.map((daySchedule) => ({
+                time_point: daySchedule.timePoint,
+                times: timeBlockList(event.startTime, event.endTime),
+              })),
+            }),
+        ),
       );
     }
 
     if (!prevIsAvailable && isFull) {
       setSchedules(
-        schedules.map((schedule) => ({
-          ...schedule,
-          schedules: schedule.schedules.map((daySchedule) => ({
-            ...daySchedule,
-            times: [],
-          })),
-        })),
+        schedules.map(
+          (schedule) =>
+            new ScheduleType({
+              name: schedule.name,
+              schedules: schedule.schedules.map((daySchedule) => ({
+                time_point: daySchedule.timePoint,
+                times: [],
+              })),
+            }),
+        ),
       );
     }
   }
@@ -200,20 +206,26 @@ export default function TimeBlockBoard({
     if (!editable || !setSchedules) return;
     setSchedules(
       isPossibleTime
-        ? schedules.map((schedule) => ({
-            ...schedule,
-            schedules: schedule.schedules.map((daySchedule) => ({
-              ...daySchedule,
-              times: [],
-            })),
-          }))
-        : schedules.map((schedule) => ({
-            ...schedule,
-            schedules: schedule.schedules.map((daySchedule) => ({
-              ...daySchedule,
-              times: timeBlockList(event.startTime, event.endTime),
-            })),
-          })),
+        ? schedules.map(
+            (schedule) =>
+              new ScheduleType({
+                name: schedule.name,
+                schedules: schedule.schedules.map((daySchedule) => ({
+                  time_point: daySchedule.timePoint,
+                  times: [],
+                })),
+              }),
+          )
+        : schedules.map(
+            (schedule) =>
+              new ScheduleType({
+                name: schedule.name,
+                schedules: schedule.schedules.map((daySchedule) => ({
+                  time_point: daySchedule.timePoint,
+                  times: timeBlockList(event.startTime, event.endTime),
+                })),
+              }),
+          ),
     );
     setIsEdited?.(true);
   }

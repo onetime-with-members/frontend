@@ -4,6 +4,7 @@ import { useContext } from 'react';
 
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import { MyScheduleTimeType } from '@/features/my-schedule/models';
+import { TimeType } from '@/features/schedule/models';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
@@ -39,17 +40,20 @@ export default function BlockContent({
   ) {
     const newMySchedule = [...mySchedule];
     const weekdayIndex = newMySchedule.findIndex(
-      (mySchedule) => mySchedule.time_point === weekday,
+      (mySchedule) => mySchedule.timePoint === weekday,
     );
 
     if (weekdayIndex === -1) {
-      newMySchedule.push({ time_point: weekday, times });
+      newMySchedule.push(new TimeType({ time_point: weekday, times }));
     } else {
-      newMySchedule[weekdayIndex].times = isFilling
-        ? Array.from(new Set(newMySchedule[weekdayIndex].times.concat(times)))
-        : newMySchedule[weekdayIndex].times.filter(
-            (time) => !times.includes(time),
-          );
+      newMySchedule[weekdayIndex] = new TimeType({
+        time_point: newMySchedule[weekdayIndex].timePoint,
+        times: isFilling
+          ? Array.from(new Set(newMySchedule[weekdayIndex].times.concat(times)))
+          : newMySchedule[weekdayIndex].times.filter(
+              (time) => !times.includes(time),
+            ),
+      });
     }
 
     setMySchedule?.(newMySchedule);
@@ -62,7 +66,7 @@ export default function BlockContent({
 
   function isFilled(weekday: string, time: string): boolean {
     return (
-      mySchedule.find((s) => s.time_point === weekday)?.times.includes(time) ||
+      mySchedule.find((s) => s.timePoint === weekday)?.times.includes(time) ||
       false
     );
   }

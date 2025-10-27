@@ -17,7 +17,7 @@ import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
 import useClientWidth from '@/hooks/useClientWidth';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import { breakpoint, defaultScheduleDetail } from '@/lib/constants';
+import { breakpoint } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
@@ -43,11 +43,10 @@ export default function RecommendedTimesBottomSheet() {
   const { data: schedules } = useQuery({
     ...schedulesQueryOptions(event),
   });
-  const { data: scheduleDetailData } = useScheduleDetailQuery({
+  const { data: scheduleDetail } = useScheduleDetailQuery({
     event,
     isLoggedIn,
   });
-  const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
 
   const hasUserSchedule = isLoggedIn
     ? scheduleDetail.schedules.length !== 0 &&

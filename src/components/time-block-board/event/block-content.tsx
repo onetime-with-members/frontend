@@ -56,7 +56,7 @@ export default function BlockContent({
     let result: string[] = [];
     schedules.forEach((schedule) => {
       schedule.schedules.forEach((daySchedule) => {
-        if (daySchedule.time_point === timePoint) {
+        if (daySchedule.timePoint === timePoint) {
           result = [...result, ...daySchedule.times];
         }
       });

@@ -9,7 +9,6 @@ import { useEventQuery } from '@/features/event/api/events.query';
 import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import { defaultScheduleDetail } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
@@ -26,11 +25,10 @@ export default function BottomButtonsForDesktop() {
   const { isLoggedIn } = useAuth();
 
   const { data: event } = useEventQuery(params.id);
-  const { data: scheduleDetailData } = useScheduleDetailQuery({
+  const { data: scheduleDetail } = useScheduleDetailQuery({
     event,
     isLoggedIn,
   });
-  const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
 
   const hasUserSchedule = isLoggedIn
     ? scheduleDetail.schedules.length !== 0 &&

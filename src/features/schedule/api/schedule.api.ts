@@ -14,9 +14,8 @@ export async function fetchSchedules(event: EventType) {
     return [];
   }
   const data = await res.json();
-  const schedules: ScheduleType[] = data.payload;
 
-  return schedules;
+  return ScheduleType.fromResponse(data.payload);
 }
 
 export async function fetchScheduleDetail({
