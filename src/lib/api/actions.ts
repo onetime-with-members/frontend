@@ -1,15 +1,15 @@
 import { AxiosError } from 'axios';
 import { getCookie } from 'cookies-next';
 
+import { PolicyFormType } from '../validation/form-types';
+import apiClient from './axios';
 import {
   EventType,
   MemberFilterType,
-  OnboardingType,
   RecommendScheduleType,
-  ScheduleType,
-} from '../types';
-import { PolicyFormType } from '../validation/form-types';
-import apiClient from './axios';
+} from '@/features/event/models';
+import { ScheduleType } from '@/features/schedule/models';
+import { OnboardingType } from '@/features/user/models';
 import { Session } from '@/models';
 
 export async function fetchFilteredRecommendedTimes({

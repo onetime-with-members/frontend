@@ -1,8 +1,9 @@
+import { EventType } from '@/features/event/models';
+import { ScheduleType, TimeType } from '@/features/schedule/models';
 import useDragScroll from '@/hooks/useDragScroll';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
-import { EventType, ScheduleType, TimeType } from '@/lib/types';
 import { eventTarget, timeBlockList } from '@/lib/utils';
 
 export default function BlockContent({

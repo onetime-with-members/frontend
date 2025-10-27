@@ -1,11 +1,11 @@
-import apiClient from '@/lib/api/axios';
-import { SERVER_API_URL } from '@/lib/constants';
 import {
   EventType,
   ParticipantResponseType,
   ParticipantType,
   RecommendScheduleType,
-} from '@/lib/types';
+} from '../models';
+import apiClient from '@/lib/api/axios';
+import { SERVER_API_URL } from '@/lib/constants';
 import { EventFormType } from '@/lib/validation/form-types';
 
 export async function fetchEvent(eventId: string) {

@@ -4,8 +4,8 @@ import FormContent from './FormContent';
 import TopNavBar from './TopNavBar';
 import GrayBackground from '@/components/gray-background';
 import EventFormContextProvider from '@/features/event/contexts/EventFormContext';
+import { EventType } from '@/features/event/models';
 import { EventFormStatus } from '@/features/event/models/EventFormStatus';
-import { EventType } from '@/lib/types';
 
 export default function EventFormScreen({
   formStatus,

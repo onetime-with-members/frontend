@@ -1,6 +1,8 @@
 import { SERVER_API_URL } from '../constants';
-import { Banner, BarBanner, EventType, ScheduleType } from '../types';
 import apiClient from './axios';
+import { Banner, BarBanner } from '@/features/banner/models';
+import { EventType } from '@/features/event/models';
+import { ScheduleType } from '@/features/schedule/models';
 
 export async function fetchSchedules(event: EventType) {
   if (!event.event_id) return [];

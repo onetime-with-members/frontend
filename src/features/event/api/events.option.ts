@@ -1,3 +1,4 @@
+import { EventType, ParticipantType } from '../models';
 import {
   fetchEvent,
   fetchEventWithAuth,
@@ -6,7 +7,6 @@ import {
   fetchRecommendedTimes,
   fetchShortUrl,
 } from './events.api';
-import { EventType, ParticipantType } from '@/lib/types';
 import { queryOptions } from '@tanstack/react-query';
 
 export const eventQueryOptions = (eventId: string) =>

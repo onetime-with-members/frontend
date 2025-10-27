@@ -2,15 +2,15 @@ import { useContext, useEffect, useState } from 'react';
 
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
-import { eventQueryOptions } from '@/features/event/api/events.option';
+import { useEventQuery } from '@/features/event/api/events.query';
 import {
   MyScheduleTimeType,
   SleepTimeType,
 } from '@/features/my-schedule/models';
+import { ScheduleType } from '@/features/schedule/models';
 import { scheduleDetailQueryOptions } from '@/lib/api/query-options';
 import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { ScheduleType } from '@/lib/types';
 import { timeBlockList } from '@/lib/utils';
 import { useQuery } from '@tanstack/react-query';
 
@@ -34,9 +34,7 @@ export default function useScheduleAdd({
   const { mySchedule } = useContext(MyScheduleContext);
   const { sleepTime, sleepTimesList } = useContext(SleepTimeContext);
 
-  const { data: event } = useQuery({
-    ...eventQueryOptions(eventId),
-  });
+  const { data: event } = useEventQuery(eventId);
   const { data: schedule } = useQuery({
     ...scheduleDetailQueryOptions({
       event: event || defaultEvent,

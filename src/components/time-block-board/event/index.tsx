@@ -14,10 +14,14 @@ import {
   ReloadButton,
   ResetButton,
 } from './ui-actions';
+import { EventType } from '@/features/event/models';
+import {
+  ScheduleType,
+  TimeBlockPopUpDataType,
+} from '@/features/schedule/models';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 import useTargetSticky from '@/hooks/useTargetSticky';
 import cn from '@/lib/cn';
-import { EventType, ScheduleType, TimeBlockPopUpDataType } from '@/lib/types';
 import { timeBlockList } from '@/lib/utils';
 
 export default function TimeBlockBoard({

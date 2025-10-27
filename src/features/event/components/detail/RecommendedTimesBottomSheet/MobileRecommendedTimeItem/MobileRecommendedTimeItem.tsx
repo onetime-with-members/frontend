@@ -4,9 +4,9 @@ import ParticipantsDivider from '@/features/event/components/detail/shared/Parti
 import ParticipantsSection from '@/features/event/components/detail/shared/ParticipantsSection';
 import PaticipantStatus from '@/features/event/components/detail/shared/PaticipantStatus';
 import RecommendedTimeHeading from '@/features/event/components/detail/shared/RecommendedTimeHeading';
+import { RecommendScheduleType } from '@/features/event/models';
 import useIsOnlyOneFiltered from '@/hooks/useIsOnlyOneFiltered';
 import cn from '@/lib/cn';
-import { RecommendScheduleType } from '@/lib/types';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 export default function MobileRecommendedTimeItem({

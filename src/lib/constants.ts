@@ -3,8 +3,9 @@ import {
   OnboardingFormType,
   PolicyFormType,
 } from './validation/form-types';
-import { BarBanner, EventType, ScheduleType } from '@/lib/types';
-import { RecommendScheduleType as RecommendTimeType } from '@/lib/types';
+import { BarBanner } from '@/features/banner/models';
+import { EventType, RecommendScheduleType } from '@/features/event/models';
+import { ScheduleType } from '@/features/schedule/models';
 
 export const SERVER_API_URL =
   process.env.SERVER_API_URL ||
@@ -56,7 +57,7 @@ export const defaultEventValue: EventFormType = {
   ranges: [],
 };
 
-export const defaultRecommendTime: RecommendTimeType = {
+export const defaultRecommendTime: RecommendScheduleType = {
   time_point: '',
   start_time: '',
   end_time: '',

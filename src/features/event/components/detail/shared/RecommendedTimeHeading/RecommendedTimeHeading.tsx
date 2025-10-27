@@ -2,8 +2,8 @@ import dayjs from 'dayjs';
 import { useLocale } from 'next-intl';
 
 import { useEventQuery } from '@/features/event/api/events.query';
+import { RecommendScheduleType } from '@/features/event/models';
 import { weekdaysShortKo } from '@/lib/constants';
-import { RecommendScheduleType } from '@/lib/types';
 import { useParams } from 'next/navigation';
 
 export default function RecommendedTimeHeading({

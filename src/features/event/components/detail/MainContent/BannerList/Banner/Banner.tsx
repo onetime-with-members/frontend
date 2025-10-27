@@ -1,8 +1,8 @@
 'use client';
 
 import BannerImageAndBlur from './BannerImageAndBlur';
+import { Banner as BannerType } from '@/features/banner/models/Banner';
 import { bannerClickAction } from '@/lib/api/actions';
-import { Banner as BannerType } from '@/lib/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function Banner({ banner }: { banner: BannerType }) {

@@ -3,9 +3,9 @@
 import { setCookie } from 'cookies-next';
 import { createContext, useState } from 'react';
 
+import { BarBanner } from '@/features/banner/models';
 import { defaultBarBanner } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { BarBanner } from '@/lib/types';
 
 export const BarBannerContext = createContext<{
   isBarBannerShown: boolean;

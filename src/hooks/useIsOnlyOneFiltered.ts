@@ -1,5 +1,5 @@
 import { useParticipantsQuery } from '@/features/event/api/events.query';
-import { RecommendScheduleType } from '@/lib/types';
+import { RecommendScheduleType } from '@/features/event/models';
 import { useParams } from 'next/navigation';
 
 export default function useIsOnlyOneFiltered({

@@ -3,7 +3,7 @@ import { useLocale, useTranslations } from 'next-intl';
 
 import SpeechBalloon from '../../shared/SpeechBalloon';
 import Button from '@/components/button';
-import { ScheduleType } from '@/lib/types';
+import { ScheduleType } from '@/features/schedule/models';
 import { IconEdit, IconPlus } from '@tabler/icons-react';
 import Image from 'next/image';
 

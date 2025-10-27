@@ -1,7 +1,7 @@
 import { InternalAxiosRequestConfig } from 'axios';
 
 import apiClient from './axios';
-import { ExtendedAxiosError } from '@/lib/types';
+import { ExtendedAxiosError } from '@/models';
 import { retryApiQueue } from '@/services/RetryApiQueue';
 import { sessionService } from '@/services/SessionService';
 

@@ -1,4 +1,3 @@
-import { Banner, EventType, ScheduleType } from '../types';
 import { PolicyFormType } from '../validation/form-types';
 import {
   fetchBanner,
@@ -6,6 +5,9 @@ import {
   fetchSchedules,
   fetchUserPolicy,
 } from './data';
+import { Banner } from '@/features/banner/models';
+import { EventType } from '@/features/event/models';
+import { ScheduleType } from '@/features/schedule/models';
 import { queryOptions } from '@tanstack/react-query';
 
 export const schedulesQueryOptions = (event: EventType) =>

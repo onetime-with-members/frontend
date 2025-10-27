@@ -5,7 +5,7 @@ import {
   removeSessionWhenWithdrawal,
 } from './axios-error';
 import { SERVER_API_URL } from '@/lib/constants';
-import { ExtendedAxiosError } from '@/lib/types';
+import { ExtendedAxiosError } from '@/models';
 import { sessionService } from '@/services/SessionService';
 
 const apiClient = axios.create({

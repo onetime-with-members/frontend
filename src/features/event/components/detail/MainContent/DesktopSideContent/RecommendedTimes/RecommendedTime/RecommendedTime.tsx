@@ -2,7 +2,7 @@ import ParticipantsDivider from '../../../../shared/ParticipantsDivider';
 import ParticipantsSection from '../../../../shared/ParticipantsSection';
 import PaticipantStatus from '../../../../shared/PaticipantStatus';
 import RecommendedTimeHeading from '../../../../shared/RecommendedTimeHeading';
-import { RecommendScheduleType } from '@/lib/types';
+import { RecommendScheduleType } from '@/features/event/models';
 
 export default function RecommendedTime({
   recommendedTime,

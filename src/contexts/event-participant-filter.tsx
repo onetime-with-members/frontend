@@ -7,17 +7,17 @@ import {
   useRecommendedTimesQuery,
 } from '@/features/event/api/events.query';
 import {
+  MemberFilterType,
+  ParticipantType,
+  RecommendScheduleType,
+} from '@/features/event/models';
+import { ScheduleType } from '@/features/schedule/models';
+import {
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,
 } from '@/lib/api/actions';
 import { schedulesQueryOptions } from '@/lib/api/query-options';
 import { defaultEvent } from '@/lib/constants';
-import {
-  MemberFilterType,
-  ParticipantType,
-  RecommendScheduleType,
-  ScheduleType,
-} from '@/lib/types';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
