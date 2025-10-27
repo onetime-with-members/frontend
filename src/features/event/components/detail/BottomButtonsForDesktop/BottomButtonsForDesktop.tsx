@@ -6,7 +6,7 @@ import SharePopUp from '../shared/SharePopUp';
 import BadgeFloatingBottomButton from './BadgeFloatingBottomButton';
 import { FooterContext } from '@/contexts/footer';
 import { eventQueryOptions } from '@/features/event/api/events.option';
-import { scheduleDetailQueryOptions } from '@/lib/api/query-options';
+import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import { defaultEvent, defaultScheduleDetail } from '@/lib/constants';
@@ -27,8 +27,9 @@ export default function BottomButtonsForDesktop() {
   const { isLoggedIn } = useAuth();
 
   const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: scheduleDetailData } = useQuery({
-    ...scheduleDetailQueryOptions({ event: event || defaultEvent, isLoggedIn }),
+  const { data: scheduleDetailData } = useScheduleDetailQuery({
+    event: event || defaultEvent,
+    isLoggedIn,
   });
   const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
 

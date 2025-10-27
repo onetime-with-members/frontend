@@ -7,12 +7,11 @@ import {
   MyScheduleTimeType,
   SleepTimeType,
 } from '@/features/my-schedule/models';
+import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
 import { ScheduleType } from '@/features/schedule/models';
-import { scheduleDetailQueryOptions } from '@/lib/api/query-options';
 import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { timeBlockList } from '@/lib/utils';
-import { useQuery } from '@tanstack/react-query';
 
 export default function useScheduleAdd({
   isLoggedIn,
@@ -35,14 +34,11 @@ export default function useScheduleAdd({
   const { sleepTime, sleepTimesList } = useContext(SleepTimeContext);
 
   const { data: event } = useEventQuery(eventId);
-  const { data: schedule } = useQuery({
-    ...scheduleDetailQueryOptions({
-      event: event || defaultEvent,
-      isLoggedIn,
-      guestId,
-    }),
+  const { data: schedule } = useScheduleDetailQuery({
+    event: event || defaultEvent,
+    isLoggedIn,
+    guestId,
   });
-
   const [isEmpty, setIsEmpty] = useState({
     schedule: isScheduleEmpty(schedule),
     fixedSchedule: isFixedScheduleEmpty(mySchedule),

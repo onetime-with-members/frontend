@@ -11,14 +11,14 @@ import {
   ParticipantType,
   RecommendScheduleType,
 } from '@/features/event/models';
+import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import { ScheduleType } from '@/features/schedule/models';
 import {
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,
 } from '@/lib/api/actions';
-import { schedulesQueryOptions } from '@/lib/api/query-options';
 import { defaultEvent } from '@/lib/constants';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export const EventParticipantFilterContext = createContext<{
@@ -50,9 +50,7 @@ export default function EventParticipantFilterContextProvider({
 
   const { data: event } = useEventQuery(params.id);
   const { data: recommendedTimesData } = useRecommendedTimesQuery(params.id);
-  const { data: schedulesData } = useQuery({
-    ...schedulesQueryOptions(event || defaultEvent),
-  });
+  const { data: schedulesData } = useSchedulesQuery(event || defaultEvent);
 
   const { mutate: changeFilteredData } = useMutation({
     mutationFn: async (filter: MemberFilterType) => {

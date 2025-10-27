@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { bannerQueryOptions } from '@/lib/api/query-options';
+import { bannerQueryOptions } from '@/features/banner/api/banner.options';
 import { useQuery } from '@tanstack/react-query';
 
 export default function useBannerList() {

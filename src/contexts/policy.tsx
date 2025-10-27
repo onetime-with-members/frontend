@@ -2,11 +2,10 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { userPolicyQueryOptions } from '@/lib/api/query-options';
+import { useUserPolicyQuery } from '@/features/user/api/user.queries';
 import { useAuth } from '@/lib/auth/auth.client';
 import { defaultPolicy } from '@/lib/constants';
 import { PolicyFormType } from '@/lib/validation/form-types';
-import { useQuery } from '@tanstack/react-query';
 
 export const PolicyContext = createContext<{
   policyValue: PolicyFormType;
@@ -29,8 +28,7 @@ export default function PolicyContextProvider({
 
   const { isLoggedIn } = useAuth();
 
-  const { data: policyData, isPending: isPolicyPending } = useQuery({
-    ...userPolicyQueryOptions,
+  const { data: policyData, isPending: isPolicyPending } = useUserPolicyQuery({
     enabled: isLoggedIn,
   });
 

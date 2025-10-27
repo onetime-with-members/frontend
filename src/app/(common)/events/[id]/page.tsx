@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 
 import EventParticipantFilterContextProvider from '@/contexts/event-participant-filter';
+import { bannerQueryOptions } from '@/features/banner/api/banner.options';
 import { fetchEvent } from '@/features/event/api/events.api';
 import {
   eventQueryOptions,
@@ -10,10 +11,7 @@ import {
   recommendedTimesQueryOptions,
 } from '@/features/event/api/events.option';
 import EventDetailPage from '@/features/event/pages/EventDetailPage';
-import {
-  bannerQueryOptions,
-  schedulesQueryOptions,
-} from '@/lib/api/query-options';
+import { schedulesQueryOptions } from '@/features/schedule/api/schedule.options';
 import {
   HydrationBoundary,
   QueryClient,

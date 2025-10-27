@@ -12,11 +12,11 @@ import { eventQueryOptions } from '@/features/event/api/events.option';
 import LoginAlert from '@/features/event/components/detail/shared/LoginAlert';
 import SectionHeading from '@/features/event/components/detail/shared/SectionHeading';
 import SharePopUp from '@/features/event/components/detail/shared/SharePopUp';
-import useClientWidth from '@/hooks/useClientWidth';
 import {
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
-} from '@/lib/api/query-options';
+} from '@/features/schedule/api/schedule.options';
+import useClientWidth from '@/hooks/useClientWidth';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
 import {

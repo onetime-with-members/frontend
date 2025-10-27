@@ -3,12 +3,13 @@
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
-import { useUserQuery } from '@/features/user/api/user.queries';
-import { userPolicyQueryOptions } from '@/lib/api/query-options';
+import {
+  useUserPolicyQuery,
+  useUserQuery,
+} from '@/features/user/api/user.queries';
 import { useAuth } from '@/lib/auth/auth.client';
 import dayjs from '@/lib/dayjs';
 import { useProgressRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation';
 
 export default function SetUpProvider({
@@ -22,10 +23,7 @@ export default function SetUpProvider({
 
   const { isLoggedIn } = useAuth();
 
-  const { data: policy } = useQuery({
-    ...userPolicyQueryOptions,
-    enabled: isLoggedIn,
-  });
+  const { data: policy } = useUserPolicyQuery({ enabled: isLoggedIn });
 
   const { data: user } = useUserQuery({ enabled: isLoggedIn });
 

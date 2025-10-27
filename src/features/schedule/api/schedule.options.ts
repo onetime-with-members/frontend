@@ -1,13 +1,6 @@
-import { PolicyFormType } from '../validation/form-types';
-import {
-  fetchBanner,
-  fetchScheduleDetail,
-  fetchSchedules,
-  fetchUserPolicy,
-} from './data';
-import { Banner } from '@/features/banner/models';
+import { ScheduleType } from '../models';
+import { fetchScheduleDetail, fetchSchedules } from './schedule.api';
 import { EventType } from '@/features/event/models';
-import { ScheduleType } from '@/features/schedule/models';
 import { queryOptions } from '@tanstack/react-query';
 
 export const schedulesQueryOptions = (event: EventType) =>
@@ -35,13 +28,3 @@ export const scheduleDetailQueryOptions = ({
     queryFn: async () =>
       await fetchScheduleDetail({ event, isLoggedIn, guestId }),
   });
-
-export const userPolicyQueryOptions = queryOptions<PolicyFormType>({
-  queryKey: ['users', 'policy'],
-  queryFn: fetchUserPolicy,
-});
-
-export const bannerQueryOptions = queryOptions<Banner[]>({
-  queryKey: ['banner'],
-  queryFn: fetchBanner,
-});

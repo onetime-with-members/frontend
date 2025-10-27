@@ -1,5 +1,9 @@
 import { editUserNameAction } from './user.api';
-import { myEventsQueryOptions, userQueryOptions } from './user.options';
+import {
+  myEventsQueryOptions,
+  userPolicyQueryOptions,
+  userQueryOptions,
+} from './user.options';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useUserQuery({ enabled }: { enabled?: boolean } = {}) {
@@ -10,6 +14,12 @@ export function useUserQuery({ enabled }: { enabled?: boolean } = {}) {
 
 export function useMyEventsQuery() {
   const { data, isPending } = useQuery({ ...myEventsQueryOptions });
+
+  return { data, isPending };
+}
+
+export function useUserPolicyQuery({ enabled }: { enabled: boolean }) {
+  const { data, isPending } = useQuery({ ...userPolicyQueryOptions, enabled });
 
   return { data, isPending };
 }

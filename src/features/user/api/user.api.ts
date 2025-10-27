@@ -16,3 +16,17 @@ export async function editUserNameAction(name: string) {
   });
   return res.data.payload;
 }
+
+export async function fetchUserPolicy() {
+  const res = await apiClient.get('/users/policy');
+  const {
+    service_policy_agreement,
+    privacy_policy_agreement,
+    marketing_policy_agreement,
+  } = res.data.payload;
+  return {
+    servicePolicy: service_policy_agreement,
+    privacyPolicy: privacy_policy_agreement,
+    marketingPolicy: marketing_policy_agreement,
+  };
+}
