@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
-import { eventQueryOptions } from '@/features/events/api/events.option';
+import { eventQueryOptions } from '@/features/event/api/events.option';
 import {
   MyScheduleTimeType,
   SleepTimeType,

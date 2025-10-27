@@ -5,7 +5,7 @@ import { createContext, useState } from 'react';
 import {
   useEventQuery,
   useRecommendedTimesQuery,
-} from '@/features/events/api/events.query';
+} from '@/features/event/api/events.query';
 import {
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,

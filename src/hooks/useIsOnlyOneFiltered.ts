@@ -1,4 +1,4 @@
-import { useParticipantsQuery } from '@/features/events/api/events.query';
+import { useParticipantsQuery } from '@/features/event/api/events.query';
 import { RecommendScheduleType } from '@/lib/types';
 import { useParams } from 'next/navigation';
 
