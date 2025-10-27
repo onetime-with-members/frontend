@@ -6,7 +6,7 @@ import apiClient from './axios';
 import {
   EventType,
   MemberFilterType,
-  RecommendScheduleType,
+  RecommendedScheduleType,
 } from '@/features/event/models';
 import { ScheduleType } from '@/features/schedule/models';
 import { OnboardingType } from '@/features/user/models';
@@ -23,7 +23,9 @@ export async function fetchFilteredRecommendedTimes({
     users: filter.users,
     members: filter.guests,
   });
-  const recommendedTimes: RecommendScheduleType[] = res.data.payload;
+  const recommendedTimes = RecommendedScheduleType.fromResponse(
+    res.data.payload,
+  );
   return recommendedTimes;
 }
 
@@ -148,7 +150,7 @@ export async function createNewMemberScheduleAction({
   schedule: ScheduleType['schedules'];
 }) {
   const res = await apiClient.post('/members/action-register', {
-    event_id: event.event_id,
+    event_id: event.eventId,
     name,
     pin,
     schedules: schedule,
@@ -168,7 +170,7 @@ export async function updateScheduleAction({
   const res = await apiClient.post(
     `/schedules/${event.category.toLowerCase()}`,
     {
-      event_id: event.event_id,
+      event_id: event.eventId,
       member_id: guestId,
       schedules: schedule,
     },

@@ -14,7 +14,7 @@ import {
   ReloadButton,
   ResetButton,
 } from './ui-actions';
-import { EventType } from '@/features/event/models';
+import { EventType } from '@/features/event/models/EventType';
 import {
   ScheduleType,
   TimeBlockPopUpDataType,
@@ -177,7 +177,7 @@ export default function TimeBlockBoard({
           ...schedule,
           schedules: schedule.schedules.map((daySchedule) => ({
             ...daySchedule,
-            times: timeBlockList(event.start_time, event.end_time),
+            times: timeBlockList(event.startTime, event.endTime),
           })),
         })),
       );
@@ -211,7 +211,7 @@ export default function TimeBlockBoard({
             ...schedule,
             schedules: schedule.schedules.map((daySchedule) => ({
               ...daySchedule,
-              times: timeBlockList(event.start_time, event.end_time),
+              times: timeBlockList(event.startTime, event.endTime),
             })),
           })),
     );
@@ -234,12 +234,12 @@ export default function TimeBlockBoard({
     setIsFull(
       schedules[0].schedules.every(
         (s) =>
-          timeBlockList(event.start_time, event.end_time).filter(
+          timeBlockList(event.startTime, event.endTime).filter(
             (time) => !s.times.includes(time),
           ).length === 0,
       ),
     );
-  }, [schedules, editable, event.start_time, event.end_time]);
+  }, [schedules, editable, event.startTime, event.endTime]);
 
   return (
     <motion.div
@@ -291,7 +291,7 @@ export default function TimeBlockBoard({
       <div
         className={cn('relative flex overflow-hidden', bottomContentClassName)}
       >
-        <TimeIndicator startTime={event.start_time} endTime={event.end_time} />
+        <TimeIndicator startTime={event.startTime} endTime={event.endTime} />
         <BlockContent
           boardContentRef={boardContentRef}
           event={event}

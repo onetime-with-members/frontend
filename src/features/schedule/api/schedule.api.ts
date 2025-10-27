@@ -4,10 +4,10 @@ import apiClient from '@/lib/api/axios';
 import { SERVER_API_URL } from '@/lib/constants';
 
 export async function fetchSchedules(event: EventType) {
-  if (!event.event_id) return [];
+  if (!event.eventId) return [];
 
   const res = await fetch(
-    `${SERVER_API_URL}/schedules/${event.category.toLowerCase()}/${event.event_id}`,
+    `${SERVER_API_URL}/schedules/${event.category.toLowerCase()}/${event.eventId}`,
   );
   if (!res.ok) {
     console.error(await res.json());
@@ -29,7 +29,7 @@ export async function fetchScheduleDetail({
   guestId: string | undefined;
 }) {
   const res = await apiClient.get(
-    `/schedules/${event.category.toLowerCase()}/${event.event_id}/${isLoggedIn ? 'user' : guestId}`,
+    `/schedules/${event.category.toLowerCase()}/${event.eventId}/${isLoggedIn ? 'user' : guestId}`,
   );
   return res.data.payload;
 }

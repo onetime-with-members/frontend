@@ -1,10 +1,8 @@
 import { useLocale, useTranslations } from 'next-intl';
 
 import SpeechBalloon from '../../../shared/SpeechBalloon';
-import { eventQueryOptions } from '@/features/event/api/events.option';
+import { useEventQuery } from '@/features/event/api/events.query';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
-import { defaultEvent } from '@/lib/constants';
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
@@ -13,8 +11,8 @@ export default function SendButton({ onClick }: { onClick: () => void }) {
   const t = useTranslations('eventDetail');
   const locale = useLocale();
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: schedules } = useSchedulesQuery(event || defaultEvent);
+  const { data: event } = useEventQuery(params.id);
+  const { data: schedules } = useSchedulesQuery(event);
 
   return (
     <SpeechBalloon.Container>

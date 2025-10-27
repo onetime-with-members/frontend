@@ -4,7 +4,6 @@ import {
   PolicyFormType,
 } from './validation/form-types';
 import { BarBanner } from '@/features/banner/models';
-import { EventType, RecommendScheduleType } from '@/features/event/models';
 import { ScheduleType } from '@/features/schedule/models';
 
 export const SERVER_API_URL =
@@ -39,31 +38,12 @@ export const breakpoint = {
   md: 768,
 };
 
-export const defaultEvent: EventType = {
-  event_id: '',
-  title: '',
-  start_time: '',
-  end_time: '',
-  category: 'DATE',
-  ranges: [],
-  event_status: 'PARTICIPANT',
-};
-
 export const defaultEventValue: EventFormType = {
   title: '',
   start_time: '09:00',
   end_time: '24:00',
   category: 'DATE',
   ranges: [],
-};
-
-export const defaultRecommendTime: RecommendScheduleType = {
-  time_point: '',
-  start_time: '',
-  end_time: '',
-  possible_count: 0,
-  possible_names: [],
-  impossible_names: [],
 };
 
 export const defaultBarBanner: BarBanner = {

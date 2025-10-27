@@ -5,16 +5,15 @@ import { ScheduleFormContext } from '../../../contexts/ScheduleFormContext';
 import BottomSubmitButton from './BottomSubmitButton';
 import TopSubmitButton from './TopSubmitButton';
 import TimeBlockBoard from '@/components/time-block-board/event';
-import { eventQueryOptions } from '@/features/event/api/events.option';
+import { useEventQuery } from '@/features/event/api/events.query';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
 import useToast from '@/hooks/useToast';
 import {
   createNewMemberScheduleAction,
   updateScheduleAction,
 } from '@/lib/api/actions';
-import { defaultEvent } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export default function ScheduleFormSubScreen({}) {
@@ -43,9 +42,7 @@ export default function ScheduleFormSubScreen({}) {
     eventId: params.id,
   });
 
-  const { data: event } = useQuery({
-    ...eventQueryOptions(params.id),
-  });
+  const { data: event } = useEventQuery(params.id);
 
   const { mutateAsync: createNewMemberSchedule, isPending: isCreatePending } =
     useMutation({
@@ -74,14 +71,14 @@ export default function ScheduleFormSubScreen({}) {
   async function handleScheduleSubmit() {
     if (guestValue.isNewGuest) {
       await createNewMemberSchedule({
-        event: event || defaultEvent,
+        event,
         name: guestValue.name,
         pin: guestValue.pin,
         schedule: scheduleValue[0].schedules,
       });
     } else {
       await updateSchedule({
-        event: event || defaultEvent,
+        event,
         guestId: guestValue.guestId,
         schedule: scheduleValue[0].schedules,
       });
@@ -100,7 +97,7 @@ export default function ScheduleFormSubScreen({}) {
         <TimeBlockBoard
           schedules={scheduleValue}
           setSchedules={setScheduleValue}
-          event={event || defaultEvent}
+          event={event}
           isPossibleTime={isPossibleTime}
           setIsPossibleTime={setIsPossibleTime}
           editable

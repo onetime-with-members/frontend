@@ -8,22 +8,16 @@ import MobileRecommendedTimeItem from './MobileRecommendedTimeItem';
 import ClockIcon from '@/components/icon/ClockIcon';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
 import { FooterContext } from '@/contexts/footer';
-import { eventQueryOptions } from '@/features/event/api/events.option';
+import { useEventQuery } from '@/features/event/api/events.query';
 import LoginAlert from '@/features/event/components/detail/shared/LoginAlert';
 import SectionHeading from '@/features/event/components/detail/shared/SectionHeading';
 import SharePopUp from '@/features/event/components/detail/shared/SharePopUp';
-import {
-  scheduleDetailQueryOptions,
-  schedulesQueryOptions,
-} from '@/features/schedule/api/schedule.options';
+import { schedulesQueryOptions } from '@/features/schedule/api/schedule.options';
+import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
 import useClientWidth from '@/hooks/useClientWidth';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import {
-  breakpoint,
-  defaultEvent,
-  defaultScheduleDetail,
-} from '@/lib/constants';
+import { breakpoint, defaultScheduleDetail } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
@@ -45,12 +39,13 @@ export default function RecommendedTimesBottomSheet() {
   const { isLoggedIn } = useAuth();
   const clientWidth = useClientWidth();
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: event } = useEventQuery(params.id);
   const { data: schedules } = useQuery({
-    ...schedulesQueryOptions(event || defaultEvent),
+    ...schedulesQueryOptions(event),
   });
-  const { data: scheduleDetailData } = useQuery({
-    ...scheduleDetailQueryOptions({ event: event || defaultEvent, isLoggedIn }),
+  const { data: scheduleDetailData } = useScheduleDetailQuery({
+    event,
+    isLoggedIn,
   });
   const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
 

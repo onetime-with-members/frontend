@@ -1,4 +1,4 @@
-export interface RecommendScheduleType {
+export interface RemoteRecommendedScheduleType {
   time_point: string;
   start_time: string;
   end_time: string;

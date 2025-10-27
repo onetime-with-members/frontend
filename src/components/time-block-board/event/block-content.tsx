@@ -91,8 +91,8 @@ export default function BlockContent({
         <TimeBlockLine
           key={timePoint}
           timePoint={timePoint}
-          startTime={event.start_time}
-          endTime={event.end_time}
+          startTime={event.startTime}
+          endTime={event.endTime}
           schedules={schedules}
           onTimeBlockClick={handleTimeBlockClick}
           onDialogOpen={handleDialogOpen}
