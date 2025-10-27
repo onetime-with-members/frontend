@@ -1,7 +1,7 @@
 import { FieldErrors } from 'react-hook-form';
 
 import dayjs from './dayjs';
-import { SleepTimeType } from '@/features/my-schedule/models';
+import { SleepTime } from '@/features/my-schedule/models';
 import { ScheduleType } from '@/features/schedule/models';
 
 export function eventTarget(event: React.UIEvent): HTMLElement | null {
@@ -102,19 +102,19 @@ export function policyPageTitle(name: string, locale: string) {
 
 export function getTimesGroupForSplitted(
   type: 'timeBlock' | 'timeLabel',
-  sleepTime: SleepTimeType,
+  sleepTime: SleepTime,
   sleepTimesList: string[],
 ) {
-  return sleepTime.sleep_start_time >= sleepTime.sleep_end_time
+  return sleepTime.startTime >= sleepTime.endTime
     ? [
         timeBlockList('00:00', '24:00', type === 'timeBlock' ? '30m' : '1h')
           .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
           .concat(
             type === 'timeLabel'
               ? [
-                  sleepTime.sleep_start_time === sleepTime.sleep_end_time
+                  sleepTime.startTime === sleepTime.endTime
                     ? '24:00'
-                    : sleepTime.sleep_start_time,
+                    : sleepTime.startTime,
                 ]
               : [],
           ),
@@ -122,13 +122,13 @@ export function getTimesGroupForSplitted(
     : [
         timeBlockList(
           '00:00',
-          sleepTime.sleep_start_time,
+          sleepTime.startTime,
           type === 'timeBlock' ? '30m' : '1h',
         )
           .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
-          .concat(type === 'timeLabel' ? [sleepTime.sleep_start_time] : []),
+          .concat(type === 'timeLabel' ? [sleepTime.startTime] : []),
         timeBlockList(
-          sleepTime.sleep_end_time,
+          sleepTime.endTime,
           '24:00',
           type === 'timeBlock' ? '30m' : '1h',
         )

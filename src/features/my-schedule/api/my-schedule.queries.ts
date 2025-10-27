@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 
+import { SleepTime } from '../models';
 import {
   editMyScheduleAction,
   editSleepTimeAction,
@@ -28,7 +29,7 @@ export function useSleepTimeQuery({ enabled }: { enabled?: boolean } = {}) {
     enabled,
   });
 
-  return { data, isPending };
+  return { data: data || new SleepTime(), isPending };
 }
 
 export function useEditMyScheduleMutation() {

@@ -1,3 +1,3 @@
 export * from './MyScheduleTimeType';
-export * from './SleepTimeType';
+export * from './SleepTime';
 export * from './EverytimeSchedule';

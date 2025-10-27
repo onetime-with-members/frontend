@@ -3,21 +3,20 @@
 import { createContext, useEffect, useState } from 'react';
 
 import { useSleepTimeQuery } from '@/features/my-schedule/api/my-schedule.queries';
-import { defaultSleepTime } from '@/features/my-schedule/constants';
-import { SleepTimeType } from '@/features/my-schedule/models/SleepTimeType';
+import { SleepTime } from '@/features/my-schedule/models';
 import { useAuth } from '@/lib/auth/auth.client';
 import dayjs from '@/lib/dayjs';
 import { getTimesGroupForSplitted, timeBlockList } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 
 export const SleepTimeContext = createContext<{
-  sleepTime: SleepTimeType;
-  setSleepTime: React.Dispatch<React.SetStateAction<SleepTimeType>>;
+  sleepTime: SleepTime;
+  setSleepTime: React.Dispatch<React.SetStateAction<SleepTime>>;
   sleepTimesList: string[];
   timesGroupForSplittedTimeBlock: string[][];
   timesGroupForSplittedTimeLabel: string[][];
 }>({
-  sleepTime: defaultSleepTime,
+  sleepTime: new SleepTime(),
   setSleepTime: () => {},
   sleepTimesList: [],
   timesGroupForSplittedTimeBlock: [],
@@ -29,7 +28,7 @@ export default function SleepTimeContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [sleepTime, setSleepTime] = useState<SleepTimeType>(defaultSleepTime);
+  const [sleepTime, setSleepTime] = useState<SleepTime>(new SleepTime());
   const [sleepTimesList, setSleepTimesList] = useState<string[]>([]);
   const [timesGroupForSplittedTimeBlock, setTimesGroupForSplittedTimeBlock] =
     useState<string[][]>(
@@ -47,7 +46,7 @@ export default function SleepTimeContextProvider({
   const { data: sleepTimeData } = useSleepTimeQuery({ enabled: isLoggedIn });
 
   function resetSleepTime() {
-    setSleepTime(sleepTimeData || defaultSleepTime);
+    setSleepTime(sleepTimeData);
   }
 
   useEffect(() => {
@@ -57,17 +56,17 @@ export default function SleepTimeContextProvider({
 
   useEffect(() => {
     setSleepTimesList(
-      dayjs(sleepTime.sleep_start_time, 'HH:mm').isSame(
-        dayjs(sleepTime.sleep_end_time, 'HH:mm'),
+      dayjs(sleepTime.startTime, 'HH:mm').isSame(
+        dayjs(sleepTime.endTime, 'HH:mm'),
       )
         ? []
-        : dayjs(sleepTime.sleep_start_time, 'HH:mm').isBefore(
-              dayjs(sleepTime.sleep_end_time, 'HH:mm'),
+        : dayjs(sleepTime.startTime, 'HH:mm').isBefore(
+              dayjs(sleepTime.endTime, 'HH:mm'),
             )
-          ? timeBlockList(sleepTime.sleep_start_time, sleepTime.sleep_end_time)
+          ? timeBlockList(sleepTime.startTime, sleepTime.endTime)
           : [
-              ...timeBlockList(sleepTime.sleep_start_time, '24:00'),
-              ...timeBlockList('00:00', sleepTime.sleep_end_time),
+              ...timeBlockList(sleepTime.startTime, '24:00'),
+              ...timeBlockList('00:00', sleepTime.endTime),
             ],
     );
   }, [sleepTime, setSleepTimesList]);

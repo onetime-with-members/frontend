@@ -1,5 +1,5 @@
 import { defaultMySchedule } from '../constants';
-import { SleepTimeType } from '../models';
+import { SleepTime } from '../models';
 import { MyScheduleTimeType } from '../models/MyScheduleTimeType';
 import apiClient from '@/lib/api/axios';
 import {
@@ -34,7 +34,7 @@ export async function editMyScheduleAction(mySchedule: MyScheduleTimeType[]) {
   return res.data.payload;
 }
 
-export async function editSleepTimeAction(sleepTime: SleepTimeType) {
+export async function editSleepTimeAction(sleepTime: SleepTime) {
   const res = await apiClient.put('/users/sleep-time', sleepTime);
   return res.data.payload;
 }

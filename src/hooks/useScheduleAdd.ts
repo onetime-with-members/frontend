@@ -3,10 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import { useEventQuery } from '@/features/event/api/events.query';
-import {
-  MyScheduleTimeType,
-  SleepTimeType,
-} from '@/features/my-schedule/models';
+import { MyScheduleTimeType, SleepTime } from '@/features/my-schedule/models';
 import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
 import { ScheduleType } from '@/features/schedule/models';
 import { weekdaysShortKo } from '@/lib/constants';
@@ -160,8 +157,8 @@ function isFixedScheduleEmpty(
     : true;
 }
 
-function isSleepTimeEmpty(sleepTimeData: SleepTimeType | undefined) {
+function isSleepTimeEmpty(sleepTimeData: SleepTime | undefined) {
   return sleepTimeData
-    ? sleepTimeData.sleep_end_time === sleepTimeData.sleep_start_time
+    ? sleepTimeData.endTime === sleepTimeData.startTime
     : true;
 }
