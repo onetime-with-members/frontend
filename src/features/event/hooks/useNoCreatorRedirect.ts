@@ -17,7 +17,7 @@ export default function useNoCreatorRedirect() {
 
   useEffect(() => {
     if (!event) return;
-    if (event.status !== 'CREATOR') {
+    if (event.event_status !== 'CREATOR') {
       router.push(`/events/${params.id}`);
     }
   }, [event]);

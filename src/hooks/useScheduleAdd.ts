@@ -3,10 +3,13 @@ import { useContext, useEffect, useState } from 'react';
 import { MyScheduleContext } from '@/contexts/my-schedule';
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import { useEventQuery } from '@/features/event/api/events.query';
-import { MyScheduleTimeType, SleepTime } from '@/features/my-schedule/models';
+import {
+  MyScheduleTimeType,
+  SleepTimeType,
+} from '@/features/my-schedule/models';
 import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
-import { ScheduleType, TimeType } from '@/features/schedule/models';
-import { weekdaysShortKo } from '@/lib/constants';
+import { ScheduleType } from '@/features/schedule/models';
+import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { timeBlockList } from '@/lib/utils';
 
@@ -21,10 +24,10 @@ export default function useScheduleAdd({
 }) {
   const [initialSchedule, setInitialSchedule] = useState<ScheduleType[]>([]);
   const [scheduleValue, setScheduleValue] = useState<ScheduleType[]>([
-    new ScheduleType({
+    {
       name: '본인',
       schedules: [],
-    }),
+    },
   ]);
 
   const { mySchedule } = useContext(MyScheduleContext);
@@ -32,7 +35,7 @@ export default function useScheduleAdd({
 
   const { data: event } = useEventQuery(eventId);
   const { data: schedule } = useScheduleDetailQuery({
-    event,
+    event: event || defaultEvent,
     isLoggedIn,
     guestId,
   });
@@ -51,34 +54,27 @@ export default function useScheduleAdd({
   }, [schedule, mySchedule, sleepTime]);
 
   useEffect(() => {
-    const defaultSchedule = event.ranges.map(
-      (time_point) =>
-        new TimeType({
-          time_point,
-          times: [],
-        }),
-    );
+    const defaultSchedule =
+      event?.ranges.map((time_point) => ({
+        time_point,
+        times: [],
+      })) || [];
 
-    const newSchedules = isEmpty.schedule
-      ? isEmpty.fixedSchedule && isEmpty.sleepTime
-        ? defaultSchedule
-        : fixedAndSleepTimeSchedule()
-      : defaultSchedule.map(
-          (scheduleTime) =>
-            new TimeType({
-              time_point: scheduleTime.timePoint,
+    const initialSchedule = [
+      {
+        name: schedule?.name || '',
+        schedules: isEmpty.schedule
+          ? isEmpty.fixedSchedule && isEmpty.sleepTime
+            ? defaultSchedule
+            : fixedAndSleepTimeSchedule()
+          : defaultSchedule.map((scheduleTime) => ({
+              ...scheduleTime,
               times:
                 schedule?.schedules.find(
-                  (s) => s.timePoint === scheduleTime.timePoint,
+                  (s) => s.time_point === scheduleTime.time_point,
                 )?.times || [],
-            }),
-        );
-
-    const initialSchedule: ScheduleType[] = [
-      new ScheduleType({
-        name: schedule.name,
-        schedules: newSchedules.map((schedule) => schedule.toRemoteType()),
-      }),
+            })),
+      },
     ];
 
     setInitialSchedule(initialSchedule);
@@ -86,18 +82,15 @@ export default function useScheduleAdd({
 
     function fixedAndSleepTimeSchedule() {
       return (
-        event?.ranges.map(
-          (time_point) =>
-            new TimeType({
-              time_point,
-              times: newTimes(
-                event.startTime,
-                event.endTime,
-                fixedScheduleTimes(time_point, event.category),
-                sleepTimesList,
-              ),
-            }),
-        ) || defaultSchedule
+        event?.ranges.map((time_point) => ({
+          time_point,
+          times: newTimes(
+            event.start_time,
+            event.end_time,
+            fixedScheduleTimes(time_point, event.category),
+            sleepTimesList,
+          ),
+        })) || defaultSchedule
       );
 
       function newTimes(
@@ -126,7 +119,7 @@ export default function useScheduleAdd({
           mySchedule?.find(
             (fixedSchedule) =>
               weekdayIndex(timePoint, category) ===
-              weekdayIndex(fixedSchedule.timePoint, 'DAY'),
+              weekdayIndex(fixedSchedule.time_point, 'DAY'),
           )?.times || []
         );
 
@@ -167,8 +160,8 @@ function isFixedScheduleEmpty(
     : true;
 }
 
-function isSleepTimeEmpty(sleepTimeData: SleepTime | undefined) {
+function isSleepTimeEmpty(sleepTimeData: SleepTimeType | undefined) {
   return sleepTimeData
-    ? sleepTimeData.endTime === sleepTimeData.startTime
+    ? sleepTimeData.sleep_end_time === sleepTimeData.sleep_start_time
     : true;
 }

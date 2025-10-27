@@ -1,4 +1,3 @@
-import { ScheduleType } from '../models';
 import {
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
@@ -25,5 +24,5 @@ export function useScheduleDetailQuery({
     ...scheduleDetailQueryOptions({ event, isLoggedIn, guestId }),
   });
 
-  return { data: data || new ScheduleType() };
+  return { data };
 }

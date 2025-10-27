@@ -1,7 +1,6 @@
 import { defaultMySchedule } from '../constants';
-import { SleepTime } from '../models';
+import { SleepTimeType } from '../models';
 import { MyScheduleTimeType } from '../models/MyScheduleTimeType';
-import { TimeType } from '@/features/schedule/models';
 import apiClient from '@/lib/api/axios';
 import {
   CRAWLING_SERVER_API_KEY,
@@ -13,15 +12,12 @@ export async function fetchMySchedule() {
   const myScheduleData: MyScheduleTimeType[] = res.data.payload.schedules;
   const mySchedule =
     myScheduleData.length !== 7
-      ? defaultMySchedule.map(
-          (s1) =>
-            new TimeType({
-              time_point: s1.timePoint,
-              times:
-                myScheduleData.find((s2) => s1.timePoint === s2.timePoint)
-                  ?.times || [],
-            }),
-        )
+      ? defaultMySchedule.map((s1) => ({
+          time_point: s1.time_point,
+          times:
+            myScheduleData.find((s2) => s1.time_point === s2.time_point)
+              ?.times || [],
+        }))
       : myScheduleData;
   return mySchedule;
 }
@@ -38,7 +34,7 @@ export async function editMyScheduleAction(mySchedule: MyScheduleTimeType[]) {
   return res.data.payload;
 }
 
-export async function editSleepTimeAction(sleepTime: SleepTime) {
+export async function editSleepTimeAction(sleepTime: SleepTimeType) {
   const res = await apiClient.put('/users/sleep-time', sleepTime);
   return res.data.payload;
 }

@@ -1,11 +1,11 @@
 import { useParticipantsQuery } from '@/features/event/api/events.query';
-import { RecommendedScheduleType } from '@/features/event/models';
+import { RecommendScheduleType } from '@/features/event/models';
 import { useParams } from 'next/navigation';
 
 export default function useIsOnlyOneFiltered({
   recommendedTime,
 }: {
-  recommendedTime: RecommendedScheduleType;
+  recommendedTime: RecommendScheduleType;
 }) {
   const params = useParams<{ id: string }>();
 
@@ -13,7 +13,7 @@ export default function useIsOnlyOneFiltered({
 
   return (
     participants.length > 1 &&
-    recommendedTime.possibleCount === 1 &&
-    recommendedTime.impossibleCount === 0
+    recommendedTime.possible_count === 1 &&
+    recommendedTime.impossible_names.length === 0
   );
 }

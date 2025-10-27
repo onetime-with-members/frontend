@@ -4,7 +4,7 @@ import ParticipantsDivider from '@/features/event/components/detail/shared/Parti
 import ParticipantsSection from '@/features/event/components/detail/shared/ParticipantsSection';
 import PaticipantStatus from '@/features/event/components/detail/shared/PaticipantStatus';
 import RecommendedTimeHeading from '@/features/event/components/detail/shared/RecommendedTimeHeading';
-import { RecommendedScheduleType } from '@/features/event/models';
+import { RecommendScheduleType } from '@/features/event/models';
 import useIsOnlyOneFiltered from '@/hooks/useIsOnlyOneFiltered';
 import cn from '@/lib/cn';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
@@ -12,7 +12,7 @@ import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 export default function MobileRecommendedTimeItem({
   recommendedTime,
 }: {
-  recommendedTime: RecommendedScheduleType;
+  recommendedTime: RecommendScheduleType;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -39,9 +39,10 @@ export default function MobileRecommendedTimeItem({
         <div className="flex items-center gap-2">
           <PaticipantStatus
             participantCount={{
-              possible: recommendedTime.possibleCount,
+              possible: recommendedTime.possible_count,
               total:
-                recommendedTime.possibleCount + recommendedTime.impossibleCount,
+                recommendedTime.possible_names.length +
+                recommendedTime.impossible_names.length,
             }}
           />
           {!isOnlyOneFiltered && (
@@ -58,11 +59,11 @@ export default function MobileRecommendedTimeItem({
           <div className="flex flex-col gap-5">
             <ParticipantsSection
               type="available"
-              participants={recommendedTime.possibleNames}
+              participants={recommendedTime.possible_names}
             />
             <ParticipantsSection
               type="unavailable"
-              participants={recommendedTime.impossibleNames}
+              participants={recommendedTime.impossible_names}
             />
           </div>
         </>

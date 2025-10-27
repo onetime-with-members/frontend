@@ -14,7 +14,7 @@ import {
   ReloadButton,
   ResetButton,
 } from './ui-actions';
-import { EventType } from '@/features/event/models/EventType';
+import { EventType } from '@/features/event/models';
 import {
   ScheduleType,
   TimeBlockPopUpDataType,
@@ -98,18 +98,18 @@ export default function TimeBlockBoard({
     function editTimeBlock() {
       if (!setSchedules) return;
       setSchedules((prev) => [
-        new ScheduleType({
+        {
           name: prev[0].name,
           schedules: prev[0].schedules.map((schedule) => ({
-            time_point: schedule.timePoint,
+            ...schedule,
             times:
-              schedule.timePoint === day
+              schedule.time_point === day
                 ? newStatus
                   ? Array.from(new Set([...schedule.times, time])).sort()
                   : schedule.times.filter((t) => t !== time)
                 : schedule.times,
           })),
-        }),
+        },
       ]);
     }
 
@@ -136,7 +136,7 @@ export default function TimeBlockBoard({
     schedules.forEach((schedule) => {
       if (
         schedule.schedules
-          .find((s) => s.timePoint === timePoint)
+          .find((s) => s.time_point === timePoint)
           ?.times.includes(time)
       ) {
         members.possible.push(schedule.name);
@@ -173,31 +173,25 @@ export default function TimeBlockBoard({
 
     if (prevIsAvailable && isEmpty) {
       setSchedules(
-        schedules.map(
-          (schedule) =>
-            new ScheduleType({
-              name: schedule.name,
-              schedules: schedule.schedules.map((daySchedule) => ({
-                time_point: daySchedule.timePoint,
-                times: timeBlockList(event.startTime, event.endTime),
-              })),
-            }),
-        ),
+        schedules.map((schedule) => ({
+          ...schedule,
+          schedules: schedule.schedules.map((daySchedule) => ({
+            ...daySchedule,
+            times: timeBlockList(event.start_time, event.end_time),
+          })),
+        })),
       );
     }
 
     if (!prevIsAvailable && isFull) {
       setSchedules(
-        schedules.map(
-          (schedule) =>
-            new ScheduleType({
-              name: schedule.name,
-              schedules: schedule.schedules.map((daySchedule) => ({
-                time_point: daySchedule.timePoint,
-                times: [],
-              })),
-            }),
-        ),
+        schedules.map((schedule) => ({
+          ...schedule,
+          schedules: schedule.schedules.map((daySchedule) => ({
+            ...daySchedule,
+            times: [],
+          })),
+        })),
       );
     }
   }
@@ -206,26 +200,20 @@ export default function TimeBlockBoard({
     if (!editable || !setSchedules) return;
     setSchedules(
       isPossibleTime
-        ? schedules.map(
-            (schedule) =>
-              new ScheduleType({
-                name: schedule.name,
-                schedules: schedule.schedules.map((daySchedule) => ({
-                  time_point: daySchedule.timePoint,
-                  times: [],
-                })),
-              }),
-          )
-        : schedules.map(
-            (schedule) =>
-              new ScheduleType({
-                name: schedule.name,
-                schedules: schedule.schedules.map((daySchedule) => ({
-                  time_point: daySchedule.timePoint,
-                  times: timeBlockList(event.startTime, event.endTime),
-                })),
-              }),
-          ),
+        ? schedules.map((schedule) => ({
+            ...schedule,
+            schedules: schedule.schedules.map((daySchedule) => ({
+              ...daySchedule,
+              times: [],
+            })),
+          }))
+        : schedules.map((schedule) => ({
+            ...schedule,
+            schedules: schedule.schedules.map((daySchedule) => ({
+              ...daySchedule,
+              times: timeBlockList(event.start_time, event.end_time),
+            })),
+          })),
     );
     setIsEdited?.(true);
   }
@@ -246,12 +234,12 @@ export default function TimeBlockBoard({
     setIsFull(
       schedules[0].schedules.every(
         (s) =>
-          timeBlockList(event.startTime, event.endTime).filter(
+          timeBlockList(event.start_time, event.end_time).filter(
             (time) => !s.times.includes(time),
           ).length === 0,
       ),
     );
-  }, [schedules, editable, event.startTime, event.endTime]);
+  }, [schedules, editable, event.start_time, event.end_time]);
 
   return (
     <motion.div
@@ -303,7 +291,7 @@ export default function TimeBlockBoard({
       <div
         className={cn('relative flex overflow-hidden', bottomContentClassName)}
       >
-        <TimeIndicator startTime={event.startTime} endTime={event.endTime} />
+        <TimeIndicator startTime={event.start_time} endTime={event.end_time} />
         <BlockContent
           boardContentRef={boardContentRef}
           event={event}

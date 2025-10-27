@@ -9,7 +9,7 @@ import {
 import {
   MemberFilterType,
   ParticipantType,
-  RecommendedScheduleType,
+  RecommendScheduleType,
 } from '@/features/event/models';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import { ScheduleType } from '@/features/schedule/models';
@@ -17,13 +17,14 @@ import {
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,
 } from '@/lib/api/actions';
+import { defaultEvent } from '@/lib/constants';
 import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export const EventParticipantFilterContext = createContext<{
   filteredParticipants: ParticipantType[];
   changeFilteredParticipants: (participant: ParticipantType) => void;
-  recommendedTimes: RecommendedScheduleType[];
+  recommendedTimes: RecommendScheduleType[];
   schedules: ScheduleType[];
 }>({
   filteredParticipants: [],
@@ -41,7 +42,7 @@ export default function EventParticipantFilterContextProvider({
     ParticipantType[]
   >([]);
   const [recommendedTimes, setRecommendedTimes] = useState<
-    RecommendedScheduleType[] | null
+    RecommendScheduleType[] | null
   >(null);
   const [schedules, setSchedules] = useState<ScheduleType[] | null>(null);
 
@@ -49,7 +50,7 @@ export default function EventParticipantFilterContextProvider({
 
   const { data: event } = useEventQuery(params.id);
   const { data: recommendedTimesData } = useRecommendedTimesQuery(params.id);
-  const { data: schedulesData } = useSchedulesQuery(event);
+  const { data: schedulesData } = useSchedulesQuery(event || defaultEvent);
 
   const { mutate: changeFilteredData } = useMutation({
     mutationFn: async (filter: MemberFilterType) => {
@@ -75,10 +76,17 @@ export default function EventParticipantFilterContextProvider({
 
   function changeFilteredParticipants(participant: ParticipantType) {
     setFilteredParticipants((prev) => {
-      const newFilteredParticipants = ParticipantType.filter(prev, participant);
-      changeFilteredData(
-        MemberFilterType.fromParticipants(newFilteredParticipants),
-      );
+      const newFilteredParticipants = prev.includes(participant)
+        ? prev.filter((p) => p !== participant)
+        : [...prev, participant];
+      changeFilteredData({
+        users: newFilteredParticipants
+          .filter((p) => p.type === 'USER')
+          .map((p) => p.id),
+        guests: newFilteredParticipants
+          .filter((p) => p.type === 'GUEST')
+          .map((p) => p.id),
+      });
       return newFilteredParticipants;
     });
   }

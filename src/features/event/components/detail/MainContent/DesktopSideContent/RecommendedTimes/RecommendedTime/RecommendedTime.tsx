@@ -2,12 +2,12 @@ import ParticipantsDivider from '../../../../shared/ParticipantsDivider';
 import ParticipantsSection from '../../../../shared/ParticipantsSection';
 import PaticipantStatus from '../../../../shared/PaticipantStatus';
 import RecommendedTimeHeading from '../../../../shared/RecommendedTimeHeading';
-import { RecommendedScheduleType } from '@/features/event/models';
+import { RecommendScheduleType } from '@/features/event/models';
 
 export default function RecommendedTime({
   recommendedTime,
 }: {
-  recommendedTime: RecommendedScheduleType;
+  recommendedTime: RecommendScheduleType;
 }) {
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5">
@@ -15,9 +15,10 @@ export default function RecommendedTime({
         <RecommendedTimeHeading recommendedTime={recommendedTime} />
         <PaticipantStatus
           participantCount={{
-            possible: recommendedTime.possibleCount,
+            possible: recommendedTime.possible_count,
             total:
-              recommendedTime.possibleCount + recommendedTime.impossibleCount,
+              recommendedTime.possible_names.length +
+              recommendedTime.impossible_names.length,
           }}
         />
       </header>
@@ -25,11 +26,11 @@ export default function RecommendedTime({
       <div className="flex flex-col gap-5">
         <ParticipantsSection
           type="available"
-          participants={recommendedTime.possibleNames}
+          participants={recommendedTime.possible_names}
         />
         <ParticipantsSection
           type="unavailable"
-          participants={recommendedTime.impossibleNames}
+          participants={recommendedTime.impossible_names}
         />
       </div>
     </div>

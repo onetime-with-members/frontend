@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import AvatarDropdown from './dropdown/avatar-dropdown';
-import { UserType } from '@/features/user/models';
+import { defaultUser } from '@/features/user/constants';
 import useHomeUrl from '@/hooks/useHomeUrl';
 import useScroll from '@/hooks/useScroll';
 import { useAuth } from '@/lib/auth/auth.client';
@@ -91,7 +91,7 @@ export default function NavBar({
                 <AvatarDropdown name={user.nickname} disabled={disabled} />
               ) : isLoggedIn ? (
                 <AvatarDropdown
-                  name={new UserType().nickname}
+                  name={defaultUser.nickname}
                   disabled={disabled}
                 />
               ) : (

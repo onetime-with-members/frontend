@@ -1,4 +1,3 @@
-import { EventType } from '../models';
 import { createEventAction, editEventAction } from './events.api';
 import {
   eventQueryOptions,
@@ -8,12 +7,13 @@ import {
   qrCodeQueryOptions,
   recommendedTimesQueryOptions,
 } from './events.option';
+import { defaultEvent } from '@/lib/constants';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useEventQuery(id: string) {
   const { data } = useQuery({ ...eventQueryOptions(id) });
 
-  return { data: data || new EventType() };
+  return { data: data || defaultEvent };
 }
 
 export function useEventWithAuthQuery({

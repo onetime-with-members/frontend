@@ -13,7 +13,7 @@ export default function SleepTimeContent() {
           <SleepIcon />
         </span>
         <span className="text-lg-200">
-          {sleepTime?.startTime} - {sleepTime?.endTime}
+          {sleepTime?.sleep_start_time} - {sleepTime?.sleep_end_time}
         </span>
       </div>
       <ProgressLink

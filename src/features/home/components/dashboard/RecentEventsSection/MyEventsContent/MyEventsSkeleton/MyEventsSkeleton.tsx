@@ -1,5 +1,5 @@
 import MyEvent from '@/components/event/my-event';
-import { MyEventType } from '@/features/user/models';
+import { defaultMyEvent } from '@/features/user/constants';
 import cn from '@/lib/cn';
 
 export default function MyEventsSkeleton() {
@@ -8,7 +8,7 @@ export default function MyEventsSkeleton() {
       {Array.from({ length: 2 }).map((_, index) => (
         <MyEvent
           key={index}
-          event={new MyEventType()}
+          event={defaultMyEvent}
           className={cn('border-none', { 'hidden md:block': index === 1 })}
           isPending={true}
         />

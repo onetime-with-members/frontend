@@ -20,7 +20,7 @@ export default function ToolbarButtons() {
   });
 
   return (
-    event?.status === 'CREATOR' && (
+    event?.event_status === 'CREATOR' && (
       <>
         <div className="flex items-center gap-2 text-2xl text-gray-00">
           <ToolbarButton

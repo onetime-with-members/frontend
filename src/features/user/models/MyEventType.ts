@@ -1,4 +1,4 @@
-export interface RemoteMyEventType {
+export interface MyEventType {
   title: string;
   participant_count: number;
   created_date: string;

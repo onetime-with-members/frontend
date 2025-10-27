@@ -12,7 +12,7 @@ export default function SleepTimeSection() {
         <SleepIcon />
       </span>
       <span className="text-md-300">
-        {sleepTime?.startTime} - {sleepTime?.endTime}
+        {sleepTime?.sleep_start_time} - {sleepTime?.sleep_end_time}
       </span>
     </section>
   );

@@ -79,8 +79,8 @@ export default function SetUpProvider({
     }
 
     async function setUpLastLogin() {
-      if (user && getCookie('last-login') !== user.socialPlatform) {
-        await setCookie('last-login', user.socialPlatform, {
+      if (user && getCookie('last-login') !== user.social_platform) {
+        await setCookie('last-login', user.social_platform, {
           expires: dayjs().add(1, 'year').toDate(),
         });
       }

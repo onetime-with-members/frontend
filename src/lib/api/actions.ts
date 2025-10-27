@@ -6,11 +6,10 @@ import apiClient from './axios';
 import {
   EventType,
   MemberFilterType,
-  RecommendedScheduleType,
+  RecommendScheduleType,
 } from '@/features/event/models';
 import { ScheduleType } from '@/features/schedule/models';
-import { OnboardingValuesType } from '@/features/user/models';
-import { OnboardingRequest } from '@/features/user/models/OnboardingRequest';
+import { OnboardingType } from '@/features/user/models';
 import { Session } from '@/models';
 
 export async function fetchFilteredRecommendedTimes({
@@ -24,9 +23,7 @@ export async function fetchFilteredRecommendedTimes({
     users: filter.users,
     members: filter.guests,
   });
-  const recommendedTimes = RecommendedScheduleType.fromResponse(
-    res.data.payload,
-  );
+  const recommendedTimes: RecommendScheduleType[] = res.data.payload;
   return recommendedTimes;
 }
 
@@ -46,14 +43,21 @@ export async function fetchFilteredSchedules({
       members: filter.guests,
     },
   );
-  return ScheduleType.fromResponse(res.data.payload);
+  const schedules: ScheduleType[] = res.data.payload;
+  return schedules;
 }
 
-export async function createUserAction(values: OnboardingValuesType) {
-  const res = await apiClient.post(
-    '/users/onboarding',
-    new OnboardingRequest(values).toObject(),
-  );
+export async function createUserAction(value: OnboardingType) {
+  const res = await apiClient.post('/users/onboarding', {
+    register_token: value.registerToken,
+    nickname: value.nickname,
+    service_policy_agreement: value.servicePolicy,
+    privacy_policy_agreement: value.privacyPolicy,
+    marketing_policy_agreement: value.marketingPolicy,
+    sleep_start_time: value.startSleepTime,
+    sleep_end_time: value.endSleepTime,
+    language: value.language,
+  });
   return res.data.payload;
 }
 
@@ -144,7 +148,7 @@ export async function createNewMemberScheduleAction({
   schedule: ScheduleType['schedules'];
 }) {
   const res = await apiClient.post('/members/action-register', {
-    event_id: event.eventId,
+    event_id: event.event_id,
     name,
     pin,
     schedules: schedule,
@@ -164,7 +168,7 @@ export async function updateScheduleAction({
   const res = await apiClient.post(
     `/schedules/${event.category.toLowerCase()}`,
     {
-      event_id: event.eventId,
+      event_id: event.event_id,
       member_id: guestId,
       schedules: schedule,
     },

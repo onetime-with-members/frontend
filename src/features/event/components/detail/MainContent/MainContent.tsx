@@ -7,6 +7,7 @@ import TimeBlockBoard from '@/components/time-block-board/event';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
 import { useEventQuery } from '@/features/event/api/events.query';
 import useTimeBlockTopContentTopPx from '@/features/event/hooks/useTimeBlockTopContentTopPx';
+import { defaultEvent } from '@/lib/constants';
 import { useParams } from 'next/navigation';
 
 export default function MainContent() {
@@ -24,7 +25,7 @@ export default function MainContent() {
         <BannerList className="md:hidden" />
         <ParticipantFilter />
         <TimeBlockBoard
-          event={event}
+          event={event || defaultEvent}
           schedules={schedules || []}
           backgroundColor="gray"
           topContentStyle={{

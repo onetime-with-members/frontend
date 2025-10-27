@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import TimeDropdown from '@/components/dropdown/time-dropdown';
 import SleepIcon from '@/components/icon/SleepTimeIcon';
-import { SleepTime } from '@/features/my-schedule/models';
+import { SleepTimeType } from '@/features/my-schedule/models';
 import cn from '@/lib/cn';
 import { IconChevronDown } from '@tabler/icons-react';
 
@@ -12,8 +12,8 @@ export default function SleepTimeAccordion({
   isAccordionOpen,
   setIsAccordionOpen,
 }: {
-  sleepTime: SleepTime;
-  setSleepTime: (sleepTime: SleepTime) => void;
+  sleepTime: SleepTimeType;
+  setSleepTime: (sleepTime: SleepTimeType) => void;
   isAccordionOpen: boolean;
   setIsAccordionOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
@@ -45,28 +45,18 @@ export default function SleepTimeAccordion({
         <div className="flex items-center gap-4">
           <TimeDropdown
             variant="white"
-            time={sleepTime.startTime}
+            time={sleepTime.sleep_start_time}
             setTime={(time) =>
-              setSleepTime(
-                new SleepTime({
-                  sleep_start_time: time,
-                  sleep_end_time: sleepTime.endTime,
-                }),
-              )
+              setSleepTime({ ...sleepTime, sleep_start_time: time })
             }
             className="flex-1"
           />
           <span className="text-gray-40 text-md-300">-</span>
           <TimeDropdown
             variant="white"
-            time={sleepTime.endTime}
+            time={sleepTime.sleep_end_time}
             setTime={(time) =>
-              setSleepTime(
-                new SleepTime({
-                  sleep_start_time: sleepTime.startTime,
-                  sleep_end_time: time,
-                }),
-              )
+              setSleepTime({ ...sleepTime, sleep_end_time: time })
             }
             className="flex-1"
           />

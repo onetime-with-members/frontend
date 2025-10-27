@@ -5,7 +5,7 @@ import { queryOptions } from '@tanstack/react-query';
 
 export const schedulesQueryOptions = (event: EventType) =>
   queryOptions({
-    queryKey: ['schedules', event.category.toLowerCase(), event.eventId],
+    queryKey: ['schedules', event.category.toLowerCase(), event.event_id],
     queryFn: async () => await fetchSchedules(event),
   });
 
@@ -22,7 +22,7 @@ export const scheduleDetailQueryOptions = ({
     queryKey: [
       'schedules',
       event.category.toLowerCase(),
-      event.eventId,
+      event.event_id,
       isLoggedIn ? 'user' : guestId,
     ],
     queryFn: async () =>

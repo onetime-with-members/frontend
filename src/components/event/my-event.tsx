@@ -30,13 +30,13 @@ export default function MyEvent({
   dayjs.locale(locale);
 
   const isRecommended =
-    event.mostPossibleTimes.length > 0 && event.participantCount >= 1;
+    event.most_possible_times.length > 0 && event.participant_count >= 1;
 
-  const recommendedTime = event.mostPossibleTimes[0];
+  const recommendedTime = event.most_possible_times[0];
 
   return (
     <ProgressLink
-      href={`/events/${event.eventId}`}
+      href={`/events/${event.event_id}`}
       className={cn(
         'flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5',
         className,
@@ -49,7 +49,7 @@ export default function MyEvent({
         <div className="flex items-center gap-1 text-gray-30 text-sm-200">
           <span>
             {!isPending ? (
-              dayjs(event.createdDate).fromNow()
+              dayjs(event.created_date).fromNow()
             ) : (
               <Skeleton width={100} baseColor={SKELETON_DARK_GRAY} />
             )}
@@ -58,7 +58,7 @@ export default function MyEvent({
           <span>
             {!isPending ? (
               t('participantCount', {
-                count: event.participantCount,
+                count: event.participant_count,
               })
             ) : (
               <Skeleton width={50} baseColor={SKELETON_DARK_GRAY} />
@@ -109,7 +109,7 @@ export default function MyEvent({
                   </span>
                   {event.category === 'DATE' ? (
                     <span>
-                      {dayjs(recommendedTime.timePoint, 'YYYY.MM.DD').format(
+                      {dayjs(recommendedTime.time_point, 'YYYY.MM.DD').format(
                         'YYYY.MM.DD (ddd)',
                       )}
                     </span>
@@ -118,14 +118,14 @@ export default function MyEvent({
                       {dayjs()
                         .day(
                           weekdaysShortKo.findIndex(
-                            (weekday) => weekday === recommendedTime.timePoint,
+                            (weekday) => weekday === recommendedTime.time_point,
                           ),
                         )
                         .format('dddd')}
                     </span>
                   )}
                   <span>
-                    {recommendedTime.startTime} - {recommendedTime.endTime}
+                    {recommendedTime.start_time} - {recommendedTime.end_time}
                   </span>
                 </>
               )

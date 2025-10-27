@@ -56,7 +56,7 @@ export default function BlockContent({
     let result: string[] = [];
     schedules.forEach((schedule) => {
       schedule.schedules.forEach((daySchedule) => {
-        if (daySchedule.timePoint === timePoint) {
+        if (daySchedule.time_point === timePoint) {
           result = [...result, ...daySchedule.times];
         }
       });
@@ -91,8 +91,8 @@ export default function BlockContent({
         <TimeBlockLine
           key={timePoint}
           timePoint={timePoint}
-          startTime={event.startTime}
-          endTime={event.endTime}
+          startTime={event.start_time}
+          endTime={event.end_time}
           schedules={schedules}
           onTimeBlockClick={handleTimeBlockClick}
           onDialogOpen={handleDialogOpen}

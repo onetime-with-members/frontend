@@ -1,4 +1,9 @@
-import { EventType, ParticipantType, RecommendedScheduleType } from '../models';
+import {
+  EventType,
+  ParticipantResponseType,
+  ParticipantType,
+  RecommendScheduleType,
+} from '../models';
 import apiClient from '@/lib/api/axios';
 import { SERVER_API_URL } from '@/lib/constants';
 import { EventFormType } from '@/lib/validation/form-types';
@@ -64,8 +69,9 @@ export async function fetchRecommendedTimes(eventId: string) {
     return [];
   }
   const data = await res.json();
+  const recommendedTimes: RecommendScheduleType[] = data.payload;
 
-  return RecommendedScheduleType.fromResponse(data.payload);
+  return recommendedTimes;
 }
 
 export async function fetchQrCode(eventId: string) {
@@ -84,10 +90,20 @@ export async function fetchParticipants(eventId: string) {
   const res = await fetch(`${SERVER_API_URL}/events/${eventId}/participants`);
   if (!res.ok) {
     console.error(await res.json());
-
     return [];
   }
   const data = await res.json();
+  const guests: ParticipantResponseType[] = data.payload.members;
+  const users: ParticipantResponseType[] = data.payload.users;
 
-  return ParticipantType.fromResponse(data.payload);
+  const participants: ParticipantType[] = guests
+    .map((guest) => ({ ...guest, type: 'GUEST' as ParticipantType['type'] }))
+    .concat(
+      users.map((user) => ({
+        ...user,
+        type: 'USER' as ParticipantType['type'],
+      })),
+    );
+
+  return participants;
 }

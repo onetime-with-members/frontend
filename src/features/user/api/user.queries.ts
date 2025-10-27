@@ -1,4 +1,3 @@
-import { UserType } from '../models';
 import { editUserNameAction } from './user.api';
 import {
   myEventsQueryOptions,
@@ -10,7 +9,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 export function useUserQuery({ enabled }: { enabled?: boolean } = {}) {
   const { data } = useQuery({ ...userQueryOptions, enabled });
 
-  return { data: data || new UserType() };
+  return { data };
 }
 
 export function useMyEventsQuery() {
