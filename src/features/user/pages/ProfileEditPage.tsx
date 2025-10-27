@@ -4,7 +4,6 @@ import { useUserQuery } from '../api/user.queries';
 import AppBarForMobile from '../components/profile-edit/AppBarForMobile';
 import FormContent from '../components/profile-edit/FormContent';
 import HeaderForDesktop from '../components/profile-edit/HeaderForDesktop';
-import { defaultUser } from '../constants';
 import GrayBackground from '@/components/gray-background';
 import NavBar from '@/components/nav-bar';
 
@@ -18,7 +17,7 @@ export default function ProfileEditPage() {
       <AppBarForMobile />
       <main>
         <HeaderForDesktop />
-        <FormContent user={user || defaultUser} />
+        <FormContent user={user} />
       </main>
     </>
   );

@@ -9,7 +9,8 @@ import {
   RecommendedScheduleType,
 } from '@/features/event/models';
 import { ScheduleType } from '@/features/schedule/models';
-import { OnboardingType } from '@/features/user/models';
+import { OnboardingValuesType } from '@/features/user/models';
+import { OnboardingRequest } from '@/features/user/models/OnboardingRequest';
 import { Session } from '@/models';
 
 export async function fetchFilteredRecommendedTimes({
@@ -49,17 +50,11 @@ export async function fetchFilteredSchedules({
   return schedules;
 }
 
-export async function createUserAction(value: OnboardingType) {
-  const res = await apiClient.post('/users/onboarding', {
-    register_token: value.registerToken,
-    nickname: value.nickname,
-    service_policy_agreement: value.servicePolicy,
-    privacy_policy_agreement: value.privacyPolicy,
-    marketing_policy_agreement: value.marketingPolicy,
-    sleep_start_time: value.startSleepTime,
-    sleep_end_time: value.endSleepTime,
-    language: value.language,
-  });
+export async function createUserAction(values: OnboardingValuesType) {
+  const res = await apiClient.post(
+    '/users/onboarding',
+    new OnboardingRequest(values).toObject(),
+  );
   return res.data.payload;
 }
 

@@ -1,5 +1,5 @@
 export * from './UserType';
-export * from './MyEventType';
+export * from './MyEvent';
 export * from './TabActiveType';
 export * from './PageTitleType';
-export * from './OnboardingType';
+export * from './OnboardingValuesType';

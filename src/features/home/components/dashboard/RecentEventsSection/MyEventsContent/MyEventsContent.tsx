@@ -28,7 +28,7 @@ export default function MyEventsContent() {
       ) : (
         myEvents?.slice(0, 2).map((myEvent, index) => (
           <MyEvent
-            key={myEvent.event_id}
+            key={myEvent.eventId}
             event={myEvent}
             className={cn('border-none', {
               'hidden md:flex': index === 1,
