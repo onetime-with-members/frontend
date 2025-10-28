@@ -6,7 +6,7 @@ import {
   RecommendScheduleType,
 } from '../types';
 import { ScheduleType } from '@/features/schedule/types';
-import apiClient from '@/lib/api/axios';
+import apiClient from '@/lib/api';
 import { SERVER_API_URL } from '@/lib/constants';
 import { EventFormType } from '@/lib/validation/form-types';
 

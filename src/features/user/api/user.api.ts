@@ -1,4 +1,4 @@
-import apiClient from '@/lib/api/axios';
+import apiClient from '@/lib/api';
 
 export async function fetchUserProfile() {
   const res = await apiClient.get('/users/profile');

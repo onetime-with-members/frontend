@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 
 import { ScheduleType } from '../types';
 import { EventType } from '@/features/event/types';
-import apiClient from '@/lib/api/axios';
+import apiClient from '@/lib/api';
 import { SERVER_API_URL } from '@/lib/constants';
 
 export async function fetchSchedules(event: EventType) {
