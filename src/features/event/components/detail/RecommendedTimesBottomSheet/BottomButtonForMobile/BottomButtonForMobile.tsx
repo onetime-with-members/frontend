@@ -9,12 +9,12 @@ import Image from 'next/image';
 
 export default function BottomButtonForMobile({
   schedules,
-  hasUserSchedule,
+  isEventEdited,
   onShareButtonClick,
   onEditButtonClick,
 }: {
   schedules: ScheduleType[];
-  hasUserSchedule: boolean;
+  isEventEdited: boolean;
   onShareButtonClick: () => void;
   onEditButtonClick: () => void;
 }) {
@@ -62,9 +62,9 @@ export default function BottomButtonForMobile({
       </SpeechBalloon.Container>
       <Button onClick={onEditButtonClick} variant="dark" className="flex-1">
         <span className="flex items-center justify-center gap-1">
-          <span>{hasUserSchedule ? t('editSchedule') : t('addSchedule')}</span>
+          <span>{isEventEdited ? t('editSchedule') : t('addSchedule')}</span>
           <span>
-            {hasUserSchedule ? <IconEdit size={24} /> : <IconPlus size={24} />}
+            {isEventEdited ? <IconEdit size={24} /> : <IconPlus size={24} />}
           </span>
         </span>
       </Button>

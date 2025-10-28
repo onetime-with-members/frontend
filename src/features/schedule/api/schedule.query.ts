@@ -3,6 +3,7 @@ import {
   schedulesQueryOptions,
 } from './schedule.options';
 import { EventType } from '@/features/event/models';
+import { defaultScheduleDetail } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';
 
 export function useSchedulesQuery(event: EventType) {
@@ -24,5 +25,5 @@ export function useScheduleDetailQuery({
     ...scheduleDetailQueryOptions({ event, isLoggedIn, guestId }),
   });
 
-  return { data };
+  return { data: data || defaultScheduleDetail };
 }

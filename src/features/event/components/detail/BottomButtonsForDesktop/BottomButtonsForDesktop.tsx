@@ -5,13 +5,10 @@ import LoginAlert from '../shared/LoginAlert';
 import SharePopUp from '../shared/SharePopUp';
 import BadgeFloatingBottomButton from './BadgeFloatingBottomButton';
 import { FooterContext } from '@/contexts/footer';
-import { eventQueryOptions } from '@/features/event/api/events.option';
-import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
+import useIsEventEdited from '@/features/event/hooks/useIsEventEdited';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import { defaultEvent, defaultScheduleDetail } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export default function BottomButtonsForDesktop() {
@@ -25,18 +22,7 @@ export default function BottomButtonsForDesktop() {
   const t = useTranslations('eventDetail');
 
   const { isLoggedIn } = useAuth();
-
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: scheduleDetailData } = useScheduleDetailQuery({
-    event: event || defaultEvent,
-    isLoggedIn,
-  });
-  const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
-
-  const hasUserSchedule = isLoggedIn
-    ? scheduleDetail.schedules.length !== 0 &&
-      scheduleDetail.schedules.every((schedule) => schedule.times.length !== 0)
-    : false;
+  const isEventEdited = useIsEventEdited();
 
   async function handleBottomButtonClick() {
     if (isLoggedIn) {
@@ -53,9 +39,9 @@ export default function BottomButtonsForDesktop() {
   return (
     <>
       <BadgeFloatingBottomButton
-        name={hasUserSchedule ? t('editSchedule') : t('addSchedule')}
+        name={isEventEdited ? t('editSchedule') : t('addSchedule')}
         variant="black"
-        icon={hasUserSchedule ? 'edit' : 'plus'}
+        icon={isEventEdited ? 'edit' : 'plus'}
         onNewScheduleButtonClick={handleBottomButtonClick}
         onSendButtonClick={handleSendButtonClick}
         className={cn('hidden duration-150 md:flex', {

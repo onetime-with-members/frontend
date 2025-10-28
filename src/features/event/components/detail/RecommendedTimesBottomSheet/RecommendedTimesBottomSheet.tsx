@@ -8,24 +8,17 @@ import MobileRecommendedTimeItem from './MobileRecommendedTimeItem';
 import ClockIcon from '@/components/icon/ClockIcon';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
 import { FooterContext } from '@/contexts/footer';
-import { eventQueryOptions } from '@/features/event/api/events.option';
+import { useEventQuery } from '@/features/event/api/events.query';
 import LoginAlert from '@/features/event/components/detail/shared/LoginAlert';
 import SectionHeading from '@/features/event/components/detail/shared/SectionHeading';
 import SharePopUp from '@/features/event/components/detail/shared/SharePopUp';
-import {
-  scheduleDetailQueryOptions,
-  schedulesQueryOptions,
-} from '@/features/schedule/api/schedule.options';
+import useIsEventEdited from '@/features/event/hooks/useIsEventEdited';
+import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import useClientWidth from '@/hooks/useClientWidth';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import {
-  breakpoint,
-  defaultEvent,
-  defaultScheduleDetail,
-} from '@/lib/constants';
+import { breakpoint } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 const snapPoints = ['170px', '500px'];
@@ -44,20 +37,10 @@ export default function RecommendedTimesBottomSheet() {
 
   const { isLoggedIn } = useAuth();
   const clientWidth = useClientWidth();
+  const isEventEdited = useIsEventEdited();
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
-  const { data: schedules } = useQuery({
-    ...schedulesQueryOptions(event || defaultEvent),
-  });
-  const { data: scheduleDetailData } = useQuery({
-    ...scheduleDetailQueryOptions({ event: event || defaultEvent, isLoggedIn }),
-  });
-  const scheduleDetail = scheduleDetailData || defaultScheduleDetail;
-
-  const hasUserSchedule = isLoggedIn
-    ? scheduleDetail.schedules.length !== 0 &&
-      scheduleDetail.schedules.every((schedule) => schedule.times.length !== 0)
-    : false;
+  const { data: event } = useEventQuery(params.id);
+  const { data: schedules } = useSchedulesQuery(event);
 
   const shouldBottomButtonShown = !isFooterShown;
   const shouldBottomSheetShown = !isFooterShown && schedules?.length !== 0;
@@ -128,7 +111,7 @@ export default function RecommendedTimesBottomSheet() {
         {shouldBottomButtonShown && (
           <BottomButtonForMobile
             schedules={schedules || []}
-            hasUserSchedule={hasUserSchedule}
+            isEventEdited={isEventEdited}
             onShareButtonClick={() => setIsSharePopUpOpen(true)}
             onEditButtonClick={handleBottomButtonClick}
           />

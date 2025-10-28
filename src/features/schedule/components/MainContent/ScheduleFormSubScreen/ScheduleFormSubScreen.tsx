@@ -6,6 +6,7 @@ import BottomSubmitButton from './BottomSubmitButton';
 import TopSubmitButton from './TopSubmitButton';
 import TimeBlockBoard from '@/components/time-block-board/event';
 import { eventQueryOptions } from '@/features/event/api/events.option';
+import useGuestEditedEvents from '@/features/event/hooks/useIsEventEdited/useGuestEditedEvents';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
 import useToast from '@/hooks/useToast';
 import {
@@ -29,6 +30,8 @@ export default function ScheduleFormSubScreen({}) {
   const params = useParams<{ id: string }>();
 
   const toast = useToast();
+
+  const { addNewEditedEvent } = useGuestEditedEvents();
 
   const {
     scheduleValue,
@@ -85,6 +88,7 @@ export default function ScheduleFormSubScreen({}) {
         guestId: guestValue.guestId,
         schedule: scheduleValue[0].schedules,
       });
+      await addNewEditedEvent(params.id);
     }
   }
 
