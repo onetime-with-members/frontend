@@ -1,3 +1,5 @@
+export type TimeBlockUnit = '30m' | '1h';
+
 export interface TimeType {
   time_point: string;
   times: string[];

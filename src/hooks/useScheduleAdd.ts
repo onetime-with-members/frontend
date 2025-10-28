@@ -9,9 +9,9 @@ import {
 } from '@/features/my-schedule/types';
 import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
 import { ScheduleType } from '@/features/schedule/types';
+import { timeBlockList } from '@/features/schedule/utils';
 import { weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
-import { timeBlockList } from '@/lib/utils';
 
 export default function useScheduleAdd({
   isLoggedIn,

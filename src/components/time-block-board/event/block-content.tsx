@@ -1,10 +1,11 @@
 import { EventType } from '@/features/event/types';
 import { ScheduleType, TimeType } from '@/features/schedule/types';
+import { timeBlockList } from '@/features/schedule/utils';
 import useDragScroll from '@/hooks/useDragScroll';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
-import { eventTarget, timeBlockList } from '@/lib/utils';
+import { eventTarget } from '@/lib/utils';
 
 export default function BlockContent({
   boardContentRef,

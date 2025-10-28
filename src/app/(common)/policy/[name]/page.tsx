@@ -1,7 +1,7 @@
 import PolicyPage from './policy-detail';
 import NotFound from '@/app/not-found';
+import { policyPageTitle } from '@/features/user/utils';
 import { POLICY_KEY_LIST } from '@/lib/constants';
-import { policyPageTitle } from '@/lib/utils';
 import { PolicyFormType } from '@/lib/validation/form-types';
 import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';

@@ -19,10 +19,10 @@ import {
   ScheduleType,
   TimeBlockPopUpDataType,
 } from '@/features/schedule/types';
+import { timeBlockList } from '@/features/schedule/utils';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 import useTargetSticky from '@/hooks/useTargetSticky';
 import cn from '@/lib/cn';
-import { timeBlockList } from '@/lib/utils';
 
 export default function TimeBlockBoard({
   event,

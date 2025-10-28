@@ -5,9 +5,10 @@ import { createContext, useEffect, useState } from 'react';
 import { useSleepTimeQuery } from '@/features/my-schedule/api/my-schedule.queries';
 import { defaultSleepTime } from '@/features/my-schedule/constants';
 import { SleepTimeType } from '@/features/my-schedule/types';
+import { getTimesGroupForSplitted } from '@/features/my-schedule/utils';
+import { timeBlockList } from '@/features/schedule/utils';
 import { useAuth } from '@/lib/auth/auth.client';
 import dayjs from '@/lib/dayjs';
-import { getTimesGroupForSplitted, timeBlockList } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 
 export const SleepTimeContext = createContext<{

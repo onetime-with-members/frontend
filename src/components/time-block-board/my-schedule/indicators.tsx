@@ -4,8 +4,8 @@ import { useContext } from 'react';
 
 import { SleepTimeContext } from '@/contexts/sleep-time';
 import { WeekdayLocaleContext } from '@/contexts/weekday-locale';
+import { leftTimeLabelFormat } from '@/features/schedule/utils';
 import cn from '@/lib/cn';
-import { leftTimeLabelFormat } from '@/lib/utils';
 
 export function DateIndicator({ className }: { className?: string }) {
   const { weekdaysShort } = useContext(WeekdayLocaleContext);
