@@ -1,21 +1,20 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 
-import { ScheduleFormContext } from '../../../contexts/ScheduleFormContext';
 import BottomSubmitButton from './BottomSubmitButton';
 import TopSubmitButton from './TopSubmitButton';
 import TimeBlockBoard from '@/components/time-block-board/event';
-import { eventQueryOptions } from '@/features/event/api/events.option';
+import { useEventQuery } from '@/features/event/api/events.query';
 import useGuestEditedEvents from '@/features/event/hooks/useIsEventEdited/useGuestEditedEvents';
+import {
+  useCreateNewMemberScheduleMutation,
+  useUpdateScheduleMutation,
+} from '@/features/schedule/api/schedule.query';
+import { ScheduleFormContext } from '@/features/schedule/contexts/ScheduleFormContext';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
 import useToast from '@/hooks/useToast';
-import {
-  createNewMemberScheduleAction,
-  updateScheduleAction,
-} from '@/lib/api/actions';
 import { defaultEvent } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export default function ScheduleFormSubScreen({}) {
@@ -25,7 +24,6 @@ export default function ScheduleFormSubScreen({}) {
     useContext(ScheduleFormContext);
 
   const t = useTranslations();
-  const queryClient = useQueryClient();
   const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
 
@@ -46,28 +44,12 @@ export default function ScheduleFormSubScreen({}) {
     eventId: params.id,
   });
 
-  const { data: event } = useQuery({
-    ...eventQueryOptions(params.id),
-  });
+  const { data: event } = useEventQuery(params.id);
 
   const { mutateAsync: createNewMemberSchedule, isPending: isCreatePending } =
-    useMutation({
-      mutationFn: createNewMemberScheduleAction,
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ['events'] });
-        await queryClient.invalidateQueries({ queryKey: ['schedules'] });
-        progressRouter.push(`/events/${params.id}`);
-      },
-    });
+    useCreateNewMemberScheduleMutation();
   const { mutateAsync: updateSchedule, isPending: isUpdatePending } =
-    useMutation({
-      mutationFn: updateScheduleAction,
-      onSuccess: async () => {
-        await queryClient.invalidateQueries({ queryKey: ['events'] });
-        await queryClient.invalidateQueries({ queryKey: ['schedules'] });
-        progressRouter.push(`/events/${params.id}`);
-      },
-    });
+    useUpdateScheduleMutation();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -88,8 +70,9 @@ export default function ScheduleFormSubScreen({}) {
         guestId: guestValue.guestId,
         schedule: scheduleValue[0].schedules,
       });
-      await addNewEditedEvent(params.id);
     }
+    await addNewEditedEvent(params.id);
+    progressRouter.push(`/events/${params.id}`);
   }
 
   useEffect(() => {

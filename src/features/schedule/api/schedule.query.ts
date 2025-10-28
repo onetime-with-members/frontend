@@ -1,15 +1,21 @@
 import {
+  checkNewGuest,
+  createNewMemberSchedule,
+  loginGuest,
+  updateSchedule,
+} from './schedule.api';
+import {
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
 } from './schedule.options';
 import { EventType } from '@/features/event/types';
 import { defaultScheduleDetail } from '@/lib/constants';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useSchedulesQuery(event: EventType) {
   const { data } = useQuery({ ...schedulesQueryOptions(event) });
 
-  return { data };
+  return { data: data || [] };
 }
 
 export function useScheduleDetailQuery({
@@ -26,4 +32,48 @@ export function useScheduleDetailQuery({
   });
 
   return { data: data || defaultScheduleDetail };
+}
+
+export function useCheckNewGuestMutation() {
+  const { mutateAsync } = useMutation({
+    mutationFn: checkNewGuest,
+  });
+
+  return { mutateAsync };
+}
+
+export function useLoginGuestMutation() {
+  const { mutateAsync } = useMutation({
+    mutationFn: loginGuest,
+  });
+
+  return { mutateAsync };
+}
+
+export function useCreateNewMemberScheduleMutation() {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: createNewMemberSchedule,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+    },
+  });
+
+  return { mutateAsync, isPending };
+}
+
+export function useUpdateScheduleMutation() {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: updateSchedule,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+    },
+  });
+
+  return { mutateAsync, isPending };
 }

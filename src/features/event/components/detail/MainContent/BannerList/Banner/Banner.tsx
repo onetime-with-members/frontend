@@ -1,29 +1,16 @@
 'use client';
 
 import BannerImageAndBlur from './BannerImageAndBlur';
+import { useClickBannerMutation } from '@/features/banner/api/banner.query';
 import { Banner as BannerType } from '@/features/banner/types';
-import { bannerClickAction } from '@/lib/api/actions';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function Banner({ banner }: { banner: BannerType }) {
-  const queryClient = useQueryClient();
-
-  const { mutateAsync: bannerClick } = useMutation({
-    mutationFn: (id: number) => bannerClickAction(id),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['banner'] });
-    },
-  });
+  const { mutateAsync: clickBanner } = useClickBannerMutation();
 
   const handleClick = async () => {
-    try {
-      await bannerClick(banner.id);
-    } catch (err) {
-      console.error('배너를 클릭하는데에 에러가 발생했습니다.', err);
-    } finally {
-      if (banner.link_url) {
-        window.open(banner.link_url, '_blank');
-      }
+    await clickBanner(banner.id);
+    if (banner.link_url) {
+      window.open(banner.link_url, '_blank');
     }
   };
 

@@ -2,15 +2,17 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 
-import { ScheduleFormContext } from '../../../contexts/ScheduleFormContext';
-import useGuestForm from '../../../hooks/useGuestForm';
 import PinPasswordControl from './PinPasswordControl/PinPasswordControl';
 import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import NicknameFormControl from '@/components/user/nickname-form-control';
-import { checkNewGuestAction, loginGuestAction } from '@/lib/api/actions';
+import {
+  useCheckNewGuestMutation,
+  useLoginGuestMutation,
+} from '@/features/schedule/api/schedule.query';
+import { ScheduleFormContext } from '@/features/schedule/contexts/ScheduleFormContext';
+import useGuestForm from '@/features/schedule/hooks/useGuestForm';
 import { GuestFormType } from '@/lib/validation/form-types';
-import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export default function MemberLoginSubScreen() {
@@ -26,12 +28,8 @@ export default function MemberLoginSubScreen() {
   const t = useTranslations('scheduleAdd');
   const params = useParams<{ id: string }>();
 
-  const { mutateAsync: checkNewGuest } = useMutation({
-    mutationFn: checkNewGuestAction,
-  });
-  const { mutateAsync: loginGuest } = useMutation({
-    mutationFn: loginGuestAction,
-  });
+  const { mutateAsync: checkNewGuest } = useCheckNewGuestMutation();
+  const { mutateAsync: loginGuest } = useLoginGuestMutation();
 
   const onSubmit: SubmitHandler<GuestFormType> = async (data) => {
     const { is_possible: isNewGuestData } = await checkNewGuest({

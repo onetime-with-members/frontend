@@ -1,4 +1,11 @@
-import { createEventAction, editEventAction } from './events.api';
+import { MemberFilterType } from '../types';
+import {
+  createEventAction,
+  deleteEventAction,
+  editEventAction,
+  fetchFilteredRecommendedTimes,
+  fetchFilteredSchedules,
+} from './events.api';
 import {
   eventQueryOptions,
   eventShortUrlQueryOptions,
@@ -44,7 +51,7 @@ export function useRecommendedTimesQuery(eventId: string) {
     ...recommendedTimesQueryOptions(eventId),
   });
 
-  return { data };
+  return { data: data || [] };
 }
 
 export function useQrCodeQuery(eventId: string) {
@@ -87,4 +94,43 @@ export function useEditEventMutation() {
   });
 
   return { mutateAsync, isPending };
+}
+
+export function useDeleteEventMutation() {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: deleteEventAction,
+    onSuccess: async (_, eventId) => {
+      queryClient.removeQueries({ queryKey: ['events', eventId] });
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+    },
+  });
+
+  return { mutateAsync, isPending };
+}
+
+export function useChangeFilteredEventDataMutation({
+  eventId,
+  eventCategory,
+}: {
+  eventId: string;
+  eventCategory: 'DATE' | 'DAY';
+}) {
+  const { mutateAsync } = useMutation({
+    mutationFn: async (filter: MemberFilterType) => {
+      const recommendedTimes = await fetchFilteredRecommendedTimes({
+        eventId,
+        filter,
+      });
+      const schedules = await fetchFilteredSchedules({
+        eventId,
+        category: eventCategory,
+        filter,
+      });
+      return { recommendedTimes, schedules };
+    },
+  });
+
+  return { mutateAsync };
 }

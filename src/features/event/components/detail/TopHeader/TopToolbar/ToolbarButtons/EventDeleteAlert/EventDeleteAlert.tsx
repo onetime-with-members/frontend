@@ -1,9 +1,8 @@
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
+import { useDeleteEventMutation } from '@/features/event/api/events.query';
 import useHomeUrl from '@/hooks/useHomeUrl';
-import { deleteEventAction } from '@/lib/api/actions';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useParams, useRouter } from 'next/navigation';
 
 export default function EventDeleteAlert({
@@ -15,21 +14,18 @@ export default function EventDeleteAlert({
 
   const router = useRouter();
   const params = useParams<{ id: string }>();
-  const queryClient = useQueryClient();
   const t = useTranslations('alert');
 
-  const { mutateAsync: deleteEvent, isPending } = useMutation({
-    mutationFn: deleteEventAction,
-    onSuccess: async (_, eventId) => {
-      queryClient.removeQueries({ queryKey: ['events', eventId] });
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
-      router.push(homeUrl);
-    },
-  });
+  const { mutateAsync: deleteEvent, isPending } = useDeleteEventMutation();
+
+  async function handleAlertConfirm() {
+    await deleteEvent(params.id);
+    router.push(homeUrl);
+  }
 
   return (
     <Alert
-      onConfirm={async () => await deleteEvent(params.id)}
+      onConfirm={handleAlertConfirm}
       onCancel={() => setIsEventDeleteAlertOpen(false)}
       onClose={() => setIsEventDeleteAlertOpen(false)}
       confirmText={

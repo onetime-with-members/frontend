@@ -3,22 +3,13 @@
 import { createContext, useState } from 'react';
 
 import {
+  useChangeFilteredEventDataMutation,
   useEventQuery,
   useRecommendedTimesQuery,
 } from '@/features/event/api/events.query';
-import {
-  MemberFilterType,
-  ParticipantType,
-  RecommendScheduleType,
-} from '@/features/event/types';
+import { ParticipantType, RecommendScheduleType } from '@/features/event/types';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import { ScheduleType } from '@/features/schedule/types';
-import {
-  fetchFilteredRecommendedTimes,
-  fetchFilteredSchedules,
-} from '@/lib/api/actions';
-import { defaultEvent } from '@/lib/constants';
-import { useMutation } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export const EventParticipantFilterContext = createContext<{
@@ -50,45 +41,35 @@ export default function EventParticipantFilterContextProvider({
 
   const { data: event } = useEventQuery(params.id);
   const { data: recommendedTimesData } = useRecommendedTimesQuery(params.id);
-  const { data: schedulesData } = useSchedulesQuery(event || defaultEvent);
+  const { data: schedulesData } = useSchedulesQuery(event);
 
-  const { mutate: changeFilteredData } = useMutation({
-    mutationFn: async (filter: MemberFilterType) => {
-      const recommendedTimes = await fetchFilteredRecommendedTimes({
-        eventId: params.id,
-        filter,
-      });
-      const schedules = await fetchFilteredSchedules({
-        eventId: params.id,
-        category: event?.category || 'DATE',
-        filter,
-      });
-      return { recommendedTimes, schedules };
-    },
-    onSuccess: ({ recommendedTimes, schedules }, filter) => {
-      const isFiltered = filter.guests.length + filter.users.length > 0;
-      setRecommendedTimes(
-        isFiltered ? recommendedTimes : recommendedTimesData || [],
-      );
-      setSchedules(isFiltered ? schedules : schedulesData || []);
-    },
-  });
-
-  function changeFilteredParticipants(participant: ParticipantType) {
-    setFilteredParticipants((prev) => {
-      const newFilteredParticipants = prev.includes(participant)
-        ? prev.filter((p) => p !== participant)
-        : [...prev, participant];
-      changeFilteredData({
-        users: newFilteredParticipants
-          .filter((p) => p.type === 'USER')
-          .map((p) => p.id),
-        guests: newFilteredParticipants
-          .filter((p) => p.type === 'GUEST')
-          .map((p) => p.id),
-      });
-      return newFilteredParticipants;
+  const { mutateAsync: changeFilteredEventData } =
+    useChangeFilteredEventDataMutation({
+      eventId: params.id,
+      eventCategory: event.category,
     });
+
+  async function changeFilteredParticipants(participant: ParticipantType) {
+    const newFilteredParticipants = filteredParticipants.includes(participant)
+      ? filteredParticipants.filter((p) => p !== participant)
+      : [...filteredParticipants, participant];
+    const filter = {
+      users: newFilteredParticipants
+        .filter((p) => p.type === 'USER')
+        .map((p) => p.id),
+      guests: newFilteredParticipants
+        .filter((p) => p.type === 'GUEST')
+        .map((p) => p.id),
+    };
+    const isFiltered = filter.guests.length + filter.users.length > 0;
+
+    const data = await changeFilteredEventData(filter);
+
+    setRecommendedTimes(
+      isFiltered ? data.recommendedTimes : recommendedTimesData,
+    );
+    setSchedules(isFiltered ? data.schedules : schedulesData);
+    setFilteredParticipants(newFilteredParticipants);
   }
 
   return (

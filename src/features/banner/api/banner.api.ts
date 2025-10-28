@@ -1,4 +1,5 @@
 import { Banner, BarBanner } from '../types';
+import apiClient from '@/lib/api/axios';
 import { SERVER_API_URL } from '@/lib/constants';
 
 export async function fetchBanner() {
@@ -23,4 +24,11 @@ export async function fetchBarBanner() {
   const barBanners: BarBanner[] = data.payload.bar_banners;
 
   return barBanners.length !== 0 ? barBanners[0] : null;
+}
+
+export async function clickBanner(id: number) {
+  const res = await apiClient.patch(`/banners/${id}/clicks`, {
+    click_count: id,
+  });
+  return res.data.payload;
 }

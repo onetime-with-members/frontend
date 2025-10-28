@@ -1,9 +1,11 @@
 import {
   EventType,
+  MemberFilterType,
   ParticipantResponseType,
   ParticipantType,
   RecommendScheduleType,
 } from '../types';
+import { ScheduleType } from '@/features/schedule/types';
 import apiClient from '@/lib/api/axios';
 import { SERVER_API_URL } from '@/lib/constants';
 import { EventFormType } from '@/lib/validation/form-types';
@@ -39,6 +41,11 @@ export async function editEventAction({
   event: EventFormType;
 }) {
   const res = await apiClient.patch(`/events/${eventId}`, event);
+  return res.data.payload;
+}
+
+export async function deleteEventAction(eventId: string) {
+  const res = await apiClient.delete(`/events/${eventId}`);
   return res.data.payload;
 }
 
@@ -106,4 +113,39 @@ export async function fetchParticipants(eventId: string) {
     );
 
   return participants;
+}
+
+export async function fetchFilteredRecommendedTimes({
+  eventId,
+  filter,
+}: {
+  eventId: string;
+  filter: MemberFilterType;
+}) {
+  const res = await apiClient.post(`/events/${eventId}/most/filtering`, {
+    users: filter.users,
+    members: filter.guests,
+  });
+  const recommendedTimes: RecommendScheduleType[] = res.data.payload;
+  return recommendedTimes;
+}
+
+export async function fetchFilteredSchedules({
+  eventId,
+  category,
+  filter,
+}: {
+  eventId: string;
+  category: EventType['category'];
+  filter: MemberFilterType;
+}) {
+  const res = await apiClient.post(
+    `/schedules/${category.toLowerCase()}/${eventId}/filtering`,
+    {
+      users: filter.users,
+      members: filter.guests,
+    },
+  );
+  const schedules: ScheduleType[] = res.data.payload;
+  return schedules;
 }
