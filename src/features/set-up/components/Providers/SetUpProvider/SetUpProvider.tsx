@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import {
   useUserPolicyQuery,
   useUserQuery,
-} from '@/features/user/api/user.queries';
+} from '@/features/user/api/user.query';
 import { useAuth } from '@/lib/auth/auth.client';
 import dayjs from '@/lib/dayjs';
 import { useProgressRouter } from '@/navigation';

@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { useSleepTimeQuery } from '@/features/my-schedule/api/my-schedule.queries';
+import { useSleepTimeQuery } from '@/features/my-schedule/api/my-schedule.query';
 import { defaultSleepTime } from '@/features/my-schedule/constants';
 import { SleepTimeType } from '@/features/my-schedule/types';
 import { getTimesGroupForSplitted } from '@/features/my-schedule/utils';

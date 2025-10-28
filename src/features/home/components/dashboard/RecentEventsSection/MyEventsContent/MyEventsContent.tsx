@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import MyEventsSkeleton from './MyEventsSkeleton';
 import EmptyUI from '@/components/empty-ui';
 import MyEvent from '@/components/event/my-event';
-import { useMyEventsQuery } from '@/features/user/api/user.queries';
+import { useMyEventsQuery } from '@/features/user/api/user.query';
 import cn from '@/lib/cn';
 
 export default function MyEventsContent() {

@@ -1,14 +1,13 @@
-import { eventQueryOptions } from '@/features/event/api/events.option';
+import { useEventQuery } from '@/features/event/api/events.query';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import cn from '@/lib/cn';
-import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
 export default function ShareKakaoButton({ size = 48 }: { size?: number }) {
   const params = useParams<{ id: string }>();
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: event } = useEventQuery(params.id);
 
   const { handleKakaoShare } = useKakaoShare({
     event,

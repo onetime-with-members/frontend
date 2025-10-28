@@ -1,6 +1,6 @@
 'use client';
 
-import { useMyEventsQuery } from '../api/user.queries';
+import { useMyEventsQuery } from '../api/user.query';
 import EmptyMyEvent from '../components/my-events/EmptyMyEvents';
 import MyEventList from '../components/my-events/MyEventList';
 

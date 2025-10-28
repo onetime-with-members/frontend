@@ -3,11 +3,11 @@ import { bannerQueryOptions } from './banner.options';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useBannerQuery() {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     ...bannerQueryOptions,
   });
 
-  return { data };
+  return { data, isLoading };
 }
 
 export function useClickBannerMutation() {

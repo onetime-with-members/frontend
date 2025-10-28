@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { useMyScheduleQuery } from '@/features/my-schedule/api/my-schedule.queries';
+import { useMyScheduleQuery } from '@/features/my-schedule/api/my-schedule.query';
 import { defaultMySchedule } from '@/features/my-schedule/constants';
 import { MyScheduleTimeType } from '@/features/my-schedule/types';
 import { useAuth } from '@/lib/auth/auth.client';

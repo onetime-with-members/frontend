@@ -4,9 +4,8 @@ import EventDeleteAlert from './EventDeleteAlert';
 import ToolbarButton from './ToolbarButton';
 import EditIcon from '@/components/icon/EditIcon';
 import TrashIcon from '@/components/icon/trash';
-import { eventWithAuthQueryOptions } from '@/features/event/api/events.option';
+import { useEventWithAuthQuery } from '@/features/event/api/events.query';
 import { useProgressRouter } from '@/navigation';
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
 export default function ToolbarButtons() {
@@ -15,9 +14,7 @@ export default function ToolbarButtons() {
   const params = useParams<{ id: string }>();
   const progressRouter = useProgressRouter();
 
-  const { data: event } = useQuery({
-    ...eventWithAuthQueryOptions(params.id),
-  });
+  const { data: event } = useEventWithAuthQuery({ id: params.id });
 
   return (
     event?.event_status === 'CREATOR' && (

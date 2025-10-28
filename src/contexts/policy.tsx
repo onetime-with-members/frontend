@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from 'react';
 
-import { useUserPolicyQuery } from '@/features/user/api/user.queries';
+import { useUserPolicyQuery } from '@/features/user/api/user.query';
 import { defaultPolicy } from '@/features/user/constants';
 import { useAuth } from '@/lib/auth/auth.client';
 import { PolicyFormType } from '@/lib/validation/form-types';

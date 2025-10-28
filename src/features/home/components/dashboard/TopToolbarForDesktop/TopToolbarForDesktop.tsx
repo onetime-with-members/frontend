@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import ToolbarTitleSkeleton from '@/components/skeleton/toolbar-title-skeleton';
-import { useUserQuery } from '@/features/user/api/user.queries';
+import { useUserQuery } from '@/features/user/api/user.query';
 import { ProgressLink } from '@/navigation';
 
 export default function TopToolbarForDesktop() {

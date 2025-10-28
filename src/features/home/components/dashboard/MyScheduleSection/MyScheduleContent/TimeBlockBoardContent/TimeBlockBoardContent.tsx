@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
 import { BarBannerContext } from '@/contexts/bar-banner';
-import { useMyScheduleQuery } from '@/features/my-schedule/api/my-schedule.queries';
+import { useMyScheduleQuery } from '@/features/my-schedule/api/my-schedule.query';
 import { defaultMySchedule } from '@/features/my-schedule/constants';
 import cn from '@/lib/cn';
 

@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { bannerQueryOptions } from '@/features/banner/api/banner.options';
-import { useQuery } from '@tanstack/react-query';
+import { useBannerQuery } from '@/features/banner/api/banner.query';
 
 export default function useBannerList() {
-  const { data: banners, isLoading } = useQuery({ ...bannerQueryOptions });
+  const { data: banners, isLoading } = useBannerQuery();
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [bannerIndex, setBannerIndex] = useState(0);
 

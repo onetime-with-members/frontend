@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import Header from '../../Header';
-import { useMyEventsQuery } from '@/features/user/api/user.queries';
+import { useMyEventsQuery } from '@/features/user/api/user.query';
 import cn from '@/lib/cn';
 
 export default function MyEventsHeader() {

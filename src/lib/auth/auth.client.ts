@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import { signOutAction } from '../api/actions';
 import dayjs from '../dayjs';
-import { useUserQuery } from '@/features/user/api/user.queries';
+import { useUserQuery } from '@/features/user/api/user.query';
 import { sessionService } from '@/services/SessionService';
 import { Session } from '@/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

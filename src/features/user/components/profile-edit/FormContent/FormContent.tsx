@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import DesktopSubmitButton from './DesktopSubmitButton';
 import MobileSubmitButton from './MobileSubmitButton';
 import NicknameFormControl from '@/components/user/nickname-form-control';
-import { useEditProfileMutation } from '@/features/user/api/user.queries';
+import { useEditProfileMutation } from '@/features/user/api/user.query';
 import { UserType } from '@/features/user/types';
 import { ProfileNicknameFormType } from '@/lib/validation/form-types';
 import { profileNicknameSchema } from '@/lib/validation/schema';

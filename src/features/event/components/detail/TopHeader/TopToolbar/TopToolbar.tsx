@@ -1,12 +1,11 @@
 import ToolbarButtons from './ToolbarButtons/ToolbarButtons';
-import { eventQueryOptions } from '@/features/event/api/events.option';
-import { useQuery } from '@tanstack/react-query';
+import { useEventQuery } from '@/features/event/api/events.query';
 import { useParams } from 'next/navigation';
 
 export default function TopToolbar() {
   const params = useParams<{ id: string }>();
 
-  const { data: event } = useQuery({ ...eventQueryOptions(params.id) });
+  const { data: event } = useEventQuery(params.id);
 
   return (
     <div className="bg-gray-05">
