@@ -2,7 +2,7 @@
 
 import { createContext, useState } from 'react';
 
-import { EverytimeSchedule } from '@/features/my-schedule/models';
+import { EverytimeSchedule } from '@/features/my-schedule/types';
 
 export const EverytimeScheduleContext = createContext<{
   everytimeSchedule: EverytimeSchedule;

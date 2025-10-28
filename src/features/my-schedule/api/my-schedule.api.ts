@@ -1,6 +1,5 @@
 import { defaultMySchedule } from '../constants';
-import { SleepTimeType } from '../models';
-import { MyScheduleTimeType } from '../models/MyScheduleTimeType';
+import { MyScheduleTimeType, SleepTimeType } from '../types';
 import apiClient from '@/lib/api/axios';
 import {
   CRAWLING_SERVER_API_KEY,

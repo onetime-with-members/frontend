@@ -1,4 +1,4 @@
-import { Banner, BarBanner } from '../models';
+import { Banner, BarBanner } from '../types';
 import { SERVER_API_URL } from '@/lib/constants';
 
 export async function fetchBanner() {

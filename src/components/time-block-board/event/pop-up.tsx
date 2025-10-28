@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import MemberBadge from '@/components/member-badge';
-import { TimeBlockPopUpDataType } from '@/features/schedule/models';
+import { TimeBlockPopUpDataType } from '@/features/schedule/types';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';

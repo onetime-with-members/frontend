@@ -1,6 +1,6 @@
-import { ScheduleType } from '../models';
+import { ScheduleType } from '../types';
 import { fetchScheduleDetail, fetchSchedules } from './schedule.api';
-import { EventType } from '@/features/event/models';
+import { EventType } from '@/features/event/types';
 import { queryOptions } from '@tanstack/react-query';
 
 export const schedulesQueryOptions = (event: EventType) =>

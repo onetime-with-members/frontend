@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { createContext, useEffect, useState } from 'react';
 
-import { PageTitleType, TabActiveType } from '../models';
+import { PageTitleType, TabActiveType } from '../types';
 import { myPageTabActive, myPageTitle } from '../utils';
 import { usePathname } from 'next/navigation';
 

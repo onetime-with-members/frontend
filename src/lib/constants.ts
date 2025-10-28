@@ -3,9 +3,9 @@ import {
   OnboardingFormType,
   PolicyFormType,
 } from './validation/form-types';
-import { BarBanner } from '@/features/banner/models';
-import { EventType, RecommendScheduleType } from '@/features/event/models';
-import { ScheduleType } from '@/features/schedule/models';
+import { BarBanner } from '@/features/banner/types';
+import { EventType, RecommendScheduleType } from '@/features/event/types';
+import { ScheduleType } from '@/features/schedule/types';
 
 export const SERVER_API_URL =
   process.env.SERVER_API_URL ||

@@ -14,11 +14,11 @@ import {
   ReloadButton,
   ResetButton,
 } from './ui-actions';
-import { EventType } from '@/features/event/models';
+import { EventType } from '@/features/event/types';
 import {
   ScheduleType,
   TimeBlockPopUpDataType,
-} from '@/features/schedule/models';
+} from '@/features/schedule/types';
 import useScrollArrowButton from '@/hooks/useScrollArrowButton';
 import useTargetSticky from '@/hooks/useTargetSticky';
 import cn from '@/lib/cn';

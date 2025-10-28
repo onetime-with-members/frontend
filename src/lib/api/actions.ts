@@ -7,10 +7,10 @@ import {
   EventType,
   MemberFilterType,
   RecommendScheduleType,
-} from '@/features/event/models';
-import { ScheduleType } from '@/features/schedule/models';
-import { OnboardingType } from '@/features/user/models';
-import { Session } from '@/models';
+} from '@/features/event/types';
+import { ScheduleType } from '@/features/schedule/types';
+import { OnboardingType } from '@/features/user/types';
+import { Session } from '@/types';
 
 export async function fetchFilteredRecommendedTimes({
   eventId,

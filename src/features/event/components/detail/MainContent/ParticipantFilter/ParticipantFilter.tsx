@@ -6,7 +6,7 @@ import ParticipantFilterItem from './ParticipantFilterItem';
 import HumanIcon from '@/components/icon/HumanIcon';
 import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
 import { useParticipantsQuery } from '@/features/event/api/events.query';
-import { ParticipantType } from '@/features/event/models';
+import { ParticipantType } from '@/features/event/types';
 import { useParams } from 'next/navigation';
 
 export default function ParticipantFilter() {

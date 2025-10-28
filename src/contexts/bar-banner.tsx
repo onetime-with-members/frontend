@@ -3,7 +3,7 @@
 import { setCookie } from 'cookies-next';
 import { createContext, useState } from 'react';
 
-import { BarBanner } from '@/features/banner/models';
+import { BarBanner } from '@/features/banner/types';
 import { defaultBarBanner } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 

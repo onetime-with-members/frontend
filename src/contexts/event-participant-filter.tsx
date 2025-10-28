@@ -10,9 +10,9 @@ import {
   MemberFilterType,
   ParticipantType,
   RecommendScheduleType,
-} from '@/features/event/models';
+} from '@/features/event/types';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
-import { ScheduleType } from '@/features/schedule/models';
+import { ScheduleType } from '@/features/schedule/types';
 import {
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,

@@ -6,9 +6,9 @@ import { useEventQuery } from '@/features/event/api/events.query';
 import {
   MyScheduleTimeType,
   SleepTimeType,
-} from '@/features/my-schedule/models';
+} from '@/features/my-schedule/types';
 import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
-import { ScheduleType } from '@/features/schedule/models';
+import { ScheduleType } from '@/features/schedule/types';
 import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { timeBlockList } from '@/lib/utils';

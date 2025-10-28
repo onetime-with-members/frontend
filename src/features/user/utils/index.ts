@@ -1,5 +1,4 @@
-import { TabActiveType } from '../models';
-import { PageTitleType } from '../models/PageTitleType';
+import { PageTitleType, TabActiveType } from '../types';
 
 export function myPageTabActive(pathname: string): TabActiveType {
   if (pathname.startsWith('/mypage/events')) {

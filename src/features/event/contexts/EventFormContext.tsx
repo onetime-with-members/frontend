@@ -6,7 +6,7 @@ import {
 } from 'react-hook-form';
 
 import useEventForm from '../hooks/useEventForm';
-import { EventFormStatus } from '../models/EventFormStatus';
+import { EventFormStatus } from '../types';
 import { EventFormType } from '@/lib/validation/form-types';
 
 export const EventFormContext = createContext<{

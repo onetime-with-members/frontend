@@ -3,7 +3,7 @@ import {
   ParticipantResponseType,
   ParticipantType,
   RecommendScheduleType,
-} from '../models';
+} from '../types';
 import apiClient from '@/lib/api/axios';
 import { SERVER_API_URL } from '@/lib/constants';
 import { EventFormType } from '@/lib/validation/form-types';

@@ -1,6 +1,6 @@
 import BlockContent from './block-content';
 import { DateIndicator, TimeIndicator } from './indicators';
-import { MyScheduleTimeType } from '@/features/my-schedule/models';
+import { MyScheduleTimeType } from '@/features/my-schedule/types';
 
 export default function MyTimeBlockBoard({
   mode,

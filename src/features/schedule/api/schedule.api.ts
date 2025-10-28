@@ -1,5 +1,5 @@
-import { ScheduleType } from '../models';
-import { EventType } from '@/features/event/models';
+import { ScheduleType } from '../types';
+import { EventType } from '@/features/event/types';
 import apiClient from '@/lib/api/axios';
 import { SERVER_API_URL } from '@/lib/constants';
 

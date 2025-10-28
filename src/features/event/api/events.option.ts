@@ -1,4 +1,4 @@
-import { EventType, ParticipantType } from '../models';
+import { EventType, ParticipantType } from '../types';
 import {
   fetchEvent,
   fetchEventWithAuth,

@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import Skeleton from 'react-loading-skeleton';
 
-import { MyEventType } from '@/features/user/models';
+import { MyEventType } from '@/features/user/types';
 import cn from '@/lib/cn';
 import {
   SKELETON_DARK_GRAY,

@@ -10,7 +10,7 @@ import {
   sleepTimeQueryOptions,
 } from './my-schedule.options';
 import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
-import { ExtendedAxiosError } from '@/models';
+import { ExtendedAxiosError } from '@/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useMyScheduleQuery({ enabled }: { enabled?: boolean } = {}) {

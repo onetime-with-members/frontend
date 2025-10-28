@@ -3,7 +3,7 @@
 import React, { ReactNode, createContext, useState } from 'react';
 
 import { defaultGuestValues } from '../constants';
-import { GuestValueType } from '../models';
+import { GuestValueType } from '../types';
 
 type ScheduleFormContextType = {
   pageIndex: number;

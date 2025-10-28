@@ -1,4 +1,4 @@
-import { Banner } from '../models';
+import { Banner } from '../types';
 import { fetchBanner } from './banner.api';
 import { queryOptions } from '@tanstack/react-query';
 

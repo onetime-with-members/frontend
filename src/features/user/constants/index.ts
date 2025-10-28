@@ -1,4 +1,4 @@
-import { MyEventType, UserType } from '../models';
+import { MyEventType, UserType } from '../types';
 
 export const defaultUser: UserType = {
   nickname: '',

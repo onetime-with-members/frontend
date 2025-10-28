@@ -1,4 +1,4 @@
-import { MyEventType, UserType } from '../models';
+import { MyEventType, UserType } from '../types';
 import { fetchMyEvents, fetchUserPolicy, fetchUserProfile } from './user.api';
 import { PolicyFormType } from '@/lib/validation/form-types';
 import { queryOptions } from '@tanstack/react-query';

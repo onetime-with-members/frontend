@@ -1,5 +1,5 @@
-import { EventType } from '@/features/event/models';
-import { ScheduleType, TimeType } from '@/features/schedule/models';
+import { EventType } from '@/features/event/types';
+import { ScheduleType, TimeType } from '@/features/schedule/types';
 import useDragScroll from '@/hooks/useDragScroll';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';

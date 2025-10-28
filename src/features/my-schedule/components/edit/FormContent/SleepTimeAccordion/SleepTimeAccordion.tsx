@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import TimeDropdown from '@/components/dropdown/time-dropdown';
 import SleepIcon from '@/components/icon/SleepTimeIcon';
-import { SleepTimeType } from '@/features/my-schedule/models';
+import { SleepTimeType } from '@/features/my-schedule/types';
 import cn from '@/lib/cn';
 import { IconChevronDown } from '@tabler/icons-react';
 

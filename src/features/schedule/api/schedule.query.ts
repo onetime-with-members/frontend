@@ -2,7 +2,7 @@ import {
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
 } from './schedule.options';
-import { EventType } from '@/features/event/models';
+import { EventType } from '@/features/event/types';
 import { defaultScheduleDetail } from '@/lib/constants';
 import { useQuery } from '@tanstack/react-query';
 
