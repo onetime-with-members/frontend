@@ -13,7 +13,6 @@ import {
 import { ScheduleFormContext } from '@/features/schedule/contexts/ScheduleFormContext';
 import useScheduleAdd from '@/hooks/useScheduleAdd';
 import useToast from '@/hooks/useToast';
-import { defaultEvent } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
@@ -59,14 +58,14 @@ export default function ScheduleFormSubScreen({}) {
   async function handleScheduleSubmit() {
     if (guestValue.isNewGuest) {
       await createNewMemberSchedule({
-        event: event || defaultEvent,
+        event,
         name: guestValue.name,
         pin: guestValue.pin,
         schedule: scheduleValue[0].schedules,
       });
     } else {
       await updateSchedule({
-        event: event || defaultEvent,
+        event,
         guestId: guestValue.guestId,
         schedule: scheduleValue[0].schedules,
       });
@@ -87,7 +86,7 @@ export default function ScheduleFormSubScreen({}) {
         <TimeBlockBoard
           schedules={scheduleValue}
           setSchedules={setScheduleValue}
-          event={event || defaultEvent}
+          event={event}
           isPossibleTime={isPossibleTime}
           setIsPossibleTime={setIsPossibleTime}
           editable

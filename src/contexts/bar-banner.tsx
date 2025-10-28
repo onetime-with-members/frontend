@@ -3,8 +3,8 @@
 import { setCookie } from 'cookies-next';
 import { createContext, useState } from 'react';
 
+import { defaultBarBanner } from '@/features/banner/constants';
 import { BarBanner } from '@/features/banner/types';
-import { defaultBarBanner } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 
 export const BarBannerContext = createContext<{

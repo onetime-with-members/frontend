@@ -1,3 +1,4 @@
+import { defaultScheduleDetail } from '../constants';
 import {
   checkNewGuest,
   createNewMemberSchedule,
@@ -9,7 +10,6 @@ import {
   schedulesQueryOptions,
 } from './schedule.options';
 import { EventType } from '@/features/event/types';
-import { defaultScheduleDetail } from '@/lib/constants';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useSchedulesQuery(event: EventType) {

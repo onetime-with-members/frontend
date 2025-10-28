@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { defaultEventValue } from '@/lib/constants';
+import { defaultEventValue } from '../constants';
 import { EventFormType } from '@/lib/validation/form-types';
 import { eventSchema } from '@/lib/validation/schema';
 import { zodResolver } from '@hookform/resolvers/zod';

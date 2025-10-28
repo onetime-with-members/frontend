@@ -1,12 +1,3 @@
-import {
-  EventFormType,
-  OnboardingFormType,
-  PolicyFormType,
-} from './validation/form-types';
-import { BarBanner } from '@/features/banner/types';
-import { EventType, RecommendScheduleType } from '@/features/event/types';
-import { ScheduleType } from '@/features/schedule/types';
-
 export const SERVER_API_URL =
   process.env.SERVER_API_URL ||
   process.env.NEXT_PUBLIC_SERVER_API_URL ||
@@ -37,64 +28,6 @@ export const weekdaysShortEn = [
 export const breakpoint = {
   sm: 640,
   md: 768,
-};
-
-export const defaultEvent: EventType = {
-  event_id: '',
-  title: '',
-  start_time: '',
-  end_time: '',
-  category: 'DATE',
-  ranges: [],
-  event_status: 'PARTICIPANT',
-};
-
-export const defaultEventValue: EventFormType = {
-  title: '',
-  start_time: '09:00',
-  end_time: '24:00',
-  category: 'DATE',
-  ranges: [],
-};
-
-export const defaultRecommendTime: RecommendScheduleType = {
-  time_point: '',
-  start_time: '',
-  end_time: '',
-  possible_count: 0,
-  possible_names: [],
-  impossible_names: [],
-};
-
-export const defaultBarBanner: BarBanner = {
-  id: 0,
-  content_kor: '',
-  content_eng: '',
-  background_color_code: '',
-  text_color_code: '',
-  is_activated: false,
-  created_date: '',
-  link_url: '',
-};
-
-export const defaultScheduleDetail: ScheduleType = {
-  name: '',
-  schedules: [],
-};
-
-export const defaultPolicy: PolicyFormType = {
-  servicePolicy: true,
-  privacyPolicy: true,
-  marketingPolicy: true,
-};
-
-export const defaultOnboardingValue: OnboardingFormType = {
-  nickname: '',
-  startSleepTime: '23:00',
-  endSleepTime: '07:00',
-  servicePolicy: false,
-  privacyPolicy: false,
-  marketingPolicy: false,
 };
 
 export const SKELETON_GRAY = '#e8e9ed77';

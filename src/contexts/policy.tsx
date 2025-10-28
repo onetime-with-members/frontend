@@ -3,8 +3,8 @@
 import { createContext, useEffect, useState } from 'react';
 
 import { useUserPolicyQuery } from '@/features/user/api/user.queries';
+import { defaultPolicy } from '@/features/user/constants';
 import { useAuth } from '@/lib/auth/auth.client';
-import { defaultPolicy } from '@/lib/constants';
 import { PolicyFormType } from '@/lib/validation/form-types';
 
 export const PolicyContext = createContext<{

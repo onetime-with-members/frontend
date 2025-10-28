@@ -9,7 +9,7 @@ import {
 } from '@/features/my-schedule/types';
 import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
 import { ScheduleType } from '@/features/schedule/types';
-import { defaultEvent, weekdaysShortKo } from '@/lib/constants';
+import { weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 import { timeBlockList } from '@/lib/utils';
 
@@ -35,7 +35,7 @@ export default function useScheduleAdd({
 
   const { data: event } = useEventQuery(eventId);
   const { data: schedule } = useScheduleDetailQuery({
-    event: event || defaultEvent,
+    event,
     isLoggedIn,
     guestId,
   });

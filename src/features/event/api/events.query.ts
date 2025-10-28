@@ -1,3 +1,4 @@
+import { defaultEvent } from '../constants';
 import { MemberFilterType } from '../types';
 import {
   createEventAction,
@@ -14,7 +15,6 @@ import {
   qrCodeQueryOptions,
   recommendedTimesQueryOptions,
 } from './events.option';
-import { defaultEvent } from '@/lib/constants';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useEventQuery(id: string) {
