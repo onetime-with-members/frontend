@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { SocialLoginType } from './page';
 import NavBar from '@/components/nav-bar';
 import useHomeUrl from '@/hooks/useHomeUrl';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import Image from 'next/image';
 import Link from 'next/link';

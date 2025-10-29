@@ -7,7 +7,7 @@ import AvatarDropdown from './dropdown/avatar-dropdown';
 import { defaultUser } from '@/features/user/constants';
 import useHomeUrl from '@/hooks/useHomeUrl';
 import useScroll from '@/hooks/useScroll';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import Image from 'next/image';

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useEventQuery } from '../../api/events.query';
 import useGuestEditedEvents from './useGuestEditedEvents';
 import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import { useParams } from 'next/navigation';
 
 export default function useIsEventEdited() {

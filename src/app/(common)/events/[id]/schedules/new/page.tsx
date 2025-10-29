@@ -1,7 +1,7 @@
 import { eventQueryOptions } from '@/features/event/api/events.option';
 import ScheduleFormContextProvider from '@/features/schedule/contexts/ScheduleFormContext';
 import ScheduleAddPage from '@/features/schedule/pages/ScheduleAddPage';
-import auth from '@/lib/auth/auth.server';
+import { auth } from '@/lib/auth';
 import { QueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 

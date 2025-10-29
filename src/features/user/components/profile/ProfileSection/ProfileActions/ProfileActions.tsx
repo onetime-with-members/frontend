@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import GrayButton from './GrayButton';
 import useHomeUrl from '@/hooks/useHomeUrl';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import { useProgressRouter } from '@/navigation';
 
 export default function ProfileActions() {

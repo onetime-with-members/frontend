@@ -7,7 +7,7 @@ import {
   useUserPolicyQuery,
   useUserQuery,
 } from '@/features/user/api/user.query';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import dayjs from '@/lib/dayjs';
 import { useProgressRouter } from '@/navigation';
 import { usePathname, useRouter } from 'next/navigation';

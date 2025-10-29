@@ -15,7 +15,7 @@ import SharePopUp from '@/features/event/components/detail/shared/SharePopUp';
 import useIsEventEdited from '@/features/event/hooks/useIsEventEdited';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import useClientWidth from '@/hooks/useClientWidth';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { breakpoint } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';

@@ -16,7 +16,7 @@ import { onboardingSchema } from '@/features/user/schemas';
 import { OnboardingSchema } from '@/features/user/types';
 import useHomeUrl from '@/hooks/useHomeUrl';
 import { createUserAction } from '@/lib/api/actions';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';

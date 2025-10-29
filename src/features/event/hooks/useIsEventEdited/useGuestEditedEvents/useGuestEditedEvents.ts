@@ -1,7 +1,7 @@
 import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
 import { EDITED_EVENTS_COOKIE_KEY } from '../../../constants';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import dayjs from '@/lib/dayjs';
 
 export default function useGuestEditedEvents() {

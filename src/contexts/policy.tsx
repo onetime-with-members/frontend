@@ -5,7 +5,7 @@ import { createContext, useEffect, useState } from 'react';
 import { useUserPolicyQuery } from '@/features/user/api/user.query';
 import { defaultPolicy } from '@/features/user/constants';
 import { PolicySchema } from '@/features/user/types';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 
 export const PolicyContext = createContext<{
   policyValue: PolicySchema;

@@ -2,7 +2,7 @@
 
 import { cookies } from 'next/headers';
 
-export default async function auth() {
+export async function auth() {
   const cookieStore = await cookies();
   const sessionCookie = cookieStore.get('session');
 

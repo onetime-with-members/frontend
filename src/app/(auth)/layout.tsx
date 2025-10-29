@@ -1,4 +1,4 @@
-import auth from '@/lib/auth/auth.server';
+import { auth } from '@/lib/auth';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 

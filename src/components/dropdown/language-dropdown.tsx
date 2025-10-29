@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import CheckIcon from '@/components/icon/CheckIcon';
 import useDropdown from '@/hooks/useDropdown';
 import { editUserLanguageAction } from '@/lib/api/actions';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { IconLanguage } from '@tabler/icons-react';

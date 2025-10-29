@@ -6,7 +6,7 @@ import SharePopUp from '../shared/SharePopUp';
 import BadgeFloatingBottomButton from './BadgeFloatingBottomButton';
 import { FooterContext } from '@/contexts/footer';
 import useIsEventEdited from '@/features/event/hooks/useIsEventEdited';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';

@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 
 export default function useHomeUrl() {
   const { isLoggedIn } = useAuth();
