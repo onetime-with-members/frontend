@@ -1,4 +1,5 @@
 import {
+  EventSchema,
   EventType,
   MemberFilterType,
   ParticipantResponseType,
@@ -8,7 +9,6 @@ import {
 import { ScheduleType } from '@/features/schedule/types';
 import apiClient from '@/lib/api';
 import { SERVER_API_URL } from '@/lib/constants';
-import { EventFormType } from '@/lib/validation/form-types';
 
 export async function fetchEvent(eventId: string) {
   const res = await fetch(`${SERVER_API_URL}/events/${eventId}`);
@@ -28,7 +28,7 @@ export async function fetchEventWithAuth(eventId: string) {
   return res.data.payload;
 }
 
-export async function createEventAction(event: EventFormType) {
+export async function createEventAction(event: EventSchema) {
   const res = await apiClient.post('/events', event);
   return res.data.payload;
 }
@@ -38,7 +38,7 @@ export async function editEventAction({
   event,
 }: {
   eventId: string;
-  event: EventFormType;
+  event: EventSchema;
 }) {
   const res = await apiClient.patch(`/events/${eventId}`, event);
   return res.data.payload;

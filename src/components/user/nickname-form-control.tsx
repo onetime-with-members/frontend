@@ -2,9 +2,9 @@ import { useTranslations } from 'next-intl';
 import { FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
 
 import Input from '../Input';
+import { nicknameSchemaCodes } from '@/features/user/constants';
 import cn from '@/lib/cn';
 import { errorCodes } from '@/lib/utils';
-import validationCodes from '@/lib/validation/codes';
 
 export default function NicknameFormControl({
   registerNickname,
@@ -15,8 +15,6 @@ export default function NicknameFormControl({
 }) {
   const t = useTranslations('nickname');
 
-  const { MAX, REGEX } = validationCodes.nickname;
-
   return (
     <div className="flex flex-col gap-2">
       <label className="pl-1 text-gray-90 text-lg-200">{t('name')}</label>
@@ -25,18 +23,20 @@ export default function NicknameFormControl({
           {...registerNickname}
           placeholder={t('enterName')}
           className={cn({
-            'ring-2 ring-danger-30': ([MAX, REGEX] as string[]).includes(
-              errors.nickname?.message as string,
-            ),
+            'ring-2 ring-danger-30': (
+              [nicknameSchemaCodes.MAX, nicknameSchemaCodes.REGEX] as string[]
+            ).includes(errors.nickname?.message as string),
           })}
         />
         <ul className="flex h-4 flex-col gap-1">
-          {errorCodes(errors, 'nickname').includes(REGEX) && (
+          {errorCodes(errors, 'nickname').includes(
+            nicknameSchemaCodes.REGEX,
+          ) && (
             <li className="text-danger-50 text-sm-200">
               {t('noSpecialCharactersAndNumbers')}
             </li>
           )}
-          {errorCodes(errors, 'nickname').includes(MAX) && (
+          {errorCodes(errors, 'nickname').includes(nicknameSchemaCodes.MAX) && (
             <li className="text-danger-50 text-sm-200">
               {t('max50Characters')}
             </li>

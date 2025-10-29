@@ -6,22 +6,21 @@ import {
 } from 'react-hook-form';
 
 import useEventForm from '../hooks/useEventForm';
-import { EventFormStatus } from '../types';
-import { EventFormType } from '@/lib/validation/form-types';
+import { EventFormStatus, EventSchema } from '../types';
 
 export const EventFormContext = createContext<{
   formStatus: EventFormStatus;
   isValid: boolean;
-  handleSubmit: UseFormHandleSubmit<EventFormType> | null;
+  handleSubmit: UseFormHandleSubmit<EventSchema> | null;
   registerTitle: UseFormRegisterReturn<'title'> | null;
-  startTime: EventFormType['start_time'];
-  setStartTime: (time: EventFormType['start_time']) => void;
-  endTime: EventFormType['end_time'];
-  setEndTime: (time: EventFormType['end_time']) => void;
-  category: EventFormType['category'];
-  setCategory: (category: EventFormType['category']) => void;
-  ranges: EventFormType['ranges'];
-  setRanges: (value: EventFormType['ranges']) => void;
+  startTime: EventSchema['start_time'];
+  setStartTime: (time: EventSchema['start_time']) => void;
+  endTime: EventSchema['end_time'];
+  setEndTime: (time: EventSchema['end_time']) => void;
+  category: EventSchema['category'];
+  setCategory: (category: EventSchema['category']) => void;
+  ranges: EventSchema['ranges'];
+  setRanges: (value: EventSchema['ranges']) => void;
 }>({
   formStatus: 'create',
   isValid: false,
@@ -43,7 +42,7 @@ export default function EventFormContextProvider({
   children,
 }: {
   formStatus: EventFormStatus;
-  originData?: EventFormType;
+  originData?: EventSchema;
   children: React.ReactNode;
 }) {
   const {
@@ -58,19 +57,19 @@ export default function EventFormContextProvider({
   const registerTitle = register('title');
 
   const startTime = watch('start_time');
-  const setStartTime = (time: EventFormType['start_time']) =>
+  const setStartTime = (time: EventSchema['start_time']) =>
     setValue('start_time', time);
 
   const endTime = watch('end_time');
-  const setEndTime = (time: EventFormType['end_time']) =>
+  const setEndTime = (time: EventSchema['end_time']) =>
     setValue('end_time', time);
 
   const category = watch('category');
-  const setCategory = (category: EventFormType['category']) =>
+  const setCategory = (category: EventSchema['category']) =>
     setValue('category', category);
 
   const ranges = watch('ranges');
-  const { replace: setRanges } = useFieldArray<EventFormType>({
+  const { replace: setRanges } = useFieldArray<EventSchema>({
     control,
     name: 'ranges' as never,
   });

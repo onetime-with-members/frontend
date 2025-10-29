@@ -6,13 +6,13 @@ import PinPasswordControl from './PinPasswordControl/PinPasswordControl';
 import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/floating-bottom-button';
 import NicknameFormControl from '@/components/user/nickname-form-control';
+import { GuestSchema } from '@/features/event/types';
 import {
   useCheckNewGuestMutation,
   useLoginGuestMutation,
 } from '@/features/schedule/api/schedule.query';
 import { ScheduleFormContext } from '@/features/schedule/contexts/ScheduleFormContext';
 import useGuestForm from '@/features/schedule/hooks/useGuestForm';
-import { GuestFormType } from '@/lib/validation/form-types';
 import { useParams } from 'next/navigation';
 
 export default function MemberLoginSubScreen() {
@@ -31,7 +31,7 @@ export default function MemberLoginSubScreen() {
   const { mutateAsync: checkNewGuest } = useCheckNewGuestMutation();
   const { mutateAsync: loginGuest } = useLoginGuestMutation();
 
-  const onSubmit: SubmitHandler<GuestFormType> = async (data) => {
+  const onSubmit: SubmitHandler<GuestSchema> = async (data) => {
     const { is_possible: isNewGuestData } = await checkNewGuest({
       eventId: params.id,
       name: data.nickname,

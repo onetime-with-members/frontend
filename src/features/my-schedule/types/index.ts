@@ -1,3 +1,6 @@
+import z from 'zod';
+
+import { everytimeUrlSchema } from '../schemas';
 import { TimeType } from '@/features/schedule/types';
 
 export type MyScheduleTimeType = TimeType;
@@ -8,3 +11,5 @@ export interface SleepTimeType {
 }
 
 export type EverytimeSchedule = TimeType[];
+
+export type EverytimeUrlSchema = z.infer<typeof everytimeUrlSchema>;

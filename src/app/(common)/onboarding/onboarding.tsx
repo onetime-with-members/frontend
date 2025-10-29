@@ -12,12 +12,12 @@ import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/nav-bar';
 import { FooterContext } from '@/contexts/footer';
 import { defaultOnboardingValue } from '@/features/user/constants';
+import { onboardingSchema } from '@/features/user/schemas';
+import { OnboardingSchema } from '@/features/user/types';
 import useHomeUrl from '@/hooks/useHomeUrl';
 import { createUserAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth/auth.client';
 import cn from '@/lib/cn';
-import { OnboardingFormType } from '@/lib/validation/form-types';
-import { onboardingSchema } from '@/lib/validation/schema';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft } from '@tabler/icons-react';
@@ -35,7 +35,7 @@ export default function OnboardingPage({
 
   const { setFooterVisible } = useContext(FooterContext);
 
-  const { handleSubmit, watch, setValue } = useForm<OnboardingFormType>({
+  const { handleSubmit, watch, setValue } = useForm<OnboardingSchema>({
     resolver: zodResolver(onboardingSchema),
     defaultValues: { ...defaultOnboardingValue, nickname: name },
   });
@@ -66,7 +66,7 @@ export default function OnboardingPage({
     },
   });
 
-  const onSubmit: SubmitHandler<OnboardingFormType> = async (data) => {
+  const onSubmit: SubmitHandler<OnboardingSchema> = async (data) => {
     await createUser({
       ...data,
       registerToken,

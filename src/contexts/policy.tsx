@@ -4,13 +4,13 @@ import { createContext, useEffect, useState } from 'react';
 
 import { useUserPolicyQuery } from '@/features/user/api/user.query';
 import { defaultPolicy } from '@/features/user/constants';
+import { PolicySchema } from '@/features/user/types';
 import { useAuth } from '@/lib/auth/auth.client';
-import { PolicyFormType } from '@/lib/validation/form-types';
 
 export const PolicyContext = createContext<{
-  policyValue: PolicyFormType;
-  setPolicyValue: React.Dispatch<React.SetStateAction<PolicyFormType>>;
-  policyData: PolicyFormType;
+  policyValue: PolicySchema;
+  setPolicyValue: React.Dispatch<React.SetStateAction<PolicySchema>>;
+  policyData: PolicySchema;
   isPolicyPending: boolean;
 }>({
   policyValue: defaultPolicy,
@@ -24,7 +24,7 @@ export default function PolicyContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [policyValue, setPolicyValue] = useState<PolicyFormType>(defaultPolicy);
+  const [policyValue, setPolicyValue] = useState<PolicySchema>(defaultPolicy);
 
   const { isLoggedIn } = useAuth();
 

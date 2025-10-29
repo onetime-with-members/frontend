@@ -1,3 +1,7 @@
+import z from 'zod';
+
+import { eventSchema, guestSchema } from '../schemas';
+
 export type EventFormStatus = 'create' | 'edit';
 
 export interface EventType {
@@ -32,3 +36,6 @@ export interface RecommendScheduleType {
   possible_names: string[];
   impossible_names: string[];
 }
+
+export type EventSchema = z.infer<typeof eventSchema>;
+export type GuestSchema = z.infer<typeof guestSchema>;

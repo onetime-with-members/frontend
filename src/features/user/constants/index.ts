@@ -1,8 +1,9 @@
-import { MyEventType, UserType } from '../types';
 import {
-  OnboardingFormType,
-  PolicyFormType,
-} from '@/lib/validation/form-types';
+  MyEventType,
+  OnboardingSchema,
+  PolicySchema,
+  UserType,
+} from '../types';
 
 export const defaultUser: UserType = {
   nickname: '',
@@ -20,17 +21,23 @@ export const defaultMyEvent: MyEventType = {
   most_possible_times: [],
 };
 
-export const defaultPolicy: PolicyFormType = {
+export const defaultPolicy: PolicySchema = {
   servicePolicy: true,
   privacyPolicy: true,
   marketingPolicy: true,
 };
 
-export const defaultOnboardingValue: OnboardingFormType = {
+export const defaultOnboardingValue: OnboardingSchema = {
   nickname: '',
   startSleepTime: '23:00',
   endSleepTime: '07:00',
   servicePolicy: false,
   privacyPolicy: false,
   marketingPolicy: false,
+};
+
+export const nicknameSchemaCodes = {
+  MIN: 'MIN',
+  MAX: 'MAX',
+  REGEX: 'REGEX',
 };

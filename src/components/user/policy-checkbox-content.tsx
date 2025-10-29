@@ -1,15 +1,15 @@
 import { useTranslations } from 'next-intl';
 
 import CheckIcon from '@/components/icon/CheckIcon';
+import { PolicySchema } from '@/features/user/types';
 import cn from '@/lib/cn';
-import { PolicyFormType } from '@/lib/validation/form-types';
 import { IconChevronRight } from '@tabler/icons-react';
 
 interface PolicyCheckboxContentProps {
-  value: PolicyFormType;
-  setValue: React.Dispatch<React.SetStateAction<PolicyFormType>>;
+  value: PolicySchema;
+  setValue: React.Dispatch<React.SetStateAction<PolicySchema>>;
   setPageDetail: React.Dispatch<
-    React.SetStateAction<keyof PolicyFormType | null>
+    React.SetStateAction<keyof PolicySchema | null>
   >;
 }
 
@@ -64,11 +64,11 @@ function CheckItem({
   hasPageDetail,
 }: {
   children: React.ReactNode;
-  checkedKey: keyof PolicyFormType;
-  value: PolicyFormType;
-  setValue: React.Dispatch<React.SetStateAction<PolicyFormType>>;
+  checkedKey: keyof PolicySchema;
+  value: PolicySchema;
+  setValue: React.Dispatch<React.SetStateAction<PolicySchema>>;
   setPageDetail: React.Dispatch<
-    React.SetStateAction<keyof PolicyFormType | null>
+    React.SetStateAction<keyof PolicySchema | null>
   >;
   hasPageDetail?: boolean;
 }) {
@@ -115,8 +115,8 @@ function AllCheckItem({
   value,
   setValue,
 }: {
-  value: PolicyFormType;
-  setValue: React.Dispatch<React.SetStateAction<PolicyFormType>>;
+  value: PolicySchema;
+  setValue: React.Dispatch<React.SetStateAction<PolicySchema>>;
 }) {
   const t = useTranslations('policyEdit');
 

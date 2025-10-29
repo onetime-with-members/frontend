@@ -1,8 +1,7 @@
 import { getCookie } from 'cookies-next';
 
-import { PolicyFormType } from '../validation/form-types';
 import apiClient from './axios';
-import { OnboardingType } from '@/features/user/types';
+import { OnboardingType, PolicySchema } from '@/features/user/types';
 import { Session } from '@/types';
 
 export async function createUserAction(value: OnboardingType) {
@@ -26,7 +25,7 @@ export async function editUserLanguageAction(language: 'KOR' | 'ENG') {
   return res.data.payload;
 }
 
-export async function editUserPolicyAction(policy: PolicyFormType) {
+export async function editUserPolicyAction(policy: PolicySchema) {
   const res = await apiClient.put('/users/policy', {
     service_policy_agreement: policy.servicePolicy,
     privacy_policy_agreement: policy.privacyPolicy,

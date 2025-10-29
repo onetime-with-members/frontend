@@ -5,8 +5,8 @@ import BottomButton from './BottomButton';
 import ImageGuide from './ImageGuide';
 import InputContent from './InputContent';
 import { useSubmitEverytimeURLMutation } from '@/features/my-schedule/api/my-schedule.query';
-import { EverytimeUrlFormType } from '@/lib/validation/form-types';
-import { everytimeUrlSchema } from '@/lib/validation/schema';
+import { everytimeUrlSchema } from '@/features/my-schedule/schemas';
+import { EverytimeUrlSchema } from '@/features/my-schedule/types';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -22,14 +22,14 @@ export default function FormContent() {
     register,
     handleSubmit,
     formState: { isValid },
-  } = useForm<EverytimeUrlFormType>({
+  } = useForm<EverytimeUrlSchema>({
     resolver: zodResolver(everytimeUrlSchema),
   });
 
   const { submitEverytimeUrl, error, isPending } =
     useSubmitEverytimeURLMutation();
 
-  const onSubmit: SubmitHandler<EverytimeUrlFormType> = async ({ url }) => {
+  const onSubmit: SubmitHandler<EverytimeUrlSchema> = async ({ url }) => {
     setIsTouched(false);
     await submitEverytimeUrl(url);
 

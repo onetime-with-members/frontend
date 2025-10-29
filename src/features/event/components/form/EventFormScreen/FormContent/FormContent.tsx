@@ -10,7 +10,7 @@ import {
 } from '@/features/event/api/events.query';
 import { EventFormContext } from '@/features/event/contexts/EventFormContext';
 import useNoCreatorRedirect from '@/features/event/hooks/useNoCreatorRedirect';
-import { EventFormType } from '@/lib/validation/form-types';
+import { EventSchema } from '@/features/event/types';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
@@ -27,7 +27,7 @@ export default function FormContent() {
   const { mutateAsync: editEvent, isPending: isEditPending } =
     useEditEventMutation();
 
-  const onSubmit: SubmitHandler<EventFormType> = async (values) => {
+  const onSubmit: SubmitHandler<EventSchema> = async (values) => {
     if (formStatus === 'create') {
       await createEvent(values);
       progressRouter.push(`/events/${params.id}`);

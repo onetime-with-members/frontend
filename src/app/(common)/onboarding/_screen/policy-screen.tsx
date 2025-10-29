@@ -6,11 +6,8 @@ import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
 import ScreenLayout from './screen-layout';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import PolicyDetailScreen from '@/components/user/policy-detail-screen';
-import {
-  OnboardingFormType,
-  PolicyFormType,
-} from '@/lib/validation/form-types';
-import { policySchema } from '@/lib/validation/schema';
+import { policySchema } from '@/features/user/schemas';
+import { OnboardingSchema, PolicySchema } from '@/features/user/types';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -22,19 +19,17 @@ export default function PolicyScreen({
 }: {
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  onboardingValue: OnboardingFormType;
-  setOnboardingValue: UseFormSetValue<OnboardingFormType>;
+  onboardingValue: OnboardingSchema;
+  setOnboardingValue: UseFormSetValue<OnboardingSchema>;
 }) {
-  const [pageDetail, setPageDetail] = useState<keyof PolicyFormType | null>(
-    null,
-  );
+  const [pageDetail, setPageDetail] = useState<keyof PolicySchema | null>(null);
 
   const {
     reset,
     watch,
     formState: { isValid },
     handleSubmit,
-  } = useForm<PolicyFormType>({
+  } = useForm<PolicySchema>({
     resolver: zodResolver(policySchema),
     defaultValues: {
       servicePolicy: onboardingValue.servicePolicy,
@@ -51,7 +46,7 @@ export default function PolicyScreen({
   const pageTitle =
     pageDetail === 'servicePolicy' ? t('termsOfService') : t('privacyPolicy');
 
-  const onSubmit: SubmitHandler<PolicyFormType> = ({
+  const onSubmit: SubmitHandler<PolicySchema> = ({
     servicePolicy,
     privacyPolicy,
     marketingPolicy,

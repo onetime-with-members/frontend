@@ -8,10 +8,10 @@ import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import { PolicyContext } from '@/contexts/policy';
+import { policySchema } from '@/features/user/schemas';
+import { PolicySchema } from '@/features/user/types';
 import useHomeUrl from '@/hooks/useHomeUrl';
 import { editUserPolicyAction } from '@/lib/api/actions';
-import { PolicyFormType } from '@/lib/validation/form-types';
-import { policySchema } from '@/lib/validation/schema';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -19,9 +19,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function PolicyEditPage() {
-  const [pageDetail, setPageDetail] = useState<keyof PolicyFormType | null>(
-    null,
-  );
+  const [pageDetail, setPageDetail] = useState<keyof PolicySchema | null>(null);
 
   const { policyValue, setPolicyValue, policyData } = useContext(PolicyContext);
 
@@ -29,7 +27,7 @@ export default function PolicyEditPage() {
     handleSubmit,
     reset,
     formState: { isValid },
-  } = useForm<PolicyFormType>({
+  } = useForm<PolicySchema>({
     resolver: zodResolver(policySchema),
     defaultValues: policyValue,
   });
@@ -49,7 +47,7 @@ export default function PolicyEditPage() {
     },
   });
 
-  const onSubmit: SubmitHandler<PolicyFormType> = async (data) => {
+  const onSubmit: SubmitHandler<PolicySchema> = async (data) => {
     await editPolicy(data);
   };
 

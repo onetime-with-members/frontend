@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { defaultEventValue } from '../constants';
-import { EventFormType } from '@/lib/validation/form-types';
-import { eventSchema } from '@/lib/validation/schema';
+import { eventSchema } from '../schemas';
+import { EventSchema } from '../types';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-export default function useEventForm(originData?: EventFormType) {
+export default function useEventForm(originData?: EventSchema) {
   const {
     register,
     setValue,
@@ -15,7 +15,7 @@ export default function useEventForm(originData?: EventFormType) {
     control,
     watch,
     reset,
-  } = useForm<EventFormType>({
+  } = useForm<EventSchema>({
     mode: 'onChange',
     defaultValues: originData || defaultEventValue,
     resolver: zodResolver(eventSchema),

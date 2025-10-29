@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 
 import GrayBackground from '../gray-background';
 import NavBar from '@/components/nav-bar';
-import { PolicyFormType } from '@/lib/validation/form-types';
+import { PolicySchema } from '@/features/user/types';
 import privacyMarkdownEN from '@/markdowns/privacy-en';
 import privacyMarkdownKO from '@/markdowns/privacy-ko';
 import serviceMarkdownEN from '@/markdowns/service-en';
@@ -17,7 +17,7 @@ export default function PolicyDetailScreen({
   pageTitle,
   onClose,
 }: {
-  page: keyof PolicyFormType;
+  page: keyof PolicySchema;
   pageTitle: string;
   onClose: () => void;
 }) {

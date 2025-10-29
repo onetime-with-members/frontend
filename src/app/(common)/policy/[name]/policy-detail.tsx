@@ -1,14 +1,14 @@
 'use client';
 
 import PolicyDetailScreen from '@/components/user/policy-detail-screen';
-import { PolicyFormType } from '@/lib/validation/form-types';
+import { PolicySchema } from '@/features/user/types';
 import { useRouter } from 'next/navigation';
 
 export default function PolicyPage({
   page,
   pageTitle,
 }: {
-  page: keyof PolicyFormType;
+  page: keyof PolicySchema;
   pageTitle: string;
 }) {
   const router = useRouter();

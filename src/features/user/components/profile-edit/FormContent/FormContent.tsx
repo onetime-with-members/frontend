@@ -5,9 +5,8 @@ import DesktopSubmitButton from './DesktopSubmitButton';
 import MobileSubmitButton from './MobileSubmitButton';
 import NicknameFormControl from '@/components/user/nickname-form-control';
 import { useEditProfileMutation } from '@/features/user/api/user.query';
-import { UserType } from '@/features/user/types';
-import { ProfileNicknameFormType } from '@/lib/validation/form-types';
-import { profileNicknameSchema } from '@/lib/validation/schema';
+import { profileNicknameSchema } from '@/features/user/schemas';
+import { ProfileNicknameSchema, UserType } from '@/features/user/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 
@@ -19,7 +18,7 @@ export default function FormContent({ user }: { user: UserType }) {
     register,
     formState: { errors, isValid },
     reset,
-  } = useForm<ProfileNicknameFormType>({
+  } = useForm<ProfileNicknameSchema>({
     mode: 'onChange',
     resolver: zodResolver(profileNicknameSchema),
     defaultValues: {
@@ -30,7 +29,7 @@ export default function FormContent({ user }: { user: UserType }) {
 
   const { editUserName, isPending } = useEditProfileMutation();
 
-  const onSubmit: SubmitHandler<ProfileNicknameFormType> = async ({
+  const onSubmit: SubmitHandler<ProfileNicknameSchema> = async ({
     nickname,
   }) => {
     await editUserName(nickname);

@@ -4,7 +4,7 @@ import { UseFormSetValue } from 'react-hook-form';
 import ScreenLayout from './screen-layout';
 import TimeDropdown from '@/components/dropdown/time-dropdown';
 import SleepIcon from '@/components/icon/SleepTimeIcon';
-import { OnboardingFormType } from '@/lib/validation/form-types';
+import { OnboardingSchema } from '@/features/user/types';
 
 export default function SleepTimeScreen({
   pageIndex,
@@ -15,8 +15,8 @@ export default function SleepTimeScreen({
 }: {
   pageIndex: number;
   setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-  onboardingValue: OnboardingFormType;
-  setOnboardingValue: UseFormSetValue<OnboardingFormType>;
+  onboardingValue: OnboardingSchema;
+  setOnboardingValue: UseFormSetValue<OnboardingSchema>;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) {
   const t = useTranslations('onboarding');

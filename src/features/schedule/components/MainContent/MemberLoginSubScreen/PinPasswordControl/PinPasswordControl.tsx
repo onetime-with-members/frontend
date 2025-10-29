@@ -2,12 +2,12 @@ import { useTranslations } from 'next-intl';
 import { Control, Controller } from 'react-hook-form';
 
 import PinPasswordInput from './PinPasswordInput';
-import { GuestFormType } from '@/lib/validation/form-types';
+import { GuestSchema } from '@/features/event/types';
 
 export default function PinPasswordControl({
   control,
 }: {
-  control: Control<GuestFormType>;
+  control: Control<GuestSchema>;
 }) {
   const t = useTranslations('scheduleAdd');
 

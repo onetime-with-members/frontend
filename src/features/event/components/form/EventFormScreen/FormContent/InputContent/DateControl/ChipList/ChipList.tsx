@@ -1,16 +1,16 @@
 import { useTranslations } from 'next-intl';
 
 import Chip from './Chip';
-import { EventFormType } from '@/lib/validation/form-types';
+import { EventSchema } from '@/features/event/types';
 
 export default function ChipList({
   category,
   setCategory,
   setRanges,
 }: {
-  category: EventFormType['category'];
-  setCategory: (category: EventFormType['category']) => void;
-  setRanges: (ranges: EventFormType['ranges']) => void;
+  category: EventSchema['category'];
+  setCategory: (category: EventSchema['category']) => void;
+  setRanges: (ranges: EventSchema['ranges']) => void;
 }) {
   const t = useTranslations('eventForm');
 

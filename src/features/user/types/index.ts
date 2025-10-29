@@ -1,4 +1,10 @@
-import { OnboardingFormType } from '@/lib/validation/form-types';
+import z from 'zod';
+
+import {
+  onboardingSchema,
+  policySchema,
+  profileNicknameSchema,
+} from '../schemas';
 
 export interface UserType {
   nickname: string;
@@ -24,7 +30,11 @@ export type TabActiveType = 'events' | 'schedules' | 'profile' | null;
 
 export type PageTitleType = string | null;
 
-export interface OnboardingType extends OnboardingFormType {
+export interface OnboardingType extends OnboardingSchema {
   registerToken: string;
   language: 'KOR' | 'ENG';
 }
+
+export type ProfileNicknameSchema = z.infer<typeof profileNicknameSchema>;
+export type PolicySchema = z.infer<typeof policySchema>;
+export type OnboardingSchema = z.infer<typeof onboardingSchema>;

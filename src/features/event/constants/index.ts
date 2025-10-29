@@ -1,5 +1,4 @@
-import { EventType } from '../types';
-import { EventFormType } from '@/lib/validation/form-types';
+import { EventSchema, EventType } from '../types';
 
 export const EDITED_EVENTS_COOKIE_KEY = 'edited_events';
 
@@ -13,7 +12,7 @@ export const defaultEvent: EventType = {
   event_status: 'PARTICIPANT',
 };
 
-export const defaultEventValue: EventFormType = {
+export const defaultEventValue: EventSchema = {
   title: '',
   start_time: '09:00',
   end_time: '24:00',

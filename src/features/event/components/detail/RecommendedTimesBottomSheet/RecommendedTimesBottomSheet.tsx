@@ -106,7 +106,6 @@ export default function RecommendedTimesBottomSheet() {
           </Drawer.Portal>
         </Drawer.Root>
       )}
-
       <AnimatePresence>
         {shouldBottomButtonShown && (
           <BottomButtonForMobile
@@ -117,7 +116,6 @@ export default function RecommendedTimesBottomSheet() {
           />
         )}
       </AnimatePresence>
-
       {isLoginAlertOpen && <LoginAlert setIsOpen={setIsLoginAlertOpen} />}
       {isSharePopUpOpen && <SharePopUp setIsOpen={setIsSharePopUpOpen} />}
     </>
