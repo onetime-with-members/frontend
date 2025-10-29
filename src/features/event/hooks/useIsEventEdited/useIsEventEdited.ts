@@ -35,9 +35,5 @@ export default function useIsEventEdited() {
     getIsEventEdited();
   }, [isLoggedIn, scheduleDetail, isGuestEditedEvent, params]);
 
-  useEffect(() => {
-    console.log(isEdited);
-  }, [isEdited]);
-
   return isEdited;
 }

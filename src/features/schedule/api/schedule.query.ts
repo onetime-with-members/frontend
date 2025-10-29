@@ -9,13 +9,17 @@ import {
   scheduleDetailQueryOptions,
   schedulesQueryOptions,
 } from './schedule.options';
+import { defaultEvent } from '@/features/event/constants';
 import { EventType } from '@/features/event/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useSchedulesQuery(event: EventType) {
-  const { data } = useQuery({ ...schedulesQueryOptions(event) });
+  const { data, isPending } = useQuery({
+    ...schedulesQueryOptions(event),
+    enabled: JSON.stringify(event) !== JSON.stringify(defaultEvent),
+  });
 
-  return { data: data || [] };
+  return { data: data || [], isPending };
 }
 
 export function useScheduleDetailQuery({

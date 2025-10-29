@@ -9,12 +9,17 @@ export default function DesktopSideContent() {
   const params = useParams<{ id: string }>();
 
   const { data: event } = useEventQuery(params.id);
-  const { data: schedules } = useSchedulesQuery(event);
+  const { data: schedules, isPending: isSchedulesPending } =
+    useSchedulesQuery(event);
 
   return (
     <div className="hidden flex-col md:flex md:w-1/2">
       <BannerList className="pt-2" />
-      {schedules?.length === 0 ? <EmptyEventBanner /> : <RecommendedTimes />}
+      {!isSchedulesPending && schedules.length === 0 ? (
+        <EmptyEventBanner />
+      ) : (
+        <RecommendedTimes />
+      )}
     </div>
   );
 }
