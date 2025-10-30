@@ -5,7 +5,7 @@ import { WeekdayLocaleContext } from '@/contexts/weekday-locale';
 import useDragSelect from '@/hooks/useDragSelect';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';
-import { eventTarget } from '@/lib/utils';
+import { eventTarget } from '@/utils';
 
 export default function WeekdaySelect({
   className,

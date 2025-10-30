@@ -5,7 +5,7 @@ import useDragScroll from '@/hooks/useDragScroll';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
-import { eventTarget } from '@/lib/utils';
+import { eventTarget } from '@/utils';
 
 export default function BlockContent({
   boardContentRef,

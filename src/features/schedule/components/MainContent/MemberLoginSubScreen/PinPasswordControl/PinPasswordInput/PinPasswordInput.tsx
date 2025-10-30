@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 import PinPasswordInputField from './PinPasswordInputField';
-import { isNumber } from '@/lib/utils';
+import { isNumber } from '@/utils';
 
 export default function PinPasswordInput({
   inputId,

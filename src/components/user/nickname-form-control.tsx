@@ -4,7 +4,7 @@ import { FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
 import Input from '../Input';
 import { nicknameSchemaCodes } from '@/features/user/constants';
 import cn from '@/lib/cn';
-import { errorCodes } from '@/lib/utils';
+import { errorCodes } from '@/utils';
 
 export default function NicknameFormControl({
   registerNickname,

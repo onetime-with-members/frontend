@@ -6,7 +6,7 @@ import { WeekdayLocaleContext } from '@/contexts/weekday-locale';
 import useDragSelect from '@/hooks/useDragSelect';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
-import { eventTarget } from '@/lib/utils';
+import { eventTarget } from '@/utils';
 import { IconTriangleFilled } from '@tabler/icons-react';
 
 export default function CalendarSelect({
