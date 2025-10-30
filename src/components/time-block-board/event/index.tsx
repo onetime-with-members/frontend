@@ -15,13 +15,13 @@ import {
   ResetButton,
 } from './ui-actions';
 import { EventType } from '@/features/event/types';
+import useScrollArrowButton from '@/features/schedule/hooks/useScrollArrowButton';
+import useTargetSticky from '@/features/schedule/hooks/useTargetSticky';
 import {
   ScheduleType,
   TimeBlockPopUpDataType,
 } from '@/features/schedule/types';
 import { timeBlockList } from '@/features/schedule/utils';
-import useScrollArrowButton from '@/hooks/useScrollArrowButton';
-import useTargetSticky from '@/hooks/useTargetSticky';
 import cn from '@/lib/cn';
 
 export default function TimeBlockBoard({

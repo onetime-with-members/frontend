@@ -11,7 +11,7 @@ import {
   useUpdateScheduleMutation,
 } from '@/features/schedule/api/schedule.query';
 import { ScheduleFormContext } from '@/features/schedule/contexts/ScheduleFormContext';
-import useScheduleAdd from '@/hooks/useScheduleAdd';
+import useScheduleAdd from '@/features/schedule/hooks/useScheduleAdd';
 import useToast from '@/hooks/useToast';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';

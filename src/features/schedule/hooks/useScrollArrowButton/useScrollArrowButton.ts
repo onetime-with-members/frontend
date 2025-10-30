@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 
-interface UseScrollArrowButtonProps {
-  ref: React.RefObject<HTMLElement | null>;
-  scrollSyncRef?: React.RefObject<HTMLElement | null>;
-}
-
 export default function useScrollArrowButton({
   ref,
   scrollSyncRef,
-}: UseScrollArrowButtonProps) {
+}: {
+  ref: React.RefObject<HTMLElement | null>;
+  scrollSyncRef?: React.RefObject<HTMLElement | null>;
+}) {
   const [arrowButtonVisible, setArrowButtonVisible] = useState({
     left: false,
     right: true,

@@ -1,5 +1,5 @@
 import { useEventQuery } from '@/features/event/api/event.query';
-import useKakaoShare from '@/hooks/useKakaoShare';
+import useKakaoShare from '@/features/event/hooks/useKakaoShare';
 import cn from '@/lib/cn';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';

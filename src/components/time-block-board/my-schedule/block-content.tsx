@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import { weekdaysShortKo } from '@/constants';
 import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
 import { MyScheduleTimeType } from '@/features/my-schedule/types';
-import useTimeBlockFill from '@/hooks/useTimeBlockFill';
+import useTimeBlockFill from '@/features/schedule/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';
 
 export default function BlockContent({

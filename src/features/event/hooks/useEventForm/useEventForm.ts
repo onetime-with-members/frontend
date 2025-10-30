@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { defaultEventValue } from '../constants';
-import { eventSchema } from '../schemas';
-import { EventSchema } from '../types';
+import { defaultEventValue } from '../../constants';
+import { eventSchema } from '../../schemas';
+import { EventSchema } from '../../types';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function useEventForm(originData?: EventSchema) {

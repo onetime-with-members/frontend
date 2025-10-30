@@ -5,7 +5,6 @@ import MyScheduleContextProvider from '../features/my-schedule/contexts/MySchedu
 import SleepTimeContextProvider from '../features/my-schedule/contexts/SleepTimeContext';
 import FooterContextProvider from '../features/set-up/contexts/FooterContext';
 import PolicyContextProvider from '../features/user/contexts/PolicyContext';
-import ScrollContextProvider from './ScrollContext';
 import ToastContextProvider from './ToastContext';
 import WeekdayLocaleContextProvider from './WeekdayLocaleContext';
 import { fetchBarBanner } from '@/features/banner/api/banner.api';
@@ -29,23 +28,21 @@ export default async function ContextProviders({
   return (
     <PageModeContextProvider>
       <FooterContextProvider>
-        <ScrollContextProvider>
-          <PolicyContextProvider>
-            <SleepTimeContextProvider>
-              <MyScheduleContextProvider>
-                <BarBannerContextProvider barBanner={barBanner}>
-                  <WeekdayLocaleContextProvider initialLocale={locale}>
-                    <ToastContextProvider>
-                      <EverytimeScheduleContextProvider>
-                        {children}
-                      </EverytimeScheduleContextProvider>
-                    </ToastContextProvider>
-                  </WeekdayLocaleContextProvider>
-                </BarBannerContextProvider>
-              </MyScheduleContextProvider>
-            </SleepTimeContextProvider>
-          </PolicyContextProvider>
-        </ScrollContextProvider>
+        <PolicyContextProvider>
+          <SleepTimeContextProvider>
+            <MyScheduleContextProvider>
+              <BarBannerContextProvider barBanner={barBanner}>
+                <WeekdayLocaleContextProvider initialLocale={locale}>
+                  <ToastContextProvider>
+                    <EverytimeScheduleContextProvider>
+                      {children}
+                    </EverytimeScheduleContextProvider>
+                  </ToastContextProvider>
+                </WeekdayLocaleContextProvider>
+              </BarBannerContextProvider>
+            </MyScheduleContextProvider>
+          </SleepTimeContextProvider>
+        </PolicyContextProvider>
       </FooterContextProvider>
     </PageModeContextProvider>
   );

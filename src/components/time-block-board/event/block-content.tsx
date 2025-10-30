@@ -1,8 +1,8 @@
 import { EventType } from '@/features/event/types';
+import useDragScroll from '@/features/schedule/hooks/useDragScroll';
+import useTimeBlockFill from '@/features/schedule/hooks/useTimeBlockFill';
 import { ScheduleType, TimeType } from '@/features/schedule/types';
 import { timeBlockList } from '@/features/schedule/utils';
-import useDragScroll from '@/hooks/useDragScroll';
-import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { eventTarget } from '@/utils';

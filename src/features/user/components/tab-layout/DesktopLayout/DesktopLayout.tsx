@@ -1,19 +1,14 @@
 'use client';
 
-import { useContext } from 'react';
-
 import DesktopHeader from './DesktopHeader';
 import DesktopSideTab from './DesktopSideTab';
 import NavBar from '@/components/nav-bar';
-import { ScrollContext } from '@/contexts/ScrollContext';
 
 export default function DesktopLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { scrollContainerRef } = useContext(ScrollContext);
-
   return (
     <div className="hidden min-h-screen flex-col md:flex">
       <NavBar shadow={false} />
@@ -21,9 +16,7 @@ export default function DesktopLayout({
         <DesktopSideTab />
         <main className="relative flex flex-1 flex-col gap-2 pb-20 pt-8">
           <DesktopHeader />
-          <div ref={scrollContainerRef} className="flex-1">
-            {children}
-          </div>
+          <div className="flex-1">{children}</div>
         </main>
       </div>
     </div>

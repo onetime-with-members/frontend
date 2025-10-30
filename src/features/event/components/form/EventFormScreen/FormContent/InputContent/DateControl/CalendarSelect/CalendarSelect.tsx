@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 
 import DateItem from '../DateItem';
 import { WeekdayLocaleContext } from '@/contexts/WeekdayLocaleContext';
-import useDragSelect from '@/hooks/useDragSelect';
+import useDragSelect from '@/features/event/hooks/useDragSelect';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { eventTarget } from '@/utils';
