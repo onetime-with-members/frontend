@@ -3,7 +3,7 @@ import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 
 import dayjs from '../lib/dayjs';
 import { Session } from '../types';
-import { SERVER_API_URL } from '@/lib/constants';
+import { SERVER_API_URL } from '@/constants';
 
 class SessionService {
   private accessToken = '';

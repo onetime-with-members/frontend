@@ -1,9 +1,9 @@
 import { useLocale } from 'next-intl';
 
+import { weekdaysShortKo } from '@/constants';
 import { EventType } from '@/features/event/types';
 import { leftTimeLabelFormat, timeLabelList } from '@/features/schedule/utils';
 import cn from '@/lib/cn';
-import { weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 
 export function DateIndicator({

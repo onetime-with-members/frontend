@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 
 import DateItem from '../DateItem';
+import { weekdaysShortKo } from '@/constants';
 import { WeekdayLocaleContext } from '@/contexts/WeekdayLocaleContext';
 import useDragSelect from '@/hooks/useDragSelect';
 import cn from '@/lib/cn';
-import { weekdaysShortKo } from '@/lib/constants';
 import { eventTarget } from '@/utils';
 
 export default function WeekdaySelect({

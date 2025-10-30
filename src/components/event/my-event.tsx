@@ -3,13 +3,13 @@
 import { useLocale, useTranslations } from 'next-intl';
 import Skeleton from 'react-loading-skeleton';
 
-import { MyEventType } from '@/features/user/types';
-import cn from '@/lib/cn';
 import {
   SKELETON_DARK_GRAY,
   SKELETON_GRAY,
   weekdaysShortKo,
-} from '@/lib/constants';
+} from '@/constants';
+import { MyEventType } from '@/features/user/types';
+import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { ProgressLink } from '@/navigation';
 import { IconChevronRight } from '@tabler/icons-react';

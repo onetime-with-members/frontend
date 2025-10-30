@@ -1,8 +1,8 @@
 import PolicyPage from './policy-detail';
 import NotFound from '@/app/not-found';
+import { POLICY_KEY_LIST } from '@/constants';
 import { PolicySchema } from '@/features/user/types';
 import { policyPageTitle } from '@/features/user/utils';
-import { POLICY_KEY_LIST } from '@/lib/constants';
 import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 

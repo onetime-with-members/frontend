@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 
+import { weekdaysShortKo } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
 import { MyScheduleContext } from '@/features/my-schedule/contexts/MyScheduleContext';
 import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
@@ -10,7 +11,6 @@ import {
 import { useScheduleDetailQuery } from '@/features/schedule/api/schedule.query';
 import { ScheduleType } from '@/features/schedule/types';
 import { timeBlockList } from '@/features/schedule/utils';
-import { weekdaysShortKo } from '@/lib/constants';
 import dayjs from '@/lib/dayjs';
 
 export default function useScheduleAdd({

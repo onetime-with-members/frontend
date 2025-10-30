@@ -1,7 +1,7 @@
 'use client';
 
+import { breakpoint } from '@/constants';
 import useGrayBackground from '@/hooks/useGrayBackground';
-import { breakpoint } from '@/lib/constants';
 
 export default function GrayBackground({
   device,

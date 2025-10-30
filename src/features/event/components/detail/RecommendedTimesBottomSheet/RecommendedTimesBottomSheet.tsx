@@ -6,6 +6,7 @@ import { Drawer } from 'vaul';
 import BottomButtonForMobile from './BottomButtonForMobile';
 import MobileRecommendedTimeItem from './MobileRecommendedTimeItem';
 import ClockIcon from '@/components/icon/ClockIcon';
+import { breakpoint } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
 import LoginAlert from '@/features/event/components/detail/shared/LoginAlert';
 import SectionHeading from '@/features/event/components/detail/shared/SectionHeading';
@@ -17,7 +18,6 @@ import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import useClientWidth from '@/hooks/useClientWidth';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { breakpoint } from '@/lib/constants';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 

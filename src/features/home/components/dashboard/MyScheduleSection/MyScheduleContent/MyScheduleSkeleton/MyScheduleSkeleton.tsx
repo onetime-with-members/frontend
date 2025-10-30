@@ -1,7 +1,7 @@
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import TimeBlockBoardSkeleton from '@/components/skeleton/time-block-board-skeleton';
-import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/lib/constants';
+import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/constants';
 
 export default function MyScheduleSkeleton() {
   return (

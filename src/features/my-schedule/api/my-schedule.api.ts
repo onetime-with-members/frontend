@@ -1,10 +1,7 @@
 import { defaultMySchedule } from '../constants';
 import { MyScheduleTimeType, SleepTimeType } from '../types';
+import { CRAWLING_SERVER_API_KEY, CRAWLING_SERVER_API_URL } from '@/constants';
 import apiClient from '@/lib/api';
-import {
-  CRAWLING_SERVER_API_KEY,
-  CRAWLING_SERVER_API_URL,
-} from '@/lib/constants';
 
 export async function fetchMySchedule() {
   const res = await apiClient.get('/fixed-schedules');

@@ -6,9 +6,9 @@ import {
   ParticipantType,
   RecommendScheduleType,
 } from '../types';
+import { SERVER_API_URL } from '@/constants';
 import { ScheduleType } from '@/features/schedule/types';
 import apiClient from '@/lib/api';
-import { SERVER_API_URL } from '@/lib/constants';
 
 export async function fetchEvent(eventId: string) {
   const res = await fetch(`${SERVER_API_URL}/events/${eventId}`);

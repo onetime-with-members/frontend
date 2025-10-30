@@ -2,11 +2,11 @@
 
 import { useContext } from 'react';
 
+import { weekdaysShortKo } from '@/constants';
 import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
 import { MyScheduleTimeType } from '@/features/my-schedule/types';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';
-import { weekdaysShortKo } from '@/lib/constants';
 
 export default function BlockContent({
   mode,

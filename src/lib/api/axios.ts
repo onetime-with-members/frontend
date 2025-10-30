@@ -4,7 +4,7 @@ import {
   reissueWhenTokenExpired,
   removeSessionWhenWithdrawal,
 } from './axios-error';
-import { SERVER_API_URL } from '@/lib/constants';
+import { SERVER_API_URL } from '@/constants';
 import { sessionService } from '@/services/SessionService';
 import { ExtendedAxiosError } from '@/types';
 

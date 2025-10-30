@@ -3,7 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 import {
   SKELETON_TOOLBAR_TITLE_COLOR,
   SKELETON_TOOLBAR_TITLE_HIGHLIGHT_COLOR,
-} from '@/lib/constants';
+} from '@/constants';
 
 export default function ToolbarTitleSkeleton() {
   return (

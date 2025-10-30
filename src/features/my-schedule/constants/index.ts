@@ -1,5 +1,5 @@
 import { MyScheduleTimeType, SleepTimeType } from '../types';
-import { weekdaysShortKo } from '@/lib/constants';
+import { weekdaysShortKo } from '@/constants';
 
 export const defaultMySchedule: MyScheduleTimeType[] = weekdaysShortKo.map(
   (weekday) => ({

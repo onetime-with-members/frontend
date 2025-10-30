@@ -1,6 +1,6 @@
 import { Banner, BarBanner } from '../types';
+import { SERVER_API_URL } from '@/constants';
 import apiClient from '@/lib/api';
-import { SERVER_API_URL } from '@/lib/constants';
 
 export async function fetchBanner() {
   const res = await fetch(`${SERVER_API_URL}/admin/banners/activated/all`);

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { breakpoint } from '@/lib/constants';
+import { breakpoint } from '@/constants';
 
 interface UseGrayBackgroundProps {
   breakpointCondition?: () => boolean;

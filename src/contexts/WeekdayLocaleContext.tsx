@@ -3,7 +3,7 @@
 import { useLocale } from 'next-intl';
 import { createContext, useEffect, useState } from 'react';
 
-import { weekdaysShortEn, weekdaysShortKo } from '@/lib/constants';
+import { weekdaysShortEn, weekdaysShortKo } from '@/constants';
 import dayjs from '@/lib/dayjs';
 
 export const WeekdayLocaleContext = createContext<{
