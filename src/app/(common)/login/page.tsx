@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import LoginPage from './login';
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
@@ -5,7 +7,7 @@ import { redirect } from 'next/navigation';
 
 export type SocialLoginType = 'naver' | 'kakao' | 'google';
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('login');
 
   return {

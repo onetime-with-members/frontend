@@ -1,3 +1,5 @@
+import { Metadata } from 'next';
+
 import PolicyPage from './policy-detail';
 import NotFound from '@/app/not-found';
 import { POLICY_KEY_LIST } from '@/constants';
@@ -10,7 +12,7 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ name: string }>;
-}) {
+}): Promise<Metadata> {
   const { name } = await params;
   const locale = await getLocale();
 
