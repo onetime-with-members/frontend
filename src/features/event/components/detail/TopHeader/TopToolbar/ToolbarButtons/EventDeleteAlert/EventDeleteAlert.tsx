@@ -2,7 +2,6 @@ import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
 import { useDeleteEventMutation } from '@/features/event/api/event.query';
-import useHomeUrl from '@/hooks/useHomeUrl';
 import { useParams, useRouter } from 'next/navigation';
 
 export default function EventDeleteAlert({
@@ -10,8 +9,6 @@ export default function EventDeleteAlert({
 }: {
   setIsEventDeleteAlertOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const homeUrl = useHomeUrl();
-
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const t = useTranslations('alert');
@@ -20,7 +17,7 @@ export default function EventDeleteAlert({
 
   async function handleAlertConfirm() {
     await deleteEvent(params.id);
-    router.push(homeUrl);
+    router.push('/');
   }
 
   return (

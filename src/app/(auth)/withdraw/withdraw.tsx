@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import Button from '@/components/button';
-import useHomeUrl from '@/hooks/useHomeUrl';
 import { withdrawAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { sessionService } from '@/services/SessionService';
@@ -16,8 +15,6 @@ import { useRouter } from 'next/navigation';
 export default function WithdrawPage() {
   const [isChecked, setIsChecked] = useState(false);
 
-  const homeUrl = useHomeUrl();
-
   const router = useRouter();
   const t = useTranslations('withdraw');
 
@@ -25,9 +22,9 @@ export default function WithdrawPage() {
     mutationFn: withdrawAction,
     onSuccess: async () => {
       await sessionService.remove();
-      router.push(homeUrl);
+      router.push('/');
       router.refresh();
-      window.location.href = homeUrl;
+      window.location.href = '/';
     },
   });
 

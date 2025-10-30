@@ -10,7 +10,6 @@ import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
 import { PolicyContext } from '@/features/user/contexts/PolicyContext';
 import { policySchema } from '@/features/user/schemas';
 import { PolicySchema } from '@/features/user/types';
-import useHomeUrl from '@/hooks/useHomeUrl';
 import { editUserPolicyAction } from '@/lib/api/actions';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -32,8 +31,6 @@ export default function PolicyEditPage() {
     defaultValues: policyValue,
   });
 
-  const homeUrl = useHomeUrl();
-
   const queryClient = useQueryClient();
   const router = useRouter();
   const progressRouter = useProgressRouter();
@@ -52,8 +49,7 @@ export default function PolicyEditPage() {
   };
 
   useEffect(() => {
-    if (policyData.privacyPolicy && policyData.servicePolicy)
-      router.push(homeUrl);
+    if (policyData.privacyPolicy && policyData.servicePolicy) router.push('/');
   }, [policyData]);
 
   useEffect(() => {

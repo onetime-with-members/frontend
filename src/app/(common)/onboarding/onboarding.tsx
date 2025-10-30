@@ -14,7 +14,6 @@ import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { defaultOnboardingValue } from '@/features/user/constants';
 import { onboardingSchema } from '@/features/user/schemas';
 import { OnboardingSchema } from '@/features/user/types';
-import useHomeUrl from '@/hooks/useHomeUrl';
 import { createUserAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
@@ -46,7 +45,6 @@ export default function OnboardingPage({
   const locale = useLocale();
 
   const { signIn } = useAuth();
-  const homeUrl = useHomeUrl();
 
   const redirectUrl = getCookie('redirect-url');
 
@@ -62,7 +60,7 @@ export default function OnboardingPage({
     },
     onError: (error) => {
       console.error(error);
-      router.replace(`/login?redirect_url=${redirectUrl || homeUrl}`);
+      router.replace(`/login?redirect_url=${redirectUrl || '/'}`);
     },
   });
 
