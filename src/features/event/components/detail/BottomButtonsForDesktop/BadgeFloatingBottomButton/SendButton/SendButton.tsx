@@ -1,7 +1,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 
 import SpeechBalloon from '../../../shared/SpeechBalloon';
-import { useEventQuery } from '@/features/event/api/events.query';
+import { useEventQuery } from '@/features/event/api/event.query';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';

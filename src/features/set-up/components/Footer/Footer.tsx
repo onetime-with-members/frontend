@@ -5,7 +5,7 @@ import { useContext, useEffect, useRef } from 'react';
 
 import LanguageDropdown from '@/components/dropdown/language-dropdown';
 import SpeakerPhoneIcon from '@/components/icon/SpeakerPhoneIcon';
-import { FooterContext } from '@/contexts/footer';
+import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { ProgressLink } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
 import Image from 'next/image';

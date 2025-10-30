@@ -6,7 +6,7 @@ import {
   fetchQrCode,
   fetchRecommendedTimes,
   fetchShortUrl,
-} from './events.api';
+} from './event.api';
 import { queryOptions } from '@tanstack/react-query';
 
 export const eventQueryOptions = (eventId: string) =>

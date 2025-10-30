@@ -9,7 +9,7 @@ import { ScheduleFormContext } from '../contexts/ScheduleFormContext';
 import BackButtonAlert from '@/components/alert/back-button-alert';
 import GrayBackground from '@/components/gray-background';
 import NavBar from '@/components/nav-bar';
-import { FooterContext } from '@/contexts/footer';
+import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 

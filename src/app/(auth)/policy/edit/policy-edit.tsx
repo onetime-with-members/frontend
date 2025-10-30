@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '@/components/button';
 import NavBar from '@/components/nav-bar';
 import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
-import { PolicyContext } from '@/contexts/policy';
+import { PolicyContext } from '@/features/user/contexts/PolicyContext';
 import { policySchema } from '@/features/user/schemas';
 import { PolicySchema } from '@/features/user/types';
 import useHomeUrl from '@/hooks/useHomeUrl';

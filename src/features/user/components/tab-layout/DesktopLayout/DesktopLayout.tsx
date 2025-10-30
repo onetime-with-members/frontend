@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import DesktopHeader from './DesktopHeader';
 import DesktopSideTab from './DesktopSideTab';
 import NavBar from '@/components/nav-bar';
-import { ScrollContext } from '@/contexts/scroll';
+import { ScrollContext } from '@/contexts/ScrollContext';
 
 export default function DesktopLayout({
   children,

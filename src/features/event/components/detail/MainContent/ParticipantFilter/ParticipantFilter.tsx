@@ -4,8 +4,8 @@ import { useContext } from 'react';
 import SectionHeading from '../../shared/SectionHeading';
 import ParticipantFilterItem from './ParticipantFilterItem';
 import HumanIcon from '@/components/icon/HumanIcon';
-import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
-import { useParticipantsQuery } from '@/features/event/api/events.query';
+import { useParticipantsQuery } from '@/features/event/api/event.query';
+import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import { ParticipantType } from '@/features/event/types';
 import { useParams } from 'next/navigation';
 

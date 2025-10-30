@@ -4,8 +4,8 @@ import BannerList from './BannerList';
 import DesktopSideContent from './DesktopSideContent';
 import ParticipantFilter from './ParticipantFilter';
 import TimeBlockBoard from '@/components/time-block-board/event';
-import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
-import { useEventQuery } from '@/features/event/api/events.query';
+import { useEventQuery } from '@/features/event/api/event.query';
+import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import useTimeBlockTopContentTopPx from '@/features/event/hooks/useTimeBlockTopContentTopPx';
 import { useParams } from 'next/navigation';
 

@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import SectionHeading from '../../../shared/SectionHeading';
 import RecommendedTime from './RecommendedTime';
 import ClockIcon from '@/components/icon/ClockIcon';
-import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
+import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import cn from '@/lib/cn';
 
 export default function RecommendedTimes({

@@ -2,8 +2,8 @@ import { useTranslations } from 'next-intl';
 import { useContext, useEffect } from 'react';
 
 import { useMyScheduleQuery } from '../api/my-schedule.query';
-import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
-import { MyScheduleContext } from '@/contexts/my-schedule';
+import { EverytimeScheduleContext } from '@/features/my-schedule/contexts/EverytimeScheduleContext';
+import { MyScheduleContext } from '@/features/my-schedule/contexts/MyScheduleContext';
 import useToast from '@/hooks/useToast';
 
 export default function useMyScheduleTimeBlock() {

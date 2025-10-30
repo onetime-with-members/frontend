@@ -9,7 +9,7 @@ import {
   myScheduleQueryOptions,
   sleepTimeQueryOptions,
 } from './my-schedule.options';
-import { EverytimeScheduleContext } from '@/contexts/everytime-schedule';
+import { EverytimeScheduleContext } from '@/features/my-schedule/contexts/EverytimeScheduleContext';
 import { ExtendedAxiosError } from '@/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

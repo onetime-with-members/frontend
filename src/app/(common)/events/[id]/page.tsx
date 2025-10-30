@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
-import EventParticipantFilterContextProvider from '@/contexts/event-participant-filter';
-import { fetchEvent } from '@/features/event/api/events.api';
-import { eventQueryOptions } from '@/features/event/api/events.option';
+import { fetchEvent } from '@/features/event/api/event.api';
+import { eventQueryOptions } from '@/features/event/api/event.option';
+import EventParticipantFilterContextProvider from '@/features/event/contexts/EventParticipantFilterContext';
 import EventDetailPage from '@/features/event/pages/EventDetailPage';
 import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';

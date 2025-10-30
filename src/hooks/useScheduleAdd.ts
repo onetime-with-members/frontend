@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 
-import { MyScheduleContext } from '@/contexts/my-schedule';
-import { SleepTimeContext } from '@/contexts/sleep-time';
-import { useEventQuery } from '@/features/event/api/events.query';
+import { useEventQuery } from '@/features/event/api/event.query';
+import { MyScheduleContext } from '@/features/my-schedule/contexts/MyScheduleContext';
+import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
 import {
   MyScheduleTimeType,
   SleepTimeType,

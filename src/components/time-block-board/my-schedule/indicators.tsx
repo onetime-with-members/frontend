@@ -2,8 +2,8 @@
 
 import { useContext } from 'react';
 
-import { SleepTimeContext } from '@/contexts/sleep-time';
-import { WeekdayLocaleContext } from '@/contexts/weekday-locale';
+import { WeekdayLocaleContext } from '@/contexts/WeekdayLocaleContext';
+import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
 import { leftTimeLabelFormat } from '@/features/schedule/utils';
 import cn from '@/lib/cn';
 

@@ -1,7 +1,7 @@
 import {
   useEventQuery,
   useShortUrlQuery,
-} from '@/features/event/api/events.query';
+} from '@/features/event/api/event.query';
 import { IconDots } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 

@@ -6,7 +6,7 @@ import ClockPattern from '@/components/clock-pattern';
 import {
   useEventQuery,
   useQrCodeQuery,
-} from '@/features/event/api/events.query';
+} from '@/features/event/api/event.query';
 import { IconX } from '@tabler/icons-react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';

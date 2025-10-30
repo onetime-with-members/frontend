@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import {
   useEventQuery,
   useShortUrlQuery,
-} from '@/features/event/api/events.query';
+} from '@/features/event/api/event.query';
 import cn from '@/lib/cn';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 import Image from 'next/image';

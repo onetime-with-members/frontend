@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 
-import { SleepTimeContext } from '@/contexts/sleep-time';
+import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
 import { MyScheduleTimeType } from '@/features/my-schedule/types';
 import useTimeBlockFill from '@/hooks/useTimeBlockFill';
 import cn from '@/lib/cn';

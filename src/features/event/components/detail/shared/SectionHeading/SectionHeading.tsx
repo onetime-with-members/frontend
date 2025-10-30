@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { BarBannerContext } from '@/contexts/bar-banner';
+import { BarBannerContext } from '@/features/banner/contexts/BarBannerContext';
 import cn from '@/lib/cn';
 
 export default function SectionHeading({

@@ -2,8 +2,8 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import Button from '@/components/button';
-import { PageModeContext } from '@/contexts/page-mode';
 import { EventFormContext } from '@/features/event/contexts/EventFormContext';
+import { PageModeContext } from '@/features/event/contexts/PageModeContext';
 import cn from '@/lib/cn';
 
 export default function BottomFloatingButton({

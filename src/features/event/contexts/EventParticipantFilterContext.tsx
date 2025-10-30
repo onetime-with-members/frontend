@@ -6,7 +6,7 @@ import {
   useChangeFilteredEventDataMutation,
   useEventQuery,
   useRecommendedTimesQuery,
-} from '@/features/event/api/events.query';
+} from '@/features/event/api/event.query';
 import { ParticipantType, RecommendScheduleType } from '@/features/event/types';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import { ScheduleType } from '@/features/schedule/types';

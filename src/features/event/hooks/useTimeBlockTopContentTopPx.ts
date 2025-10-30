@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
-import { BarBannerContext } from '@/contexts/bar-banner';
-import { EventParticipantFilterContext } from '@/contexts/event-participant-filter';
+import { BarBannerContext } from '@/features/banner/contexts/BarBannerContext';
+import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 
 export default function useTimeBlockTopContentTopPx() {
   const { isBarBannerShown } = useContext(BarBannerContext);

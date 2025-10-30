@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
-import { useDeleteEventMutation } from '@/features/event/api/events.query';
+import { useDeleteEventMutation } from '@/features/event/api/event.query';
 import useHomeUrl from '@/hooks/useHomeUrl';
 import { useParams, useRouter } from 'next/navigation';
 

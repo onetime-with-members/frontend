@@ -9,7 +9,7 @@ import ShareButtonWrapper from './ShareButtonWrapper';
 import ShareKakaoButton from './ShareKakaoButton';
 import ShareMoreButton from './ShareMoreButton';
 import Input from '@/components/Input';
-import { useShortUrlQuery } from '@/features/event/api/events.query';
+import { useShortUrlQuery } from '@/features/event/api/event.query';
 import useToast from '@/hooks/useToast';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';
 

@@ -2,12 +2,12 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import SmallButton from '@/components/button/small-button';
-import { MyScheduleContext } from '@/contexts/my-schedule';
-import { SleepTimeContext } from '@/contexts/sleep-time';
 import {
   useEditMyScheduleMutation,
   useEditSleepTimeMutation,
 } from '@/features/my-schedule/api/my-schedule.query';
+import { MyScheduleContext } from '@/features/my-schedule/contexts/MyScheduleContext';
+import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useRouter } from 'next/navigation';
 

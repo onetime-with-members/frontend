@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import DateItem from '../DateItem';
-import { WeekdayLocaleContext } from '@/contexts/weekday-locale';
+import { WeekdayLocaleContext } from '@/contexts/WeekdayLocaleContext';
 import useDragSelect from '@/hooks/useDragSelect';
 import cn from '@/lib/cn';
 import { weekdaysShortKo } from '@/lib/constants';

@@ -1,4 +1,4 @@
-import { useEventQuery } from '@/features/event/api/events.query';
+import { useEventQuery } from '@/features/event/api/event.query';
 import useKakaoShare from '@/hooks/useKakaoShare';
 import cn from '@/lib/cn';
 import Image from 'next/image';

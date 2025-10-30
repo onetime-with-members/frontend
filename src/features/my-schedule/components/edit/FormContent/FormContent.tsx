@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import SleepTimeAccordion from './SleepTimeAccordion';
 import EverytimeUI from '@/components/everytime-ui';
 import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
-import { SleepTimeContext } from '@/contexts/sleep-time';
+import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
 import useMyScheduleTimeBlock from '@/features/my-schedule/hooks/useMyScheduleTimeBlock';
 import cn from '@/lib/cn';
 

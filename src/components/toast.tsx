@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useContext, useEffect } from 'react';
 
 import CheckIcon from '@/components/icon/CheckIcon';
-import { ToastContext } from '@/contexts/toast';
+import { ToastContext } from '@/contexts/ToastContext';
 
 export default function Toast({
   bottom = 140,

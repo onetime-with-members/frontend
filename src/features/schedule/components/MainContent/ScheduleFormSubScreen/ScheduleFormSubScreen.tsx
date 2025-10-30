@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import BottomSubmitButton from './BottomSubmitButton';
 import TopSubmitButton from './TopSubmitButton';
 import TimeBlockBoard from '@/components/time-block-board/event';
-import { useEventQuery } from '@/features/event/api/events.query';
+import { useEventQuery } from '@/features/event/api/event.query';
 import useGuestEditedEvents from '@/features/event/hooks/useIsEventEdited/useGuestEditedEvents';
 import {
   useCreateNewMemberScheduleMutation,

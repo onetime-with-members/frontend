@@ -1,7 +1,7 @@
 import BannerList from '../BannerList';
 import EmptyEventBanner from './EmptyEventBanner';
 import RecommendedTimes from './RecommendedTimes';
-import { useEventQuery } from '@/features/event/api/events.query';
+import { useEventQuery } from '@/features/event/api/event.query';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import { useParams } from 'next/navigation';
 

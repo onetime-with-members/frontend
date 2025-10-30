@@ -1,4 +1,4 @@
-import { useShortUrlQuery } from '@/features/event/api/events.query';
+import { useShortUrlQuery } from '@/features/event/api/event.query';
 import { EventType } from '@/features/event/types';
 
 interface useKakaoShareProps {

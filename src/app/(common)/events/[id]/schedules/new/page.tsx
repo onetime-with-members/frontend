@@ -1,4 +1,4 @@
-import { eventQueryOptions } from '@/features/event/api/events.option';
+import { eventQueryOptions } from '@/features/event/api/event.option';
 import ScheduleFormContextProvider from '@/features/schedule/contexts/ScheduleFormContext';
 import ScheduleAddPage from '@/features/schedule/pages/ScheduleAddPage';
 import { auth } from '@/lib/auth';

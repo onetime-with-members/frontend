@@ -3,7 +3,7 @@
 import { useLocale } from 'next-intl';
 import { useContext } from 'react';
 
-import { BarBannerContext } from '@/contexts/bar-banner';
+import { BarBannerContext } from '@/features/banner/contexts/BarBannerContext';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import { IconX } from '@tabler/icons-react';

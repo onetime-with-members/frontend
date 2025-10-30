@@ -6,7 +6,7 @@ import {
   editEventAction,
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,
-} from './events.api';
+} from './event.api';
 import {
   eventQueryOptions,
   eventShortUrlQueryOptions,
@@ -14,7 +14,7 @@ import {
   participantsQueryOptions,
   qrCodeQueryOptions,
   recommendedTimesQueryOptions,
-} from './events.option';
+} from './event.option';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useEventQuery(id: string) {

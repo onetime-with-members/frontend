@@ -7,7 +7,7 @@ import TopAction from './TopAction';
 import {
   useCreateEventMutation,
   useEditEventMutation,
-} from '@/features/event/api/events.query';
+} from '@/features/event/api/event.query';
 import { EventFormContext } from '@/features/event/contexts/EventFormContext';
 import useNoCreatorRedirect from '@/features/event/hooks/useNoCreatorRedirect';
 import { EventSchema } from '@/features/event/types';

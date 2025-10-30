@@ -1,5 +1,5 @@
 import ToolbarButtons from './ToolbarButtons/ToolbarButtons';
-import { useEventQuery } from '@/features/event/api/events.query';
+import { useEventQuery } from '@/features/event/api/event.query';
 import { useParams } from 'next/navigation';
 
 export default function TopToolbar() {

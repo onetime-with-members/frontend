@@ -4,7 +4,7 @@ import EventDeleteAlert from './EventDeleteAlert';
 import ToolbarButton from './ToolbarButton';
 import EditIcon from '@/components/icon/EditIcon';
 import TrashIcon from '@/components/icon/trash';
-import { useEventWithAuthQuery } from '@/features/event/api/events.query';
+import { useEventWithAuthQuery } from '@/features/event/api/event.query';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 

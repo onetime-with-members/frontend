@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { ScheduleFormContext } from '../../contexts/ScheduleFormContext';
 import MemberLoginSubScreen from './MemberLoginSubScreen';
 import ScheduleFormSubScreen from './ScheduleFormSubScreen';
-import { useEventQuery } from '@/features/event/api/events.query';
+import { useEventQuery } from '@/features/event/api/event.query';
 import cn from '@/lib/cn';
 import { useParams } from 'next/navigation';
 
