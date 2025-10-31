@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-export default function CheckIcon(props: SVGProps<SVGSVGElement>) {
+export function CheckIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

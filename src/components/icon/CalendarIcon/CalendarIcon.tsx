@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-export default function CalendarIcon(props: SVGProps<SVGSVGElement>) {
+export function CalendarIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

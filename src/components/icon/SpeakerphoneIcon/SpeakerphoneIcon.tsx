@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-export default function SpeakerPhoneIcon(props: SVGProps<SVGSVGElement>) {
+export function SpeakerphoneIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

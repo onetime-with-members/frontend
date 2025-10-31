@@ -2,8 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
 import CircleArrowButton from '@/components/button/CircleArrowButton';
-import LoadIcon from '@/components/icon/LoadIcon';
-import RefreshIcon from '@/components/icon/RefreshIcon';
+import { LoadIcon, RefreshIcon } from '@/components/icon';
 import cn from '@/lib/cn';
 import { IconX } from '@tabler/icons-react';
 

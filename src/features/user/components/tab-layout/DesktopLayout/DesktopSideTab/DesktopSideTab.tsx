@@ -2,9 +2,8 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import SideTabItem from './SideTabItem';
-import CalendarIcon from '@/components/icon/CalendarIcon';
-import EventIcon from '@/components/icon/EventIcon';
-import ProfileIcon from '@/components/icon/ProfileIcon';
+import { CalendarIcon } from '@/components/icon';
+import { EventIcon, ProfileIcon } from '@/components/icon';
 import { MyPageTabContext } from '@/features/user/contexts/MyPageTabContext';
 
 export default function DesktopSideTab() {

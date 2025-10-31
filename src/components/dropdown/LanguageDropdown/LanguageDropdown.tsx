@@ -4,7 +4,7 @@ import { setCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useRef } from 'react';
 
-import CheckIcon from '@/components/icon/CheckIcon';
+import LanguageDropdownMenu from './LanguageDropdownMenu';
 import useDropdown from '@/hooks/useDropdown';
 import { editUserLanguageAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth';
@@ -13,11 +13,6 @@ import dayjs from '@/lib/dayjs';
 import { IconLanguage } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-
-const languages: { key: 'ko' | 'en'; label: string }[] = [
-  { key: 'ko', label: '한국어' },
-  { key: 'en', label: 'English' },
-];
 
 export default function LanguageDropdown({
   variant = 'default',
@@ -77,47 +72,5 @@ export default function LanguageDropdown({
         />
       )}
     </div>
-  );
-}
-
-function LanguageDropdownMenu({
-  onMenuItemClick,
-  menuPosition,
-}: {
-  onMenuItemClick: (language: 'en' | 'ko') => void;
-  menuPosition: 'top' | 'bottom';
-}) {
-  const locale = useLocale();
-
-  return (
-    <ul
-      className={cn(
-        'absolute flex w-[110px] flex-col gap-3 rounded-xl bg-gray-00 py-3 pl-5 pr-3 shadow-[0_4px_24px_0_rgba(0,0,0,0.15)]',
-        {
-          'top-[calc(100%+1rem)]': menuPosition === 'bottom',
-          'bottom-[calc(100%+1rem)]': menuPosition === 'top',
-        },
-      )}
-    >
-      {languages.map((language) => (
-        <li
-          key={language.key}
-          className={cn(
-            'flex cursor-pointer items-center justify-between text-gray-50 text-md-200',
-            {
-              'text-primary-40 text-md-300': locale === language.key,
-            },
-          )}
-          onClick={() => onMenuItemClick(language.key)}
-        >
-          <span>{language.label}</span>
-          {locale === language.key && (
-            <span>
-              <CheckIcon />
-            </span>
-          )}
-        </li>
-      ))}
-    </ul>
   );
 }

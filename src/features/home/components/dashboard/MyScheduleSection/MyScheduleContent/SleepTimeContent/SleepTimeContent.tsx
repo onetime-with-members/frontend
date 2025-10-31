@@ -1,5 +1,4 @@
-import PenIcon from '@/components/icon/PenIcon';
-import SleepIcon from '@/components/icon/SleepTimeIcon';
+import { PenIcon, SleepTimeIcon } from '@/components/icon';
 import { useSleepTimeQuery } from '@/features/my-schedule/api/my-schedule.query';
 import { ProgressLink } from '@/navigation';
 
@@ -10,7 +9,7 @@ export default function SleepTimeContent() {
     <div className="flex items-stretch justify-between gap-3 px-6 py-3">
       <div className="flex items-center gap-1.5 text-gray-80">
         <span className="text-xl">
-          <SleepIcon />
+          <SleepTimeIcon />
         </span>
         <span className="text-lg-200">
           {sleepTime?.sleep_start_time} - {sleepTime?.sleep_end_time}

@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import SectionHeading from '../../shared/SectionHeading';
 import ParticipantFilterItem from './ParticipantFilterItem';
-import HumanIcon from '@/components/icon/HumanIcon';
+import { HumanIcon } from '@/components/icon';
 import { useParticipantsQuery } from '@/features/event/api/event.query';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import { ParticipantType } from '@/features/event/types';

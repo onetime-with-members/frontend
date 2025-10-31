@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import CheckIcon from '@/components/icon/CheckIcon';
+import { CheckIcon } from '@/components/icon';
 import { PolicySchema } from '@/features/user/types';
 import cn from '@/lib/cn';
 import { IconChevronRight } from '@tabler/icons-react';

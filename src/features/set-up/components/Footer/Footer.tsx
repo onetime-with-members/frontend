@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useRef } from 'react';
 
 import LanguageDropdown from '@/components/dropdown/LanguageDropdown';
-import SpeakerPhoneIcon from '@/components/icon/SpeakerPhoneIcon';
+import { SpeakerphoneIcon } from '@/components/icon';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { ProgressLink } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
@@ -59,7 +59,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
               >
                 <span className="text-base">
-                  <SpeakerPhoneIcon />
+                  <SpeakerphoneIcon />
                 </span>
                 <span className="text-sm-300">{t('feedbackIssue')}</span>
               </a>

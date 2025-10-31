@@ -3,7 +3,7 @@ import { UseFormSetValue } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
 import TimeDropdown from '@/components/dropdown/TimeDropdown';
-import SleepIcon from '@/components/icon/SleepTimeIcon';
+import { SleepTimeIcon } from '@/components/icon';
 import { OnboardingSchema } from '@/features/user/types';
 
 export default function SleepTimeScreen({
@@ -33,7 +33,7 @@ export default function SleepTimeScreen({
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-1.5">
           <span className="text-xl text-gray-60">
-            <SleepIcon />
+            <SleepTimeIcon />
           </span>
           <span className="text-gray-80 text-md-300">{t('sleepTime')}</span>
         </div>

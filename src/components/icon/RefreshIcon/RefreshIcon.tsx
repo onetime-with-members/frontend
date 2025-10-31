@@ -1,21 +1,21 @@
 import { SVGProps } from 'react';
 
-export default function LoadIcon(props: SVGProps<SVGSVGElement>) {
+export function RefreshIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="1em"
       height="1em"
       fill="none"
-      viewBox="0 0 16 16"
+      viewBox="0 0 14 14"
       {...props}
     >
       <path
-        stroke="#fff"
+        stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.333"
-        d="M2 9v3a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V9M8 2v8.667m0 0 2.667-2.616M8 10.667 5.333 8.05"
+        d="M13 7a6 6 0 1 1-.624-2.667m0 0H9m3.376 0V1"
       />
     </svg>
   );

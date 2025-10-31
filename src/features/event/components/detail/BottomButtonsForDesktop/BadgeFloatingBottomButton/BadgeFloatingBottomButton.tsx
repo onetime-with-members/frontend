@@ -1,6 +1,6 @@
 import SendButton from './SendButton';
 import BadgeButton from '@/components/button/BadgeButton';
-import EditIcon from '@/components/icon/EditIcon';
+import { EditIcon } from '@/components/icon';
 import cn from '@/lib/cn';
 import { IconPlus } from '@tabler/icons-react';
 

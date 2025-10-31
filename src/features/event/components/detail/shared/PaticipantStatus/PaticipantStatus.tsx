@@ -1,4 +1,4 @@
-import HumanIcon from '@/components/icon/HumanIcon';
+import { HumanIcon } from '@/components/icon';
 import cn from '@/lib/cn';
 
 export default function PaticipantStatus({

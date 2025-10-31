@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import TimeDropdown from '@/components/dropdown/TimeDropdown';
-import SleepIcon from '@/components/icon/SleepTimeIcon';
+import { SleepTimeIcon } from '@/components/icon';
 import { SleepTimeType } from '@/features/my-schedule/types';
 import cn from '@/lib/cn';
 import { IconChevronDown } from '@tabler/icons-react';
@@ -27,7 +27,7 @@ export default function SleepTimeAccordion({
       >
         <div className="flex items-center gap-1.5">
           <span className="text-xl text-gray-60">
-            <SleepIcon />
+            <SleepTimeIcon />
           </span>
           <span className="text-gray-80 text-md-300">{t('sleepTime')}</span>
         </div>

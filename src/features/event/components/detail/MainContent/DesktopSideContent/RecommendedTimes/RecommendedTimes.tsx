@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import SectionHeading from '../../../shared/SectionHeading';
 import RecommendedTime from './RecommendedTime';
-import ClockIcon from '@/components/icon/ClockIcon';
+import { ClockIcon } from '@/components/icon';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import cn from '@/lib/cn';
 

@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useContext, useEffect } from 'react';
 
-import CheckIcon from '@/components/icon/CheckIcon';
+import { CheckIcon } from '@/components/icon';
 import { ToastContext } from '@/contexts/ToastContext';
 
 export default function Toast({

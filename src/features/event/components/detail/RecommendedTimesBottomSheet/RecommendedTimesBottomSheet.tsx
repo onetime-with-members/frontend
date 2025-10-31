@@ -5,7 +5,7 @@ import { Drawer } from 'vaul';
 
 import BottomButtonForMobile from './BottomButtonForMobile';
 import MobileRecommendedTimeItem from './MobileRecommendedTimeItem';
-import ClockIcon from '@/components/icon/ClockIcon';
+import { ClockIcon } from '@/components/icon';
 import { breakpoint } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
 import LoginAlert from '@/features/event/components/detail/shared/LoginAlert';

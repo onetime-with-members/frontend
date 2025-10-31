@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 
-import EverytimeIcon from '@/components/icon/EverytimeIcon';
+import { EverytimeIcon } from '@/components/icon';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';

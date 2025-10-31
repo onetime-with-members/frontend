@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import PenIcon from '@/components/icon/PenIcon';
+import { PenIcon } from '@/components/icon';
 import { MyPageTabContext } from '@/features/user/contexts/MyPageTabContext';
 import { ProgressLink } from '@/navigation';
 
