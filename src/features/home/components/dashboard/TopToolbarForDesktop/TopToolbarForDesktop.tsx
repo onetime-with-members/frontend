@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import ToolbarTitleSkeleton from '@/components/skeleton/toolbar-title-skeleton';
+import ToolbarTitleSkeleton from '@/components/skeleton/ToolbarTitleSkeleton';
 import { useUserQuery } from '@/features/user/api/user.query';
 import { ProgressLink } from '@/navigation';
 

@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import AvatarDropdown from './dropdown/avatar-dropdown';
+import AvatarDropdown from '../dropdown/AvatarDropdown';
 import { defaultUser } from '@/features/user/constants';
 import useScroll from '@/hooks/useScroll';
 import { useAuth } from '@/lib/auth';

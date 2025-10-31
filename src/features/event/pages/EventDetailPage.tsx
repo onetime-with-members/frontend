@@ -5,7 +5,7 @@ import MainContent from '../components/detail/MainContent';
 import RecommendedTimesBottomSheet from '../components/detail/RecommendedTimesBottomSheet';
 import TopHeader from '../components/detail/TopHeader';
 import TopNavBar from '../components/detail/TopNavBar';
-import GrayBackground from '@/components/gray-background';
+import GrayBackground from '@/components/GrayBackground';
 
 export default function EventDetailPage() {
   return (

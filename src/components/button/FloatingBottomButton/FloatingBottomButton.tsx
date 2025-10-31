@@ -1,18 +1,17 @@
-import Button, { ButtonProps } from '.';
+import Button from '..';
 
+import { ButtonProps } from '../Button';
 import cn from '@/lib/cn';
-
-interface FloatingBottomButtonProps extends ButtonProps {
-  children: React.ReactNode;
-  maxWidth?: number;
-}
 
 export default function FloatingBottomButton({
   children,
   className,
   maxWidth = 640,
   ...rest
-}: FloatingBottomButtonProps) {
+}: ButtonProps & {
+  children: React.ReactNode;
+  maxWidth?: number;
+}) {
   return (
     <div className={cn('fixed bottom-4 left-0 w-full px-4', className)}>
       <div

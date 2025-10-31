@@ -4,9 +4,9 @@ import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import NavBar from '@/components/NavBar';
 import Button from '@/components/button';
-import NavBar from '@/components/nav-bar';
-import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
+import PolicyCheckboxContent from '@/components/user/PolicyCheckboxContent';
 import { PolicyContext } from '@/features/user/contexts/PolicyContext';
 import { policySchema } from '@/features/user/schemas';
 import { PolicySchema } from '@/features/user/types';

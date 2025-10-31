@@ -1,5 +1,5 @@
 import Card from '../Card';
-import ClockPattern from '@/components/clock-pattern';
+import ClockPattern from '@/components/ClockPattern';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 

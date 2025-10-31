@@ -1,5 +1,5 @@
 import clockLottie from '@/assets/lotties/landing-clock.json';
-import Lottie from '@/components/lottie';
+import Lottie from '@/components/Lottie';
 import cn from '@/lib/cn';
 import { getLocale, getTranslations } from 'next-intl/server';
 

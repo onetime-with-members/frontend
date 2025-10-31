@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useFormStatus } from 'react-dom';
 
-import FloatingBottomButton from '@/components/button/floating-bottom-button';
+import FloatingBottomButton from '@/components/button/FloatingBottomButton';
 
 export default function BottomSubmitButton() {
   const { pending } = useFormStatus();

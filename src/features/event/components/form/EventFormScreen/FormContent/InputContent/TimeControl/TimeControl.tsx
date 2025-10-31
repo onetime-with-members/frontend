@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import EventInputLabel from '../EventInputLabel';
-import TimeDropdown from '@/components/dropdown/time-dropdown';
+import TimeDropdown from '@/components/dropdown/TimeDropdown';
 import { EventFormContext } from '@/features/event/contexts/EventFormContext';
 
 export default function TimeControl() {

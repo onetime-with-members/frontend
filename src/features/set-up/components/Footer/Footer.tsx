@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useRef } from 'react';
 
-import LanguageDropdown from '@/components/dropdown/language-dropdown';
+import LanguageDropdown from '@/components/dropdown/LanguageDropdown';
 import SpeakerPhoneIcon from '@/components/icon/SpeakerPhoneIcon';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { ProgressLink } from '@/navigation';

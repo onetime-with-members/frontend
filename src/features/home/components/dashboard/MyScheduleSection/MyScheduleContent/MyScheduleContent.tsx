@@ -1,7 +1,7 @@
 import MyScheduleSkeleton from './MyScheduleSkeleton';
 import SleepTimeContent from './SleepTimeContent';
 import TimeBlockBoardContent from './TimeBlockBoardContent';
-import EverytimeUI from '@/components/everytime-ui';
+import EverytimeUI from '@/components/EverytimeUI';
 import {
   useMyScheduleQuery,
   useSleepTimeQuery,

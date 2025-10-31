@@ -1,4 +1,4 @@
-import Alert from '.';
+import Alert from '..';
 import { useTranslations } from 'next-intl';
 
 import { useProgressRouter } from '@/navigation';

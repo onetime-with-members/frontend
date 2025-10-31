@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 
-import CircleArrowButton from '@/components/button/circle-arrow-button';
+import CircleArrowButton from '@/components/button/CircleArrowButton';
 import LoadIcon from '@/components/icon/LoadIcon';
 import RefreshIcon from '@/components/icon/RefreshIcon';
 import cn from '@/lib/cn';

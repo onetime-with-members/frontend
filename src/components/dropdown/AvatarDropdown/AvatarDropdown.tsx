@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
-import Avatar from '../avatar';
+import Avatar from '@/components/Avatar';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';

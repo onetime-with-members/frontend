@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
-import Toast from '@/components/toast';
+import Toast from '@/components/Toast';
 import CookieModal from '@/features/set-up/components/CookieModal/CookieModal';
 import Favicon from '@/features/set-up/components/Favicon';
 import Footer from '@/features/set-up/components/Footer';

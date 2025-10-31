@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import NavBar from '@/components/nav-bar';
+import NavBar from '@/components/NavBar';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 

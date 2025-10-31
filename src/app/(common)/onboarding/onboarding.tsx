@@ -9,7 +9,7 @@ import NicknameFormScreen from './_screen/nickname-form-screen';
 import PolicyScreen from './_screen/policy-screen';
 import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
-import NavBar from '@/components/nav-bar';
+import NavBar from '@/components/NavBar';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { defaultOnboardingValue } from '@/features/user/constants';
 import { onboardingSchema } from '@/features/user/schemas';

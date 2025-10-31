@@ -2,7 +2,7 @@
 
 import DesktopHeader from './DesktopHeader';
 import DesktopSideTab from './DesktopSideTab';
-import NavBar from '@/components/nav-bar';
+import NavBar from '@/components/NavBar';
 
 export default function DesktopLayout({
   children,

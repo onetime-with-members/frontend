@@ -1,4 +1,4 @@
-import Avatar from '@/components/avatar';
+import Avatar from '@/components/Avatar';
 import { useAuth } from '@/lib/auth';
 
 export default function ProfileInfo() {

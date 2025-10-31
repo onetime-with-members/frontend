@@ -1,15 +1,13 @@
 import cn from '@/lib/cn';
 
-interface MemberBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: 'primary' | 'gray' | 'white';
-}
-
 export default function MemberBadge({
   variant = 'primary',
   children,
   className,
   ...rest
-}: MemberBadgeProps) {
+}: React.HTMLAttributes<HTMLSpanElement> & {
+  variant?: 'primary' | 'gray' | 'white';
+}) {
   return (
     <span
       className={cn(

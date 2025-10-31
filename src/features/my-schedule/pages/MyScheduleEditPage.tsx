@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import FormContent from '../components/edit/FormContent';
 import TopAppBar from '../components/edit/TopAppBar/TopAppBar';
-import BackButtonAlert from '@/components/alert/back-button-alert';
+import BackButtonAlert from '@/components/alert/BackButtonAlert';
 
 export default function MyScheduleEditPage() {
   const [isBackButtonAlertOpen, setIsBackButtonAlertOpen] = useState(false);

@@ -1,4 +1,4 @@
-import MyEvent from '@/components/event/my-event';
+import MyEvent from '@/components/MyEvent';
 import { defaultMyEvent } from '@/features/user/constants';
 import cn from '@/lib/cn';
 

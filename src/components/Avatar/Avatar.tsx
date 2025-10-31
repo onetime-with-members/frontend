@@ -1,21 +1,19 @@
 import cn from '@/lib/cn';
 import Image from 'next/image';
 
-interface AvatarProps {
-  size?: number;
-  name: string;
-  imageUrl?: string;
-  onClick?: () => void;
-  className?: string;
-}
-
 export default function Avatar({
   size = 40,
   name,
   imageUrl,
   onClick,
   className,
-}: AvatarProps) {
+}: {
+  size?: number;
+  name: string;
+  imageUrl?: string;
+  onClick?: () => void;
+  className?: string;
+}) {
   return (
     <div>
       <div

@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import MemberBadge from '@/components/member-badge';
+import MemberBadge from '@/components/MemberBadge';
 import { weekdaysShortKo } from '@/constants';
 import { TimeBlockPopUpDataType } from '@/features/schedule/types';
 import cn from '@/lib/cn';

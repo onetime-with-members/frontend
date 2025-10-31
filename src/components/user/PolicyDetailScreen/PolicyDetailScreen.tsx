@@ -3,8 +3,8 @@
 import { useLocale } from 'next-intl';
 import ReactMarkdown from 'react-markdown';
 
-import GrayBackground from '../gray-background';
-import NavBar from '@/components/nav-bar';
+import GrayBackground from '../../GrayBackground';
+import NavBar from '@/components/NavBar';
 import { PolicySchema } from '@/features/user/types';
 import privacyMarkdownEN from '@/markdowns/privacy-en';
 import privacyMarkdownKO from '@/markdowns/privacy-ko';

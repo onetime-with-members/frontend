@@ -1,5 +1,5 @@
 import SendButton from './SendButton';
-import BadgeButton from '@/components/button/badge-button';
+import BadgeButton from '@/components/button/BadgeButton';
 import EditIcon from '@/components/icon/EditIcon';
 import cn from '@/lib/cn';
 import { IconPlus } from '@tabler/icons-react';

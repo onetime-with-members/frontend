@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import DesktopSubmitButton from './DesktopSubmitButton';
 import MobileSubmitButton from './MobileSubmitButton';
-import NicknameFormControl from '@/components/user/nickname-form-control';
+import NicknameFormControl from '@/components/user/NicknameFormControl';
 import { useEditProfileMutation } from '@/features/user/api/user.query';
 import { profileNicknameSchema } from '@/features/user/schemas';
 import { ProfileNicknameSchema, UserType } from '@/features/user/types';

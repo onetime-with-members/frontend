@@ -5,8 +5,8 @@ import AppBarForMobile from '../components/profile-edit/AppBarForMobile';
 import FormContent from '../components/profile-edit/FormContent';
 import HeaderForDesktop from '../components/profile-edit/HeaderForDesktop';
 import { defaultUser } from '../constants';
-import GrayBackground from '@/components/gray-background';
-import NavBar from '@/components/nav-bar';
+import GrayBackground from '@/components/GrayBackground';
+import NavBar from '@/components/NavBar';
 
 export default function ProfileEditPage() {
   const { data: user } = useUserQuery();

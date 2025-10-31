@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
-import ClockPattern from '@/components/clock-pattern';
+import ClockPattern from '@/components/ClockPattern';
 import {
   useEventQuery,
   useQrCodeQuery,

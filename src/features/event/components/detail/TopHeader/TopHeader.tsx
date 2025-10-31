@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 
 import TopToolbar from './TopToolbar';
-import BarBanner from '@/components/bar-banner';
+import BarBanner from '@/components/BarBanner';
 import { BarBannerContext } from '@/features/banner/contexts/BarBannerContext';
 import cn from '@/lib/cn';
 

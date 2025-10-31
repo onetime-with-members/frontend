@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
-import SmallButton from '@/components/button/small-button';
+import SmallButton from '@/components/button/SmallButton';
 import {
   useEditMyScheduleMutation,
   useEditSleepTimeMutation,

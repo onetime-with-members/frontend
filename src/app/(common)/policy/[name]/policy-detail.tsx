@@ -1,6 +1,6 @@
 'use client';
 
-import PolicyDetailScreen from '@/components/user/policy-detail-screen';
+import PolicyDetailScreen from '@/components/user/PolicyDetailScreen';
 import { PolicySchema } from '@/features/user/types';
 import { useRouter } from 'next/navigation';
 

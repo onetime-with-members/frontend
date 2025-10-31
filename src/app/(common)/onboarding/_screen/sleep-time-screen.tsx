@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { UseFormSetValue } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
-import TimeDropdown from '@/components/dropdown/time-dropdown';
+import TimeDropdown from '@/components/dropdown/TimeDropdown';
 import SleepIcon from '@/components/icon/SleepTimeIcon';
 import { OnboardingSchema } from '@/features/user/types';
 

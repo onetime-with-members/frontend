@@ -5,7 +5,7 @@ import DashboardNavBar from '../components/dashboard/DashboardNavBar';
 import MyScheduleSection from '../components/dashboard/MyScheduleSection';
 import RecentEventsSection from '../components/dashboard/RecentEventsSection';
 import TopToolbarForDesktop from '../components/dashboard/TopToolbarForDesktop';
-import BarBanner from '@/components/bar-banner';
+import BarBanner from '@/components/BarBanner';
 
 export default function DashboardPage() {
   return (

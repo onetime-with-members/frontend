@@ -1,5 +1,5 @@
-import MyEvent from '@/components/event/my-event';
-import GrayBackground from '@/components/gray-background';
+import GrayBackground from '@/components/GrayBackground';
+import MyEvent from '@/components/MyEvent';
 import { useMyEventsQuery } from '@/features/user/api/user.query';
 
 export default function MyEventList() {

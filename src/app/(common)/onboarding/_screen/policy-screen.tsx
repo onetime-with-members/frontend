@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
-import PolicyCheckboxContent from '@/components/user/policy-checkbox-content';
-import PolicyDetailScreen from '@/components/user/policy-detail-screen';
+import PolicyCheckboxContent from '@/components/user/PolicyCheckboxContent';
+import PolicyDetailScreen from '@/components/user/PolicyDetailScreen';
 import { policySchema } from '@/features/user/schemas';
 import { OnboardingSchema, PolicySchema } from '@/features/user/types';
 import { useProgressRouter } from '@/navigation';

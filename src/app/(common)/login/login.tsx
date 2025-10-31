@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { SocialLoginType } from './page';
-import NavBar from '@/components/nav-bar';
+import NavBar from '@/components/NavBar';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import Image from 'next/image';

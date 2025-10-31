@@ -3,17 +3,15 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { SKELETON_GRAY } from '@/constants';
 import cn from '@/lib/cn';
 
-interface SkeletonTimeBlockBoardProps {
-  className?: string;
-  count?: number;
-  baseColor?: string;
-}
-
 export default function TimeBlockBoardSkeleton({
   className,
   count = 7,
   baseColor = SKELETON_GRAY,
-}: SkeletonTimeBlockBoardProps) {
+}: {
+  className?: string;
+  count?: number;
+  baseColor?: string;
+}) {
   return (
     <SkeletonTheme baseColor={baseColor} borderRadius={9999}>
       <div className={cn('flex gap-2', className)}>

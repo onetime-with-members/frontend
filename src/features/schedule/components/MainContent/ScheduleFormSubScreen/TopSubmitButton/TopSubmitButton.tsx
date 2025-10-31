@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import SmallButton from '@/components/button/small-button';
+import SmallButton from '@/components/button/SmallButton';
 import cn from '@/lib/cn';
 
 export default function TopSubmitButton({

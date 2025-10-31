@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { FieldErrors, UseFormRegisterReturn } from 'react-hook-form';
 
-import Input from '../Input';
+import Input from '../../Input';
 import { nicknameSchemaCodes } from '@/features/user/constants';
 import cn from '@/lib/cn';
 import { errorCodes } from '@/utils';

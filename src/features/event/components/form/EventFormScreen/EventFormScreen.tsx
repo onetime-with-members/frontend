@@ -2,7 +2,7 @@
 
 import FormContent from './FormContent';
 import TopNavBar from './TopNavBar';
-import GrayBackground from '@/components/gray-background';
+import GrayBackground from '@/components/GrayBackground';
 import EventFormContextProvider from '@/features/event/contexts/EventFormContext';
 import { EventType } from '@/features/event/types';
 import { EventFormStatus } from '@/features/event/types';

@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl';
 
 import MyEventsSkeleton from './MyEventsSkeleton';
-import EmptyUI from '@/components/empty-ui';
-import MyEvent from '@/components/event/my-event';
+import EmptyUI from '@/components/EmptyUI';
+import MyEvent from '@/components/MyEvent';
 import { useMyEventsQuery } from '@/features/user/api/user.query';
 import cn from '@/lib/cn';
 

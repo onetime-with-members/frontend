@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import FloatingBottomButton from '@/components/button/floating-bottom-button';
+import FloatingBottomButton from '@/components/button/FloatingBottomButton';
 import cn from '@/lib/cn';
 
 export default function MobileSubmitButton({

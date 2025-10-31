@@ -5,19 +5,17 @@ import { PolicySchema } from '@/features/user/types';
 import cn from '@/lib/cn';
 import { IconChevronRight } from '@tabler/icons-react';
 
-interface PolicyCheckboxContentProps {
+export default function PolicyCheckboxContent({
+  value,
+  setValue,
+  setPageDetail,
+}: {
   value: PolicySchema;
   setValue: React.Dispatch<React.SetStateAction<PolicySchema>>;
   setPageDetail: React.Dispatch<
     React.SetStateAction<keyof PolicySchema | null>
   >;
-}
-
-export default function PolicyCheckboxContent({
-  value,
-  setValue,
-  setPageDetail,
-}: PolicyCheckboxContentProps) {
+}) {
   const t = useTranslations('policyEdit');
 
   return (
