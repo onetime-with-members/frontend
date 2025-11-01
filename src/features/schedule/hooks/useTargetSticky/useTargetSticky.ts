@@ -7,8 +7,8 @@ export default function useTargetSticky({
   targetTopOffset = 0,
   targetBottomOffset = 0,
 }: {
-  topRef: React.RefObject<HTMLElement | null>;
-  scrollableElementRef: React.RefObject<HTMLElement | null>;
+  topRef: React.RefObject<HTMLElement | null> | null;
+  scrollableElementRef: React.RefObject<HTMLElement | null> | null;
   targetHeight: number;
   targetTopOffset?: number;
   targetBottomOffset?: number;
@@ -17,7 +17,7 @@ export default function useTargetSticky({
 
   useEffect(() => {
     function handleScroll() {
-      if (!topRef.current || !scrollableElementRef.current) return;
+      if (!topRef?.current || !scrollableElementRef?.current) return;
 
       const distanceFromTopToTarget =
         targetHeight + targetTopOffset + targetBottomOffset;

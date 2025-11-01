@@ -4,8 +4,8 @@ export default function useScrollArrowButton({
   ref,
   scrollSyncRef,
 }: {
-  ref: React.RefObject<HTMLElement | null>;
-  scrollSyncRef?: React.RefObject<HTMLElement | null>;
+  ref: React.RefObject<HTMLElement | null> | null;
+  scrollSyncRef?: React.RefObject<HTMLElement | null> | null;
 }) {
   const [arrowButtonVisible, setArrowButtonVisible] = useState({
     left: false,
@@ -13,7 +13,7 @@ export default function useScrollArrowButton({
   });
 
   function handleScrollLeft() {
-    ref.current?.scrollBy({
+    ref?.current?.scrollBy({
       left: -ref.current.clientWidth,
       behavior: 'smooth',
     });
@@ -24,7 +24,7 @@ export default function useScrollArrowButton({
   }
 
   function handleScrollRight() {
-    ref.current?.scrollBy({
+    ref?.current?.scrollBy({
       left: ref.current.clientWidth,
       behavior: 'smooth',
     });
@@ -35,7 +35,7 @@ export default function useScrollArrowButton({
   }
 
   useEffect(() => {
-    if (!ref.current) return;
+    if (!ref?.current) return;
 
     const scrollableElement = ref.current;
 

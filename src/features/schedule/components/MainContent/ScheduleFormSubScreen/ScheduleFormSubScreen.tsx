@@ -1,9 +1,9 @@
 import { useTranslations } from 'next-intl';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
 import BottomSubmitButton from './BottomSubmitButton';
 import TopSubmitButton from './TopSubmitButton';
-import TimeBlockBoard from '@/components/time-block-board/event';
+import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard';
 import { useEventQuery } from '@/features/event/api/event.query';
 import useGuestEditedEvents from '@/features/event/hooks/useIsEventEdited/useGuestEditedEvents';
 import {
@@ -17,8 +17,6 @@ import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
 export default function ScheduleFormSubScreen({}) {
-  const [isPossibleTime, setIsPossibleTime] = useState(true);
-
   const { guestValue, isScheduleEdited, setIsScheduleEdited, isLoggedIn } =
     useContext(ScheduleFormContext);
 
@@ -87,8 +85,6 @@ export default function ScheduleFormSubScreen({}) {
           schedules={scheduleValue}
           setSchedules={setScheduleValue}
           event={event}
-          isPossibleTime={isPossibleTime}
-          setIsPossibleTime={setIsPossibleTime}
           editable
           topContentClassName="top-[69px] sm:top-[62px]"
           isEdited={isScheduleEdited}

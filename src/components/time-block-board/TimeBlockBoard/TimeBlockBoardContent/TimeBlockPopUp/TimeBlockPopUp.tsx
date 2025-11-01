@@ -1,7 +1,9 @@
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
 import MemberBadge from '@/components/MemberBadge';
 import { weekdaysShortKo } from '@/constants';
+import { TimeBlockBoardContext } from '@/features/schedule/contexts/TimeBlockBoardContext';
 import { TimeBlockPopUpDataType } from '@/features/schedule/types';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
@@ -9,18 +11,17 @@ import { IconX } from '@tabler/icons-react';
 
 export default function TimeBlockPopUp({
   onClose,
-  timePoint,
-  time,
-  members,
-  category,
+
+  popUpData,
 }: {
   onClose: () => void;
-  timePoint: TimeBlockPopUpDataType['timePoint'];
-  time: TimeBlockPopUpDataType['time'];
-  members: TimeBlockPopUpDataType['members'];
-  category: 'DAY' | 'DATE';
+  popUpData: TimeBlockPopUpDataType;
 }) {
+  const { event } = useContext(TimeBlockBoardContext);
+
   const t = useTranslations('eventDetail');
+
+  const { time, timePoint, members } = popUpData;
 
   const startTime = time;
   let endTime = dayjs(time, 'HH:mm').add(30, 'minute').format('HH:mm');
@@ -40,7 +41,7 @@ export default function TimeBlockPopUp({
         <div className="flex items-center justify-between bg-primary-50 px-5 pb-3 pt-4">
           <div className="text-gray-00 text-lg-300">
             <span>
-              {category === 'DATE'
+              {event.category === 'DATE'
                 ? dayjs(timePoint, 'YYYY.MM.DD').format('YYYY.MM.DD (ddd)')
                 : dayjs()
                     .day(

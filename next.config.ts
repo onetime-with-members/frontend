@@ -16,7 +16,4 @@ const nextConfig: NextConfig = {
 };
 
 const withNextIntl = createNextIntlPlugin();
-const nextConfigWithNextIntl = withNextIntl(nextConfig);
-delete nextConfigWithNextIntl.experimental?.turbo;
-
-export default nextConfigWithNextIntl;
+export default withNextIntl(nextConfig);

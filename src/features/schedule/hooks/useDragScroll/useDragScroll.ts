@@ -10,8 +10,8 @@ export default function useDragScroll({
   ref: scrollContainerRef,
   scrollSyncRef,
 }: {
-  ref: React.RefObject<HTMLElement | null>;
-  scrollSyncRef?: React.RefObject<HTMLElement | null>;
+  ref: React.RefObject<HTMLElement | null> | null;
+  scrollSyncRef?: React.RefObject<HTMLElement | null> | null;
 }) {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragX, setDragX] = useState<DragX>({
