@@ -6,17 +6,7 @@ import { TimeBlockBoardContext } from '@/features/schedule/contexts/TimeBlockBoa
 import { ScheduleType } from '@/features/schedule/types';
 import cn from '@/lib/cn';
 
-export default function BoardContent({
-  onPopUpOpen,
-}: {
-  onPopUpOpen: ({
-    timePoint,
-    time,
-  }: {
-    timePoint: string;
-    time: string;
-  }) => void;
-}) {
+export default function BoardContent() {
   const {
     editable,
     setSchedules,
@@ -63,10 +53,7 @@ export default function BoardContent({
       className={cn('relative flex overflow-hidden', bottomContentClassName)}
     >
       <TimeIndicator />
-      <BlockContent
-        changeTimeBlockStatus={changeTimeBlockStatus}
-        onPopUpOpen={onPopUpOpen}
-      />
+      <BlockContent changeTimeBlockStatus={changeTimeBlockStatus} />
     </div>
   );
 }

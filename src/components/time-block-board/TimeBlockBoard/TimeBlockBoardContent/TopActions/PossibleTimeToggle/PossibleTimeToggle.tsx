@@ -1,20 +1,18 @@
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
+import { TimeBlockBoardContext } from '@/features/schedule/contexts/TimeBlockBoardContext';
 import cn from '@/lib/cn';
 
-export default function PossibleTimeToggle({
-  isPossibleTime,
-  onToggle,
-  className,
-}: {
-  isPossibleTime: boolean;
-  onToggle: () => void;
-  className?: string;
-}) {
+export default function PossibleTimeToggle() {
+  const { isPossibleTime, handleAvailableToggle } = useContext(
+    TimeBlockBoardContext,
+  );
+
   const t = useTranslations('timeBlockBoard');
 
   return (
-    <div className={cn('flex items-center gap-2', className)}>
+    <div className="flex items-center gap-2">
       <div
         className={cn(
           'flex h-6 w-10 cursor-pointer items-center rounded-full bg-primary-50 px-[3px] duration-150',
@@ -22,7 +20,7 @@ export default function PossibleTimeToggle({
             'bg-danger-50': !isPossibleTime,
           },
         )}
-        onClick={onToggle}
+        onClick={handleAvailableToggle}
       >
         <div
           className={cn(

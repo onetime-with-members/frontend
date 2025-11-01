@@ -5,12 +5,10 @@ import CircleArrowButtonForBoard from './CircleArrowButtonForBoard';
 import { TimeBlockBoardContext } from '@/features/schedule/contexts/TimeBlockBoardContext';
 import useScrollArrowButton from '@/features/schedule/hooks/useScrollArrowButton';
 
-export default function CircleArrowButtons({
-  isBoardContentHover,
-}: {
-  isBoardContentHover: boolean;
-}) {
-  const { topLabelRef, boardContentRef } = useContext(TimeBlockBoardContext);
+export default function CircleArrowButtons() {
+  const { topLabelRef, boardContentRef, isBoardHover } = useContext(
+    TimeBlockBoardContext,
+  );
 
   const { arrowButtonVisible, handleScrollLeft, handleScrollRight } =
     useScrollArrowButton({
@@ -22,12 +20,12 @@ export default function CircleArrowButtons({
     <>
       <CircleArrowButtonForBoard
         direction="left"
-        isVisible={!isMobile && arrowButtonVisible.left && isBoardContentHover}
+        isVisible={!isMobile && arrowButtonVisible.left && isBoardHover}
         onClick={handleScrollLeft}
       />
       <CircleArrowButtonForBoard
         direction="right"
-        isVisible={!isMobile && arrowButtonVisible.right && isBoardContentHover}
+        isVisible={!isMobile && arrowButtonVisible.right && isBoardHover}
         onClick={handleScrollRight}
       />
     </>

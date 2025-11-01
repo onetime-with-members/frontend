@@ -3,6 +3,7 @@ import { CSSProperties } from 'react';
 import TimeBlockBoardContent from './TimeBlockBoardContent';
 import { EventType } from '@/features/event/types';
 import TimeBlockBoardContextProvider from '@/features/schedule/contexts/TimeBlockBoardContext';
+import TimeBlockPopUpContextProvider from '@/features/schedule/contexts/TimeBlockPopUpContext';
 import { ScheduleType } from '@/features/schedule/types';
 
 export default function TimeBlockBoard({
@@ -50,7 +51,9 @@ export default function TimeBlockBoard({
       isScheduleEmpty={isScheduleEmpty}
       isNewGuest={isNewGuest}
     >
-      <TimeBlockBoardContent />
+      <TimeBlockPopUpContextProvider>
+        <TimeBlockBoardContent />
+      </TimeBlockPopUpContextProvider>
     </TimeBlockBoardContextProvider>
   );
 }

@@ -14,7 +14,7 @@ export default function DateIndicator() {
         ref={topLabelRef}
         className="scrollbar-hidden flex flex-1 items-center gap-2 overflow-x-hidden"
       >
-        {event?.ranges.map((timePoint, index) => (
+        {event.ranges.map((timePoint, index) => (
           <TopDateLabel
             key={timePoint}
             category={event.category}

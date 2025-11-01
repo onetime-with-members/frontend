@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+
+import { TimeBlockBoardContext } from '@/features/schedule/contexts/TimeBlockBoardContext';
 import cn from '@/lib/cn';
 
 export default function TimeBlock({
@@ -6,20 +9,18 @@ export default function TimeBlock({
   className,
   bgOpacity = 1,
   style,
-  editable,
-  isPossibleTime = true,
   isAllMembersAvailable = false,
-  backgroundColor = 'gray',
   ...rest
 }: {
   active?: boolean;
   clickedFirst?: boolean;
   bgOpacity?: number;
-  editable?: boolean;
-  isPossibleTime?: boolean;
   isAllMembersAvailable?: boolean;
-  backgroundColor: 'white' | 'gray';
 } & React.HTMLAttributes<HTMLDivElement>) {
+  const { editable, isPossibleTime, backgroundColor } = useContext(
+    TimeBlockBoardContext,
+  );
+
   return (
     <div
       className={cn(

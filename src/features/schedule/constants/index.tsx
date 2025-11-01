@@ -1,4 +1,4 @@
-import { ScheduleType } from '../types';
+import { ScheduleType, TimeBlockPopUpDataType } from '../types';
 
 export const defaultMemberLoginValues = {
   nickname: '',
@@ -15,4 +15,13 @@ export const defaultGuestValues = {
 export const defaultScheduleDetail: ScheduleType = {
   name: '',
   schedules: [],
+};
+
+export const defaultTimeBlockPopUpData: TimeBlockPopUpDataType = {
+  timePoint: '',
+  time: '',
+  members: {
+    possible: [],
+    impossible: [],
+  },
 };

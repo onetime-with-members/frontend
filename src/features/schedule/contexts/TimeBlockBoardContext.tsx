@@ -23,8 +23,11 @@ export const TimeBlockBoardContext = createContext<{
   isNewGuest: boolean;
   boardContentRef: React.RefObject<HTMLDivElement | null> | null;
   topLabelRef: React.RefObject<HTMLDivElement | null> | null;
+  isBoardHover: boolean;
   setIsEdited: React.Dispatch<React.SetStateAction<boolean>>;
   setSchedules: React.Dispatch<React.SetStateAction<ScheduleType[]>>;
+  handleBoardHoverStart: () => void;
+  handleBoardHoverEnd: () => void;
   handleAvailableToggle: () => void;
   handleClearButtonClick: () => void;
   handleReloadButtonClick: () => void;
@@ -46,8 +49,11 @@ export const TimeBlockBoardContext = createContext<{
   isNewGuest: false,
   boardContentRef: null,
   topLabelRef: null,
+  isBoardHover: false,
   setIsEdited: () => {},
   setSchedules: () => {},
+  handleBoardHoverStart: () => {},
+  handleBoardHoverEnd: () => {},
   handleAvailableToggle: () => {},
   handleClearButtonClick: () => {},
   handleReloadButtonClick: () => {},
@@ -88,6 +94,10 @@ export default function TimeBlockBoardContextProvider({
   const [isEmpty, setIsEmpty] = useState(false);
   const [isFull, setIsFull] = useState(false);
   const [isPossibleTime, setIsPossibleTime] = useState(true);
+  const [isBoardHover, setIsBoardHover] = useState(false);
+
+  const handleBoardHoverStart = () => setIsBoardHover(true);
+  const handleBoardHoverEnd = () => setIsBoardHover(false);
 
   const boardContentRef = useRef<HTMLDivElement>(null);
   const topLabelRef = useRef<HTMLDivElement>(null);
@@ -141,12 +151,15 @@ export default function TimeBlockBoardContextProvider({
         isNewGuest,
         boardContentRef,
         topLabelRef,
+        isBoardHover,
         setIsEdited,
         setSchedules,
         handleAvailableToggle,
         handleClearButtonClick,
         handleReloadButtonClick,
         handleResetButtonClick,
+        handleBoardHoverStart,
+        handleBoardHoverEnd,
       }}
     >
       {children}

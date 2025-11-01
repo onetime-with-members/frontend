@@ -20,10 +20,6 @@ export default function TopActions() {
     topContentClassName,
     isNewGuest,
     isScheduleEmpty,
-    handleAvailableToggle,
-    handleClearButtonClick,
-    handleReloadButtonClick,
-    handleResetButtonClick,
   } = useContext(TimeBlockBoardContext);
 
   return (
@@ -33,22 +29,19 @@ export default function TopActions() {
     >
       {editable && (
         <div className="flex items-center justify-between pt-2">
-          <PossibleTimeToggle
-            isPossibleTime={isPossibleTime}
-            onToggle={handleAvailableToggle}
-          />
+          <PossibleTimeToggle />
           {((isEmpty && isPossibleTime) || (isFull && !isPossibleTime)) &&
           isEdited &&
           !isNewGuest &&
           initialSchedule &&
           initialSchedule[0].schedules.length > 0 ? (
             isScheduleEmpty ? (
-              <ReloadButton onClick={handleReloadButtonClick} />
+              <ReloadButton />
             ) : (
-              <ResetButton onClick={handleResetButtonClick} />
+              <ResetButton />
             )
           ) : (
-            <ClearButton onClick={handleClearButtonClick} />
+            <ClearButton />
           )}
         </div>
       )}

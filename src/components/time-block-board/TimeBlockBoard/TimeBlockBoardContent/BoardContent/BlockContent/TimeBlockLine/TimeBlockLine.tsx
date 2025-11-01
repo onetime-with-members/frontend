@@ -1,30 +1,28 @@
+import { useContext } from 'react';
+
 import TimeBlock from './TimeBlock';
-import { ScheduleType } from '@/features/schedule/types';
-import { timeBlockList } from '@/features/schedule/utils';
+import { TimeBlockBoardContext } from '@/features/schedule/contexts/TimeBlockBoardContext';
+import { TimeBlockPopUpContext } from '@/features/schedule/contexts/TimeBlockPopUpContext';
+import { ClickedTimeBlock } from '@/features/schedule/types';
+import {
+  isClickedFirstFor,
+  isFilled,
+  timeBlockList,
+  timesAllMember,
+} from '@/features/schedule/utils';
 import cn from '@/lib/cn';
 import { eventTarget } from '@/utils';
 
 export default function TimeBlockLine({
   className,
   timePoint,
-  startTime,
-  endTime,
-  schedules,
+  clickedTimeBlock,
   onTimeBlockClick,
-  onPopUpOpen,
-  isFilled,
-  isClickedFirstFor,
-  timesAllMember,
-  editable,
-  isPossibleTime = true,
-  backgroundColor,
   isBoardContentDragging,
 }: {
   className?: string;
   timePoint: string;
-  startTime: string;
-  endTime: string;
-  schedules: ScheduleType[];
+  clickedTimeBlock: ClickedTimeBlock;
   onTimeBlockClick: ({
     timePoint,
     time,
@@ -32,22 +30,12 @@ export default function TimeBlockLine({
     timePoint: string;
     time: string;
   }) => void;
-  onPopUpOpen: ({
-    timePoint,
-    time,
-  }: {
-    timePoint: string;
-    time: string;
-  }) => void;
-  isFilled: (timePoint: string, time: string) => boolean;
-  isClickedFirstFor: (timePoint: string, time: string) => boolean;
-  timesAllMember: (timePoint: string) => string[];
-  editable?: boolean;
-  isPossibleTime?: boolean;
-  backgroundColor: 'white' | 'gray';
   isBoardContentDragging?: boolean;
 }) {
-  const timeList: string[] = timeBlockList(startTime, endTime);
+  const { event, schedules, editable } = useContext(TimeBlockBoardContext);
+  const { handlePopUpOpen } = useContext(TimeBlockPopUpContext);
+
+  const timeList: string[] = timeBlockList(event.start_time, event.end_time);
 
   const memberCount = schedules.length || 0;
 
@@ -61,7 +49,7 @@ export default function TimeBlockLine({
     if (editable) {
       onTimeBlockClick({ timePoint, time });
     } else {
-      onPopUpOpen({ timePoint, time });
+      handlePopUpOpen({ timePoint, time });
     }
   }
 
@@ -74,21 +62,22 @@ export default function TimeBlockLine({
             className={cn({
               'cursor-pointer': schedules.length > 0,
             })}
-            active={isFilled(timePoint, time)}
+            active={isFilled({ schedules, timePoint, time })}
             data-time={time}
             data-timepoint={timePoint}
-            clickedFirst={isClickedFirstFor(timePoint, time)}
+            clickedFirst={isClickedFirstFor({
+              clickedTimeBlock,
+              timePoint,
+              time,
+            })}
             bgOpacity={
-              timesAllMember(timePoint).filter((t) => t === time).length /
-              memberCount
+              timesAllMember({ schedules, timePoint }).filter((t) => t === time)
+                .length / memberCount
             }
-            editable={editable}
-            isPossibleTime={isPossibleTime}
             isAllMembersAvailable={
-              timesAllMember(timePoint).filter((t) => t === time).length ===
-                memberCount && memberCount > 1
+              timesAllMember({ schedules, timePoint }).filter((t) => t === time)
+                .length === memberCount && memberCount > 1
             }
-            backgroundColor={backgroundColor}
             onClick={handleTimeBlockClick}
           />
         ))}

@@ -1,4 +1,4 @@
-import { TimeBlockUnit } from '../types';
+import { ClickedTimeBlock, ScheduleType, TimeBlockUnit } from '../types';
 import dayjs from '@/lib/dayjs';
 
 export function getBlockCount(
@@ -55,4 +55,49 @@ export function timeBlockList(
 
 export function leftTimeLabelFormat(time: string) {
   return time.split(':')[0] === '24' ? '24' : dayjs(time, 'HH:mm').format('H');
+}
+
+export function timesAllMember({
+  schedules,
+  timePoint,
+}: {
+  schedules: ScheduleType[];
+  timePoint: string;
+}) {
+  let result: string[] = [];
+  schedules.forEach((schedule) => {
+    schedule.schedules.forEach((daySchedule) => {
+      if (daySchedule.time_point === timePoint) {
+        result = [...result, ...daySchedule.times];
+      }
+    });
+  });
+  return result;
+}
+
+export function isFilled({
+  schedules,
+  timePoint,
+  time,
+}: {
+  schedules: ScheduleType[];
+  timePoint: string;
+  time: string;
+}) {
+  return timesAllMember({ schedules, timePoint }).includes(time);
+}
+
+export function isClickedFirstFor({
+  clickedTimeBlock,
+  timePoint,
+  time,
+}: {
+  clickedTimeBlock: ClickedTimeBlock;
+  timePoint: string;
+  time: string;
+}) {
+  return (
+    clickedTimeBlock.startTime === time &&
+    clickedTimeBlock.timePoint === timePoint
+  );
 }
