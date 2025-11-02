@@ -1,32 +1,10 @@
-'use client';
-
 import { useContext } from 'react';
 
-import { WeekdayLocaleContext } from '@/contexts/WeekdayLocaleContext';
 import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
 import { leftTimeLabelFormat } from '@/features/schedule/utils';
 import cn from '@/lib/cn';
 
-export function DateIndicator({ className }: { className?: string }) {
-  const { weekdaysShort } = useContext(WeekdayLocaleContext);
-
-  return (
-    <div className={cn('relative', className)}>
-      <div className="grid grid-cols-7 gap-2 pl-6">
-        {weekdaysShort.map((weekday) => (
-          <div
-            key={weekday}
-            className="py-2 text-center text-gray-30 text-md-200"
-          >
-            {weekday}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-export function TimeIndicator() {
+export default function TimeIndicator() {
   const { timesGroupForSplittedTimeLabel } = useContext(SleepTimeContext);
 
   return (

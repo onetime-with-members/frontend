@@ -4,6 +4,7 @@ import TimeBlockLine from './TimeBlockLine';
 import { TimeBlockBoardContext } from '@/features/schedule/contexts/TimeBlockBoardContext';
 import useDragScroll from '@/features/schedule/hooks/useDragScroll';
 import useTimeBlockFill from '@/features/schedule/hooks/useTimeBlockFill';
+import { isFilled } from '@/features/schedule/utils';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 
@@ -16,7 +17,7 @@ export default function BlockContent({
     newStatus: boolean,
   ) => void;
 }) {
-  const { event, boardContentRef, topLabelRef } = useContext(
+  const { event, boardContentRef, topLabelRef, schedules } = useContext(
     TimeBlockBoardContext,
   );
 
@@ -28,6 +29,7 @@ export default function BlockContent({
     handleDragLeave,
   } = useDragScroll({ ref: boardContentRef, scrollSyncRef: topLabelRef });
   const { clickedTimeBlock, handleTimeBlockClick } = useTimeBlockFill({
+    isFilled: ({ timePoint, time }) => isFilled({ schedules, timePoint, time }),
     fillTimeBlocks: ({ timePoint, times, isFilling }) =>
       times.forEach((time) =>
         changeTimeBlockStatus(timePoint, time, isFilling),

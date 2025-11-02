@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import MyTimeBlockBoard from '@/components/time-block-board/my-schedule';
+import MyTimeBlockBoard from '@/components/time-block-board/MyTimeBlockBoard';
 import { BarBannerContext } from '@/features/banner/contexts/BarBannerContext';
 import { useMyScheduleQuery } from '@/features/my-schedule/api/my-schedule.query';
 import { defaultMySchedule } from '@/features/my-schedule/constants';

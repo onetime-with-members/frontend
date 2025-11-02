@@ -1,31 +1,31 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
-import { TimeBlockBoardContext } from '../../contexts/TimeBlockBoardContext';
 import { ClickedTimeBlock } from '../../types';
-import {
-  isFilled,
-  timeLabelList as timeListBetween,
-} from '@/features/schedule/utils';
+import { timeLabelList as timeListBetween } from '@/features/schedule/utils';
 import { maxOf, minOf } from '@/utils';
 
-interface useTimeBlockFillProps {
+export default function useTimeBlockFill({
+  isFilled,
+  fillTimeBlocks,
+}: {
+  isFilled: ({
+    timePoint,
+    time,
+  }: {
+    timePoint: string;
+    time: string;
+  }) => boolean;
   fillTimeBlocks: (params: {
     timePoint: string;
     times: string[];
     isFilling: boolean;
   }) => void;
-}
-
-export default function useTimeBlockFill({
-  fillTimeBlocks,
-}: useTimeBlockFillProps) {
+}) {
   const [clickedTimeBlock, setClickedTimeBlock] = useState<ClickedTimeBlock>({
     startTime: '',
     endTime: '',
     timePoint: '',
   });
-
-  const { schedules } = useContext(TimeBlockBoardContext);
 
   function handleTimeBlockClick({
     timePoint: newTimePoint,
@@ -45,7 +45,6 @@ export default function useTimeBlockFill({
           newClickedTimeBlock().endTime,
         ),
         isFilling: !isFilled({
-          schedules,
           timePoint: newClickedTimeBlock().timePoint,
           time: newClickedTimeBlock().startTime,
         }),

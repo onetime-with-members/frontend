@@ -1,4 +1,4 @@
-import { SleepTimeType } from '../types';
+import { MyScheduleTimeType, SleepTimeType } from '../types';
 import { timeBlockList } from '@/features/schedule/utils';
 
 export function getTimesGroupForSplitted(
@@ -36,4 +36,19 @@ export function getTimesGroupForSplitted(
           .filter((timeLabel) => !sleepTimesList.includes(timeLabel))
           .concat(type === 'timeLabel' ? ['24:00'] : []),
       ];
+}
+
+export function isFilled({
+  mySchedule,
+  weekday,
+  time,
+}: {
+  mySchedule: MyScheduleTimeType[];
+  weekday: string;
+  time: string;
+}): boolean {
+  return (
+    mySchedule.find((s) => s.time_point === weekday)?.times.includes(time) ||
+    false
+  );
 }
