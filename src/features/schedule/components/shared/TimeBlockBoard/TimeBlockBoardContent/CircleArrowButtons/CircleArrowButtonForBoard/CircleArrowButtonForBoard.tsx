@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useContext } from 'react';
 
-import CircleArrowButton from '@/components/button/CircleArrowButton';
+import CircleArrowButton from './CircleArrowButton';
 import { TimeBlockBoardContext } from '@/features/schedule/contexts/TimeBlockBoardContext';
 import useTargetSticky from '@/features/schedule/hooks/useTargetSticky';
 import cn from '@/lib/cn';

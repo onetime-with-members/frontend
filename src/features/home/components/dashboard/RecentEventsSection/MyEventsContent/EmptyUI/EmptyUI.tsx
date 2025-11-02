@@ -1,4 +1,4 @@
-import { ClockIcon } from '../icon';
+import { ClockIcon } from '@/components/icon';
 
 export default function EmptyUI({ children }: { children: React.ReactNode }) {
   return (

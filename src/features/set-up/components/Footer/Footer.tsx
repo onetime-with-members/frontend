@@ -3,9 +3,9 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useRef } from 'react';
 
-import LanguageDropdown from '@/components/dropdown/LanguageDropdown';
 import { SpeakerphoneIcon } from '@/components/icon';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
+import LanguageDropdown from '@/features/user/components/shared/LanguageDropdown';
 import { ProgressLink } from '@/navigation';
 import { IconBrandInstagram } from '@tabler/icons-react';
 import Image from 'next/image';

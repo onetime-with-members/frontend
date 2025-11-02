@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import TimeDropdown from '@/components/dropdown/TimeDropdown';
+import TimeDropdown from '@/components/TimeDropdown';
 import { SleepTimeIcon } from '@/components/icon';
 import { SleepTimeType } from '@/features/my-schedule/types';
 import cn from '@/lib/cn';

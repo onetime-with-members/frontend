@@ -2,9 +2,9 @@
 
 import { useContext, useEffect } from 'react';
 
-import AppBarForMobile from '../components/AppBarForMobile';
-import HeaderForDesktop from '../components/HeaderForDesktop';
-import MainContent from '../components/MainContent';
+import AppBarForMobile from '../components/new/AppBarForMobile';
+import HeaderForDesktop from '../components/new/HeaderForDesktop';
+import MainContent from '../components/new/MainContent';
 import { ScheduleFormContext } from '../contexts/ScheduleFormContext';
 import GrayBackground from '@/components/GrayBackground';
 import NavBar from '@/components/NavBar';
@@ -13,7 +13,7 @@ import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
-export default function ScheduleAddPage({
+export default function ScheduleNewPage({
   isLoggedIn,
 }: {
   isLoggedIn: boolean;

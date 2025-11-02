@@ -1,6 +1,6 @@
 import { eventQueryOptions } from '@/features/event/api/event.option';
 import ScheduleFormContextProvider from '@/features/schedule/contexts/ScheduleFormContext';
-import ScheduleAddPage from '@/features/schedule/pages/ScheduleAddPage';
+import ScheduleNewPage from '@/features/schedule/pages/ScheduleNewPage';
 import { auth } from '@/lib/auth';
 import { QueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
@@ -24,7 +24,7 @@ export default async function Page({
 
   return (
     <ScheduleFormContextProvider isLoggedIn={isLoggedIn}>
-      <ScheduleAddPage isLoggedIn={isLoggedIn} />
+      <ScheduleNewPage isLoggedIn={isLoggedIn} />
     </ScheduleFormContextProvider>
   );
 }

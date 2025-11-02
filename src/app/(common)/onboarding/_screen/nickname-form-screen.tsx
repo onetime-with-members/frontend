@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
-import NicknameFormControl from '@/components/user/NicknameFormControl';
+import NicknameFormControl from '@/features/user/components/shared/NicknameFormControl';
 import { profileNicknameSchema } from '@/features/user/schemas';
 import { OnboardingSchema, ProfileNicknameSchema } from '@/features/user/types';
 import { zodResolver } from '@hookform/resolvers/zod';

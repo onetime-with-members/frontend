@@ -1,9 +1,9 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect } from 'react';
 
+import TimeBlockBoard from '../../../shared/TimeBlockBoard';
 import BottomSubmitButton from './BottomSubmitButton';
 import TopSubmitButton from './TopSubmitButton';
-import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard';
 import { useEventQuery } from '@/features/event/api/event.query';
 import useGuestEditedEvents from '@/features/event/hooks/useIsEventEdited/useGuestEditedEvents';
 import {

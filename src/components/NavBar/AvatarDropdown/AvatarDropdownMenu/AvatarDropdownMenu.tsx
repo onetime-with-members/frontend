@@ -1,64 +1,10 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
-import { useEffect, useRef, useState } from 'react';
 
-import Avatar from '@/components/Avatar';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
 
-export default function AvatarDropdown({
-  size = 40,
-  name,
-  imageUrl,
-  disabled,
-}: {
-  size?: number;
-  name: string;
-  imageUrl?: string;
-  disabled?: boolean;
-}) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const menuRef = useRef<HTMLDivElement>(null);
-
-  function handleAvatarClick() {
-    if (disabled) return;
-    setIsMenuOpen((prev) => !prev);
-  }
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setIsMenuOpen(false);
-      }
-    }
-
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, []);
-
-  return (
-    <div className="relative" ref={menuRef}>
-      <Avatar
-        name={name}
-        size={size}
-        imageUrl={imageUrl}
-        onClick={handleAvatarClick}
-        className={cn({
-          'cursor-default': disabled,
-        })}
-      />
-      {isMenuOpen && <AvatarDropdownMenu setIsMenuOpen={setIsMenuOpen} />}
-    </div>
-  );
-}
-
-function AvatarDropdownMenu({
+export default function AvatarDropdownMenu({
   setIsMenuOpen,
 }: {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;

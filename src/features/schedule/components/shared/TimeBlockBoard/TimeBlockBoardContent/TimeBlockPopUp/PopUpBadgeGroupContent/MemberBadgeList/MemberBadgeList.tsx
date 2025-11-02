@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
-import MemberBadge from '@/components/MemberBadge';
+import MemberBadge from '@/features/schedule/components/shared/MemberBadge';
 import { TimeBlockPopUpContext } from '@/features/schedule/contexts/TimeBlockPopUpContext';
 import cn from '@/lib/cn';
 

@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { ScheduleFormContext } from '../../contexts/ScheduleFormContext';
+import { ScheduleFormContext } from '../../../contexts/ScheduleFormContext';
 import MemberLoginSubScreen from './MemberLoginSubScreen';
 import ScheduleFormSubScreen from './ScheduleFormSubScreen';
 import { useEventQuery } from '@/features/event/api/event.query';

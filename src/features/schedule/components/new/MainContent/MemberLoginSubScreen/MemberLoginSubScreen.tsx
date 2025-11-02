@@ -5,7 +5,6 @@ import { SubmitHandler } from 'react-hook-form';
 import PinPasswordControl from './PinPasswordControl/PinPasswordControl';
 import Button from '@/components/button';
 import FloatingBottomButton from '@/components/button/FloatingBottomButton';
-import NicknameFormControl from '@/components/user/NicknameFormControl';
 import { GuestSchema } from '@/features/event/types';
 import {
   useCheckNewGuestMutation,
@@ -13,6 +12,7 @@ import {
 } from '@/features/schedule/api/schedule.query';
 import { ScheduleFormContext } from '@/features/schedule/contexts/ScheduleFormContext';
 import useGuestForm from '@/features/schedule/hooks/useGuestForm';
+import NicknameFormControl from '@/features/user/components/shared/NicknameFormControl';
 import { useParams } from 'next/navigation';
 
 export default function MemberLoginSubScreen() {

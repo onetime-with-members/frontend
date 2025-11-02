@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import MemberBadge from '@/components/MemberBadge';
+import MemberBadge from '@/features/schedule/components/shared/MemberBadge';
 import cn from '@/lib/cn';
 
 export default function ParticipantsSection({

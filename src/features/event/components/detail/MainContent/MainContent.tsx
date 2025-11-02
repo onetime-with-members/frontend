@@ -3,10 +3,10 @@ import { useContext } from 'react';
 import BannerList from './BannerList';
 import DesktopSideContent from './DesktopSideContent';
 import ParticipantFilter from './ParticipantFilter';
-import TimeBlockBoard from '@/components/time-block-board/TimeBlockBoard';
 import { useEventQuery } from '@/features/event/api/event.query';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import useTimeBlockTopContentTopPx from '@/features/event/hooks/useTimeBlockTopContentTopPx';
+import TimeBlockBoard from '@/features/schedule/components/shared/TimeBlockBoard';
 import { useParams } from 'next/navigation';
 
 export default function MainContent() {

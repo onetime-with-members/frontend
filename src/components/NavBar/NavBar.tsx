@@ -1,16 +1,15 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import AvatarDropdown from '../dropdown/AvatarDropdown';
+import AvatarDropdown from './AvatarDropdown';
+import LoginButton from './LoginButton';
 import { defaultUser } from '@/features/user/constants';
 import useScroll from '@/hooks/useScroll';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { ProgressLink, useProgressRouter } from '@/navigation';
+import { ProgressLink } from '@/navigation';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 
 export default function NavBar({
   variant = 'default',
@@ -99,28 +98,5 @@ export default function NavBar({
         </div>
       </div>
     </nav>
-  );
-}
-
-function LoginButton({ disabled }: { disabled?: boolean }) {
-  const progressRouter = useProgressRouter();
-  const pathname = usePathname();
-  const t = useTranslations('navbar');
-
-  function handleLoginClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    e.preventDefault();
-    progressRouter.push(`/login?redirect_url=${pathname}`);
-  }
-
-  return (
-    <ProgressLink
-      href="/login"
-      className={cn('flex items-center text-lg-200', {
-        'pointer-events-none': disabled,
-      })}
-      onClick={handleLoginClick}
-    >
-      {t('login')}
-    </ProgressLink>
   );
 }

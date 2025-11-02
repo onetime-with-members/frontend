@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
+import LanguageDropdown from '../../../shared/LanguageDropdown';
 import SettingItem from './SettingItem';
-import LanguageDropdown from '@/components/dropdown/LanguageDropdown';
 
 export default function SettingList() {
   const t = useTranslations('profile');
