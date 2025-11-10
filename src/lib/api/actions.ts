@@ -1,8 +1,7 @@
 import { getCookie } from 'cookies-next';
 
 import apiClient from './axios';
-import { OnboardingType, PolicySchema } from '@/features/user/types';
-import { Session } from '@/types';
+import { OnboardingType, PolicySchema, Session } from '@/features/user/types';
 
 export async function createUserAction(value: OnboardingType) {
   const res = await apiClient.post('/users/onboarding', {

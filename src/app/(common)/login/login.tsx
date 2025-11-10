@@ -45,7 +45,6 @@ export default function LoginPage({
         const redirectUrl =
           searchParams.redirectUrl || (await getCookie('redirect-url')) || '/';
         await deleteCookie('redirect-url');
-        router.refresh();
         router.replace(redirectUrl);
       } else if (isLoggedIn) {
         router.replace(searchParams.redirectUrl || cookies.redirectUrl || '/');

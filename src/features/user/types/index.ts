@@ -6,6 +6,11 @@ import {
   profileNicknameSchema,
 } from '../schemas';
 
+export interface Session {
+  accessToken: string | null;
+  refreshToken: string | null;
+}
+
 export interface UserType {
   nickname: string;
   email: string;
