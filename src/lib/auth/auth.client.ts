@@ -1,7 +1,7 @@
 'use client';
 
 import { setCookie } from 'cookies-next';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import { signOutAction } from '../api/actions';
 import dayjs from '../dayjs';
@@ -12,9 +12,8 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export function useAuth() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const { session, changeSession, deleteSession } = useContext(SessionContext);
+  const { isLoggedIn, signInSession, deleteSession } =
+    useContext(SessionContext);
 
   const router = useRouter();
 
@@ -44,21 +43,13 @@ export function useAuth() {
     refreshToken: string;
   }) {
     const newSession: Session = { accessToken, refreshToken };
-    await changeSession(newSession);
-    setIsLoggedIn(true);
+    await signInSession(newSession);
     return newSession;
   }
 
   async function signOut(params: { redirectTo?: string } = {}) {
     await signOutMutation(params);
   }
-
-  useEffect(() => {
-    async function fetchIsLoggedIn() {
-      setIsLoggedIn(!!session);
-    }
-    fetchIsLoggedIn();
-  }, []);
 
   return { user, isLoggedIn, signIn, signOut };
 }
