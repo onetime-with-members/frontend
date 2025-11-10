@@ -1,6 +1,6 @@
 'use client';
 
-import { setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 
 import { signOutAction } from '../api/actions';
@@ -46,6 +46,7 @@ export function useAuth() {
   }) {
     const newSession: Session = { accessToken, refreshToken };
     await sessionService.set(newSession);
+    setIsLoggedIn(true);
     return newSession;
   }
 
@@ -55,7 +56,8 @@ export function useAuth() {
 
   useEffect(() => {
     async function fetchIsLoggedIn() {
-      setIsLoggedIn(sessionService.isLoggedIn);
+      const newIsLoggedIn = (await getCookie('session')) ? true : false;
+      setIsLoggedIn(newIsLoggedIn);
     }
     fetchIsLoggedIn();
   }, []);

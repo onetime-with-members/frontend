@@ -90,7 +90,7 @@ export default function SetUpProvider({
     setUpLastLogin();
 
     router.refresh();
-  }, [user]);
+  }, [user, isLoggedIn]);
 
   useEffect(() => {
     if (pathname.startsWith('/policy') || pathname === '/withdraw') return;
