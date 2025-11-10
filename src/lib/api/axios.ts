@@ -5,7 +5,7 @@ import {
   removeSessionWhenWithdrawal,
 } from './axios-error';
 import { SERVER_API_URL } from '@/constants';
-import { sessionService } from '@/services/SessionService';
+import { getSession } from '@/features/user/lib/session';
 import { ExtendedAxiosError } from '@/types';
 
 const apiClient = axios.create({
@@ -17,9 +17,9 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   async (config) => {
-    const { accessToken } = await sessionService.get();
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    const session = await getSession();
+    if (session) {
+      config.headers.Authorization = `Bearer ${session.accessToken}`;
     }
     return config;
   },
@@ -41,7 +41,7 @@ apiClient.interceptors.response.use(
     }
 
     if (errorCode === 'USER-003') {
-      return removeSessionWhenWithdrawal(error);
+      return await removeSessionWhenWithdrawal(error);
     }
 
     return Promise.reject(error);

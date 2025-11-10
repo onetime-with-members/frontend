@@ -2,14 +2,8 @@ import {
   MyEventType,
   OnboardingSchema,
   PolicySchema,
-  Session,
   UserType,
 } from '../types';
-
-export const defaultSession: Session = {
-  accessToken: null,
-  refreshToken: null,
-};
 
 export const defaultUser: UserType = {
   nickname: '',

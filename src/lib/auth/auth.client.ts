@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { useContext, useEffect, useState } from 'react';
 
 import { signOutAction } from '../api/actions';
@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 export function useAuth() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const { changeSessionTokens } = useContext(SessionContext);
+  const { session, changeSession, deleteSession } = useContext(SessionContext);
 
   const router = useRouter();
 
@@ -31,7 +31,7 @@ export function useAuth() {
       await setCookie('sign-out', true, {
         expires: dayjs().add(1, 'hour').toDate(),
       });
-      await deleteCookie('session');
+      await deleteSession();
       window.location.reload();
     },
   });
@@ -44,7 +44,7 @@ export function useAuth() {
     refreshToken: string;
   }) {
     const newSession: Session = { accessToken, refreshToken };
-    await changeSessionTokens(newSession);
+    await changeSession(newSession);
     setIsLoggedIn(true);
     return newSession;
   }
@@ -55,8 +55,7 @@ export function useAuth() {
 
   useEffect(() => {
     async function fetchIsLoggedIn() {
-      const newIsLoggedIn = (await getCookie('session')) ? true : false;
-      setIsLoggedIn(newIsLoggedIn);
+      setIsLoggedIn(!!session);
     }
     fetchIsLoggedIn();
   }, []);

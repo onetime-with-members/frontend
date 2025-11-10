@@ -1,18 +1,20 @@
 'use client';
 
-import { deleteCookie, setCookie } from 'cookies-next';
 import { createContext, useState } from 'react';
 
+import {
+  deleteSession as deleteSessionCookie,
+  setSession as setSessionCookie,
+} from '../lib/session';
 import { Session } from '../types';
-import dayjs from '@/lib/dayjs';
 
 export const SessionContext = createContext<{
   session: Session | null;
-  changeSessionTokens: (session: Session) => Promise<void>;
+  changeSession: (session: Session) => Promise<void>;
   deleteSession: () => Promise<void>;
 }>({
   session: null,
-  changeSessionTokens: async () => {},
+  changeSession: async () => {},
   deleteSession: async () => {},
 });
 
@@ -25,27 +27,18 @@ export default function SessionContextProvider({
 }) {
   const [session, setSession] = useState<Session | null>(initialSession);
 
-  async function changeSessionTokens({ accessToken, refreshToken }: Session) {
-    await setCookie(
-      'session',
-      JSON.stringify({
-        accessToken,
-        refreshToken,
-      } satisfies Session),
-      { expires: dayjs().add(1, 'month').toDate() },
-    );
-    setSession({ accessToken, refreshToken });
+  async function changeSession(session: Session) {
+    await setSessionCookie(session);
+    setSession(session);
   }
 
   async function deleteSession() {
-    await deleteCookie('session');
+    await deleteSessionCookie();
     setSession(null);
   }
 
   return (
-    <SessionContext.Provider
-      value={{ session, changeSessionTokens, deleteSession }}
-    >
+    <SessionContext.Provider value={{ session, changeSession, deleteSession }}>
       {children}
     </SessionContext.Provider>
   );

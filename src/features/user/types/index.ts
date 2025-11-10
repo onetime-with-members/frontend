@@ -7,8 +7,8 @@ import {
 } from '../schemas';
 
 export interface Session {
-  accessToken: string | null;
-  refreshToken: string | null;
+  accessToken: string;
+  refreshToken: string;
 }
 
 export interface UserType {
