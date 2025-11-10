@@ -8,7 +8,7 @@ import dayjs from '../dayjs';
 import { useUserQuery } from '@/features/user/api/user.query';
 import { SessionContext } from '@/features/user/contexts/SessionContext';
 import { Session } from '@/features/user/types';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export function useAuth() {
@@ -16,35 +16,27 @@ export function useAuth() {
     useContext(SessionContext);
 
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { data: user } = useUserQuery();
 
   const { mutateAsync: signOutMutation } = useMutation({
     mutationFn: signOutAction,
     onSuccess: async (_, { redirectTo }: { redirectTo?: string }) => {
-      if (redirectTo) {
-        router.push(redirectTo);
-      } else {
-        router.refresh();
-      }
       await setCookie('sign-out', true, {
         expires: dayjs().add(1, 'hour').toDate(),
       });
       await deleteSession();
-      window.location.reload();
+      queryClient.removeQueries({ queryKey: ['users'] });
+      router.refresh();
+      if (redirectTo) {
+        router.push(redirectTo);
+      }
     },
   });
 
-  async function signIn({
-    accessToken,
-    refreshToken,
-  }: {
-    accessToken: string;
-    refreshToken: string;
-  }) {
-    const newSession: Session = { accessToken, refreshToken };
-    await signInSession(newSession);
-    return newSession;
+  async function signIn(session: Session) {
+    await signInSession(session);
   }
 
   async function signOut(params: { redirectTo?: string } = {}) {

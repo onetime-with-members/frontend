@@ -37,22 +37,25 @@ export default function LoginPage({
         await setCookie('redirect-url', searchParams.redirectUrl);
       }
 
-      if (searchParams.accessToken && searchParams.refreshToken) {
+      if (
+        searchParams.accessToken &&
+        searchParams.refreshToken &&
+        !isLoggedIn
+      ) {
         await signIn({
           accessToken: searchParams.accessToken,
           refreshToken: searchParams.refreshToken,
         });
-        const redirectUrl =
-          searchParams.redirectUrl || (await getCookie('redirect-url')) || '/';
-        await deleteCookie('redirect-url');
-        router.replace(redirectUrl);
-      } else if (isLoggedIn) {
-        router.replace(searchParams.redirectUrl || cookies.redirectUrl || '/');
-        await deleteCookie('redirect-url');
       }
+
+      router.refresh();
+      router.replace(
+        searchParams.redirectUrl || (await getCookie('redirect-url')) || '/',
+      );
+      await deleteCookie('redirect-url');
     }
     socialLogin();
-  }, [searchParams, cookies]);
+  }, [searchParams, isLoggedIn]);
 
   return (
     <div className="flex h-screen flex-col">
