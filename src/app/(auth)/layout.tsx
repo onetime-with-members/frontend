@@ -1,5 +1,5 @@
+import { hasSignOutCookie } from '@/features/auth/lib/sign-out-cookie';
 import { auth } from '@/lib/auth';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export default async function AuthLayout({
@@ -7,14 +7,11 @@ export default async function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { isLoggedIn } = await auth();
-
-  const cookieStore = await cookies();
-  const isSignedOut = cookieStore.get('sign-out')?.value;
-
-  if (isSignedOut) {
+  if (await hasSignOutCookie()) {
     redirect('/');
   }
+
+  const { isLoggedIn } = await auth();
 
   if (!isLoggedIn) {
     redirect('/login');
