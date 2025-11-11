@@ -1,24 +1,11 @@
 import { Metadata } from 'next';
 
-import EventParticipantFilterContextProvider from '../../../../contexts/event-participant-filter';
-import EventDetailPage from './event-detail';
-import { fetchEvent } from '@/lib/api/data';
-import {
-  bannerQueryOptions,
-  eventQueryOptions,
-  participantsQueryOptions,
-  qrCodeQueryOptions,
-  recommendedTimesQueryOptions,
-  schedulesQueryOptions,
-  shortenUrlQueryOptions,
-} from '@/lib/api/query-options';
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from '@tanstack/react-query';
+import { fetchEvent } from '@/features/event/api/event.api';
+import { eventQueryOptions } from '@/features/event/api/event.option';
+import EventParticipantFilterContextProvider from '@/features/event/contexts/EventParticipantFilterContext';
+import EventDetailPage from '@/features/event/pages/EventDetailPage';
+import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
-import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
@@ -64,33 +51,9 @@ export default async function Page({
 
   if (!event) notFound();
 
-  const headersList = await headers();
-  const host = headersList.get('host');
-  const protocol = headersList.get('x-forwarded-proto') || 'http';
-  const pathname = headersList.get('x-pathname') || '';
-
-  await Promise.all([
-    queryClient.prefetchQuery({
-      ...shortenUrlQueryOptions(`${protocol}://${host}${pathname}`),
-    }),
-    queryClient.prefetchQuery({ ...recommendedTimesQueryOptions(eventId) }),
-    queryClient.prefetchQuery({
-      ...qrCodeQueryOptions(eventId),
-    }),
-    queryClient.prefetchQuery({
-      ...schedulesQueryOptions(event),
-    }),
-    queryClient.prefetchQuery({
-      ...participantsQueryOptions(eventId),
-    }),
-    queryClient.prefetchQuery({ ...bannerQueryOptions }),
-  ]);
-
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <EventParticipantFilterContextProvider>
-        <EventDetailPage />
-      </EventParticipantFilterContextProvider>
-    </HydrationBoundary>
+    <EventParticipantFilterContextProvider>
+      <EventDetailPage />
+    </EventParticipantFilterContextProvider>
   );
 }

@@ -1,8 +1,10 @@
-import NavBar from '@/components/nav-bar';
+import { Metadata } from 'next';
+
+import NavBar from '@/components/NavBar';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('404');
 
   return {

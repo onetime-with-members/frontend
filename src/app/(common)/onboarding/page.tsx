@@ -1,8 +1,10 @@
+import { Metadata } from 'next';
+
 import OnboardingPage from './onboarding';
 import { getTranslations } from 'next-intl/server';
 import { redirect } from 'next/navigation';
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('onboarding');
 
   return {

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
-import { SKELETON_DARK_GRAY } from '@/lib/constants';
+import { SKELETON_DARK_GRAY } from '@/constants';
 import { ProgressLink } from '@/navigation';
 import { IconChevronRight } from '@tabler/icons-react';
 
