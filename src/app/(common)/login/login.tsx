@@ -2,7 +2,7 @@
 
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { SocialLoginType } from './page';
 import NavBar from '@/components/NavBar';
@@ -10,46 +10,43 @@ import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function LoginPage({
-  searchParams,
-  cookies,
-}: {
-  searchParams: {
-    accessToken?: string;
-    refreshToken?: string;
-    redirectUrl?: string;
-  };
-  cookies: {
-    redirectUrl?: string;
-    lastLogin?: string;
-  };
-}) {
+export default function LoginPage() {
   const router = useRouter();
   const t = useTranslations('login');
+  const searchParams = useSearchParams();
 
   const { isLoggedIn, signIn } = useAuth();
 
   useEffect(() => {
+    const searchParamsData = {
+      accessToken: searchParams.get('access_token'),
+      refreshToken: searchParams.get('refresh_token'),
+      redirectUrl: searchParams.get('redirect_url'),
+    };
+
     async function socialLogin() {
-      if (searchParams.redirectUrl) {
-        await setCookie('redirect-url', searchParams.redirectUrl);
+      if (searchParamsData.redirectUrl) {
+        await setCookie('redirect-url', searchParamsData.redirectUrl);
       }
 
-      const isLoggingIn = searchParams.accessToken && searchParams.refreshToken;
+      const isLoggingIn =
+        searchParamsData.accessToken && searchParamsData.refreshToken;
 
       if (isLoggingIn || isLoggedIn) {
         if (isLoggingIn) {
           await signIn({
-            accessToken: searchParams.accessToken as string,
-            refreshToken: searchParams.refreshToken as string,
+            accessToken: searchParamsData.accessToken as string,
+            refreshToken: searchParamsData.refreshToken as string,
           });
         }
 
         router.refresh();
         router.replace(
-          searchParams.redirectUrl || (await getCookie('redirect-url')) || '/',
+          searchParamsData.redirectUrl ||
+            (await getCookie('redirect-url')) ||
+            '/',
         );
         await deleteCookie('redirect-url');
       }
@@ -81,18 +78,9 @@ export default function LoginPage({
 
           {/* Social Login Buttons */}
           <div className="flex w-full flex-col gap-4">
-            <SocialLoginButton
-              provider="naver"
-              lastLogin={cookies.lastLogin === 'naver'}
-            />
-            <SocialLoginButton
-              provider="kakao"
-              lastLogin={cookies.lastLogin === 'kakao'}
-            />
-            <SocialLoginButton
-              provider="google"
-              lastLogin={cookies.lastLogin === 'google'}
-            />
+            <SocialLoginButton provider="naver" />
+            <SocialLoginButton provider="kakao" />
+            <SocialLoginButton provider="google" />
           </div>
         </div>
       </div>
@@ -106,17 +94,21 @@ export function SocialLoginCallback() {
 
 export function SocialLoginButton({
   provider,
-  className,
-  lastLogin,
   ...props
 }: {
   provider: SocialLoginType;
-  lastLogin: boolean;
-} & React.DetailedHTMLProps<
-  React.AnchorHTMLAttributes<HTMLAnchorElement>,
-  HTMLAnchorElement
->) {
+}) {
+  const [isLastLogin, setIsLastLogin] = useState<boolean>(false);
+
   const t = useTranslations('login');
+
+  useEffect(() => {
+    async function lastLogin() {
+      const lastLoginCookie = await getCookie('last-login');
+      setIsLastLogin(lastLoginCookie === provider);
+    }
+    lastLogin();
+  }, []);
 
   return (
     <Link
@@ -128,11 +120,10 @@ export function SocialLoginButton({
           'bg-[#FEE500]': provider === 'kakao',
           'bg-[#F2F2F2]': provider === 'google',
         },
-        className,
       )}
       {...props}
     >
-      {lastLogin && (
+      {isLastLogin && (
         <div className="absolute -top-2 right-2.5 rounded-lg rounded-bl-sm bg-gray-90 px-2.5 py-1.5 text-xs font-medium text-gray-00">
           {t('lastLogin')}
         </div>
