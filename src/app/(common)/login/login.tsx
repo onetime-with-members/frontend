@@ -8,12 +8,13 @@ import { SocialLoginType } from './page';
 import NavBar from '@/components/NavBar';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
+import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
-  const router = useRouter();
+  const progressRouter = useProgressRouter();
   const t = useTranslations('login');
   const searchParams = useSearchParams();
 
@@ -42,8 +43,8 @@ export default function LoginPage() {
           });
         }
 
-        router.refresh();
-        router.replace(
+        progressRouter.refresh();
+        progressRouter.replace(
           searchParamsData.redirectUrl ||
             (await getCookie('redirect-url')) ||
             '/',

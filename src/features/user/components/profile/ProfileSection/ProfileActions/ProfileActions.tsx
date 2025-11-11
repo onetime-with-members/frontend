@@ -15,7 +15,9 @@ export default function ProfileActions() {
       <GrayButton onClick={() => progressRouter.push('/mypage/profile/edit')}>
         {t('editProfile')}
       </GrayButton>
-      <GrayButton onClick={async () => await signOut({ redirectTo: '/' })}>
+      <GrayButton
+        onClick={async () => await signOut({ redirectTo: '/landing' })}
+      >
         {t('logout')}
       </GrayButton>
     </div>
