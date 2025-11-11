@@ -7,3 +7,5 @@ export type ExtendedAxiosError = AxiosError & {
   };
   config: AxiosError & { _retry: boolean };
 };
+
+export type RetryApiQueueItem = (accessToken: string) => void;

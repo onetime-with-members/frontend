@@ -1,8 +1,8 @@
 import { InternalAxiosRequestConfig } from 'axios';
 
 import apiClient from './axios';
+import { retryApiQueue } from './retry-api-queue';
 import { deleteSession, reissueSession } from '@/features/auth/lib/session';
-import { retryApiQueue } from '@/services/RetryApiQueue';
 import { ExtendedAxiosError } from '@/types';
 
 let isTokenRefreshing = false;

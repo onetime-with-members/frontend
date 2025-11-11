@@ -8,8 +8,6 @@ export default async function AuthLayout({
 }) {
   const { isLoggedIn } = await auth();
 
-  console.log(isLoggedIn);
-
   if (!isLoggedIn) {
     redirect('/login');
   }
