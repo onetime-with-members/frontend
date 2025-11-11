@@ -1,5 +1,4 @@
 import { auth } from '@/lib/auth';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export default async function AuthLayout({
@@ -7,14 +6,9 @@ export default async function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
-  const isSignedOut = cookieStore.get('sign-out')?.value;
-
-  if (isSignedOut) {
-    redirect('/');
-  }
-
   const { isLoggedIn } = await auth();
+
+  console.log(isLoggedIn);
 
   if (!isLoggedIn) {
     redirect('/login');
