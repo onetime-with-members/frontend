@@ -36,7 +36,7 @@ export function useAuth() {
     router.refresh();
     if (redirectTo) {
       router.push(redirectTo);
-    } else if (pathname === '/dashboard') router.push('/');
+    } else if (pathname === '/dashboard') router.push('/landing');
   }
 
   return { user, isLoggedIn, signIn, signOut };
