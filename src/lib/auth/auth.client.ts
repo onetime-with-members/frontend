@@ -21,22 +21,22 @@ export function useAuth() {
 
   const { mutateAsync: signOutMutation } = useMutation({
     mutationFn: signOutAction,
-    onSuccess: async (_, { redirectTo }: { redirectTo?: string }) => {
-      await deleteSession();
-      queryClient.removeQueries({ queryKey: ['users'] });
-      router.refresh();
-      if (redirectTo) {
-        router.push(redirectTo);
-      } else if (pathname === '/dashboard') router.push('/');
-    },
   });
 
   async function signIn(session: Session) {
     await signInSession(session);
   }
 
-  async function signOut(params: { redirectTo?: string } = {}) {
-    await signOutMutation(params);
+  async function signOut({ redirectTo }: { redirectTo?: string } = {}) {
+    await signOutMutation();
+
+    await deleteSession();
+    queryClient.removeQueries({ queryKey: ['users'] });
+
+    router.refresh();
+    if (redirectTo) {
+      router.push(redirectTo);
+    } else if (pathname === '/dashboard') router.push('/');
   }
 
   return { user, isLoggedIn, signIn, signOut };
