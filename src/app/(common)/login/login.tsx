@@ -37,22 +37,22 @@ export default function LoginPage({
         await setCookie('redirect-url', searchParams.redirectUrl);
       }
 
-      if (
-        searchParams.accessToken &&
-        searchParams.refreshToken &&
-        !isLoggedIn
-      ) {
-        await signIn({
-          accessToken: searchParams.accessToken,
-          refreshToken: searchParams.refreshToken,
-        });
-      }
+      const isLoggingIn = searchParams.accessToken && searchParams.refreshToken;
 
-      router.refresh();
-      router.replace(
-        searchParams.redirectUrl || (await getCookie('redirect-url')) || '/',
-      );
-      await deleteCookie('redirect-url');
+      if (isLoggingIn || isLoggedIn) {
+        if (isLoggingIn) {
+          await signIn({
+            accessToken: searchParams.accessToken as string,
+            refreshToken: searchParams.refreshToken as string,
+          });
+        }
+
+        router.refresh();
+        router.replace(
+          searchParams.redirectUrl || (await getCookie('redirect-url')) || '/',
+        );
+        await deleteCookie('redirect-url');
+      }
     }
     socialLogin();
   }, [searchParams, isLoggedIn]);
