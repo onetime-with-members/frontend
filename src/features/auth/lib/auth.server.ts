@@ -1,6 +1,6 @@
 'use server';
 
-import { Session } from '@/features/user/types';
+import { Session } from '@/features/auth/types';
 import { cookies } from 'next/headers';
 
 export async function auth() {

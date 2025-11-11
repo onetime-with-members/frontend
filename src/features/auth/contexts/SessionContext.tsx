@@ -6,7 +6,7 @@ import {
   deleteSession as deleteSessionCookie,
   setSession as setSessionCookie,
 } from '../lib/session';
-import { Session } from '../types';
+import { Session } from '@/features/auth/types';
 
 export const SessionContext = createContext<{
   session: Session | null;

@@ -2,10 +2,10 @@
 
 import { useContext } from 'react';
 
-import { signOutAction } from '../api/actions';
+import { signOutAction } from '../../../lib/api/actions';
+import { SessionContext } from '@/features/auth/contexts/SessionContext';
+import { Session } from '@/features/auth/types';
 import { useUserQuery } from '@/features/user/api/user.query';
-import { SessionContext } from '@/features/user/contexts/SessionContext';
-import { Session } from '@/features/user/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { usePathname, useRouter } from 'next/navigation';
 

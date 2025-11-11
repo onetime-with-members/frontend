@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import { useContext, useState } from 'react';
 
 import Button from '@/components/button';
-import { SessionContext } from '@/features/user/contexts/SessionContext';
+import { SessionContext } from '@/features/auth/contexts/SessionContext';
 import { withdrawAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { IconX } from '@tabler/icons-react';
