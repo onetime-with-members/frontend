@@ -11,9 +11,10 @@ import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
+  const router = useRouter();
   const progressRouter = useProgressRouter();
   const t = useTranslations('login');
   const searchParams = useSearchParams();
@@ -43,7 +44,7 @@ export default function LoginPage() {
           });
         }
 
-        progressRouter.refresh();
+        router.refresh();
         progressRouter.replace(
           searchParamsData.redirectUrl ||
             (await getCookie('redirect-url')) ||
