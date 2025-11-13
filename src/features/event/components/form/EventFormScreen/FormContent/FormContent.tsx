@@ -29,8 +29,8 @@ export default function FormContent() {
 
   const onSubmit: SubmitHandler<EventSchema> = async (values) => {
     if (formStatus === 'create') {
-      await createEvent(values);
-      progressRouter.push(`/events/${params.id}`);
+      const { event_id } = await createEvent(values);
+      progressRouter.push(`/events/${event_id}`);
     } else {
       await editEvent({ eventId: params.id, event: values });
       progressRouter.push(`/events/${params.id}`);
