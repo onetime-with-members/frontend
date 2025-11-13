@@ -1,5 +1,5 @@
 import LandingPage from '@/features/home/pages/LandingPage';
-import auth from '@/lib/auth/auth.server';
+import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 
 export default async function Page() {

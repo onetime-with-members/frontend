@@ -1,7 +1,9 @@
-import ProfileEditPage from './profile-edit';
+import { Metadata } from 'next';
+
+import ProfileEditPage from '@/features/user/pages/ProfileEditPage';
 import { getTranslations } from 'next-intl/server';
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('profileEdit');
 
   return {

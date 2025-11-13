@@ -1,5 +1,5 @@
-import Avatar from '@/components/avatar';
-import { useAuth } from '@/lib/auth/auth.client';
+import Avatar from '@/components/Avatar';
+import { useAuth } from '@/lib/auth';
 
 export default function ProfileInfo() {
   const { user } = useAuth();

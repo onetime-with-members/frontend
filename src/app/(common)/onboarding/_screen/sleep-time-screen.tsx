@@ -2,9 +2,9 @@ import { useTranslations } from 'next-intl';
 import { UseFormSetValue } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
-import TimeDropdown from '@/components/dropdown/time-dropdown';
-import SleepIcon from '@/components/icon/SleepTimeIcon';
-import { OnboardingFormType } from '@/lib/validation/form-types';
+import TimeDropdown from '@/components/TimeDropdown';
+import { SleepTimeIcon } from '@/components/icon';
+import { OnboardingSchema } from '@/features/user/types';
 
 export default function SleepTimeScreen({
   pageIndex,
@@ -15,8 +15,8 @@ export default function SleepTimeScreen({
 }: {
   pageIndex: number;
   setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-  onboardingValue: OnboardingFormType;
-  setOnboardingValue: UseFormSetValue<OnboardingFormType>;
+  onboardingValue: OnboardingSchema;
+  setOnboardingValue: UseFormSetValue<OnboardingSchema>;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) {
   const t = useTranslations('onboarding');
@@ -33,7 +33,7 @@ export default function SleepTimeScreen({
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-1.5">
           <span className="text-xl text-gray-60">
-            <SleepIcon />
+            <SleepTimeIcon />
           </span>
           <span className="text-gray-80 text-md-300">{t('sleepTime')}</span>
         </div>

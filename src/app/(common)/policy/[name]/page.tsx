@@ -1,8 +1,10 @@
+import { Metadata } from 'next';
+
 import PolicyPage from './policy-detail';
 import NotFound from '@/app/not-found';
-import { POLICY_KEY_LIST } from '@/lib/constants';
-import { policyPageTitle } from '@/lib/utils';
-import { PolicyFormType } from '@/lib/validation/form-types';
+import { POLICY_KEY_LIST } from '@/constants';
+import { PolicySchema } from '@/features/user/types';
+import { policyPageTitle } from '@/features/user/utils';
 import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
@@ -10,7 +12,7 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ name: string }>;
-}) {
+}): Promise<Metadata> {
   const { name } = await params;
   const locale = await getLocale();
 
@@ -35,7 +37,7 @@ export default async function Page({
     return NotFound();
   }
 
-  const page: keyof PolicyFormType =
+  const page: keyof PolicySchema =
     name === 'privacy' ? 'privacyPolicy' : 'servicePolicy';
   const pageTitle = policyPageTitle(name, locale);
 

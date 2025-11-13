@@ -9,15 +9,14 @@ import NicknameFormScreen from './_screen/nickname-form-screen';
 import PolicyScreen from './_screen/policy-screen';
 import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
-import NavBar from '@/components/nav-bar';
-import { FooterContext } from '@/contexts/footer';
-import useHomeUrl from '@/hooks/useHomeUrl';
+import NavBar from '@/components/NavBar';
+import { FooterContext } from '@/features/set-up/contexts/FooterContext';
+import { defaultOnboardingValue } from '@/features/user/constants';
+import { onboardingSchema } from '@/features/user/schemas';
+import { OnboardingSchema } from '@/features/user/types';
 import { createUserAction } from '@/lib/api/actions';
-import { useAuth } from '@/lib/auth/auth.client';
+import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
-import { defaultOnboardingValue } from '@/lib/constants';
-import { OnboardingFormType } from '@/lib/validation/form-types';
-import { onboardingSchema } from '@/lib/validation/schema';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft } from '@tabler/icons-react';
@@ -35,7 +34,7 @@ export default function OnboardingPage({
 
   const { setFooterVisible } = useContext(FooterContext);
 
-  const { handleSubmit, watch, setValue } = useForm<OnboardingFormType>({
+  const { handleSubmit, watch, setValue } = useForm<OnboardingSchema>({
     resolver: zodResolver(onboardingSchema),
     defaultValues: { ...defaultOnboardingValue, nickname: name },
   });
@@ -46,7 +45,6 @@ export default function OnboardingPage({
   const locale = useLocale();
 
   const { signIn } = useAuth();
-  const homeUrl = useHomeUrl();
 
   const redirectUrl = getCookie('redirect-url');
 
@@ -62,11 +60,11 @@ export default function OnboardingPage({
     },
     onError: (error) => {
       console.error(error);
-      router.replace(`/login?redirect_url=${redirectUrl || homeUrl}`);
+      router.replace(`/login?redirect_url=${redirectUrl || '/'}`);
     },
   });
 
-  const onSubmit: SubmitHandler<OnboardingFormType> = async (data) => {
+  const onSubmit: SubmitHandler<OnboardingSchema> = async (data) => {
     await createUser({
       ...data,
       registerToken,

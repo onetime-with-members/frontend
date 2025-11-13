@@ -2,12 +2,9 @@ import { useTranslations } from 'next-intl';
 import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
-import NicknameFormControl from '@/components/user/nickname-form-control';
-import {
-  OnboardingFormType,
-  ProfileNicknameFormType,
-} from '@/lib/validation/form-types';
-import { profileNicknameSchema } from '@/lib/validation/schema';
+import NicknameFormControl from '@/features/user/components/shared/NicknameFormControl';
+import { profileNicknameSchema } from '@/features/user/schemas';
+import { OnboardingSchema, ProfileNicknameSchema } from '@/features/user/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function NicknameFormScreen({
@@ -18,21 +15,21 @@ export default function NicknameFormScreen({
 }: {
   pageIndex: number;
   setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-  onboardingValue: OnboardingFormType;
-  setOnboardingValue: UseFormSetValue<OnboardingFormType>;
+  onboardingValue: OnboardingSchema;
+  setOnboardingValue: UseFormSetValue<OnboardingSchema>;
 }) {
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
-  } = useForm<ProfileNicknameFormType>({
+  } = useForm<ProfileNicknameSchema>({
     resolver: zodResolver(profileNicknameSchema),
     defaultValues: { nickname: onboardingValue.nickname },
   });
 
   const t = useTranslations('onboarding');
 
-  const onSubmit: SubmitHandler<ProfileNicknameFormType> = ({ nickname }) => {
+  const onSubmit: SubmitHandler<ProfileNicknameSchema> = ({ nickname }) => {
     setOnboardingValue('nickname', nickname);
     setPageIndex((prev) => prev + 1);
   };

@@ -1,6 +1,8 @@
-import EventEditPage from './event-edit';
-import { fetchEvent } from '@/lib/api/data';
-import { eventQueryOptions } from '@/lib/api/query-options';
+import { Metadata } from 'next';
+
+import { fetchEvent } from '@/features/event/api/event.api';
+import { eventQueryOptions } from '@/features/event/api/event.option';
+import EventEditPage from '@/features/event/pages/EventEditPage';
 import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -9,7 +11,7 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ id: string }>;
-}) {
+}): Promise<Metadata> {
   const { id: eventId } = await params;
   const event = await fetchEvent(eventId);
 

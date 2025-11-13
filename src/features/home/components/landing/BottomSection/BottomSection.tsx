@@ -1,6 +1,6 @@
 import BottomCTAButton from './BottomCTAButton';
 import BottomContent from './BottomContent';
-import ClockPattern from '@/components/clock-pattern';
+import ClockPattern from '@/components/ClockPattern';
 
 export default async function BottomSection() {
   return (

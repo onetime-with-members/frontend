@@ -1,14 +1,15 @@
-import BarBannerContextProvider from './bar-banner';
-import EverytimeScheduleContextProvider from './everytime-schedule';
-import FooterContextProvider from './footer';
-import MyScheduleContextProvider from './my-schedule';
-import PageModeContextProvider from './page-mode';
-import PolicyContextProvider from './policy';
-import ScrollContextProvider from './scroll';
-import SleepTimeContextProvider from './sleep-time';
-import ToastContextProvider from './toast';
-import WeekdayLocaleContextProvider from './weekday-locale';
-import { fetchBarBanner } from '@/lib/api/data';
+import BarBannerContextProvider from '../features/banner/contexts/BarBannerContext';
+import PageModeContextProvider from '../features/event/contexts/PageModeContext';
+import EverytimeScheduleContextProvider from '../features/my-schedule/contexts/EverytimeScheduleContext';
+import MyScheduleContextProvider from '../features/my-schedule/contexts/MyScheduleContext';
+import SleepTimeContextProvider from '../features/my-schedule/contexts/SleepTimeContext';
+import FooterContextProvider from '../features/set-up/contexts/FooterContext';
+import PolicyContextProvider from '../features/user/contexts/PolicyContext';
+import ToastContextProvider from './ToastContext';
+import WeekdayLocaleContextProvider from './WeekdayLocaleContext';
+import SessionContextProvider from '@/features/auth/contexts/SessionContext';
+import { fetchBarBanner } from '@/features/banner/api/banner.api';
+import { auth } from '@/lib/auth';
 import { getLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
 
@@ -19,6 +20,8 @@ export default async function ContextProviders({
 }) {
   const cookieStore = await cookies();
 
+  const { session, isLoggedIn } = await auth();
+
   let barBanner = null;
   if (!cookieStore.get('bar-banner')) {
     barBanner = await fetchBarBanner();
@@ -27,9 +30,12 @@ export default async function ContextProviders({
   const locale = await getLocale();
 
   return (
-    <PageModeContextProvider>
-      <FooterContextProvider>
-        <ScrollContextProvider>
+    <SessionContextProvider
+      initialSession={session}
+      initialIsLoggedIn={isLoggedIn}
+    >
+      <PageModeContextProvider>
+        <FooterContextProvider>
           <PolicyContextProvider>
             <SleepTimeContextProvider>
               <MyScheduleContextProvider>
@@ -45,8 +51,8 @@ export default async function ContextProviders({
               </MyScheduleContextProvider>
             </SleepTimeContextProvider>
           </PolicyContextProvider>
-        </ScrollContextProvider>
-      </FooterContextProvider>
-    </PageModeContextProvider>
+        </FooterContextProvider>
+      </PageModeContextProvider>
+    </SessionContextProvider>
   );
 }

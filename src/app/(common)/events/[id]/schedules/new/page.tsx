@@ -1,6 +1,7 @@
-import ScheduleAddScreen from './schedule-new';
-import { eventQueryOptions } from '@/lib/api/query-options';
-import auth from '@/lib/auth/auth.server';
+import { eventQueryOptions } from '@/features/event/api/event.option';
+import ScheduleFormContextProvider from '@/features/schedule/contexts/ScheduleFormContext';
+import ScheduleNewPage from '@/features/schedule/pages/ScheduleNewPage';
+import { auth } from '@/lib/auth';
 import { QueryClient } from '@tanstack/react-query';
 import { notFound } from 'next/navigation';
 
@@ -21,5 +22,9 @@ export default async function Page({
 
   const { isLoggedIn } = await auth();
 
-  return <ScheduleAddScreen isLoggedIn={isLoggedIn} />;
+  return (
+    <ScheduleFormContextProvider isLoggedIn={isLoggedIn}>
+      <ScheduleNewPage isLoggedIn={isLoggedIn} />
+    </ScheduleFormContextProvider>
+  );
 }

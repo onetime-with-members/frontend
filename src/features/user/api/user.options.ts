@@ -1,5 +1,5 @@
-import { MyEventType, UserType } from '../models';
-import { fetchMyEvents, fetchUserProfile } from './user.api';
+import { MyEventType, PolicySchema, UserType } from '../types';
+import { fetchMyEvents, fetchUserPolicy, fetchUserProfile } from './user.api';
 import { queryOptions } from '@tanstack/react-query';
 
 export const userQueryOptions = queryOptions<UserType>({
@@ -10,4 +10,9 @@ export const userQueryOptions = queryOptions<UserType>({
 export const myEventsQueryOptions = queryOptions<MyEventType[]>({
   queryKey: ['events', 'user', 'all'],
   queryFn: fetchMyEvents,
+});
+
+export const userPolicyQueryOptions = queryOptions<PolicySchema>({
+  queryKey: ['users', 'policy'],
+  queryFn: fetchUserPolicy,
 });

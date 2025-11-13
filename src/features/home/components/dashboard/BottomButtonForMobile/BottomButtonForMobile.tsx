@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import Button from '@/components/button';
-import { FooterContext } from '@/contexts/footer';
+import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';

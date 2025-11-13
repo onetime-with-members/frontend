@@ -1,7 +1,9 @@
-import MyScheduleEditPage from './my-schedule-edit';
+import { Metadata } from 'next';
+
+import MyScheduleEditPage from '@/features/my-schedule/pages/MyScheduleEditPage';
 import { getTranslations } from 'next-intl/server';
 
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('myScheduleEdit');
 
   return {

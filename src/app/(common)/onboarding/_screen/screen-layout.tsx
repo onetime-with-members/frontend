@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import Button from '@/components/button';
-import FloatingBottomButton from '@/components/button/floating-bottom-button';
+import FloatingBottomButton from '@/components/button/FloatingBottomButton';
 
 export default function ScreenLayout({
   pageIndex,
