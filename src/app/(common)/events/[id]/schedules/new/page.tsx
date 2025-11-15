@@ -1,4 +1,5 @@
 import { eventQueryOptions } from '@/features/event/api/event.option';
+import GuidePopUpContextProvider from '@/features/schedule/contexts/GuideDialogContext';
 import ScheduleFormContextProvider from '@/features/schedule/contexts/ScheduleFormContext';
 import ScheduleNewPage from '@/features/schedule/pages/ScheduleNewPage';
 import { auth } from '@/lib/auth';
@@ -24,7 +25,9 @@ export default async function Page({
 
   return (
     <ScheduleFormContextProvider isLoggedIn={isLoggedIn}>
-      <ScheduleNewPage isLoggedIn={isLoggedIn} />
+      <GuidePopUpContextProvider>
+        <ScheduleNewPage isLoggedIn={isLoggedIn} />
+      </GuidePopUpContextProvider>
     </ScheduleFormContextProvider>
   );
 }

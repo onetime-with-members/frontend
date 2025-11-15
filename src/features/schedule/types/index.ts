@@ -30,3 +30,10 @@ export interface GuestValueType {
   name: string;
   pin: string;
 }
+
+export interface GuideContents {
+  title: string;
+  description: React.ReactNode;
+  imageSrc: string;
+  imageAlt: string;
+}
