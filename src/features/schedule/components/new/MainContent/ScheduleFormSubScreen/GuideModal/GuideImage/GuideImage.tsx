@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 
-import { GuideDialogContext } from '@/features/schedule/contexts/GuideDialogContext';
+import { GuideModalContext } from '@/features/schedule/contexts/GuideModalContext';
 import Image from 'next/image';
 
 export default function GuideImage() {
   const {
     guideContents: { imageSrc, imageAlt },
-  } = useContext(GuideDialogContext);
+  } = useContext(GuideModalContext);
 
   return (
     <div>

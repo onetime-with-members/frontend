@@ -3,7 +3,7 @@ import Indicator from './Indicator';
 import NextButton from './NextButton';
 import TextContent from './TextContent';
 
-export default function GuideDialog() {
+export default function GuideModal() {
   return (
     <div className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4">
       <div

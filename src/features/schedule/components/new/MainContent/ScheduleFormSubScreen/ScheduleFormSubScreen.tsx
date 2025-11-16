@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 
 import TimeBlockBoard from '../../../shared/TimeBlockBoard';
 import BottomSubmitButton from './BottomSubmitButton';
-import GuideDialog from './GuideDialog';
+import GuideModal from './GuideModal';
 import TopSubmitButton from './TopSubmitButton';
 import { useEventQuery } from '@/features/event/api/event.query';
 import useGuestEditedEvents from '@/features/event/hooks/useIsEventEdited/useGuestEditedEvents';
@@ -11,7 +11,7 @@ import {
   useCreateNewMemberScheduleMutation,
   useUpdateScheduleMutation,
 } from '@/features/schedule/api/schedule.query';
-import { GuideDialogContext } from '@/features/schedule/contexts/GuideDialogContext';
+import { GuideModalContext } from '@/features/schedule/contexts/GuideModalContext';
 import { ScheduleFormContext } from '@/features/schedule/contexts/ScheduleFormContext';
 import useScheduleAdd from '@/features/schedule/hooks/useScheduleAdd';
 import useToast from '@/hooks/useToast';
@@ -21,7 +21,7 @@ import { useParams } from 'next/navigation';
 export default function ScheduleFormSubScreen() {
   const { guestValue, isScheduleEdited, setIsScheduleEdited, isLoggedIn } =
     useContext(ScheduleFormContext);
-  const { isGuideDialogShown } = useContext(GuideDialogContext);
+  const { isGuideModalShown } = useContext(GuideModalContext);
 
   const t = useTranslations();
   const progressRouter = useProgressRouter();
@@ -104,7 +104,7 @@ export default function ScheduleFormSubScreen() {
         onClick={handleScheduleSubmit}
         isPending={isCreatePending || isUpdatePending}
       />
-      {isGuideDialogShown && <GuideDialog />}
+      {isGuideModalShown && <GuideModal />}
     </>
   );
 }

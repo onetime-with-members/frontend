@@ -1,14 +1,14 @@
 import { useContext } from 'react';
 
 import Button from '@/components/button';
-import { GuideDialogContext } from '@/features/schedule/contexts/GuideDialogContext';
+import { GuideModalContext } from '@/features/schedule/contexts/GuideModalContext';
 
 export default function NextButton() {
   const {
     handleNextGuideContents,
     currentGuideContentsIndex,
     guideContentsListLength,
-  } = useContext(GuideDialogContext);
+  } = useContext(GuideModalContext);
 
   return (
     <Button fullWidth onClick={handleNextGuideContents}>

@@ -1,11 +1,11 @@
 import { useContext } from 'react';
 
-import { GuideDialogContext } from '@/features/schedule/contexts/GuideDialogContext';
+import { GuideModalContext } from '@/features/schedule/contexts/GuideModalContext';
 
 export default function TextContent() {
   const {
     guideContents: { title, description },
-  } = useContext(GuideDialogContext);
+  } = useContext(GuideModalContext);
 
   return (
     <div className="py-5 text-center text-gray-70">

@@ -1,14 +1,14 @@
 import { useContext } from 'react';
 
 import IndicatorDot from './IndicatorDot';
-import { GuideDialogContext } from '@/features/schedule/contexts/GuideDialogContext';
+import { GuideModalContext } from '@/features/schedule/contexts/GuideModalContext';
 
 export default function Indicator() {
   const {
     currentGuideContentsIndex,
     guideContentsListLength,
     handleMoveGuideContents,
-  } = useContext(GuideDialogContext);
+  } = useContext(GuideModalContext);
 
   return (
     <div className="flex h-1.5 gap-1">
