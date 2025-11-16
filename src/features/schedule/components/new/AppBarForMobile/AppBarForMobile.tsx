@@ -1,12 +1,12 @@
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
+import { ScheduleFormContext } from '@/features/schedule/contexts/ScheduleFormContext';
 import { IconChevronLeft } from '@tabler/icons-react';
 
-export default function AppBarForMobile({
-  onBackButtonClick,
-}: {
-  onBackButtonClick: () => void;
-}) {
+export default function AppBarForMobile() {
+  const { handleBackButtonClick } = useContext(ScheduleFormContext);
+
   const t = useTranslations('scheduleAdd');
 
   return (
@@ -14,7 +14,7 @@ export default function AppBarForMobile({
       <div className="fixed left-0 top-0 z-50 w-full bg-white px-4">
         <div className="mx-auto grid max-w-screen-sm grid-cols-3 py-5">
           <div className="flex items-center">
-            <button type="button" onClick={onBackButtonClick}>
+            <button type="button" onClick={handleBackButtonClick}>
               <IconChevronLeft size={24} className="text-gray-80" />
             </button>
           </div>

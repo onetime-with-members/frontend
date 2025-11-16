@@ -12,6 +12,7 @@ export const GuideModalContext = createContext<{
   guideContents: GuideContents;
   handleNextGuideContents: () => void;
   handleMoveGuideContents: (index: number) => void;
+  handleGuideModalClose: () => void;
 }>({
   isGuideModalShown: false,
   currentGuideContentsIndex: 0,
@@ -19,6 +20,7 @@ export const GuideModalContext = createContext<{
   guideContents: guideContentsList[0],
   handleNextGuideContents: () => {},
   handleMoveGuideContents: () => {},
+  handleGuideModalClose: () => {},
 });
 
 export default function GuideModalContextProvider({
@@ -33,7 +35,7 @@ export default function GuideModalContextProvider({
 
   function handleNextGuideContents() {
     if (currentGuideContentsIndex === guideContentsListLength - 1) {
-      setIsGuideModalShown(false);
+      handleGuideModalClose();
     } else {
       setCurrentGuideContentsIndex((prev) => prev + 1);
     }
@@ -41,6 +43,10 @@ export default function GuideModalContextProvider({
 
   function handleMoveGuideContents(index: number) {
     setCurrentGuideContentsIndex(index);
+  }
+
+  function handleGuideModalClose() {
+    setIsGuideModalShown(false);
   }
 
   return (
@@ -52,6 +58,7 @@ export default function GuideModalContextProvider({
         guideContents: guideContentsList[currentGuideContentsIndex],
         handleNextGuideContents,
         handleMoveGuideContents,
+        handleGuideModalClose,
       }}
     >
       {children}

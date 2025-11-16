@@ -16,7 +16,7 @@ import NicknameFormControl from '@/features/user/components/shared/NicknameFormC
 import { useParams } from 'next/navigation';
 
 export default function MemberLoginSubScreen() {
-  const { setGuestValue, setPageIndex } = useContext(ScheduleFormContext);
+  const { setGuestValue, handleNextPage } = useContext(ScheduleFormContext);
 
   const {
     handleSubmit,
@@ -42,7 +42,7 @@ export default function MemberLoginSubScreen() {
       pin: data.pin,
       isNewGuest: isNewGuestData,
     }));
-    if (isNewGuestData) return setPageIndex(1);
+    if (isNewGuestData) return handleNextPage();
 
     const { guestId, pinNotCorrect } = await loginGuest({
       eventId: params.id,
@@ -55,7 +55,7 @@ export default function MemberLoginSubScreen() {
       return alert('로그인 도중 에러가 발생했습니다.');
     }
     setGuestValue((prev) => ({ ...prev, guestId: guestId }));
-    setPageIndex(1);
+    handleNextPage();
   };
 
   return (
