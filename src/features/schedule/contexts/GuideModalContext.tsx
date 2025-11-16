@@ -1,7 +1,10 @@
 'use client';
 
-import { createContext, useState } from 'react';
+import { getCookie, setCookie } from 'cookies-next';
+import dayjs from 'dayjs';
+import { createContext, useEffect, useState } from 'react';
 
+import { SCHEDULE_GUIDE_MODAL } from '../constants';
 import { guideContentsList } from '../data/guide-contents-list';
 import { GuideContents } from '../types';
 
@@ -28,7 +31,7 @@ export default function GuideModalContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isGuideModalShown, setIsGuideModalShown] = useState(true);
+  const [isGuideModalShown, setIsGuideModalShown] = useState(false);
   const [currentGuideContentsIndex, setCurrentGuideContentsIndex] = useState(0);
 
   const guideContentsListLength = guideContentsList.length;
@@ -45,9 +48,25 @@ export default function GuideModalContextProvider({
     setCurrentGuideContentsIndex(index);
   }
 
-  function handleGuideModalClose() {
+  async function handleGuideModalClose() {
+    await setCookie(SCHEDULE_GUIDE_MODAL, false, {
+      expires: dayjs().add(1, 'month').toDate(),
+    });
     setIsGuideModalShown(false);
   }
+
+  useEffect(() => {
+    async function hideGuideModalAndExtendCookie() {
+      if (await getCookie(SCHEDULE_GUIDE_MODAL)) {
+        await setCookie(SCHEDULE_GUIDE_MODAL, false, {
+          expires: dayjs().add(1, 'month').toDate(),
+        });
+      } else {
+        setIsGuideModalShown(true);
+      }
+    }
+    hideGuideModalAndExtendCookie();
+  }, []);
 
   return (
     <GuideModalContext.Provider

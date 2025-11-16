@@ -70,7 +70,8 @@ export default function ScheduleFormContextProvider({
   }
 
   useEffect(() => {
-    setPageIndex(isLoggedIn ? 1 : 0);
+    // setPageIndex(isLoggedIn ? 1 : 0);
+    setPageIndex(1);
   }, [isLoggedIn]);
 
   return (

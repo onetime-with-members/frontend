@@ -1,5 +1,7 @@
 import { ScheduleType, TimeBlockPopUpDataType } from '../types';
 
+export const SCHEDULE_GUIDE_MODAL = 'schedule-guide-modal';
+
 export const defaultMemberLoginValues = {
   nickname: '',
   pin: '----',
