@@ -151,6 +151,14 @@
     "reload": "Reload",
     "clear": "Clear"
   },
+  "scheduleGuideModal": {
+    "title1": "Explore",
+    "title2": "Enter Schedule",
+    "description1": "Scroll up, down, left, and right <br></br>to check times and dates",
+    "description2": "Touch the start and end of a block <br></br>to fill or erase it",
+    "next": "Next",
+    "start": "Start"
+  },
   "userDashboard": {
     "more": "More",
     "hello": "Hello, {name}",

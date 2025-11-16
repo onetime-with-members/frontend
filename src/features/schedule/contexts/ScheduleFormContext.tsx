@@ -6,7 +6,7 @@ import { defaultGuestValues } from '../constants';
 import { GuestValueType } from '../types';
 import { useProgressRouter } from '@/navigation';
 
-type ScheduleFormContextType = {
+export const ScheduleFormContext = createContext<{
   pageIndex: number;
   guestValue: GuestValueType;
   setGuestValue: React.Dispatch<React.SetStateAction<GuestValueType>>;
@@ -17,9 +17,7 @@ type ScheduleFormContextType = {
   isLoggedIn: boolean;
   handleBackButtonClick: () => void;
   handleNextPage: () => void;
-};
-
-export const ScheduleFormContext = createContext<ScheduleFormContextType>({
+}>({
   pageIndex: 0,
   guestValue: defaultGuestValues,
   setGuestValue: () => {},

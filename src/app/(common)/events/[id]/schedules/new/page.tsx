@@ -26,7 +26,7 @@ export default async function Page({
   return (
     <ScheduleFormContextProvider isLoggedIn={isLoggedIn}>
       <GuideModalContextProvider>
-        <ScheduleNewPage isLoggedIn={isLoggedIn} />
+        <ScheduleNewPage />
       </GuideModalContextProvider>
     </ScheduleFormContextProvider>
   );

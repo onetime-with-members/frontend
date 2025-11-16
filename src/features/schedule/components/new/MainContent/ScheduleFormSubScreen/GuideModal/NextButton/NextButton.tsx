@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import Button from '@/components/button';
@@ -10,11 +11,13 @@ export default function NextButton() {
     guideContentsListLength,
   } = useContext(GuideModalContext);
 
+  const t = useTranslations('scheduleGuideModal');
+
   return (
     <Button fullWidth onClick={handleNextGuideContents}>
       {currentGuideContentsIndex === guideContentsListLength - 1
-        ? '시작'
-        : '다음'}
+        ? t('start')
+        : t('next')}
     </Button>
   );
 }

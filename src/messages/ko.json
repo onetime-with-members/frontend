@@ -151,6 +151,14 @@
     "reload": "불러오기",
     "clear": "전체 삭제"
   },
+  "scheduleGuideModal": {
+    "title1": "탐색하기",
+    "title2": "스케줄 입력하기",
+    "description1": "상하좌우로 화면을 스크롤하며 <br></br>시간과 날짜를 확인해 보세요",
+    "description2": "블럭의 시작과 끝을 터치해서 <br></br>색칠하거나 지울 수 있어요",
+    "next": "다음",
+    "start": "시작"
+  },
   "userDashboard": {
     "more": "더 보기",
     "hello": "안녕하세요, {name}님",
