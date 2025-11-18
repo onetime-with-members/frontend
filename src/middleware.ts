@@ -1,10 +1,14 @@
+import { routing } from './i18n/routing';
 import { auth } from './lib/auth';
+import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function middleware(request: NextRequest) {
-  const response = NextResponse.next();
-  const pathname = request.nextUrl.pathname;
+const handleI18nRouting = createMiddleware(routing);
 
+export async function middleware(request: NextRequest) {
+  const response = handleI18nRouting(request);
+
+  const pathname = request.nextUrl.pathname;
   response.headers.set('x-pathname', pathname);
 
   const { isLoggedIn } = await auth();
@@ -19,5 +23,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
 };

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import './globals.css';
+import '../globals.css';
 import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/Toast';
