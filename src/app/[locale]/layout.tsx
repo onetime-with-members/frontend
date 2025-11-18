@@ -13,7 +13,8 @@ import PreloadImages from '@/features/set-up/components/PreloadImages';
 import ProgressBar from '@/features/set-up/components/ProgressBar';
 import Providers from '@/features/set-up/components/Providers';
 import Scripts from '@/features/set-up/components/Scripts';
-import { getLocale } from 'next-intl/server';
+import { routing } from '@/i18n/routing';
+import { setRequestLocale } from 'next-intl/server';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 declare global {
@@ -51,12 +52,20 @@ export const metadata: Metadata = {
   },
 };
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export default async function Layout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
-  const locale = await getLocale();
+  const { locale } = await params;
+
+  setRequestLocale(locale);
 
   // const cookieStore = await cookies();
   // const initialIsLandingPopUpShown =
