@@ -1,18 +1,17 @@
 'use client';
 
-import { setCookie } from 'cookies-next';
-import { useLocale } from 'next-intl';
-import { useRef } from 'react';
+import { Locale, useLocale } from 'next-intl';
+import { useRef, useTransition } from 'react';
 
 import LanguageDropdownMenu from './LanguageDropdownMenu';
 import useDropdown from '@/hooks/useDropdown';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import { editUserLanguageAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
-import dayjs from '@/lib/dayjs';
 import { IconLanguage } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 export default function LanguageDropdown({
   variant = 'default',
@@ -37,14 +36,23 @@ export default function LanguageDropdown({
     mutationFn: editUserLanguageAction,
   });
 
+  const [, startTransition] = useTransition();
+  const pathname = usePathname();
+  const params = useParams();
+
   async function handleDropdownMenuItemClick(language: string) {
     if (isLoggedIn) await editUserLanguage(language === 'ko' ? 'KOR' : 'ENG');
-    setIsDropdownMenuOpen(false);
-    setCookie('locale', language, {
-      expires: dayjs().add(1, 'year').toDate(),
+
+    const nextLocale = language as Locale;
+    startTransition(() => {
+      router.replace(
+        // @ts-expect-error -- TypeScript will validate that only known `params`
+        { pathname, params },
+        { locale: nextLocale },
+      );
     });
-    dayjs.locale(language);
-    router.refresh();
+
+    setIsDropdownMenuOpen(false);
   }
 
   return (
