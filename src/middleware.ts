@@ -4,8 +4,6 @@ import createMiddleware from 'next-intl/middleware';
 import { getLocale } from 'next-intl/server';
 import { NextRequest, NextResponse } from 'next/server';
 
-const handleI18nRouting = createMiddleware(routing);
-
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -21,6 +19,7 @@ export async function middleware(request: NextRequest) {
     );
   }
 
+  const handleI18nRouting = createMiddleware(routing);
   const response = handleI18nRouting(request);
 
   response.headers.set('x-pathname', pathname);
