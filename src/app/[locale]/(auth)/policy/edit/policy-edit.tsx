@@ -6,6 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import NavBar from '@/components/NavBar';
 import Button from '@/components/button';
+import useHomeUrl from '@/features/home/hooks/useHomeUrl';
 import PolicyCheckboxContent from '@/features/user/components/shared/PolicyCheckboxContent';
 import { PolicyContext } from '@/features/user/contexts/PolicyContext';
 import { policySchema } from '@/features/user/schemas';
@@ -32,8 +33,10 @@ export default function PolicyEditPage() {
 
   const queryClient = useQueryClient();
   const router = useRouter();
-  const progressRouter = useProgressRouter();
   const t = useTranslations('policyEdit');
+
+  const progressRouter = useProgressRouter();
+  const homeUrl = useHomeUrl();
 
   const { mutateAsync: editPolicy } = useMutation({
     mutationFn: editUserPolicyAction,
@@ -48,7 +51,8 @@ export default function PolicyEditPage() {
   };
 
   useEffect(() => {
-    if (policyData.privacyPolicy && policyData.servicePolicy) router.push('/');
+    if (policyData.privacyPolicy && policyData.servicePolicy)
+      router.push(homeUrl);
   }, [policyData]);
 
   useEffect(() => {

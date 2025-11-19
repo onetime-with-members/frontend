@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 import { SocialLoginType } from './page';
 import NavBar from '@/components/NavBar';
+import useHomeUrl from '@/features/home/hooks/useHomeUrl';
 import { Link, useRouter } from '@/i18n/navigation';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
@@ -15,10 +16,11 @@ import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
   const router = useRouter();
-  const progressRouter = useProgressRouter();
   const t = useTranslations('login');
   const searchParams = useSearchParams();
 
+  const progressRouter = useProgressRouter();
+  const homeUrl = useHomeUrl();
   const { isLoggedIn, signIn } = useAuth();
 
   useEffect(() => {
@@ -48,7 +50,7 @@ export default function LoginPage() {
         progressRouter.replace(
           searchParamsData.redirectUrl ||
             (await getCookie('redirect-url')) ||
-            '/',
+            homeUrl,
         );
         await deleteCookie('redirect-url');
       }

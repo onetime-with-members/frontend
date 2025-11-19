@@ -19,9 +19,9 @@ export default function BarBanner({
   const { barBanner, isBarBannerShown, closeBarBanner } =
     useContext(BarBannerContext);
 
-  const progressRouter = useProgressRouter();
-
   const locale = useLocale();
+
+  const progressRouter = useProgressRouter();
 
   function handleClick() {
     if (barBanner?.link_url) {

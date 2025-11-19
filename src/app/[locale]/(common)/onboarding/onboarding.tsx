@@ -10,6 +10,7 @@ import PolicyScreen from './_screen/policy-screen';
 import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/NavBar';
+import useHomeUrl from '@/features/home/hooks/useHomeUrl';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { defaultOnboardingValue } from '@/features/user/constants';
 import { onboardingSchema } from '@/features/user/schemas';
@@ -40,11 +41,12 @@ export default function OnboardingPage({
   });
 
   const router = useRouter();
-  const progressRouter = useProgressRouter();
   const queryClient = useQueryClient();
   const locale = useLocale();
 
+  const progressRouter = useProgressRouter();
   const { signIn } = useAuth();
+  const homeUrl = useHomeUrl();
 
   const redirectUrl = getCookie('redirect-url');
 
@@ -60,7 +62,7 @@ export default function OnboardingPage({
     },
     onError: (error) => {
       console.error(error);
-      router.replace(`/login?redirect_url=${redirectUrl || '/'}`);
+      router.replace(`/login?redirect_url=${redirectUrl || homeUrl}`);
     },
   });
 

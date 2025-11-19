@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 
 import Button from '@/components/button';
 import { SessionContext } from '@/features/auth/contexts/SessionContext';
+import useHomeUrl from '@/features/home/hooks/useHomeUrl';
 import { useRouter } from '@/i18n/navigation';
 import { withdrawAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
@@ -20,11 +21,13 @@ export default function WithdrawPage() {
   const router = useRouter();
   const t = useTranslations('withdraw');
 
+  const homeUrl = useHomeUrl();
+
   const { mutateAsync: withdraw } = useMutation({
     mutationFn: withdrawAction,
     onSuccess: async () => {
       await deleteSession();
-      router.push('/');
+      router.push(homeUrl);
       router.refresh();
     },
   });

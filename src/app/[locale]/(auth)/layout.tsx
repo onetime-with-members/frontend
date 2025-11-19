@@ -1,4 +1,5 @@
 import { hasSignOutCookie } from '@/features/auth/lib/sign-out-cookie';
+import getHomeUrl from '@/features/home/lib/home-url';
 import { redirect } from '@/i18n/navigation';
 import { auth } from '@/lib/auth';
 
@@ -10,9 +11,10 @@ export default async function AuthLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const homeUrl = await getHomeUrl();
 
   if (await hasSignOutCookie()) {
-    redirect({ href: '/', locale });
+    redirect({ href: homeUrl, locale });
   }
 
   const { isLoggedIn } = await auth();
