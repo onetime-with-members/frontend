@@ -46,7 +46,7 @@ export default function LanguageDropdown({
       router.replace(
         // @ts-expect-error -- TypeScript will validate that only known `params`
         { pathname, params },
-        { locale: nextLocale },
+        { locale: nextLocale, scroll: false },
       );
     });
 
