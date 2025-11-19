@@ -1,23 +1,29 @@
 import { routing } from './i18n/routing';
 import { auth } from './lib/auth';
 import createMiddleware from 'next-intl/middleware';
+import { getLocale } from 'next-intl/server';
 import { NextRequest, NextResponse } from 'next/server';
 
 const handleI18nRouting = createMiddleware(routing);
 
 export async function middleware(request: NextRequest) {
-  const response = handleI18nRouting(request);
+  const { pathname } = request.nextUrl;
 
-  const pathname = request.nextUrl.pathname;
-  response.headers.set('x-pathname', pathname);
+  const localePath = `/${await getLocale()}`;
 
-  const { isLoggedIn } = await auth();
+  if (pathname === localePath) {
+    const { isLoggedIn } = await auth();
 
-  if (pathname === '/') {
+    const targetPath = isLoggedIn ? '/dashboard' : '/landing';
+
     return NextResponse.redirect(
-      new URL(isLoggedIn ? '/dashboard' : '/landing', request.url),
+      new URL(`${localePath}${targetPath}`, request.url),
     );
   }
+
+  const response = handleI18nRouting(request);
+
+  response.headers.set('x-pathname', pathname);
 
   return response;
 }
