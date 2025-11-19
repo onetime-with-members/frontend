@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 import LoginPage from './login';
+import { redirect } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
-import { redirect } from 'next/navigation';
 
 export type SocialLoginType = 'naver' | 'kakao' | 'google';
 
@@ -19,15 +19,17 @@ export default async function Page(props: {
     register_token?: string;
     name?: string;
   }>;
+  params: Promise<{ locale: string }>;
 }) {
   const searchParams = await props.searchParams;
+  const { locale } = await props.params;
 
   if (searchParams?.register_token && searchParams?.name) {
     const urlSearchParams = new URLSearchParams({
       register_token: searchParams.register_token,
       name: searchParams.name,
     });
-    redirect(`/onboarding?${urlSearchParams.toString()}`);
+    redirect({ href: `/onboarding?${urlSearchParams.toString()}`, locale });
   }
 
   return <LoginPage />;

@@ -1,12 +1,21 @@
+import { redirect } from '@/i18n/navigation';
 import { auth } from '@/lib/auth';
-import { redirect } from 'next/navigation';
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+
   const { isLoggedIn } = await auth();
 
   if (isLoggedIn) {
-    redirect('/dashboard');
+    redirect({
+      href: '/dashboard',
+      locale,
+    });
   }
 
-  redirect('/landing');
+  redirect({ href: '/landing', locale });
 }

@@ -14,6 +14,7 @@ import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { defaultOnboardingValue } from '@/features/user/constants';
 import { onboardingSchema } from '@/features/user/schemas';
 import { OnboardingSchema } from '@/features/user/types';
+import { useRouter } from '@/i18n/navigation';
 import { createUserAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
@@ -21,7 +22,6 @@ import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconChevronLeft } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 export default function OnboardingPage({
   name,

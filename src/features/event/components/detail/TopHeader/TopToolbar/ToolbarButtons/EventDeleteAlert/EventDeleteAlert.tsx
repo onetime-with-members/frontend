@@ -2,7 +2,8 @@ import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
 import { useDeleteEventMutation } from '@/features/event/api/event.query';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
+import { useParams } from 'next/navigation';
 
 export default function EventDeleteAlert({
   setIsEventDeleteAlertOpen,

@@ -2,7 +2,8 @@ import { useContext, useEffect } from 'react';
 
 import { useEventWithAuthQuery } from '../../api/event.query';
 import { EventFormContext } from '../../contexts/EventFormContext';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
+import { useParams } from 'next/navigation';
 
 export default function useNoCreatorRedirect() {
   const { formStatus } = useContext(EventFormContext);

@@ -8,8 +8,8 @@ import {
 } from '@/features/my-schedule/api/my-schedule.query';
 import { MyScheduleContext } from '@/features/my-schedule/contexts/MyScheduleContext';
 import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
+import { useRouter } from '@/i18n/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
 
 export default function TopAppBar({
   onBackButtonAlertOpen,

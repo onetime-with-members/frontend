@@ -2,9 +2,9 @@ import { getCookie, setCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
 import { useUserQuery } from '@/features/user/api/user.query';
+import { useRouter } from '@/i18n/navigation';
 import { useAuth } from '@/lib/auth';
 import dayjs from '@/lib/dayjs';
-import { useRouter } from 'next/navigation';
 
 export default function useUserSetUp() {
   const router = useRouter();

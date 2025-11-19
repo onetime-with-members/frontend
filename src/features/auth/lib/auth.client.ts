@@ -6,9 +6,9 @@ import { addSignOutCookie } from './sign-out-cookie';
 import { SessionContext } from '@/features/auth/contexts/SessionContext';
 import { Session } from '@/features/auth/types';
 import { useUserQuery } from '@/features/user/api/user.query';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import { signOutAction } from '@/lib/api/actions';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { usePathname, useRouter } from 'next/navigation';
 
 export function useAuth() {
   const { isLoggedIn, signInSession, deleteSession } =

@@ -10,12 +10,11 @@ import PolicyCheckboxContent from '@/features/user/components/shared/PolicyCheck
 import { PolicyContext } from '@/features/user/contexts/PolicyContext';
 import { policySchema } from '@/features/user/schemas';
 import { PolicySchema } from '@/features/user/types';
+import { Link, useRouter } from '@/i18n/navigation';
 import { editUserPolicyAction } from '@/lib/api/actions';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 export default function PolicyEditPage() {
   const [pageDetail, setPageDetail] = useState<keyof PolicySchema | null>(null);

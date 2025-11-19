@@ -7,9 +7,9 @@ import { defaultSleepTime } from '@/features/my-schedule/constants';
 import { SleepTimeType } from '@/features/my-schedule/types';
 import { getTimesGroupForSplitted } from '@/features/my-schedule/utils';
 import { timeBlockList } from '@/features/schedule/utils';
+import { usePathname } from '@/i18n/navigation';
 import { useAuth } from '@/lib/auth';
 import dayjs from '@/lib/dayjs';
-import { usePathname } from 'next/navigation';
 
 export const SleepTimeContext = createContext<{
   sleepTime: SleepTimeType;

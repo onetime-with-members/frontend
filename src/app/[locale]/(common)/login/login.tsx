@@ -6,12 +6,12 @@ import { useEffect, useState } from 'react';
 
 import { SocialLoginType } from './page';
 import NavBar from '@/components/NavBar';
+import { Link, useRouter } from '@/i18n/navigation';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
   const router = useRouter();

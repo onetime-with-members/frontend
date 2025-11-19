@@ -3,10 +3,10 @@
 import { useTranslations } from 'next-intl';
 
 import { EverytimeIcon } from '@/components/icon';
+import { usePathname } from '@/i18n/navigation';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
-import { usePathname } from 'next/navigation';
 
 export default function EverytimeUI({ className }: { className?: string }) {
   const progressRouter = useProgressRouter();

@@ -2,7 +2,7 @@
 
 import PolicyDetailScreen from '@/features/user/components/shared/PolicyDetailScreen';
 import { PolicySchema } from '@/features/user/types';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
 
 export default function PolicyPage({
   page,

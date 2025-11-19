@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl';
 
+import { usePathname } from '@/i18n/navigation';
 import cn from '@/lib/cn';
 import { ProgressLink, useProgressRouter } from '@/navigation';
-import { usePathname } from 'next/navigation';
 
 export default function LoginButton({ disabled }: { disabled?: boolean }) {
   const progressRouter = useProgressRouter();

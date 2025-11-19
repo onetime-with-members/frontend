@@ -5,12 +5,12 @@ import { useContext, useState } from 'react';
 
 import Button from '@/components/button';
 import { SessionContext } from '@/features/auth/contexts/SessionContext';
+import { useRouter } from '@/i18n/navigation';
 import { withdrawAction } from '@/lib/api/actions';
 import cn from '@/lib/cn';
 import { IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 export default function WithdrawPage() {
   const [isChecked, setIsChecked] = useState(false);

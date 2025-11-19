@@ -22,23 +22,21 @@ export default function LanguageDropdown({
 }) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const [, startTransition] = useTransition();
+  const pathname = usePathname();
+  const params = useParams();
+  const router = useRouter();
+  const locale = useLocale();
+
+  const { isLoggedIn } = useAuth();
   const { isDropdownMenuOpen, handleDropdownClick, setIsDropdownMenuOpen } =
     useDropdown({
       dropdownRef,
     });
 
-  const locale = useLocale();
-  const router = useRouter();
-
-  const { isLoggedIn } = useAuth();
-
   const { mutateAsync: editUserLanguage } = useMutation({
     mutationFn: editUserLanguageAction,
   });
-
-  const [, startTransition] = useTransition();
-  const pathname = usePathname();
-  const params = useParams();
 
   async function handleDropdownMenuItemClick(language: string) {
     if (isLoggedIn) await editUserLanguage(language === 'ko' ? 'KOR' : 'ENG');

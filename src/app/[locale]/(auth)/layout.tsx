@@ -1,20 +1,24 @@
 import { hasSignOutCookie } from '@/features/auth/lib/sign-out-cookie';
+import { redirect } from '@/i18n/navigation';
 import { auth } from '@/lib/auth';
-import { redirect } from 'next/navigation';
 
 export default async function AuthLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
+
   if (await hasSignOutCookie()) {
-    redirect('/');
+    redirect({ href: '/', locale });
   }
 
   const { isLoggedIn } = await auth();
 
   if (!isLoggedIn) {
-    redirect('/login');
+    redirect({ href: '/login', locale });
   }
 
   return children;

@@ -7,8 +7,8 @@ import MobileSubmitButton from './MobileSubmitButton';
 import { useEditProfileMutation } from '@/features/user/api/user.query';
 import { profileNicknameSchema } from '@/features/user/schemas';
 import { ProfileNicknameSchema, UserType } from '@/features/user/types';
+import { useRouter } from '@/i18n/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
 
 export default function FormContent({ user }: { user: UserType }) {
   const router = useRouter();
