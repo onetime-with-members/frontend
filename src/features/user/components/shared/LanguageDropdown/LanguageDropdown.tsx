@@ -1,17 +1,15 @@
 'use client';
 
 import { Locale, useLocale } from 'next-intl';
-import { useRef, useTransition } from 'react';
+import { useRef } from 'react';
 
 import LanguageDropdownMenu from './LanguageDropdownMenu';
+import { useEditUserLanguageMutation } from '@/features/user/api/user.query';
+import useChangeLocale from '@/features/user/hooks/useChangeLocale';
 import useDropdown from '@/hooks/useDropdown';
-import { usePathname, useRouter } from '@/i18n/navigation';
-import { editUserLanguageAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { IconLanguage } from '@tabler/icons-react';
-import { useMutation } from '@tanstack/react-query';
-import { useParams } from 'next/navigation';
 
 export default function LanguageDropdown({
   variant = 'default',
@@ -22,10 +20,6 @@ export default function LanguageDropdown({
 }) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const [, startTransition] = useTransition();
-  const pathname = usePathname();
-  const params = useParams();
-  const router = useRouter();
   const locale = useLocale();
 
   const { isLoggedIn } = useAuth();
@@ -33,23 +27,13 @@ export default function LanguageDropdown({
     useDropdown({
       dropdownRef,
     });
+  const changeLocale = useChangeLocale();
 
-  const { mutateAsync: editUserLanguage } = useMutation({
-    mutationFn: editUserLanguageAction,
-  });
+  const { editUserLanguage } = useEditUserLanguageMutation();
 
-  async function handleDropdownMenuItemClick(language: string) {
-    if (isLoggedIn) await editUserLanguage(language === 'ko' ? 'KOR' : 'ENG');
-
-    const nextLocale = language as Locale;
-    startTransition(() => {
-      router.replace(
-        // @ts-expect-error -- TypeScript will validate that only known `params`
-        { pathname, params },
-        { locale: nextLocale, scroll: false },
-      );
-    });
-
+  async function handleDropdownMenuItemClick(locale: Locale) {
+    if (isLoggedIn) await editUserLanguage(locale === 'ko' ? 'KOR' : 'ENG');
+    changeLocale(locale);
     setIsDropdownMenuOpen(false);
   }
 
