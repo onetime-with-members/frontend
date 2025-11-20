@@ -32,7 +32,8 @@ export default function FormContent() {
 
   const onSubmit: SubmitHandler<EverytimeUrlSchema> = async ({ url }) => {
     setIsTouched(false);
-    await submitEverytimeUrl(url);
+    const timetableId = url.split('@')[1];
+    await submitEverytimeUrl(timetableId);
 
     const editPagePathname = '/mypage/schedule/edit';
     if (searchParams.get('from') !== editPagePathname) {

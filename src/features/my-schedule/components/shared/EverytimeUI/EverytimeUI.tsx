@@ -5,18 +5,12 @@ import { useTranslations } from 'next-intl';
 import { EverytimeIcon } from '@/components/icon';
 import { usePathname } from '@/i18n/navigation';
 import cn from '@/lib/cn';
-import { ProgressLink, useProgressRouter } from '@/navigation';
+import { ProgressLink } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
 
 export default function EverytimeUI({ className }: { className?: string }) {
-  const progressRouter = useProgressRouter();
   const pathname = usePathname();
   const t = useTranslations('myScheduleEdit');
-
-  function handleEditButtonClick(e: React.MouseEvent<HTMLAnchorElement>) {
-    e.preventDefault();
-    progressRouter.push(e.currentTarget.getAttribute('href') || '#');
-  }
 
   return (
     <div
@@ -29,10 +23,7 @@ export default function EverytimeUI({ className }: { className?: string }) {
         <EverytimeIcon fontSize={20} />
         <span className="text-md-300">{t('everytime')}</span>
       </div>
-      <ProgressLink
-        href={`/mypage/schedule/everytime/edit?from=${pathname}`}
-        onClick={handleEditButtonClick}
-      >
+      <ProgressLink href={`/mypage/schedule/everytime/edit?from=${pathname}`}>
         <IconPlus size={24} />
       </ProgressLink>
     </div>
