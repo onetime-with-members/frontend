@@ -24,7 +24,7 @@ export default function BottomButton({
 
   const errorMessageKey = isPending
     ? 'pendingMessage'
-    : errorCode === 'CRAWLING-002'
+    : errorCode === 'CRAWLING-002' || errorCode === 'E_BAD_REQUEST'
       ? 'invalidURLMessage'
       : errorCode === 'CRAWLING-003'
         ? 'privateURLMessage'
