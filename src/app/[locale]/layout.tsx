@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
+import { hasLocale } from 'next-intl';
 
-import './globals.css';
+import '../globals.css';
 import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
 import Toast from '@/components/Toast';
@@ -15,6 +16,7 @@ import Providers from '@/features/set-up/components/Providers';
 import Scripts from '@/features/set-up/components/Scripts';
 import { routing } from '@/i18n/routing';
 import { setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 import 'react-loading-skeleton/dist/skeleton.css';
 
 declare global {
@@ -64,6 +66,10 @@ export default async function Layout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
+
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   setRequestLocale(locale);
 

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 import PolicyPage from './policy-detail';
-import NotFound from '@/app/not-found';
+import NotFound from '@/app/[locale]/not-found';
 import { POLICY_KEY_LIST } from '@/constants';
 import { PolicySchema } from '@/features/user/types';
 import { policyPageTitle } from '@/features/user/utils';
