@@ -59,7 +59,7 @@ export default function LoginPage() {
   }, [searchParams, isLoggedIn]);
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-screen flex-col" data-testid="login-page">
       {/* Navigation Bar */}
       <NavBar />
 
