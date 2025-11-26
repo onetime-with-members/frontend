@@ -30,12 +30,7 @@ export function useAuth() {
 
   async function signOut({ redirectTo }: { redirectTo?: string } = {}) {
     await signOutMutation();
-
-    await deleteSession();
-    await addSignOutCookie();
-    queryClient.removeQueries({ queryKey: ['users'] });
-
-    router.refresh();
+    await clearAuth();
     if (redirectTo) {
       router.push(redirectTo);
     } else if (pathname === '/dashboard') {
@@ -43,5 +38,17 @@ export function useAuth() {
     }
   }
 
-  return { user, isLoggedIn, signIn, signOut };
+  async function withdraw() {
+    await clearAuth();
+  }
+
+  async function clearAuth() {
+    await deleteSession();
+    await addSignOutCookie();
+    queryClient.removeQueries({ queryKey: ['users'] });
+
+    router.refresh();
+  }
+
+  return { user, isLoggedIn, signIn, signOut, withdraw };
 }

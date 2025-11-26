@@ -1,13 +1,12 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '@/components/button';
-import { SessionContext } from '@/features/auth/contexts/SessionContext';
-import useHomeUrl from '@/features/home/hooks/useHomeUrl';
 import { useRouter } from '@/i18n/navigation';
 import { withdrawAction } from '@/lib/api/actions';
+import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { IconX } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
@@ -16,26 +15,20 @@ import Image from 'next/image';
 export default function WithdrawPage() {
   const [isChecked, setIsChecked] = useState(false);
 
-  const { deleteSession } = useContext(SessionContext);
-
   const router = useRouter();
   const t = useTranslations('withdraw');
 
-  const homeUrl = useHomeUrl();
+  const { withdraw: afterWithdraw } = useAuth();
 
   const { mutateAsync: withdraw } = useMutation({
     mutationFn: withdrawAction,
-    onSuccess: async () => {
-      await deleteSession();
-      router.push(homeUrl);
-      router.refresh();
-    },
   });
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!isChecked) return;
     await withdraw();
+    await afterWithdraw();
   }
 
   return (
