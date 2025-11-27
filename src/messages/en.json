@@ -197,6 +197,7 @@
     "submit": "Submit",
     "submitting": "Submitting...",
     "publicWarning": "Please set the timetable to 'Public' temporarily. (Setting Icon -> Set sharing rights -> Public)",
+    "emptyTimetable": "No classes are registered in the timetable.",
     "pendingMessage": "The request is in progress. Please wait a moment.",
     "invalidURLMessage": "The entered URL is invalid. Please try again with a valid URL.",
     "privateURLMessage": "The timetable is not public. Please set the sharing rights to 'Public'.",

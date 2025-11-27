@@ -28,7 +28,9 @@ export default function BottomButton({
       ? 'invalidURLMessage'
       : errorCode === 'FIXED-002'
         ? 'privateURLMessage'
-        : 'serverErrorMessage';
+        : errorCode === 'FIXED-005'
+          ? 'emptyTimetable'
+          : 'serverErrorMessage';
 
   return (
     <AnimatePresence>
