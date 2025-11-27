@@ -1,0 +1,25 @@
+'use client';
+
+import PolicyDetailScreen from '@/features/user/components/shared/PolicyDetailScreen';
+import { PolicySchema } from '@/features/user/types';
+import { useRouter } from '@/i18n/navigation';
+
+export default function PolicyPage({
+  page,
+  pageTitle,
+}: {
+  page: keyof PolicySchema;
+  pageTitle: string;
+}) {
+  const router = useRouter();
+
+  return (
+    <div className="flex h-full flex-col">
+      <PolicyDetailScreen
+        page={page}
+        pageTitle={pageTitle}
+        onClose={() => router.back()}
+      />
+    </div>
+  );
+}

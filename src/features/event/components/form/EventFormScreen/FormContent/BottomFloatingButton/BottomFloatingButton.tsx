@@ -7,11 +7,11 @@ import { PageModeContext } from '@/features/event/contexts/PageModeContext';
 import cn from '@/lib/cn';
 
 export default function BottomFloatingButton({
-  isCreatePending,
-  isEditPending,
+  isCreateLoading,
+  isEditLoading,
 }: {
-  isCreatePending: boolean;
-  isEditPending: boolean;
+  isCreateLoading: boolean;
+  isEditLoading: boolean;
 }) {
   const { isValid } = useContext(EventFormContext);
   const { pageMode } = useContext(PageModeContext);
@@ -26,14 +26,14 @@ export default function BottomFloatingButton({
         fullWidth
         className={cn({
           'pointer-events-none cursor-default':
-            isCreatePending || isEditPending,
+            isCreateLoading || isEditLoading,
         })}
         disabled={!isValid}
       >
         {pageMode === 'create' &&
-          (isCreatePending ? t('creatingEvent') : t('createEvent'))}
+          (isCreateLoading ? t('creatingEvent') : t('createEvent'))}
         {pageMode === 'edit' &&
-          (isEditPending ? t('editingEvent') : t('editEvent'))}
+          (isEditLoading ? t('editingEvent') : t('editEvent'))}
       </Button>
     </div>
   );

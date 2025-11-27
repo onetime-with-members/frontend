@@ -30,3 +30,10 @@ export interface GuestValueType {
   name: string;
   pin: string;
 }
+
+export interface GuideContents {
+  title: string;
+  description: string;
+  imageSrc: { en: string; ko: string };
+  imageAlt: { en: string; ko: string };
+}

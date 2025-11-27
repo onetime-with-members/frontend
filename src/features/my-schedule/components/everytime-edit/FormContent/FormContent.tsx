@@ -7,9 +7,10 @@ import InputContent from './InputContent';
 import { useSubmitEverytimeURLMutation } from '@/features/my-schedule/api/my-schedule.query';
 import { everytimeUrlSchema } from '@/features/my-schedule/schemas';
 import { EverytimeUrlSchema } from '@/features/my-schedule/types';
+import { useRouter } from '@/i18n/navigation';
 import { useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function FormContent() {
   const [isTouched, setIsTouched] = useState(false);
@@ -31,7 +32,8 @@ export default function FormContent() {
 
   const onSubmit: SubmitHandler<EverytimeUrlSchema> = async ({ url }) => {
     setIsTouched(false);
-    await submitEverytimeUrl(url);
+    const timetableId = url.split('@')[1];
+    await submitEverytimeUrl(timetableId);
 
     const editPagePathname = '/mypage/schedule/edit';
     if (searchParams.get('from') !== editPagePathname) {

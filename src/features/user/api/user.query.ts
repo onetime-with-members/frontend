@@ -4,6 +4,7 @@ import {
   userPolicyQueryOptions,
   userQueryOptions,
 } from './user.options';
+import { editUserLanguageAction } from '@/lib/api/actions';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useUserQuery({ enabled }: { enabled?: boolean } = {}) {
@@ -37,5 +38,20 @@ export function useEditProfileMutation() {
   return {
     editUserName: mutateAsync,
     isPending,
+  };
+}
+
+export function useEditUserLanguageMutation() {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: editUserLanguageAction,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+  });
+
+  return {
+    editUserLanguage: mutateAsync,
   };
 }

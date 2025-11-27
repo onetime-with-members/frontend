@@ -73,27 +73,27 @@ export function useParticipantsQuery(eventId: string) {
 export function useCreateEventMutation() {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationFn: createEventAction,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
     },
   });
 
-  return { mutateAsync, isPending };
+  return { mutateAsync, isLoading: isPending || isSuccess };
 }
 
 export function useEditEventMutation() {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationFn: editEventAction,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
     },
   });
 
-  return { mutateAsync, isPending };
+  return { mutateAsync, isLoading: isPending || isSuccess };
 }
 
 export function useDeleteEventMutation() {

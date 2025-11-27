@@ -22,9 +22,9 @@ export default function FormContent() {
 
   useNoCreatorRedirect();
 
-  const { mutateAsync: createEvent, isPending: isCreatePending } =
+  const { mutateAsync: createEvent, isLoading: isCreateLoading } =
     useCreateEventMutation();
-  const { mutateAsync: editEvent, isPending: isEditPending } =
+  const { mutateAsync: editEvent, isLoading: isEditLoading } =
     useEditEventMutation();
 
   const onSubmit: SubmitHandler<EventSchema> = async (values) => {
@@ -47,8 +47,8 @@ export default function FormContent() {
         <InputContent />
       </div>
       <BottomFloatingButton
-        isCreatePending={isCreatePending}
-        isEditPending={isEditPending}
+        isCreateLoading={isCreateLoading}
+        isEditLoading={isEditLoading}
       />
     </form>
   );

@@ -1,23 +1,18 @@
-import { auth } from './lib/auth';
-import { NextRequest, NextResponse } from 'next/server';
+import { routing } from './i18n/routing';
+import createMiddleware from 'next-intl/middleware';
+import { NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
-  const response = NextResponse.next();
-  const pathname = request.nextUrl.pathname;
+  const { pathname } = request.nextUrl;
+
+  const handleI18nRouting = createMiddleware(routing);
+  const response = handleI18nRouting(request);
 
   response.headers.set('x-pathname', pathname);
-
-  const { isLoggedIn } = await auth();
-
-  if (pathname === '/') {
-    return NextResponse.redirect(
-      new URL(isLoggedIn ? '/dashboard' : '/landing', request.url),
-    );
-  }
 
   return response;
 }
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
 };

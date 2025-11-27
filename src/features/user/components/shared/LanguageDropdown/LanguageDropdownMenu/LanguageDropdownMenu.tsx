@@ -1,4 +1,4 @@
-import { useLocale } from 'next-intl';
+import { Locale, useLocale } from 'next-intl';
 
 import { CheckIcon } from '@/components/icon';
 import { languages } from '@/constants';
@@ -8,7 +8,7 @@ export default function LanguageDropdownMenu({
   onMenuItemClick,
   menuPosition,
 }: {
-  onMenuItemClick: (language: 'en' | 'ko') => void;
+  onMenuItemClick: (locale: Locale) => void;
   menuPosition: 'top' | 'bottom';
 }) {
   const locale = useLocale();
