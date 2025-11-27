@@ -15,8 +15,8 @@ export const profileNicknameSchema = z.object({
 });
 
 export const policySchema = z.object({
-  servicePolicy: z.boolean().refine((value) => value),
-  privacyPolicy: z.boolean().refine((value) => value),
+  servicePolicy: z.boolean().refine((value) => value === true),
+  privacyPolicy: z.boolean().refine((value) => value === true),
   marketingPolicy: z.boolean(),
 });
 
