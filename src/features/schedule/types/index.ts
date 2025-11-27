@@ -34,6 +34,6 @@ export interface GuestValueType {
 export interface GuideContents {
   title: string;
   description: string;
-  imageSrc: string;
-  imageAlt: string;
+  imageSrc: { en: string; ko: string };
+  imageAlt: { en: string; ko: string };
 }

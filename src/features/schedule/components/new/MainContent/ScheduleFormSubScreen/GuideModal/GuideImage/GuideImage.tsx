@@ -1,3 +1,4 @@
+import { useLocale } from 'next-intl';
 import { useContext } from 'react';
 
 import { GuideModalContext } from '@/features/schedule/contexts/GuideModalContext';
@@ -8,9 +9,16 @@ export default function GuideImage() {
     guideContents: { imageSrc, imageAlt },
   } = useContext(GuideModalContext);
 
+  const locale = useLocale();
+
   return (
     <div>
-      <Image src={imageSrc} alt={imageAlt} width={656} height={700} />
+      <Image
+        src={locale === 'ko' ? imageSrc.ko : imageSrc.en}
+        alt={locale === 'ko' ? imageAlt.ko : imageAlt.en}
+        width={656}
+        height={700}
+      />
     </div>
   );
 }
