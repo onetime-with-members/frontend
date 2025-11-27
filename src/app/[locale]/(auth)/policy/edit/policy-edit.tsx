@@ -11,9 +11,9 @@ import PolicyCheckboxContent from '@/features/user/components/shared/PolicyCheck
 import { PolicyContext } from '@/features/user/contexts/PolicyContext';
 import { policySchema } from '@/features/user/schemas';
 import { PolicySchema } from '@/features/user/types';
-import { Link, useRouter } from '@/i18n/navigation';
+import { useRouter } from '@/i18n/navigation';
 import { editUserPolicyAction } from '@/lib/api/actions';
-import { useProgressRouter } from '@/navigation';
+import { ProgressLink, useProgressRouter } from '@/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -24,10 +24,11 @@ export default function PolicyEditPage() {
 
   const {
     handleSubmit,
-    reset,
+    setValue,
     formState: { isValid },
   } = useForm<PolicySchema>({
     resolver: zodResolver(policySchema),
+    mode: 'onChange',
     defaultValues: policyValue,
   });
 
@@ -56,7 +57,15 @@ export default function PolicyEditPage() {
   }, [policyData]);
 
   useEffect(() => {
-    reset(policyValue);
+    setValue('servicePolicy', policyValue.servicePolicy, {
+      shouldValidate: true,
+    });
+    setValue('privacyPolicy', policyValue.privacyPolicy, {
+      shouldValidate: true,
+    });
+    setValue('marketingPolicy', policyValue.marketingPolicy, {
+      shouldValidate: true,
+    });
   }, [policyValue]);
 
   useEffect(() => {
@@ -98,9 +107,12 @@ export default function PolicyEditPage() {
               </Button>
               <div className="flex items-center gap-1.5 px-4 text-gray-50 text-sm-200">
                 <span>{t('toWithdrawText')}</span>
-                <Link href="/withdraw" className="text-danger-50 text-sm-200">
+                <ProgressLink
+                  href="/withdraw"
+                  className="text-danger-50 text-sm-200"
+                >
                   {t('toWithdrawLink')}
-                </Link>
+                </ProgressLink>
               </div>
             </div>
           </form>
