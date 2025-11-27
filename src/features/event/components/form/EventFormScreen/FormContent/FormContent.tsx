@@ -9,7 +9,6 @@ import {
   useEditEventMutation,
 } from '@/features/event/api/event.query';
 import { EventFormContext } from '@/features/event/contexts/EventFormContext';
-import useNoCreatorRedirect from '@/features/event/hooks/useNoCreatorRedirect';
 import { EventSchema } from '@/features/event/types';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
@@ -19,8 +18,6 @@ export default function FormContent() {
 
   const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
-
-  useNoCreatorRedirect();
 
   const { mutateAsync: createEvent, isLoading: isCreateLoading } =
     useCreateEventMutation();
