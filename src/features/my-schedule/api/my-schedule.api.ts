@@ -1,6 +1,5 @@
 import { defaultMySchedule } from '../constants';
 import { MyScheduleTimeType, SleepTimeType } from '../types';
-import { CRAWLING_SERVER_API_KEY, CRAWLING_SERVER_API_URL } from '@/constants';
 import apiClient from '@/lib/api';
 
 export async function fetchMySchedule() {
@@ -35,14 +34,7 @@ export async function editSleepTimeAction(sleepTime: SleepTimeType) {
   return res.data.payload;
 }
 
-export async function submitEverytimeUrlAction(url: string) {
-  const res = await apiClient.get(`${CRAWLING_SERVER_API_URL}/schedule`, {
-    headers: {
-      'X-API-Key': CRAWLING_SERVER_API_KEY,
-    },
-    params: {
-      url,
-    },
-  });
+export async function submitEverytimeUrlAction(timetableId: string) {
+  const res = await apiClient.get(`/fixed-schedules/everytime/${timetableId}`);
   return res.data.payload.schedules;
 }

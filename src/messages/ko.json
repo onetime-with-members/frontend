@@ -151,6 +151,14 @@
     "reload": "불러오기",
     "clear": "전체 삭제"
   },
+  "scheduleGuideModal": {
+    "title1": "탐색하기",
+    "title2": "스케줄 입력하기",
+    "description1": "상하좌우로 화면을 스크롤하며 <br></br>시간과 날짜를 확인해 보세요",
+    "description2": "블럭의 시작과 끝을 터치해서 <br></br>색칠하거나 지울 수 있어요",
+    "next": "다음",
+    "start": "시작"
+  },
   "userDashboard": {
     "more": "더 보기",
     "hello": "안녕하세요, {name}님",
@@ -189,6 +197,7 @@
     "submit": "확인",
     "submitting": "진행 중...",
     "publicWarning": "시간표의 공개 범위를 잠시 동안 '전체 공개'로 바꿔주세요. (설정 아이콘 -> 공개 범위 변경 -> 전체 공개)",
+    "emptyTimetable": "시간표에 등록된 수업이 없습니다.",
     "pendingMessage": "요청을 진행 중입니다. 잠시만 기다려주세요.",
     "invalidURLMessage": "잘못된 URL입니다. 올바른 URL로 다시 입력해주세요.",
     "privateURLMessage": "시간표가 공개 상태가 아닙니다. 공개 범위를 '전체 공개'로 바꿔주세요.",

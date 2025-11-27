@@ -1,4 +1,4 @@
-import MobileAppBar from './MobileAppBar/MobileAppBar';
+import MobileAppBar from './MobileAppBar';
 
 export default function MobileLayout({
   children,

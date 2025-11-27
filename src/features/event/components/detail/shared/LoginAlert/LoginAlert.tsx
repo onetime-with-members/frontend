@@ -1,8 +1,9 @@
 import { useTranslations } from 'next-intl';
 
 import Alert from '@/components/alert';
+import { usePathname } from '@/i18n/navigation';
 import { useProgressRouter } from '@/navigation';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 export default function LoginAlert({
   setIsOpen,

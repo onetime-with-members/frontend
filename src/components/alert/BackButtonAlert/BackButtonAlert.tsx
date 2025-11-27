@@ -1,8 +1,8 @@
 import Alert from '..';
 import { useTranslations } from 'next-intl';
 
+import { useRouter } from '@/i18n/navigation';
 import { useProgressRouter } from '@/navigation';
-import { useRouter } from 'next/navigation';
 
 export default function BackButtonAlert({
   setIsOpen,

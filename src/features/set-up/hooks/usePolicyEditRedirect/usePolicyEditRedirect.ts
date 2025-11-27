@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 
 import { useUserPolicyQuery } from '@/features/user/api/user.query';
+import { usePathname } from '@/i18n/navigation';
 import { useAuth } from '@/lib/auth';
 import { useProgressRouter } from '@/navigation';
-import { usePathname } from 'next/navigation';
 
 export default function usePolicyEditRedirect() {
   const pathname = usePathname();

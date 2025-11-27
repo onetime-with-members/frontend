@@ -1,5 +1,5 @@
+import { useRouter } from '@/i18n/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
 
 export default function TopAction() {
   const router = useRouter();

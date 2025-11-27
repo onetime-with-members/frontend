@@ -2,12 +2,11 @@
 
 import nProgress from 'nprogress';
 
+import { Link, usePathname, useRouter } from './i18n/navigation';
 import {
   AppRouterInstance,
   NavigateOptions,
 } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import Link, { LinkProps } from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
 
 export function useProgressRouter() {
   const router = useRouter();
@@ -56,7 +55,7 @@ export function ProgressLink({
   ...props
 }: {
   progressBar?: boolean;
-} & LinkProps &
+} & React.ComponentProps<typeof Link> &
   React.HTMLAttributes<HTMLAnchorElement>) {
   const progressRouter = useProgressRouter();
   const router = useRouter();

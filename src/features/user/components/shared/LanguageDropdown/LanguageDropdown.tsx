@@ -1,18 +1,15 @@
 'use client';
 
-import { setCookie } from 'cookies-next';
-import { useLocale } from 'next-intl';
+import { Locale, useLocale } from 'next-intl';
 import { useRef } from 'react';
 
 import LanguageDropdownMenu from './LanguageDropdownMenu';
+import { useEditUserLanguageMutation } from '@/features/user/api/user.query';
+import useChangeLocale from '@/features/user/hooks/useChangeLocale';
 import useDropdown from '@/hooks/useDropdown';
-import { editUserLanguageAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
-import dayjs from '@/lib/dayjs';
 import { IconLanguage } from '@tabler/icons-react';
-import { useMutation } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 export default function LanguageDropdown({
   variant = 'default',
@@ -23,28 +20,21 @@ export default function LanguageDropdown({
 }) {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const locale = useLocale();
+
+  const { isLoggedIn } = useAuth();
   const { isDropdownMenuOpen, handleDropdownClick, setIsDropdownMenuOpen } =
     useDropdown({
       dropdownRef,
     });
+  const changeLocale = useChangeLocale();
 
-  const locale = useLocale();
-  const router = useRouter();
+  const { editUserLanguage } = useEditUserLanguageMutation();
 
-  const { isLoggedIn } = useAuth();
-
-  const { mutateAsync: editUserLanguage } = useMutation({
-    mutationFn: editUserLanguageAction,
-  });
-
-  async function handleDropdownMenuItemClick(language: string) {
-    if (isLoggedIn) await editUserLanguage(language === 'ko' ? 'KOR' : 'ENG');
+  async function handleDropdownMenuItemClick(locale: Locale) {
+    if (isLoggedIn) await editUserLanguage(locale === 'ko' ? 'KOR' : 'ENG');
+    changeLocale(locale);
     setIsDropdownMenuOpen(false);
-    setCookie('locale', language, {
-      expires: dayjs().add(1, 'year').toDate(),
-    });
-    dayjs.locale(language);
-    router.refresh();
   }
 
   return (

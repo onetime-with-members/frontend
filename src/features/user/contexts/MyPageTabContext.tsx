@@ -5,7 +5,7 @@ import { createContext, useEffect, useState } from 'react';
 
 import { PageTitleType, TabActiveType } from '../types';
 import { myPageTabActive, myPageTitle } from '../utils';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/i18n/navigation';
 
 export const MyPageTabContext = createContext<{
   tabActive: TabActiveType;

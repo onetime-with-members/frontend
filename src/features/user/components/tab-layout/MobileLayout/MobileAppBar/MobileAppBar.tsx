@@ -4,9 +4,9 @@ import { useContext } from 'react';
 
 import { PenIcon } from '@/components/icon';
 import { MyPageTabContext } from '@/features/user/contexts/MyPageTabContext';
+import { useRouter } from '@/i18n/navigation';
 import { ProgressLink } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
 
 export default function MobileAppBar() {
   const { tabActive, pageTitle } = useContext(MyPageTabContext);

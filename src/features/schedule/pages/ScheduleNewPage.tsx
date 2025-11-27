@@ -10,49 +10,14 @@ import GrayBackground from '@/components/GrayBackground';
 import NavBar from '@/components/NavBar';
 import BackButtonAlert from '@/components/alert/BackButtonAlert';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
-import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
-export default function ScheduleNewPage({
-  isLoggedIn,
-}: {
-  isLoggedIn: boolean;
-}) {
+export default function ScheduleNewPage() {
   const { setFooterVisible } = useContext(FooterContext);
-  const {
-    pageIndex,
-    setPageIndex,
-    isBackButtonAlertOpen,
-    setIsBackButtonAlertOpen,
-    isScheduleEdited,
-  } = useContext(ScheduleFormContext);
+  const { isBackButtonAlertOpen, setIsBackButtonAlertOpen, isScheduleEdited } =
+    useContext(ScheduleFormContext);
 
-  const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
-
-  function handleBackButtonClick() {
-    if (pageIndex === 0) {
-      closePage();
-    } else if (pageIndex === 1) {
-      if (isLoggedIn) {
-        closePage();
-      } else {
-        setPageIndex((prev) => prev - 1);
-      }
-    }
-
-    function closePage() {
-      if (isScheduleEdited) {
-        setIsBackButtonAlertOpen(true);
-      } else {
-        progressRouter.back();
-      }
-    }
-  }
-
-  useEffect(() => {
-    setPageIndex(isLoggedIn ? 1 : 0);
-  }, [isLoggedIn]);
 
   useEffect(() => {
     setFooterVisible(false);
@@ -65,9 +30,9 @@ export default function ScheduleNewPage({
     <>
       <GrayBackground device="desktop" breakpoint="sm" />
       <NavBar className="hidden sm:flex" shadow={false} />
-      <AppBarForMobile onBackButtonClick={handleBackButtonClick} />
+      <AppBarForMobile />
       <div className="sm:px-4">
-        <HeaderForDesktop onBackButtonClick={handleBackButtonClick} />
+        <HeaderForDesktop />
         <MainContent />
       </div>
       {isBackButtonAlertOpen && isScheduleEdited && (
