@@ -11,7 +11,7 @@ export default function PolicyCheckboxContent({
   setPageDetail,
 }: {
   value: PolicySchema;
-  setValue: React.Dispatch<React.SetStateAction<PolicySchema>>;
+  setValue: (newValue: PolicySchema) => void;
   setPageDetail: React.Dispatch<
     React.SetStateAction<keyof PolicySchema | null>
   >;
@@ -64,7 +64,7 @@ function CheckItem({
   children: React.ReactNode;
   checkedKey: keyof PolicySchema;
   value: PolicySchema;
-  setValue: React.Dispatch<React.SetStateAction<PolicySchema>>;
+  setValue: (newValue: PolicySchema) => void;
   setPageDetail: React.Dispatch<
     React.SetStateAction<keyof PolicySchema | null>
   >;
@@ -72,10 +72,10 @@ function CheckItem({
 }) {
   function handleCheckboxClick(event: React.MouseEvent) {
     event.stopPropagation();
-    setValue((prevValue) => ({
-      ...prevValue,
-      [checkedKey]: !prevValue[checkedKey],
-    }));
+    setValue({
+      ...value,
+      [checkedKey]: !value[checkedKey],
+    });
   }
 
   function handlePageDetailOpen() {
@@ -114,7 +114,7 @@ function AllCheckItem({
   setValue,
 }: {
   value: PolicySchema;
-  setValue: React.Dispatch<React.SetStateAction<PolicySchema>>;
+  setValue: (newValue: PolicySchema) => void;
 }) {
   const t = useTranslations('policyEdit');
 
@@ -122,12 +122,12 @@ function AllCheckItem({
     const isNewAllChecked =
       !value.servicePolicy || !value.privacyPolicy || !value.marketingPolicy;
 
-    setValue((prevValue) => ({
-      ...prevValue,
+    setValue({
+      ...value,
       servicePolicy: isNewAllChecked,
       privacyPolicy: isNewAllChecked,
       marketingPolicy: isNewAllChecked,
-    }));
+    });
   }
 
   return (
