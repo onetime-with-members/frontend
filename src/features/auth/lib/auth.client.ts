@@ -45,7 +45,7 @@ export function useAuth() {
   async function clearAuth() {
     await deleteSession();
     await addSignOutCookie();
-    queryClient.removeQueries({ queryKey: ['users'] });
+    queryClient.clear();
 
     router.refresh();
   }
