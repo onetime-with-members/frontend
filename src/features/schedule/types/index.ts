@@ -10,6 +10,10 @@ export interface ScheduleType {
   schedules: TimeType[];
 }
 
+export interface ScheduleGuideModalViewStatus {
+  is_viewed: boolean;
+}
+
 export interface ClickedTimeBlock {
   startTime: string;
   endTime: string;

@@ -6,7 +6,6 @@ describe('로그인', () => {
     cy.visit(
       `/login?is_success=true&access_token=${Cypress.env('TEST_ACCESS_TOKEN')}&refresh_token=hello_world`,
     );
-    cy.wait(2000);
 
     cy.get('input[placeholder="어떤 이벤트인가요?"]').should('exist');
     cy.getCookie('redirect-url').should('not.exist');
@@ -23,7 +22,6 @@ describe('토큰 만료', () => {
       } satisfies Session),
     );
     cy.visit('/ko/events/new');
-    cy.wait(2000);
 
     cy.contains('a', '로그인').should('exist');
   });

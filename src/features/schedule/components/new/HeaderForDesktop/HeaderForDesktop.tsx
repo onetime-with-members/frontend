@@ -10,7 +10,10 @@ export default function HeaderForDesktop() {
   const t = useTranslations('scheduleAdd');
 
   return (
-    <header className="mx-auto hidden max-w-[480px] items-center py-8 sm:flex">
+    <header
+      className="mx-auto hidden max-w-[480px] items-center py-8 sm:flex"
+      data-testid="schedule-new-desktop-header"
+    >
       <button type="button" onClick={handleBackButtonClick}>
         <IconChevronLeft size={32} />
       </button>

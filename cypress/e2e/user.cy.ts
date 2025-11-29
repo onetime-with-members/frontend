@@ -2,7 +2,7 @@ describe('탙퇴', () => {
   beforeEach(() => {
     cy.intercept(
       'POST',
-      Cypress.env('SERVER_API_URL') + '/users/action-withdraw',
+      `${Cypress.env('SERVER_API_URL')}/users/action-withdraw`,
       {
         code: '200',
         message: '유저 서비스 탈퇴에 성공했습니다.',

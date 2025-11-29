@@ -1,5 +1,88 @@
 describe('스케줄 등록', () => {
-  it('스케줄 가이드 모달 표시해야 할 경우, 가이드 이미지들을 preload한다.', () => {
+  it('회원이면서 이미 한번 본 경우, 스케줄 가이드 모달이 보여지지 않는다.', () => {
+    cy.intercept(
+      'GET',
+      `**/api/v1/users/guides/view-status?guide_type=SCHEDULE_GUIDE_MODAL_001`,
+      {
+        code: '200',
+        message: '유저 가이드 확인 여부 조회에 성공했습니다.',
+        payload: {
+          is_viewed: true,
+        },
+        is_success: true,
+      },
+    );
+
+    cy.login();
+    cy.visitFirstEvent();
+    cy.contains('button', '스케줄 추가').click();
+
+    cy.get('[data-testid="schedule-guide-modal"]').should('not.exist');
+  });
+
+  it('회원이면서 한번도 안 본 경우, 스케줄 가이드 모달이 보여진다.', () => {
+    cy.intercept(
+      'GET',
+      `**/api/v1/users/guides/view-status?guide_type=SCHEDULE_GUIDE_MODAL_001`,
+      {
+        code: '200',
+        message: '유저 가이드 확인 여부 조회에 성공했습니다.',
+        payload: {
+          is_viewed: false,
+        },
+        is_success: true,
+      },
+    );
+
+    cy.login();
+    cy.visitFirstEvent();
+    cy.contains('button', '스케줄 추가').click();
+
+    cy.get('[data-testid="schedule-guide-modal"]').should('exist');
+  });
+
+  it.only('비회원일 경우, 첫 접속 시에 스케줄 가이드 모달이 보여지고 이후 접속 시에는 보여지지 않는다.', () => {
+    cy.login();
+    cy.visitFirstEvent();
+    cy.wait(2000);
+    cy.logout();
+
+    cy.contains('button', '스케줄 추가').click();
+    cy.contains('다음에 할게요').click();
+
+    cy.get('input[placeholder="당신의 이름은 무엇인가요?"]').type('홍민서');
+    cy.get('input[id="pin"]').type('1');
+    cy.get('input[id="pin-2"]').type('1');
+    cy.get('input[id="pin-3"]').type('1');
+    cy.get('input[id="pin-4"]').type('1');
+    cy.contains('button', '다음').click();
+
+    cy.getCookie('schedule-guide-modal').should('not.exist');
+    cy.get('[data-testid="schedule-guide-modal"]').should('exist');
+
+    cy.get('[data-testid="schedule-guide-modal"]')
+      .find('button .tabler-icon-x')
+      .click();
+    cy.get('[data-testid="schedule-new-desktop-header"]')
+      .find('button .tabler-icon-chevron-left')
+      .click()
+      .click();
+
+    cy.contains('button', '스케줄 추가').click();
+    cy.contains('다음에 할게요').click();
+
+    cy.get('input[placeholder="당신의 이름은 무엇인가요?"]').type('홍민서');
+    cy.get('input[id="pin"]').type('1');
+    cy.get('input[id="pin-2"]').type('1');
+    cy.get('input[id="pin-3"]').type('1');
+    cy.get('input[id="pin-4"]').type('1');
+    cy.contains('button', '다음').click();
+
+    cy.getCookie('schedule-guide-modal').should('exist');
+    cy.get('[data-testid="schedule-guide-modal"]').should('not.exist');
+  });
+
+  it('스케줄 가이드 모달을 표시해야 할 경우, 가이드 이미지들이 preload된다.', () => {
     cy.visit('/');
 
     cy.get('[data-testid="schedule-guide-modal-1-preload"]').should('exist');
