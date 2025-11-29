@@ -1,6 +1,6 @@
 import Script from 'next/script';
 
-export default function ScriptsInHead() {
+export default function GoogleAdSense() {
   return (
     <Script
       async
