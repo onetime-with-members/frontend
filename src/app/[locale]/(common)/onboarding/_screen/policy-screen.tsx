@@ -25,12 +25,13 @@ export default function PolicyScreen({
   const [pageDetail, setPageDetail] = useState<keyof PolicySchema | null>(null);
 
   const {
-    reset,
+    setValue,
     watch,
     formState: { isValid },
     handleSubmit,
   } = useForm<PolicySchema>({
     resolver: zodResolver(policySchema),
+    mode: 'onChange',
     defaultValues: {
       servicePolicy: onboardingValue.servicePolicy,
       privacyPolicy: onboardingValue.privacyPolicy,
@@ -61,6 +62,18 @@ export default function PolicyScreen({
     setPageDetail(null);
   }
 
+  function handleSetValues(newValues: PolicySchema) {
+    setValue('servicePolicy', newValues.servicePolicy, {
+      shouldValidate: true,
+    });
+    setValue('privacyPolicy', newValues.privacyPolicy, {
+      shouldValidate: true,
+    });
+    setValue('marketingPolicy', newValues.marketingPolicy, {
+      shouldValidate: true,
+    });
+  }
+
   return (
     <>
       <ScreenLayout
@@ -76,7 +89,7 @@ export default function PolicyScreen({
       >
         <PolicyCheckboxContent
           value={watch()}
-          setValue={reset}
+          setValue={handleSetValues}
           setPageDetail={setPageDetail}
         />
       </ScreenLayout>
