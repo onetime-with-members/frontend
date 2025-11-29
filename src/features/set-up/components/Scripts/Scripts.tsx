@@ -1,5 +1,6 @@
 'use client';
 
+import GoogleAdSense from './GoogleAdSense';
 import GoogleAnalytics from './GoogleAnalytics';
 import GoogleTagManager from './GoogleTagManager';
 import KakaoShareScript from './KakaoShareScript';
@@ -14,6 +15,7 @@ export default function Scripts() {
       <MetaPixel />
       <GoogleTagManager />
       <KakaoShareScript />
+      <GoogleAdSense />
     </>
   );
 }
