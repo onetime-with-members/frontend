@@ -14,6 +14,7 @@ import PreloadImages from '@/features/set-up/components/PreloadImages';
 import ProgressBar from '@/features/set-up/components/ProgressBar';
 import Providers from '@/features/set-up/components/Providers';
 import Scripts from '@/features/set-up/components/Scripts';
+import ScriptsInHead from '@/features/set-up/components/ScriptsInHead/ScriptsInHead';
 import { routing } from '@/i18n/routing';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -81,6 +82,7 @@ export default async function Layout({
     <html lang={locale}>
       <head>
         <Favicon />
+        <ScriptsInHead />
       </head>
       <body cz-shortcut-listen="true" className="font-pretendard">
         <Providers>
