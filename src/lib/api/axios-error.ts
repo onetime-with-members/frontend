@@ -2,6 +2,7 @@ import { InternalAxiosRequestConfig } from 'axios';
 
 import apiClient from './axios';
 import { retryApiQueue } from './retry-api-queue';
+import { EVENT_TOKEN_EXPIRED } from '@/features/auth/constants';
 import { deleteSession, reissueSession } from '@/features/auth/lib/session';
 import { ExtendedAxiosError } from '@/types';
 
@@ -33,10 +34,9 @@ export async function reissueWhenTokenExpired(
   } catch (error) {
     await deleteSession();
     retryApiQueue.clear();
-
     isTokenRefreshing = false;
 
-    console.error(error);
+    window.dispatchEvent(new CustomEvent(EVENT_TOKEN_EXPIRED));
 
     return Promise.reject(error);
   }

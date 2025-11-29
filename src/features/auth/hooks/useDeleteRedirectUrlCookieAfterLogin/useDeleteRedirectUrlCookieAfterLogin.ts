@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { REDIRECT_URL } from '../../constants';
 import { usePathname } from 'next/navigation';
 
-export default function useClearCookieAfterLogin() {
+export default function useDeleteRedirectUrlCookieAfterLogin() {
   const pathname = usePathname();
   const locale = useLocale();
 

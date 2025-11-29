@@ -38,10 +38,6 @@ export function useAuth() {
     }
   }
 
-  async function withdraw() {
-    await clearAuth();
-  }
-
   async function clearAuth() {
     await deleteSession();
     await addSignOutCookie();
@@ -50,5 +46,12 @@ export function useAuth() {
     router.refresh();
   }
 
-  return { user, isLoggedIn, signIn, signOut, withdraw };
+  return {
+    user,
+    isLoggedIn,
+    signIn,
+    signOut,
+    withdraw: clearAuth,
+    tokenExpired: clearAuth,
+  };
 }
