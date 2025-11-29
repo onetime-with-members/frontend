@@ -1,5 +1,6 @@
 'use client';
 
+import useClearCookieAfterLogin from '@/features/auth/hooks/useClearCookieAfterLogin';
 import useSignOutCookieClear from '@/features/auth/hooks/useSignOutCookieClear/useSignOutCookieClear';
 import useDeleteOldLocaleCookie from '@/features/set-up/hooks/useDeleteOldLocaleCookie';
 import usePolicyEditRedirect from '@/features/set-up/hooks/usePolicyEditRedirect';
@@ -14,6 +15,7 @@ export default function SetUpProvider({
   usePolicyEditRedirect();
   useSignOutCookieClear();
   useDeleteOldLocaleCookie();
+  useClearCookieAfterLogin();
 
   return children;
 }

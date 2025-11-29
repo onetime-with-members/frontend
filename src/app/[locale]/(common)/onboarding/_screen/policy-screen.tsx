@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
 
 import ScreenLayout from './screen-layout';
+import { REDIRECT_URL } from '@/features/auth/constants';
 import PolicyCheckboxContent from '@/features/user/components/shared/PolicyCheckboxContent';
 import PolicyDetailScreen from '@/features/user/components/shared/PolicyDetailScreen';
 import { policySchema } from '@/features/user/schemas';
@@ -42,7 +43,7 @@ export default function PolicyScreen({
   const t = useTranslations('onboarding');
   const progressRouter = useProgressRouter();
 
-  const redirectUrl = getCookie('redirect-url');
+  const redirectUrl = getCookie(REDIRECT_URL);
 
   const pageTitle =
     pageDetail === 'servicePolicy' ? t('termsOfService') : t('privacyPolicy');
