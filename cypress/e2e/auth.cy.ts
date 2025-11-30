@@ -4,7 +4,7 @@ describe('로그인', () => {
   it('로그인 완료 후 이전에 접속했던 페이지로 리다이렉트된다.', () => {
     cy.setCookie('redirect-url', '/events/new');
     cy.visit(
-      `/login?is_success=true&access_token=${Cypress.env('TEST_ACCESS_TOKEN')}&refresh_token=hello_world`,
+      `/login?is_success=true&access_token=${Cypress.env('token')}&refresh_token=hello_world`,
     );
 
     cy.get('input[placeholder="어떤 이벤트인가요?"]').should('exist');
@@ -17,7 +17,7 @@ describe('토큰 만료', () => {
     cy.setCookie(
       'session',
       JSON.stringify({
-        accessToken: Cypress.env('EXPIRED_TEST_ACCESS_TOKEN'),
+        accessToken: Cypress.env('expiredToken'),
         refreshToken: 'refresh',
       } satisfies Session),
     );

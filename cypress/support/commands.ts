@@ -42,7 +42,7 @@ Cypress.Commands.add('login', () => {
   cy.setCookie(
     'session',
     JSON.stringify({
-      accessToken: Cypress.env('TEST_ACCESS_TOKEN'),
+      accessToken: Cypress.env('token'),
       refreshToken: '',
     } satisfies Session),
   );

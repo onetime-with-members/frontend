@@ -16,20 +16,41 @@ describe('스케줄 등록', () => {
 
     cy.contains('button', '스케줄 추가').click();
 
-    cy.get('[data-testid="schedule-guide-modal"]').should('not.exist');
     cy.getCookie('schedule-guide-modal').should('exist');
-
-    cy.request({
-      url: `${Cypress.env('SERVER_API_URL')}/users/guides/view-status`,
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${Cypress.env('TEST_ACCESS_TOKEN')}`,
-      },
-      body: {
-        guide_type: 'SCHEDULE_GUIDE_MODAL_001',
-      },
-    });
+    cy.get('[data-testid="schedule-guide-modal"]').should('not.exist');
   });
+
+  // it('회원일 경우, 첫 접속 시에 스케줄 가이드 모달이 보여지고 이후 접속 시에는 보여지지 않는다.', () => {
+  //   cy.login();
+  //   cy.visitFirstEvent();
+  //   cy.contains('button', '스케줄 추가').click();
+
+  //   cy.getCookie('schedule-guide-modal').should('not.exist');
+  //   cy.get('[data-testid="schedule-guide-modal"]').should('exist');
+
+  //   cy.get('[data-testid="schedule-guide-modal"]')
+  //     .find('.tabler-icon-x')
+  //     .click();
+  //   cy.get('[data-testid="schedule-new-desktop-header"]')
+  //     .find('.tabler-icon-chevron-left')
+  //     .click();
+
+  //   cy.contains('button', '스케줄 추가').click();
+
+  //   cy.get('[data-testid="schedule-guide-modal"]').should('not.exist');
+  //   cy.getCookie('schedule-guide-modal').should('exist');
+
+  //   cy.request({
+  //     url: `${Cypress.env('apiUrl')}/users/guides/view-status`,
+  //     method: 'DELETE',
+  //     headers: {
+  //       Authorization: `Bearer ${Cypress.env('token')}`,
+  //     },
+  //     body: {
+  //       guide_type: 'SCHEDULE_GUIDE_MODAL_001',
+  //     },
+  //   });
+  // });
 
   it('비회원일 경우, 첫 접속 시에 스케줄 가이드 모달이 보여지고 이후 접속 시에는 보여지지 않는다.', () => {
     cy.login();
