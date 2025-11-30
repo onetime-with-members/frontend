@@ -35,9 +35,6 @@ importers:
       dayjs:
         specifier: ^1.11.12
         version: 1.11.19
-      dotenv:
-        specifier: ^17.2.3
-        version: 17.2.3
       framer-motion:
         specifier: ^12.4.7
         version: 12.23.24(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -120,6 +117,9 @@ importers:
       cypress:
         specifier: ^15.7.0
         version: 15.7.0
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
       eslint:
         specifier: ^9
         version: 9.39.1(jiti@1.21.7)

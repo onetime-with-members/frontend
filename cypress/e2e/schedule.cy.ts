@@ -20,10 +20,10 @@ describe('스케줄 등록', () => {
     cy.getCookie('schedule-guide-modal').should('exist');
 
     cy.request({
-      url: `${Cypress.env('SERVER_API_URL')}/users/guides/view-status`,
+      url: `${Cypress.env('apiUrl')}/users/guides/view-status`,
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${Cypress.env('TEST_ACCESS_TOKEN')}`,
+        Authorization: `Bearer ${Cypress.env('token')}`,
       },
       body: {
         guide_type: 'SCHEDULE_GUIDE_MODAL_001',
