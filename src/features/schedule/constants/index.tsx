@@ -1,5 +1,5 @@
 import {
-  ScheduleGuideModalViewStatus,
+  ScheduleGuideModalViewLog,
   ScheduleType,
   TimeBlockPopUpDataType,
 } from '../types';
@@ -32,7 +32,6 @@ export const defaultTimeBlockPopUpData: TimeBlockPopUpDataType = {
   },
 };
 
-export const defaultScheduleGuideModalViewStatus: ScheduleGuideModalViewStatus =
-  {
-    is_viewed: true,
-  };
+export const defaultScheduleGuideModalViewLog: ScheduleGuideModalViewLog = {
+  is_viewed: true,
+};

@@ -1,7 +1,7 @@
-import { ScheduleGuideModalViewStatus, ScheduleType } from '../types';
+import { ScheduleGuideModalViewLog, ScheduleType } from '../types';
 import {
   fetchScheduleDetail,
-  fetchScheduleGuideModalViewStatus,
+  fetchScheduleGuideModalViewLog,
   fetchSchedules,
 } from './schedule.api';
 import { defaultEvent } from '@/features/event/constants';
@@ -36,13 +36,13 @@ export const scheduleDetailQueryOptions = ({
     enabled: JSON.stringify(event) !== JSON.stringify(defaultEvent),
   });
 
-export const scheduleGuideModalViewStatusQueryOptions =
-  queryOptions<ScheduleGuideModalViewStatus>({
+export const scheduleGuideModalViewLogQueryOptions =
+  queryOptions<ScheduleGuideModalViewLog>({
     queryKey: [
       'users',
       'guides',
-      'view-status',
+      'view-log',
       { guide_type: 'SCHEDULE_GUIDE_MODAL_001' },
     ],
-    queryFn: fetchScheduleGuideModalViewStatus,
+    queryFn: fetchScheduleGuideModalViewLog,
   });
