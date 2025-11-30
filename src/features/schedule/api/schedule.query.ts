@@ -1,6 +1,6 @@
 import {
   defaultScheduleDetail,
-  defaultScheduleGuideModalViewStatus,
+  defaultScheduleGuideModalViewLog,
 } from '../constants';
 import {
   checkNewGuest,
@@ -11,7 +11,7 @@ import {
 } from './schedule.api';
 import {
   scheduleDetailQueryOptions,
-  scheduleGuideModalViewStatusQueryOptions,
+  scheduleGuideModalViewLogQueryOptions,
   schedulesQueryOptions,
 } from './schedule.options';
 import { EventType } from '@/features/event/types';
@@ -41,12 +41,12 @@ export function useScheduleDetailQuery({
   return { data: data || defaultScheduleDetail };
 }
 
-export function useScheduleGuideModalViewStatus() {
+export function useScheduleGuideModalViewLog() {
   const { data } = useQuery({
-    ...scheduleGuideModalViewStatusQueryOptions,
+    ...scheduleGuideModalViewLogQueryOptions,
   });
 
-  return { data: data || defaultScheduleGuideModalViewStatus };
+  return { data: data || defaultScheduleGuideModalViewLog };
 }
 
 export function useCheckNewGuestMutation() {

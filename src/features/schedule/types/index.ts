@@ -10,7 +10,7 @@ export interface ScheduleType {
   schedules: TimeType[];
 }
 
-export interface ScheduleGuideModalViewStatus {
+export interface ScheduleGuideModalViewLog {
   is_viewed: boolean;
 }
 
