@@ -16,22 +16,22 @@ export default function ToolbarButtons() {
   const { data: event } = useEventWithAuthQuery({ id: params.id });
 
   return (
-    event?.event_status === 'CREATOR' && (
-      <>
-        <div className="flex items-center gap-2 text-2xl text-gray-00">
-          <ToolbarButton
-            onClick={() => progressRouter.push(`/events/${params.id}/edit`)}
-          >
-            <EditIcon />
-          </ToolbarButton>
+    <>
+      <div className="flex items-center gap-2 text-2xl text-gray-00">
+        <ToolbarButton
+          onClick={() => progressRouter.push(`/events/${params.id}/edit`)}
+        >
+          <EditIcon />
+        </ToolbarButton>
+        {event?.event_status === 'CREATOR' && (
           <ToolbarButton onClick={() => setIsDeleteAlertOpen(true)}>
             <TrashIcon innerfill="#474A5C" />
           </ToolbarButton>
-        </div>
-        {isDeleteAlertOpen && (
-          <EventDeleteAlert setIsEventDeleteAlertOpen={setIsDeleteAlertOpen} />
         )}
-      </>
-    )
+      </div>
+      {isDeleteAlertOpen && (
+        <EventDeleteAlert setIsEventDeleteAlertOpen={setIsDeleteAlertOpen} />
+      )}
+    </>
   );
 }

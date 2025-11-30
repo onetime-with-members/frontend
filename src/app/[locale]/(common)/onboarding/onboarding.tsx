@@ -10,6 +10,7 @@ import PolicyScreen from './_screen/policy-screen';
 import SleepTimeScreen from './_screen/sleep-time-screen';
 import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/NavBar';
+import { REDIRECT_URL } from '@/features/auth/constants';
 import useHomeUrl from '@/features/home/hooks/useHomeUrl';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { defaultOnboardingValue } from '@/features/user/constants';
@@ -48,7 +49,7 @@ export default function OnboardingPage({
   const { signIn } = useAuth();
   const homeUrl = useHomeUrl();
 
-  const redirectUrl = getCookie('redirect-url');
+  const redirectUrl = getCookie(REDIRECT_URL);
 
   const { mutateAsync: createUser } = useMutation({
     mutationFn: createUserAction,

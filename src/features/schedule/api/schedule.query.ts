@@ -1,12 +1,17 @@
-import { defaultScheduleDetail } from '../constants';
+import {
+  defaultScheduleDetail,
+  defaultScheduleGuideModalViewStatus,
+} from '../constants';
 import {
   checkNewGuest,
+  closeScheduleGuideModal,
   createNewMemberSchedule,
   loginGuest,
   updateSchedule,
 } from './schedule.api';
 import {
   scheduleDetailQueryOptions,
+  scheduleGuideModalViewStatusQueryOptions,
   schedulesQueryOptions,
 } from './schedule.options';
 import { EventType } from '@/features/event/types';
@@ -34,6 +39,14 @@ export function useScheduleDetailQuery({
   });
 
   return { data: data || defaultScheduleDetail };
+}
+
+export function useScheduleGuideModalViewStatus() {
+  const { data } = useQuery({
+    ...scheduleGuideModalViewStatusQueryOptions,
+  });
+
+  return { data: data || defaultScheduleGuideModalViewStatus };
 }
 
 export function useCheckNewGuestMutation() {
@@ -78,4 +91,17 @@ export function useUpdateScheduleMutation() {
   });
 
   return { mutateAsync, isPending };
+}
+
+export function useCloseScheduleGuideModalMutation() {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: closeScheduleGuideModal,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+  });
+
+  return { mutateAsync };
 }
