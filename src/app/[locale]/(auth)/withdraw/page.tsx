@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import WithdrawPage from './withdraw';
+import WithdrawPage from '@/features/user/pages/WithdrawPage';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata(): Promise<Metadata> {

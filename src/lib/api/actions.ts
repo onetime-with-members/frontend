@@ -2,7 +2,7 @@ import { getCookie } from 'cookies-next';
 
 import apiClient from './axios';
 import { Session } from '@/features/auth/types';
-import { OnboardingType, PolicySchema } from '@/features/user/types';
+import { OnboardingType } from '@/features/user/types';
 
 export async function createUserAction(value: OnboardingType) {
   const res = await apiClient.post('/users/onboarding', {
@@ -15,27 +15,6 @@ export async function createUserAction(value: OnboardingType) {
     sleep_end_time: value.endSleepTime,
     language: value.language,
   });
-  return res.data.payload;
-}
-
-export async function editUserLanguageAction(language: 'KOR' | 'ENG') {
-  const res = await apiClient.patch('/users/profile/action-update', {
-    language,
-  });
-  return res.data.payload;
-}
-
-export async function editUserPolicyAction(policy: PolicySchema) {
-  const res = await apiClient.put('/users/policy', {
-    service_policy_agreement: policy.servicePolicy,
-    privacy_policy_agreement: policy.privacyPolicy,
-    marketing_policy_agreement: policy.marketingPolicy,
-  });
-  return res.data.payload;
-}
-
-export async function withdrawAction() {
-  const res = await apiClient.post('/users/action-withdraw');
   return res.data.payload;
 }
 

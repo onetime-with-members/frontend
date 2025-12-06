@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import PolicyEditPage from './policy-edit';
+import PolicyEditPage from '@/features/user/pages/PolicyEditPage';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata(): Promise<Metadata> {

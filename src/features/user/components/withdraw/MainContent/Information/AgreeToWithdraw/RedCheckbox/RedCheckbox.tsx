@@ -1,7 +1,7 @@
 import cn from '@/lib/cn';
 import Image from 'next/image';
 
-export function RedCheckbox({
+export default function RedCheckbox({
   isChecked,
   className,
   ...rest

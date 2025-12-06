@@ -1,10 +1,15 @@
-import { editUserNameAction } from './user.api';
+import {
+  editUserLanguageAction,
+  editUserNameAction,
+  editUserPolicyAction,
+  withdrawAction,
+} from './user.api';
 import {
   myEventsQueryOptions,
   userPolicyQueryOptions,
   userQueryOptions,
 } from './user.options';
-import { editUserLanguageAction } from '@/lib/api/actions';
+import { useAuth } from '@/lib/auth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useUserQuery({ enabled }: { enabled?: boolean } = {}) {
@@ -53,5 +58,33 @@ export function useEditUserLanguageMutation() {
 
   return {
     editUserLanguage: mutateAsync,
+  };
+}
+
+export function useEditPolicyMutation() {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: editUserPolicyAction,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+  });
+
+  return { mutateAsync };
+}
+
+export function useWithdrawMutation() {
+  const { withdraw: afterWithdraw } = useAuth();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: withdrawAction,
+    onSuccess: async () => {
+      await afterWithdraw();
+    },
+  });
+
+  return {
+    withdraw: mutateAsync,
   };
 }

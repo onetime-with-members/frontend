@@ -1,4 +1,4 @@
-export function GrayBox({
+export default function GrayBox({
   title,
   description,
 }: {
