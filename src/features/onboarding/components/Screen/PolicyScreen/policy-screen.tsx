@@ -1,16 +1,15 @@
 import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
-import { SubmitHandler, UseFormSetValue, useForm } from 'react-hook-form';
+import { UseFormSetValue } from 'react-hook-form';
 
-import ScreenLayout from './screen-layout';
+import ScreenLayout from '../ScreenLayout';
 import { REDIRECT_URL } from '@/features/auth/constants';
+import usePolicyScreenForm from '@/features/onboarding/hooks/usePolicyScreenForm';
 import PolicyCheckboxContent from '@/features/user/components/shared/PolicyCheckboxContent';
 import PolicyDetailScreen from '@/features/user/components/shared/PolicyDetailScreen';
-import { policySchema } from '@/features/user/schemas';
 import { OnboardingSchema, PolicySchema } from '@/features/user/types';
 import { useProgressRouter } from '@/navigation';
-import { zodResolver } from '@hookform/resolvers/zod';
 
 export default function PolicyScreen({
   page,
@@ -30,15 +29,8 @@ export default function PolicyScreen({
     watch,
     formState: { isValid },
     handleSubmit,
-  } = useForm<PolicySchema>({
-    resolver: zodResolver(policySchema),
-    mode: 'onChange',
-    defaultValues: {
-      servicePolicy: onboardingValue.servicePolicy,
-      privacyPolicy: onboardingValue.privacyPolicy,
-      marketingPolicy: onboardingValue.marketingPolicy,
-    },
-  });
+    onSubmit,
+  } = usePolicyScreenForm({ onboardingValue, setOnboardingValue, setPage });
 
   const t = useTranslations('onboarding');
   const progressRouter = useProgressRouter();
@@ -47,17 +39,6 @@ export default function PolicyScreen({
 
   const pageTitle =
     pageDetail === 'servicePolicy' ? t('termsOfService') : t('privacyPolicy');
-
-  const onSubmit: SubmitHandler<PolicySchema> = ({
-    servicePolicy,
-    privacyPolicy,
-    marketingPolicy,
-  }) => {
-    setOnboardingValue('servicePolicy', servicePolicy);
-    setOnboardingValue('privacyPolicy', privacyPolicy);
-    setOnboardingValue('marketingPolicy', marketingPolicy);
-    setPage((prev) => prev + 1);
-  };
 
   function handlePageDetailClose() {
     setPageDetail(null);

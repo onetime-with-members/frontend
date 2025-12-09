@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { UseFormSetValue } from 'react-hook-form';
 
-import ScreenLayout from './screen-layout';
+import ScreenLayout from '../ScreenLayout';
 import TimeDropdown from '@/components/TimeDropdown';
 import { SleepTimeIcon } from '@/components/icon';
 import { OnboardingSchema } from '@/features/user/types';
