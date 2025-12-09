@@ -36,6 +36,13 @@ export async function generateMetadata({
       images: '/images/opengraph/opengraph-thumbnail.png',
       siteName: 'OneTime',
     },
+    twitter: {
+      title: `${event.title || ''} | OneTime`,
+      description:
+        locale === 'ko'
+          ? '링크로 접속해 자신의 가능한 시간을 등록하고 모두가 맞는 시간을 찾으세요.'
+          : 'Go to the link to add your availability and find a time that works for everyone.',
+    },
   };
 }
 
