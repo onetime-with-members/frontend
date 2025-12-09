@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Locale } from 'next-intl';
 
 import { fetchEvent } from '@/features/event/api/event.api';
 import { eventQueryOptions } from '@/features/event/api/event.option';
@@ -10,20 +11,20 @@ import { notFound } from 'next/navigation';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: Locale }>;
 }): Promise<Metadata> {
-  const { id: eventId } = await params;
+  const { id: eventId, locale } = await params;
   const event = await fetchEvent(eventId);
 
   if (!event) {
-    const t404 = await getTranslations('404');
+    const t404 = await getTranslations({ locale, namespace: '404' });
 
     return {
       title: t404('notFound'),
     };
   }
 
-  const t = await getTranslations('editEvent');
+  const t = await getTranslations({ locale, namespace: 'editEvent' });
 
   return {
     title: t('editEvent', {

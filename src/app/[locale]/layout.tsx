@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { hasLocale } from 'next-intl';
+import { Locale, hasLocale } from 'next-intl';
 
 import '../globals.css';
 import '@/assets/styles/font.css';
@@ -26,33 +26,52 @@ declare global {
   }
 }
 
-export const metadata: Metadata = {
-  title: {
-    template: '%s | OneTime',
-    default: 'OneTime',
-  },
-  description:
-    'For our perfect time, share a link just once to coordinate schedules with many people quickly and easily with OneTime',
-  keywords:
-    '원타임, 일정, 회의시간, 스케줄, 이벤트, 약속, 시간추천, 타임블록, OneTime, meeting, appointment, schedule, event, time recommendation, time block',
-  icons: '/favicon/favicon-96x96.png',
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_DOMAIN ||
-      'https://www.onetime-with-members.com',
-  ),
-  formatDetection: { email: false },
-  openGraph: {
-    title: 'OneTime',
-    description: '링크 공유 한번으로, 여러 사람과 쉽게 일정을 맞추세요.',
-    images: '/images/opengraph/opengraph-thumbnail.png',
-    siteName: 'OneTime',
-  },
-  twitter: {
-    title: 'OneTime',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  const titleOneTime = locale === 'ko' ? '원타임(OneTime)' : 'OneTime';
+
+  return {
+    title: {
+      template: `%s | ${titleOneTime}`,
+      default: titleOneTime,
+    },
     description:
-      '일정을 쉽고 빠르게. 원타임과 함께 링크 공유 한 번으로, 여러 사람과 쉽게 일정을 맞추세요.',
-  },
-};
+      locale === 'ko'
+        ? '일정을 쉽고 빠르게. 링크 공유 한 번으로 여러 사람과 일정을 조율하고 가장 적합한 시간을 찾아보세요.'
+        : 'For our perfect time, share a link just once to coordinate schedules with many people quickly and easily with OneTime.',
+    keywords:
+      locale === 'ko'
+        ? '원타임, 일정, 회의, 회의시간, 스케줄, 이벤트, 약속, 시간추천, 타임블록'
+        : 'OneTime, meeting, appointment, schedule, event, time recommendation, time block',
+    icons: '/favicon/favicon-96x96.png',
+    metadataBase: new URL(
+      process.env.NEXT_PUBLIC_SITE_DOMAIN ||
+        'https://www.onetime-with-members.com',
+    ),
+    formatDetection: { email: false },
+    openGraph: {
+      title: 'OneTime',
+      description:
+        locale === 'ko'
+          ? '링크 공유 한 번으로 여러 사람과 쉽게 일정을 맞추세요.'
+          : 'Share a link just once to coordinate schedules with many people easily',
+      images: '/images/opengraph/opengraph-thumbnail.png',
+      siteName: 'OneTime',
+    },
+    twitter: {
+      title: 'OneTime',
+      description:
+        locale === 'ko'
+          ? '일정을 쉽고 빠르게. 원타임과 함께 링크 공유 한 번으로 여러 사람과 쉽게 일정을 맞추세요.'
+          : 'For our perfect time, share a link just once to coordinate schedules with many people quickly and easily with OneTime.',
+    },
+  };
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

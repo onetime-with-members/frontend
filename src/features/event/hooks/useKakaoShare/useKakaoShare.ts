@@ -14,7 +14,7 @@ export default function useKakaoShare({
     window.Kakao.Share.sendDefault({
       objectType: 'feed',
       content: {
-        title: `${event.title} - OneTime`,
+        title: `${event.title} | OneTime`,
         description: `스케줄 등록 요청이 도착했습니다.`,
         imageUrl: `${process.env.NEXT_PUBLIC_SITE_DOMAIN}/images/kakao/kakaotalk-share-thumbnail.png`,
         link: {

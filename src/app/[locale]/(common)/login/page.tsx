@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Locale } from 'next-intl';
 
 import LoginPage from './login';
 import { redirect } from '@/i18n/navigation';
@@ -6,8 +7,13 @@ import { getTranslations } from 'next-intl/server';
 
 export type SocialLoginType = 'naver' | 'kakao' | 'google';
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('login');
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'login' });
 
   return {
     title: t('login'),

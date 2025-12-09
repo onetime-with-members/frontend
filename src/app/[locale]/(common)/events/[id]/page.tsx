@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Locale } from 'next-intl';
 
 import { fetchEvent } from '@/features/event/api/event.api';
 import { eventQueryOptions } from '@/features/event/api/event.option';
@@ -11,13 +12,13 @@ import { notFound } from 'next/navigation';
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: Locale }>;
 }): Promise<Metadata> {
-  const { id } = await params;
+  const { id, locale } = await params;
   const event = await fetchEvent(id);
 
   if (!event) {
-    const t404 = await getTranslations('404');
+    const t404 = await getTranslations({ locale, namespace: '404' });
 
     return {
       title: t404('notFound'),
@@ -29,9 +30,18 @@ export async function generateMetadata({
     openGraph: {
       title: `${event.title || ''} | OneTime`,
       description:
-        '링크로 접속해 자신의 스케줄을 등록하고 모두가 맞는 시간을 찾으세요.',
+        locale === 'ko'
+          ? '링크로 접속해 자신의 가능한 시간을 등록하고 모두가 맞는 시간을 찾으세요.'
+          : 'Go to the link to add your availability and find a time that works for everyone.',
       images: '/images/opengraph/opengraph-thumbnail.png',
       siteName: 'OneTime',
+    },
+    twitter: {
+      title: `${event.title || ''} | OneTime`,
+      description:
+        locale === 'ko'
+          ? '링크로 접속해 자신의 가능한 시간을 등록하고 모두가 맞는 시간을 찾으세요.'
+          : 'Go to the link to add your availability and find a time that works for everyone.',
     },
   };
 }
