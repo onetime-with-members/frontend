@@ -26,26 +26,22 @@ export async function reissueSession(): Promise<Session> {
 
   const { accessToken, refreshToken } = session;
 
-  try {
-    const res = await axios.post(
-      `${SERVER_API_URL}/tokens/action-reissue`,
-      { refresh_token: refreshToken },
-      { headers: { Authorization: `Bearer ${accessToken}` } },
-    );
-    const { access_token: newAccessToken, refresh_token: newRefreshToken } =
-      res.data.payload;
+  const res = await axios.post(
+    `${SERVER_API_URL}/tokens/action-reissue`,
+    { refresh_token: refreshToken },
+    { headers: { Authorization: `Bearer ${accessToken}` } },
+  );
+  const { access_token: newAccessToken, refresh_token: newRefreshToken } =
+    res.data.payload;
 
-    const newSession = {
-      accessToken: newAccessToken,
-      refreshToken: newRefreshToken,
-    };
+  const newSession = {
+    accessToken: newAccessToken,
+    refreshToken: newRefreshToken,
+  };
 
-    setSession(newSession);
+  setSession(newSession);
 
-    return newSession;
-  } catch (error) {
-    throw error;
-  }
+  return newSession;
 }
 
 export async function deleteSession() {

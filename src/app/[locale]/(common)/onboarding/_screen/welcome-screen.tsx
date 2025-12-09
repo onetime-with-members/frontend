@@ -2,6 +2,7 @@ import { deleteCookie, getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 
 import Button from '@/components/button';
+import { REDIRECT_URL } from '@/features/auth/constants';
 import useHomeUrl from '@/features/home/hooks/useHomeUrl';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
@@ -13,10 +14,10 @@ export default function WelcomeScreen({ nickname }: { nickname: string }) {
   const homeUrl = useHomeUrl();
 
   function handleStartButtonClick() {
-    const redirectUrl = getCookie('redirect-url');
+    const redirectUrl = getCookie(REDIRECT_URL);
 
     if (redirectUrl) {
-      deleteCookie('redirect-url');
+      deleteCookie(REDIRECT_URL);
       progressRouter.push(redirectUrl as string);
     } else {
       progressRouter.push(homeUrl);

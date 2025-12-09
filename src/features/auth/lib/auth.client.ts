@@ -38,17 +38,20 @@ export function useAuth() {
     }
   }
 
-  async function withdraw() {
-    await clearAuth();
-  }
-
   async function clearAuth() {
     await deleteSession();
     await addSignOutCookie();
-    queryClient.removeQueries({ queryKey: ['users'] });
+    queryClient.clear();
 
     router.refresh();
   }
 
-  return { user, isLoggedIn, signIn, signOut, withdraw };
+  return {
+    user,
+    isLoggedIn,
+    signIn,
+    signOut,
+    withdraw: clearAuth,
+    tokenExpired: clearAuth,
+  };
 }

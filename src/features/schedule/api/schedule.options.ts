@@ -1,5 +1,9 @@
-import { ScheduleType } from '../types';
-import { fetchScheduleDetail, fetchSchedules } from './schedule.api';
+import { ScheduleGuideModalViewLog, ScheduleType } from '../types';
+import {
+  fetchScheduleDetail,
+  fetchScheduleGuideModalViewLog,
+  fetchSchedules,
+} from './schedule.api';
 import { defaultEvent } from '@/features/event/constants';
 import { EventType } from '@/features/event/types';
 import { queryOptions } from '@tanstack/react-query';
@@ -30,4 +34,15 @@ export const scheduleDetailQueryOptions = ({
     queryFn: async () =>
       await fetchScheduleDetail({ event, isLoggedIn, guestId }),
     enabled: JSON.stringify(event) !== JSON.stringify(defaultEvent),
+  });
+
+export const scheduleGuideModalViewLogQueryOptions =
+  queryOptions<ScheduleGuideModalViewLog>({
+    queryKey: [
+      'users',
+      'guides',
+      'view-log',
+      { guide_type: 'SCHEDULE_GUIDE_MODAL_001' },
+    ],
+    queryFn: fetchScheduleGuideModalViewLog,
   });

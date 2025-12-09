@@ -42,8 +42,24 @@ Cypress.Commands.add('login', () => {
   cy.setCookie(
     'session',
     JSON.stringify({
-      accessToken: Cypress.env('TEST_ACCESS_TOKEN'),
+      accessToken: Cypress.env('token'),
       refreshToken: '',
     } satisfies Session),
   );
+});
+
+Cypress.Commands.add('logout', () => {
+  cy.intercept('POST', '**/api/v1/users/logout', {
+    statusCode: 200,
+    body: { code: 200, is_success: true },
+  }).as('logoutApi');
+
+  cy.contains('홍').click();
+  cy.contains('로그아웃').click();
+  cy.wait('@logoutApi');
+});
+
+Cypress.Commands.add('visitFirstEvent', () => {
+  cy.visit('/');
+  cy.contains('section', '참여한 이벤트').find('.grid').find('a').eq(0).click();
 });

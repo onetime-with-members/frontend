@@ -1,4 +1,8 @@
-import { ScheduleType, TimeBlockPopUpDataType } from '../types';
+import {
+  ScheduleGuideModalViewLog,
+  ScheduleType,
+  TimeBlockPopUpDataType,
+} from '../types';
 
 export const SCHEDULE_GUIDE_MODAL = 'schedule-guide-modal';
 
@@ -26,4 +30,8 @@ export const defaultTimeBlockPopUpData: TimeBlockPopUpDataType = {
     possible: [],
     impossible: [],
   },
+};
+
+export const defaultScheduleGuideModalViewLog: ScheduleGuideModalViewLog = {
+  is_viewed: true,
 };

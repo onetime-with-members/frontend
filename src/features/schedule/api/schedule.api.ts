@@ -36,6 +36,15 @@ export async function fetchScheduleDetail({
   return res.data.payload;
 }
 
+export async function fetchScheduleGuideModalViewLog() {
+  const res = await apiClient.get('/users/guides/view-log', {
+    params: {
+      guide_type: 'SCHEDULE_GUIDE_MODAL_001',
+    },
+  });
+  return res.data.payload;
+}
+
 export async function checkNewGuest({
   eventId,
   name,
@@ -115,5 +124,12 @@ export async function updateSchedule({
       schedules: schedule,
     },
   );
+  return res.data.payload;
+}
+
+export async function closeScheduleGuideModal() {
+  const res = await apiClient.post('/users/guides/view-log', {
+    guide_type: 'SCHEDULE_GUIDE_MODAL_001',
+  });
   return res.data.payload;
 }

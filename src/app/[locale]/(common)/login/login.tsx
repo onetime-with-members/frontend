@@ -1,13 +1,14 @@
 'use client';
 
-import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import { getCookie, setCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import { SocialLoginType } from './page';
 import NavBar from '@/components/NavBar';
+import { REDIRECT_URL } from '@/features/auth/constants';
 import useHomeUrl from '@/features/home/hooks/useHomeUrl';
-import { Link, useRouter } from '@/i18n/navigation';
+import { Link } from '@/i18n/navigation';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
@@ -15,7 +16,6 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
-  const router = useRouter();
   const t = useTranslations('login');
   const searchParams = useSearchParams();
 
@@ -23,21 +23,24 @@ export default function LoginPage() {
   const homeUrl = useHomeUrl();
   const { isLoggedIn, signIn } = useAuth();
 
+  const searchParamsData = {
+    accessToken: searchParams.get('access_token'),
+    refreshToken: searchParams.get('refresh_token'),
+    redirectUrl: searchParams.get('redirect_url'),
+  };
+  const isLoggingIn =
+    searchParamsData.accessToken && searchParamsData.refreshToken;
+
   useEffect(() => {
-    const searchParamsData = {
-      accessToken: searchParams.get('access_token'),
-      refreshToken: searchParams.get('refresh_token'),
-      redirectUrl: searchParams.get('redirect_url'),
-    };
-
-    async function socialLogin() {
+    (async () => {
       if (searchParamsData.redirectUrl) {
-        await setCookie('redirect-url', searchParamsData.redirectUrl);
+        await setCookie(REDIRECT_URL, searchParamsData.redirectUrl);
       }
+    })();
+  }, [searchParams]);
 
-      const isLoggingIn =
-        searchParamsData.accessToken && searchParamsData.refreshToken;
-
+  useEffect(() => {
+    (async () => {
       if (isLoggingIn || isLoggedIn) {
         if (isLoggingIn) {
           await signIn({
@@ -45,17 +48,13 @@ export default function LoginPage() {
             refreshToken: searchParamsData.refreshToken as string,
           });
         }
-
-        router.refresh();
         progressRouter.replace(
           searchParamsData.redirectUrl ||
             (await getCookie('redirect-url')) ||
             homeUrl,
         );
-        await deleteCookie('redirect-url');
       }
-    }
-    socialLogin();
+    })();
   }, [searchParams, isLoggedIn]);
 
   return (
