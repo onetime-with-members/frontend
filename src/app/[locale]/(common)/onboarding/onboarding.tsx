@@ -5,10 +5,10 @@ import { useLocale } from 'next-intl';
 import { useContext, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import NicknameFormScreen from '../../../../features/onboarding/components/Screen/NicknameForm/nickname-form-screen';
-import PolicyScreen from '../../../../features/onboarding/components/policy-screen';
-import SleepTimeScreen from '../../../../features/onboarding/components/sleep-time-screen';
-import WelcomeScreen from '../../../../features/onboarding/components/welcome-screen';
+import NicknameFormScreen from './_screen/nickname-form-screen';
+import PolicyScreen from './_screen/policy-screen';
+import SleepTimeScreen from './_screen/sleep-time-screen';
+import WelcomeScreen from './_screen/welcome-screen';
 import NavBar from '@/components/NavBar';
 import { REDIRECT_URL } from '@/features/auth/constants';
 import useHomeUrl from '@/features/home/hooks/useHomeUrl';
