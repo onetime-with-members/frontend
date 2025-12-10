@@ -21,7 +21,10 @@ export default function PolicyCheckboxContent({
   return (
     <div className="flex flex-col gap-6">
       <AllCheckItem value={value} setValue={setValue} />
-      <div className="policy-single-checkbox-list flex flex-col gap-6 px-4">
+      <div
+        className="flex flex-col gap-6 px-4"
+        data-testid="policy-single-checkbox-list"
+      >
         <CheckItem
           checkedKey="servicePolicy"
           value={value}

@@ -25,7 +25,7 @@ describe('정책 동의 여부 수정', () => {
   });
 
   it('모든 체크박스들을 체크하고 제출하면, 이전 페이지로 리다이렉트된다.', () => {
-    cy.get('.policy-single-checkbox-list')
+    cy.get('[data-testid="policy-single-checkbox-list"]')
       .find('.policy-checkbox')
       .click({ multiple: true });
     cy.contains('button', '확인').click();

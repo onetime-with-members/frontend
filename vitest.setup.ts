@@ -1,5 +1,7 @@
 import { vi } from 'vitest';
 
+import '@testing-library/jest-dom';
+
 vi.mock(import('next/navigation'), async (importOriginal) => {
   const actual = await importOriginal();
   return {

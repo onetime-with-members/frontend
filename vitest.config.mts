@@ -13,5 +13,6 @@ export default defineConfig({
         inline: ['next-intl'],
       },
     },
+    globals: true,
   },
 });
