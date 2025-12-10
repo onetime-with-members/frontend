@@ -8,7 +8,7 @@ import { useEditPolicyMutation } from '@/features/user/api/user.query';
 import usePolicyForm from '@/features/user/hooks/usePolicyForm';
 import { PolicySchema } from '@/features/user/types';
 import { useProgressRouter } from '@/navigation';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function FormContent() {
   const [pageDetail, setPageDetail] = useState<keyof PolicySchema | null>(null);

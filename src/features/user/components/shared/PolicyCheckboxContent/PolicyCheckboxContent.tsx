@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 
-import { CheckIcon } from '@/components/icon';
+import Checkbox from './Checkbox';
 import { PolicySchema } from '@/features/user/types';
 import cn from '@/lib/cn';
 import { IconChevronRight } from '@tabler/icons-react';
@@ -21,7 +21,7 @@ export default function PolicyCheckboxContent({
   return (
     <div className="flex flex-col gap-6">
       <AllCheckItem value={value} setValue={setValue} />
-      <div className="flex flex-col gap-6 px-4">
+      <div className="policy-single-checkbox-list flex flex-col gap-6 px-4">
         <CheckItem
           checkedKey="servicePolicy"
           value={value}
@@ -141,28 +141,6 @@ function AllCheckItem({
         }
       />
       <span className="text-gray-90 text-md-300">{t('all')}</span>
-    </div>
-  );
-}
-
-function Checkbox({
-  checked,
-  onCheck,
-}: {
-  checked: boolean;
-  onCheck?: (event: React.MouseEvent) => void;
-}) {
-  return (
-    <div
-      className={cn(
-        'flex h-6 w-6 cursor-pointer items-center justify-center rounded-md bg-gray-15 text-xl',
-        {
-          'bg-primary-40': checked,
-        },
-      )}
-      onClick={onCheck}
-    >
-      <CheckIcon className="text-white" />
     </div>
   );
 }
