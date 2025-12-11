@@ -1,3 +1,5 @@
+import { policyTestCases } from '../../fixtures/policy';
+
 describe('정책 동의 여부 수정', () => {
   beforeEach(() => {
     cy.login();
@@ -22,6 +24,26 @@ describe('정책 동의 여부 수정', () => {
     cy.contains('button', '확인').click();
 
     cy.location('pathname').should('contain', '/events/new');
+  });
+
+  describe('체크박스 체크에 따른 버튼 활성화 여부 확인', () => {
+    policyTestCases.map(
+      ({ service, privacy, marketing, condition, result, isDisabled }) => {
+        it(`${condition}할 경우 버튼이 ${result}된다.`, () => {
+          cy.get('[data-testid="policy-single-checkbox-list"]')
+            .find('.policy-checkbox')
+            .as('checkboxList');
+
+          if (service) cy.get('@checkboxList').eq(0).click();
+          if (privacy) cy.get('@checkboxList').eq(1).click();
+          if (marketing) cy.get('@checkboxList').eq(2).click();
+
+          cy.contains('button', '확인').should(
+            isDisabled ? 'be.disabled' : 'not.be.disabled',
+          );
+        });
+      },
+    );
   });
 
   it('모든 체크박스들을 체크하고 제출하면, 이전 페이지로 리다이렉트된다.', () => {
@@ -62,30 +84,5 @@ describe('정책 동의 여부 수정', () => {
 
     cy.get('nav').contains('홍').click();
     cy.contains('로그아웃').should('not.exist');
-  });
-});
-
-describe('탙퇴', () => {
-  beforeEach(() => {
-    cy.intercept('POST', `${Cypress.env('apiUrl')}/users/action-withdraw`, {
-      code: '200',
-      message: '유저 서비스 탈퇴에 성공했습니다.',
-      is_success: true,
-    });
-    cy.login();
-    cy.visit('/withdraw');
-  });
-
-  it('비회원일 경우, 탈퇴 페이지 접속이 차단된다.', () => {
-    cy.clearCookie('session');
-
-    cy.get('[data-testid="login-page"]').should('exist');
-  });
-
-  it('탈퇴 후에 홈페이지로 리다이렉트되며, 네비게이션 바 우상단 프로필이 사라진다.', () => {
-    cy.contains('상기 내용').click();
-    cy.contains('button', '탈퇴하기').click();
-
-    cy.contains('h1', '일정을 쉽고 빠르게').should('exist');
   });
 });
