@@ -85,4 +85,19 @@ describe('정책 동의 여부 수정', () => {
     cy.get('nav').contains('홍').click();
     cy.contains('로그아웃').should('not.exist');
   });
+
+  afterEach(() => {
+    cy.request({
+      url: `${Cypress.env('apiUrl')}/users/policy`,
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${Cypress.env('token')}`,
+      },
+      body: {
+        service_policy_agreement: true,
+        privacy_policy_agreement: true,
+        marketing_policy_agreement: true,
+      },
+    });
+  });
 });
