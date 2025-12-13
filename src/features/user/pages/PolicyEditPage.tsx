@@ -7,7 +7,7 @@ import Heading from '../components/policy-edit/Heading';
 import { PolicyContext } from '../contexts/PolicyContext';
 import NavBar from '@/components/NavBar';
 import useHomeUrl from '@/features/home/hooks/useHomeUrl';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/navigation';
 
 export default function PolicyEditPage() {
   const { policyData } = useContext(PolicyContext);

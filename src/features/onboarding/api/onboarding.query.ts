@@ -2,10 +2,10 @@ import { getCookie } from 'cookies-next';
 
 import { REDIRECT_URL } from '@/features/auth/constants';
 import useHomeUrl from '@/features/home/hooks/useHomeUrl';
+import { useRouter } from '@/i18n/navigation';
 import { createUserAction } from '@/lib/api/actions';
 import { useAuth } from '@/lib/auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 
 export function useOnboardingMutation({
   setPageIndex,

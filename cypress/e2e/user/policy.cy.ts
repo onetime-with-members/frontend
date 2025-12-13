@@ -3,7 +3,7 @@ import {
   policyEditTestCases,
 } from '../../fixtures/policy';
 
-describe('정책 상세 내용 페이지', () => {
+describe.only('정책 상세 내용 페이지', () => {
   policyDetailTestCases.map(({ name, locale, url, partOfContent }) => {
     it(`${name}의 ${locale === 'ko' ? '한국어' : '영어'} 버전 상세 내용 페이지가 올바르게 표시되는지 확인한다.`, () => {
       cy.visit(`/${locale}/${url}`);

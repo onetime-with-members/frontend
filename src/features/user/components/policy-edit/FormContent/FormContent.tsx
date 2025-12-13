@@ -7,8 +7,8 @@ import SubmitButton from './SubmitButton';
 import { useEditPolicyMutation } from '@/features/user/api/user.query';
 import usePolicyForm from '@/features/user/hooks/usePolicyForm';
 import { PolicySchema } from '@/features/user/types';
+import { useRouter } from '@/i18n/navigation';
 import { useProgressRouter } from '@/navigation';
-import { useRouter } from 'next/navigation';
 
 export default function FormContent() {
   const [pageDetail, setPageDetail] = useState<keyof PolicySchema | null>(null);

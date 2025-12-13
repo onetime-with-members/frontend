@@ -4,7 +4,7 @@ import PolicyDetailScreen from '@/features/user/components/shared/PolicyDetailSc
 import { PolicySchema } from '@/features/user/types';
 import { useRouter } from '@/i18n/navigation';
 
-export default function PolicyPage({
+export default function PolicyDetailPage({
   page,
   pageTitle,
 }: {
@@ -13,12 +13,16 @@ export default function PolicyPage({
 }) {
   const router = useRouter();
 
+  function handleClose() {
+    router.back();
+  }
+
   return (
     <div className="flex h-full flex-col">
       <PolicyDetailScreen
         page={page}
         pageTitle={pageTitle}
-        onClose={() => router.back()}
+        onClose={handleClose}
       />
     </div>
   );
