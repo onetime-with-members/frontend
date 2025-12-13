@@ -1,4 +1,17 @@
-import { policyTestCases } from '../../fixtures/policy';
+import {
+  policyDetailTestCases,
+  policyEditTestCases,
+} from '../../fixtures/policy';
+
+describe('정책 상세 내용 페이지', () => {
+  policyDetailTestCases.map(({ name, locale, url, partOfContent }) => {
+    it(`${name}의 ${locale === 'ko' ? '한국어' : '영어'} 버전 상세 내용 페이지가 올바르게 표시되는지 확인한다.`, () => {
+      cy.visit(`/${locale}/${url}`);
+      cy.contains('h1', name).should('exist');
+      cy.contains('h3', partOfContent).should('exist');
+    });
+  });
+});
 
 describe('정책 동의 여부 수정', () => {
   beforeEach(() => {
@@ -27,7 +40,7 @@ describe('정책 동의 여부 수정', () => {
   });
 
   describe('체크박스 체크에 따른 버튼 활성화 여부 확인', () => {
-    policyTestCases.map(
+    policyEditTestCases.map(
       ({ service, privacy, marketing, condition, result, isDisabled }) => {
         it(`${condition}할 경우 버튼이 ${result}된다.`, () => {
           cy.get('[data-testid="policy-single-checkbox-list"]')
