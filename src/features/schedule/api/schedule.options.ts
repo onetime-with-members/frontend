@@ -23,18 +23,21 @@ export const scheduleDetailQueryOptions = ({
   event: EventType;
   isLoggedIn: boolean;
   guestId?: string;
-}) =>
-  queryOptions<ScheduleType>({
+}) => {
+  const isEventValid = JSON.stringify(event) !== JSON.stringify(defaultEvent);
+  const isAuthValid = isLoggedIn || !!guestId;
+
+  return queryOptions<ScheduleType>({
     queryKey: [
       'schedules',
       event.category.toLowerCase(),
       event.event_id,
       isLoggedIn ? 'user' : guestId,
     ],
-    queryFn: async () =>
-      await fetchScheduleDetail({ event, isLoggedIn, guestId }),
-    enabled: JSON.stringify(event) !== JSON.stringify(defaultEvent),
+    queryFn: () => fetchScheduleDetail({ event, isLoggedIn, guestId }),
+    enabled: isEventValid && isAuthValid,
   });
+};
 
 export const scheduleGuideModalViewLogQueryOptions =
   queryOptions<ScheduleGuideModalViewLog>({

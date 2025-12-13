@@ -34,11 +34,11 @@ export function useScheduleDetailQuery({
   isLoggedIn: boolean;
   guestId?: string;
 }) {
-  const { data } = useQuery({
+  const { data = defaultScheduleDetail } = useQuery({
     ...scheduleDetailQueryOptions({ event, isLoggedIn, guestId }),
   });
 
-  return { data: data || defaultScheduleDetail };
+  return { data };
 }
 
 export function useScheduleGuideModalViewLog() {
