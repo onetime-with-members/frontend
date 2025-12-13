@@ -3,7 +3,7 @@ import {
   policyEditTestCases,
 } from '../../fixtures/policy';
 
-describe.only('정책 상세 내용 페이지', () => {
+describe('정책 상세 내용 페이지', () => {
   policyDetailTestCases.map(
     ({
       policyName,
