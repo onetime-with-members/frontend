@@ -1,34 +1,52 @@
-export const policyDetailTestCases: {
-  name: string;
-  locale: 'ko' | 'en';
-  url: string;
-  partOfContent: string;
-}[] = [
-  {
-    name: '개인정보 수집 및 이용 동의',
-    locale: 'ko',
-    url: '/policy/privacy',
-    partOfContent: '제2조(개인정보 처리의 원칙)',
+const POLICY_TEXTS = {
+  ko: {
+    privacy: {
+      pageTitle: '개인정보 수집 및 이용 동의',
+      partOfContent: '제2조(개인정보 처리의 원칙)',
+      footerLinkText: '개인정보처리방침',
+    },
+    service: {
+      pageTitle: '서비스 이용약관',
+      partOfContent: '제11조(서비스의 제공 및 변경)',
+      footerLinkText: '서비스 이용약관',
+    },
   },
-  {
-    name: '서비스 이용약관',
-    locale: 'ko',
-    url: '/policy/service',
-    partOfContent: '제11조(서비스의 제공 및 변경)',
+  en: {
+    privacy: {
+      pageTitle: 'Privacy Policy',
+      partOfContent:
+        'Article 2 (Principles of Personal Information Processing)',
+      footerLinkText: 'Privacy Policy',
+    },
+    service: {
+      pageTitle: 'Terms of Service',
+      partOfContent: 'Article 5 (Formation of the Service Agreement)',
+      footerLinkText: 'Terms of Service',
+    },
   },
-  {
-    name: 'Privacy Policy',
-    locale: 'en',
-    url: '/policy/privacy',
-    partOfContent: 'Article 2 (Principles of Personal Information Processing)',
-  },
-  {
-    name: 'Terms of Service',
-    locale: 'en',
-    url: '/policy/service',
-    partOfContent: 'Article 5 (Formation of the Service Agreement)',
-  },
-];
+};
+
+export const policyDetailTestCases = (
+  [
+    { policy: 'privacy', locale: 'ko' },
+    { policy: 'service', locale: 'ko' },
+    { policy: 'privacy', locale: 'en' },
+    { policy: 'service', locale: 'en' },
+  ] as const
+).map(({ policy, locale }) => {
+  const { pageTitle, partOfContent, footerLinkText } =
+    POLICY_TEXTS[locale][policy];
+  return {
+    policy,
+    locale,
+    pageTitle,
+    partOfContent,
+    footerLinkText,
+    policyName: policy === 'privacy' ? '개인정보처리방침' : '서비스 이용약관',
+    language: locale === 'ko' ? '한국어' : '영어',
+    url: `/${locale}`,
+  };
+});
 
 export const policyEditTestCases: {
   service: boolean;

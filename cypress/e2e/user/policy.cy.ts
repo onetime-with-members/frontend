@@ -4,13 +4,23 @@ import {
 } from '../../fixtures/policy';
 
 describe.only('정책 상세 내용 페이지', () => {
-  policyDetailTestCases.map(({ name, locale, url, partOfContent }) => {
-    it(`${name}의 ${locale === 'ko' ? '한국어' : '영어'} 버전 상세 내용 페이지가 올바르게 표시되는지 확인한다.`, () => {
-      cy.visit(`/${locale}/${url}`);
-      cy.contains('h1', name).should('exist');
-      cy.contains('h3', partOfContent).should('exist');
-    });
-  });
+  policyDetailTestCases.map(
+    ({
+      policyName,
+      language,
+      url,
+      pageTitle,
+      partOfContent,
+      footerLinkText,
+    }) => {
+      it(`${policyName}의 ${language} 버전 상세 내용 페이지가 올바르게 표시되는지 확인한다.`, () => {
+        cy.visit(url);
+        cy.contains('a', footerLinkText).click();
+        cy.contains('h1', pageTitle).should('exist');
+        cy.contains('h3', partOfContent).should('exist');
+      });
+    },
+  );
 });
 
 describe('정책 동의 여부 수정', () => {
