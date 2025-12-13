@@ -43,7 +43,7 @@ export default function GuideModalContextProvider({
 
   const { data: scheduleGuideModalViewLog } = useScheduleGuideModalViewLog();
 
-  const { mutateAsync: closeScheduleGuideModal } =
+  const { mutateAsync: closeScheduleGuideModal, isLoading: isCloseLoading } =
     useCloseScheduleGuideModalMutation();
 
   const guideContentsListLength = guideContentsList.length;
@@ -61,6 +61,7 @@ export default function GuideModalContextProvider({
   }
 
   async function handleGuideModalClose() {
+    if (isCloseLoading) return;
     if (isLoggedIn) {
       await closeScheduleGuideModal();
     }

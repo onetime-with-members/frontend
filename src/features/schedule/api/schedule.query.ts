@@ -96,12 +96,12 @@ export function useUpdateScheduleMutation() {
 export function useCloseScheduleGuideModalMutation() {
   const queryClient = useQueryClient();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationFn: closeScheduleGuideModal,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['users'] });
     },
   });
 
-  return { mutateAsync };
+  return { mutateAsync, isLoading: isPending || isSuccess };
 }
