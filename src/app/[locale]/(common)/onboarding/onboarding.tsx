@@ -51,7 +51,11 @@ export default function OnboardingPage({
 
   const redirectUrl = getCookie(REDIRECT_URL);
 
-  const { mutateAsync: createUser } = useMutation({
+  const {
+    mutateAsync: createUser,
+    isPending,
+    isSuccess,
+  } = useMutation({
     mutationFn: createUserAction,
     onSuccess: async (data) => {
       await signIn({
@@ -68,6 +72,7 @@ export default function OnboardingPage({
   });
 
   const onSubmit: SubmitHandler<OnboardingSchema> = async (data) => {
+    if (isPending || isSuccess) return;
     await createUser({
       ...data,
       registerToken,
