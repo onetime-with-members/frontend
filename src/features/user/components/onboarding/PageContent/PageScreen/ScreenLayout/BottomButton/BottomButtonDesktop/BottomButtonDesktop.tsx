@@ -1,17 +1,20 @@
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
 import Button from '@/components/button';
+import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 
 export default function BottomButtomDesktop({
   disabled = false,
   onBackButtonClick,
-  pageIndex,
 }: {
   disabled: boolean;
   onBackButtonClick: () => void;
-  pageIndex: number;
 }) {
+  const { pageIndex } = useContext(OnboardingContext);
+
   const t = useTranslations('onboarding');
+
   return (
     <div className="hidden flex-col gap-4 md:flex">
       <Button type="submit" disabled={disabled} variant="dark" fullWidth>

@@ -1,14 +1,12 @@
 import BottomButton from './BottomButton';
 
 export default function ScreenLayout({
-  pageIndex,
   title,
   disabled = false,
   onBackButtonClick,
   onSubmit,
   children,
 }: {
-  pageIndex: number;
   title: React.ReactNode;
   disabled?: boolean;
   onBackButtonClick: () => void;
@@ -30,7 +28,6 @@ export default function ScreenLayout({
         {children}
         <BottomButton
           disabled={disabled}
-          pageIndex={pageIndex}
           onBackButtonClick={onBackButtonClick}
         />
       </form>

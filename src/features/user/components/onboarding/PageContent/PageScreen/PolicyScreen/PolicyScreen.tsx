@@ -1,28 +1,26 @@
 import { getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
-import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
+import { useContext, useState } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
 import ScreenLayout from '../ScreenLayout';
 import { REDIRECT_URL } from '@/features/auth/constants';
 import PolicyCheckboxContent from '@/features/user/components/shared/PolicyCheckboxContent';
 import PolicyDetailScreen from '@/features/user/components/shared/PolicyDetailScreen';
+import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 import usePolicyScreenForm from '@/features/user/hooks/usePolicyScreenForm';
-import { OnboardingSchema, PolicySchema } from '@/features/user/types';
+import { PolicySchema } from '@/features/user/types';
 import { useProgressRouter } from '@/navigation';
 
-export default function PolicyScreen({
-  page,
-  setPage,
-  onboardingValue,
-  setOnboardingValue,
-}: {
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  onboardingValue: OnboardingSchema;
-  setOnboardingValue: UseFormSetValue<OnboardingSchema>;
-}) {
+export default function PolicyScreen() {
+  const { moveToNextPage, onboardingValue, setOnboardingValue } =
+    useContext(OnboardingContext);
+
   const [pageDetail, setPageDetail] = useState<keyof PolicySchema | null>(null);
+
+  const t = useTranslations('onboarding');
+
+  const progressRouter = useProgressRouter();
 
   const {
     setValue,
@@ -30,10 +28,6 @@ export default function PolicyScreen({
     formState: { isValid },
     handleSubmit,
   } = usePolicyScreenForm({ onboardingValue });
-
-  const t = useTranslations('onboarding');
-
-  const progressRouter = useProgressRouter();
 
   const redirectUrl = getCookie(REDIRECT_URL);
   const pageTitle =
@@ -63,13 +57,12 @@ export default function PolicyScreen({
     setOnboardingValue('servicePolicy', servicePolicy);
     setOnboardingValue('privacyPolicy', privacyPolicy);
     setOnboardingValue('marketingPolicy', marketingPolicy);
-    setPage((prev) => prev + 1);
+    moveToNextPage();
   };
 
   return (
     <>
       <ScreenLayout
-        pageIndex={page}
         title={t.rich('title1', {
           br: () => <br className="hidden xs:block" />,
         })}

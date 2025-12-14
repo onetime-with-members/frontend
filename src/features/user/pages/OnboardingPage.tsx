@@ -1,25 +1,13 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
 import Navigation from '../components/onboarding/Navigation';
 import PageContent from '../components/onboarding/PageContent';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 
-export default function OnboardingPage({
-  name,
-  registerToken,
-}: {
-  name: string;
-  registerToken: string;
-}) {
-  const [pageIndex, setPageIndex] = useState(0);
-
+export default function OnboardingPage() {
   const { setFooterVisible } = useContext(FooterContext);
-
-  function moveToNextPage() {
-    setPageIndex((prev) => prev + 1);
-  }
 
   useEffect(() => {
     setFooterVisible(false);
@@ -32,16 +20,10 @@ export default function OnboardingPage({
     <>
       <div className="flex flex-1 flex-col md:gap-4">
         <header>
-          <Navigation pageIndex={pageIndex} setPageIndex={setPageIndex} />
+          <Navigation />
         </header>
         <main className="flex h-full flex-1 flex-col px-4">
-          <PageContent
-            name={name}
-            registerToken={registerToken}
-            pageIndex={pageIndex}
-            setPageIndex={setPageIndex}
-            moveToNextPage={moveToNextPage}
-          />
+          <PageContent />
         </main>
       </div>
     </>

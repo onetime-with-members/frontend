@@ -1,13 +1,19 @@
 import { deleteCookie, getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
 import Button from '@/components/button';
 import { REDIRECT_URL } from '@/features/auth/constants';
 import useHomeUrl from '@/features/home/hooks/useHomeUrl';
+import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 
-export default function WelcomeScreen({ nickname }: { nickname: string }) {
+export default function WelcomeScreen() {
+  const {
+    onboardingValue: { nickname },
+  } = useContext(OnboardingContext);
+
   const t = useTranslations('onboarding');
 
   const progressRouter = useProgressRouter();

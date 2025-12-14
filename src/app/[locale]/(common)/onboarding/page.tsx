@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
+import OnboardingContextProvider from '@/features/user/contexts/OnboardingContext';
 import OnboardingPage from '@/features/user/pages/OnboardingPage';
 import { redirect } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
@@ -25,12 +26,16 @@ export default async function Page({
   searchParams: Promise<{ name: string; register_token: string }>;
   params: Promise<{ locale: string }>;
 }) {
-  const { name, register_token } = await searchParams;
+  const { name, register_token: registerToken } = await searchParams;
   const { locale } = await params;
 
-  if (!name || !register_token) {
+  if (!name || !registerToken) {
     redirect({ href: '/login', locale });
   }
 
-  return <OnboardingPage name={name} registerToken={register_token} />;
+  return (
+    <OnboardingContextProvider name={name} registerToken={registerToken}>
+      <OnboardingPage />
+    </OnboardingContextProvider>
+  );
 }

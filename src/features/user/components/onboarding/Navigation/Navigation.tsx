@@ -1,16 +1,10 @@
 import AppBarForMobile from './AppBarForMobile';
 import NavBarForDesktop from './NavBarForDesktop';
 
-export default function Navigation({
-  pageIndex,
-  setPageIndex,
-}: {
-  pageIndex: number;
-  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-}) {
+export default function Navigation() {
   return (
     <>
-      <AppBarForMobile pageIndex={pageIndex} setPageIndex={setPageIndex} />
+      <AppBarForMobile />
       <NavBarForDesktop />
     </>
   );

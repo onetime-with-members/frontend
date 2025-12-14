@@ -1,17 +1,15 @@
 import { getCookie } from 'cookies-next';
+import { useContext } from 'react';
 
 import { REDIRECT_URL } from '@/features/auth/constants';
+import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 
-export default function AppBarForMobile({
-  pageIndex,
-  setPageIndex,
-}: {
-  pageIndex: number;
-  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-}) {
+export default function AppBarForMobile() {
+  const { pageIndex, moveToPrevPage } = useContext(OnboardingContext);
+
   const progressRouter = useProgressRouter();
 
   const redirectUrl = getCookie(REDIRECT_URL);
@@ -29,7 +27,7 @@ export default function AppBarForMobile({
             if (pageIndex === 0) {
               progressRouter.push(`/login?redirect_url=${redirectUrl}`);
             } else {
-              setPageIndex((prevPage) => prevPage - 1);
+              moveToPrevPage();
             }
           }}
         >

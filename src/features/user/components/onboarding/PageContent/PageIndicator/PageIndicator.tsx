@@ -1,6 +1,11 @@
+import { useContext } from 'react';
+
+import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 import cn from '@/lib/cn';
 
-export default function PageIndicator({ pageIndex }: { pageIndex: number }) {
+export default function PageIndicator() {
+  const { pageIndex } = useContext(OnboardingContext);
+
   return (
     <div
       className={cn('flex items-center gap-2 py-4 md:justify-center', {

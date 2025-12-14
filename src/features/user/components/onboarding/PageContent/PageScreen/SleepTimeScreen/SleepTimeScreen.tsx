@@ -1,34 +1,24 @@
 import { useTranslations } from 'next-intl';
-import { UseFormSetValue } from 'react-hook-form';
+import { useContext } from 'react';
 
 import ScreenLayout from '../ScreenLayout';
 import TimeDropdown from '@/components/TimeDropdown';
 import { SleepTimeIcon } from '@/components/icon';
-import { OnboardingSchema } from '@/features/user/types';
+import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 
-export default function SleepTimeScreen({
-  pageIndex,
-  setPageIndex,
-  onboardingValue,
-  setOnboardingValue,
-  onSubmit,
-}: {
-  pageIndex: number;
-  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-  onboardingValue: OnboardingSchema;
-  setOnboardingValue: UseFormSetValue<OnboardingSchema>;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-}) {
+export default function SleepTimeScreen() {
+  const { moveToPrevPage, onboardingValue, setOnboardingValue, handleSubmit } =
+    useContext(OnboardingContext);
+
   const t = useTranslations('onboarding');
 
   return (
     <ScreenLayout
-      pageIndex={pageIndex}
       title={t.rich('title3', {
         br: () => <br />,
       })}
-      onSubmit={onSubmit}
-      onBackButtonClick={() => setPageIndex((prev) => prev - 1)}
+      onSubmit={handleSubmit}
+      onBackButtonClick={moveToPrevPage}
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-1.5">

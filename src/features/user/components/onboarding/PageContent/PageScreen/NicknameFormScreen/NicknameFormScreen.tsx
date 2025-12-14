@@ -1,22 +1,21 @@
 import { useTranslations } from 'next-intl';
-import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
+import { useContext } from 'react';
+import { SubmitHandler } from 'react-hook-form';
 
 import ScreenLayout from '../ScreenLayout';
 import NicknameFormControl from '@/features/user/components/shared/NicknameFormControl';
+import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 import useNicknameForm from '@/features/user/hooks/useNicknameForm';
-import { OnboardingSchema, ProfileNicknameSchema } from '@/features/user/types';
+import { ProfileNicknameSchema } from '@/features/user/types';
 
-export default function NicknameFormScreen({
-  pageIndex,
-  setPageIndex,
-  onboardingValue,
-  setOnboardingValue,
-}: {
-  pageIndex: number;
-  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
-  onboardingValue: OnboardingSchema;
-  setOnboardingValue: UseFormSetValue<OnboardingSchema>;
-}) {
+export default function NicknameFormScreen() {
+  const {
+    moveToNextPage,
+    moveToPrevPage,
+    onboardingValue,
+    setOnboardingValue,
+  } = useContext(OnboardingContext);
+
   const {
     register,
     formState: { errors, isValid },
@@ -27,17 +26,16 @@ export default function NicknameFormScreen({
 
   const onSubmit: SubmitHandler<ProfileNicknameSchema> = ({ nickname }) => {
     setOnboardingValue('nickname', nickname);
-    setPageIndex((prev) => prev + 1);
+    moveToNextPage();
   };
 
   return (
     <ScreenLayout
-      pageIndex={pageIndex}
       title={t.rich('title2', {
         br: () => <br className="md:hidden" />,
       })}
       disabled={!isValid}
-      onBackButtonClick={() => setPageIndex((prev) => prev - 1)}
+      onBackButtonClick={moveToPrevPage}
       onSubmit={handleSubmit(onSubmit)}
     >
       <NicknameFormControl
