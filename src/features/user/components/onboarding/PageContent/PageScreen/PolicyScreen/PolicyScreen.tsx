@@ -5,9 +5,9 @@ import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
 
 import ScreenLayout from '../ScreenLayout';
 import { REDIRECT_URL } from '@/features/auth/constants';
-import usePolicyScreenForm from '@/features/onboarding/hooks/usePolicyScreenForm';
 import PolicyCheckboxContent from '@/features/user/components/shared/PolicyCheckboxContent';
 import PolicyDetailScreen from '@/features/user/components/shared/PolicyDetailScreen';
+import usePolicyScreenForm from '@/features/user/hooks/usePolicyScreenForm';
 import { OnboardingSchema, PolicySchema } from '@/features/user/types';
 import { useProgressRouter } from '@/navigation';
 

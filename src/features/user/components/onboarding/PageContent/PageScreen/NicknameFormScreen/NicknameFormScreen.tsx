@@ -2,8 +2,8 @@ import { useTranslations } from 'next-intl';
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
 
 import ScreenLayout from '../ScreenLayout';
-import useNicknameForm from '@/features/onboarding/hooks/useNicknameForm';
 import NicknameFormControl from '@/features/user/components/shared/NicknameFormControl';
+import useNicknameForm from '@/features/user/hooks/useNicknameForm';
 import { OnboardingSchema, ProfileNicknameSchema } from '@/features/user/types';
 
 export default function NicknameFormScreen({

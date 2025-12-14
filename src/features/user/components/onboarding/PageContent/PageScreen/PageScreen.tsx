@@ -8,8 +8,8 @@ import SleepTimeScreen from './SleepTimeScreen';
 import WelcomeScreen from './WelcomeScreen';
 import { REDIRECT_URL } from '@/features/auth/constants';
 import useHomeUrl from '@/features/home/hooks/useHomeUrl';
-import useOnboardingForm from '@/features/onboarding/hooks/useOnboardingForm';
 import { useCreateUserMutation } from '@/features/user/api/user.query';
+import useOnboardingForm from '@/features/user/hooks/useOnboardingForm';
 import { OnboardingSchema } from '@/features/user/types';
 import { useRouter } from '@/i18n/navigation';
 

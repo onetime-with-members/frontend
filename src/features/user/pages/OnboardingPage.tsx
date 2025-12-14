@@ -2,8 +2,8 @@
 
 import { useContext, useEffect, useState } from 'react';
 
-import Navigation from '../components/Navigation';
-import PageContent from '../components/PageContent';
+import Navigation from '../components/onboarding/Navigation';
+import PageContent from '../components/onboarding/PageContent';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 
 export default function OnboardingPage({
