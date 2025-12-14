@@ -5,7 +5,7 @@ import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 
-export default function AppBar({
+export default function AppBarForMobile({
   pageIndex,
   setPageIndex,
 }: {

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
-import OnboardingPage from './onboarding';
+import OnboardingPage from '@/features/onboarding/pages/OnboardingPage';
 import { redirect } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 

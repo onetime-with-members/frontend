@@ -1,5 +1,4 @@
-import BottomButtomDesktop from './BottomButton/Desktop';
-import BottomButtomMobile from './BottomButton/Mobile';
+import BottomButton from './BottomButton';
 
 export default function ScreenLayout({
   pageIndex,
@@ -28,16 +27,11 @@ export default function ScreenLayout({
         <h1 className="text-left text-gray-90 title-lg-300 md:text-center">
           {title}
         </h1>
-
         {children}
-
-        {/* Bottom Button for Mobile */}
-        <BottomButtomMobile disabled={disabled} />
-        {/* Bottom Button for Desktop */}
-        <BottomButtomDesktop
+        <BottomButton
           disabled={disabled}
-          onBackButtonClick={onBackButtonClick}
           pageIndex={pageIndex}
+          onBackButtonClick={onBackButtonClick}
         />
       </form>
     </section>

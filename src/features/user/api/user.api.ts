@@ -1,4 +1,4 @@
-import { PolicySchema } from '../types';
+import { OnboardingType, PolicySchema } from '../types';
 import apiClient from '@/lib/api';
 
 export async function fetchUserProfile() {
@@ -23,6 +23,20 @@ export async function fetchUserPolicy() {
     privacyPolicy: privacy_policy_agreement,
     marketingPolicy: marketing_policy_agreement,
   };
+}
+
+export async function createUserAction(value: OnboardingType) {
+  const res = await apiClient.post('/users/onboarding', {
+    register_token: value.registerToken,
+    nickname: value.nickname,
+    service_policy_agreement: value.servicePolicy,
+    privacy_policy_agreement: value.privacyPolicy,
+    marketing_policy_agreement: value.marketingPolicy,
+    sleep_start_time: value.startSleepTime,
+    sleep_end_time: value.endSleepTime,
+    language: value.language,
+  });
+  return res.data.payload;
 }
 
 export async function editUserNameAction(name: string) {

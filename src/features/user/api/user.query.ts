@@ -1,4 +1,5 @@
 import {
+  createUserAction,
   editUserLanguageAction,
   editUserNameAction,
   editUserPolicyAction,
@@ -28,6 +29,30 @@ export function useUserPolicyQuery({ enabled }: { enabled: boolean }) {
   const { data, isPending } = useQuery({ ...userPolicyQueryOptions, enabled });
 
   return { data, isPending };
+}
+
+export function useCreateUserMutation() {
+  const queryClient = useQueryClient();
+
+  const { signIn } = useAuth();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: createUserAction,
+    onSuccess: async (data) => {
+      await signIn({
+        accessToken: data.access_token,
+        refreshToken: data.refresh_token,
+      });
+      await queryClient.invalidateQueries({ queryKey: ['users'] });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
+  return {
+    createUser: mutateAsync,
+  };
 }
 
 export function useEditProfileMutation() {
