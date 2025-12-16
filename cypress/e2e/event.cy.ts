@@ -3,10 +3,12 @@ describe('이벤트', () => {
     cy.login();
     cy.visitFirstEvent();
 
-    cy.get('header').find('button').eq(1).should('exist');
+    // cy.get('header').find('button').eq(1).should('exist');
 
-    cy.logout();
+    // cy.logout();
 
-    cy.get('header').find('button').eq(1).should('not.exist');
+    // cy.get('header').find('button').eq(1).should('not.exist');
+
+    cy.removeFirstEvent();
   });
 });

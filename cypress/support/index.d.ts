@@ -9,5 +9,6 @@ declare namespace Cypress {
     login(): Chainable<void>;
     logout(): Chainable<void>;
     visitFirstEvent(): Chainable<void>;
+    removeFirstEvent(): Chainable<void>;
   }
 }

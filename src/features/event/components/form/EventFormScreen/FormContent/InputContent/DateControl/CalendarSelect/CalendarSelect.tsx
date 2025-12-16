@@ -70,6 +70,7 @@ export default function CalendarSelect({
     <div
       className={cn('flex flex-col gap-3', className)}
       onMouseLeave={handleDragEnd}
+      data-testid="calendar-picker"
     >
       <div className="flex justify-between">
         <div className="text-gray-90 text-lg-300">

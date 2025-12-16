@@ -1,4 +1,6 @@
 /// <reference types="cypress" />
+import dayjs from 'dayjs';
+
 import { Session } from '@/features/auth/types';
 
 // ***********************************************
@@ -60,6 +62,36 @@ Cypress.Commands.add('logout', () => {
 });
 
 Cypress.Commands.add('visitFirstEvent', () => {
-  cy.visit('/');
-  cy.contains('section', '참여한 이벤트').find('.grid').find('a').eq(0).click();
+  cy.visit('/ko');
+  cy.contains('a', '이벤트 생성하기').click();
+
+  cy.get('[placeholder="어떤 이벤트인가요?"]').type('Cypress 테스트용 이벤트');
+
+  let currentDate = dayjs().date(29);
+  Array.from({ length: 5 }).forEach(() => {
+    const prevDate = currentDate;
+    currentDate = currentDate.add(1, 'day');
+
+    if (currentDate.startOf('month').diff(prevDate.startOf('month'), 'month')) {
+      cy.get('button.rotate-90').find('.tabler-icon-triangle-filled').click();
+    }
+
+    cy.get('[data-testid="calendar-picker"]')
+      .contains('button[aria-disabled="false"]', `${currentDate.date()}`)
+      .trigger('mousedown')
+      .trigger('mousemove')
+      .trigger('mouseup');
+  });
+
+  cy.contains('button', '이벤트 생성하기').click();
+});
+
+Cypress.Commands.add('removeFirstEvent', () => {
+  cy.visit('/ko');
+  cy.contains('section', '참여한 이벤트')
+    .find('.grid')
+    .contains('a', 'Cypress 테스트용 이벤트')
+    .click();
+  cy.get('svg[data-testid="trash-icon"]').click();
+  cy.contains('button', '삭제').click();
 });
