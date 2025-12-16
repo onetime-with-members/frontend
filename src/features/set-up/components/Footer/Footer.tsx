@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useRef } from 'react';
 
+import EventUsageCase from './EventUsageCase';
 import { SpeakerphoneIcon } from '@/components/icon';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import LanguageDropdown from '@/features/user/components/shared/LanguageDropdown';
@@ -51,26 +52,29 @@ export default function Footer() {
                 ©OneTime. ALL RIGHTS RESERVED
               </p>
             </div>
-            <div className="flex flex-col gap-2">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSfDuttkDxmZDZbHhawL5GSJOgOOelOTFFgoomRVWYHWlEP9Qg/viewform?usp=dialog"
-                className="flex items-center gap-1 text-gray-00"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="text-base">
-                  <SpeakerphoneIcon />
-                </span>
-                <span className="text-sm-300">{t('feedbackIssue')}</span>
-              </a>
-              <div className="flex items-center gap-2 text-gray-40">
-                <ProgressLink href="/policy/privacy">
-                  {t('privacyPolicy')}
-                </ProgressLink>
-                <span>|</span>
-                <ProgressLink href="/policy/service">
-                  {t('termsOfService')}
-                </ProgressLink>
+            <div className="flex flex-col gap-4">
+              <EventUsageCase />
+              <div className="flex flex-col gap-2">
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSfDuttkDxmZDZbHhawL5GSJOgOOelOTFFgoomRVWYHWlEP9Qg/viewform?usp=dialog"
+                  className="flex items-center gap-1 text-gray-00"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="text-base">
+                    <SpeakerphoneIcon />
+                  </span>
+                  <span className="text-sm-300">{t('feedbackIssue')}</span>
+                </a>
+                <div className="flex items-center gap-2 text-gray-40">
+                  <ProgressLink href="/policy/privacy">
+                    {t('privacyPolicy')}
+                  </ProgressLink>
+                  <span>|</span>
+                  <ProgressLink href="/policy/service">
+                    {t('termsOfService')}
+                  </ProgressLink>
+                </div>
               </div>
             </div>
           </div>
