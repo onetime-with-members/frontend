@@ -4,6 +4,7 @@ import { Locale } from 'next-intl';
 import { fetchEvent } from '@/features/event/api/event.api';
 import { eventQueryOptions } from '@/features/event/api/event.option';
 import EventParticipantFilterContextProvider from '@/features/event/contexts/EventParticipantFilterContext';
+import { exampleEventList } from '@/features/event/mocks/example-events';
 import EventDetailPage from '@/features/event/pages/EventDetailPage';
 import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
@@ -15,7 +16,9 @@ export async function generateMetadata({
   params: Promise<{ id: string; locale: Locale }>;
 }): Promise<Metadata> {
   const { id, locale } = await params;
-  const event = await fetchEvent(id);
+
+  const event =
+    id === 'team-meeting' ? exampleEventList[0] : await fetchEvent(id);
 
   if (!event) {
     const t404 = await getTranslations({ locale, namespace: '404' });

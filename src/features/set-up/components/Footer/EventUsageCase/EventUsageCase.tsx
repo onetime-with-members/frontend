@@ -18,15 +18,19 @@ export default function EventUsageCase() {
         className="flex items-center gap-1.5 text-gray-40 text-sm-100"
       >
         <li>
-          <ProgressLink href="#">팀 회의</ProgressLink>
+          <ProgressLink href="/events/team-meeting">팀 회의</ProgressLink>
         </li>
         <li aria-hidden="true">|</li>
         <li>
-          <ProgressLink href="#">1:1 비즈니스 미팅</ProgressLink>
+          <ProgressLink href="/events/business-one-on-one">
+            1:1 비즈니스 미팅
+          </ProgressLink>
         </li>
         <li aria-hidden="true">|</li>
         <li>
-          <ProgressLink href="#">오프라인 약속</ProgressLink>
+          <ProgressLink href="/events/offline-appointment">
+            오프라인 약속
+          </ProgressLink>
         </li>
       </ul>
     </div>

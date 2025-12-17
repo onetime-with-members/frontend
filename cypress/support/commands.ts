@@ -84,10 +84,13 @@ Cypress.Commands.add('visitFirstEvent', () => {
   });
 
   cy.contains('button', '이벤트 생성하기').click();
+  cy.wait(1000);
 });
 
 Cypress.Commands.add('removeFirstEvent', () => {
-  cy.visit('/ko');
+  cy.login();
+  cy.reload();
+  cy.visit('/');
   cy.contains('section', '참여한 이벤트')
     .find('.grid')
     .contains('a', 'Cypress 테스트용 이벤트')

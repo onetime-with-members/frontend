@@ -5,14 +5,32 @@ import {
   fetchSchedules,
 } from './schedule.api';
 import { defaultEvent } from '@/features/event/constants';
+import { exampleSchedulesList } from '@/features/event/mocks/example-events';
 import { EventType } from '@/features/event/types';
 import { queryOptions } from '@tanstack/react-query';
+
+const exampleSchedulesOptions = (eventId: string) => ({
+  initialData: () => {
+    let result = undefined;
+    exampleSchedulesList.forEach(({ slug, schedules }) => {
+      if (slug.includes(eventId)) {
+        result = schedules;
+        return;
+      }
+    });
+    return result;
+  },
+  staleTime: exampleSchedulesList.map(({ slug }) => slug).includes(eventId)
+    ? Infinity
+    : 0,
+});
 
 export const schedulesQueryOptions = (event: EventType) =>
   queryOptions({
     queryKey: ['schedules', event.category.toLowerCase(), event.event_id],
     queryFn: async () => await fetchSchedules(event),
     enabled: JSON.stringify(event) !== JSON.stringify(defaultEvent),
+    ...exampleSchedulesOptions(event.event_id),
   });
 
 export const scheduleDetailQueryOptions = ({

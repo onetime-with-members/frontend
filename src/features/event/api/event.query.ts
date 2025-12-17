@@ -18,7 +18,9 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useEventQuery(id: string) {
-  const { data } = useQuery({ ...eventQueryOptions(id) });
+  const { data } = useQuery({
+    ...eventQueryOptions(id),
+  });
 
   return { data: data || defaultEvent };
 }
