@@ -26,6 +26,14 @@ export interface MyEventType {
   }[];
 }
 
+export interface MyEventsType {
+  events: MyEventType[];
+  page_cursor_info: {
+    next_cursor: string | null;
+    has_next: boolean;
+  };
+}
+
 export type TabActiveType = 'events' | 'schedules' | 'profile' | null;
 
 export type PageTitleType = string | null;

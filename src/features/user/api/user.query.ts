@@ -1,17 +1,20 @@
+import { MyEventsType } from '../types';
 import {
   createUserAction,
   editUserLanguageAction,
   editUserNameAction,
   editUserPolicyAction,
+  fetchMyEvents,
   withdrawAction,
 } from './user.api';
-import {
-  myEventsQueryOptions,
-  userPolicyQueryOptions,
-  userQueryOptions,
-} from './user.options';
+import { userPolicyQueryOptions, userQueryOptions } from './user.options';
 import { useAuth } from '@/lib/auth';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 
 export function useUserQuery({ enabled }: { enabled?: boolean } = {}) {
   const { data } = useQuery({ ...userQueryOptions, enabled });
@@ -19,10 +22,35 @@ export function useUserQuery({ enabled }: { enabled?: boolean } = {}) {
   return { data };
 }
 
-export function useMyEventsQuery() {
-  const { data, isPending } = useQuery({ ...myEventsQueryOptions });
+export function useMyEventsQuery(size: number, cursor: string = '') {
+  const { data, isPending } = useInfiniteMyEventsQuery(size, cursor);
 
-  return { data, isPending };
+  const events = data?.pages.flatMap((page) => page.events) ?? [];
+  const pageCursorInfo = data
+    ? data.pages[data.pages.length - 1].page_cursor_info
+    : undefined;
+
+  return { data, events, pageCursorInfo, isPending };
+}
+
+export function useInfiniteMyEventsQuery(
+  size: number = 4,
+  initialCursor: string = '',
+) {
+  return useInfiniteQuery<MyEventsType>({
+    queryKey: ['events', 'user', 'infinite', size, initialCursor],
+    queryFn: ({ pageParam }) => fetchMyEvents(size, pageParam as string),
+    initialPageParam: initialCursor,
+    getNextPageParam: (lastPage) => {
+      if (
+        !lastPage.page_cursor_info.has_next ||
+        !lastPage.page_cursor_info.next_cursor
+      ) {
+        return undefined;
+      }
+      return lastPage.page_cursor_info.next_cursor;
+    },
+  });
 }
 
 export function useUserPolicyQuery({ enabled }: { enabled: boolean }) {

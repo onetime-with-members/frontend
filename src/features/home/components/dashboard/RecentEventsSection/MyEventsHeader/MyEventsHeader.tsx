@@ -5,7 +5,7 @@ import { useMyEventsQuery } from '@/features/user/api/user.query';
 import cn from '@/lib/cn';
 
 export default function MyEventsHeader() {
-  const { data: myEvents } = useMyEventsQuery();
+  const { events: myEvents } = useMyEventsQuery(4);
 
   const t = useTranslations('userDashboard');
 
