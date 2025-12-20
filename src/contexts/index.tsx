@@ -1,4 +1,4 @@
-import BarBannerContextProvider from '../features/banner/contexts/BarBannerContext';
+// import BarBannerContextProvider from '../features/banner/contexts/BarBannerContext';
 import PageModeContextProvider from '../features/event/contexts/PageModeContext';
 import EverytimeScheduleContextProvider from '../features/my-schedule/contexts/EverytimeScheduleContext';
 import MyScheduleContextProvider from '../features/my-schedule/contexts/MyScheduleContext';
@@ -8,24 +8,25 @@ import PolicyContextProvider from '../features/user/contexts/PolicyContext';
 import ToastContextProvider from './ToastContext';
 import WeekdayLocaleContextProvider from './WeekdayLocaleContext';
 import SessionContextProvider from '@/features/auth/contexts/SessionContext';
-import { fetchBarBanner } from '@/features/banner/api/banner.api';
+// import { fetchBarBanner } from '@/features/banner/api/banner.api';
 import { auth } from '@/lib/auth';
 import { getLocale } from 'next-intl/server';
-import { cookies } from 'next/headers';
+
+// import { cookies } from 'next/headers';
 
 export default async function ContextProviders({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = await cookies();
+  // const cookieStore = await cookies();
 
   const { session, isLoggedIn } = await auth();
 
-  let barBanner = null;
-  if (!cookieStore.get('bar-banner')) {
-    barBanner = await fetchBarBanner();
-  }
+  // let barBanner = null;
+  // if (!cookieStore.get('bar-banner')) {
+  //   barBanner = await fetchBarBanner();
+  // }
 
   const locale = await getLocale();
 
@@ -39,15 +40,15 @@ export default async function ContextProviders({
           <PolicyContextProvider>
             <SleepTimeContextProvider>
               <MyScheduleContextProvider>
-                <BarBannerContextProvider barBanner={barBanner}>
-                  <WeekdayLocaleContextProvider initialLocale={locale}>
-                    <ToastContextProvider>
-                      <EverytimeScheduleContextProvider>
-                        {children}
-                      </EverytimeScheduleContextProvider>
-                    </ToastContextProvider>
-                  </WeekdayLocaleContextProvider>
-                </BarBannerContextProvider>
+                {/* <BarBannerContextProvider barBanner={barBanner}> */}
+                <WeekdayLocaleContextProvider initialLocale={locale}>
+                  <ToastContextProvider>
+                    <EverytimeScheduleContextProvider>
+                      {children}
+                    </EverytimeScheduleContextProvider>
+                  </ToastContextProvider>
+                </WeekdayLocaleContextProvider>
+                {/* </BarBannerContextProvider> */}
               </MyScheduleContextProvider>
             </SleepTimeContextProvider>
           </PolicyContextProvider>

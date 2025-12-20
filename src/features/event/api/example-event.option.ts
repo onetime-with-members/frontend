@@ -25,10 +25,15 @@ export const exampleParticipantsOptions = (eventId: string) => ({
   staleTime: exampleEventStaleTime(eventId),
 });
 
-export const exampleEventShortUrlOptions = (url: string) => {
+export const exampleShortUrlOptions = (url: string) => {
   const eventId = url.split('/').pop() ?? '';
   return {
     initialData: () => foundedExampleEvent(eventId)?.shortUrl,
     staleTime: exampleEventStaleTime(eventId),
   };
 };
+
+export const exampleQrCodeOptions = (eventId: string) => ({
+  initialData: () => foundedExampleEvent(eventId)?.qrCode,
+  staleTime: exampleEventStaleTime(eventId),
+});

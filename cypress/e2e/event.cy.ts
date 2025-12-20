@@ -31,10 +31,16 @@ describe('이벤트', () => {
         });
         it.only(`${name} 예시 이벤트 페이지에서 공유 팝업을 누르고 각 버튼을 클릭하면, 단축 URL과 QR 코드가 불러와진다.`, () => {
           cy.visit(`/events/${slug}`);
-          cy.get('[alt="종이비행기 아이콘"]').parent('button').click();
+
+          cy.get('[alt="종이비행기 아이콘"]').click();
           cy.get(`input[value="${Cypress.env('shortUrl')}/${slug}"]`).should(
             'exist',
           );
+
+          cy.get('.tabler-icon-qrcode').click();
+          cy.get('img[alt="QR 코드 이미지"]')
+            .invoke('attr', 'src')
+            .should('contain', slug);
         });
       },
     );

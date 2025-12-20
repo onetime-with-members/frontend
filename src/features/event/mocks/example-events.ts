@@ -7,6 +7,9 @@ const exampleEventSlug = {
   offline: 'offline-appointment',
 };
 
+const exampleEventQrCode = (slug: string) =>
+  `/images/qr-code/${slug}-qr-code.png`;
+
 export const exampleEventList: ExampleEventType[] = [
   {
     slug: exampleEventSlug.meeting,
@@ -26,6 +29,7 @@ export const exampleEventList: ExampleEventType[] = [
       event_status: 'PARTICIPANT',
     },
     shortUrl: `${SHORT_URL_DOMAIN}/${exampleEventSlug.meeting}`,
+    qrCode: exampleEventQrCode(exampleEventSlug.meeting),
     participants: [
       {
         id: 2193,
@@ -513,6 +517,7 @@ export const exampleEventList: ExampleEventType[] = [
       event_status: 'PARTICIPANT',
     },
     shortUrl: `${SHORT_URL_DOMAIN}/${exampleEventSlug.oneOnOne}`,
+    qrCode: exampleEventQrCode(exampleEventSlug.oneOnOne),
     participants: [
       {
         id: 328,
@@ -818,6 +823,7 @@ export const exampleEventList: ExampleEventType[] = [
       event_status: 'PARTICIPANT',
     },
     shortUrl: `${SHORT_URL_DOMAIN}/${exampleEventSlug.offline}`,
+    qrCode: exampleEventQrCode(exampleEventSlug.offline),
     participants: [
       {
         id: 4134,

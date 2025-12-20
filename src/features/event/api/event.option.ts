@@ -9,9 +9,10 @@ import {
 } from './event.api';
 import {
   exampleEventQueryOptions,
-  exampleEventShortUrlOptions,
   exampleParticipantsOptions,
+  exampleQrCodeOptions,
   exampleRecommendedTimesOptions,
+  exampleShortUrlOptions,
 } from './example-event.option';
 import { queryOptions } from '@tanstack/react-query';
 
@@ -33,7 +34,7 @@ export const eventShortUrlQueryOptions = (url: string) =>
   queryOptions({
     queryKey: ['urls', 'action-shorten', url],
     queryFn: async () => await fetchShortUrl(url),
-    ...exampleEventShortUrlOptions(url),
+    ...exampleShortUrlOptions(url),
   });
 
 export const recommendedTimesQueryOptions = (eventId: string) =>
@@ -47,6 +48,7 @@ export const qrCodeQueryOptions = (eventId: string) =>
   queryOptions({
     queryKey: ['events', 'qr', eventId],
     queryFn: async () => await fetchQrCode(eventId),
+    ...exampleQrCodeOptions(eventId),
   });
 
 export const participantsQueryOptions = (eventId: string) =>

@@ -19,6 +19,7 @@ export interface ExampleEventType {
   slug: string;
   event: EventType;
   shortUrl: string;
+  qrCode: string;
   participants: ParticipantType[];
   schedules: ScheduleType[];
   recommendedTimes: RecommendedScheduleType[];
