@@ -86,7 +86,7 @@ export const eventWithAuthQueryOptions = (eventId: string) =>
 
 export const eventShortUrlQueryOptions = (url: string) =>
   queryOptions({
-    queryKey: ['urls', 'action-shorten'],
+    queryKey: ['urls', 'action-shorten', url],
     queryFn: async () => await fetchShortUrl(url),
   });
 
