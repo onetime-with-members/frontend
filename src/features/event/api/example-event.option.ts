@@ -24,3 +24,11 @@ export const exampleParticipantsOptions = (eventId: string) => ({
   initialData: () => foundedExampleEvent(eventId)?.participants,
   staleTime: exampleEventStaleTime(eventId),
 });
+
+export const exampleEventShortUrlOptions = (url: string) => {
+  const eventId = url.split('/').pop() ?? '';
+  return {
+    initialData: () => foundedExampleEvent(eventId)?.shortUrl,
+    staleTime: exampleEventStaleTime(eventId),
+  };
+};

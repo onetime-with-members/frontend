@@ -1,10 +1,17 @@
 import { ExampleEventType } from '../types';
+import { SHORT_URL_DOMAIN } from '@/constants';
+
+const exampleEventSlug = {
+  meeting: 'team-meeting',
+  oneOnOne: 'business-one-on-one',
+  offline: 'offline-appointment',
+};
 
 export const exampleEventList: ExampleEventType[] = [
   {
-    slug: 'team-meeting',
+    slug: exampleEventSlug.meeting,
     event: {
-      event_id: 'team-meeting',
+      event_id: exampleEventSlug.meeting,
       title: 'OneTime 스프린트 11 계획 회의',
       start_time: '00:00',
       end_time: '24:00',
@@ -18,6 +25,7 @@ export const exampleEventList: ExampleEventType[] = [
       ],
       event_status: 'PARTICIPANT',
     },
+    shortUrl: `${SHORT_URL_DOMAIN}/${exampleEventSlug.meeting}`,
     participants: [
       {
         id: 2193,
@@ -487,9 +495,9 @@ export const exampleEventList: ExampleEventType[] = [
     ],
   },
   {
-    slug: 'business-one-on-one',
+    slug: exampleEventSlug.oneOnOne,
     event: {
-      event_id: 'business-one-on-one',
+      event_id: exampleEventSlug.oneOnOne,
       title: 'OneTime 유저 인터뷰 이현수님',
       start_time: '00:00',
       end_time: '24:00',
@@ -504,6 +512,7 @@ export const exampleEventList: ExampleEventType[] = [
       ],
       event_status: 'PARTICIPANT',
     },
+    shortUrl: `${SHORT_URL_DOMAIN}/${exampleEventSlug.oneOnOne}`,
     participants: [
       {
         id: 328,
@@ -791,9 +800,9 @@ export const exampleEventList: ExampleEventType[] = [
     ],
   },
   {
-    slug: 'offline-appointment',
+    slug: exampleEventSlug.offline,
     event: {
-      event_id: 'offline-appointment',
+      event_id: exampleEventSlug.offline,
       title: 'OneTime 연말 대면 모임',
       start_time: '00:00',
       end_time: '24:00',
@@ -808,6 +817,7 @@ export const exampleEventList: ExampleEventType[] = [
       ],
       event_status: 'PARTICIPANT',
     },
+    shortUrl: `${SHORT_URL_DOMAIN}/${exampleEventSlug.offline}`,
     participants: [
       {
         id: 4134,

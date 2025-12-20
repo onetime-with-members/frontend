@@ -18,6 +18,7 @@ export interface EventType {
 export interface ExampleEventType {
   slug: string;
   event: EventType;
+  shortUrl: string;
   participants: ParticipantType[];
   schedules: ScheduleType[];
   recommendedTimes: RecommendedScheduleType[];

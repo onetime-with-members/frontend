@@ -9,6 +9,7 @@ import {
 } from './event.api';
 import {
   exampleEventQueryOptions,
+  exampleEventShortUrlOptions,
   exampleParticipantsOptions,
   exampleRecommendedTimesOptions,
 } from './example-event.option';
@@ -32,6 +33,7 @@ export const eventShortUrlQueryOptions = (url: string) =>
   queryOptions({
     queryKey: ['urls', 'action-shorten', url],
     queryFn: async () => await fetchShortUrl(url),
+    ...exampleEventShortUrlOptions(url),
   });
 
 export const recommendedTimesQueryOptions = (eventId: string) =>

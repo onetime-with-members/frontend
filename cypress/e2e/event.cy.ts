@@ -15,7 +15,7 @@ describe('이벤트', () => {
   describe('사용 사례 이벤트', () => {
     exampleEventList.forEach(
       ({ name, slug, title, recommendedTimes, participants }) => {
-        it.only(`푸터에 있는 사용 사례 링크들 중 ${name} 링크를 클릭하면, ${name} 예시 이벤트 페이지로 이동된다.`, () => {
+        it(`푸터에 있는 사용 사례 링크들 중 ${name} 링크를 클릭하면, ${name} 예시 이벤트 페이지로 이동된다.`, () => {
           cy.visit('/ko');
           cy.get('footer').contains('a', name).click();
           cy.location('pathname').should('contain', `/events/${slug}`);
@@ -28,6 +28,13 @@ describe('이벤트', () => {
           participants.forEach((participant) => {
             cy.get('@participantList').contains(participant).should('exist');
           });
+        });
+        it.only(`${name} 예시 이벤트 페이지에서 공유 팝업을 누르고 각 버튼을 클릭하면, 단축 URL과 QR 코드가 불러와진다.`, () => {
+          cy.visit(`/events/${slug}`);
+          cy.get('[alt="종이비행기 아이콘"]').parent('button').click();
+          cy.get(`input[value="${Cypress.env('shortUrl')}/${slug}"]`).should(
+            'exist',
+          );
         });
       },
     );
