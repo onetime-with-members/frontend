@@ -19,7 +19,13 @@
   "footer": {
     "termsOfService": "Terms of Service",
     "privacyPolicy": "Privacy Policy",
-    "feedbackIssue": "Issue & Feedback Report"
+    "feedbackIssue": "Issue & Feedback Report",
+    "exampleEvent": {
+      "useCases": "Use Cases",
+      "teamMeetings": "Team Meetings",
+      "oneOnOneMeetings": "1:1 Business Meetings",
+      "socialGatherings": "Social Gatherings"
+    }
   },
   "login": {
     "login": "Login",

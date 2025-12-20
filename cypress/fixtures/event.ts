@@ -1,5 +1,6 @@
 export const exampleEventList: {
   name: string;
+  enName: string;
   slug: string;
   title: string;
   recommendedTimes: {
@@ -11,6 +12,7 @@ export const exampleEventList: {
   {
     name: '팀 회의',
     slug: 'team-meeting',
+    enName: 'Team Meetings',
     title: 'OneTime 스프린트 11 계획 회의',
     recommendedTimes: [
       { date: '5월 23일 금요일', time: '23:30 - 24:00' },
@@ -20,6 +22,7 @@ export const exampleEventList: {
   },
   {
     name: '1:1 비즈니스 미팅',
+    enName: '1:1 Business Meetings',
     slug: 'business-one-on-one',
     title: 'OneTime 유저 인터뷰 이현수님',
     recommendedTimes: [
@@ -30,6 +33,7 @@ export const exampleEventList: {
   },
   {
     name: '오프라인 약속',
+    enName: 'Social Gatherings',
     slug: 'offline-appointment',
     title: 'OneTime 연말 대면 모임',
     recommendedTimes: [

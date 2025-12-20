@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { useContext, useEffect, useRef } from 'react';
 
-import EventUsageCase from './EventUsageCase';
+import EventUseCase from './EventUseCases';
 import { SpeakerphoneIcon } from '@/components/icon';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import LanguageDropdown from '@/features/user/components/shared/LanguageDropdown';
@@ -53,7 +53,7 @@ export default function Footer() {
               </p>
             </div>
             <div className="flex flex-col gap-4">
-              <EventUsageCase />
+              <EventUseCase />
               <div className="flex flex-col gap-2">
                 <a
                   href="https://docs.google.com/forms/d/e/1FAIpQLSfDuttkDxmZDZbHhawL5GSJOgOOelOTFFgoomRVWYHWlEP9Qg/viewform?usp=dialog"

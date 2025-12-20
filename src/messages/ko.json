@@ -19,7 +19,13 @@
   "footer": {
     "termsOfService": "서비스 이용약관",
     "privacyPolicy": "개인정보처리방침",
-    "feedbackIssue": "버그 및 불편사항 제보"
+    "feedbackIssue": "버그 및 불편사항 제보",
+    "exampleEvent": {
+      "useCases": "사용 사례",
+      "teamMeetings": "팀 회의",
+      "oneOnOneMeetings": "1:1 비즈니스 미팅",
+      "socialGatherings": "오프라인 약속"
+    }
   },
   "login": {
     "login": "로그인",
