@@ -27,6 +27,7 @@ export const exampleParticipantsOptions = (eventId: string) => ({
 
 export const exampleShortUrlOptions = (url: string) => {
   const eventId = url.split('/').pop() ?? '';
+
   return {
     initialData: () => foundedExampleEvent(eventId)?.shortUrl,
     staleTime: exampleEventStaleTime(eventId),

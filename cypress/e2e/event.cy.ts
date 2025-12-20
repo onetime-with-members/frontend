@@ -29,7 +29,7 @@ describe('이벤트', () => {
             cy.get('@participantList').contains(participant).should('exist');
           });
         });
-        it.only(`${name} 예시 이벤트 페이지에서 공유 팝업을 누르고 각 버튼을 클릭하면, 단축 URL과 QR 코드가 불러와진다.`, () => {
+        it(`${name} 예시 이벤트 페이지에서 공유 팝업을 누르고 각 버튼을 클릭하면, 단축 URL과 QR 코드가 불러와진다.`, () => {
           cy.visit(`/events/${slug}`);
 
           cy.get('[alt="종이비행기 아이콘"]').click();
@@ -44,5 +44,25 @@ describe('이벤트', () => {
         });
       },
     );
+    it.only('푸터에 있는 사용 사례 링크를 클릭 후, 해당 예시 이벤트 페이지에서 다른 사용 사례 링크를 클릭하면 단축 URL도 변경된다.', () => {
+      const [{ name: name1, slug: slug1 }, { name: name2, slug: slug2 }] =
+        exampleEventList;
+
+      cy.visit('/ko');
+      cy.get('footer').contains('a', name1).click();
+
+      cy.get('[alt="종이비행기 아이콘"]').click();
+      cy.get(`input[value="${Cypress.env('shortUrl')}/${slug1}"]`).should(
+        'exist',
+      );
+
+      cy.get('.tabler-icon-x').click();
+      cy.get('footer').contains('a', name2).click();
+
+      cy.get('[alt="종이비행기 아이콘"]').click();
+      cy.get(`input[value="${Cypress.env('shortUrl')}/${slug2}"]`).should(
+        'exist',
+      );
+    });
   });
 });
