@@ -1,5 +1,5 @@
-import { exampleSchedulesList } from '../mocks/example-schedules';
 import { ScheduleGuideModalViewLog, ScheduleType } from '../types';
+import { exampleSchedulesOptions } from './example-schedule.option';
 import {
   fetchScheduleDetail,
   fetchScheduleGuideModalViewLog,
@@ -8,22 +8,6 @@ import {
 import { defaultEvent } from '@/features/event/constants';
 import { EventType } from '@/features/event/types';
 import { queryOptions } from '@tanstack/react-query';
-
-const exampleSchedulesOptions = (eventId: string) => ({
-  initialData: () => {
-    let result = undefined;
-    exampleSchedulesList.forEach(({ slug, schedules }) => {
-      if (slug.includes(eventId)) {
-        result = schedules;
-        return;
-      }
-    });
-    return result;
-  },
-  staleTime: exampleSchedulesList.map(({ slug }) => slug).includes(eventId)
-    ? Infinity
-    : 0,
-});
 
 export const schedulesQueryOptions = (event: EventType) =>
   queryOptions({

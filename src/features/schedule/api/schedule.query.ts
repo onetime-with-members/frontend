@@ -13,7 +13,7 @@ import {
   scheduleDetailQueryOptions,
   scheduleGuideModalViewLogQueryOptions,
   schedulesQueryOptions,
-} from './schedule.options';
+} from './schedule.option';
 import { EventType } from '@/features/event/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
