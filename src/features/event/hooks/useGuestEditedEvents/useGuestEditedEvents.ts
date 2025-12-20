@@ -1,6 +1,7 @@
 import { getCookie, hasCookie, setCookie } from 'cookies-next';
 
-import { EDITED_EVENTS_COOKIE_KEY } from '../../../constants';
+import { EDITED_EVENTS_COOKIE_KEY } from '../../constants';
+import { exampleEventList } from '../../mocks/example-events';
 import { useAuth } from '@/lib/auth';
 import dayjs from '@/lib/dayjs';
 
@@ -20,6 +21,7 @@ export default function useGuestEditedEvents() {
 
   async function addNewEditedEvent(eventId: string) {
     if (isLoggedIn) return;
+    if (exampleEventList.map(({ slug }) => slug).includes(eventId)) return;
     await setCookie(
       EDITED_EVENTS_COOKIE_KEY,
       JSON.stringify(await appendToEditedEvent(eventId)),

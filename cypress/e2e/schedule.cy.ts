@@ -57,7 +57,7 @@ describe('스케줄 등록', () => {
     cy.logout();
 
     cy.contains('button', '스케줄 추가').click();
-    cy.contains('다음에 할게요').click();
+    cy.contains('button', '다음에 할게요').click();
 
     cy.get('input[placeholder="당신의 이름은 무엇인가요?"]').type('홍민서');
     cy.get('input[id="pin"]').type('1');
@@ -78,7 +78,7 @@ describe('스케줄 등록', () => {
       .click();
 
     cy.contains('button', '스케줄 추가').click();
-    cy.contains('다음에 할게요').click();
+    cy.contains('button', '다음에 할게요').click();
 
     cy.get('input[placeholder="당신의 이름은 무엇인가요?"]').type('홍민서');
     cy.get('input[id="pin"]').type('1');

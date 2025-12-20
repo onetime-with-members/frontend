@@ -14,7 +14,9 @@ import {
   scheduleGuideModalViewLogQueryOptions,
   schedulesQueryOptions,
 } from './schedule.option';
+import { exampleEventList } from '@/features/event/mocks/example-events';
 import { EventType } from '@/features/event/types';
+import { useAuth } from '@/lib/auth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useSchedulesQuery(event: EventType) {
@@ -42,8 +44,11 @@ export function useScheduleDetailQuery({
 }
 
 export function useScheduleGuideModalViewLog() {
+  const { isLoggedIn } = useAuth();
+
   const { data } = useQuery({
     ...scheduleGuideModalViewLogQueryOptions,
+    enabled: isLoggedIn,
   });
 
   return { data: data || defaultScheduleGuideModalViewLog };
@@ -51,7 +56,10 @@ export function useScheduleGuideModalViewLog() {
 
 export function useCheckNewGuestMutation() {
   const { mutateAsync } = useMutation({
-    mutationFn: checkNewGuest,
+    mutationFn: ({ eventId, ...rest }: Parameters<typeof checkNewGuest>[0]) =>
+      exampleEventList.map(({ slug }) => slug).includes(eventId)
+        ? Promise.resolve({ is_possible: true })
+        : checkNewGuest({ eventId, ...rest }),
   });
 
   return { mutateAsync };
@@ -69,10 +77,18 @@ export function useCreateNewMemberScheduleMutation() {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: createNewMemberSchedule,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
-      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+    mutationFn: ({
+      event,
+      ...rest
+    }: Parameters<typeof createNewMemberSchedule>[0]) =>
+      exampleEventList.map(({ slug }) => slug).includes(event.event_id)
+        ? Promise.resolve()
+        : createNewMemberSchedule({ event, ...rest }),
+    onSuccess: async (_, { event }) => {
+      if (!exampleEventList.map(({ slug }) => slug).includes(event.event_id)) {
+        await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+        await queryClient.invalidateQueries({ queryKey: ['events'] });
+      }
     },
   });
 
@@ -83,10 +99,15 @@ export function useUpdateScheduleMutation() {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: updateSchedule,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
-      await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+    mutationFn: ({ event, ...rest }: Parameters<typeof updateSchedule>[0]) =>
+      exampleEventList.map(({ slug }) => slug).includes(event.event_id)
+        ? Promise.resolve()
+        : updateSchedule({ event, ...rest }),
+    onSuccess: async (_, { event }) => {
+      if (!exampleEventList.map(({ slug }) => slug).includes(event.event_id)) {
+        await queryClient.invalidateQueries({ queryKey: ['schedules'] });
+        await queryClient.invalidateQueries({ queryKey: ['events'] });
+      }
     },
   });
 

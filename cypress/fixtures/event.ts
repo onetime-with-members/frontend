@@ -1,3 +1,11 @@
+export const memberCases: {
+  type: 'USER' | 'GUEST';
+  name: '회원' | '비회원';
+}[] = [
+  { type: 'USER', name: '회원' },
+  { type: 'GUEST', name: '비회원' },
+];
+
 export const exampleEventList: {
   name: string;
   enName: string;

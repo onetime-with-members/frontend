@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+
 import { MyEventsType } from '../types';
 import {
   createUserAction,
@@ -8,6 +10,7 @@ import {
   withdrawAction,
 } from './user.api';
 import { userPolicyQueryOptions, userQueryOptions } from './user.options';
+import { SessionContext } from '@/features/auth/contexts/SessionContext';
 import { useAuth } from '@/lib/auth';
 import {
   useInfiniteQuery,
@@ -16,8 +19,10 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 
-export function useUserQuery({ enabled }: { enabled?: boolean } = {}) {
-  const { data } = useQuery({ ...userQueryOptions, enabled });
+export function useUserQuery() {
+  const { isLoggedIn } = useContext(SessionContext);
+
+  const { data } = useQuery({ ...userQueryOptions, enabled: isLoggedIn });
 
   return { data };
 }
