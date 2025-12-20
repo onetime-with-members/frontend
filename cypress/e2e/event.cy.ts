@@ -49,7 +49,7 @@ describe('이벤트', () => {
               .should('contain', slug);
           });
           memberCases.forEach(({ name, type }) => {
-            it.only(`${name}일 경우, 스케줄 등록을 해도 실제로 스케줄이 등록되지 않는다.`, () => {
+            it(`${name}일 경우, 스케줄 등록을 해도 실제로 스케줄이 등록되지 않는다.`, () => {
               cy.setCookie('schedule-guide-modal', 'false');
               if (type === 'USER') cy.login();
 

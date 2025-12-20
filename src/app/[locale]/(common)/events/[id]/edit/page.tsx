@@ -3,8 +3,8 @@ import { Locale } from 'next-intl';
 
 import { fetchEvent } from '@/features/event/api/event.api';
 import { eventQueryOptions } from '@/features/event/api/event.option';
-import { exampleEventList } from '@/features/event/mocks/example-events';
 import EventEditPage from '@/features/event/pages/EventEditPage';
+import { foundedExampleEvent } from '@/features/event/utils';
 import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -17,9 +17,7 @@ export async function generateMetadata({
   const { id: eventId, locale } = await params;
 
   const event =
-    exampleEventList.find(
-      (exampleEvent) => exampleEvent.event.event_id === eventId,
-    )?.event ?? (await fetchEvent(eventId));
+    foundedExampleEvent(eventId)?.event ?? (await fetchEvent(eventId));
 
   if (!event) {
     const t404 = await getTranslations({ locale, namespace: '404' });

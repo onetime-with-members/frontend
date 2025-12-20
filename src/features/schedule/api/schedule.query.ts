@@ -14,8 +14,8 @@ import {
   scheduleGuideModalViewLogQueryOptions,
   schedulesQueryOptions,
 } from './schedule.option';
-import { exampleEventList } from '@/features/event/mocks/example-events';
 import { EventType } from '@/features/event/types';
+import { isExampleEventSlug } from '@/features/event/utils';
 import { useAuth } from '@/lib/auth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -57,7 +57,7 @@ export function useScheduleGuideModalViewLog() {
 export function useCheckNewGuestMutation() {
   const { mutateAsync } = useMutation({
     mutationFn: ({ eventId, ...rest }: Parameters<typeof checkNewGuest>[0]) =>
-      exampleEventList.map(({ slug }) => slug).includes(eventId)
+      isExampleEventSlug(eventId)
         ? Promise.resolve({ is_possible: true })
         : checkNewGuest({ eventId, ...rest }),
   });
@@ -81,11 +81,11 @@ export function useCreateNewMemberScheduleMutation() {
       event,
       ...rest
     }: Parameters<typeof createNewMemberSchedule>[0]) =>
-      exampleEventList.map(({ slug }) => slug).includes(event.event_id)
+      isExampleEventSlug(event.event_id)
         ? Promise.resolve()
         : createNewMemberSchedule({ event, ...rest }),
     onSuccess: async (_, { event }) => {
-      if (!exampleEventList.map(({ slug }) => slug).includes(event.event_id)) {
+      if (!isExampleEventSlug(event.event_id)) {
         await queryClient.invalidateQueries({ queryKey: ['schedules'] });
         await queryClient.invalidateQueries({ queryKey: ['events'] });
       }
@@ -100,11 +100,11 @@ export function useUpdateScheduleMutation() {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: ({ event, ...rest }: Parameters<typeof updateSchedule>[0]) =>
-      exampleEventList.map(({ slug }) => slug).includes(event.event_id)
+      isExampleEventSlug(event.event_id)
         ? Promise.resolve()
         : updateSchedule({ event, ...rest }),
     onSuccess: async (_, { event }) => {
-      if (!exampleEventList.map(({ slug }) => slug).includes(event.event_id)) {
+      if (!isExampleEventSlug(event.event_id)) {
         await queryClient.invalidateQueries({ queryKey: ['schedules'] });
         await queryClient.invalidateQueries({ queryKey: ['events'] });
       }

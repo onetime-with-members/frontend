@@ -1,4 +1,5 @@
 import { exampleEventList } from '../mocks/example-events';
+import { foundedExampleEvent } from '../utils';
 
 export const exampleEventStaleTime = (eventId: string) =>
   exampleEventList
@@ -6,9 +7,6 @@ export const exampleEventStaleTime = (eventId: string) =>
     .includes(eventId)
     ? Infinity
     : 0;
-
-export const foundedExampleEvent = (eventId: string) =>
-  exampleEventList.find(({ slug }) => slug.includes(eventId));
 
 export const exampleEventQueryOptions = (eventId: string) => ({
   initialData: () => foundedExampleEvent(eventId)?.event,
