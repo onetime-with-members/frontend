@@ -5,14 +5,14 @@ import ParticipantsSection from '@/features/event/components/detail/shared/Parti
 import PaticipantStatus from '@/features/event/components/detail/shared/PaticipantStatus';
 import RecommendedTimeHeading from '@/features/event/components/detail/shared/RecommendedTimeHeading';
 import useIsOnlyOneFiltered from '@/features/event/hooks/useIsOnlyOneFiltered';
-import { RecommendScheduleType } from '@/features/event/types';
+import { RecommendedScheduleType } from '@/features/event/types';
 import cn from '@/lib/cn';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 
 export default function MobileRecommendedTimeItem({
   recommendedTime,
 }: {
-  recommendedTime: RecommendScheduleType;
+  recommendedTime: RecommendedScheduleType;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 

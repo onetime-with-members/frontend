@@ -28,7 +28,7 @@ export interface ParticipantType extends ParticipantResponseType {
   type: 'GUEST' | 'USER';
 }
 
-export interface RecommendScheduleType {
+export interface RecommendedScheduleType {
   time_point: string;
   start_time: string;
   end_time: string;

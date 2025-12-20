@@ -4,7 +4,7 @@ import {
   MemberFilterType,
   ParticipantResponseType,
   ParticipantType,
-  RecommendScheduleType,
+  RecommendedScheduleType,
 } from '../types';
 import { SERVER_API_URL } from '@/constants';
 import { ScheduleType } from '@/features/schedule/types';
@@ -76,7 +76,7 @@ export async function fetchRecommendedTimes(eventId: string) {
     return [];
   }
   const data = await res.json();
-  const recommendedTimes: RecommendScheduleType[] = data.payload;
+  const recommendedTimes: RecommendedScheduleType[] = data.payload;
 
   return recommendedTimes;
 }
@@ -126,7 +126,7 @@ export async function fetchFilteredRecommendedTimes({
     users: filter.users,
     members: filter.guests,
   });
-  const recommendedTimes: RecommendScheduleType[] = res.data.payload;
+  const recommendedTimes: RecommendedScheduleType[] = res.data.payload;
   return recommendedTimes;
 }
 

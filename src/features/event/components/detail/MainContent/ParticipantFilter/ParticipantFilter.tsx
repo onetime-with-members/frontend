@@ -34,7 +34,10 @@ export default function ParticipantFilter() {
         >
           {t('participant', { count: participants.length })}
         </SectionHeading>
-        <ul className="mt-2 flex flex-wrap gap-1.5 pb-4 pt-0 md:pb-6">
+        <ul
+          className="mt-2 flex flex-wrap gap-1.5 pb-4 pt-0 md:pb-6"
+          date-testid="participant-list"
+        >
           {participants.map((participant) => (
             <ParticipantFilterItem
               key={`${participant.type}${participant.id}`}

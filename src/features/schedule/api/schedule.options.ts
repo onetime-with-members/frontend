@@ -1,3 +1,4 @@
+import { exampleSchedulesList } from '../mocks/example-schedules';
 import { ScheduleGuideModalViewLog, ScheduleType } from '../types';
 import {
   fetchScheduleDetail,
@@ -5,7 +6,6 @@ import {
   fetchSchedules,
 } from './schedule.api';
 import { defaultEvent } from '@/features/event/constants';
-import { exampleSchedulesList } from '@/features/event/mocks/example-events';
 import { EventType } from '@/features/event/types';
 import { queryOptions } from '@tanstack/react-query';
 

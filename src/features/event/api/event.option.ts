@@ -1,5 +1,6 @@
 import {
   exampleEventList,
+  exampleParticipantsList,
   exampleRecommendedTimesList,
 } from '../mocks/example-events';
 import { EventType, ParticipantType } from '../types';
@@ -51,6 +52,24 @@ const exampleRecommendedTimesOptions = (eventId: string) => ({
     : 0,
 });
 
+const exampleParticipantsOptions = (eventId: string) => ({
+  initialData: () => {
+    let result = undefined;
+    exampleParticipantsList.forEach(({ slug, participants }) => {
+      if (slug.includes(eventId)) {
+        result = participants;
+        return;
+      }
+    });
+    return result;
+  },
+  staleTime: exampleRecommendedTimesList
+    .map(({ slug }) => slug)
+    .includes(eventId)
+    ? Infinity
+    : 0,
+});
+
 export const eventQueryOptions = (eventId: string) =>
   queryOptions<EventType | null>({
     queryKey: ['events', eventId],
@@ -88,4 +107,5 @@ export const participantsQueryOptions = (eventId: string) =>
   queryOptions<ParticipantType[]>({
     queryKey: ['events', eventId, 'participants'],
     queryFn: async () => await fetchParticipants(eventId),
+    ...exampleParticipantsOptions(eventId),
   });

@@ -18,7 +18,8 @@ export async function generateMetadata({
   const { id, locale } = await params;
 
   const event =
-    id === 'team-meeting' ? exampleEventList[0] : await fetchEvent(id);
+    exampleEventList.find((exampleEvent) => exampleEvent.event_id === id) ??
+    (await fetchEvent(id));
 
   if (!event) {
     const t404 = await getTranslations({ locale, namespace: '404' });

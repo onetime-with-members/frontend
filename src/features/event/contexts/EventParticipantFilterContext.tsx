@@ -7,7 +7,10 @@ import {
   useEventQuery,
   useRecommendedTimesQuery,
 } from '@/features/event/api/event.query';
-import { ParticipantType, RecommendScheduleType } from '@/features/event/types';
+import {
+  ParticipantType,
+  RecommendedScheduleType,
+} from '@/features/event/types';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import { ScheduleType } from '@/features/schedule/types';
 import { useParams } from 'next/navigation';
@@ -15,7 +18,7 @@ import { useParams } from 'next/navigation';
 export const EventParticipantFilterContext = createContext<{
   filteredParticipants: ParticipantType[];
   changeFilteredParticipants: (participant: ParticipantType) => void;
-  recommendedTimes: RecommendScheduleType[];
+  recommendedTimes: RecommendedScheduleType[];
   schedules: ScheduleType[];
 }>({
   filteredParticipants: [],
@@ -33,7 +36,7 @@ export default function EventParticipantFilterContextProvider({
     ParticipantType[]
   >([]);
   const [recommendedTimes, setRecommendedTimes] = useState<
-    RecommendScheduleType[] | null
+    RecommendedScheduleType[] | null
   >(null);
   const [schedules, setSchedules] = useState<ScheduleType[] | null>(null);
 
