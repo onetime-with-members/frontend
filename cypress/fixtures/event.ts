@@ -34,7 +34,7 @@ export const exampleEventList: {
   {
     name: '오프라인 약속',
     enName: 'Social Gatherings',
-    slug: 'offline-appointment',
+    slug: 'social-gatherings',
     title: 'OneTime 연말 대면 모임',
     recommendedTimes: [
       { date: '12월 26일 금요일', time: '19:00 - 22:00' },

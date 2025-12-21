@@ -38,7 +38,7 @@ export default function EventUseCases() {
           |
         </li>
         <li>
-          <ProgressLink href="/events/offline-appointment">
+          <ProgressLink href="/events/social-gatherings">
             {t('socialGatherings')}
           </ProgressLink>
         </li>

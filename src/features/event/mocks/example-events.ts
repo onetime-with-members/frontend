@@ -4,7 +4,7 @@ import { SHORT_URL_DOMAIN } from '@/constants';
 const exampleEventSlug = {
   meeting: 'team-meeting',
   oneOnOne: 'business-one-on-one',
-  offline: 'offline-appointment',
+  social: 'social-gatherings',
 };
 
 const exampleEventQrCode = (slug: string) =>
@@ -805,9 +805,9 @@ export const exampleEventList: ExampleEventType[] = [
     ],
   },
   {
-    slug: exampleEventSlug.offline,
+    slug: exampleEventSlug.social,
     event: {
-      event_id: exampleEventSlug.offline,
+      event_id: exampleEventSlug.social,
       title: 'OneTime 연말 대면 모임',
       start_time: '00:00',
       end_time: '24:00',
@@ -822,8 +822,8 @@ export const exampleEventList: ExampleEventType[] = [
       ],
       event_status: 'PARTICIPANT',
     },
-    shortUrl: `${SHORT_URL_DOMAIN}/${exampleEventSlug.offline}`,
-    qrCode: exampleEventQrCode(exampleEventSlug.offline),
+    shortUrl: `${SHORT_URL_DOMAIN}/${exampleEventSlug.social}`,
+    qrCode: exampleEventQrCode(exampleEventSlug.social),
     participants: [
       {
         id: 4134,
