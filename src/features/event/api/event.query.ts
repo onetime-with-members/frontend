@@ -1,5 +1,6 @@
 import { defaultEvent } from '../constants';
 import { MemberFilterType } from '../types';
+import { isExampleEventSlug } from '../utils';
 import {
   createEventAction,
   deleteEventAction,
@@ -89,9 +90,17 @@ export function useEditEventMutation() {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isSuccess } = useMutation({
-    mutationFn: editEventAction,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
+    mutationFn: ({
+      eventId,
+      ...rest
+    }: Parameters<typeof editEventAction>[0]) =>
+      isExampleEventSlug(eventId)
+        ? Promise.resolve()
+        : editEventAction({ eventId, ...rest }),
+    onSuccess: async (_, { eventId }) => {
+      if (!isExampleEventSlug(eventId)) {
+        await queryClient.invalidateQueries({ queryKey: ['events'] });
+      }
     },
   });
 

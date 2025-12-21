@@ -8,6 +8,7 @@ export function EditIcon(props: SVGProps<SVGSVGElement>) {
       height="1em"
       fill="none"
       viewBox="0 0 20 20"
+      className="edit-icon"
       {...props}
     >
       <path

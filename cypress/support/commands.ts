@@ -95,6 +95,6 @@ Cypress.Commands.add('removeFirstEvent', () => {
     .find('.grid')
     .contains('a', 'Cypress 테스트용 이벤트')
     .click();
-  cy.get('svg[data-testid="trash-icon"]').click();
+  cy.get('svg.trash-icon').click();
   cy.contains('button', '삭제').click();
 });

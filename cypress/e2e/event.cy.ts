@@ -76,6 +76,15 @@ describe('이벤트', () => {
               cy.contains('button', '스케줄 추가').should('exist');
             });
           });
+          it('이벤트를 수정해도 실제로 수정이 되지 않는다.', () => {
+            cy.visit(`/ko/events/${slug}`);
+
+            cy.get('svg.edit-icon').click();
+            cy.get('[placeholder="어떤 이벤트인가요?"]').clear().type('수정됨');
+            cy.contains('button', '이벤트 수정하기').click();
+
+            cy.get('header').find('h1').should('contain', title);
+          });
         });
       },
     );

@@ -12,7 +12,7 @@ export function TrashIcon(
       height="1em"
       fill="none"
       viewBox="0 0 20 20"
-      data-testid="trash-icon"
+      className="trash-icon"
       {...props}
     >
       <path
