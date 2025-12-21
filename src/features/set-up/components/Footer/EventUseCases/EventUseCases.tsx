@@ -19,24 +19,20 @@ export default function EventUseCases() {
       </span>
       <ul
         aria-labelledby="usage-case-label"
-        className="flex flex-1 flex-col flex-wrap items-start gap-1.5 text-gray-40 text-sm-100 min-[512px]:flex-row"
+        className="flex flex-1 flex-row flex-wrap items-start gap-1.5 text-gray-40 text-sm-100"
       >
         <li>
           <ProgressLink href="/events/team-meeting">
             {t('teamMeetings')}
           </ProgressLink>
         </li>
-        <li aria-hidden="true" className="hidden min-[512px]:block">
-          |
-        </li>
+        <li aria-hidden="true">|</li>
         <li>
           <ProgressLink href="/events/business-one-on-one">
             {t('oneOnOneMeetings')}
           </ProgressLink>
         </li>
-        <li aria-hidden="true" className="hidden min-[512px]:block">
-          |
-        </li>
+        <li aria-hidden="true">|</li>
         <li>
           <ProgressLink href="/events/social-gatherings">
             {t('socialGatherings')}
