@@ -36,7 +36,7 @@ export default function MyEvent({
 
   return (
     <ProgressLink
-      href={`/events/${event.event_id}`}
+      href={`/events/dashboard/${event.event_id}`}
       className={cn(
         'flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5',
         className,

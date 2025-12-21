@@ -37,7 +37,7 @@ export default function ScheduleNewPage() {
       </div>
       {isBackButtonAlertOpen && isScheduleEdited && (
         <BackButtonAlert
-          backHref={`/events/${params.id}`}
+          backHref={`/events/dashboard/${params.id}`}
           setIsOpen={setIsBackButtonAlertOpen}
         />
       )}

@@ -7,7 +7,7 @@ import TopHeader from '../components/detail/TopHeader';
 import TopNavBar from '../components/detail/TopNavBar';
 import GrayBackground from '@/components/GrayBackground';
 
-export default function EventDetailPage() {
+export default function EventDashboardPage() {
   return (
     <div className="flex min-h-[110vh] flex-col">
       <GrayBackground />
