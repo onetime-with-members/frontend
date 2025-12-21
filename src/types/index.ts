@@ -9,3 +9,7 @@ export type ExtendedAxiosError = AxiosError & {
 };
 
 export type RetryApiQueueItem = (accessToken: string) => void;
+
+export interface ToastOptions {
+  type: 'success' | 'error';
+}

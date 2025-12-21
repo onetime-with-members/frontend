@@ -1,4 +1,5 @@
-import { exampleEventList, memberCases } from '../fixtures/event';
+import { languageCases, memberCases } from '../fixtures/common';
+import { exampleEventList } from '../fixtures/event';
 
 describe('이벤트', () => {
   it('이벤트 페이지에서 유저에게는 수정과 삭제 버튼이 모두 보이고, 로그아웃하면 수정 버튼만 보인다.', () => {
@@ -84,6 +85,19 @@ describe('이벤트', () => {
             cy.contains('button', '이벤트 수정하기').click();
 
             cy.get('header').find('h1').should('contain', title);
+          });
+          languageCases.forEach(({ locale, language }) => {
+            it(`참여자 필터 기능이 예시 이벤트에서는 실행되지 않는다. [${language}]`, () => {
+              cy.visit(`/${locale}/events/${slug}`);
+              cy.get('main')
+                .find('ul[date-testid="participant-list"]')
+                .contains('li', participants[0])
+                .click();
+              cy.get('svg.tabler-icon-exclamation-mark').should('exist');
+              cy.contains(
+                locale === 'ko' ? '사용할 수 없는 기능' : 'is not available',
+              ).should('exist');
+            });
           });
         });
       },
