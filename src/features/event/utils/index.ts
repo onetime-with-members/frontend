@@ -1,7 +1,7 @@
 import { exampleEventList } from '../mocks/example-events';
 
-export const foundedExampleEvent = (eventId: string) =>
+export const foundExampleEvent = (eventId: string) =>
   exampleEventList.find(({ slug }) => slug.includes(eventId));
 
 export const isExampleEventSlug = (eventId: string) =>
-  !!foundedExampleEvent(eventId);
+  !!foundExampleEvent(eventId);

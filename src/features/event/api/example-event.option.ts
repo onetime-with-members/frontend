@@ -1,5 +1,5 @@
 import { exampleEventList } from '../mocks/example-events';
-import { foundedExampleEvent } from '../utils';
+import { foundExampleEvent } from '../utils';
 
 export const exampleEventStaleTime = (eventId: string) =>
   exampleEventList
@@ -9,17 +9,17 @@ export const exampleEventStaleTime = (eventId: string) =>
     : 0;
 
 export const exampleEventQueryOptions = (eventId: string) => ({
-  initialData: () => foundedExampleEvent(eventId)?.event,
+  initialData: () => foundExampleEvent(eventId)?.event,
   staleTime: exampleEventStaleTime(eventId),
 });
 
 export const exampleRecommendedTimesOptions = (eventId: string) => ({
-  initialData: () => foundedExampleEvent(eventId)?.recommendedTimes,
+  initialData: () => foundExampleEvent(eventId)?.recommendedTimes,
   staleTime: exampleEventStaleTime(eventId),
 });
 
 export const exampleParticipantsOptions = (eventId: string) => ({
-  initialData: () => foundedExampleEvent(eventId)?.participants,
+  initialData: () => foundExampleEvent(eventId)?.participants,
   staleTime: exampleEventStaleTime(eventId),
 });
 
@@ -27,12 +27,12 @@ export const exampleShortUrlOptions = (url: string) => {
   const eventId = url.split('/').pop() ?? '';
 
   return {
-    initialData: () => foundedExampleEvent(eventId)?.shortUrl,
+    initialData: () => foundExampleEvent(eventId)?.shortUrl,
     staleTime: exampleEventStaleTime(eventId),
   };
 };
 
 export const exampleQrCodeOptions = (eventId: string) => ({
-  initialData: () => foundedExampleEvent(eventId)?.qrCode,
+  initialData: () => foundExampleEvent(eventId)?.qrCode,
   staleTime: exampleEventStaleTime(eventId),
 });

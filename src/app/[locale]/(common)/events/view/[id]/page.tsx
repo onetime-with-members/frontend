@@ -5,7 +5,7 @@ import { fetchEvent } from '@/features/event/api/event.api';
 import { eventQueryOptions } from '@/features/event/api/event.option';
 import EventParticipantFilterContextProvider from '@/features/event/contexts/EventParticipantFilterContext';
 import EventDashboardPage from '@/features/event/pages/EventDashboardPage';
-import { foundedExampleEvent } from '@/features/event/utils';
+import { foundExampleEvent } from '@/features/event/utils';
 import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -17,7 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id, locale } = await params;
 
-  const event = foundedExampleEvent(id)?.event ?? (await fetchEvent(id));
+  const event = foundExampleEvent(id)?.event ?? (await fetchEvent(id));
 
   if (!event) {
     const t404 = await getTranslations({ locale, namespace: '404' });
