@@ -10,8 +10,5 @@ export default async function Page({
 }) {
   const { id: eventId, locale } = await params;
 
-  redirect(
-    { href: `/events/dashboard/${eventId}`, locale },
-    RedirectType.replace,
-  );
+  redirect({ href: `/events/view/${eventId}`, locale }, RedirectType.replace);
 }

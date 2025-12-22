@@ -20,10 +20,7 @@ describe('이벤트', () => {
           it(`푸터에 있는 해당 링크를 클릭하면, 예시 이벤트 페이지로 이동되고 올바른 컨텐츠들이 표시된다.`, () => {
             cy.visit('/ko');
             cy.get('footer').contains('a', name).click();
-            cy.location('pathname').should(
-              'contain',
-              `/events/dashboard/${slug}`,
-            );
+            cy.location('pathname').should('contain', `/events/view/${slug}`);
             cy.get('header').find('h1').should('contain', title);
             recommendedTimes.forEach(({ date, time }) => {
               cy.contains('h2', date).should('exist');
@@ -37,13 +34,10 @@ describe('이벤트', () => {
           it(`영어 버전에서 푸터에 있는 해당 링크를 클릭하면, 예시 이벤트 페이지로 이동된다.`, () => {
             cy.visit('/en');
             cy.get('footer').contains('a', enName).click();
-            cy.location('pathname').should(
-              'contain',
-              `/events/dashboard/${slug}`,
-            );
+            cy.location('pathname').should('contain', `/events/view/${slug}`);
           });
           it(`공유 팝업을 누르고 각 버튼을 클릭하면, 단축 URL과 QR 코드가 불러와진다.`, () => {
-            cy.visit(`/events/dashboard/${slug}`);
+            cy.visit(`/events/view/${slug}`);
 
             cy.get('[alt="종이비행기 아이콘"]').click();
             cy.get(`input[value="${Cypress.env('shortUrl')}/${slug}"]`).should(
@@ -60,7 +54,7 @@ describe('이벤트', () => {
               cy.setCookie('schedule-guide-modal', 'false');
               if (type === 'USER') cy.login();
 
-              cy.visit(`/ko/events/dashboard/${slug}`);
+              cy.visit(`/ko/events/view/${slug}`);
               cy.contains('button', '스케줄 추가').click();
 
               if (type === 'GUEST') {
@@ -79,15 +73,12 @@ describe('이벤트', () => {
               cy.contains('button', '스케줄 등록').click();
 
               if (type === 'GUEST') cy.wait(1000);
-              cy.location('pathname').should(
-                'contain',
-                `/events/dashboard/${slug}`,
-              );
+              cy.location('pathname').should('contain', `/events/view/${slug}`);
               cy.contains('button', '스케줄 추가').should('exist');
             });
           });
           it('이벤트를 수정해도 실제로 수정이 되지 않는다.', () => {
-            cy.visit(`/ko/events/dashboard/${slug}`);
+            cy.visit(`/ko/events/view/${slug}`);
 
             cy.get('svg.edit-icon').click();
             cy.get('[placeholder="어떤 이벤트인가요?"]').clear().type('수정됨');
@@ -97,7 +88,7 @@ describe('이벤트', () => {
           });
           languageCases.forEach(({ locale, language }) => {
             it(`참여자 필터 기능이 예시 이벤트에서는 실행되지 않는다. [${language}]`, () => {
-              cy.visit(`/${locale}/events/dashboard/${slug}`);
+              cy.visit(`/${locale}/events/view/${slug}`);
               cy.get('main')
                 .find('ul[date-testid="participant-list"]')
                 .contains('li', participants[0])

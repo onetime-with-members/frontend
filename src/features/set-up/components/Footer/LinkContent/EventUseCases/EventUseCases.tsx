@@ -22,19 +22,19 @@ export default function EventUseCases() {
         className="flex flex-1 flex-row flex-wrap items-start gap-1.5 text-gray-40 text-sm-100"
       >
         <li>
-          <ProgressLink href="/events/dashboard/team-meeting">
+          <ProgressLink href="/events/view/team-meeting">
             {t('teamMeetings')}
           </ProgressLink>
         </li>
         <li aria-hidden="true">|</li>
         <li>
-          <ProgressLink href="/events/dashboard/business-one-on-one">
+          <ProgressLink href="/events/view/business-one-on-one">
             {t('oneOnOneMeetings')}
           </ProgressLink>
         </li>
         <li aria-hidden="true">|</li>
         <li>
-          <ProgressLink href="/events/dashboard/social-gatherings">
+          <ProgressLink href="/events/view/social-gatherings">
             {t('socialGatherings')}
           </ProgressLink>
         </li>

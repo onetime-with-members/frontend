@@ -48,6 +48,8 @@ describe('스케줄 등록', () => {
 
     cy.get('[data-testid="schedule-guide-modal"]').should('not.exist');
     cy.getCookie('schedule-guide-modal').should('exist');
+
+    cy.removeFirstEvent();
   });
 
   it('비회원일 경우, 첫 접속 시에 스케줄 가이드 모달이 보여지고 이후 접속 시에는 보여지지 않는다.', () => {
@@ -89,6 +91,8 @@ describe('스케줄 등록', () => {
 
     cy.getCookie('schedule-guide-modal').should('exist');
     cy.get('[data-testid="schedule-guide-modal"]').should('not.exist');
+
+    cy.removeFirstEvent();
   });
 
   it('스케줄 가이드 모달을 표시해야 할 경우, 가이드 이미지들이 preload된다.', () => {

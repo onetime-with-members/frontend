@@ -72,7 +72,7 @@ export default function ScheduleFormSubScreen() {
       });
     }
     await addNewEditedEvent(params.id);
-    progressRouter.push(`/events/dashboard/${params.id}`);
+    progressRouter.push(`/events/view/${params.id}`);
   }
 
   useEffect(() => {
