@@ -4,6 +4,7 @@ import { Locale } from 'next-intl';
 import { fetchEvent } from '@/features/event/api/event.api';
 import { eventQueryOptions } from '@/features/event/api/event.option';
 import EventParticipantFilterContextProvider from '@/features/event/contexts/EventParticipantFilterContext';
+import { exampleEventList } from '@/features/event/mocks/example-events';
 import EventDashboardPage from '@/features/event/pages/EventDashboardPage';
 import { foundExampleEvent } from '@/features/event/utils';
 import { QueryClient } from '@tanstack/react-query';
@@ -46,6 +47,10 @@ export async function generateMetadata({
           : 'Go to the link to add your availability and find a time that works for everyone.',
     },
   };
+}
+
+export function generateStaticParams() {
+  return exampleEventList.map(({ slug }) => ({ id: slug }));
 }
 
 export default async function Page({
