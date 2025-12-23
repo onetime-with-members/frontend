@@ -15,7 +15,7 @@ export const exampleEventList: ExampleEventType[] = [
     slug: exampleEventSlug.meeting,
     event: {
       event_id: exampleEventSlug.meeting,
-      title: 'OneTime 스프린트 11 계획 회의',
+      title: '원타임 스프린트 계획 회의  (예시)',
       start_time: '00:00',
       end_time: '24:00',
       category: 'DATE',
@@ -502,7 +502,7 @@ export const exampleEventList: ExampleEventType[] = [
     slug: exampleEventSlug.oneOnOne,
     event: {
       event_id: exampleEventSlug.oneOnOne,
-      title: 'OneTime 유저 인터뷰 이재현님',
+      title: '원타임 유저 인터뷰 이재현님  (예시)',
       start_time: '00:00',
       end_time: '24:00',
       category: 'DATE',
@@ -808,7 +808,7 @@ export const exampleEventList: ExampleEventType[] = [
     slug: exampleEventSlug.social,
     event: {
       event_id: exampleEventSlug.social,
-      title: 'OneTime 연말 대면 모임',
+      title: '원타임 연말 대면 모임  (예시)',
       start_time: '00:00',
       end_time: '24:00',
       category: 'DATE',
