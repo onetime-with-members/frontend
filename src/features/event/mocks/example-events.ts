@@ -33,33 +33,33 @@ export const exampleEventList: ExampleEventType[] = [
     participants: [
       {
         id: 2193,
-        name: '이어령',
+        name: '이지우',
         type: 'GUEST',
       },
       {
         id: 2209,
-        name: '전희수',
+        name: '전예린',
         type: 'GUEST',
       },
       {
         id: 2213,
-        name: '구름',
+        name: '구하은',
         type: 'GUEST',
       },
       {
         id: 328,
-        name: '홍민서',
+        name: '홍시우',
         type: 'USER',
       },
       {
         id: 19,
-        name: '한상호',
+        name: '한태영',
         type: 'USER',
       },
     ],
     schedules: [
       {
-        name: '이어령',
+        name: '이지우',
         schedules: [
           {
             times: ['23:30'],
@@ -84,7 +84,7 @@ export const exampleEventList: ExampleEventType[] = [
         ],
       },
       {
-        name: '전희수',
+        name: '전예린',
         schedules: [
           {
             times: ['23:00', '23:30'],
@@ -109,7 +109,7 @@ export const exampleEventList: ExampleEventType[] = [
         ],
       },
       {
-        name: '구름',
+        name: '구하은',
         schedules: [
           {
             times: [
@@ -158,7 +158,7 @@ export const exampleEventList: ExampleEventType[] = [
         ],
       },
       {
-        name: '홍민서',
+        name: '홍시우',
         schedules: [
           {
             times: [
@@ -268,7 +268,7 @@ export const exampleEventList: ExampleEventType[] = [
         ],
       },
       {
-        name: '한상호',
+        name: '한태영',
         schedules: [
           {
             times: ['00:00', '00:30', '01:00', '01:30', '23:00', '23:30'],
@@ -421,7 +421,7 @@ export const exampleEventList: ExampleEventType[] = [
         start_time: '23:30',
         end_time: '24:00',
         possible_count: 5,
-        possible_names: ['홍민서', '한상호', '이어령', '전희수', '구름'],
+        possible_names: ['홍시우', '한태영', '이지우', '전예린', '구하은'],
         impossible_names: [],
       },
       {
@@ -429,72 +429,72 @@ export const exampleEventList: ExampleEventType[] = [
         start_time: '23:30',
         end_time: '24:00',
         possible_count: 4,
-        possible_names: ['홍민서', '이어령', '전희수', '구름'],
-        impossible_names: ['한상호'],
+        possible_names: ['홍시우', '이지우', '전예린', '구하은'],
+        impossible_names: ['한태영'],
       },
       {
         time_point: '2025.05.23',
         start_time: '23:00',
         end_time: '23:30',
         possible_count: 4,
-        possible_names: ['홍민서', '한상호', '전희수', '구름'],
-        impossible_names: ['이어령'],
+        possible_names: ['홍시우', '한태영', '전예린', '구하은'],
+        impossible_names: ['이지우'],
       },
       {
         time_point: '2025.05.19',
         start_time: '23:30',
         end_time: '24:00',
         possible_count: 3,
-        possible_names: ['홍민서', '한상호', '이어령'],
-        impossible_names: ['전희수', '구름'],
+        possible_names: ['홍시우', '한태영', '이지우'],
+        impossible_names: ['전예린', '구하은'],
       },
       {
         time_point: '2025.05.20',
         start_time: '00:00',
         end_time: '00:30',
         possible_count: 3,
-        possible_names: ['홍민서', '한상호', '이어령'],
-        impossible_names: ['전희수', '구름'],
+        possible_names: ['홍시우', '한태영', '이지우'],
+        impossible_names: ['전예린', '구하은'],
       },
       {
         time_point: '2025.05.20',
         start_time: '23:00',
         end_time: '23:30',
         possible_count: 3,
-        possible_names: ['홍민서', '한상호', '이어령'],
-        impossible_names: ['전희수', '구름'],
+        possible_names: ['홍시우', '한태영', '이지우'],
+        impossible_names: ['전예린', '구하은'],
       },
       {
         time_point: '2025.05.21',
         start_time: '21:00',
         end_time: '24:00',
         possible_count: 3,
-        possible_names: ['홍민서', '한상호', '이어령'],
-        impossible_names: ['전희수', '구름'],
+        possible_names: ['홍시우', '한태영', '이지우'],
+        impossible_names: ['전예린', '구하은'],
       },
       {
         time_point: '2025.05.22',
         start_time: '23:00',
         end_time: '23:30',
         possible_count: 3,
-        possible_names: ['홍민서', '전희수', '구름'],
-        impossible_names: ['이어령', '한상호'],
+        possible_names: ['홍시우', '전예린', '구하은'],
+        impossible_names: ['이지우', '한태영'],
       },
       {
         time_point: '2025.05.23',
         start_time: '00:00',
         end_time: '01:00',
         possible_count: 3,
-        possible_names: ['홍민서', '한상호', '전희수'],
-        impossible_names: ['이어령', '구름'],
+        possible_names: ['홍시우', '한태영', '전예린'],
+        impossible_names: ['이지우', '구하은'],
       },
       {
         time_point: '2025.05.23',
         start_time: '15:30',
         end_time: '17:00',
         possible_count: 3,
-        possible_names: ['한상호', '전희수', '구름'],
-        impossible_names: ['이어령', '홍민서'],
+        possible_names: ['한태영', '전예린', '구하은'],
+        impossible_names: ['이지우', '홍시우'],
       },
     ],
   },
@@ -502,7 +502,7 @@ export const exampleEventList: ExampleEventType[] = [
     slug: exampleEventSlug.oneOnOne,
     event: {
       event_id: exampleEventSlug.oneOnOne,
-      title: 'OneTime 유저 인터뷰 이현수님',
+      title: 'OneTime 유저 인터뷰 이재현님',
       start_time: '00:00',
       end_time: '24:00',
       category: 'DATE',
@@ -521,12 +521,12 @@ export const exampleEventList: ExampleEventType[] = [
     participants: [
       {
         id: 328,
-        name: '홍민서',
+        name: '홍시우',
         type: 'USER',
       },
       {
         id: 153,
-        name: '이현수',
+        name: '이재현',
         type: 'USER',
       },
     ],
@@ -536,7 +536,7 @@ export const exampleEventList: ExampleEventType[] = [
         start_time: '19:00',
         end_time: '24:00',
         possible_count: 2,
-        possible_names: ['이현수', '홍민서'],
+        possible_names: ['이재현', '홍시우'],
         impossible_names: [],
       },
       {
@@ -544,7 +544,7 @@ export const exampleEventList: ExampleEventType[] = [
         start_time: '19:00',
         end_time: '24:00',
         possible_count: 2,
-        possible_names: ['이현수', '홍민서'],
+        possible_names: ['이재현', '홍시우'],
         impossible_names: [],
       },
       {
@@ -552,7 +552,7 @@ export const exampleEventList: ExampleEventType[] = [
         start_time: '19:00',
         end_time: '24:00',
         possible_count: 2,
-        possible_names: ['이현수', '홍민서'],
+        possible_names: ['이재현', '홍시우'],
         impossible_names: [],
       },
       {
@@ -560,7 +560,7 @@ export const exampleEventList: ExampleEventType[] = [
         start_time: '19:00',
         end_time: '24:00',
         possible_count: 2,
-        possible_names: ['이현수', '홍민서'],
+        possible_names: ['이재현', '홍시우'],
         impossible_names: [],
       },
       {
@@ -568,7 +568,7 @@ export const exampleEventList: ExampleEventType[] = [
         start_time: '20:00',
         end_time: '20:30',
         possible_count: 2,
-        possible_names: ['이현수', '홍민서'],
+        possible_names: ['이재현', '홍시우'],
         impossible_names: [],
       },
       {
@@ -576,45 +576,45 @@ export const exampleEventList: ExampleEventType[] = [
         start_time: '16:30',
         end_time: '19:00',
         possible_count: 1,
-        possible_names: ['이현수'],
-        impossible_names: ['홍민서'],
+        possible_names: ['이재현'],
+        impossible_names: ['홍시우'],
       },
       {
         time_point: '2025.10.10',
         start_time: '16:30',
         end_time: '19:00',
         possible_count: 1,
-        possible_names: ['이현수'],
-        impossible_names: ['홍민서'],
+        possible_names: ['이재현'],
+        impossible_names: ['홍시우'],
       },
       {
         time_point: '2025.10.11',
         start_time: '16:30',
         end_time: '19:00',
         possible_count: 1,
-        possible_names: ['이현수'],
-        impossible_names: ['홍민서'],
+        possible_names: ['이재현'],
+        impossible_names: ['홍시우'],
       },
       {
         time_point: '2025.10.12',
         start_time: '16:30',
         end_time: '19:00',
         possible_count: 1,
-        possible_names: ['이현수'],
-        impossible_names: ['홍민서'],
+        possible_names: ['이재현'],
+        impossible_names: ['홍시우'],
       },
       {
         time_point: '2025.10.13',
         start_time: '20:00',
         end_time: '24:00',
         possible_count: 1,
-        possible_names: ['홍민서'],
-        impossible_names: ['이현수'],
+        possible_names: ['홍시우'],
+        impossible_names: ['이재현'],
       },
     ],
     schedules: [
       {
-        name: '홍민서',
+        name: '홍시우',
         schedules: [
           {
             times: [
@@ -705,7 +705,7 @@ export const exampleEventList: ExampleEventType[] = [
         ],
       },
       {
-        name: '이현수',
+        name: '이재현',
         schedules: [
           {
             times: [
@@ -827,32 +827,32 @@ export const exampleEventList: ExampleEventType[] = [
     participants: [
       {
         id: 4134,
-        name: '이어령',
+        name: '이지우',
         type: 'GUEST',
       },
       {
         id: 4135,
-        name: '구름',
+        name: '구하은',
         type: 'GUEST',
       },
       {
         id: 4137,
-        name: '전희수',
+        name: '전예린',
         type: 'GUEST',
       },
       {
         id: 328,
-        name: '홍민서',
+        name: '홍시우',
         type: 'USER',
       },
       {
         id: 469,
-        name: '박채수',
+        name: '박수민',
         type: 'USER',
       },
       {
         id: 19,
-        name: '한상호',
+        name: '한태영',
         type: 'USER',
       },
     ],
@@ -863,12 +863,12 @@ export const exampleEventList: ExampleEventType[] = [
         end_time: '22:00',
         possible_count: 6,
         possible_names: [
-          '홍민서',
-          '이어령',
-          '구름',
-          '박채수',
-          '전희수',
-          '한상호',
+          '홍시우',
+          '이지우',
+          '구하은',
+          '박수민',
+          '전예린',
+          '한태영',
         ],
         impossible_names: [],
       },
@@ -877,77 +877,77 @@ export const exampleEventList: ExampleEventType[] = [
         start_time: '18:00',
         end_time: '19:00',
         possible_count: 5,
-        possible_names: ['홍민서', '이어령', '구름', '박채수', '전희수'],
-        impossible_names: ['한상호'],
+        possible_names: ['홍시우', '이지우', '구하은', '박수민', '전예린'],
+        impossible_names: ['한태영'],
       },
       {
         time_point: '2025.12.26',
         start_time: '22:00',
         end_time: '24:00',
         possible_count: 5,
-        possible_names: ['홍민서', '이어령', '구름', '전희수', '한상호'],
-        impossible_names: ['박채수'],
+        possible_names: ['홍시우', '이지우', '구하은', '전예린', '한태영'],
+        impossible_names: ['박수민'],
       },
       {
         time_point: '2025.12.27',
         start_time: '09:00',
         end_time: '15:00',
         possible_count: 5,
-        possible_names: ['홍민서', '이어령', '구름', '전희수', '한상호'],
-        impossible_names: ['박채수'],
+        possible_names: ['홍시우', '이지우', '구하은', '전예린', '한태영'],
+        impossible_names: ['박수민'],
       },
       {
         time_point: '2025.12.27',
         start_time: '17:00',
         end_time: '22:00',
         possible_count: 5,
-        possible_names: ['홍민서', '구름', '박채수', '전희수', '한상호'],
-        impossible_names: ['이어령'],
+        possible_names: ['홍시우', '구하은', '박수민', '전예린', '한태영'],
+        impossible_names: ['이지우'],
       },
       {
         time_point: '2025.12.12',
         start_time: '18:00',
         end_time: '22:00',
         possible_count: 4,
-        possible_names: ['홍민서', '구름', '박채수', '전희수'],
-        impossible_names: ['이어령', '한상호'],
+        possible_names: ['홍시우', '구하은', '박수민', '전예린'],
+        impossible_names: ['이지우', '한태영'],
       },
       {
         time_point: '2025.12.19',
         start_time: '19:00',
         end_time: '22:00',
         possible_count: 4,
-        possible_names: ['홍민서', '구름', '박채수', '한상호'],
-        impossible_names: ['이어령', '전희수'],
+        possible_names: ['홍시우', '구하은', '박수민', '한태영'],
+        impossible_names: ['이지우', '전예린'],
       },
       {
         time_point: '2025.12.27',
         start_time: '15:00',
         end_time: '17:00',
         possible_count: 4,
-        possible_names: ['홍민서', '구름', '전희수', '한상호'],
-        impossible_names: ['이어령', '박채수'],
+        possible_names: ['홍시우', '구하은', '전예린', '한태영'],
+        impossible_names: ['이지우', '박수민'],
       },
       {
         time_point: '2025.12.27',
         start_time: '22:00',
         end_time: '24:00',
         possible_count: 4,
-        possible_names: ['홍민서', '구름', '전희수', '한상호'],
-        impossible_names: ['이어령', '박채수'],
+        possible_names: ['홍시우', '구하은', '전예린', '한태영'],
+        impossible_names: ['이지우', '박수민'],
       },
       {
         time_point: '2025.12.12',
         start_time: '22:00',
         end_time: '24:00',
         possible_count: 3,
-        possible_names: ['홍민서', '구름', '전희수'],
-        impossible_names: ['이어령', '박채수', '한상호'],
+        possible_names: ['홍시우', '구하은', '전예린'],
+        impossible_names: ['이지우', '박수민', '한태영'],
       },
     ],
     schedules: [
       {
-        name: '이어령',
+        name: '이지우',
         schedules: [
           {
             times: [
@@ -1004,7 +1004,7 @@ export const exampleEventList: ExampleEventType[] = [
         ],
       },
       {
-        name: '구름',
+        name: '구하은',
         schedules: [
           {
             times: [
@@ -1166,7 +1166,7 @@ export const exampleEventList: ExampleEventType[] = [
         ],
       },
       {
-        name: '전희수',
+        name: '전예린',
         schedules: [
           {
             times: [
@@ -1259,7 +1259,7 @@ export const exampleEventList: ExampleEventType[] = [
         ],
       },
       {
-        name: '홍민서',
+        name: '홍시우',
         schedules: [
           {
             times: [
@@ -1480,7 +1480,7 @@ export const exampleEventList: ExampleEventType[] = [
         ],
       },
       {
-        name: '박채수',
+        name: '박수민',
         schedules: [
           {
             times: [
@@ -1560,7 +1560,7 @@ export const exampleEventList: ExampleEventType[] = [
         ],
       },
       {
-        name: '한상호',
+        name: '한태영',
         schedules: [
           {
             times: [

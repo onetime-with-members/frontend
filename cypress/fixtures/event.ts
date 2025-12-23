@@ -18,18 +18,18 @@ export const exampleEventList: {
       { date: '5월 23일 금요일', time: '23:30 - 24:00' },
       { date: '5월 22일 목요일', time: '23:30 - 24:00' },
     ],
-    participants: ['이어령', '구름', '전희수', '홍민서', '한상호'],
+    participants: ['이지우', '구하은', '전예린', '홍시우', '한태영'],
   },
   {
     name: '1:1 비즈니스 미팅',
     enName: '1:1 Business Meetings',
     slug: 'business-one-on-one',
-    title: 'OneTime 유저 인터뷰 이현수님',
+    title: 'OneTime 유저 인터뷰 이재현님',
     recommendedTimes: [
       { date: '10월 9일 목요일', time: '19:00 - 24:00' },
       { date: '10월 10일 금요일', time: '19:00 - 24:00' },
     ],
-    participants: ['이현수', '홍민서'],
+    participants: ['이재현', '홍시우'],
   },
   {
     name: '오프라인 약속',
@@ -40,6 +40,6 @@ export const exampleEventList: {
       { date: '12월 26일 금요일', time: '19:00 - 22:00' },
       { date: '12월 26일 금요일', time: '18:00 - 19:00' },
     ],
-    participants: ['이어령', '구름', '전희수', '홍민서', '박채수', '한상호'],
+    participants: ['이지우', '구하은', '전예린', '홍시우', '박수민', '한태영'],
   },
 ];
