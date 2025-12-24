@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 
-import { MyEventListType } from '../types';
 import {
   createUserAction,
   editUserLanguageAction,
@@ -10,6 +9,7 @@ import {
 } from './user.api';
 import {
   myEventListInfiniteQueryOptions,
+  recentMyEventListQueryOptions,
   userPolicyQueryOptions,
   userQueryOptions,
 } from './user.options';
@@ -31,20 +31,20 @@ export function useUserQuery() {
   return { data };
 }
 
-// export function useMyEventsQuery(size: number, cursor: string = '') {
-//   const { data, isPending } = useMyEventListInfiniteQuery(size, cursor);
+export function useRecentMyEventListQuery() {
+  const { data, isPending } = useQuery({
+    ...recentMyEventListQueryOptions,
+  });
 
-//   const events = data?.pages.flatMap((page) => page.events) ?? [];
-//   const pageCursorInfo = data
-//     ? data.pages[data.pages.length - 1].page_cursor_info
-//     : undefined;
-
-//   return { data, events, pageCursorInfo, isPending };
-// }
+  return {
+    data: data || [],
+    isPending,
+  };
+}
 
 export function useMyEventListInfiniteQuery() {
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading } =
-    useInfiniteQuery<MyEventListType>({
+    useInfiniteQuery({
       ...myEventListInfiniteQueryOptions,
     });
 

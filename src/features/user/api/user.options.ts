@@ -1,4 +1,4 @@
-import { MyEventListType, PolicySchema, UserType } from '../types';
+import { MyEventListType, MyEventType, PolicySchema, UserType } from '../types';
 import {
   fetchMyEventList,
   fetchUserPolicy,
@@ -11,17 +11,19 @@ export const userQueryOptions = queryOptions<UserType>({
   queryFn: fetchUserProfile,
 });
 
-// export const myEventsQueryOptions = (size: number, cursor: string) =>
-//   queryOptions<MyEventListType>({
-//     queryKey: ['events', 'user', 'all', size, cursor ?? null],
-//     queryFn: () => fetchMyEventList(size, cursor),
-//   });
+export const recentMyEventListQueryOptions = queryOptions<MyEventType[]>({
+  queryKey: ['events', 'user', 'all', 'recent'],
+  queryFn: async () => {
+    const { events } = await fetchMyEventList({ size: 2 });
+    return events;
+  },
+});
 
 export const myEventListInfiniteQueryOptions =
   infiniteQueryOptions<MyEventListType>({
-    queryKey: ['events', 'user', 'infinite'],
-    queryFn: ({ pageParam }) =>
-      fetchMyEventList({ size: 4, cursor: pageParam as string }),
+    queryKey: ['events', 'user', 'all', 'infinite'],
+    queryFn: ({ pageParam: cursor }) =>
+      fetchMyEventList({ size: 4, cursor: cursor as string }),
     initialPageParam: '',
     getNextPageParam: ({
       page_cursor_info: { has_next: hasNext, next_cursor: nextCursor },

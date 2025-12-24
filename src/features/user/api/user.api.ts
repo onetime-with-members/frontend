@@ -8,10 +8,10 @@ export async function fetchUserProfile() {
 
 export async function fetchMyEventList({
   size,
-  cursor,
+  cursor = '',
 }: {
   size: number;
-  cursor: string;
+  cursor?: string;
 }): Promise<MyEventListType> {
   const res = await apiClient.get('/events/user/all', {
     params: {

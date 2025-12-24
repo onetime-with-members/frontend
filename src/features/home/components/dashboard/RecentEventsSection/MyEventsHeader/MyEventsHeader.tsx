@@ -1,26 +1,26 @@
 import { useTranslations } from 'next-intl';
 
 import Header from '../../Header';
-import { useMyEventsQuery } from '@/features/user/api/user.query';
+import { useRecentMyEventListQuery } from '@/features/user/api/user.query';
 import cn from '@/lib/cn';
 
 export default function MyEventsHeader() {
-  const { events: myEvents } = useMyEventsQuery(4);
-
   const t = useTranslations('userDashboard');
+
+  const { data: myEventList } = useRecentMyEventListQuery();
 
   return (
     <Header moreHref="/mypage/events">
       <span
         className={cn('block md:hidden', {
-          'md:block': myEvents?.length === 1,
+          'md:block': myEventList.length === 1,
         })}
       >
         {t('recentEvent')}
       </span>
       <span
         className={cn('hidden md:block', {
-          'md:hidden': myEvents?.length === 1,
+          'md:hidden': myEventList.length === 1,
         })}
       >
         {t('recentEvents')}
