@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
-import MyEventsPage from '@/features/user/pages/MyEventsPage';
+import MyEventListPage from '@/features/user/pages/MyEventListPage';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({
@@ -18,5 +18,5 @@ export async function generateMetadata({
 }
 
 export default async function Page() {
-  return <MyEventsPage />;
+  return <MyEventListPage />;
 }

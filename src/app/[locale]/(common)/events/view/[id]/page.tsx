@@ -5,7 +5,7 @@ import { fetchEvent } from '@/features/event/api/event.api';
 import { eventQueryOptions } from '@/features/event/api/event.option';
 import EventParticipantFilterContextProvider from '@/features/event/contexts/EventParticipantFilterContext';
 import { exampleEventList } from '@/features/event/mocks/example-events';
-import EventDashboardPage from '@/features/event/pages/EventDashboardPage';
+import EventDetailPage from '@/features/event/pages/EventDetailPage';
 import { foundExampleEvent } from '@/features/event/utils';
 import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
@@ -70,7 +70,7 @@ export default async function Page({
 
   return (
     <EventParticipantFilterContextProvider>
-      <EventDashboardPage />
+      <EventDetailPage />
     </EventParticipantFilterContextProvider>
   );
 }

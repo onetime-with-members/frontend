@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 
 import InfiniteScrollTrigger from './InfiniteScrollTrigger';
 import MyEventListSkeleton from './MyEventListSkeleton';
+import GrayBackground from '@/components/GrayBackground';
 import { useMyEventListInfiniteQuery } from '@/features/user/api/user.query';
 import MyEvent from '@/features/user/components/shared/MyEvent';
 
@@ -20,6 +21,7 @@ export default function MyEventList() {
 
   return (
     <div className="flex flex-col gap-5 px-4 py-5" data-testid="my-event-list">
+      <GrayBackground device="mobile" breakpoint="md" />
       {data.pages.map(({ events }) =>
         events.map((event) => (
           <MyEvent
