@@ -1,3 +1,7 @@
+import {
+  MY_EVENT_LIST_PAGINATION_SIZE,
+  RECENT_MY_EVENT_LIST_LENGTH,
+} from '../constants';
 import { MyEventListType, MyEventType, PolicySchema, UserType } from '../types';
 import {
   fetchMyEventList,
@@ -14,7 +18,9 @@ export const userQueryOptions = queryOptions<UserType>({
 export const recentMyEventListQueryOptions = queryOptions<MyEventType[]>({
   queryKey: ['events', 'user', 'all', 'recent'],
   queryFn: async () => {
-    const { events } = await fetchMyEventList({ size: 2 });
+    const { events } = await fetchMyEventList({
+      size: RECENT_MY_EVENT_LIST_LENGTH,
+    });
     return events;
   },
 });
@@ -23,7 +29,10 @@ export const myEventListInfiniteQueryOptions =
   infiniteQueryOptions<MyEventListType>({
     queryKey: ['events', 'user', 'all', 'infinite'],
     queryFn: ({ pageParam: cursor }) =>
-      fetchMyEventList({ size: 4, cursor: cursor as string }),
+      fetchMyEventList({
+        size: MY_EVENT_LIST_PAGINATION_SIZE,
+        cursor: cursor as string,
+      }),
     initialPageParam: '',
     getNextPageParam: ({
       page_cursor_info: { has_next: hasNext, next_cursor: nextCursor },

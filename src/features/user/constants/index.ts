@@ -5,6 +5,9 @@ import {
   UserType,
 } from '../types';
 
+export const RECENT_MY_EVENT_LIST_LENGTH = 2;
+export const MY_EVENT_LIST_PAGINATION_SIZE = 4;
+
 export const defaultUser: UserType = {
   nickname: '',
   email: '',
