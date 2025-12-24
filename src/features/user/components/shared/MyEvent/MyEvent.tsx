@@ -44,6 +44,7 @@ export default function MyEvent({
       style={{
         ...(isPending && { backgroundColor: SKELETON_GRAY }),
       }}
+      {...(!isPending && { 'data-testid': 'my-event' })}
     >
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-1 text-gray-30 text-sm-200">

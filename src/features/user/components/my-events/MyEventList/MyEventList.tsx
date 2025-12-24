@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import MyEventListLayout from '../MyEventListLayout';
 import InfiniteScrollTrigger from './InfiniteScrollTrigger';
 import MyEventListSkeleton from './MyEventListSkeleton';
 import { useMyEventListInfiniteQuery } from '@/features/user/api/user.query';
@@ -20,7 +19,7 @@ export default function MyEventList() {
   }, [inView, hasNextPage, fetchNextPage]);
 
   return (
-    <MyEventListLayout>
+    <div className="flex flex-col gap-5 px-4 py-5" data-testid="my-event-list">
       {data.pages.map(({ events }) =>
         events.map((event) => (
           <MyEvent
@@ -32,6 +31,6 @@ export default function MyEventList() {
       )}
       {isFetching && <MyEventListSkeleton />}
       <InfiniteScrollTrigger ref={ref} />
-    </MyEventListLayout>
+    </div>
   );
 }

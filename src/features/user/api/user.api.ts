@@ -16,7 +16,7 @@ export async function fetchMyEventList({
   const res = await apiClient.get('/events/user/all', {
     params: {
       size,
-      cursor,
+      ...(cursor && { cursor }),
     },
   });
   return res.data.payload;

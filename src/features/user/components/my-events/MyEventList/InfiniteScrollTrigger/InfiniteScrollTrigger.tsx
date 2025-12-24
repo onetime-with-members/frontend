@@ -5,5 +5,11 @@ export default function InfiniteScrollTrigger({
 }: {
   ref: InViewHookResponse['ref'];
 }) {
-  return <div ref={ref} className="h-8 w-full" />;
+  return (
+    <div
+      ref={ref}
+      className="h-8 w-full"
+      data-testid="infinite-scroll-trigger"
+    />
+  );
 }
