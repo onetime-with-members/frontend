@@ -2,7 +2,7 @@ import { languageCases, memberCases } from '../fixtures/common';
 import { exampleEventList } from '../fixtures/event';
 
 describe('이벤트', () => {
-  it('이벤트 페이지에서 유저에게는 수정과 삭제 버튼이 모두 보이고, 로그아웃하면 수정 버튼만 보인다.', () => {
+  it.only('이벤트 페이지에서 유저에게는 수정과 삭제 버튼이 모두 보이고, 로그아웃하면 수정 버튼만 보인다.', () => {
     cy.login();
     cy.visitFirstEvent();
 

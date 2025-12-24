@@ -26,7 +26,7 @@ export interface MyEventType {
   }[];
 }
 
-export interface MyEventsType {
+export interface MyEventListType {
   events: MyEventType[];
   page_cursor_info: {
     next_cursor: string | null;

@@ -1,17 +1,28 @@
 'use client';
 
-import { useInfiniteMyEventsQuery } from '../api/user.query';
+import { useMyEventListInfiniteQuery } from '../api/user.query';
 import EmptyMyEvents from '../components/my-events/EmptyMyEvents';
 import MyEventList from '../components/my-events/MyEventList';
+import GrayBackground from '@/components/GrayBackground';
 
 export default function MyEventsPage() {
-  const { data } = useInfiniteMyEventsQuery(4);
+  const { data, isLoading } = useMyEventListInfiniteQuery();
 
-  const events = data?.pages.flatMap((page) => page.events) ?? [];
+  const flatEventList = data?.pages.flatMap(({ events }) => events) ?? [];
+  const isEmpty = !isLoading && flatEventList.length === 0;
 
-  if (!data) {
-    return <MyEventList />;
+  let content;
+
+  if (isEmpty) {
+    content = <EmptyMyEvents />;
+  } else {
+    content = <MyEventList />;
   }
 
-  return events.length === 0 ? <EmptyMyEvents /> : <MyEventList />;
+  return (
+    <>
+      <GrayBackground device="mobile" breakpoint="md" />
+      {content}
+    </>
+  );
 }

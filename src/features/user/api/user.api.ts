@@ -1,4 +1,4 @@
-import { MyEventsType, OnboardingType, PolicySchema } from '../types';
+import { MyEventListType, OnboardingType, PolicySchema } from '../types';
 import apiClient from '@/lib/api';
 
 export async function fetchUserProfile() {
@@ -6,14 +6,17 @@ export async function fetchUserProfile() {
   return res.data.payload;
 }
 
-export async function fetchMyEvents(
-  size: number,
-  cursor?: string,
-): Promise<MyEventsType> {
-  const res = await apiClient.get('/events/user/all/v2', {
+export async function fetchMyEventList({
+  size,
+  cursor,
+}: {
+  size: number;
+  cursor: string;
+}): Promise<MyEventListType> {
+  const res = await apiClient.get('/events/user/all', {
     params: {
       size,
-      ...(cursor && { cursor }),
+      cursor,
     },
   });
   return res.data.payload;

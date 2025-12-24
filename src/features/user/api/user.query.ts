@@ -1,15 +1,18 @@
 import { useContext } from 'react';
 
-import { MyEventsType } from '../types';
+import { MyEventListType } from '../types';
 import {
   createUserAction,
   editUserLanguageAction,
   editUserNameAction,
   editUserPolicyAction,
-  fetchMyEvents,
   withdrawAction,
 } from './user.api';
-import { userPolicyQueryOptions, userQueryOptions } from './user.options';
+import {
+  myEventListInfiniteQueryOptions,
+  userPolicyQueryOptions,
+  userQueryOptions,
+} from './user.options';
 import { SessionContext } from '@/features/auth/contexts/SessionContext';
 import { useAuth } from '@/lib/auth';
 import {
@@ -27,35 +30,24 @@ export function useUserQuery() {
   return { data };
 }
 
-export function useMyEventsQuery(size: number, cursor: string = '') {
-  const { data, isPending } = useInfiniteMyEventsQuery(size, cursor);
+// export function useMyEventsQuery(size: number, cursor: string = '') {
+//   const { data, isPending } = useMyEventListInfiniteQuery(size, cursor);
 
-  const events = data?.pages.flatMap((page) => page.events) ?? [];
-  const pageCursorInfo = data
-    ? data.pages[data.pages.length - 1].page_cursor_info
-    : undefined;
+//   const events = data?.pages.flatMap((page) => page.events) ?? [];
+//   const pageCursorInfo = data
+//     ? data.pages[data.pages.length - 1].page_cursor_info
+//     : undefined;
 
-  return { data, events, pageCursorInfo, isPending };
-}
+//   return { data, events, pageCursorInfo, isPending };
+// }
 
-export function useInfiniteMyEventsQuery(
-  size: number = 4,
-  initialCursor: string = '',
-) {
-  return useInfiniteQuery<MyEventsType>({
-    queryKey: ['events', 'user', 'infinite', size, initialCursor],
-    queryFn: ({ pageParam }) => fetchMyEvents(size, pageParam as string),
-    initialPageParam: initialCursor,
-    getNextPageParam: (lastPage) => {
-      if (
-        !lastPage.page_cursor_info.has_next ||
-        !lastPage.page_cursor_info.next_cursor
-      ) {
-        return undefined;
-      }
-      return lastPage.page_cursor_info.next_cursor;
-    },
-  });
+export function useMyEventListInfiniteQuery() {
+  const { data, fetchNextPage, hasNextPage, isFetching, isLoading } =
+    useInfiniteQuery<MyEventListType>({
+      ...myEventListInfiniteQueryOptions,
+    });
+
+  return { data, fetchNextPage, hasNextPage, isFetching, isLoading };
 }
 
 export function useUserPolicyQuery({ enabled }: { enabled: boolean }) {

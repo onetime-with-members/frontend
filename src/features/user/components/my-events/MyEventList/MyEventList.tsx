@@ -1,35 +1,37 @@
 'use client';
 
-import GrayBackground from '@/components/GrayBackground';
-import { useInfiniteMyEventsQuery } from '@/features/user/api/user.query';
+import { useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
+
+import MyEventListLayout from '../MyEventListLayout';
+import InfiniteScrollTrigger from './InfiniteScrollTrigger';
+import MyEventListSkeleton from './MyEventListSkeleton';
+import { useMyEventListInfiniteQuery } from '@/features/user/api/user.query';
 import MyEvent from '@/features/user/components/shared/MyEvent';
-import useInfiniteScroll from '@/features/user/hooks/useInfiniteScroll';
 
 export default function MyEventList() {
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteMyEventsQuery(4);
+  const { ref, inView } = useInView();
 
-  const events = data?.pages.flatMap((page) => page.events) ?? [];
+  const { data, fetchNextPage, hasNextPage, isFetching } =
+    useMyEventListInfiniteQuery();
 
-  const { loadMoreRef } = useInfiniteScroll({
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-  });
+  useEffect(() => {
+    if (inView && hasNextPage) fetchNextPage();
+  }, [inView, hasNextPage, fetchNextPage]);
 
   return (
-    <div className="flex flex-col gap-5 px-4 py-5">
-      {events.map((event) => (
-        <MyEvent
-          key={event.event_id}
-          event={event}
-          className="border-0 md:border"
-        />
-      ))}
-
-      {hasNextPage && <div ref={loadMoreRef} className="h-8 w-full" />}
-
-      <GrayBackground device="mobile" breakpoint="md" />
-    </div>
+    <MyEventListLayout>
+      {data?.pages.map(({ events }) =>
+        events.map((event) => (
+          <MyEvent
+            key={event.event_id}
+            event={event}
+            className="border-0 md:border"
+          />
+        )),
+      )}
+      {isFetching && <MyEventListSkeleton />}
+      <InfiniteScrollTrigger ref={ref} />
+    </MyEventListLayout>
   );
 }

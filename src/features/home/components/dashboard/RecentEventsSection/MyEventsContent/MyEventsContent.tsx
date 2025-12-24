@@ -4,12 +4,12 @@ import { useTranslations } from 'next-intl';
 
 import EmptyUI from './EmptyUI';
 import MyEventsSkeleton from './MyEventsSkeleton';
-import { useInfiniteMyEventsQuery } from '@/features/user/api/user.query';
+import { useMyEventListInfiniteQuery } from '@/features/user/api/user.query';
 import MyEvent from '@/features/user/components/shared/MyEvent';
 import cn from '@/lib/cn';
 
 export default function MyEventsContent() {
-  const { data, isPending: isMyEventsPending } = useInfiniteMyEventsQuery(4);
+  const { data, isPending: isMyEventsPending } = useMyEventListInfiniteQuery(4);
 
   const t = useTranslations('userDashboard');
 
