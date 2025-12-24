@@ -1,3 +1,5 @@
+import { InfiniteData } from '@tanstack/react-query';
+
 export const SERVER_API_URL =
   process.env.SERVER_API_URL ||
   process.env.NEXT_PUBLIC_SERVER_API_URL ||
@@ -33,3 +35,8 @@ export const languages: { key: 'ko' | 'en'; label: string }[] = [
   { key: 'ko', label: '한국어' },
   { key: 'en', label: 'English' },
 ];
+
+export const defaultInfiniteData: InfiniteData<never> = {
+  pages: [],
+  pageParams: [],
+};

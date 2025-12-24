@@ -8,7 +8,7 @@ import GrayBackground from '@/components/GrayBackground';
 export default function MyEventsPage() {
   const { data, isLoading } = useMyEventListInfiniteQuery();
 
-  const flatEventList = data?.pages.flatMap(({ events }) => events) ?? [];
+  const flatEventList = data.pages.flatMap(({ events }) => events) ?? [];
   const isEmpty = !isLoading && flatEventList.length === 0;
 
   let content;

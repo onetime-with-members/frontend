@@ -21,7 +21,7 @@ export default function MyEventList() {
 
   return (
     <MyEventListLayout>
-      {data?.pages.map(({ events }) =>
+      {data.pages.map(({ events }) =>
         events.map((event) => (
           <MyEvent
             key={event.event_id}

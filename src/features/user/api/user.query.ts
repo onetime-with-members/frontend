@@ -13,6 +13,7 @@ import {
   userPolicyQueryOptions,
   userQueryOptions,
 } from './user.options';
+import { defaultInfiniteData } from '@/constants';
 import { SessionContext } from '@/features/auth/contexts/SessionContext';
 import { useAuth } from '@/lib/auth';
 import {
@@ -47,7 +48,13 @@ export function useMyEventListInfiniteQuery() {
       ...myEventListInfiniteQueryOptions,
     });
 
-  return { data, fetchNextPage, hasNextPage, isFetching, isLoading };
+  return {
+    data: data || defaultInfiniteData,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+  };
 }
 
 export function useUserPolicyQuery({ enabled }: { enabled: boolean }) {
