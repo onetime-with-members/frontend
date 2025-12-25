@@ -2,7 +2,7 @@
 
 import { getCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form';
 
 import { useCreateUserMutation } from '../api/user.query';
@@ -75,6 +75,14 @@ export default function OnboardingContextProvider({
       router.replace(`/login?redirect_url=${redirectUrl || homeUrl}`);
     }
   };
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
 
   return (
     <OnboardingContext.Provider
