@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { EVENT_TOKEN_EXPIRED, EVENT_WITHDRAW } from '../../constants';
 import { useAuth } from '@/lib/auth';
 
-export default function useSignOutWhenTokenExpired() {
+export default function useSignOutWhenTokenEvent() {
   const { tokenExpired, withdraw } = useAuth();
 
   useEffect(() => {
