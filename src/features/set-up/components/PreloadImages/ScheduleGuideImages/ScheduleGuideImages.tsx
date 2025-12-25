@@ -27,17 +27,17 @@ export default function ScheduleGuideImages() {
       <>
         <Image
           src={`/images/guide/schedule-modal-1-${params.locale}.png`}
-          alt=""
-          width={1}
-          height={1}
+          alt="preload"
+          width={656}
+          height={700}
           priority
           data-testid="schedule-guide-modal-1-preload"
         />
         <Image
           src={`/images/guide/schedule-modal-2-${params.locale}.png`}
-          alt=""
-          width={1}
-          height={1}
+          alt="preload"
+          width={656}
+          height={700}
           priority
           data-testid="schedule-guide-modal-2-preload"
         />
