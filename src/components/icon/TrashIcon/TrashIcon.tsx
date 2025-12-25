@@ -1,7 +1,5 @@
-import { SVGProps } from 'react';
-
 export function TrashIcon(
-  props: SVGProps<SVGSVGElement> & {
+  props: React.SVGProps<SVGSVGElement> & {
     innerfill: string;
   },
 ) {

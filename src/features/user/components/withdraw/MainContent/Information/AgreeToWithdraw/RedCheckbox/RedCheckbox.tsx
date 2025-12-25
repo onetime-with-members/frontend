@@ -1,5 +1,5 @@
+import CheckThickIcon from '@/components/icon/CheckThickIcon';
 import cn from '@/lib/cn';
-import Image from 'next/image';
 
 export default function RedCheckbox({
   isChecked,
@@ -11,22 +11,15 @@ export default function RedCheckbox({
   return (
     <div
       className={cn(
-        'flex h-6 w-6 cursor-pointer items-center justify-center rounded-md border border-danger-20 bg-gray-00',
+        'flex h-6 w-6 cursor-pointer items-center justify-center rounded-md border border-danger-20 bg-gray-00 text-sm',
         {
-          'border-danger-50 bg-danger-50': isChecked,
+          'border-danger-50 bg-danger-50 text-gray-00': isChecked,
         },
         className,
       )}
       {...rest}
     >
-      {isChecked && (
-        <Image
-          src="/images/red-checkbox-check-icon.svg"
-          alt="체크 아이콘"
-          width={14}
-          height={10}
-        />
-      )}
+      {isChecked && <CheckThickIcon />}
     </div>
   );
 }
