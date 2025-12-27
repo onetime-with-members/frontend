@@ -1,3 +1,53 @@
+export const myEventList = ({ size }: { size: number }) => ({
+  code: '200',
+  message: '유저 참여 이벤트 목록 조회에 성공했습니다.',
+  payload: {
+    events: [
+      {
+        event_id: 'fa9f55b0-f879-4dc1-b61d-167a1cc3b09a',
+        category: 'DATE',
+        title: '테스트용 이벤트 1',
+        created_date: '2025-12-24T17:07:49.801',
+        participant_count: 0,
+        event_status: 'CREATOR',
+        most_possible_times: [],
+      },
+      {
+        event_id: '4e9b0cb6-07a6-4205-9dbb-602a24df3f1d',
+        category: 'DATE',
+        title: '테스트용 이벤트 2',
+        created_date: '2025-12-24T17:07:43.980',
+        participant_count: 0,
+        event_status: 'CREATOR',
+        most_possible_times: [],
+      },
+      {
+        event_id: '3c9ae46e-d8e4-4f90-986e-4f145cbbbdc8',
+        category: 'DATE',
+        title: '테스트용 이벤트 3',
+        created_date: '2025-12-24T17:07:39.533',
+        participant_count: 0,
+        event_status: 'CREATOR',
+        most_possible_times: [],
+      },
+      {
+        event_id: '5eb0800d-2518-4c62-b8b0-f7b6b6480611',
+        category: 'DATE',
+        title: '테스트용 이벤트 4',
+        created_date: '2025-12-24T17:07:35.064',
+        participant_count: 0,
+        event_status: 'CREATOR',
+        most_possible_times: [],
+      },
+    ].slice(0, size),
+    page_cursor_info: {
+      next_cursor: '2025-12-24T17:07:35.064',
+      has_next: true,
+    },
+  },
+  is_success: true,
+});
+
 export const myEventsResponseList = [
   {
     code: '200',

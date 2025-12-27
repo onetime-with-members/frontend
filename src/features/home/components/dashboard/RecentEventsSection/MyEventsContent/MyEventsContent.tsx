@@ -9,11 +9,11 @@ import MyEvent from '@/features/user/components/shared/MyEvent';
 import cn from '@/lib/cn';
 
 export default function MyEventsContent() {
-  const { data: myEventList, isPending } = useRecentMyEventListQuery();
-
   const t = useTranslations('userDashboard');
 
-  if (isPending) {
+  const { data: myEventList, isLoading } = useRecentMyEventListQuery();
+
+  if (isLoading) {
     return <MyEventsSkeleton />;
   }
 

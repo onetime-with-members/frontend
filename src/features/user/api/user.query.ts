@@ -9,7 +9,6 @@ import {
 } from './user.api';
 import {
   myEventListInfiniteQueryOptions,
-  recentMyEventListQueryOptions,
   userPolicyQueryOptions,
   userQueryOptions,
 } from './user.options';
@@ -32,13 +31,13 @@ export function useUserQuery() {
 }
 
 export function useRecentMyEventListQuery() {
-  const { data, isPending } = useQuery({
-    ...recentMyEventListQueryOptions,
-  });
+  const { data: _data, isLoading } = useMyEventListInfiniteQuery();
+
+  const data = _data.pages.length > 0 ? _data.pages[0].events.slice(0, 2) : [];
 
   return {
-    data: data || [],
-    isPending,
+    data,
+    isLoading,
   };
 }
 
