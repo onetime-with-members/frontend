@@ -1,6 +1,7 @@
 import z from 'zod';
 
 import { eventSchema, guestSchema } from '../schemas';
+import { ScheduleType } from '@/features/schedule/types';
 
 export type EventFormStatus = 'create' | 'edit';
 
@@ -12,6 +13,16 @@ export interface EventType {
   category: 'DATE' | 'DAY';
   ranges: string[];
   event_status: 'CREATOR' | 'PARTICIPANT';
+}
+
+export interface ExampleEventType {
+  slug: string;
+  event: EventType;
+  shortUrl: string;
+  qrCode: string;
+  participants: ParticipantType[];
+  schedules: ScheduleType[];
+  recommendedTimes: RecommendedScheduleType[];
 }
 
 export interface MemberFilterType {
@@ -28,7 +39,7 @@ export interface ParticipantType extends ParticipantResponseType {
   type: 'GUEST' | 'USER';
 }
 
-export interface RecommendScheduleType {
+export interface RecommendedScheduleType {
   time_point: string;
   start_time: string;
   end_time: string;

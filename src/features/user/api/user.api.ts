@@ -1,3 +1,4 @@
+import { MyEventListType, OnboardingType, PolicySchema } from '../types';
 import apiClient from '@/lib/api';
 
 export async function fetchUserProfile() {
@@ -5,14 +6,18 @@ export async function fetchUserProfile() {
   return res.data.payload;
 }
 
-export async function fetchMyEvents() {
-  const res = await apiClient.get('/events/user/all');
-  return res.data.payload;
-}
-
-export async function editUserNameAction(name: string) {
-  const res = await apiClient.patch('/users/profile/action-update', {
-    nickname: name,
+export async function fetchMyEventList({
+  size,
+  cursor,
+}: {
+  size: number;
+  cursor?: string;
+}): Promise<MyEventListType> {
+  const res = await apiClient.get('/events/user/all', {
+    params: {
+      size,
+      ...(cursor && { cursor }),
+    },
   });
   return res.data.payload;
 }
@@ -29,4 +34,46 @@ export async function fetchUserPolicy() {
     privacyPolicy: privacy_policy_agreement,
     marketingPolicy: marketing_policy_agreement,
   };
+}
+
+export async function createUserAction(value: OnboardingType) {
+  const res = await apiClient.post('/users/onboarding', {
+    register_token: value.registerToken,
+    nickname: value.nickname,
+    service_policy_agreement: value.servicePolicy,
+    privacy_policy_agreement: value.privacyPolicy,
+    marketing_policy_agreement: value.marketingPolicy,
+    sleep_start_time: value.startSleepTime,
+    sleep_end_time: value.endSleepTime,
+    language: value.language,
+  });
+  return res.data.payload;
+}
+
+export async function editUserNameAction(name: string) {
+  const res = await apiClient.patch('/users/profile/action-update', {
+    nickname: name,
+  });
+  return res.data.payload;
+}
+
+export async function editUserLanguageAction(language: 'KOR' | 'ENG') {
+  const res = await apiClient.patch('/users/profile/action-update', {
+    language,
+  });
+  return res.data.payload;
+}
+
+export async function editUserPolicyAction(policy: PolicySchema) {
+  const res = await apiClient.put('/users/policy', {
+    service_policy_agreement: policy.servicePolicy,
+    privacy_policy_agreement: policy.privacyPolicy,
+    marketing_policy_agreement: policy.marketingPolicy,
+  });
+  return res.data.payload;
+}
+
+export async function withdrawAction() {
+  const res = await apiClient.post('/users/action-withdraw');
+  return res.data.payload;
 }

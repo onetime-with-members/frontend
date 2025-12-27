@@ -5,15 +5,13 @@ import { createContext, useEffect, useState } from 'react';
 export const FooterContext = createContext<{
   footerVisible: boolean;
   setFooterVisible: React.Dispatch<React.SetStateAction<boolean>>;
-  footerRef: React.RefObject<HTMLDivElement | null> | undefined;
-  setFooterRef: React.Dispatch<
-    React.SetStateAction<React.RefObject<HTMLDivElement | null> | undefined>
-  >;
+  footerRef: HTMLElement | null;
+  setFooterRef: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   isFooterShown: boolean;
 }>({
   footerVisible: true,
   setFooterVisible: () => {},
-  footerRef: undefined,
+  footerRef: null,
   setFooterRef: () => {},
   isFooterShown: false,
 });
@@ -25,11 +23,10 @@ export default function FooterContextProvider({
 }) {
   const [footerVisible, setFooterVisible] = useState(true);
   const [isFooterShown, setIsFooterShown] = useState(false);
-  const [footerRef, setFooterRef] =
-    useState<React.RefObject<HTMLDivElement | null>>();
+  const [footerRef, setFooterRef] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    const footer = footerRef?.current;
+    if (!footerRef) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -38,14 +35,10 @@ export default function FooterContextProvider({
       { threshold: 0.1 },
     );
 
-    if (footerRef?.current) {
-      observer.observe(footerRef.current);
-    }
+    observer.observe(footerRef);
 
     return () => {
-      if (footer) {
-        observer.unobserve(footer);
-      }
+      observer.unobserve(footerRef);
     };
   }, [footerRef]);
 

@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
-import PolicyPage from './policy-detail';
 import NotFound from '@/app/[locale]/not-found';
 import { POLICY_KEY_LIST } from '@/constants';
+import PolicyDetailPage from '@/features/user/pages/PolicyDetailPage';
 import { PolicySchema } from '@/features/user/types';
 import { policyPageTitle } from '@/features/user/utils';
 import { notFound } from 'next/navigation';
@@ -39,5 +39,5 @@ export default async function Page({
     name === 'privacy' ? 'privacyPolicy' : 'servicePolicy';
   const pageTitle = policyPageTitle(name, locale);
 
-  return <PolicyPage page={page} pageTitle={pageTitle} />;
+  return <PolicyDetailPage page={page} pageTitle={pageTitle} />;
 }

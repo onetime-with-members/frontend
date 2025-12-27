@@ -6,7 +6,7 @@ import BottomSubmitButton from './BottomSubmitButton';
 import GuideModal from './GuideModal';
 import TopSubmitButton from './TopSubmitButton';
 import { useEventQuery } from '@/features/event/api/event.query';
-import useGuestEditedEvents from '@/features/event/hooks/useIsEventEdited/useGuestEditedEvents';
+import useGuestEditedEvents from '@/features/event/hooks/useGuestEditedEvents';
 import {
   useCreateNewMemberScheduleMutation,
   useUpdateScheduleMutation,
@@ -72,7 +72,7 @@ export default function ScheduleFormSubScreen() {
       });
     }
     await addNewEditedEvent(params.id);
-    progressRouter.push(`/events/${params.id}`);
+    progressRouter.push(`/events/view/${params.id}`);
   }
 
   useEffect(() => {

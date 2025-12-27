@@ -7,7 +7,8 @@
   "toast": {
     "copiedLink": "링크를 복사했어요",
     "loadedMySchedule": "내 스케줄을 불러왔어요",
-    "everytime": "에브리타임 시간표를 불러왔어요"
+    "everytime": "에브리타임 시간표를 불러왔어요",
+    "filterInExampleEvent": "예시 이벤트에서는 사용할 수 없는 기능입니다."
   },
   "navbar": {
     "login": "로그인",
@@ -19,7 +20,13 @@
   "footer": {
     "termsOfService": "서비스 이용약관",
     "privacyPolicy": "개인정보처리방침",
-    "feedbackIssue": "버그 및 불편사항 제보"
+    "feedbackIssue": "버그 및 불편사항 제보",
+    "exampleEvent": {
+      "useCases": "사용 사례",
+      "teamMeetings": "팀 회의",
+      "oneOnOneMeetings": "1:1 비즈니스 미팅",
+      "socialGatherings": "오프라인 약속"
+    }
   },
   "login": {
     "login": "로그인",

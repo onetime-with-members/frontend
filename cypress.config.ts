@@ -8,6 +8,7 @@ export default defineConfig({
     baseUrl: 'http://localhost:3000',
     setupNodeEvents(_, config) {
       config.env.apiUrl = process.env.SERVER_API_URL;
+      config.env.shortUrl = process.env.NEXT_PUBLIC_SHORT_URL_DOMAIN;
       config.env.token = process.env.TEST_ACCESS_TOKEN;
       config.env.expiredToken = process.env.EXPIRED_TEST_ACCESS_TOKEN;
 

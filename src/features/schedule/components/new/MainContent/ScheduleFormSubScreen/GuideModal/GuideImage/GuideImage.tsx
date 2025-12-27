@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 export default function GuideImage() {
   const {
-    guideContents: { imageSrc, imageAlt },
+    guideContents: { title, imageSrc, imageAlt },
   } = useContext(GuideModalContext);
 
   const locale = useLocale();
@@ -14,10 +14,13 @@ export default function GuideImage() {
   return (
     <div>
       <Image
+        key={title}
         src={locale === 'ko' ? imageSrc.ko : imageSrc.en}
         alt={locale === 'ko' ? imageAlt.ko : imageAlt.en}
         width={656}
         height={700}
+        priority
+        decoding="sync"
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
-import WithdrawPage from './withdraw';
+import WithdrawPage from '@/features/user/pages/WithdrawPage';
 import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({

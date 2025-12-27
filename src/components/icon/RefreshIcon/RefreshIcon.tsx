@@ -1,6 +1,4 @@
-import { SVGProps } from 'react';
-
-export function RefreshIcon(props: SVGProps<SVGSVGElement>) {
+export function RefreshIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
