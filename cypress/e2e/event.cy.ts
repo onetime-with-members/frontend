@@ -2,7 +2,7 @@ import { languageCases, memberCases } from '../fixtures/common';
 import { exampleEventList } from '../fixtures/event';
 
 describe('이벤트', () => {
-  it.only('이벤트 페이지에서 유저에게는 수정과 삭제 버튼이 모두 보이고, 로그아웃하면 수정 버튼만 보인다.', () => {
+  it('이벤트 페이지에서 유저에게는 수정과 삭제 버튼이 모두 보이고, 로그아웃하면 수정 버튼만 보인다.', () => {
     cy.login();
     cy.visitFirstEvent();
 
@@ -13,7 +13,7 @@ describe('이벤트', () => {
     cy.removeFirstEvent();
   });
 
-  describe('사용 사례 이벤트', () => {
+  describe('예시 이벤트', () => {
     exampleEventList.forEach(
       ({ name, enName, slug, title, recommendedTimes, participants }) => {
         describe(name, () => {
