@@ -88,10 +88,13 @@ export default function RecommendedTimesBottomSheet() {
                   </SectionHeading>
                 </Drawer.Title>
                 <div
-                  className={cn('flex flex-1 flex-col gap-3 px-4 pb-12', {
-                    'overflow-y-auto': snapIndex === 1,
-                    'overflow-hidden': snapIndex !== 1,
-                  })}
+                  className={cn(
+                    'flex flex-1 flex-col gap-3 overscroll-contain px-4 pb-12',
+                    {
+                      'overflow-y-auto': snapIndex === 1,
+                      'overflow-hidden': snapIndex !== 1,
+                    },
+                  )}
                 >
                   {recommendedTimes?.map((recommendedTime, index) => (
                     <MobileRecommendedTimeItem
