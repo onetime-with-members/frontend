@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { TargetAndTransition, motion } from 'framer-motion';
 import { useContext } from 'react';
 
 import {
@@ -6,6 +6,7 @@ import {
   BOTTOM_SHEET_PEEK_HEIGHT,
 } from '@/features/event/constants';
 import { BottomSheetContext } from '@/features/event/contexts/BottomSheetContext';
+import { opacityMotionProps } from '@/lib/motion-props';
 
 export default function BottomSheetRoot({
   children,
@@ -17,15 +18,10 @@ export default function BottomSheetRoot({
   return (
     <motion.div
       ref={ref}
+      {...opacityMotionProps}
       initial={{
-        opacity: 0,
+        ...(opacityMotionProps.initial as TargetAndTransition),
         y: BOTTOM_SHEET_HEIGHT - BOTTOM_SHEET_PEEK_HEIGHT,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      exit={{
-        opacity: 0,
       }}
       drag="y"
       dragListener={false}

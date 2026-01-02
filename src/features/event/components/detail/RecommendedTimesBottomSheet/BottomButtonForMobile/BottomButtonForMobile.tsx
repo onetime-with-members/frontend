@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import SpeechBalloon from '../../shared/SpeechBalloon';
 import Button from '@/components/button';
 import { ScheduleType } from '@/features/schedule/types';
+import { opacityMotionProps } from '@/lib/motion-props';
 import { IconEdit, IconPlus } from '@tabler/icons-react';
 import Image from 'next/image';
 
@@ -24,15 +25,7 @@ export default function BottomButtonForMobile({
   return (
     <motion.div
       className="fixed bottom-0 left-0 right-0 z-[45] flex w-full items-center justify-center gap-2 bg-gray-00 p-4 md:hidden"
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-      }}
-      exit={{
-        opacity: 0,
-      }}
+      {...opacityMotionProps}
     >
       <SpeechBalloon.Container>
         <SpeechBalloon.Wrapper>
