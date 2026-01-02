@@ -19,7 +19,7 @@ export default function BottomSheetInnerContent() {
       >
         {t('recommendedTime', { count: recommendedTimes?.length })}
       </SectionHeading>
-      <div className="flex flex-1 flex-col gap-3 overscroll-contain px-4 pb-12">
+      <div className="flex flex-1 flex-col gap-3 px-4 pb-12">
         {recommendedTimes?.map((recommendedTime, index) => (
           <MobileRecommendedTimeItem
             key={index}
