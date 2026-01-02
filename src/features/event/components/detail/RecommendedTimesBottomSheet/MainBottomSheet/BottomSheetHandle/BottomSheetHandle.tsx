@@ -6,7 +6,7 @@ export default function BottomSheetHandle() {
   const { dragControls } = useContext(BottomSheetContext);
 
   return (
-    <div className="z-10 shrink-0 rounded-t-[30px] bg-gray-00">
+    <div className="z-10 shrink-0 rounded-t-3xl bg-gray-00">
       <div
         onPointerDown={(e) => dragControls.start(e)}
         className="flex h-8 w-full cursor-grab touch-none items-center justify-center active:cursor-grabbing"
