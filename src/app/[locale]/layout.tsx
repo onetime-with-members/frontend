@@ -104,9 +104,7 @@ export default async function Layout({
       <body cz-shortcut-listen="true" className="font-pretendard">
         <Providers>
           <ProgressBar />
-          <div vaul-drawer-wrapper="" className="flex min-h-[110dvh] flex-col">
-            {children}
-          </div>
+          <div className="flex min-h-[110vh] flex-col">{children}</div>
           <Footer />
           {/* <LandingPopUp initialIsShown={initialIsLandingPopUpShown} /> */}
           <CookieModal />
