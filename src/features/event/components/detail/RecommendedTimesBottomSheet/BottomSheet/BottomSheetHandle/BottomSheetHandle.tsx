@@ -1,10 +1,10 @@
-import { DragControls } from 'framer-motion';
+import { useContext } from 'react';
 
-export default function BottomSheetHandle({
-  dragControls,
-}: {
-  dragControls: DragControls;
-}) {
+import { BottomSheetContext } from '@/features/event/contexts/BottomSheetContext';
+
+export default function BottomSheetHandle() {
+  const { dragControls } = useContext(BottomSheetContext);
+
   return (
     <div className="z-10 shrink-0 rounded-t-[30px] bg-white">
       <div

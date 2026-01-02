@@ -1,10 +1,34 @@
-import { PanInfo, useAnimate, useDragControls } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import {
+  AnimationScope,
+  DragControls,
+  PanInfo,
+  useAnimate,
+  useDragControls,
+} from 'framer-motion';
+import { createContext, useEffect, useState } from 'react';
 
-export default function useBottomSheet() {
+export const BottomSheetContext = createContext<{
+  ref: AnimationScope | undefined;
+  dragControls: DragControls;
+  sheetHeight: number;
+  onDragEnd: (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void;
+  isOpen: boolean;
+}>({
+  ref: undefined,
+  dragControls: new DragControls(),
+  sheetHeight: 0,
+  onDragEnd: () => {},
+  isOpen: false,
+});
+
+export default function BottomSheetContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [scope, animate] = useAnimate();
+  const [scope, animate] = useAnimate<HTMLDivElement>();
   const dragControls = useDragControls();
 
   const SHEET_HEIGHT = 500;
@@ -35,10 +59,7 @@ export default function useBottomSheet() {
     }
   }, [isOpen, SHEET_HEIGHT]);
 
-  const onDragEnd = (
-    _: MouseEvent | TouchEvent | PointerEvent,
-    info: PanInfo,
-  ) => {
+  function onDragEnd(_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
     const offset = info.offset.y;
     const velocity = info.velocity.y;
 
@@ -55,13 +76,19 @@ export default function useBottomSheet() {
         snapTo(0);
       }
     }
-  };
+  }
 
-  return {
-    ref: scope,
-    dragControls,
-    SHEET_HEIGHT,
-    onDragEnd,
-    isOpen,
-  };
+  return (
+    <BottomSheetContext.Provider
+      value={{
+        ref: scope,
+        dragControls,
+        sheetHeight: SHEET_HEIGHT,
+        onDragEnd,
+        isOpen,
+      }}
+    >
+      {children}
+    </BottomSheetContext.Provider>
+  );
 }
