@@ -32,6 +32,8 @@ export default function RecommendedTimesBottomSheet() {
   const { data: schedules } = useSchedulesQuery(event);
 
   const shouldBottomButtonShown = !isFooterShown;
+  const shouldBottomSheetShown =
+    !isFooterShown && schedules?.length !== 0 && clientWidth < breakpoint.md;
 
   async function handleBottomButtonClick() {
     if (isLoggedIn) {
@@ -43,9 +45,9 @@ export default function RecommendedTimesBottomSheet() {
 
   return (
     <>
-      {clientWidth < breakpoint.md && shouldBottomButtonShown && (
-        <BottomSheet />
-      )}
+      <AnimatePresence>
+        {shouldBottomSheetShown && <BottomSheet />}
+      </AnimatePresence>
       <AnimatePresence>
         {shouldBottomButtonShown && (
           <BottomButtonForMobile

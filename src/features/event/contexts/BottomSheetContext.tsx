@@ -5,18 +5,18 @@ import {
   useAnimate,
   useDragControls,
 } from 'framer-motion';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
+
+import { BOTTOM_SHEET_HEIGHT, BOTTOM_SHEET_PEEK_HEIGHT } from '../constants';
 
 export const BottomSheetContext = createContext<{
   ref: AnimationScope | undefined;
   dragControls: DragControls;
-  sheetHeight: number;
   onDragEnd: (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void;
   isOpen: boolean;
 }>({
   ref: undefined,
   dragControls: new DragControls(),
-  sheetHeight: 0,
   onDragEnd: () => {},
   isOpen: false,
 });
@@ -28,11 +28,9 @@ export default function BottomSheetContextProvider({
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const [scope, animate] = useAnimate<HTMLDivElement>();
+  const [scope, animate] = useAnimate();
   const dragControls = useDragControls();
 
-  const SHEET_HEIGHT = 500;
-  const PEEK_HEIGHT = 150;
   const DRAG_THRESHOLD = 50;
 
   const springTransition = {
@@ -47,43 +45,38 @@ export default function BottomSheetContextProvider({
     }
   };
 
-  useEffect(() => {
-    snapTo(SHEET_HEIGHT - PEEK_HEIGHT);
-  }, [SHEET_HEIGHT]);
-
-  useEffect(() => {
-    if (isOpen) {
-      snapTo(0);
-    } else {
-      snapTo(SHEET_HEIGHT - PEEK_HEIGHT);
-    }
-  }, [isOpen, SHEET_HEIGHT]);
-
-  function onDragEnd(_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) {
+  const onDragEnd = async (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
     const offset = info.offset.y;
     const velocity = info.velocity.y;
 
+    const shouldOpen = offset < -DRAG_THRESHOLD || velocity < -500;
+    const shouldClose = offset > DRAG_THRESHOLD || velocity > 500;
+
     if (!isOpen) {
-      if (offset < -DRAG_THRESHOLD || velocity < -500) {
+      if (shouldOpen) {
+        await snapTo(0);
         setIsOpen(true);
       } else {
-        snapTo(SHEET_HEIGHT - PEEK_HEIGHT);
+        snapTo(BOTTOM_SHEET_HEIGHT - BOTTOM_SHEET_PEEK_HEIGHT);
       }
     } else {
-      if (offset > DRAG_THRESHOLD || velocity > 500) {
+      if (shouldClose) {
         setIsOpen(false);
+        snapTo(BOTTOM_SHEET_HEIGHT - BOTTOM_SHEET_PEEK_HEIGHT);
       } else {
         snapTo(0);
       }
     }
-  }
+  };
 
   return (
     <BottomSheetContext.Provider
       value={{
         ref: scope,
         dragControls,
-        sheetHeight: SHEET_HEIGHT,
         onDragEnd,
         isOpen,
       }}

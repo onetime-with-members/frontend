@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import SectionHeading from '../../../shared/SectionHeading';
-import MobileRecommendedTimeItem from '../../MobileRecommendedTimeItem';
+import MobileRecommendedTimeItem from './MobileRecommendedTimeItem';
 import { ClockIcon } from '@/components/icon';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 
