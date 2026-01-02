@@ -2,7 +2,7 @@ import { AnimatePresence } from 'framer-motion';
 import { useContext, useState } from 'react';
 
 import BottomButtonForMobile from './BottomButtonForMobile';
-import BottomSheet from './BottomSheet';
+import MainBottomSheet from './MainBottomSheet';
 import { breakpoint } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
 import LoginAlert from '@/features/event/components/detail/shared/LoginAlert';
@@ -46,7 +46,7 @@ export default function RecommendedTimesBottomSheet() {
   return (
     <>
       <AnimatePresence>
-        {shouldBottomSheetShown && <BottomSheet />}
+        {shouldBottomSheetShown && <MainBottomSheet />}
       </AnimatePresence>
       <AnimatePresence>
         {shouldBottomButtonShown && (

@@ -4,7 +4,7 @@ import BottomSheetInnerContent from './BottomSheetInnerContent';
 import BottomSheetRoot from './BottomSheetRoot';
 import BottomSheetContextProvider from '@/features/event/contexts/BottomSheetContext';
 
-export default function BottomSheet() {
+export default function MainBottomSheet() {
   return (
     <BottomSheetContextProvider>
       <BottomSheetRoot>
