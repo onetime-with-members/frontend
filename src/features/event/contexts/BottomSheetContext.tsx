@@ -5,7 +5,7 @@ import {
   useAnimate,
   useDragControls,
 } from 'framer-motion';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 
 import { bottomSheetHeight } from '../constants';
 
@@ -62,8 +62,8 @@ export default function BottomSheetContextProvider({
 
     if (!isOpen) {
       if (shouldOpen) {
-        await snapTo(0);
         setIsOpen(true);
+        await snapTo(0);
       } else {
         snapTo(bottomSheetHeight.collapsed);
       }
@@ -71,17 +71,12 @@ export default function BottomSheetContextProvider({
       if (shouldClose) {
         setIsOpen(false);
         snapTo(bottomSheetHeight.collapsed);
+        if (contentRef) contentRef.scrollTop = 0;
       } else {
         snapTo(0);
       }
     }
   }
-
-  useEffect(() => {
-    if (!isOpen && contentRef) {
-      contentRef.scrollTop = 0;
-    }
-  }, [contentRef, isOpen]);
 
   return (
     <BottomSheetContext.Provider
