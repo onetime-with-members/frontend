@@ -65,15 +65,15 @@ export default function BottomSheetContextProvider({
         setIsOpen(true);
         await snapTo(0);
       } else {
-        snapTo(bottomSheetHeight.collapsed);
+        await snapTo(bottomSheetHeight.collapsed);
       }
     } else {
       if (shouldClose) {
         setIsOpen(false);
-        snapTo(bottomSheetHeight.collapsed);
+        await snapTo(bottomSheetHeight.collapsed);
         if (contentRef) contentRef.scrollTop = 0;
       } else {
-        snapTo(0);
+        await snapTo(0);
       }
     }
   }
