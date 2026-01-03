@@ -16,7 +16,7 @@ export default function BottomSheetInnerContent() {
   return (
     <>
       <header
-        className="touch-none"
+        className="sticky top-0 touch-none"
         onPointerDown={(e) => dragControls.start(e)}
       >
         <SectionHeading
