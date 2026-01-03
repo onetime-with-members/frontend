@@ -12,10 +12,13 @@ export default function BottomSheetContent({
 
   return (
     <div
-      className={cn('flex-1 overflow-y-auto bg-gray-00', {
-        'overflow-y-auto': isOpen,
-        'overflow-hidden': !isOpen,
-      })}
+      className={cn(
+        'flex-1 touch-pan-y overflow-y-auto overscroll-contain bg-gray-00',
+        {
+          'overflow-y-auto': isOpen,
+          'overflow-hidden': !isOpen,
+        },
+      )}
     >
       {children}
     </div>
