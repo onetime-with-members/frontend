@@ -8,10 +8,11 @@ export default function BottomSheetContent({
 }: {
   children: React.ReactNode;
 }) {
-  const { isOpen } = useContext(BottomSheetContext);
+  const { isOpen, setContentRef } = useContext(BottomSheetContext);
 
   return (
     <div
+      ref={setContentRef}
       className={cn(
         'flex-1 touch-pan-y overflow-y-auto overscroll-contain bg-gray-00',
         {

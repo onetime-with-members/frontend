@@ -5,17 +5,21 @@ import {
   useAnimate,
   useDragControls,
 } from 'framer-motion';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 import { bottomSheetHeight } from '../constants';
 
 export const BottomSheetContext = createContext<{
-  ref: AnimationScope | undefined;
+  rootRef: AnimationScope | undefined;
+  contentRef: HTMLElement | null;
+  setContentRef: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   dragControls: DragControls;
   onDragEnd: (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => void;
   isOpen: boolean;
 }>({
-  ref: undefined,
+  rootRef: undefined,
+  contentRef: null,
+  setContentRef: () => {},
   dragControls: new DragControls(),
   onDragEnd: () => {},
   isOpen: false,
@@ -27,6 +31,7 @@ export default function BottomSheetContextProvider({
   children: React.ReactNode;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [contentRef, setContentRef] = useState<HTMLElement | null>(null);
 
   const [scope, animate] = useAnimate();
   const dragControls = useDragControls();
@@ -39,16 +44,16 @@ export default function BottomSheetContextProvider({
     stiffness: 400,
   };
 
-  const snapTo = async (y: number) => {
+  async function snapTo(y: number) {
     if (scope.current) {
       await animate(scope.current, { y }, springTransition);
     }
-  };
+  }
 
-  const onDragEnd = async (
+  async function onDragEnd(
     _: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo,
-  ) => {
+  ) {
     const offset = info.offset.y;
     const velocity = info.velocity.y;
 
@@ -70,12 +75,20 @@ export default function BottomSheetContextProvider({
         snapTo(0);
       }
     }
-  };
+  }
+
+  useEffect(() => {
+    if (!isOpen && contentRef) {
+      contentRef.scrollTop = 0;
+    }
+  }, [contentRef, isOpen]);
 
   return (
     <BottomSheetContext.Provider
       value={{
-        ref: scope,
+        rootRef: scope,
+        contentRef,
+        setContentRef,
         dragControls,
         onDragEnd,
         isOpen,

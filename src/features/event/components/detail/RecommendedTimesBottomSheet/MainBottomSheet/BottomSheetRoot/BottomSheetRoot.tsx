@@ -10,11 +10,11 @@ export default function BottomSheetRoot({
 }: {
   children: React.ReactNode;
 }) {
-  const { dragControls, onDragEnd, ref } = useContext(BottomSheetContext);
+  const { dragControls, onDragEnd, rootRef } = useContext(BottomSheetContext);
 
   return (
     <motion.div
-      ref={ref}
+      ref={rootRef}
       {...opacityMotionProps}
       initial={{
         ...(opacityMotionProps.initial as TargetAndTransition),
