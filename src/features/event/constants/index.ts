@@ -2,8 +2,11 @@ import { EventSchema, EventType } from '../types';
 
 export const EDITED_EVENTS_COOKIE_KEY = 'edited_events';
 
-export const BOTTOM_SHEET_HEIGHT = 500;
-export const BOTTOM_SHEET_PEEK_HEIGHT = 150;
+export const bottomSheetHeight = {
+  all: 500,
+  peek: 150,
+  collapsed: 350,
+};
 
 export const defaultEvent: EventType = {
   event_id: '',

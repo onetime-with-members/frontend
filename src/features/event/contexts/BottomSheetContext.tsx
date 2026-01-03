@@ -7,7 +7,7 @@ import {
 } from 'framer-motion';
 import { createContext, useState } from 'react';
 
-import { BOTTOM_SHEET_HEIGHT, BOTTOM_SHEET_PEEK_HEIGHT } from '../constants';
+import { bottomSheetHeight } from '../constants';
 
 export const BottomSheetContext = createContext<{
   ref: AnimationScope | undefined;
@@ -60,12 +60,12 @@ export default function BottomSheetContextProvider({
         await snapTo(0);
         setIsOpen(true);
       } else {
-        snapTo(BOTTOM_SHEET_HEIGHT - BOTTOM_SHEET_PEEK_HEIGHT);
+        snapTo(bottomSheetHeight.collapsed);
       }
     } else {
       if (shouldClose) {
         setIsOpen(false);
-        snapTo(BOTTOM_SHEET_HEIGHT - BOTTOM_SHEET_PEEK_HEIGHT);
+        snapTo(bottomSheetHeight.collapsed);
       } else {
         snapTo(0);
       }
