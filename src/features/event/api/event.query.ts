@@ -110,7 +110,7 @@ export function useEditEventMutation() {
 export function useDeleteEventMutation() {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationFn: deleteEventAction,
     onSuccess: async (_, eventId) => {
       queryClient.removeQueries({ queryKey: ['events', eventId] });
@@ -118,7 +118,7 @@ export function useDeleteEventMutation() {
     },
   });
 
-  return { mutateAsync, isPending };
+  return { mutateAsync, isLoading: isPending || isSuccess };
 }
 
 export function useChangeFilteredEventDataMutation({

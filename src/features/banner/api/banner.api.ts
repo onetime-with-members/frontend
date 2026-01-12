@@ -3,7 +3,7 @@ import { SERVER_API_URL } from '@/constants';
 import apiClient from '@/lib/api';
 
 export async function fetchBanner() {
-  const res = await fetch(`${SERVER_API_URL}/admin/banners/activated/all`);
+  const res = await fetch(`${SERVER_API_URL}/banners/activated/all`);
   if (!res.ok) {
     console.error(await res.json());
     return [];
@@ -15,7 +15,7 @@ export async function fetchBanner() {
 }
 
 export async function fetchBarBanner() {
-  const res = await fetch(`${SERVER_API_URL}/admin/bar-banners/activated/all`);
+  const res = await fetch(`${SERVER_API_URL}/bar-banners/activated/all`);
   if (!res.ok) {
     console.error(await res.json());
     return null;
