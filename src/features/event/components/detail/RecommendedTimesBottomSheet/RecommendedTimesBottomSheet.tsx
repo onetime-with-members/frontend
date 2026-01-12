@@ -1,5 +1,5 @@
 import { AnimatePresence } from 'framer-motion';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import BottomButtonForMobile from './BottomButtonForMobile';
 import MainBottomSheet from './MainBottomSheet';
@@ -18,6 +18,8 @@ import { useParams } from 'next/navigation';
 export default function RecommendedTimesBottomSheet() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
+  const [shouldBottomButtonShown, setShouldBottomButtonShown] = useState(false);
+  const [shouldBottomSheetShown, setShouldBottomSheetShown] = useState(false);
 
   const { isFooterShown } = useContext(FooterContext);
 
@@ -31,10 +33,6 @@ export default function RecommendedTimesBottomSheet() {
   const { data: event } = useEventQuery(params.id);
   const { data: schedules } = useSchedulesQuery(event);
 
-  const shouldBottomButtonShown = !isFooterShown;
-  const shouldBottomSheetShown =
-    !isFooterShown && schedules?.length !== 0 && clientWidth < breakpoint.md;
-
   async function handleBottomButtonClick() {
     if (isLoggedIn) {
       progressRouter.push(`/events/${params.id}/schedules/new`);
@@ -42,6 +40,16 @@ export default function RecommendedTimesBottomSheet() {
       setIsLoginAlertOpen(true);
     }
   }
+
+  useEffect(() => {
+    setShouldBottomButtonShown(!isFooterShown);
+  }, [isFooterShown]);
+
+  useEffect(() => {
+    setShouldBottomSheetShown(
+      !isFooterShown && schedules?.length !== 0 && clientWidth < breakpoint.md,
+    );
+  }, [isFooterShown, schedules, clientWidth]);
 
   return (
     <>
