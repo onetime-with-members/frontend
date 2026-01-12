@@ -17,7 +17,7 @@ export default function EventDeleteAlert({
 
   const homeUrl = useHomeUrl();
 
-  const { mutateAsync: deleteEvent, isPending } = useDeleteEventMutation();
+  const { mutateAsync: deleteEvent, isLoading } = useDeleteEventMutation();
 
   async function handleAlertConfirm() {
     await deleteEvent(params.id);
@@ -30,7 +30,7 @@ export default function EventDeleteAlert({
       onCancel={() => setIsEventDeleteAlertOpen(false)}
       onClose={() => setIsEventDeleteAlertOpen(false)}
       confirmText={
-        isPending ? t('deleteEventConfirming') : t('deleteEventConfirm')
+        isLoading ? t('deleteEventConfirming') : t('deleteEventConfirm')
       }
       cancelText={t('deleteEventCancel')}
     >
