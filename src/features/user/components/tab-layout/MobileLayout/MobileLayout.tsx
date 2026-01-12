@@ -6,7 +6,7 @@ export default function MobileLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="block md:hidden">
+    <div className="block md:hidden" data-testid="mobile-tab-layout">
       <MobileAppBar />
       <main className="pb-20">{children}</main>
     </div>

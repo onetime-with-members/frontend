@@ -1,11 +1,11 @@
 import { useParticipantsQuery } from '@/features/event/api/event.query';
-import { RecommendScheduleType } from '@/features/event/types';
+import { RecommendedScheduleType } from '@/features/event/types';
 import { useParams } from 'next/navigation';
 
 export default function useIsOnlyOneFiltered({
   recommendedTime,
 }: {
-  recommendedTime: RecommendScheduleType;
+  recommendedTime: RecommendedScheduleType;
 }) {
   const params = useParams<{ id: string }>();
 

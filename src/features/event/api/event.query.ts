@@ -1,5 +1,6 @@
 import { defaultEvent } from '../constants';
 import { MemberFilterType } from '../types';
+import { isExampleEventSlug } from '../utils';
 import {
   createEventAction,
   deleteEventAction,
@@ -18,7 +19,9 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useEventQuery(id: string) {
-  const { data } = useQuery({ ...eventQueryOptions(id) });
+  const { data } = useQuery({
+    ...eventQueryOptions(id),
+  });
 
   return { data: data || defaultEvent };
 }
@@ -87,9 +90,17 @@ export function useEditEventMutation() {
   const queryClient = useQueryClient();
 
   const { mutateAsync, isPending, isSuccess } = useMutation({
-    mutationFn: editEventAction,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
+    mutationFn: ({
+      eventId,
+      ...rest
+    }: Parameters<typeof editEventAction>[0]) =>
+      isExampleEventSlug(eventId)
+        ? Promise.resolve()
+        : editEventAction({ eventId, ...rest }),
+    onSuccess: async (_, { eventId }) => {
+      if (!isExampleEventSlug(eventId)) {
+        await queryClient.invalidateQueries({ queryKey: ['events'] });
+      }
     },
   });
 
@@ -99,7 +110,7 @@ export function useEditEventMutation() {
 export function useDeleteEventMutation() {
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isPending } = useMutation({
+  const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationFn: deleteEventAction,
     onSuccess: async (_, eventId) => {
       queryClient.removeQueries({ queryKey: ['events', eventId] });
@@ -107,7 +118,7 @@ export function useDeleteEventMutation() {
     },
   });
 
-  return { mutateAsync, isPending };
+  return { mutateAsync, isLoading: isPending || isSuccess };
 }
 
 export function useChangeFilteredEventDataMutation({

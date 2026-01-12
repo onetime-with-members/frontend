@@ -2,14 +2,18 @@
 
 import { createContext, useState } from 'react';
 
+import { ToastOptions } from '@/types';
+
 export const ToastContext = createContext<{
   message: string;
-  toast: (message: string) => void;
-  resetMessage: () => void;
+  toast: (message: string, options?: ToastOptions) => void;
+  resetToast: () => void;
+  options: ToastOptions;
 }>({
   message: '',
   toast: () => {},
-  resetMessage: () => {},
+  resetToast: () => {},
+  options: { type: 'success' },
 });
 
 export default function ToastContextProvider({
@@ -18,17 +22,20 @@ export default function ToastContextProvider({
   children: React.ReactNode;
 }) {
   const [message, setMessage] = useState('');
+  const [options, setOptions] = useState<ToastOptions>({ type: 'success' });
 
-  function toast(message: string) {
+  function toast(message: string, options?: ToastOptions) {
     setMessage(message);
+    if (options) setOptions(options);
   }
 
-  function resetMessage() {
+  function resetToast() {
     setMessage('');
+    setOptions({ type: 'success' });
   }
 
   return (
-    <ToastContext.Provider value={{ message, toast, resetMessage }}>
+    <ToastContext.Provider value={{ message, toast, resetToast, options }}>
       {children}
     </ToastContext.Provider>
   );

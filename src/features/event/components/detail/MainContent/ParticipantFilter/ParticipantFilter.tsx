@@ -7,6 +7,8 @@ import { HumanIcon } from '@/components/icon';
 import { useParticipantsQuery } from '@/features/event/api/event.query';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import { ParticipantType } from '@/features/event/types';
+import { isExampleEventSlug } from '@/features/event/utils';
+import useToast from '@/hooks/useToast';
 import { useParams } from 'next/navigation';
 
 export default function ParticipantFilter() {
@@ -15,12 +17,18 @@ export default function ParticipantFilter() {
   );
 
   const params = useParams<{ id: string }>();
-  const t = useTranslations('eventDetail');
+  const t = useTranslations();
+
+  const toast = useToast();
 
   const { data: participants } = useParticipantsQuery(params.id);
 
   function handleFilterItemClick(participant: ParticipantType) {
-    changeFilteredParticipants(participant);
+    if (isExampleEventSlug(params.id)) {
+      toast(t('toast.filterInExampleEvent'), { type: 'error' });
+    } else {
+      changeFilteredParticipants(participant);
+    }
   }
 
   return (
@@ -32,9 +40,12 @@ export default function ParticipantFilter() {
           className="pt-2"
           sticky
         >
-          {t('participant', { count: participants.length })}
+          {t('eventDetail.participant', { count: participants.length })}
         </SectionHeading>
-        <ul className="mt-2 flex flex-wrap gap-1.5 pb-4 pt-0 md:pb-6">
+        <ul
+          className="mt-2 flex flex-wrap gap-1.5 pb-4 pt-0 md:pb-6"
+          date-testid="participant-list"
+        >
           {participants.map((participant) => (
             <ParticipantFilterItem
               key={`${participant.type}${participant.id}`}

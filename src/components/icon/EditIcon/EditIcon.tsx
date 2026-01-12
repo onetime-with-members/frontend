@@ -1,6 +1,4 @@
-import { SVGProps } from 'react';
-
-export function EditIcon(props: SVGProps<SVGSVGElement>) {
+export function EditIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,6 +6,7 @@ export function EditIcon(props: SVGProps<SVGSVGElement>) {
       height="1em"
       fill="none"
       viewBox="0 0 20 20"
+      className="edit-icon"
       {...props}
     >
       <path

@@ -7,7 +7,8 @@
   "toast": {
     "copiedLink": "Copied event link",
     "loadedMySchedule": "My schedule has been loaded",
-    "everytime": "Everytime timetable has been loaded"
+    "everytime": "Everytime timetable has been loaded",
+    "filterInExampleEvent": "This feature is not available in example events"
   },
   "navbar": {
     "login": "Login",
@@ -19,7 +20,13 @@
   "footer": {
     "termsOfService": "Terms of Service",
     "privacyPolicy": "Privacy Policy",
-    "feedbackIssue": "Issue & Feedback Report"
+    "feedbackIssue": "Issue & Feedback Report",
+    "exampleEvent": {
+      "useCases": "Use Cases",
+      "teamMeetings": "Team Meetings",
+      "oneOnOneMeetings": "1:1 Business Meetings",
+      "socialGatherings": "Social Gatherings"
+    }
   },
   "login": {
     "login": "Login",

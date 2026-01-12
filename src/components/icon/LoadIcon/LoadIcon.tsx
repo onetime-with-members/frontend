@@ -1,6 +1,4 @@
-import { SVGProps } from 'react';
-
-export function LoadIcon(props: SVGProps<SVGSVGElement>) {
+export function LoadIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

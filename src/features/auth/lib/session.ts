@@ -21,7 +21,7 @@ export async function reissueSession(): Promise<Session> {
   const session = await getSession();
 
   if (!session) {
-    throw new Error('Not founded session');
+    throw new Error('Not found session');
   }
 
   const { accessToken, refreshToken } = session;

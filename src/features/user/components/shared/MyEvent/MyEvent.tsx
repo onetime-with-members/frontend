@@ -36,7 +36,7 @@ export default function MyEvent({
 
   return (
     <ProgressLink
-      href={`/events/${event.event_id}`}
+      href={`/events/view/${event.event_id}`}
       className={cn(
         'flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5',
         className,
@@ -44,6 +44,7 @@ export default function MyEvent({
       style={{
         ...(isPending && { backgroundColor: SKELETON_GRAY }),
       }}
+      {...(!isPending && { 'data-testid': 'my-event' })}
     >
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-1 text-gray-30 text-sm-200">

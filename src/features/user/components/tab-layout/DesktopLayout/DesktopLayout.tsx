@@ -10,7 +10,10 @@ export default function DesktopLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="hidden min-h-screen flex-col md:flex">
+    <div
+      className="hidden min-h-screen flex-col md:flex"
+      data-testid="desktop-tab-layout"
+    >
       <NavBar shadow={false} />
       <div className="mx-auto flex w-full max-w-screen-md gap-10 px-4">
         <DesktopSideTab />

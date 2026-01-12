@@ -2,12 +2,12 @@ import ParticipantsDivider from '../../../../shared/ParticipantsDivider';
 import ParticipantsSection from '../../../../shared/ParticipantsSection';
 import PaticipantStatus from '../../../../shared/PaticipantStatus';
 import RecommendedTimeHeading from '../../../../shared/RecommendedTimeHeading';
-import { RecommendScheduleType } from '@/features/event/types';
+import { RecommendedScheduleType } from '@/features/event/types';
 
 export default function RecommendedTime({
   recommendedTime,
 }: {
-  recommendedTime: RecommendScheduleType;
+  recommendedTime: RecommendedScheduleType;
 }) {
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-gray-10 bg-gray-00 p-5">

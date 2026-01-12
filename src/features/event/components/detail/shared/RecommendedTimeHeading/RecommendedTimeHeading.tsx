@@ -3,13 +3,13 @@ import { useLocale } from 'next-intl';
 
 import { weekdaysShortKo } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
-import { RecommendScheduleType } from '@/features/event/types';
+import { RecommendedScheduleType } from '@/features/event/types';
 import { useParams } from 'next/navigation';
 
 export default function RecommendedTimeHeading({
   recommendedTime,
 }: {
-  recommendedTime: RecommendScheduleType;
+  recommendedTime: RecommendedScheduleType;
 }) {
   const params = useParams<{ id: string }>();
   const locale = useLocale();
