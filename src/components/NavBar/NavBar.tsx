@@ -7,6 +7,7 @@ import LoginButton from './LoginButton';
 import useHomeUrl from '@/features/home/hooks/useHomeUrl';
 import { defaultUser } from '@/features/user/constants';
 import useScroll from '@/hooks/useScroll';
+import { usePathname } from '@/i18n/navigation';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
@@ -32,6 +33,7 @@ export default function NavBar({
   const { user, isLoggedIn } = useAuth();
   const { isScrolling } = useScroll();
   const homeUrl = useHomeUrl();
+  const pathname = usePathname();
 
   useEffect(() => {
     setIsMounted(true);
@@ -93,7 +95,7 @@ export default function NavBar({
                   disabled={disabled}
                 />
               ) : (
-                <LoginButton disabled={disabled} />
+                pathname !== '/login' && <LoginButton disabled={disabled} />
               )}
             </>
           )}
