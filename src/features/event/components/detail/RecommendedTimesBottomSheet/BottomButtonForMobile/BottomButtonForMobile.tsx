@@ -55,7 +55,7 @@ export default function BottomButtonForMobile({
         <span className="flex items-center justify-center gap-1">
           <span>{isEventEdited ? t('editSchedule') : t('addSchedule')}</span>
           <span>
-            {isEventEdited ? <IconEdit size={24} /> : <IconPlus size={24} />}
+            {isEventEdited ? <IconEdit size={24} /> : <IconPlus size={20} />}
           </span>
         </span>
       </Button>
