@@ -13,7 +13,7 @@ export default function Chip({
   return (
     <button
       className={cn(
-        'rounded-full bg-gray-05 px-6 py-1 text-gray-40 text-md-200',
+        'rounded-full bg-gray-05 px-4 py-1 text-gray-40 text-md-200',
         {
           'bg-primary-40 text-gray-00': active,
         },
