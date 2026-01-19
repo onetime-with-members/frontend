@@ -25,7 +25,7 @@ export async function reissueWhenTokenExpired(
   try {
     const session = await reissueSession();
 
-    retryApiQueue.retry((apiRequest) => apiRequest(session.accessToken));
+    retryApiQueue.retry(session.accessToken);
 
     originalRequest.headers.Authorization = `Bearer ${session.accessToken}`;
     isTokenRefreshing = false;

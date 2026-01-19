@@ -4,15 +4,15 @@ import { EVENT_TOKEN_EXPIRED, EVENT_WITHDRAW } from '../../constants';
 import { useAuth } from '@/lib/auth';
 
 export default function useSignOutWhenTokenEvent() {
-  const { tokenExpired, withdraw } = useAuth();
+  const { clearAuth } = useAuth();
 
   useEffect(() => {
     async function handleLogout() {
-      await tokenExpired();
+      await clearAuth();
     }
 
     async function handleWithdraw() {
-      await withdraw();
+      await clearAuth();
     }
 
     window.addEventListener(EVENT_TOKEN_EXPIRED, handleLogout);
