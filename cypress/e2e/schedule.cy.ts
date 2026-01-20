@@ -1,34 +1,38 @@
 describe('스케줄 등록', () => {
   it('회원일 경우, 첫 접속 시에 스케줄 가이드 모달이 보여지고 이후 접속 시에는 보여지지 않는다.', () => {
     cy.login();
-    cy.request({
-      url: `${Cypress.env('apiUrl')}/users/guides/view-log`,
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${Cypress.env('token')}`,
-      },
-      qs: {
-        guide_type: 'SCHEDULE_GUIDE_MODAL_001',
-      },
-    }).then(
-      ({
-        body: {
-          payload: { is_viewed: isViewed },
-        },
-      }) => {
-        if (isViewed) {
-          cy.request({
-            url: `${Cypress.env('apiUrl')}/users/guides/view-log`,
-            method: 'DELETE',
-            headers: {
-              Authorization: `Bearer ${Cypress.env('token')}`,
-            },
+    cy.get('@accessToken').then((accessToken) =>
+      cy
+        .request({
+          url: `${Cypress.env('apiUrl')}/users/guides/view-log`,
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          qs: {
+            guide_type: 'SCHEDULE_GUIDE_MODAL_001',
+          },
+        })
+        .then(
+          ({
             body: {
-              guide_type: 'SCHEDULE_GUIDE_MODAL_001',
+              payload: { is_viewed: isViewed },
             },
-          });
-        }
-      },
+          }) => {
+            if (isViewed) {
+              cy.request({
+                url: `${Cypress.env('apiUrl')}/users/guides/view-log`,
+                method: 'DELETE',
+                headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                },
+                body: {
+                  guide_type: 'SCHEDULE_GUIDE_MODAL_001',
+                },
+              });
+            }
+          },
+        ),
     );
 
     cy.visitFirstEvent();
