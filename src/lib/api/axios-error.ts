@@ -2,9 +2,8 @@ import { InternalAxiosRequestConfig } from 'axios';
 
 import apiClient from './axios';
 import { retryApiQueue } from './retry-api-queue';
-import { EVENT_TOKEN_EXPIRED, EVENT_WITHDRAW } from '@/features/auth/constants';
+import { EVENT_DELETE_SESSION } from '@/features/auth/constants';
 import { deleteSession, reissueSession } from '@/features/auth/lib/session';
-import { ExtendedAxiosError } from '@/types';
 
 let isTokenRefreshing = false;
 
@@ -31,19 +30,16 @@ export async function reissueWhenTokenExpired(
     isTokenRefreshing = false;
 
     return apiClient(originalRequest);
-  } catch (error) {
-    await deleteSession();
+  } catch (error: unknown) {
     retryApiQueue.clear();
     isTokenRefreshing = false;
-    window.dispatchEvent(new CustomEvent(EVENT_TOKEN_EXPIRED));
-
-    return Promise.reject(error);
+    return deleteSessionWhenAuthError(error);
   }
 }
 
-export async function removeSessionWhenWithdrawal(error: ExtendedAxiosError) {
+export async function deleteSessionWhenAuthError(error: unknown) {
   await deleteSession();
-  window.dispatchEvent(new CustomEvent(EVENT_WITHDRAW));
+  window.dispatchEvent(new CustomEvent(EVENT_DELETE_SESSION));
 
   return Promise.reject(error);
 }
