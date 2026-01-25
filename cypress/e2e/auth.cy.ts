@@ -17,12 +17,26 @@ describe('로그인', () => {
 
 describe('토큰 만료', () => {
   it('만료된 토큰일 때, 현재 페이지에서 로그아웃된 상태로 새로고침된다.', () => {
-    cy.setCookie(
-      'session',
-      JSON.stringify({
-        accessToken: Cypress.env('expiredToken'),
-        refreshToken: 'invalidRefreshToken',
-      } satisfies Session),
+    cy.request({
+      url: `${Cypress.env('apiUrl')}/test/auth/expired-token`,
+      method: 'POST',
+      body: {
+        secret_key: Cypress.env('authSecretKey'),
+      },
+    }).then(
+      ({
+        body: {
+          payload: { access_token: accessToken, refresh_token: refreshToken },
+        },
+      }) => {
+        cy.setCookie(
+          'session',
+          JSON.stringify({
+            accessToken,
+            refreshToken,
+          } satisfies Session),
+        );
+      },
     );
     cy.visit('/ko/events/new');
 
