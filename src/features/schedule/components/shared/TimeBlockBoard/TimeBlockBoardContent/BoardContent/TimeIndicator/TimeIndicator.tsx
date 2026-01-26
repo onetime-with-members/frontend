@@ -20,7 +20,7 @@ export default function TimeIndicator() {
           })}
         >
           <span
-            className={cn('text-gray-30 text-sm-200', {
+            className={cn('text-gray-40 text-sm-200', {
               '-translate-y-1/2': index !== 0,
               '-translate-y-full': index === timeList.length - 1,
             })}

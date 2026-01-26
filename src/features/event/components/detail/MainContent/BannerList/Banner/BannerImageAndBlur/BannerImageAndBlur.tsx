@@ -14,6 +14,7 @@ export default function BannerImageAndBlur({
         alt={alt}
         fill
         className="z-10 h-full w-full object-contain object-right"
+        draggable={false}
       />
       <NextImage
         src={imageUrl}

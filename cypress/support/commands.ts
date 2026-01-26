@@ -41,12 +41,27 @@ import { Session } from '@/features/auth/types';
 // }
 
 Cypress.Commands.add('login', () => {
-  cy.setCookie(
-    'session',
-    JSON.stringify({
-      accessToken: Cypress.env('token'),
-      refreshToken: '',
-    } satisfies Session),
+  cy.request({
+    url: `${Cypress.env('apiUrl')}/test/auth/login`,
+    method: 'POST',
+    body: {
+      secret_key: Cypress.env('authSecretKey'),
+    },
+  }).then(
+    ({
+      body: {
+        payload: { access_token: accessToken, refresh_token: refreshToken },
+      },
+    }) => {
+      cy.setCookie(
+        'session',
+        JSON.stringify({
+          accessToken,
+          refreshToken,
+        } satisfies Session),
+      );
+      cy.wrap(accessToken).as('accessToken');
+    },
   );
 });
 
@@ -56,7 +71,7 @@ Cypress.Commands.add('logout', () => {
     body: { code: 200, is_success: true },
   }).as('logoutApi');
 
-  cy.contains('홍').click();
+  cy.contains('테').click();
   cy.contains('로그아웃').click();
   cy.wait('@logoutApi');
 });

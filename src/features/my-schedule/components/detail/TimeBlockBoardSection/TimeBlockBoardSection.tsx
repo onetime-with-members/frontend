@@ -13,8 +13,8 @@ export default function TimeBlockBoardSection() {
         mode="view"
         backgroundColor="white"
         mySchedule={mySchedule || defaultMySchedule}
-        className="bg-gray-05 pb-16 pl-2 pr-3"
-        topDateGroupClassName="sticky z-10 bg-gray-05 top-[120px] md:top-[178px]"
+        className="bg-gray-00 pb-16 pl-2 pr-3"
+        topDateGroupClassName="sticky z-10 bg-gray-00 top-[120px] md:top-[178px]"
       />
     </section>
   );
