@@ -27,7 +27,7 @@ export default function LoginPage() {
   const refreshToken = searchParams.get('refresh_token');
   const redirectUrl = searchParams.get('redirect_url');
 
-  const hasTokens = !!accessToken && !!refreshToken;
+  const isLoggingIn = !!accessToken && !!refreshToken;
 
   useEffect(() => {
     (async () => {
@@ -39,19 +39,22 @@ export default function LoginPage() {
 
   useEffect(() => {
     (async () => {
-      if (hasTokens || isLoggedIn) {
-        if (hasTokens) {
-          await signIn({
-            accessToken,
-            refreshToken,
-          });
-        }
-        const targetUrl =
-          redirectUrl || (await getCookie('redirect-url')) || homeUrl;
-        progressRouter.replace(targetUrl);
+      if (isLoggingIn && !isLoggedIn) {
+        await signIn({
+          accessToken: accessToken as string,
+          refreshToken: refreshToken as string,
+        });
       }
     })();
-  }, [accessToken, refreshToken, redirectUrl, isLoggedIn, hasTokens]);
+  }, [isLoggingIn, isLoggedIn, accessToken, refreshToken, signIn]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const savedRedirectUrl = getCookie(REDIRECT_URL);
+      const targetUrl = redirectUrl || savedRedirectUrl || homeUrl;
+      progressRouter.replace(targetUrl as string);
+    }
+  }, [isLoggedIn, redirectUrl, homeUrl, progressRouter]);
 
   return (
     <div className="flex h-screen flex-col" data-testid="login-page">
