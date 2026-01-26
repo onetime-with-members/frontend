@@ -55,7 +55,7 @@ export default function LoginPage() {
         );
       }
     })();
-  }, [searchParams, isLoggedIn]);
+  }, [searchParamsData, isLoggedIn, isLoggingIn]);
 
   return (
     <div className="flex h-screen flex-col" data-testid="login-page">
