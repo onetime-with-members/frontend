@@ -39,7 +39,7 @@ export default function FormContent() {
       onSubmit={handleSubmit?.(onSubmit)}
       className="flex flex-col items-center pb-40"
     >
-      <div className="mx-auto flex w-full max-w-screen-md flex-col items-center justify-center md:pt-6">
+      <div className="mx-auto flex w-full max-w-[825px] flex-col items-center justify-center md:pt-6">
         <TopAction />
         <InputContent />
       </div>

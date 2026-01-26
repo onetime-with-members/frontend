@@ -36,7 +36,7 @@ export default function BadgeFloatingBottomButton({
           variant={variant}
           icon={
             icon === 'plus' ? (
-              <IconPlus size={24} />
+              <IconPlus size={20} />
             ) : (
               <EditIcon fontSize={24} />
             )

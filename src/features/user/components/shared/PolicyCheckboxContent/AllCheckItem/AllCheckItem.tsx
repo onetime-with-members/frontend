@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 
 import Checkbox from '../Checkbox';
 import { PolicySchema } from '@/features/user/types';
+import cn from '@/lib/cn';
 
 export default function AllCheckItem({
   value,
@@ -11,6 +12,9 @@ export default function AllCheckItem({
   setValue: (newValue: PolicySchema) => void;
 }) {
   const t = useTranslations('policyEdit');
+
+  const isAllChecked =
+    value.servicePolicy && value.privacyPolicy && value.marketingPolicy;
 
   function handleAllCheckboxClick() {
     const isNewAllChecked =
@@ -26,14 +30,13 @@ export default function AllCheckItem({
 
   return (
     <div
-      className="flex cursor-pointer items-center gap-3 rounded-xl bg-gray-05 p-4"
+      className={cn('flex cursor-pointer items-center gap-3 rounded-xl p-4', {
+        'bg-primary-00': isAllChecked,
+        'bg-gray-05': !isAllChecked,
+      })}
       onClick={handleAllCheckboxClick}
     >
-      <Checkbox
-        checked={
-          value.servicePolicy && value.privacyPolicy && value.marketingPolicy
-        }
-      />
+      <Checkbox checked={isAllChecked} />
       <span className="text-gray-90 text-md-300">{t('all')}</span>
     </div>
   );

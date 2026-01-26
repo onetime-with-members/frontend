@@ -131,12 +131,12 @@ export function useEditPolicyMutation() {
 }
 
 export function useWithdrawMutation() {
-  const { withdraw: afterWithdraw } = useAuth();
+  const { clearAuth } = useAuth();
 
   const { mutateAsync } = useMutation({
     mutationFn: withdrawAction,
     onSuccess: async () => {
-      await afterWithdraw();
+      await clearAuth();
     },
   });
 

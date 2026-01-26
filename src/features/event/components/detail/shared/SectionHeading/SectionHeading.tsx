@@ -31,7 +31,7 @@ export default function SectionHeading({
     >
       <div className="flex items-center">
         <span className="text-xl">{icon}</span>
-        <h2>{children}</h2>
+        <h2 className="text-lg-300">{children}</h2>
       </div>
       <span className="text-primary-50">{status}</span>
     </div>

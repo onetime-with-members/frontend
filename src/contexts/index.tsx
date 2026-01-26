@@ -20,7 +20,7 @@ export default async function ContextProviders({
 }) {
   const cookieStore = await cookies();
 
-  const { session, isLoggedIn } = await auth();
+  const { session, isLoggedIn, isInvalidSession } = await auth();
 
   let barBanner = null;
   if (!cookieStore.get('bar-banner')) {
@@ -33,6 +33,7 @@ export default async function ContextProviders({
     <SessionContextProvider
       initialSession={session}
       initialIsLoggedIn={isLoggedIn}
+      isInvalidSession={isInvalidSession}
     >
       <PageModeContextProvider>
         <FooterContextProvider>

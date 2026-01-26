@@ -64,7 +64,7 @@ export default function PolicyScreen() {
     <>
       <ScreenLayout
         title={t.rich('title1', {
-          br: () => <br className="hidden xs:block" />,
+          br: () => <br />,
         })}
         disabled={!isValid}
         onBackButtonClick={() =>

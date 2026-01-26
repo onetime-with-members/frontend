@@ -51,7 +51,6 @@ export function useAuth() {
     isLoggedIn,
     signIn,
     signOut,
-    withdraw: clearAuth,
-    tokenExpired: clearAuth,
+    clearAuth,
   };
 }

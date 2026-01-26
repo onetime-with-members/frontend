@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 import {
+  deleteSessionWhenAuthError,
   reissueWhenTokenExpired,
-  removeSessionWhenWithdrawal,
 } from './axios-error';
 import { SERVER_API_URL } from '@/constants';
 import { getSession } from '@/features/auth/lib/session';
@@ -30,18 +30,19 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error: ExtendedAxiosError) => {
     const {
+      status,
       config: originalRequest,
       response: {
         data: { code: errorCode },
       },
     } = error;
 
-    if (errorCode === 'TOKEN-003') {
-      return await reissueWhenTokenExpired(originalRequest);
-    }
+    if (status === 401) {
+      if (errorCode === 'TOKEN-003') {
+        return reissueWhenTokenExpired(originalRequest);
+      }
 
-    if (errorCode === 'USER-003') {
-      return await removeSessionWhenWithdrawal(error);
+      return deleteSessionWhenAuthError(error);
     }
 
     return Promise.reject(error);

@@ -26,19 +26,22 @@ describe('정책 상세 내용 페이지', () => {
 describe('정책 동의 여부 수정', () => {
   beforeEach(() => {
     cy.login();
-    cy.request({
-      url: `${Cypress.env('apiUrl')}/users/policy`,
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${Cypress.env('token')}`,
-      },
-      body: {
-        service_policy_agreement: false,
-        privacy_policy_agreement: false,
-        marketing_policy_agreement: false,
-      },
-    });
+    cy.get('@accessToken').then((accessToken) =>
+      cy.request({
+        url: `${Cypress.env('apiUrl')}/users/policy`,
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: {
+          service_policy_agreement: false,
+          privacy_policy_agreement: false,
+          marketing_policy_agreement: false,
+        },
+      }),
+    );
     cy.visit('/ko/events/new');
+    cy.wait(1000);
     cy.location('pathname').should('contain', '/policy/edit');
   });
 
@@ -105,22 +108,24 @@ describe('정책 동의 여부 수정', () => {
     cy.get('nav').find('img[alt="OneTime"]').click({ force: true });
     cy.location('pathname').should('contain', '/policy/edit');
 
-    cy.get('nav').contains('홍').click();
+    cy.get('nav').contains('테').click();
     cy.contains('로그아웃').should('not.exist');
   });
 
   afterEach(() => {
-    cy.request({
-      url: `${Cypress.env('apiUrl')}/users/policy`,
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${Cypress.env('token')}`,
-      },
-      body: {
-        service_policy_agreement: true,
-        privacy_policy_agreement: true,
-        marketing_policy_agreement: true,
-      },
-    });
+    cy.get('@accessToken').then((accessToken) =>
+      cy.request({
+        url: `${Cypress.env('apiUrl')}/users/policy`,
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: {
+          service_policy_agreement: true,
+          privacy_policy_agreement: true,
+          marketing_policy_agreement: true,
+        },
+      }),
+    );
   });
 });

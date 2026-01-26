@@ -9,8 +9,7 @@ export default defineConfig({
     setupNodeEvents(_, config) {
       config.env.apiUrl = process.env.SERVER_API_URL;
       config.env.shortUrl = process.env.NEXT_PUBLIC_SHORT_URL_DOMAIN;
-      config.env.token = process.env.TEST_ACCESS_TOKEN;
-      config.env.expiredToken = process.env.EXPIRED_TEST_ACCESS_TOKEN;
+      config.env.authSecretKey = process.env.TEST_AUTH_SECRET_KEY;
 
       return config;
     },
