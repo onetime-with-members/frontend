@@ -23,39 +23,38 @@ export default function LoginPage() {
   const homeUrl = useHomeUrl();
   const { isLoggedIn, signIn } = useAuth();
 
-  const searchParamsData = {
-    accessToken: searchParams.get('access_token'),
-    refreshToken: searchParams.get('refresh_token'),
-    redirectUrl: searchParams.get('redirect_url'),
-  };
-  const isLoggingIn =
-    searchParamsData.accessToken && searchParamsData.refreshToken;
+  const accessToken = searchParams.get('access_token');
+  const refreshToken = searchParams.get('refresh_token');
+  const redirectUrl = searchParams.get('redirect_url');
+
+  const isLoggingIn = !!accessToken && !!refreshToken;
 
   useEffect(() => {
     (async () => {
-      if (searchParamsData.redirectUrl) {
-        await setCookie(REDIRECT_URL, searchParamsData.redirectUrl);
+      if (redirectUrl) {
+        await setCookie(REDIRECT_URL, redirectUrl);
       }
     })();
   }, [searchParams]);
 
   useEffect(() => {
     (async () => {
-      if (isLoggingIn || isLoggedIn) {
-        if (isLoggingIn) {
-          await signIn({
-            accessToken: searchParamsData.accessToken as string,
-            refreshToken: searchParamsData.refreshToken as string,
-          });
-        }
-        progressRouter.replace(
-          searchParamsData.redirectUrl ||
-            (await getCookie('redirect-url')) ||
-            homeUrl,
-        );
+      if (isLoggingIn && !isLoggedIn) {
+        await signIn({
+          accessToken: accessToken as string,
+          refreshToken: refreshToken as string,
+        });
       }
     })();
-  }, [searchParams, isLoggedIn]);
+  }, [isLoggingIn, isLoggedIn, accessToken, refreshToken, signIn]);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const savedRedirectUrl = getCookie(REDIRECT_URL);
+      const targetUrl = redirectUrl || savedRedirectUrl || homeUrl;
+      progressRouter.replace(targetUrl as string);
+    }
+  }, [isLoggedIn, redirectUrl, homeUrl, progressRouter]);
 
   return (
     <div className="flex h-screen flex-col" data-testid="login-page">
