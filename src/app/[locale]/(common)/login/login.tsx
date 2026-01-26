@@ -23,39 +23,35 @@ export default function LoginPage() {
   const homeUrl = useHomeUrl();
   const { isLoggedIn, signIn } = useAuth();
 
-  const searchParamsData = {
-    accessToken: searchParams.get('access_token'),
-    refreshToken: searchParams.get('refresh_token'),
-    redirectUrl: searchParams.get('redirect_url'),
-  };
-  const isLoggingIn =
-    searchParamsData.accessToken && searchParamsData.refreshToken;
+  const accessToken = searchParams.get('access_token');
+  const refreshToken = searchParams.get('refresh_token');
+  const redirectUrl = searchParams.get('redirect_url');
+
+  const hasTokens = !!accessToken && !!refreshToken;
 
   useEffect(() => {
     (async () => {
-      if (searchParamsData.redirectUrl) {
-        await setCookie(REDIRECT_URL, searchParamsData.redirectUrl);
+      if (redirectUrl) {
+        await setCookie(REDIRECT_URL, redirectUrl);
       }
     })();
   }, [searchParams]);
 
   useEffect(() => {
     (async () => {
-      if (isLoggingIn || isLoggedIn) {
-        if (isLoggingIn) {
+      if (hasTokens || isLoggedIn) {
+        if (hasTokens) {
           await signIn({
-            accessToken: searchParamsData.accessToken as string,
-            refreshToken: searchParamsData.refreshToken as string,
+            accessToken,
+            refreshToken,
           });
         }
-        progressRouter.replace(
-          searchParamsData.redirectUrl ||
-            (await getCookie('redirect-url')) ||
-            homeUrl,
-        );
+        const targetUrl =
+          redirectUrl || (await getCookie('redirect-url')) || homeUrl;
+        progressRouter.replace(targetUrl);
       }
     })();
-  }, [searchParamsData, isLoggedIn, isLoggingIn]);
+  }, [accessToken, refreshToken, redirectUrl, isLoggedIn, hasTokens]);
 
   return (
     <div className="flex h-screen flex-col" data-testid="login-page">
