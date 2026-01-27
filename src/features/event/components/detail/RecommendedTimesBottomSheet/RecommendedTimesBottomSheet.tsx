@@ -3,14 +3,13 @@ import { useContext, useEffect, useState } from 'react';
 
 import BottomButtonForMobile from './BottomButtonForMobile';
 import MainBottomSheet from './MainBottomSheet';
-import { breakpoint } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
 import LoginAlert from '@/features/event/components/detail/shared/LoginAlert';
 import SharePopUp from '@/features/event/components/detail/shared/SharePopUp';
 import useIsEventEdited from '@/features/event/hooks/useIsEventEdited';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
-import useClientWidth from '@/hooks/useClientWidth';
+import useIsMobile from '@/hooks/useIsMobile';
 import { useAuth } from '@/lib/auth';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
@@ -27,7 +26,7 @@ export default function RecommendedTimesBottomSheet() {
   const progressRouter = useProgressRouter();
 
   const { isLoggedIn } = useAuth();
-  const clientWidth = useClientWidth();
+  const isMobile = useIsMobile();
   const isEventEdited = useIsEventEdited();
 
   const { data: event } = useEventQuery(params.id);
@@ -47,9 +46,9 @@ export default function RecommendedTimesBottomSheet() {
 
   useEffect(() => {
     setShouldBottomSheetShown(
-      !isFooterShown && schedules?.length !== 0 && clientWidth < breakpoint.md,
+      !isFooterShown && schedules?.length !== 0 && isMobile,
     );
-  }, [isFooterShown, schedules, clientWidth]);
+  }, [isFooterShown, schedules, isMobile]);
 
   return (
     <>

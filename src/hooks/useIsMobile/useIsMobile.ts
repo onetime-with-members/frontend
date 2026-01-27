@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 
-export default function useClientWidth() {
+import { breakpoint } from '@/constants';
+
+export default function useIsMobile() {
   const [clientWidth, setClientWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0,
   );
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     function handleResize() {
@@ -17,5 +20,9 @@ export default function useClientWidth() {
     };
   }, []);
 
-  return clientWidth;
+  useEffect(() => {
+    setIsMobile(clientWidth < breakpoint.md);
+  }, [clientWidth]);
+
+  return isMobile;
 }

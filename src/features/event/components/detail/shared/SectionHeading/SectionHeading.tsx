@@ -1,6 +1,4 @@
-import React, { useContext } from 'react';
-
-import { BarBannerContext } from '@/features/banner/contexts/BarBannerContext';
+import useTopContentHeight from '@/features/event/hooks/useTopContentHeight';
 import cn from '@/lib/cn';
 
 export default function SectionHeading({
@@ -16,18 +14,22 @@ export default function SectionHeading({
   className?: string;
   sticky?: boolean;
 }) {
-  const { isBarBannerShown } = useContext(BarBannerContext);
+  const stickTop = useTopContentHeight(
+    ({ navBar, eventHeader, barBanner }) => navBar + eventHeader + barBanner,
+  );
 
   return (
     <div
       className={cn(
-        'top-[136px] z-10 flex items-center gap-2 bg-gray-00 pb-1 pt-2 text-gray-70 text-md-300 md:text-lg-300',
+        'z-10 flex items-center gap-2 bg-gray-00 pb-1 pt-2 text-gray-70 text-md-300 md:text-lg-300',
         {
-          'top-[192px]': isBarBannerShown,
           sticky,
         },
         className,
       )}
+      style={{
+        top: stickTop,
+      }}
     >
       <div className="flex items-center">
         <span className="text-xl">{icon}</span>
