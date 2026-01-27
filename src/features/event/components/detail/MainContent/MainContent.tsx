@@ -5,7 +5,7 @@ import DesktopSideContent from './DesktopSideContent';
 import ParticipantFilter from './ParticipantFilter';
 import { useEventQuery } from '@/features/event/api/event.query';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
-import useTimeBlockTopContentTopPx from '@/features/event/hooks/useTimeBlockTopContentTopPx';
+import useTopContentHeight from '@/features/event/hooks/useTopContentHeight';
 import TimeBlockBoard from '@/features/schedule/components/shared/TimeBlockBoard';
 import { useParams } from 'next/navigation';
 
@@ -16,7 +16,10 @@ export default function MainContent() {
 
   const { data: event } = useEventQuery(params.id);
 
-  const timeBlockTopContentTopPx = useTimeBlockTopContentTopPx();
+  const stickyTop = useTopContentHeight(
+    ({ navBar, eventHeader, participantFilter, barBanner }) =>
+      navBar + eventHeader + participantFilter + barBanner,
+  );
 
   return (
     <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] gap-6 bg-gray-00 px-4 pb-16 pt-2 md:px-6">
@@ -28,7 +31,7 @@ export default function MainContent() {
           schedules={schedules || []}
           backgroundColor="gray"
           topContentStyle={{
-            top: timeBlockTopContentTopPx,
+            top: stickyTop,
           }}
         />
       </div>
