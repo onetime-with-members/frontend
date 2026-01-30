@@ -7,6 +7,7 @@ import {
   closeScheduleGuideModal,
   createNewMemberSchedule,
   loginGuest,
+  sendNewScheduleMessage,
   updateSchedule,
 } from './schedule.api';
 import {
@@ -112,6 +113,17 @@ export function useUpdateScheduleMutation() {
   });
 
   return { mutateAsync, isPending };
+}
+
+export function useSendNewScheduleMessageMutation() {
+  const { mutateAsync } = useMutation({
+    mutationFn: (eventId: Parameters<typeof sendNewScheduleMessage>[0]) =>
+      isExampleEventSlug(eventId)
+        ? Promise.resolve()
+        : sendNewScheduleMessage(eventId),
+  });
+
+  return { mutateAsync };
 }
 
 export function useCloseScheduleGuideModalMutation() {

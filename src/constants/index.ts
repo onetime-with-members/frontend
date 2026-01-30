@@ -1,11 +1,15 @@
 import { InfiniteData } from '@tanstack/react-query';
 
+const DEFAULT_URL = 'http://localhost:3000';
+
 export const SERVER_API_URL =
   process.env.SERVER_API_URL ||
   process.env.NEXT_PUBLIC_SERVER_API_URL ||
-  'http://localhost:3000';
+  DEFAULT_URL;
 export const SHORT_URL_DOMAIN =
-  process.env.NEXT_PUBLIC_SHORT_URL_DOMAIN || 'http://localhost:3000';
+  process.env.NEXT_PUBLIC_SHORT_URL_DOMAIN || DEFAULT_URL;
+export const DISCORD_API_URL =
+  process.env.NEXT_PUBLIC_DISCORD_API_URL || DEFAULT_URL;
 
 export const LOCALES = ['ko', 'en'] as const;
 export const POLICY_KEY_LIST = ['privacy', 'service'] as const;

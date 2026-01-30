@@ -1,6 +1,6 @@
 import { InternalAxiosRequestConfig } from 'axios';
 
-import apiClient from './axios';
+import apiClient from './api-client';
 import { retryApiQueue } from './retry-api-queue';
 import { EVENT_DELETE_SESSION } from '@/features/auth/constants';
 import { deleteSession, reissueSession } from '@/features/auth/lib/session';

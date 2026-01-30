@@ -3,7 +3,7 @@ import axios from 'axios';
 import {
   deleteSessionWhenAuthError,
   reissueWhenTokenExpired,
-} from './axios-error';
+} from './auth-error';
 import { SERVER_API_URL } from '@/constants';
 import { getSession } from '@/features/auth/lib/session';
 import { ExtendedAxiosError } from '@/types';

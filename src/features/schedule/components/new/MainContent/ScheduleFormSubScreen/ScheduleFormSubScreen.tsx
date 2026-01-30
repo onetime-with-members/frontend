@@ -9,6 +9,7 @@ import { useEventQuery } from '@/features/event/api/event.query';
 import useGuestEditedEvents from '@/features/event/hooks/useGuestEditedEvents';
 import {
   useCreateNewMemberScheduleMutation,
+  useSendNewScheduleMessageMutation,
   useUpdateScheduleMutation,
 } from '@/features/schedule/api/schedule.query';
 import { GuideModalContext } from '@/features/schedule/contexts/GuideModalContext';
@@ -50,6 +51,8 @@ export default function ScheduleFormSubScreen() {
     useCreateNewMemberScheduleMutation();
   const { mutateAsync: updateSchedule, isPending: isUpdatePending } =
     useUpdateScheduleMutation();
+  const { mutateAsync: sendNewScheduleMessage } =
+    useSendNewScheduleMessageMutation();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -70,6 +73,9 @@ export default function ScheduleFormSubScreen() {
         guestId: guestValue.guestId,
         schedule: scheduleValue[0].schedules,
       });
+    }
+    if (isScheduleEmpty) {
+      await sendNewScheduleMessage(params.id);
     }
     await addNewEditedEvent(params.id);
     progressRouter.push(`/events/view/${params.id}`);
