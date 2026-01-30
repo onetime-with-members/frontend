@@ -15,6 +15,7 @@ import {
 import { GuideModalContext } from '@/features/schedule/contexts/GuideModalContext';
 import { ScheduleFormContext } from '@/features/schedule/contexts/ScheduleFormContext';
 import useScheduleAdd from '@/features/schedule/hooks/useScheduleAdd';
+import { useUserQuery } from '@/features/user/api/user.query';
 import useToast from '@/hooks/useToast';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
@@ -46,6 +47,7 @@ export default function ScheduleFormSubScreen() {
   });
 
   const { data: event } = useEventQuery(params.id);
+  const { data: user } = useUserQuery();
 
   const { mutateAsync: createNewMemberSchedule, isPending: isCreatePending } =
     useCreateNewMemberScheduleMutation();
@@ -75,7 +77,10 @@ export default function ScheduleFormSubScreen() {
       });
     }
     if (isScheduleEmpty) {
-      await sendNewScheduleMessage(params.id);
+      await sendNewScheduleMessage({
+        eventId: params.id,
+        username: user?.nickname ?? guestValue.name ?? '(알수없음)',
+      });
     }
     await addNewEditedEvent(params.id);
     progressRouter.push(`/events/view/${params.id}`);

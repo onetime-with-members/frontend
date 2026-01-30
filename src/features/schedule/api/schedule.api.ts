@@ -128,8 +128,16 @@ export async function updateSchedule({
   return res.data.payload;
 }
 
-export async function sendNewScheduleMessage(eventId: string) {
-  const res = await discordApiClient.post(`/send-message/${eventId}`);
+export async function sendNewScheduleMessage({
+  eventId,
+  username,
+}: {
+  eventId: string;
+  username: string;
+}) {
+  const res = await discordApiClient.post(`/send-message/${eventId}`, {
+    username,
+  });
   return res.data;
 }
 

@@ -117,10 +117,13 @@ export function useUpdateScheduleMutation() {
 
 export function useSendNewScheduleMessageMutation() {
   const { mutateAsync } = useMutation({
-    mutationFn: (eventId: Parameters<typeof sendNewScheduleMessage>[0]) =>
+    mutationFn: ({
+      eventId,
+      username,
+    }: Parameters<typeof sendNewScheduleMessage>[0]) =>
       isExampleEventSlug(eventId)
         ? Promise.resolve()
-        : sendNewScheduleMessage(eventId),
+        : sendNewScheduleMessage({ eventId, username }),
   });
 
   return { mutateAsync };
