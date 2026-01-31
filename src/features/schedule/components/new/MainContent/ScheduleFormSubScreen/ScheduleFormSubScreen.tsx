@@ -80,7 +80,7 @@ export default function ScheduleFormSubScreen() {
       await sendNewScheduleMessage({
         eventId: params.id,
         username: user?.nickname ?? guestValue.name ?? '(알수없음)',
-      }).catch();
+      }).catch(() => {});
     }
     await addNewEditedEvent(params.id);
     progressRouter.push(`/events/view/${params.id}`);
