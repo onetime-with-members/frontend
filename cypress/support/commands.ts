@@ -61,6 +61,7 @@ Cypress.Commands.add('login', () => {
         } satisfies Session),
       );
       cy.wrap(accessToken).as('accessToken');
+      cy.wrap(refreshToken).as('refreshToken');
     },
   );
 });
