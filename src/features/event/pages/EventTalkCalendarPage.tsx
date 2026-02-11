@@ -26,18 +26,13 @@ export default function EventTalkCalendarPage({
   const { data: event } = useEventQuery(eventId);
 
   useEffect(() => {
-    if (!code) {
-      redirectToKakaoAuth('/events/talk-calendar');
-    }
-  }, [code]);
-
-  useEffect(() => {
     (async () => {
-      if (eventIdParam) {
+      if (!code && eventIdParam) {
         await addTalkCalendarEventCookie(eventIdParam);
+        redirectToKakaoAuth('/events/talk-calendar');
       }
     })();
-  }, [eventIdParam]);
+  }, [code, eventIdParam]);
 
   useEffect(() => {
     (async () => {
