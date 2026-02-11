@@ -13,7 +13,7 @@ export default function ToolbarButtons() {
   const params = useParams<{ id: string }>();
   const progressRouter = useProgressRouter();
 
-  const { data: event } = useEventWithAuthQuery({ id: params.id });
+  const { data: event } = useEventWithAuthQuery(params.id);
 
   return (
     <>

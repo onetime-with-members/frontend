@@ -26,16 +26,9 @@ export function useEventQuery(id: string) {
   return { data: data || defaultEvent };
 }
 
-export function useEventWithAuthQuery({
-  id,
-  enabled,
-}: {
-  id: string;
-  enabled?: boolean;
-}) {
+export function useEventWithAuthQuery(id: string) {
   const { data } = useQuery({
     ...eventWithAuthQueryOptions(id),
-    enabled,
   });
 
   return { data };

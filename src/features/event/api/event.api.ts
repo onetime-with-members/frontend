@@ -149,3 +149,39 @@ export async function fetchFilteredSchedules({
   const schedules: ScheduleType[] = res.data.payload;
   return schedules;
 }
+
+export async function createTalkCalendarEvent(
+  accessToken: string,
+  event: EventType,
+) {
+  const res = await fetch(
+    'https://kapi.kakao.com/v2/api/calendar/create/event',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: new URLSearchParams({
+        event: JSON.stringify({
+          title: event.title,
+          time: {
+            start_at: '2026-02-10T03:00:00Z',
+            end_at: '2026-02-10T06:00:00Z',
+            time_zone: 'Asia/Seoul',
+            all_day: false,
+            lunar: false,
+          },
+          rrlue: 'FREQ=DAILY;UNTIL=20221031T000000Z',
+          description: '일정 설명',
+          reminders: [15, 30],
+          color: 'RED',
+        }),
+      }),
+    },
+  );
+
+  if (!res.ok) {
+    throw new Error('톡캘린더 이벤트 생성 도중 에러가 발생했습니다.');
+  }
+}
