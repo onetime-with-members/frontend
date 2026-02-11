@@ -12,3 +12,4 @@ export * from './RefreshIcon';
 export * from './SleepTimeIcon';
 export * from './SpeakerphoneIcon';
 export * from './TrashIcon';
+export * from './KakaoTalkIcon';

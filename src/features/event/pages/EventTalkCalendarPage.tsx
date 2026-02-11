@@ -47,7 +47,7 @@ export default function EventTalkCalendarPage({
         '/events/talk-calendar',
       );
       await createTalkCalendarEvent(accessToken, event);
-      router.push(`/events/${eventId}`);
+      router.push(`/events/view/${eventId}`);
     })();
   }, [code, event]);
 
