@@ -9,6 +9,7 @@ import {
 import { SERVER_API_URL } from '@/constants';
 import { ScheduleType } from '@/features/schedule/types';
 import apiClient from '@/lib/api';
+import dayjs from '@/lib/dayjs';
 
 export async function fetchEvent(eventId: string) {
   const res = await fetch(`${SERVER_API_URL}/events/${eventId}`);
@@ -166,16 +167,15 @@ export async function createTalkCalendarEvent(
         event: JSON.stringify({
           title: event.title,
           time: {
-            start_at: '2026-02-10T03:00:00Z',
-            end_at: '2026-02-10T06:00:00Z',
-            time_zone: 'Asia/Seoul',
-            all_day: false,
-            lunar: false,
+            start_at: dayjs(event.ranges[0], 'YYYY.MM.DD')
+              .hour(22)
+              .toISOString(),
+            end_at: dayjs(event.ranges[0], 'YYYY.MM.DD').hour(23).toISOString(),
+            time_zone: dayjs.tz.guess(),
           },
-          rrlue: 'FREQ=DAILY;UNTIL=20221031T000000Z',
-          description: '일정 설명',
-          reminders: [15, 30],
-          color: 'RED',
+          description: 'OneTime으로부터 추가된 일정입니다.',
+          reminders: [30, 1440],
+          color: 'LAVENDER',
         }),
       }),
     },

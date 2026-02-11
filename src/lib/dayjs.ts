@@ -5,7 +5,9 @@ import advancedFormat from 'dayjs/plugin/advancedFormat';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import localeData from 'dayjs/plugin/localeData';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import timezone from 'dayjs/plugin/timezone';
 import updateLocale from 'dayjs/plugin/updateLocale';
+import utc from 'dayjs/plugin/utc';
 import weekday from 'dayjs/plugin/weekday';
 
 dayjs.extend(localeData);
@@ -14,6 +16,8 @@ dayjs.extend(relativeTime);
 dayjs.extend(updateLocale);
 dayjs.extend(weekday);
 dayjs.extend(advancedFormat);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 dayjs.updateLocale('ko', {
   relativeTime: {
