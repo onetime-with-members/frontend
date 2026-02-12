@@ -1,6 +1,6 @@
 import { KAKAO_REST_API_CLIENT_SECRET, KAKAO_REST_API_KEY } from '../constants';
 
-export function redirectToKakaoAuth(redirectPathname: string) {
+export function getKakaoAuthCode(redirectPathname: string) {
   location.href = `https://kauth.kakao.com/oauth/authorize?${new URLSearchParams(
     {
       client_id: KAKAO_REST_API_KEY,
@@ -11,10 +11,7 @@ export function redirectToKakaoAuth(redirectPathname: string) {
   ).toString()}`;
 }
 
-export async function getKakaoAccessToken(
-  code: string,
-  redirectPathname: string,
-) {
+export async function getKakaoAccessToken(code: string, redirect: string) {
   const res = await fetch('https://kauth.kakao.com/oauth/token', {
     method: 'POST',
     headers: {
@@ -23,7 +20,7 @@ export async function getKakaoAccessToken(
     body: new URLSearchParams({
       grant_type: 'authorization_code',
       client_id: KAKAO_REST_API_KEY,
-      redirect_uri: location.origin + redirectPathname,
+      redirect_uri: location.origin + redirect,
       code,
       client_secret: KAKAO_REST_API_CLIENT_SECRET,
     }).toString(),

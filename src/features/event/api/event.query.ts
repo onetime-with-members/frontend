@@ -1,8 +1,9 @@
 import { defaultEvent } from '../constants';
-import { MemberFilterType } from '../types';
+import { EventType, MemberFilterType } from '../types';
 import { isExampleEventSlug } from '../utils';
 import {
   createEventAction,
+  createTalkCalendarEvent,
   deleteEventAction,
   editEventAction,
   fetchFilteredRecommendedTimes,
@@ -134,6 +135,20 @@ export function useChangeFilteredEventDataMutation({
       });
       return { recommendedTimes, schedules };
     },
+  });
+
+  return { mutateAsync };
+}
+
+export function useCreateTalkCalendarEvent() {
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({
+      accessToken,
+      event,
+    }: {
+      accessToken: string;
+      event: EventType;
+    }) => await createTalkCalendarEvent(accessToken, event),
   });
 
   return { mutateAsync };

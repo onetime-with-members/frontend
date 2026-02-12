@@ -2,13 +2,10 @@
 
 import { useEffect } from 'react';
 
-import {
-  getKakaoAccessToken,
-  redirectToKakaoAuth,
-} from '../../auth/lib/kakao-auth';
-import { createTalkCalendarEvent } from '../api/event.api';
-import { useEventQuery } from '../api/event.query';
+import { useCreateTalkCalendarEvent, useEventQuery } from '../api/event.query';
 import { addTalkCalendarEventCookie } from '../lib/talk-calendar-event-cookie';
+import { getKakaoAuthCode } from '@/features/auth/api/auth.api';
+import { useKakaoAccessTokenQuery } from '@/features/auth/api/auth.query';
 import { useRouter } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
 
@@ -24,27 +21,30 @@ export default function EventTalkCalendarPage({
   const eventIdParam = searchParams.get('event_id');
 
   const { data: event } = useEventQuery(eventId);
+  const { data: kakaoAccessToken } = useKakaoAccessTokenQuery(
+    code ?? '',
+    '/events/talk-calendar',
+    { enabled: !!code },
+  );
+
+  const { mutateAsync: createTalkCalendarEvent } = useCreateTalkCalendarEvent();
 
   useEffect(() => {
     (async () => {
       if (!code && eventIdParam) {
         await addTalkCalendarEventCookie(eventIdParam);
-        redirectToKakaoAuth('/events/talk-calendar');
+        getKakaoAuthCode('/events/talk-calendar');
       }
     })();
   }, [code, eventIdParam]);
 
   useEffect(() => {
     (async () => {
-      if (!code) return;
-      const accessToken = await getKakaoAccessToken(
-        code,
-        '/events/talk-calendar',
-      );
-      await createTalkCalendarEvent(accessToken, event);
+      if (!kakaoAccessToken) return;
+      await createTalkCalendarEvent({ accessToken: kakaoAccessToken, event });
       router.push(`/events/view/${eventId}`);
     })();
-  }, [code, event]);
+  }, [kakaoAccessToken, event]);
 
   return null;
 }
