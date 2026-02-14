@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 
 import { useCreateTalkCalendarEvent, useEventQuery } from '../api/event.query';
+import { TALK_CALENDAR_SUCCESS } from '../constants';
 import { addTalkCalendarEventCookie } from '../lib/talk-calendar-event-cookie';
 import { getKakaoAuthCode } from '@/features/auth/api/auth.api';
 import { useKakaoAccessTokenQuery } from '@/features/auth/api/auth.query';
@@ -42,7 +43,7 @@ export default function EventTalkCalendarPage({
     (async () => {
       if (!kakaoAccessToken) return;
       await createTalkCalendarEvent({ accessToken: kakaoAccessToken, event });
-      router.push(`/events/view/${eventId}`);
+      router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_SUCCESS}`);
     })();
   }, [kakaoAccessToken, event]);
 

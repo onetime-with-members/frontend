@@ -2,6 +2,8 @@ import { EventSchema, EventType } from '../types';
 
 export const EDITED_EVENTS_COOKIE_KEY = 'edited_events';
 
+export const TALK_CALENDAR_SUCCESS = 'talk_calendar_success';
+
 export const bottomSheetHeight = {
   all: 500,
   peek: 150,
