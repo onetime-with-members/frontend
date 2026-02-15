@@ -141,7 +141,7 @@ export function useChangeFilteredEventDataMutation({
 }
 
 export function useCreateTalkCalendarEvent() {
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationFn: async ({
       accessToken,
       event,
@@ -151,5 +151,5 @@ export function useCreateTalkCalendarEvent() {
     }) => await createTalkCalendarEvent(accessToken, event),
   });
 
-  return { mutateAsync };
+  return { mutateAsync, isPending, isSuccess };
 }

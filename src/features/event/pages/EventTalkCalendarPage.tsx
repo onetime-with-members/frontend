@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 import { useCreateTalkCalendarEvent, useEventQuery } from '../api/event.query';
 import { TALK_CALENDAR_SUCCESS } from '../constants';
@@ -15,22 +15,24 @@ export default function EventTalkCalendarPage({
 }: {
   eventId: string;
 }) {
-  const isCompleted = useRef(false);
-
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const code = searchParams.get('code');
   const eventIdParam = searchParams.get('event_id');
 
-  const { data: event, isPending } = useEventQuery(eventId);
+  const { data: event, isPending: isEventPending } = useEventQuery(eventId);
   const { data: kakaoAccessToken } = useKakaoAccessTokenQuery(
     code ?? '',
     '/events/talk-calendar',
     { enabled: !!code },
   );
 
-  const { mutateAsync: createTalkCalendarEvent } = useCreateTalkCalendarEvent();
+  const {
+    mutateAsync: createTalkCalendarEvent,
+    isPending,
+    isSuccess,
+  } = useCreateTalkCalendarEvent();
 
   useEffect(() => {
     (async () => {
@@ -43,12 +45,11 @@ export default function EventTalkCalendarPage({
 
   useEffect(() => {
     (async () => {
-      if (!kakaoAccessToken || isPending || isCompleted.current) return;
+      if (!kakaoAccessToken || isEventPending || isPending || isSuccess) return;
       await createTalkCalendarEvent({ accessToken: kakaoAccessToken, event });
-      isCompleted.current = true;
       router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_SUCCESS}`);
     })();
-  }, [kakaoAccessToken, event, isPending]);
+  }, [kakaoAccessToken, event, isEventPending, isPending, isSuccess]);
 
   return null;
 }
