@@ -5,7 +5,7 @@ import { ShareIcon } from '@/components/icon/ShareIcon';
 import { CalendarIcon } from '@/components/icon/CalendarIcon';
 import ScheduleButton from './ScheduleButton';
 
-const Schedule = () => {
+export default function Schedule() {
   return (
     <div className='flex p-[10px] w-full flex-col rounded-2xl bg-gray-70 gap-2'>
       <div className='flex justify-between items-center pl-2'>
@@ -35,5 +35,3 @@ const Schedule = () => {
     </div>
   )
 }
-
-export default Schedule
