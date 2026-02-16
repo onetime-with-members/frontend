@@ -25,7 +25,7 @@ export default function DesktopSideTab() {
         <SideTabItem
           href="/mypage/schedules"
           active={tabActive === 'schedules'}
-          icon={<CalendarIcon />}
+          icon={<CalendarIcon innerfill="#FFFFFF" />}
         >
           {t('mySchedule')}
         </SideTabItem>
