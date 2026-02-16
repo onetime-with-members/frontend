@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
 
 import { TALK_CALENDAR_SUCCESS } from '../../constants';
@@ -7,6 +8,7 @@ import { useSearchParams } from 'next/navigation';
 
 export default function useTalkCalendarToast() {
   const searchParams = useSearchParams();
+  const t = useTranslations('toast');
 
   const toast = useToast();
   const { removeSearchParams } = useChangeSearchParams();
@@ -15,7 +17,7 @@ export default function useTalkCalendarToast() {
 
   useEffect(() => {
     if (toastCode === TALK_CALENDAR_SUCCESS) {
-      toast('톡캘린더 일정이 성공적으로 생성되었습니다.');
+      toast(t('talkCalendarSuccess'));
       removeSearchParams(['toast']);
     }
   }, [toastCode]);

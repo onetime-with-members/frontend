@@ -8,7 +8,8 @@
     "copiedLink": "Copied event link",
     "loadedMySchedule": "My schedule has been loaded",
     "everytime": "Everytime timetable has been loaded",
-    "filterInExampleEvent": "This feature is not available in example events"
+    "filterInExampleEvent": "This feature is not available in example events",
+    "talkCalendarSuccess": "Talk Calendar event created successfully"
   },
   "navbar": {
     "login": "Login",
@@ -104,6 +105,11 @@
     "kakao": "KakaoTalk",
     "more": "More",
     "qrCodeScreen": "Please add your schedule <br></br>to <Name>{eventName}</Name>!"
+  },
+  "talkCalendarShare": {
+    "title": "Share with members and <br></br>add to Talk Calendar!",
+    "description": "You can receive notifications <br></br>on KakaoTalk.",
+    "shareViaKakaoButton": "Share via KakaoTalk"
   },
   "alert": {
     "loginTitle": "Would you like to log in?",

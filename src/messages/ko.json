@@ -8,7 +8,8 @@
     "copiedLink": "링크를 복사했어요",
     "loadedMySchedule": "내 스케줄을 불러왔어요",
     "everytime": "에브리타임 시간표를 불러왔어요",
-    "filterInExampleEvent": "예시 이벤트에서는 사용할 수 없는 기능입니다."
+    "filterInExampleEvent": "예시 이벤트에서는 사용할 수 없는 기능입니다",
+    "talkCalendarSuccess": "톡캘린더 일정이 성공적으로 생성되었습니다"
   },
   "navbar": {
     "login": "로그인",
@@ -104,6 +105,12 @@
     "kakao": "카카오톡",
     "more": "더 보기",
     "qrCodeScreen": "<Name>{eventName}</Name>에 <br></br>스케줄을 등록해 주세요!"
+  },
+
+  "talkCalendarShare": {
+    "title": "멤버에게 공유하고 <br></br>톡캘린더에 추가해보세요!",
+    "description": "카카오톡에서 알림을 받을 수 있어요.",
+    "shareViaKakaoButton": "카카오톡으로 공유하기"
   },
   "alert": {
     "loginTitle": "로그인 하시겠어요?",

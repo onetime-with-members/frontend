@@ -1,9 +1,12 @@
+import { useTranslations } from 'next-intl';
+
 import { KakaoTalkIcon } from '@/components/icon/KakaoTalkIcon';
 import useTalkCalendarShare from '@/features/event/hooks/useTalkCalendarShare';
 import { useParams } from 'next/navigation';
 
 export default function ShareButton() {
   const params = useParams<{ id: string }>();
+  const t = useTranslations('talkCalendarShare');
 
   const shareTalkCalendar = useTalkCalendarShare(params.id);
 
@@ -15,7 +18,7 @@ export default function ShareButton() {
       <span>
         <KakaoTalkIcon fontSize={24} innerfill="#FAE100" />
       </span>
-      <span>카카오톡으로 공유하기</span>
+      <span>{t('shareViaKakaoButton')}</span>
     </button>
   );
 }
