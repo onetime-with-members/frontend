@@ -12,7 +12,7 @@ export default function ShareButton() {
 
   return (
     <button
-      className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#FAE100] p-3 text-[#3B1E1E] text-md-300"
+      className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#FAE100] p-3 text-[#3B1E1E] duration-150 text-md-300 hover:brightness-90"
       onClick={shareTalkCalendar}
     >
       <span>
