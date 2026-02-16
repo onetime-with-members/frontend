@@ -17,7 +17,7 @@ export const defaultEvent: EventType = {
   end_time: '',
   category: 'DATE',
   ranges: [],
-  event_status: 'PARTICIPANT',
+  participation_role: 'PARTICIPANT',
 };
 
 export const defaultEventValue: EventSchema = {
