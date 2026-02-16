@@ -1,9 +1,13 @@
 import { useState } from 'react';
 
 import EventDeleteAlert from './EventDeleteAlert';
+import FixTimeButton from './FixTimeButton';
 import ToolbarButton from './ToolbarButton';
 import { EditIcon, TrashIcon } from '@/components/icon';
-import { useEventQuery } from '@/features/event/api/event.query';
+import {
+  useEventQuery,
+  useParticipantsQuery,
+} from '@/features/event/api/event.query';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
@@ -14,6 +18,7 @@ export default function ToolbarButtons() {
   const progressRouter = useProgressRouter();
 
   const { data: event } = useEventQuery(params.id);
+  const { data: pariticipants } = useParticipantsQuery(params.id);
 
   return (
     <>
@@ -23,11 +28,14 @@ export default function ToolbarButtons() {
         >
           <EditIcon />
         </ToolbarButton>
-        {event.participation_role === 'CREATOR' && (
+        {['CREATOR', 'CREATOR_AND_PARTICIPANT'].includes(
+          event.participation_role,
+        ) && (
           <ToolbarButton onClick={() => setIsDeleteAlertOpen(true)}>
             <TrashIcon innerfill="#474A5C" />
           </ToolbarButton>
         )}
+        {pariticipants.length >= 2 && <FixTimeButton />}
       </div>
       {isDeleteAlertOpen && (
         <EventDeleteAlert setIsEventDeleteAlertOpen={setIsDeleteAlertOpen} />

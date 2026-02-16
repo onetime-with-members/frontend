@@ -15,7 +15,7 @@ export default function DesktopSideContent() {
 
   return (
     <div className="hidden flex-col md:flex md:w-1/2">
-      <FixedTime />
+      {event.event_status === 'CONFIRMED' && <FixedTime />}
       <BannerList className="pt-2" />
       {!isSchedulesPending && schedules.length === 0 ? (
         <EmptyEventBanner />

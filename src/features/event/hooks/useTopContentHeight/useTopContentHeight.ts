@@ -18,7 +18,7 @@ export default function useTopContentHeight(
   const isMobile = useIsMobile();
 
   const navBar = 64;
-  const eventHeader = isMobile ? 52 : 72;
+  const eventHeader = isMobile ? 112 : 64;
   const participantFilter = schedules.length > 0 ? 36 : 0;
   const barBanner = isBarBannerShown ? 56 : 0;
 

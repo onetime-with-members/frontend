@@ -18,6 +18,7 @@ export const defaultEvent: EventType = {
   category: 'DATE',
   ranges: [],
   participation_role: 'PARTICIPANT',
+  event_status: 'ACTIVE',
 };
 
 export const defaultEventValue: EventSchema = {

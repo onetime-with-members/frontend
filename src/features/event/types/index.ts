@@ -12,6 +12,7 @@ export interface EventType {
   end_time: string;
   category: 'DATE' | 'DAY';
   ranges: string[];
+  event_status: 'ACTIVE' | 'CONFIRMED';
   participation_role: 'CREATOR' | 'PARTICIPANT' | 'CREATOR_AND_PARTICIPANT';
 }
 
