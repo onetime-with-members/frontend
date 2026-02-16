@@ -10,15 +10,19 @@ export default function SpeechBalloonMain({
   style,
   width,
   offset,
-  position = 'top',
+  vertical = 'top',
+  horizontal = 'center',
   tilt = 'none',
+  variant = 'primary',
   ...props
 }: {
   width: number;
   offset: number;
-  position?: 'top' | 'bottom';
+  vertical?: 'top' | 'bottom';
+  horizontal?: 'left' | 'center' | 'right';
   tilt?: 'right' | 'left' | 'none';
   children: React.ReactNode;
+  variant?: 'primary' | 'secondary';
 } & HTMLMotionProps<'div'>) {
   const [isShown, setIsShown] = useState(true);
 
@@ -55,14 +59,14 @@ export default function SpeechBalloonMain({
             hidden: {
               opacity: 0,
               transform:
-                position === 'bottom'
+                vertical === 'bottom'
                   ? `translate(4px, calc(100% + ${offset + ANIMATION_OFFSET + TRIANGLE_HEIGHT}px))`
                   : `translate(4px, calc(-100% - ${offset + ANIMATION_OFFSET + TRIANGLE_HEIGHT}px))`,
             },
             visible: {
               opacity: 1,
               transform:
-                position === 'bottom'
+                vertical === 'bottom'
                   ? `translate(4px, calc(100% + ${offset + TRIANGLE_HEIGHT}px))`
                   : `translate(4px, calc(-100% - ${offset + TRIANGLE_HEIGHT}px))`,
             },
@@ -82,8 +86,13 @@ export default function SpeechBalloonMain({
           className={cn(
             'absolute z-10',
             {
-              '-left-1/2 top-0': position === 'top',
-              '-left-1/2 bottom-0': position === 'bottom',
+              'top-0': vertical === 'top',
+              'bottom-0': vertical === 'bottom',
+            },
+            {
+              '-left-1/2': horizontal === 'center',
+              'right-0': horizontal === 'right',
+              'left-0': horizontal === 'left',
             },
             className,
           )}
@@ -93,25 +102,46 @@ export default function SpeechBalloonMain({
           }}
           {...props}
         >
-          {position === 'bottom' && (
-            <div className="absolute left-1/2 -translate-x-1/2">
-              <RoundedTriangle className="rotate-180" />
+          {vertical === 'bottom' && (
+            <div
+              className={cn('absolute -translate-y-full', {
+                'left-1/2 -translate-x-1/2': horizontal === 'center',
+                'right-10': horizontal === 'right',
+                'left-10': horizontal === 'left',
+              })}
+            >
+              <RoundedTriangle
+                className="rotate-180"
+                fill={variant === 'primary' ? '#4C65E5' : '#FFFFFF'}
+              />
             </div>
           )}
           <div
             className={cn(
-              'w-full rounded-lg bg-primary-50 px-3 py-1.5 text-center text-gray-00 text-sm-200',
+              'w-full rounded-lg bg-primary-50 px-3 py-1.5 text-center text-gray-00 shadow-[0_2px_8px_0_rgba(0,0,0,0.15)] text-sm-200',
               {
                 'translate-x-6': tilt === 'right',
                 '-translate-x-6': tilt === 'left',
+              },
+              {
+                'bg-primary-50 text-gray-00': variant === 'primary',
+                'bg-gray-00 text-primary-50': variant === 'secondary',
               },
             )}
           >
             {children}
           </div>
-          {position === 'top' && (
-            <div className="absolute left-1/2 -translate-x-1/2">
-              <RoundedTriangle />
+          {vertical === 'top' && (
+            <div
+              className={cn('absolute', {
+                'left-1/2 -translate-x-1/2': horizontal === 'center',
+                'right-10': horizontal === 'right',
+                'left-10': horizontal === 'left',
+              })}
+            >
+              <RoundedTriangle
+                fill={variant === 'primary' ? '#4C65E5' : '#FFFFFF'}
+              />
             </div>
           )}
         </motion.div>

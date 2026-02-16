@@ -1,7 +1,7 @@
 export default function RoundedTriangle({
   width = 8,
   height = 6,
-  fill = '#677CEE',
+  fill = '#4C65E5',
   className,
 }: {
   width?: number;
