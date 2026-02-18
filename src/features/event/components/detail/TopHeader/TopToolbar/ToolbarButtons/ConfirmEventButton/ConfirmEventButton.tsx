@@ -2,6 +2,7 @@ import SpeechBalloon from '../../../../shared/SpeechBalloon';
 import { CalendarIcon } from '@/components/icon';
 import {
   useConfirmEventMutation,
+  useEventQuery,
   useRecommendedTimesQuery,
 } from '@/features/event/api/event.query';
 import { useParams } from 'next/navigation';
@@ -9,6 +10,7 @@ import { useParams } from 'next/navigation';
 export default function ConfirmEventButton() {
   const params = useParams<{ id: string }>();
 
+  const { data: event } = useEventQuery(params.id);
   const { data: recommendedTimes } = useRecommendedTimesQuery(params.id);
 
   const { mutateAsync: confirmEvent } = useConfirmEventMutation();
@@ -18,13 +20,22 @@ export default function ConfirmEventButton() {
     const recommendedTime = recommendedTimes[0];
     await confirmEvent({
       eventId: params.id,
-      data: {
-        start_date: recommendedTime.time_point,
-        end_date: recommendedTime.time_point,
-        start_time: recommendedTime.start_time,
-        end_time: recommendedTime.end_time,
-        selection_source: 'RECOMMENDED',
-      },
+      data:
+        event.category === 'DATE'
+          ? {
+              start_date: recommendedTime.time_point,
+              end_date: recommendedTime.time_point,
+              start_time: recommendedTime.start_time,
+              end_time: recommendedTime.end_time,
+              selection_source: 'RECOMMENDED',
+            }
+          : {
+              start_date: recommendedTime.time_point,
+              end_date: recommendedTime.time_point,
+              start_time: recommendedTime.start_time,
+              end_time: recommendedTime.end_time,
+              selection_source: 'RECOMMENDED',
+            },
     });
   }
 

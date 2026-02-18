@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 
 import { CalendarIcon } from '@/components/icon';
+import { weekdaysShortKo } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
 import { useParams } from 'next/navigation';
 
@@ -23,9 +24,17 @@ export default function ConfirmedTimeMain() {
         </span>
       </div>
       <span className="font-normal text-lg-300">
-        {dayjs(confirmedTime?.start_date, 'YYYY.MM.DD').format(
-          'YYYY.MM.DD (dd)',
-        )}{' '}
+        {event.category === 'DATE'
+          ? dayjs(confirmedTime?.start_date, 'YYYY.MM.DD').format(
+              'YYYY.MM.DD (dd)',
+            )
+          : dayjs()
+              .day(
+                weekdaysShortKo.findIndex(
+                  (weekday) => weekday === confirmedTime?.start_day,
+                ),
+              )
+              .format('dddd')}{' '}
         {confirmedTime?.start_time} - {confirmedTime?.end_time}
       </span>
     </div>

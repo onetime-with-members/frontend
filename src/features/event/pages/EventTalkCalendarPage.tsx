@@ -32,6 +32,7 @@ export default function EventTalkCalendarPage({
     mutateAsync: createTalkCalendarEvent,
     isPending,
     isSuccess,
+    isError,
   } = useCreateTalkCalendarEvent();
 
   useEffect(() => {
@@ -45,11 +46,18 @@ export default function EventTalkCalendarPage({
 
   useEffect(() => {
     (async () => {
-      if (!kakaoAccessToken || isEventPending || isPending || isSuccess) return;
+      if (
+        !kakaoAccessToken ||
+        isEventPending ||
+        isPending ||
+        isSuccess ||
+        isError
+      )
+        return;
       await createTalkCalendarEvent({ accessToken: kakaoAccessToken, event });
       router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_SUCCESS}`);
     })();
-  }, [kakaoAccessToken, event, isEventPending, isPending, isSuccess]);
+  }, [kakaoAccessToken, event, isEventPending, isPending, isSuccess, isError]);
 
   return null;
 }

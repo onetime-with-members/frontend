@@ -7,7 +7,7 @@ import {
   ParticipantType,
   RecommendedScheduleType,
 } from '../types';
-import { SERVER_API_URL } from '@/constants';
+import { SERVER_API_URL, weekdaysShortKo } from '@/constants';
 import { ScheduleType } from '@/features/schedule/types';
 import apiClient from '@/lib/api';
 import dayjs from '@/lib/dayjs';
@@ -178,19 +178,38 @@ export async function createTalkCalendarEvent(
         event: JSON.stringify({
           title: event.title,
           time: {
-            start_at: dayjs(
-              `${confirmedTime?.start_date} ${confirmedTime?.start_time}`,
-              'YYYY.MM.DD HH:mm',
-            ).toISOString(),
-            end_at: dayjs(
-              `${confirmedTime?.end_date} ${confirmedTime?.end_time}`,
-              'YYYY.MM.DD HH:mm',
-            ).toISOString(),
+            start_at:
+              event.category === 'DATE'
+                ? dayjs(
+                    `${confirmedTime?.start_date} ${confirmedTime?.start_time}`,
+                    'YYYY.MM.DD HH:mm',
+                  ).toISOString()
+                : dayjs(confirmedTime?.start_time, 'HH:mm')
+                    .day(
+                      weekdaysShortKo.findIndex(
+                        (weekday) => weekday === confirmedTime?.start_day,
+                      ),
+                    )
+                    .toISOString(),
+            end_at:
+              event.category === 'DATE'
+                ? dayjs(
+                    `${confirmedTime?.end_date} ${confirmedTime?.end_time}`,
+                    'YYYY.MM.DD HH:mm',
+                  ).toISOString()
+                : dayjs(confirmedTime?.end_time, 'HH:mm')
+                    .day(
+                      weekdaysShortKo.findIndex(
+                        (weekday) => weekday === confirmedTime?.end_day,
+                      ),
+                    )
+                    .toISOString(),
             time_zone: dayjs.tz.guess(),
           },
           description: 'OneTime에 의해 추가된 일정입니다.',
           reminders: [30, 1440],
           color: 'LAVENDER',
+          ...(event.category === 'DAY' ? { rrule: 'FREQ=WEEKLY' } : {}),
         }),
       }),
     },

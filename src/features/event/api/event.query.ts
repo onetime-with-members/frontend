@@ -161,7 +161,7 @@ export function useConfirmEventMutation() {
 }
 
 export function useCreateTalkCalendarEvent() {
-  const { mutateAsync, isPending, isSuccess } = useMutation({
+  const { mutateAsync, isPending, isSuccess, isError } = useMutation({
     mutationFn: async ({
       accessToken,
       event,
@@ -171,5 +171,5 @@ export function useCreateTalkCalendarEvent() {
     }) => await createTalkCalendarEvent(accessToken, event),
   });
 
-  return { mutateAsync, isPending, isSuccess };
+  return { mutateAsync, isPending, isSuccess, isError };
 }
