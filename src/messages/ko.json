@@ -9,7 +9,8 @@
     "loadedMySchedule": "내 스케줄을 불러왔어요",
     "everytime": "에브리타임 시간표를 불러왔어요",
     "filterInExampleEvent": "예시 이벤트에서는 사용할 수 없는 기능입니다",
-    "talkCalendarSuccess": "톡캘린더 일정이 성공적으로 생성되었습니다"
+    "talkCalendarSuccess": "톡캘린더 일정이 성공적으로 생성되었습니다",
+    "talkCalendarError": "톡캘린더 일정 생성에 실패했습니다"
   },
   "navbar": {
     "login": "로그인",

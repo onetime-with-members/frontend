@@ -9,7 +9,8 @@
     "loadedMySchedule": "My schedule has been loaded",
     "everytime": "Everytime timetable has been loaded",
     "filterInExampleEvent": "This feature is not available in example events",
-    "talkCalendarSuccess": "Talk Calendar event created successfully"
+    "talkCalendarSuccess": "Talk Calendar event created successfully",
+    "talkCalendarError": "Failed to create Talk Calendar event"
   },
   "navbar": {
     "login": "Login",

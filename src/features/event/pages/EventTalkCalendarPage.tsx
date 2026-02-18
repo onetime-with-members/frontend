@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { useCreateTalkCalendarEvent, useEventQuery } from '../api/event.query';
-import { TALK_CALENDAR_SUCCESS } from '../constants';
+import { TALK_CALENDAR_ERROR, TALK_CALENDAR_SUCCESS } from '../constants';
 import {
   addTalkCalendarEventCookie,
   deleteTalkCalendarEventCookie,
@@ -49,14 +49,14 @@ export default function EventTalkCalendarPage({
 
   useEffect(() => {
     (async () => {
-      if (
-        !kakaoAccessToken ||
-        isEventPending ||
-        isPending ||
-        isSuccess ||
-        isError
-      )
+      if (!kakaoAccessToken || isEventPending || isPending || isSuccess) return;
+
+      if (isError) {
+        await deleteTalkCalendarEventCookie();
+        router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_ERROR}`);
         return;
+      }
+
       await createTalkCalendarEvent({ accessToken: kakaoAccessToken, event });
       await deleteTalkCalendarEventCookie();
       router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_SUCCESS}`);
