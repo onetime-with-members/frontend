@@ -25,7 +25,7 @@ export default function TalkCalendarShareModal({
           <TextContent />
         </div>
         <div className="p-3 pt-0">
-          <ShareButton />
+          <ShareButton onClose={onClose} />
         </div>
       </div>
     </div>,

@@ -164,6 +164,8 @@ export async function createTalkCalendarEvent(
   accessToken: string,
   event: EventType,
 ) {
+  const confirmedTime = event.confirmation;
+
   const res = await fetch(
     'https://kapi.kakao.com/v2/api/calendar/create/event',
     {
@@ -176,13 +178,17 @@ export async function createTalkCalendarEvent(
         event: JSON.stringify({
           title: event.title,
           time: {
-            start_at: dayjs(event.ranges[0], 'YYYY.MM.DD')
-              .hour(22)
-              .toISOString(),
-            end_at: dayjs(event.ranges[0], 'YYYY.MM.DD').hour(23).toISOString(),
+            start_at: dayjs(
+              `${confirmedTime?.start_date} ${confirmedTime?.start_time}`,
+              'YYYY.MM.DD HH:mm',
+            ).toISOString(),
+            end_at: dayjs(
+              `${confirmedTime?.end_date} ${confirmedTime?.end_time}`,
+              'YYYY.MM.DD HH:mm',
+            ).toISOString(),
             time_zone: dayjs.tz.guess(),
           },
-          description: 'OneTime으로부터 추가된 일정입니다.',
+          description: 'OneTime에 의해 추가된 일정입니다.',
           reminders: [30, 1440],
           color: 'LAVENDER',
         }),
