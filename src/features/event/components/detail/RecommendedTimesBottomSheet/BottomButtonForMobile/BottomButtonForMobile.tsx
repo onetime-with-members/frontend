@@ -45,7 +45,8 @@ export default function BottomButtonForMobile({
           <SpeechBalloon.Main
             width={locale === 'ko' ? 101 : 111}
             offset={4}
-            tilt="right"
+            horizontal="left"
+            triangleOffset={28}
           >
             {t('shareMessage')}
           </SpeechBalloon.Main>

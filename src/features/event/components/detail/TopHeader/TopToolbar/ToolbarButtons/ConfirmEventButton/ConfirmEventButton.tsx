@@ -56,9 +56,10 @@ export default function ConfirmEventButton() {
         <SpeechBalloon.Main
           width={315}
           offset={2}
-          vertical="top"
+          vertical="bottom"
           horizontal="right"
           variant="secondary"
+          triangleOffset={70}
         >
           일정 확정 후, 팀원들에게 일정 알림을 보낼 수 있어요
         </SpeechBalloon.Main>
