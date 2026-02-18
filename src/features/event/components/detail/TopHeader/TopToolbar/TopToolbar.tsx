@@ -1,4 +1,4 @@
-import ConfirmedTime from '../../MainContent/DesktopSideContent/ConfirmedTime';
+import ConfirmedTime from '../../shared/ConfirmedTime';
 import ConfirmEventBanner from './ConfirmEventBanner';
 import ToolbarButtons from './ToolbarButtons/ToolbarButtons';
 import { useEventQuery } from '@/features/event/api/event.query';

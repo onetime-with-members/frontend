@@ -1,5 +1,5 @@
+import ConfirmedTime from '../../shared/ConfirmedTime';
 import BannerList from '../BannerList';
-import ConfirmedTime from './ConfirmedTime';
 import EmptyEventBanner from './EmptyEventBanner';
 import RecommendedTimes from './RecommendedTimes';
 import { useEventQuery } from '@/features/event/api/event.query';
