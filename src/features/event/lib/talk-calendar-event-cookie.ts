@@ -12,3 +12,8 @@ export async function getTalkCalendarEventCookie() {
   const eventId = cookieStore.get('talk-calendar-event-id')?.value;
   return eventId;
 }
+
+export async function deleteTalkCalendarEventCookie() {
+  const cookieStore = await cookies();
+  cookieStore.delete('talk-calendar-event-id');
+}
