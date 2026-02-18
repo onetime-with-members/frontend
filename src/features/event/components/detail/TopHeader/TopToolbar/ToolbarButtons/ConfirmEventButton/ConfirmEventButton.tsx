@@ -1,7 +1,7 @@
 import SpeechBalloon from '../../../../shared/SpeechBalloon';
 import { CalendarIcon } from '@/components/icon';
 
-export default function FixTimeButton() {
+export default function ConfirmEventButton() {
   return (
     <SpeechBalloon.Container>
       <SpeechBalloon.Wrapper>

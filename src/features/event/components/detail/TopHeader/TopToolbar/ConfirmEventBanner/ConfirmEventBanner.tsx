@@ -1,7 +1,7 @@
 import { CalendarIcon } from '@/components/icon';
 import { IconChevronRight } from '@tabler/icons-react';
 
-export default function FixTimeBanner() {
+export default function ConfirmEventBanner() {
   return (
     <div className="flex cursor-pointer items-center gap-1.5 rounded-2xl bg-gray-70 px-4 py-3 text-gray-30 md:hidden">
       <span>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
+import ConfirmEventButton from './ConfirmEventButton';
 import EventDeleteAlert from './EventDeleteAlert';
-import FixTimeButton from './FixTimeButton';
 import ToolbarButton from './ToolbarButton';
 import { EditIcon, TrashIcon } from '@/components/icon';
 import {
@@ -35,7 +35,7 @@ export default function ToolbarButtons() {
             <TrashIcon innerfill="#474A5C" />
           </ToolbarButton>
         )}
-        {pariticipants.length >= 2 && <FixTimeButton />}
+        {pariticipants.length >= 2 && <ConfirmEventButton />}
       </div>
       {isDeleteAlertOpen && (
         <EventDeleteAlert setIsEventDeleteAlertOpen={setIsDeleteAlertOpen} />

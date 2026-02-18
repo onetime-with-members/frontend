@@ -1,4 +1,4 @@
-import FixTimeBanner from './FixTimeBanner';
+import ConfirmEventBanner from './ConfirmEventBanner';
 import ToolbarButtons from './ToolbarButtons/ToolbarButtons';
 import { useEventQuery } from '@/features/event/api/event.query';
 import { useParams } from 'next/navigation';
@@ -16,7 +16,7 @@ export default function TopToolbar() {
         </h1>
         <ToolbarButtons />
       </div>
-      <FixTimeBanner />
+      <ConfirmEventBanner />
     </div>
   );
 }
