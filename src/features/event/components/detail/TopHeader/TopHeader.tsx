@@ -14,7 +14,7 @@ export default function TopHeader() {
       className={cn('flex w-full justify-center')}
       style={{ height: eventHeaderHeight + barBannerHeight }}
     >
-      <div className="fixed z-50 mx-auto w-full max-w-[calc(768px+2rem)] rounded-t-3xl bg-gray-00 duration-150">
+      <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] rounded-t-3xl bg-gray-00 duration-150">
         <TopToolbar />
         <BarBanner innnerClassName="fixed max-w-[calc(768px+2rem)] w-full" />
       </div>
