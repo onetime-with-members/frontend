@@ -1,12 +1,41 @@
 import SpeechBalloon from '../../../../shared/SpeechBalloon';
 import { CalendarIcon } from '@/components/icon';
+import {
+  useConfirmEventMutation,
+  useRecommendedTimesQuery,
+} from '@/features/event/api/event.query';
+import { useParams } from 'next/navigation';
 
 export default function ConfirmEventButton() {
+  const params = useParams<{ id: string }>();
+
+  const { data: recommendedTimes } = useRecommendedTimesQuery(params.id);
+
+  const { mutateAsync: confirmEvent } = useConfirmEventMutation();
+
+  async function handleClick() {
+    if (recommendedTimes.length === 0) return;
+    const recommendedTime = recommendedTimes[0];
+    await confirmEvent({
+      eventId: params.id,
+      data: {
+        start_date: recommendedTime.time_point,
+        end_date: recommendedTime.time_point,
+        start_time: recommendedTime.start_time,
+        end_time: recommendedTime.end_time,
+        selection_source: 'RECOMMENDED',
+      },
+    });
+  }
+
   return (
     <div className="hidden md:block">
       <SpeechBalloon.Container>
         <SpeechBalloon.Wrapper>
-          <button className="flex items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 text-gray-00 text-md-300">
+          <button
+            className="flex items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 text-gray-00 text-md-300"
+            onClick={handleClick}
+          >
             <span>
               <CalendarIcon innerfill="#4c65e5" fontSize={24} />
             </span>

@@ -1,5 +1,5 @@
 import { defaultEvent } from '../constants';
-import { ConfirmEventRequest, EventType, MemberFilterType } from '../types';
+import { ConfirmEventRequestData, EventType, MemberFilterType } from '../types';
 import { isExampleEventSlug } from '../utils';
 import {
   confirmEvent,
@@ -147,11 +147,11 @@ export function useConfirmEventMutation() {
   const { mutateAsync } = useMutation({
     mutationFn: async ({
       eventId,
-      request,
+      data,
     }: {
       eventId: string;
-      request: ConfirmEventRequest;
-    }) => await confirmEvent(eventId, request),
+      data: ConfirmEventRequestData;
+    }) => await confirmEvent(eventId, data),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
     },

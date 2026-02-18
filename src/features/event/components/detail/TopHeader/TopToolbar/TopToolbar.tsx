@@ -1,10 +1,14 @@
+import ConfirmedTime from '../../MainContent/DesktopSideContent/ConfirmedTime';
 import ConfirmEventBanner from './ConfirmEventBanner';
 import ToolbarButtons from './ToolbarButtons/ToolbarButtons';
 import { useEventQuery } from '@/features/event/api/event.query';
+import useEventConfirmStatus from '@/features/event/hooks/useEventConfirmStatus';
 import { useParams } from 'next/navigation';
 
 export default function TopToolbar() {
   const params = useParams<{ id: string }>();
+
+  const eventConfirmStatus = useEventConfirmStatus();
 
   const { data: event } = useEventQuery(params.id);
 
@@ -16,7 +20,12 @@ export default function TopToolbar() {
         </h1>
         <ToolbarButtons />
       </div>
-      <ConfirmEventBanner />
+      {eventConfirmStatus !== 'unavailable' && (
+        <div className="md:hidden">
+          {eventConfirmStatus === 'confirm' && <ConfirmedTime />}
+          {eventConfirmStatus === 'available' && <ConfirmEventBanner />}
+        </div>
+      )}
     </div>
   );
 }

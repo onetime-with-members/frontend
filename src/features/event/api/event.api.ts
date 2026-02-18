@@ -1,5 +1,5 @@
 import {
-  ConfirmEventRequest,
+  ConfirmEventRequestData,
   EventSchema,
   EventType,
   MemberFilterType,
@@ -154,9 +154,9 @@ export async function fetchFilteredSchedules({
 
 export async function confirmEvent(
   eventId: string,
-  request: ConfirmEventRequest,
+  data: ConfirmEventRequestData,
 ) {
-  const res = await apiClient.post(`/events/${eventId}/confirm`, request);
+  const res = await apiClient.post(`/events/${eventId}/confirm`, data);
   return res.data.payload;
 }
 

@@ -14,6 +14,7 @@ export interface EventType {
   ranges: string[];
   event_status: 'ACTIVE' | 'CONFIRMED';
   participation_role: 'CREATOR' | 'PARTICIPANT' | 'CREATOR_AND_PARTICIPANT';
+  confirmation: ConfirmedEventData | null;
 }
 
 export interface ExampleEventType {
@@ -52,7 +53,17 @@ export interface RecommendedScheduleType {
 export type EventSchema = z.infer<typeof eventSchema>;
 export type GuestSchema = z.infer<typeof guestSchema>;
 
-export type ConfirmEventRequest = {
+export interface ConfirmedEventData {
+  start_date: string | null;
+  end_date: string | null;
+  start_day: string | null;
+  end_day: string | null;
+  start_time: string;
+  end_time: string;
+  created_date: string;
+}
+
+export type ConfirmEventRequestData = {
   start_time: string;
   end_time: string;
   selection_source: 'RECOMMENDED' | 'MANUAL';

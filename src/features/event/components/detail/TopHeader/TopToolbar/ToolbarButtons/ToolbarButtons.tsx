@@ -35,7 +35,9 @@ export default function ToolbarButtons() {
             <TrashIcon innerfill="#474A5C" />
           </ToolbarButton>
         )}
-        {pariticipants.length >= 2 && <ConfirmEventButton />}
+        {pariticipants.length >= 2 && event.event_status === 'ACTIVE' && (
+          <ConfirmEventButton />
+        )}
       </div>
       {isDeleteAlertOpen && (
         <EventDeleteAlert setIsEventDeleteAlertOpen={setIsDeleteAlertOpen} />
