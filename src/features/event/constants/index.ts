@@ -19,6 +19,7 @@ export const defaultEvent: EventType = {
   ranges: [],
   participation_role: 'PARTICIPANT',
   event_status: 'ACTIVE',
+  confirmation: null,
 };
 
 export const defaultEventValue: EventSchema = {
