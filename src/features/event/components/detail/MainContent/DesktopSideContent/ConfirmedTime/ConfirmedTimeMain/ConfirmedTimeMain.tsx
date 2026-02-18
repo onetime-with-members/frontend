@@ -1,6 +1,6 @@
 import { CalendarIcon } from '@/components/icon';
 
-export default function FixedTimeMain() {
+export default function ConfirmedTimeMain() {
   return (
     <div className="flex flex-col items-start rounded-xl bg-gray-60 px-3 py-2 text-gray-00">
       <div className="flex flex-row items-center gap-1">

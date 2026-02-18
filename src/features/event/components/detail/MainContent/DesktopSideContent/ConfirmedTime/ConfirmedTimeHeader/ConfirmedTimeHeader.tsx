@@ -3,7 +3,7 @@ import KakaoTalkButton from './KakaoTalkButton';
 import { EditIcon } from '@/components/icon';
 import { ShareIcon } from '@/components/icon/ShareIcon';
 
-export default function FixedTimeHeader() {
+export default function ConfirmedTimeHeader() {
   return (
     <div className="flex items-center justify-between pl-2">
       <span className="text-gray-00 text-md-300">일정</span>

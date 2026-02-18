@@ -1,7 +1,8 @@
 import { defaultEvent } from '../constants';
-import { EventType, MemberFilterType } from '../types';
+import { ConfirmEventRequest, EventType, MemberFilterType } from '../types';
 import { isExampleEventSlug } from '../utils';
 import {
+  confirmEvent,
   createEventAction,
   createTalkCalendarEvent,
   deleteEventAction,
@@ -134,6 +135,25 @@ export function useChangeFilteredEventDataMutation({
         filter,
       });
       return { recommendedTimes, schedules };
+    },
+  });
+
+  return { mutateAsync };
+}
+
+export function useConfirmEventMutation() {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({
+      eventId,
+      request,
+    }: {
+      eventId: string;
+      request: ConfirmEventRequest;
+    }) => await confirmEvent(eventId, request),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
     },
   });
 

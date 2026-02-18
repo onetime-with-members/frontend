@@ -1,4 +1,5 @@
 import {
+  ConfirmEventRequest,
   EventSchema,
   EventType,
   MemberFilterType,
@@ -149,6 +150,14 @@ export async function fetchFilteredSchedules({
   );
   const schedules: ScheduleType[] = res.data.payload;
   return schedules;
+}
+
+export async function confirmEvent(
+  eventId: string,
+  request: ConfirmEventRequest,
+) {
+  const res = await apiClient.post(`/events/${eventId}/confirm`, request);
+  return res.data.payload;
 }
 
 export async function createTalkCalendarEvent(

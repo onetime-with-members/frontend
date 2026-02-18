@@ -51,3 +51,15 @@ export interface RecommendedScheduleType {
 
 export type EventSchema = z.infer<typeof eventSchema>;
 export type GuestSchema = z.infer<typeof guestSchema>;
+
+export type ConfirmEventRequest = {
+  start_time: string;
+  end_time: string;
+  selection_source: 'RECOMMENDED' | 'MANUAL';
+} & (
+  | { start_date: string; end_date: string }
+  | {
+      start_day: string;
+      end_day: string;
+    }
+);

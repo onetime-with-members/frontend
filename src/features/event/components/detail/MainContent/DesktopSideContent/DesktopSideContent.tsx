@@ -1,6 +1,6 @@
 import BannerList from '../BannerList';
+import ConfirmedTime from './ConfirmedTime';
 import EmptyEventBanner from './EmptyEventBanner';
-import FixedTime from './FixedTime';
 import RecommendedTimes from './RecommendedTimes';
 import { useEventQuery } from '@/features/event/api/event.query';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
@@ -15,7 +15,7 @@ export default function DesktopSideContent() {
 
   return (
     <div className="hidden flex-col md:flex md:w-1/2">
-      {event.event_status === 'CONFIRMED' && <FixedTime />}
+      {event.event_status === 'CONFIRMED' && <ConfirmedTime />}
       <BannerList className="pt-2" />
       {!isSchedulesPending && schedules.length === 0 ? (
         <EmptyEventBanner />
