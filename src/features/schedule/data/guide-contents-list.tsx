@@ -1,9 +1,15 @@
+import { useTranslations } from 'next-intl';
+
 import { GuideContents } from '../types';
 
-export const guideContentsList: GuideContents[] = [
+export const guideContentsList = (
+  t: ReturnType<typeof useTranslations>,
+): GuideContents[] => [
   {
-    title: 'title1',
-    description: 'description1',
+    title: t('scheduleGuideModal.title1'),
+    description: t.rich('scheduleGuideModal.description1', {
+      br: () => <br />,
+    }),
     imageSrc: {
       ko: '/images/guide/schedule-modal-1-ko.png',
       en: '/images/guide/schedule-modal-1-en.png',
@@ -14,8 +20,10 @@ export const guideContentsList: GuideContents[] = [
     },
   },
   {
-    title: 'title2',
-    description: 'description2',
+    title: t('scheduleGuideModal.title2'),
+    description: t.rich('scheduleGuideModal.description2', {
+      br: () => <br />,
+    }),
     imageSrc: {
       ko: '/images/guide/schedule-modal-2-ko.png',
       en: '/images/guide/schedule-modal-2-en.png',

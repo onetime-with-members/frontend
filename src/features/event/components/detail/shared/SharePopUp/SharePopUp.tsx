@@ -24,8 +24,7 @@ export default function SharePopUp({
 
   const toast = useToast();
 
-  const t = useTranslations('sharePopUp');
-  const tToast = useTranslations('toast');
+  const t = useTranslations();
 
   const { data: shortenUrl } = useShortUrlQuery(window.location.href);
 
@@ -34,7 +33,7 @@ export default function SharePopUp({
     if (urlInputRef.current) {
       urlInputRef.current.select();
     }
-    toast(tToast('copiedLink'));
+    toast(t('toast.copiedLink'));
   }
 
   return createPortal(
@@ -48,7 +47,9 @@ export default function SharePopUp({
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between px-5 pb-3 pt-4">
-            <h2 className="text-gray-80 text-lg-300">{t('share')}</h2>
+            <h2 className="text-gray-80 text-lg-300">
+              {t('sharePopUp.share')}
+            </h2>
             <button className="text-gray-40" onClick={() => setIsOpen(false)}>
               <IconX size={24} />
             </button>
@@ -65,20 +66,20 @@ export default function SharePopUp({
               />
             </div>
             <div className="flex items-center justify-center gap-4 xs:gap-6 sm:gap-8">
-              <ShareButtonWrapper label={t('copyLink')}>
+              <ShareButtonWrapper label={t('sharePopUp.copyLink')}>
                 <ShareBlueButton onClick={handleCopyLink}>
                   <IconLink size={24} />
                 </ShareBlueButton>
               </ShareButtonWrapper>
-              <ShareButtonWrapper label={t('qrCode')}>
+              <ShareButtonWrapper label={t('sharePopUp.qrCode')}>
                 <ShareBlueButton onClick={() => setIsQrCodeScreenOpen(true)}>
                   <IconQrcode size={24} />
                 </ShareBlueButton>
               </ShareButtonWrapper>
-              <ShareButtonWrapper label={t('kakao')}>
+              <ShareButtonWrapper label={t('sharePopUp.kakao')}>
                 <ShareKakaoButton />
               </ShareButtonWrapper>
-              <ShareButtonWrapper label={t('more')}>
+              <ShareButtonWrapper label={t('sharePopUp.more')}>
                 <ShareMoreButton />
               </ShareButtonWrapper>
             </div>

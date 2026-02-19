@@ -2,13 +2,14 @@
 
 import { getCookie, setCookie } from 'cookies-next';
 import dayjs from 'dayjs';
+import { useTranslations } from 'next-intl';
 import { createContext, useEffect, useState } from 'react';
 
 import {
   useCloseScheduleGuideModalMutation,
   useScheduleGuideModalViewLog,
 } from '../api/schedule.query';
-import { SCHEDULE_GUIDE_MODAL } from '../constants';
+import { SCHEDULE_GUIDE_MODAL, defaultGuideContents } from '../constants';
 import { guideContentsList } from '../data/guide-contents-list';
 import { GuideContents } from '../types';
 import { useAuth } from '@/lib/auth';
@@ -24,8 +25,8 @@ export const GuideModalContext = createContext<{
 }>({
   isGuideModalShown: false,
   currentGuideContentsIndex: 0,
-  guideContentsListLength: guideContentsList.length,
-  guideContents: guideContentsList[0],
+  guideContentsListLength: 0,
+  guideContents: defaultGuideContents,
   handleNextGuideContents: () => {},
   handleMoveGuideContents: () => {},
   handleGuideModalClose: () => {},
@@ -39,14 +40,15 @@ export default function GuideModalContextProvider({
   const [isGuideModalShown, setIsGuideModalShown] = useState(false);
   const [currentGuideContentsIndex, setCurrentGuideContentsIndex] = useState(0);
 
-  const { isLoggedIn } = useAuth();
+  const t = useTranslations();
 
+  const { isLoggedIn } = useAuth();
   const { data: scheduleGuideModalViewLog } = useScheduleGuideModalViewLog();
 
   const { mutateAsync: closeScheduleGuideModal, isLoading: isCloseLoading } =
     useCloseScheduleGuideModalMutation();
 
-  const guideContentsListLength = guideContentsList.length;
+  const guideContentsListLength = guideContentsList(t).length;
 
   function handleNextGuideContents() {
     if (currentGuideContentsIndex === guideContentsListLength - 1) {
@@ -92,8 +94,8 @@ export default function GuideModalContextProvider({
       value={{
         isGuideModalShown,
         currentGuideContentsIndex,
-        guideContentsListLength: guideContentsList.length,
-        guideContents: guideContentsList[currentGuideContentsIndex],
+        guideContentsListLength,
+        guideContents: guideContentsList(t)[currentGuideContentsIndex],
         handleNextGuideContents,
         handleMoveGuideContents,
         handleGuideModalClose,

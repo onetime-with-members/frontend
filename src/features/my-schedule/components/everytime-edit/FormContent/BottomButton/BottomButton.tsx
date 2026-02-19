@@ -22,15 +22,15 @@ export default function BottomButton({
 
   const t = useTranslations('everytimeScheduleEdit');
 
-  const errorMessageKey = isPending
-    ? 'pendingMessage'
+  const message = isPending
+    ? t('pendingMessage')
     : errorCode === 'E_BAD_REQUEST'
-      ? 'invalidURLMessage'
+      ? t('invalidURLMessage')
       : errorCode === 'FIXED-002'
-        ? 'privateURLMessage'
+        ? t('privateURLMessage')
         : errorCode === 'FIXED-005'
-          ? 'emptyTimetable'
-          : 'serverErrorMessage';
+          ? t('emptyTimetable')
+          : t('serverErrorMessage');
 
   return (
     <AnimatePresence>
@@ -51,7 +51,7 @@ export default function BottomButton({
                     },
                   )}
                 >
-                  {t.rich(errorMessageKey)}
+                  {message}
                 </motion.div>
               )}
             </AnimatePresence>

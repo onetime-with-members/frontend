@@ -6,8 +6,7 @@
   },
   "common": {
     "noOneSchedule": "No one has added a schedule.",
-    "participantCount": "{count, plural, =1 {# person} other {# people}}",
-    "title": "Find The Perfect Time Easily And Quickly"
+    "participantCount": "{count, plural, =1 {# person} other {# people}}"
   },
   "toast": {
     "copiedLink": "Copied event link",
@@ -91,14 +90,9 @@
     "participant": "Participant{count, plural, =1 {} other {s}}",
     "available": "Available",
     "unavailable": "Unavailable",
-    "edit": "Edit",
-    "delete": "Delete",
     "addSchedule": "Add Schedule",
     "editSchedule": "Edit Schedule",
     "recommendedTime": "Recommended Time{count, plural, =1 {} other {s}}",
-    "allAvailable": "All Available Times",
-    "peopleWhoAddedSchedules": "Person who added schedule{count, plural, =1 {} other {s}}",
-    "whenAvailableTimes": "When are the available times?",
     "emptyEventBanner": "Share the link <br></br>and find the perfect time!",
     "copyLink": "Copy Link",
     "copied": "Copied",
@@ -186,7 +180,6 @@
     "recentEvents": "Recent Events",
     "mySchedule": "My Schedule",
     "myScheduleDescription": "It is automatically loaded when you enter a schedule.",
-    "loadingEvents": "Loading events...",
     "noEvent": "You haven't joined any events yet."
   },
   "mypage": {
@@ -205,7 +198,6 @@
     "editMySchedule": "Edit My Schedule",
     "sleepTime": "Sleep Time",
     "everytime": "Add Everytime timetable",
-    "done": "Done",
     "save": "Save",
     "saving": "Saving..."
   },
@@ -214,7 +206,6 @@
     "description": "Copy and Paste the timetable link using the method below.",
     "placeholder": "Paste link here...",
     "submit": "Submit",
-    "submitting": "Submitting...",
     "publicWarning": "Please set the timetable to 'Public' temporarily. (Setting Icon -> Set sharing rights -> Public)",
     "emptyTimetable": "No classes are registered in the timetable.",
     "pendingMessage": "The request is in progress. Please wait a moment.",
