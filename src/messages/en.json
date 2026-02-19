@@ -1,4 +1,9 @@
 {
+  "404": {
+    "notFound": "Page Not Found",
+    "title": "This page cannot be found",
+    "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please make sure the address is correct."
+  },
   "common": {
     "noOneSchedule": "No one has added a schedule.",
     "participantCount": "{count, plural, =1 {# person} other {# people}}",
@@ -260,13 +265,13 @@
     "agreeText": "Yes, I have confirmed the above.",
     "withdraw": "Delete account"
   },
-  "404": {
-    "notFound": "Page Not Found",
-    "title": "This page cannot be found",
-    "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please make sure the address is correct."
-  },
   "networkError": {
     "title": "Network Connection Error",
     "description": "Please check your network connection and try again."
+  },
+  "confirm": {
+    "button": "Confirm Schedule",
+    "speechBalloon": "You can notify team members after confirming the schedule",
+    "banner": "Confirm and share the schedule"
   }
 }

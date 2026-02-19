@@ -1,3 +1,5 @@
+import { useLocale, useTranslations } from 'next-intl';
+
 import SpeechBalloon from '../../../../shared/SpeechBalloon';
 import { CalendarIcon } from '@/components/icon';
 import {
@@ -9,6 +11,8 @@ import { useParams } from 'next/navigation';
 
 export default function ConfirmEventButton() {
   const params = useParams<{ id: string }>();
+  const t = useTranslations('confirm');
+  const locale = useLocale();
 
   const { data: event } = useEventQuery(params.id);
   const { data: recommendedTimes } = useRecommendedTimesQuery(params.id);
@@ -50,18 +54,18 @@ export default function ConfirmEventButton() {
             <span>
               <CalendarIcon innerfill="#4c65e5" fontSize={24} />
             </span>
-            <span>일정 확정하기</span>
+            <span>{t('button')}</span>
           </button>
         </SpeechBalloon.Wrapper>
         <SpeechBalloon.Main
-          width={315}
+          width={locale === 'ko' ? 315 : 405}
           offset={2}
           vertical="bottom"
           horizontal="right"
           variant="secondary"
           triangleOffset={70}
         >
-          일정 확정 후, 팀원들에게 일정 알림을 보낼 수 있어요
+          {t('speechBalloon')}
         </SpeechBalloon.Main>
       </SpeechBalloon.Container>
     </div>

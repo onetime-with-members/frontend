@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import { CalendarIcon } from '@/components/icon';
 import {
   useConfirmEventMutation,
@@ -9,6 +11,7 @@ import { useParams } from 'next/navigation';
 
 export default function ConfirmEventBanner() {
   const params = useParams<{ id: string }>();
+  const t = useTranslations('confirm');
 
   const { data: event } = useEventQuery(params.id);
   const { data: recommendedTimes } = useRecommendedTimesQuery(params.id);
@@ -47,7 +50,7 @@ export default function ConfirmEventBanner() {
       <span>
         <CalendarIcon innerfill="#474a5c" fontSize={20} />
       </span>
-      <span className="flex-1 text-md-200">일정을 확정하고 공유해보세요</span>
+      <span className="flex-1 text-md-200">{t('banner')}</span>
       <span>
         <IconChevronRight size={24} />
       </span>
