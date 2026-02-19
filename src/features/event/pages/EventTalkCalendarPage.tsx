@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { useCreateTalkCalendarEvent, useEventQuery } from '../api/event.query';
 import { TALK_CALENDAR_ERROR, TALK_CALENDAR_SUCCESS } from '../constants';
@@ -10,6 +10,7 @@ import {
 } from '../lib/talk-calendar-event-cookie';
 import { getKakaoAuthCode } from '@/features/auth/api/auth.api';
 import { useKakaoAccessTokenQuery } from '@/features/auth/api/auth.query';
+import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { useRouter } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
 
@@ -18,6 +19,8 @@ export default function EventTalkCalendarPage({
 }: {
   eventId: string;
 }) {
+  const { setFooterVisible } = useContext(FooterContext);
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -37,6 +40,13 @@ export default function EventTalkCalendarPage({
     isSuccess,
     isError,
   } = useCreateTalkCalendarEvent();
+
+  useEffect(() => {
+    setFooterVisible(false);
+    return () => {
+      setFooterVisible(true);
+    };
+  });
 
   useEffect(() => {
     (async () => {
