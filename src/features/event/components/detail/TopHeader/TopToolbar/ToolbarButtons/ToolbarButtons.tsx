@@ -4,10 +4,8 @@ import ConfirmEventButton from './ConfirmEventButton';
 import EventDeleteAlert from './EventDeleteAlert';
 import ToolbarButton from './ToolbarButton';
 import { EditIcon, TrashIcon } from '@/components/icon';
-import {
-  useEventQuery,
-  useParticipantsQuery,
-} from '@/features/event/api/event.query';
+import { useEventWithAuthQuery } from '@/features/event/api/event.query';
+import useEventConfirmStatus from '@/features/event/hooks/useEventConfirmStatus';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
@@ -15,10 +13,15 @@ export default function ToolbarButtons() {
   const [isDeleteAlertOpen, setIsDeleteAlertOpen] = useState(false);
 
   const params = useParams<{ id: string }>();
-  const progressRouter = useProgressRouter();
 
-  const { data: event } = useEventQuery(params.id);
-  const { data: pariticipants } = useParticipantsQuery(params.id);
+  const progressRouter = useProgressRouter();
+  const eventConfirmStatus = useEventConfirmStatus();
+
+  const { data: eventWithAuth } = useEventWithAuthQuery(params.id);
+
+  const isCreator = ['CREATOR', 'CREATOR_AND_PARTICIPANT'].includes(
+    eventWithAuth?.participation_role ?? '',
+  );
 
   return (
     <>
@@ -28,16 +31,12 @@ export default function ToolbarButtons() {
         >
           <EditIcon />
         </ToolbarButton>
-        {['CREATOR', 'CREATOR_AND_PARTICIPANT'].includes(
-          event.participation_role,
-        ) && (
+        {isCreator && (
           <ToolbarButton onClick={() => setIsDeleteAlertOpen(true)}>
             <TrashIcon innerfill="#474A5C" />
           </ToolbarButton>
         )}
-        {pariticipants.length >= 2 && event.event_status === 'ACTIVE' && (
-          <ConfirmEventButton />
-        )}
+        {eventConfirmStatus === 'available' && <ConfirmEventButton />}
       </div>
       {isDeleteAlertOpen && (
         <EventDeleteAlert setIsEventDeleteAlertOpen={setIsDeleteAlertOpen} />
