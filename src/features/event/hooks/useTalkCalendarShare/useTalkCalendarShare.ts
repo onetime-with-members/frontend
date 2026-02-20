@@ -19,6 +19,8 @@ export default function useTalkCalendarShare(eventId: string) {
         title: `${event.title} | OneTime`,
         description: `톡캘린더 일정 추가 요청이 도착했습니다.`,
         imageUrl: `${process.env.NEXT_PUBLIC_SITE_DOMAIN}/images/kakao/talk-calendar-share-thumbnail.png`,
+        imageWidth: 1200,
+        imageHeight: 630,
         link: {
           webUrl: currentUrl,
           mobileWebUrl: currentUrl,
