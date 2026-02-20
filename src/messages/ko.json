@@ -60,12 +60,7 @@
     "myScheduleDescription": "스케줄을 입력할 때 자동으로 불러와져요.",
     "noEvent": "아직 참여한 이벤트가 없어요."
   },
-  "mypage": {
-    "allEvents": "참여한 이벤트",
-    "mySchedule": "내 스케줄",
-    "profile": "프로필 정보"
-  },
-  "myEvents": {
+  "MyEventListPage": {
     "empty": {
       "title": "참여한 이벤트가 없어요.",
       "button": "이벤트 추가하기"
@@ -266,5 +261,10 @@
     "description2": "블럭의 시작과 끝을 터치해서 <br></br>색칠하거나 지울 수 있어요",
     "next": "다음",
     "start": "시작"
+  },
+  "mypage": {
+    "allEvents": "참여한 이벤트",
+    "mySchedule": "내 스케줄",
+    "profile": "프로필 정보"
   }
 }

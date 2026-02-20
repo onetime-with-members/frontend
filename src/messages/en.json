@@ -60,12 +60,7 @@
     "myScheduleDescription": "It is automatically loaded when you enter a schedule.",
     "noEvent": "You haven't joined any events yet."
   },
-  "mypage": {
-    "allEvents": "All Events",
-    "mySchedule": "My Schedule",
-    "profile": "Profile"
-  },
-  "myEvents": {
+  "MyEventListPage": {
     "empty": {
       "title": "You haven't joined any events yet.",
       "button": "Add Event"
@@ -266,5 +261,10 @@
     "description2": "Touch the start and end of a block <br></br>to fill or erase it",
     "next": "Next",
     "start": "Start"
+  },
+  "mypage": {
+    "allEvents": "All Events",
+    "mySchedule": "My Schedule",
+    "profile": "Profile"
   }
 }
