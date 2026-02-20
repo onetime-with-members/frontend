@@ -113,7 +113,7 @@
     "toWithdrawText": "Do you not agree to the terms?",
     "toWithdrawLink": "Go to withdraw"
   },
-  "withdraw": {
+  "WithdrawPage": {
     "deleteAccount": "Delete account",
     "mainTitle": "Do you really want to delete your account?",
     "title1": "Your account will be deleted immediately",

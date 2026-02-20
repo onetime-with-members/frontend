@@ -113,7 +113,7 @@
     "toWithdrawText": "약관에 동의하지 않으시나요?",
     "toWithdrawLink": "탈퇴 페이지로 이동"
   },
-  "withdraw": {
+  "WithdrawPage": {
     "deleteAccount": "회원 탈퇴",
     "mainTitle": "정말 서비스를 탈퇴하시겠어요?",
     "title1": "회원님의 계정이 즉시 삭제돼요",
