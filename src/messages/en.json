@@ -1,4 +1,12 @@
 {
+  "LoginPage": {
+    "login": "Login",
+    "logoTitle": "For Our Perfect Time,",
+    "kakao": "Continue with KakaoTalk",
+    "naver": "Continue with Naver",
+    "google": "Continue with Google",
+    "lastLogin": "Last Login"
+  },
   "404": {
     "notFound": "Page Not Found",
     "title": "This page cannot be found",
@@ -33,14 +41,6 @@
       "oneOnOneMeetings": "1:1 Business Meetings",
       "socialGatherings": "Social Gatherings"
     }
-  },
-  "login": {
-    "login": "Login",
-    "logoTitle": "For Our Perfect Time,",
-    "kakao": "Continue with KakaoTalk",
-    "naver": "Continue with Naver",
-    "google": "Continue with Google",
-    "lastLogin": "Last Login"
   },
   "landing": {
     "title": {
