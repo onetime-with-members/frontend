@@ -263,6 +263,8 @@
   "confirm": {
     "button": "일정 확정하기",
     "speechBalloon": "일정 확정 후, 팀원들에게 일정 알림을 보낼 수 있어요",
-    "banner": "일정을 확정하고 공유해보세요"
+    "banner": "일정을 확정하고 공유해보세요",
+    "ongoing": "진행 중",
+    "eventInfo": "일정"
   }
 }

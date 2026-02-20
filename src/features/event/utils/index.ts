@@ -24,32 +24,41 @@ function getEventTimeSummary({
   start,
   end,
   category,
+  locale,
 }: {
   start: { date: string; day: string; time: string };
   end: { date: string; day: string; time: string };
   category: 'DATE' | 'DAY';
+  locale: 'ko' | 'en';
 }) {
   if (category === 'DATE') {
     const startDateTime = parseDateTime(start.date, start.time);
     const endDateTime = parseDateTime(end.date ?? '', end.time);
 
     return start.date === end.date
-      ? `${startDateTime.format('MM/DD (dd) HH:mm')} - ${endDateTime.format('HH:mm')}`
-      : `${startDateTime.format('MM/DD(dd) HH:mm')} - ${endDateTime.format('MM/DD(dd) HH:mm')}`;
+      ? `${startDateTime.format('MM/DD (ddd) HH:mm')} - ${endDateTime.format('HH:mm')}`
+      : `${startDateTime.format('MM/DD(ddd) HH:mm')} - ${endDateTime.format('MM/DD(ddd) HH:mm')}`;
   } else {
     const startDayTime = parseDayTime(start.day, start.time);
     const endDayTime = parseDayTime(end.day, end.time);
 
+    const ddd = locale === 'ko' ? 'dddd' : 'ddd';
+
     return start.day === end.day
-      ? `${startDayTime.format('dddd HH:mm')} - ${endDayTime.format('HH:mm')}`
-      : `${startDayTime.format('dddd HH:mm')} - ${endDayTime.format('dddd HH:mm')}`;
+      ? `${startDayTime.format(`${ddd} HH:mm`)} - ${endDayTime.format('HH:mm')}`
+      : `${startDayTime.format(`${ddd} HH:mm`)} - ${endDayTime.format(`${ddd} HH:mm`)}`;
   }
 }
 
-export function getRecommendedTimeText(
-  recommendedTime: MyEventType['most_possible_times'][0],
-  category: 'DATE' | 'DAY',
-) {
+export function getRecommendedTimeText({
+  recommendedTime,
+  category,
+  locale,
+}: {
+  recommendedTime: MyEventType['most_possible_times'][0];
+  category: 'DATE' | 'DAY';
+  locale: 'ko' | 'en';
+}) {
   return getEventTimeSummary({
     start: {
       date: recommendedTime.time_point,
@@ -62,13 +71,19 @@ export function getRecommendedTimeText(
       time: recommendedTime.end_time,
     },
     category,
+    locale,
   });
 }
 
-export function getConfirmedTimeText(
-  confirmedTime: ConfirmedEventData,
-  category: 'DATE' | 'DAY',
-) {
+export function getConfirmedTimeText({
+  confirmedTime,
+  category,
+  locale,
+}: {
+  confirmedTime: ConfirmedEventData;
+  category: 'DATE' | 'DAY';
+  locale: 'ko' | 'en';
+}) {
   return getEventTimeSummary({
     start: {
       date: confirmedTime.start_date ?? '',
@@ -81,20 +96,43 @@ export function getConfirmedTimeText(
       time: confirmedTime.end_time,
     },
     category,
+    locale,
   });
 }
 
-export function getConfirmedTimeFromNow(
-  {
-    start_date: startDate = '',
-    start_day: startDay = '',
+export function getConfirmedTimeFromNow({
+  confirmedTime: {
+    start_date: startDate,
+    end_date: endDate,
+    start_day: startDay,
+    end_day: endDay,
     start_time: startTime,
-  }: ConfirmedEventData,
-  category: 'DATE' | 'DAY',
-) {
-  return category === 'DATE'
-    ? parseDateTime(startDate ?? '', startTime).fromNow()
-    : parseDayTime(startDay ?? '', startTime)
-        .add(1, 'week')
-        .fromNow();
+    end_time: endTime,
+  },
+  category,
+  ongoingText = 'Ongoing',
+}: {
+  confirmedTime: ConfirmedEventData;
+  category: 'DATE' | 'DAY';
+  ongoingText?: string;
+}) {
+  if (category === 'DATE') {
+    const startDateTime = parseDateTime(startDate ?? '', startTime);
+    const endDateTime = parseDateTime(endDate ?? '', endTime);
+
+    return dayjs().isBefore(startDateTime)
+      ? startDateTime.fromNow()
+      : dayjs().isAfter(endDateTime)
+        ? endDateTime.fromNow()
+        : ongoingText;
+  } else {
+    const startDayTime = parseDateTime(startDay ?? '', startTime);
+    const endDayTime = parseDateTime(endDay ?? '', endTime);
+
+    return dayjs().isBefore(startDayTime)
+      ? startDayTime.fromNow()
+      : dayjs().isAfter(endDayTime)
+        ? startDayTime.add(1, 'week').fromNow()
+        : ongoingText;
+  }
 }
