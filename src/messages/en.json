@@ -97,13 +97,7 @@
     "version": "Version",
     "withdraw": "Delete account"
   },
-  "nickname": {
-    "name": "Name",
-    "noSpecialCharactersAndNumbers": "Special characters and numbers cannot be used.",
-    "max50Characters": "Up to 50 characters can be entered.",
-    "enterName": "Enter your name"
-  },
-  "profileEdit": {
+  "ProfileEditPage": {
     "editProfile": "Edit Profile",
     "save": "Save",
     "saving": "Saving..."
@@ -266,5 +260,11 @@
     "allEvents": "All Events",
     "mySchedule": "My Schedule",
     "profile": "Profile"
+  },
+  "nickname": {
+    "name": "Name",
+    "noSpecialCharactersAndNumbers": "Special characters and numbers cannot be used.",
+    "max50Characters": "Up to 50 characters can be entered.",
+    "enterName": "Enter your name"
   }
 }

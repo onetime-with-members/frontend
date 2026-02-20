@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import Button from '@/components/button';
 
 export default function DesktopSubmitButton({ isValid }: { isValid: boolean }) {
-  const t = useTranslations('profileEdit');
+  const t = useTranslations('ProfileEditPage');
 
   return (
     <Button

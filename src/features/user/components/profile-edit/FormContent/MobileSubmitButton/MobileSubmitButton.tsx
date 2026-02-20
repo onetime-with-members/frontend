@@ -10,7 +10,7 @@ export default function MobileSubmitButton({
   isValid: boolean;
   isPending: boolean;
 }) {
-  const t = useTranslations('profileEdit');
+  const t = useTranslations('ProfileEditPage');
 
   return (
     <FloatingBottomButton
