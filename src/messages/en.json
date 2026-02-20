@@ -74,7 +74,7 @@
     "save": "Save",
     "saving": "Saving..."
   },
-  "everytimeScheduleEdit": {
+  "MyScheduleEverytimeEditPage": {
     "title": "Add Everytime Timetable",
     "description": "Copy and Paste the timetable link using the method below.",
     "placeholder": "Paste link here...",

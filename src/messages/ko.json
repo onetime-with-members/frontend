@@ -74,7 +74,7 @@
     "save": "저장",
     "saving": "저장 중..."
   },
-  "everytimeScheduleEdit": {
+  "MyScheduleEverytimeEditPage": {
     "title": "에브리타임 시간표 등록",
     "description": "URL 공유로 복사한 시간표 링크를 붙여주세요.",
     "placeholder": "링크 붙여넣기...",

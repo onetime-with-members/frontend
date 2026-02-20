@@ -10,7 +10,7 @@ export default function InputContent({
   registerUrl: UseFormRegisterReturn<'url'>;
   onTouched: () => void;
 }) {
-  const t = useTranslations('everytimeScheduleEdit');
+  const t = useTranslations('MyScheduleEverytimeEditPage');
 
   return (
     <div className="flex flex-col gap-2">

@@ -5,7 +5,7 @@ import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function TopAppBar() {
   const progressRouter = useProgressRouter();
-  const t = useTranslations('everytimeScheduleEdit');
+  const t = useTranslations('MyScheduleEverytimeEditPage');
 
   return (
     <nav className="h-[64px]">
