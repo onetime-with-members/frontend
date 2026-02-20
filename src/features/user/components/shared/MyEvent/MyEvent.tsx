@@ -3,11 +3,8 @@
 import { useLocale, useTranslations } from 'next-intl';
 import Skeleton from 'react-loading-skeleton';
 
-import {
-  SKELETON_DARK_GRAY,
-  SKELETON_GRAY,
-  weekdaysShortKo,
-} from '@/constants';
+import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/constants';
+import { getRecommendedTimeText } from '@/features/event/utils';
 import { MyEventType } from '@/features/user/types';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
@@ -108,25 +105,8 @@ export default function MyEvent({
                       height={20}
                     />
                   </span>
-                  {event.category === 'DATE' ? (
-                    <span>
-                      {dayjs(recommendedTime.time_point, 'YYYY.MM.DD').format(
-                        'YYYY.MM.DD (ddd)',
-                      )}
-                    </span>
-                  ) : (
-                    <span>
-                      {dayjs()
-                        .day(
-                          weekdaysShortKo.findIndex(
-                            (weekday) => weekday === recommendedTime.time_point,
-                          ),
-                        )
-                        .format('dddd')}
-                    </span>
-                  )}
                   <span>
-                    {recommendedTime.start_time} - {recommendedTime.end_time}
+                    {getRecommendedTimeText(recommendedTime, event.category)}
                   </span>
                 </>
               )

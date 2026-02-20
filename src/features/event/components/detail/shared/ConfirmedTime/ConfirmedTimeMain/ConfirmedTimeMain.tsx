@@ -27,7 +27,7 @@ export default function ConfirmedTimeMain() {
         <CalendarIcon fontSize={16} innerfill="#5D6279" />
         <span className="text-sm-300">{confirmedTimeFromNow}</span>
       </div>
-      <span className="font-normal text-lg-300">{confirmedTimeText}</span>
+      <span className="text-md-300 xs:text-lg-300">{confirmedTimeText}</span>
     </div>
   );
 }
