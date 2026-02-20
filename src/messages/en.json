@@ -7,6 +7,18 @@
     "google": "Continue with Google",
     "lastLogin": "Last Login"
   },
+  "EventDetailPage": {
+    "participant": "Participant{count, plural, =1 {} other {s}}",
+    "available": "Available",
+    "unavailable": "Unavailable",
+    "addSchedule": "Add Schedule",
+    "editSchedule": "Edit Schedule",
+    "recommendedTime": "Recommended Time{count, plural, =1 {} other {s}}",
+    "emptyEventBanner": "Share the link <br></br>and find the perfect time!",
+    "copyLink": "Copy Link",
+    "copied": "Copied",
+    "shareMessage": "Try sharing it!"
+  },
   "404": {
     "notFound": "Page Not Found",
     "title": "This page cannot be found",
@@ -85,18 +97,6 @@
     "goBack": "Go Back",
     "previous": "Previous",
     "start": "Get Started"
-  },
-  "eventDetail": {
-    "participant": "Participant{count, plural, =1 {} other {s}}",
-    "available": "Available",
-    "unavailable": "Unavailable",
-    "addSchedule": "Add Schedule",
-    "editSchedule": "Edit Schedule",
-    "recommendedTime": "Recommended Time{count, plural, =1 {} other {s}}",
-    "emptyEventBanner": "Share the link <br></br>and find the perfect time!",
-    "copyLink": "Copy Link",
-    "copied": "Copied",
-    "shareMessage": "Try sharing it!"
   },
   "sharePopUp": {
     "share": "Share",

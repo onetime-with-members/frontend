@@ -40,7 +40,7 @@ export default function ParticipantFilter() {
           className="pt-2"
           sticky
         >
-          {t('eventDetail.participant', { count: participants.length })}
+          {t('EventDetailPage.participant', { count: participants.length })}
         </SectionHeading>
         <ul
           className="mt-2 flex flex-wrap gap-1.5 pb-4 pt-0 md:pb-6"

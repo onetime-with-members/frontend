@@ -7,6 +7,18 @@
     "google": "Google 계정으로 로그인",
     "lastLogin": "마지막 로그인"
   },
+  "EventDetailPage": {
+    "participant": "참여자",
+    "available": "가능",
+    "unavailable": "불가능",
+    "addSchedule": "스케줄 추가",
+    "editSchedule": "스케줄 수정",
+    "recommendedTime": "추천 시간",
+    "emptyEventBanner": "링크를 공유하고 <br></br>맞는 시간을 찾으세요!",
+    "copyLink": "링크 복사",
+    "copied": "복사 완료",
+    "shareMessage": "공유해보세요!"
+  },
   "404": {
     "notFound": "페이지를 찾을 수 없습니다",
     "title": "요청하신 페이지를 찾을 수 없어요",
@@ -85,18 +97,6 @@
     "goBack": "돌아가기",
     "previous": "이전으로",
     "start": "시작하기"
-  },
-  "eventDetail": {
-    "participant": "참여자",
-    "available": "가능",
-    "unavailable": "불가능",
-    "addSchedule": "스케줄 추가",
-    "editSchedule": "스케줄 수정",
-    "recommendedTime": "추천 시간",
-    "emptyEventBanner": "링크를 공유하고 <br></br>맞는 시간을 찾으세요!",
-    "copyLink": "링크 복사",
-    "copied": "복사 완료",
-    "shareMessage": "공유해보세요!"
   },
   "sharePopUp": {
     "share": "공유하기",
