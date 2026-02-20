@@ -126,8 +126,8 @@ export function getConfirmedTimeFromNow({
         ? endDateTime.fromNow()
         : ongoingText;
   } else {
-    const startDayTime = parseDateTime(startDay ?? '', startTime);
-    const endDayTime = parseDateTime(endDay ?? '', endTime);
+    const startDayTime = parseDayTime(startDay ?? '', startTime);
+    const endDayTime = parseDayTime(endDay ?? '', endTime);
 
     return dayjs().isBefore(startDayTime)
       ? startDayTime.fromNow()
