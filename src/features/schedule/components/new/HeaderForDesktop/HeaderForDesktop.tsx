@@ -7,7 +7,7 @@ import { IconChevronLeft } from '@tabler/icons-react';
 export default function HeaderForDesktop() {
   const { handleBackButtonClick } = useContext(ScheduleFormContext);
 
-  const t = useTranslations('scheduleAdd');
+  const t = useTranslations('ScheduleNewPage');
 
   return (
     <header

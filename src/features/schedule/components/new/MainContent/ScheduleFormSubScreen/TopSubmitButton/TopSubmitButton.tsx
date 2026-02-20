@@ -16,7 +16,7 @@ export default function TopSubmitButton({
     null,
   );
 
-  const t = useTranslations('scheduleAdd');
+  const t = useTranslations('ScheduleNewPage');
 
   useEffect(() => {
     setPortalContainer(document.getElementById('schedule-submit-button'));

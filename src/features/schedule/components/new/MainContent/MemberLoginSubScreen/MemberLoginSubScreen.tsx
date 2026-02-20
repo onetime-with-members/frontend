@@ -25,7 +25,7 @@ export default function MemberLoginSubScreen() {
     control,
   } = useGuestForm();
 
-  const t = useTranslations('scheduleAdd');
+  const t = useTranslations('ScheduleNewPage');
   const params = useParams<{ id: string }>();
 
   const { mutateAsync: checkNewGuest } = useCheckNewGuestMutation();
