@@ -263,6 +263,8 @@
   "confirm": {
     "button": "Confirm Schedule",
     "speechBalloon": "You can notify team members after confirming the schedule",
-    "banner": "Confirm and share the schedule"
+    "banner": "Confirm and share the schedule",
+    "ongoing": "Ongoing",
+    "eventInfo": "Event Info"
   }
 }

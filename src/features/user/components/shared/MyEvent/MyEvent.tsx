@@ -22,9 +22,7 @@ export default function MyEvent({
   isPending?: boolean;
 }) {
   const t = useTranslations('common');
-  const locale = useLocale();
-
-  dayjs.locale(locale);
+  const locale = useLocale() as 'ko' | 'en';
 
   const isRecommended =
     event.most_possible_times.length > 0 && event.participant_count >= 1;
@@ -106,7 +104,11 @@ export default function MyEvent({
                     />
                   </span>
                   <span>
-                    {getRecommendedTimeText(recommendedTime, event.category)}
+                    {getRecommendedTimeText({
+                      recommendedTime,
+                      category: event.category,
+                      locale,
+                    })}
                   </span>
                 </>
               )
