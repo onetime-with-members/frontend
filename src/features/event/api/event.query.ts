@@ -61,11 +61,11 @@ export function useQrCodeQuery(eventId: string) {
 }
 
 export function useParticipantsQuery(eventId: string) {
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     ...participantsQueryOptions(eventId),
   });
 
-  return { data: data || [] };
+  return { data: data || [], isPending };
 }
 
 export function useCreateEventMutation() {
