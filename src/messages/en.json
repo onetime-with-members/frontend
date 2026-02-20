@@ -50,22 +50,7 @@
     "save": "Save",
     "saving": "Saving..."
   },
-  "timeBlockBoard": {
-    "availableToggleText": "Available",
-    "unavailableToggleText": "Unavailable",
-    "reset": "Reset",
-    "reload": "Reload",
-    "clear": "Clear"
-  },
-  "scheduleGuideModal": {
-    "title1": "Explore",
-    "title2": "Enter Schedule",
-    "description1": "Scroll up, down, left, and right <br></br>to check times and dates",
-    "description2": "Touch the start and end of a block <br></br>to fill or erase it",
-    "next": "Next",
-    "start": "Start"
-  },
-  "userDashboard": {
+  "DashboardPage": {
     "more": "More",
     "hello": "Hello, {name}",
     "createEvent": "Create Event",
@@ -266,5 +251,20 @@
     "backButtonDescription": "If you leave the page without adding a schedule, all the information you entered will disappear!",
     "backButtonConfirm": "Continue",
     "backButtonCancel": "Leave"
+  },
+  "timeBlockBoard": {
+    "availableToggleText": "Available",
+    "unavailableToggleText": "Unavailable",
+    "reset": "Reset",
+    "reload": "Reload",
+    "clear": "Clear"
+  },
+  "scheduleGuideModal": {
+    "title1": "Explore",
+    "title2": "Enter Schedule",
+    "description1": "Scroll up, down, left, and right <br></br>to check times and dates",
+    "description2": "Touch the start and end of a block <br></br>to fill or erase it",
+    "next": "Next",
+    "start": "Start"
   }
 }

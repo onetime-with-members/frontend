@@ -11,7 +11,7 @@ export default function BottomButtonForMobile() {
   const { isFooterShown } = useContext(FooterContext);
 
   const progressRouter = useProgressRouter();
-  const t = useTranslations('userDashboard');
+  const t = useTranslations('DashboardPage');
 
   function handleButtonClick() {
     progressRouter.push('/events/new');
