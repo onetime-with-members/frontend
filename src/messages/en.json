@@ -102,7 +102,7 @@
     "save": "Save",
     "saving": "Saving..."
   },
-  "policyEdit": {
+  "PolicyEditPage": {
     "agreeToTerms": "Agree to Terms",
     "title": "Please agree to the terms <br></br>to use the service",
     "all": "Agree to all",

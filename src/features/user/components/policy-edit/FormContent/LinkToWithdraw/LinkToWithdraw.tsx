@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { ProgressLink } from '@/navigation';
 
 export default function LinkToWithdraw() {
-  const t = useTranslations('policyEdit');
+  const t = useTranslations('PolicyEditPage');
 
   return (
     <div className="flex items-center gap-1.5 px-4 text-gray-50 text-sm-200">

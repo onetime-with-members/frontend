@@ -102,7 +102,7 @@
     "save": "저장",
     "saving": "저장 중..."
   },
-  "policyEdit": {
+  "PolicyEditPage": {
     "agreeToTerms": "약관 동의",
     "title": "서비스 이용을 위해 <br></br>약관에 동의해주세요",
     "all": "전체 동의",
