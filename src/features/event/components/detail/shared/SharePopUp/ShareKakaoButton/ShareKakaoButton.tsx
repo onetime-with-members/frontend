@@ -16,7 +16,7 @@ export default function ShareKakaoButton({ size = 48 }: { size?: number }) {
   return (
     <button
       className={cn(
-        'overflow-hidden rounded-full bg-[#FFE80F] p-1.5 text-primary-40',
+        'overflow-hidden rounded-full bg-[#FFE80F] p-1.5 text-[#3B1E1E]',
       )}
       onClick={handleKakaoShare}
       style={{ width: size, height: size }}
