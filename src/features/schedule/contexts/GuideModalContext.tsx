@@ -1,7 +1,6 @@
 'use client';
 
 import { getCookie, setCookie } from 'cookies-next';
-import dayjs from 'dayjs';
 import { useTranslations } from 'next-intl';
 import { createContext, useEffect, useState } from 'react';
 
@@ -13,6 +12,7 @@ import { SCHEDULE_GUIDE_MODAL, defaultGuideContents } from '../constants';
 import { guideContentsList } from '../data/guide-contents-list';
 import { GuideContents } from '../types';
 import { useAuth } from '@/lib/auth';
+import dayjs from '@/lib/dayjs';
 
 export const GuideModalContext = createContext<{
   isGuideModalShown: boolean;

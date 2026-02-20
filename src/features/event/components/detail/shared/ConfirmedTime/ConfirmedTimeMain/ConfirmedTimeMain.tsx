@@ -1,8 +1,7 @@
-import dayjs from 'dayjs';
-
 import { CalendarIcon } from '@/components/icon';
 import { weekdaysShortKo } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
+import dayjs from '@/lib/dayjs';
 import { useParams } from 'next/navigation';
 
 export default function ConfirmedTimeMain() {

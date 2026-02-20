@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
-import dayjs from 'dayjs';
-
 import { Session } from '@/features/auth/types';
+import dayjs from '@/lib/dayjs';
 
 // ***********************************************
 // This example commands.ts shows you how to
