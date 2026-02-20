@@ -4,7 +4,7 @@ import LanguageDropdown from '../../../shared/LanguageDropdown';
 import SettingItem from './SettingItem';
 
 export default function SettingList() {
-  const t = useTranslations('profile');
+  const t = useTranslations('ProfilePage');
 
   return (
     <div className="flex flex-col gap-12">

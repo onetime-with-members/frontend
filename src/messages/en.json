@@ -86,7 +86,7 @@
     "privateURLMessage": "The timetable is not public. Please set the sharing rights to 'Public'.",
     "serverErrorMessage": "An error occurred while processing the request. Please try again."
   },
-  "profile": {
+  "ProfilePage": {
     "profile": "Profile",
     "editProfile": "Edit Profile",
     "logout": "Logout",

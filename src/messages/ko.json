@@ -86,7 +86,7 @@
     "privateURLMessage": "시간표가 공개 상태가 아닙니다. 공개 범위를 '전체 공개'로 바꿔주세요.",
     "serverErrorMessage": "요청 도중 오류가 발생했습니다. 다시 시도해주세요."
   },
-  "profile": {
+  "ProfilePage": {
     "profile": "프로필 정보",
     "editProfile": "프로필 수정",
     "logout": "로그아웃",
