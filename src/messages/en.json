@@ -66,7 +66,7 @@
       "button": "Add Event"
     }
   },
-  "myScheduleEdit": {
+  "MyScheduleEditPage": {
     "myScheduleEdit": "Edit My Schedule",
     "editMySchedule": "Edit My Schedule",
     "sleepTime": "Sleep Time",

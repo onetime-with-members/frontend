@@ -66,7 +66,7 @@
       "button": "이벤트 추가하기"
     }
   },
-  "myScheduleEdit": {
+  "MyScheduleEditPage": {
     "myScheduleEdit": "내 스케줄 수정",
     "editMySchedule": "스케줄 입력",
     "sleepTime": "수면 시간",
