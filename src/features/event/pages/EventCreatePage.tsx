@@ -1,7 +1,7 @@
 'use client';
 
-import EventFormScreen from '../components/form/EventFormScreen';
+import EventForm from '../components/form/EventForm';
 
 export default function EventCreatePage() {
-  return <EventFormScreen formStatus="create" />;
+  return <EventForm formStatus="create" />;
 }

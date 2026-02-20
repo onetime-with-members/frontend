@@ -19,6 +19,27 @@
     "copied": "Copied",
     "shareMessage": "Try sharing it!"
   },
+  "EventCreatePage": {
+    "createEvent": "Create Event"
+  },
+  "EventEditPage": {
+    "editEvent": "Edit {name}"
+  },
+  "EventForm": {
+    "eventName": "Event Name",
+    "max50Characters": "Max 50 characters",
+    "enterEventName": "Enter the event name",
+    "timeRange": "Time",
+    "selectTimeRange": "Select the time range for the event.",
+    "dateRange": "Date",
+    "selectDateRange": "Select the date range for the event.",
+    "date": "Date",
+    "weekday": "Weekday",
+    "createEvent": "Create Event",
+    "editEvent": "Edit Event",
+    "creatingEvent": "Creating Event...",
+    "editingEvent": "Editing Event..."
+  },
   "404": {
     "notFound": "Page Not Found",
     "title": "This page cannot be found",
@@ -125,27 +146,6 @@
     "backButtonDescription": "If you leave the page without adding a schedule, all the information you entered will disappear!",
     "backButtonConfirm": "Continue",
     "backButtonCancel": "Leave"
-  },
-  "createEvent": {
-    "createEvent": "Create Event"
-  },
-  "editEvent": {
-    "editEvent": "Edit {name}"
-  },
-  "eventForm": {
-    "eventName": "Event Name",
-    "max50Characters": "Max 50 characters",
-    "enterEventName": "Enter the event name",
-    "timeRange": "Time",
-    "selectTimeRange": "Select the time range for the event.",
-    "dateRange": "Date",
-    "selectDateRange": "Select the date range for the event.",
-    "date": "Date",
-    "weekday": "Weekday",
-    "createEvent": "Create Event",
-    "editEvent": "Edit Event",
-    "creatingEvent": "Creating Event...",
-    "editingEvent": "Editing Event..."
   },
   "scheduleAdd": {
     "enterSchedule": "Enter Schedule",

@@ -8,7 +8,7 @@ import { EventFormContext } from '@/features/event/contexts/EventFormContext';
 export default function TitleControl() {
   const { registerTitle } = useContext(EventFormContext);
 
-  const t = useTranslations('eventForm');
+  const t = useTranslations('EventForm');
 
   return (
     <div className="flex flex-col gap-2 md:gap-4">

@@ -27,7 +27,7 @@ export async function generateMetadata({
     };
   }
 
-  const t = await getTranslations({ locale, namespace: 'editEvent' });
+  const t = await getTranslations({ locale, namespace: 'EventEditPage' });
 
   return {
     title: t('editEvent', {

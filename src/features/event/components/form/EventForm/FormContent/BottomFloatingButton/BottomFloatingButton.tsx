@@ -16,7 +16,7 @@ export default function BottomFloatingButton({
   const { isValid } = useContext(EventFormContext);
   const { pageMode } = useContext(PageModeContext);
 
-  const t = useTranslations('eventForm');
+  const t = useTranslations('EventForm');
 
   return (
     <div className="sticky bottom-0 left-0 w-full bg-gray-00 px-4 py-4 md:static md:w-[25rem] md:bg-transparent">

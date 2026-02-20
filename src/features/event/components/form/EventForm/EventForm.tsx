@@ -7,7 +7,7 @@ import EventFormContextProvider from '@/features/event/contexts/EventFormContext
 import { EventType } from '@/features/event/types';
 import { EventFormStatus } from '@/features/event/types';
 
-export default function EventFormScreen({
+export default function EventForm({
   formStatus,
   originData,
 }: {
