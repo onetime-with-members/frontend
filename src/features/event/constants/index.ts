@@ -30,3 +30,13 @@ export const defaultEventValue: EventSchema = {
   category: 'DATE',
   ranges: [],
 };
+
+export const defaultConfirmedTime = {
+  start_date: null,
+  end_date: null,
+  start_day: null,
+  end_day: null,
+  start_time: '',
+  end_time: '',
+  created_date: '',
+};
