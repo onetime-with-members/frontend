@@ -13,7 +13,7 @@ export default function BackButtonAlert({
 }) {
   const router = useRouter();
   const progressRouter = useProgressRouter();
-  const t = useTranslations('alert');
+  const t = useTranslations('BackButtonAlert');
 
   return (
     <Alert

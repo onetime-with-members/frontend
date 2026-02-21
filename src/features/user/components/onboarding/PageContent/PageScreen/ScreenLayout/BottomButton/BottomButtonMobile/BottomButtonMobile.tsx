@@ -7,7 +7,7 @@ export default function BottomButtomMobile({
 }: {
   disabled?: boolean;
 }) {
-  const t = useTranslations('onboarding');
+  const t = useTranslations('OnboardingPage');
 
   return (
     <div className="block md:hidden">

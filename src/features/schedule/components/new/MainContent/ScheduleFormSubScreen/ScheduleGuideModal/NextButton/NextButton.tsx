@@ -11,7 +11,7 @@ export default function NextButton() {
     guideContentsListLength,
   } = useContext(GuideModalContext);
 
-  const t = useTranslations('scheduleGuideModal');
+  const t = useTranslations('ScheduleGuideModal');
 
   return (
     <Button fullWidth onClick={handleNextGuideContents}>

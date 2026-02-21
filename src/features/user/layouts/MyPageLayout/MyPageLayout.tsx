@@ -2,7 +2,11 @@ import MyPageTabContextProvider from '../../contexts/MyPageTabContext';
 import DesktopLayout from './DesktopLayout';
 import MobileLayout from './MobileLayout';
 
-export default function TabLayout({ children }: { children: React.ReactNode }) {
+export default function MyPageLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <MyPageTabContextProvider>
       <MobileLayout>{children}</MobileLayout>

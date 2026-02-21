@@ -14,7 +14,7 @@ export default function WelcomeScreen() {
     onboardingValue: { nickname },
   } = useContext(OnboardingContext);
 
-  const t = useTranslations('onboarding');
+  const t = useTranslations('OnboardingPage');
 
   const progressRouter = useProgressRouter();
   const homeUrl = useHomeUrl();

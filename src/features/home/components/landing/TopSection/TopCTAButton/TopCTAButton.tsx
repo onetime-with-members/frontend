@@ -7,7 +7,7 @@ import { useProgressRouter } from '@/navigation';
 
 export default function TopCTAButton() {
   const progressRouter = useProgressRouter();
-  const t = useTranslations('landing');
+  const t = useTranslations('LandingPage');
 
   function handleClick() {
     progressRouter.push('/events/new');

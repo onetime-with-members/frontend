@@ -1,12 +1,4 @@
 {
-  "LoginPage": {
-    "login": "Login",
-    "logoTitle": "For Our Perfect Time,",
-    "kakao": "Continue with KakaoTalk",
-    "naver": "Continue with Naver",
-    "google": "Continue with Google",
-    "lastLogin": "Last Login"
-  },
   "EventDetailPage": {
     "participant": "Participant{count, plural, =1 {} other {s}}",
     "available": "Available",
@@ -17,7 +9,15 @@
     "emptyEventBanner": "Share the link <br></br>and find the perfect time!",
     "copyLink": "Copy Link",
     "copied": "Copied",
-    "shareMessage": "Try sharing it!"
+    "shareMessage": "Try sharing it!",
+    "SharePopUp": {
+      "share": "Share",
+      "copyLink": "Copy Link",
+      "qrCode": "QR Code",
+      "kakao": "KakaoTalk",
+      "more": "More",
+      "qrCodeScreen": "Please add your schedule <br></br>to <Name>{eventName}</Name>!"
+    }
   },
   "EventCreatePage": {
     "createEvent": "Create Event"
@@ -49,6 +49,14 @@
     "next": "Next",
     "save": "Save",
     "saving": "Saving..."
+  },
+  "LoginPage": {
+    "login": "Login",
+    "logoTitle": "For Our Perfect Time,",
+    "kakao": "Continue with KakaoTalk",
+    "naver": "Continue with Naver",
+    "google": "Continue with Google",
+    "lastLogin": "Last Login"
   },
   "DashboardPage": {
     "more": "More",
@@ -123,53 +131,7 @@
     "agreeText": "Yes, I have confirmed the above.",
     "withdraw": "Delete account"
   },
-  "networkError": {
-    "title": "Network Connection Error",
-    "description": "Please check your network connection and try again."
-  },
-  "confirm": {
-    "button": "Confirm Schedule",
-    "speechBalloon": "You can notify team members after confirming the schedule",
-    "banner": "Confirm and share the schedule",
-    "ongoing": "Ongoing",
-    "eventInfo": "Event Info"
-  },
-  "404": {
-    "notFound": "Page Not Found",
-    "title": "This page cannot be found",
-    "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please make sure the address is correct."
-  },
-  "common": {
-    "noOneSchedule": "No one has added a schedule.",
-    "participantCount": "{count, plural, =1 {# person} other {# people}}"
-  },
-  "toast": {
-    "copiedLink": "Copied event link",
-    "loadedMySchedule": "My schedule has been loaded",
-    "everytime": "Everytime timetable has been loaded",
-    "filterInExampleEvent": "This feature is not available in example events",
-    "talkCalendarSuccess": "Talk Calendar event created successfully",
-    "talkCalendarError": "Failed to create Talk Calendar event"
-  },
-  "navbar": {
-    "login": "Login",
-    "logout": "Logout",
-    "allEvents": "All Events",
-    "mySchedule": "My Schedule",
-    "profile": "Profile"
-  },
-  "footer": {
-    "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy",
-    "feedbackIssue": "Issue & Feedback Report",
-    "exampleEvent": {
-      "useCases": "Use Cases",
-      "teamMeetings": "Team Meetings",
-      "oneOnOneMeetings": "1:1 Business Meetings",
-      "socialGatherings": "Social Gatherings"
-    }
-  },
-  "landing": {
+  "LandingPage": {
     "title": {
       "main": "For Our Perfect Time",
       "feature1": "Simple Scheduling, <br></br>No more Stress",
@@ -197,7 +159,7 @@
       "createEvent": "Create Event"
     }
   },
-  "onboarding": {
+  "OnboardingPage": {
     "onboarding": "Onboarding",
     "termsOfService": "Terms of Service",
     "privacyPolicy": "Privacy Policy",
@@ -213,42 +175,41 @@
     "previous": "Previous",
     "start": "Get Started"
   },
-  "sharePopUp": {
-    "share": "Share",
-    "copyLink": "Copy Link",
-    "qrCode": "QR Code",
-    "kakao": "KakaoTalk",
-    "more": "More",
-    "qrCodeScreen": "Please add your schedule <br></br>to <Name>{eventName}</Name>!"
+  "NetworkErrorScreen": {
+    "title": "Network Connection Error",
+    "description": "Please check your network connection and try again."
   },
-  "talkCalendarShare": {
+  "NavBar": {
+    "login": "Login",
+    "logout": "Logout",
+    "allEvents": "All Events",
+    "mySchedule": "My Schedule",
+    "profile": "Profile"
+  },
+  "Footer": {
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "feedbackIssue": "Issue & Feedback Report",
+    "exampleEvent": {
+      "useCases": "Use Cases",
+      "teamMeetings": "Team Meetings",
+      "oneOnOneMeetings": "1:1 Business Meetings",
+      "socialGatherings": "Social Gatherings"
+    }
+  },
+  "TalkCalendarShareModal": {
     "title": "Share with members and <br></br>add to Talk Calendar!",
     "description": "You can receive notifications <br></br>on KakaoTalk.",
     "shareViaKakaoButton": "Share via KakaoTalk"
   },
-  "alert": {
-    "loginTitle": "Would you like to log in?",
-    "loginDescription": "Your information is auto-filled, and your schedule can be saved!",
-    "loginConfirm": "Login",
-    "loginCancel": "Not now",
-    "deleteEventTitle": "Do you really want to delete the event?",
-    "deleteEventDescription": "If you delete the event, all schedules added to it will be removed!",
-    "deleteEventConfirm": "Delete",
-    "deleteEventCancel": "Cancel",
-    "deleteEventConfirming": "Deleting...",
-    "backButtonTitle": "Do you want to leave the page?",
-    "backButtonDescription": "If you leave the page without adding a schedule, all the information you entered will disappear!",
-    "backButtonConfirm": "Continue",
-    "backButtonCancel": "Leave"
-  },
-  "timeBlockBoard": {
+  "TimeBlockBoard": {
     "availableToggleText": "Available",
     "unavailableToggleText": "Unavailable",
     "reset": "Reset",
     "reload": "Reload",
     "clear": "Clear"
   },
-  "scheduleGuideModal": {
+  "ScheduleGuideModal": {
     "title1": "Explore",
     "title2": "Enter Schedule",
     "description1": "Scroll up, down, left, and right <br></br>to check times and dates",
@@ -256,15 +217,58 @@
     "next": "Next",
     "start": "Start"
   },
-  "mypage": {
-    "allEvents": "All Events",
-    "mySchedule": "My Schedule",
-    "profile": "Profile"
-  },
-  "nickname": {
+  "NicknameFormControl": {
     "name": "Name",
     "noSpecialCharactersAndNumbers": "Special characters and numbers cannot be used.",
     "max50Characters": "Up to 50 characters can be entered.",
     "enterName": "Enter your name"
+  },
+  "NotFoundPage": {
+    "notFound": "Page Not Found",
+    "title": "This page cannot be found",
+    "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please make sure the address is correct."
+  },
+  "MyPageLayout": {
+    "allEvents": "All Events",
+    "mySchedule": "My Schedule",
+    "profile": "Profile"
+  },
+  "LoginAlert": {
+    "loginTitle": "Would you like to log in?",
+    "loginDescription": "Your information is auto-filled, and your schedule can be saved!",
+    "loginConfirm": "Login",
+    "loginCancel": "Not now"
+  },
+  "EventDeleteAlert": {
+    "deleteEventTitle": "Do you really want to delete the event?",
+    "deleteEventDescription": "If you delete the event, all schedules added to it will be removed!",
+    "deleteEventConfirm": "Delete",
+    "deleteEventCancel": "Cancel",
+    "deleteEventConfirming": "Deleting..."
+  },
+  "BackButtonAlert": {
+    "backButtonTitle": "Do you want to leave the page?",
+    "backButtonDescription": "If you leave the page without adding a schedule, all the information you entered will disappear!",
+    "backButtonConfirm": "Continue",
+    "backButtonCancel": "Leave"
+  },
+  "confirm": {
+    "button": "Confirm Schedule",
+    "speechBalloon": "You can notify team members after confirming the schedule",
+    "banner": "Confirm and share the schedule",
+    "ongoing": "Ongoing",
+    "eventInfo": "Event Info"
+  },
+  "common": {
+    "noOneSchedule": "No one has added a schedule.",
+    "participantCount": "{count, plural, =1 {# person} other {# people}}"
+  },
+  "toast": {
+    "copiedLink": "Copied event link",
+    "loadedMySchedule": "My schedule has been loaded",
+    "everytime": "Everytime timetable has been loaded",
+    "filterInExampleEvent": "This feature is not available in example events",
+    "talkCalendarSuccess": "Talk Calendar event created successfully",
+    "talkCalendarError": "Failed to create Talk Calendar event"
   }
 }

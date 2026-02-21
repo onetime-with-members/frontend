@@ -5,7 +5,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 
 export default async function BottomContent() {
   const locale = await getLocale();
-  const t = await getTranslations('landing');
+  const t = await getTranslations('LandingPage');
 
   return (
     <div className="flex flex-col items-center gap-8">

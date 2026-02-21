@@ -20,9 +20,9 @@ export function myPageTitle(
   return (
     (tabActive &&
       {
-        events: t('mypage.allEvents'),
-        schedules: t('mypage.mySchedule'),
-        profile: t('mypage.profile'),
+        events: t('MyPageLayout.allEvents'),
+        schedules: t('MyPageLayout.mySchedule'),
+        profile: t('MyPageLayout.profile'),
       }[tabActive]) ||
     null
   );

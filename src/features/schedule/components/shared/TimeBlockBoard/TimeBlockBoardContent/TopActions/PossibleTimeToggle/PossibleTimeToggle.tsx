@@ -9,7 +9,7 @@ export default function PossibleTimeToggle() {
     TimeBlockBoardContext,
   );
 
-  const t = useTranslations('timeBlockBoard');
+  const t = useTranslations('TimeBlockBoard');
 
   return (
     <div className="flex items-center gap-2">

@@ -9,7 +9,7 @@ import Image from 'next/image';
 export default function NetworkErrorScreen() {
   const [isOffline, setIsOffline] = useState(false);
 
-  const t = useTranslations('networkError');
+  const t = useTranslations('NetworkErrorScreen');
 
   useEffect(() => {
     function handleOffline() {

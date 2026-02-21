@@ -7,7 +7,7 @@ import { useProgressRouter } from '@/navigation';
 
 export default function BottomCTAButton() {
   const progressRouter = useProgressRouter();
-  const t = useTranslations('landing');
+  const t = useTranslations('LandingPage');
 
   function handleStartButtonClick() {
     progressRouter.push('/events/new');

@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react';
 
 import TimeBlockBoard from '../../../shared/TimeBlockBoard';
 import BottomSubmitButton from './BottomSubmitButton';
-import GuideModal from './GuideModal';
+import ScheduleGuideModal from './ScheduleGuideModal';
 import TopSubmitButton from './TopSubmitButton';
 import { useEventQuery } from '@/features/event/api/event.query';
 import useGuestEditedEvents from '@/features/event/hooks/useGuestEditedEvents';
@@ -115,7 +115,7 @@ export default function ScheduleFormSubScreen() {
         onClick={handleScheduleSubmit}
         isPending={isCreatePending || isUpdatePending}
       />
-      {isGuideModalShown && <GuideModal />}
+      {isGuideModalShown && <ScheduleGuideModal />}
     </>
   );
 }

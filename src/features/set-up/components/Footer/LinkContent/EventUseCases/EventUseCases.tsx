@@ -4,7 +4,7 @@ import { ProgressLink } from '@/navigation';
 import { IconCalendarEvent } from '@tabler/icons-react';
 
 export default function EventUseCases() {
-  const t = useTranslations('footer.exampleEvent');
+  const t = useTranslations('Footer.exampleEvent');
 
   return (
     <div className="flex items-start gap-3">

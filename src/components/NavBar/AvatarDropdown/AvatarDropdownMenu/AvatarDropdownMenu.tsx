@@ -9,7 +9,7 @@ export default function AvatarDropdownMenu({
 }: {
   setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const t = useTranslations('navbar');
+  const t = useTranslations('NavBar');
 
   const { signOut } = useAuth();
 

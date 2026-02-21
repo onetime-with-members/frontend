@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { SpeakerphoneIcon } from '@/components/icon';
 
 export default function FeedbackLink() {
-  const t = useTranslations('footer');
+  const t = useTranslations('Footer');
 
   return (
     <a

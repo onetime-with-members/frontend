@@ -20,10 +20,10 @@ export async function generateMetadata({
     foundExampleEvent(eventId)?.event ?? (await fetchEvent(eventId));
 
   if (!event) {
-    const t404 = await getTranslations({ locale, namespace: '404' });
+    const t = await getTranslations({ locale, namespace: 'NotFoundPage' });
 
     return {
-      title: t404('notFound'),
+      title: t('notFound'),
     };
   }
 

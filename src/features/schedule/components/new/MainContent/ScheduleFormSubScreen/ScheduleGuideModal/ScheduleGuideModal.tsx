@@ -4,7 +4,7 @@ import Indicator from './Indicator';
 import NextButton from './NextButton';
 import TextContent from './TextContent';
 
-export default function GuideModal() {
+export default function ScheduleGuideModal() {
   return (
     <div
       className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4"
