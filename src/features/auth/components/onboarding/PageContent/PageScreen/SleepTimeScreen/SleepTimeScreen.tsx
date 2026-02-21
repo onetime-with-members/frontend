@@ -10,7 +10,7 @@ export default function SleepTimeScreen() {
   const { moveToPrevPage, onboardingValue, setOnboardingValue, handleSubmit } =
     useContext(OnboardingContext);
 
-  const t = useTranslations('user.pages.OnboardingPage');
+  const t = useTranslations('auth.pages.OnboardingPage');
 
   return (
     <ScreenLayout

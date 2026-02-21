@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
+import OnboardingPage from '@/features/auth/pages/OnboardingPage';
 import OnboardingContextProvider from '@/features/user/contexts/OnboardingContext';
-import OnboardingPage from '@/features/user/pages/OnboardingPage';
 import { redirect } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 
@@ -14,7 +14,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: 'user.pages.OnboardingPage',
+    namespace: 'auth.pages.OnboardingPage',
   });
 
   return {

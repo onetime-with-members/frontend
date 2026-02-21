@@ -22,7 +22,7 @@ export default function NicknameFormScreen() {
     handleSubmit,
   } = useNicknameForm({ onboardingValue });
 
-  const t = useTranslations('user.pages.OnboardingPage');
+  const t = useTranslations('auth.pages.OnboardingPage');
 
   const onSubmit: SubmitHandler<ProfileNicknameSchema> = ({ nickname }) => {
     setOnboardingValue('nickname', nickname);

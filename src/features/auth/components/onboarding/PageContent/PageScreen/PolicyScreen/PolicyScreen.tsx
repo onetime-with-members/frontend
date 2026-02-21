@@ -18,7 +18,7 @@ export default function PolicyScreen() {
 
   const [pageDetail, setPageDetail] = useState<keyof PolicySchema | null>(null);
 
-  const t = useTranslations('user.pages.OnboardingPage');
+  const t = useTranslations('auth.pages.OnboardingPage');
 
   const progressRouter = useProgressRouter();
 
