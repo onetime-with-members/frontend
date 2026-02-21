@@ -12,7 +12,7 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 
 export default function QRCodeScreen({ onClose }: { onClose?: () => void }) {
-  const t = useTranslations('event.EventDetailPage.SharePopUp');
+  const t = useTranslations('EventDetailPage.SharePopUp');
   const params = useParams<{ id: string }>();
 
   const { data: event } = useEventQuery(params.id);

@@ -1,3 +1,5 @@
+import { Locale, _Translator } from 'next-intl';
+
 import { PageTitleType, TabActiveType } from '../types';
 
 export function myPageTabActive(pathname: string): TabActiveType {
@@ -15,7 +17,7 @@ export function myPageTabActive(pathname: string): TabActiveType {
 
 export function myPageTitle(
   tabActive: string | null,
-  t: (key: string) => string,
+  t: _Translator,
 ): PageTitleType {
   return (
     (tabActive &&
@@ -28,7 +30,7 @@ export function myPageTitle(
   );
 }
 
-export function policyPageTitle(name: string, locale: string) {
+export function policyPageTitle(name: string, locale: Locale) {
   return name === 'privacy'
     ? locale === 'ko'
       ? '개인정보 수집 및 이용 동의'

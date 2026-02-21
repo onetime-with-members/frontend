@@ -8,10 +8,8 @@ import dayjs from '@/lib/dayjs';
 
 export const WeekdayLocaleContext = createContext<{
   weekdaysShort: string[];
-  changeWeekdaysLocale: (locale: string) => void;
 }>({
   weekdaysShort: [],
-  changeWeekdaysLocale: () => {},
 });
 
 export default function WeekdayLocaleContextProvider({
@@ -29,18 +27,12 @@ export default function WeekdayLocaleContextProvider({
 
   dayjs.locale(locale);
 
-  function changeWeekdaysLocale(locale: string) {
-    setWeekdaysShort(locale === 'ko' ? weekdaysShortKo : weekdaysShortEn);
-  }
-
   useEffect(() => {
-    changeWeekdaysLocale(locale);
+    setWeekdaysShort(locale === 'ko' ? weekdaysShortKo : weekdaysShortEn);
   }, [locale]);
 
   return (
-    <WeekdayLocaleContext.Provider
-      value={{ weekdaysShort, changeWeekdaysLocale }}
-    >
+    <WeekdayLocaleContext.Provider value={{ weekdaysShort }}>
       {children}
     </WeekdayLocaleContext.Provider>
   );

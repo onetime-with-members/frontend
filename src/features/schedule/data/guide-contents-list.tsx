@@ -1,10 +1,8 @@
-import { useTranslations } from 'next-intl';
+import { _Translator } from 'next-intl';
 
 import { GuideContents } from '../types';
 
-export const guideContentsList = (
-  t: ReturnType<typeof useTranslations>,
-): GuideContents[] => [
+export const guideContentsList = (t: _Translator): GuideContents[] => [
   {
     title: t('ScheduleGuideModal.title1'),
     description: t.rich('ScheduleGuideModal.description1', {

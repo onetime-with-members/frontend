@@ -1,3 +1,5 @@
+import { Locale } from 'next-intl';
+
 import { hasSignOutCookie } from '@/features/auth/lib/sign-out-cookie';
 import getHomeUrl from '@/features/home/lib/home-url';
 import { redirect } from '@/i18n/navigation';
@@ -10,7 +12,9 @@ export default async function AuthLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  const { locale: localeParam } = await params;
+  const locale = localeParam as Locale;
+
   const homeUrl = await getHomeUrl();
 
   if (await hasSignOutCookie()) {

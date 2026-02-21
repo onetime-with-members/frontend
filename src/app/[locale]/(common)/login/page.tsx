@@ -25,7 +25,7 @@ export default async function Page(props: {
     register_token?: string;
     name?: string;
   }>;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const searchParams = await props.searchParams;
   const { locale } = await props.params;

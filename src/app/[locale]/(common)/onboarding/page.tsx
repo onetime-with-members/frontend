@@ -24,7 +24,7 @@ export default async function Page({
   params,
 }: {
   searchParams: Promise<{ name: string; register_token: string }>;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { name, register_token: registerToken } = await searchParams;
   const { locale } = await params;
