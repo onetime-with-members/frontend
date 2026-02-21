@@ -7,22 +7,7 @@ import {
   getConfirmedTimeFromNow,
   getConfirmedTimeText,
 } from '@/features/event/utils';
-import dayjs from '@/lib/dayjs';
 import { useParams } from 'next/navigation';
-
-dayjs.locale('ko-custom', {
-  ...dayjs.Ls.ko, // 기존 한국어 설정 복사
-  name: 'ko-custom',
-  weekdaysShort: [
-    '일요일',
-    '월요일',
-    '화요일',
-    '수요일',
-    '목요일',
-    '금요일',
-    '토요일',
-  ],
-});
 
 export default function ConfirmedTimeMain() {
   const params = useParams<{ id: string }>();
