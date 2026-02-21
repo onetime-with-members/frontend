@@ -17,7 +17,10 @@ export default function KakaoTalkButton() {
 
   return (
     <>
-      <ActionButton className="bg-[#FAE100]" onClick={handleModalOpen}>
+      <ActionButton
+        className="bg-[#FAE100] text-[#3B1E1E]"
+        onClick={handleModalOpen}
+      >
         <KakaoTalkIcon fontSize={24} innerfill="#FAE100" />
       </ActionButton>
       {isModalOpen && <TalkCalendarShareModal onClose={handleModalClose} />}

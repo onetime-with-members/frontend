@@ -2,22 +2,21 @@ import { useTranslations } from 'next-intl';
 
 import ActionButton from './ActionButton';
 import KakaoTalkButton from './KakaoTalkButton';
-import { EditIcon } from '@/components/icon';
-import { ShareIcon } from '@/components/icon/ShareIcon';
+import { EditIcon, ShareIcon } from '@/components/icon';
 
 export default function ConfirmedTimeHeader() {
   const t = useTranslations('event.pages.EventDetailPage.confirm');
 
   return (
-    <div className="flex items-center justify-between pl-2">
-      <span className="text-gray-00 text-md-300">{t('eventInfo')}</span>
-      <div className="flex flex-row items-center gap-[6px]">
+    <div className="flex items-center justify-between pl-2 text-gray-00">
+      <h2 className="text-md-300">{t('eventInfo')}</h2>
+      <div className="flex flex-row items-center gap-[6px] text-xl">
         <KakaoTalkButton />
         <ActionButton>
-          <ShareIcon fontSize={20} color="#ffffff" />
+          <ShareIcon />
         </ActionButton>
         <ActionButton>
-          <EditIcon fontSize={20} color="#ffffff" />
+          <EditIcon />
         </ActionButton>
       </div>
     </div>
