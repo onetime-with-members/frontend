@@ -1,11 +1,9 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
-import LoginPage from './login';
+import LoginPage from '../../../../features/auth/pages/LoginPage';
 import { redirect } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
-
-export type SocialLoginType = 'naver' | 'kakao' | 'google';
 
 export async function generateMetadata({
   params,
