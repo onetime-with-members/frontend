@@ -34,17 +34,22 @@ export default function RecommendedTimeSlotItem({
     <button
       type="button"
       className={cn(
-        'flex w-full items-center justify-between gap-2 rounded-2xl border border-gray-10 bg-white px-4 py-3 text-left transition-colors',
+        'flex w-full items-center justify-between gap-2 rounded-2xl border px-4 py-3 text-left transition-colors',
         {
-          'border-primary-40 bg-gray-00': isSelected,
-          'hover:bg-gray-05': !isSelected,
+          'border-primary-40 bg-primary-05': isSelected,
+          'border-gray-10 bg-white hover:bg-gray-05': !isSelected,
         },
       )}
       onClick={onClick}
     >
-      <div className="flex min-w-0 flex-col">
-        <span className="text-gray-60 text-sm-200">{dateLabel}</span>
-        <span className="text-gray-60 text-lg-300">
+      <div
+        className={cn(
+          'flex min-w-0 flex-col',
+          isSelected ? 'text-primary-40' : 'text-gray-60',
+        )}
+      >
+        <span className="text-sm-200">{dateLabel}</span>
+        <span className="text-lg-300">
           {recommendedTime.start_time} - {recommendedTime.end_time}
         </span>
       </div>

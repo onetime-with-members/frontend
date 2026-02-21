@@ -24,6 +24,7 @@ type LeftPanelProps = {
   isConfirmDisabled: boolean;
   onCancel: () => void;
   onConfirm: () => void;
+  showCalendarSection?: boolean;
 };
 
 export default function LeftPanel({
@@ -41,17 +42,19 @@ export default function LeftPanel({
   isConfirmDisabled,
   onCancel,
   onConfirm,
+  showCalendarSection = true,
 }: LeftPanelProps) {
   const t = useTranslations('event.components.ScheduleConfirmModal');
 
   return (
-    <div className="flex w-full flex-col gap-3 rounded-3xl bg-white p-6 md:w-[442px]">
-      <div className="flex items-center gap-1">
-        <CalendarIcon fontSize={20} innerfill="#F6F7F8" />
-        <span className="text-gray-70 text-lg-300">{eventTitle}</span>
-      </div>
+    <div className="flex w-full flex-col gap-3 md:rounded-3xl bg-white px-4 pt-4 md:p-6 md:w-[442px]">
+      <div className="flex flex-col gap-2 md:gap-3 rounded-2xl bg-transparent md:p-0">
+        <div className="flex items-center gap-1">
+          <CalendarIcon fontSize={20} innerfill="#F6F7F8" />
+          <span className="text-gray-70 text-lg-300">{eventTitle}</span>
+        </div>
 
-      <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3">
         <button
           type="button"
           className={cn(
@@ -75,7 +78,7 @@ export default function LeftPanel({
             )}
           >
             {selectedStartDate
-              ? `${selectedStartDate.format('YYYY.MM.DD')} ${selectedStartDate.format('ddd')}`
+              ? `${selectedStartDate.format('YYYY.MM.DD')}. ${selectedStartDate.format('ddd')}`
               : t('selectDateTime')}
           </span>
           <span
@@ -110,7 +113,7 @@ export default function LeftPanel({
             )}
           >
             {selectedEndDate
-              ? `${selectedEndDate.format('YYYY.MM.DD')} ${selectedEndDate.format('ddd')}`
+              ? `${selectedEndDate.format('YYYY.MM.DD')}. ${selectedEndDate.format('ddd')}`
               : t('selectDateTime')}
           </span>
           <span
@@ -122,40 +125,45 @@ export default function LeftPanel({
             {endTime ? formatTimeAmPm(endTime) : '-'}
           </span>
         </button>
-      </div>
-
-      <div className="flex flex-col rounded-[20px] border border-gray-10 bg-gray-00 p-5">
-        <CalendarSelect
-          ranges={calendarRanges}
-          setRanges={onCalendarRangesChange}
-        />
-        <TimeDropdown
-          time={focusedField === 'start' ? startTime : endTime}
-          setTime={focusedField === 'start' ? onStartTimeChange : onEndTimeChange}
-          variant="default"
-          displayFormat="12h"
-          className="my-5 w-full gap-2 text-gray-70 text-md-200 md:max-w-[150px]"
-        />
-        <div className="flex justify-end gap-2 pt-2">
-          <button
-            type="button"
-            className="rounded-[10px] border border-gray-10 bg-gray-00 px-4 text-gray-40 text-md-300"
-            onClick={onCancel}
-          >
-            {t('cancel')}
-          </button>
-          <button
-            type="button"
-            className="rounded-[10px] bg-primary-40 px-4 py-[6px] text-white text-md-300"
-            disabled={isConfirmDisabled}
-            onClick={() => {
-              if (!isConfirmDisabled) onConfirm();
-            }}
-          >
-            {t('confirm')}
-          </button>
         </div>
       </div>
+
+      {showCalendarSection && (
+        <div className="flex flex-col rounded-[20px] shadow-[0_6px_40px_0_rgba(49,51,63,0.20)] md:shadow-none md:border md:border-gray-10 bg-gray-00 p-5">
+          <CalendarSelect
+            ranges={calendarRanges}
+            setRanges={onCalendarRangesChange}
+          />
+          <TimeDropdown
+            time={focusedField === 'start' ? startTime : endTime}
+            setTime={
+              focusedField === 'start' ? onStartTimeChange : onEndTimeChange
+            }
+            variant="default"
+            displayFormat="12h"
+            className="my-5 w-[150px] gap-2 text-gray-70 text-md-200 md:max-w-[150px]"
+          />
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              type="button"
+              className="rounded-[10px] border border-gray-10 bg-gray-00 px-4 text-gray-40 text-md-300"
+              onClick={onCancel}
+            >
+              {t('cancel')}
+            </button>
+            <button
+              type="button"
+              className="rounded-[10px] bg-primary-40 px-4 py-[6px] text-white text-md-300"
+              disabled={isConfirmDisabled}
+              onClick={() => {
+                if (!isConfirmDisabled) onConfirm();
+              }}
+            >
+              {t('confirm')}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

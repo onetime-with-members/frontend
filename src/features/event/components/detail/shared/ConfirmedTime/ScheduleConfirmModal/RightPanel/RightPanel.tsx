@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 
 import RecommendedTimeSlotItem from '../RecommendedTimeSlotItem';
 import { RecommendedScheduleType } from '@/features/event/types';
+import { IconChevronDown } from '@tabler/icons-react';
 
 type RightPanelProps = {
   recommendedTimes: RecommendedScheduleType[];
@@ -19,8 +20,11 @@ export default function RightPanel({
   const t = useTranslations('event.components.ScheduleConfirmModal');
 
   return (
-    <div className="flex w-full flex-col gap-2 rounded-3xl bg-white p-6 md:min-w-0 md:flex-1">
-      <h2 className="text-gray-60 text-md-200">
+    <div className="flex w-full flex-col gap-2 md:rounded-3xl bg-white md:p-6 px-4 md:min-w-0 md:flex-1">
+      <h2 className="text-gray-60 text-md-200 md:hidden">
+        {t('recommendedTime')}
+      </h2>
+      <h2 className="hidden text-gray-60 text-md-200 md:block">
         {t('selectFromRecommended')}
       </h2>
       <div className="flex max-h-[671px] flex-col gap-2 overflow-y-auto">
@@ -33,6 +37,13 @@ export default function RightPanel({
           />
         ))}
       </div>
+      <button
+        type="button"
+        className="flex items-center justify-center gap-1 py-3 text-gray-40 text-sm-200 md:hidden"
+      >
+        {t('viewMore')}
+        <IconChevronDown size={16} />
+      </button>
     </div>
   );
 }
