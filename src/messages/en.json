@@ -137,6 +137,22 @@
         "naver": "Continue with Naver",
         "google": "Continue with Google",
         "lastLogin": "Last Login"
+      },
+      "OnboardingPage": {
+        "onboarding": "Onboarding",
+        "termsOfService": "Terms of Service",
+        "privacyPolicy": "Privacy Policy",
+        "title1": "Please agree to the terms <br></br>to use the service",
+        "title2": "Please tell me your name",
+        "title3": "Before starting, <br></br>please tell me your sleep time.",
+        "title4": "Welcome, <br></br>{name}!",
+        "description3": "When adding a schedule to the event, you can automatically exclude sleep time.",
+        "description4": "Let's get started with OneTime",
+        "sleepTime": "Sleep Time",
+        "next": "Next",
+        "goBack": "Go Back",
+        "previous": "Previous",
+        "start": "Get Started"
       }
     }
   },
@@ -253,22 +269,6 @@
         "description2": "All content written in OneTime, such as the schedules added for events, will be deleted.",
         "agreeText": "Yes, I have confirmed the above.",
         "withdraw": "Delete account"
-      },
-      "OnboardingPage": {
-        "onboarding": "Onboarding",
-        "termsOfService": "Terms of Service",
-        "privacyPolicy": "Privacy Policy",
-        "title1": "Please agree to the terms <br></br>to use the service",
-        "title2": "Please tell me your name",
-        "title3": "Before starting, <br></br>please tell me your sleep time.",
-        "title4": "Welcome, <br></br>{name}!",
-        "description3": "When adding a schedule to the event, you can automatically exclude sleep time.",
-        "description4": "Let's get started with OneTime",
-        "sleepTime": "Sleep Time",
-        "next": "Next",
-        "goBack": "Go Back",
-        "previous": "Previous",
-        "start": "Get Started"
       }
     },
     "components": {

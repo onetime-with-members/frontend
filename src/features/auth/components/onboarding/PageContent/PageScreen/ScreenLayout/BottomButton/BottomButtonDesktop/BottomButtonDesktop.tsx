@@ -13,7 +13,7 @@ export default function BottomButtomDesktop({
 }) {
   const { pageIndex } = useContext(OnboardingContext);
 
-  const t = useTranslations('user.pages.OnboardingPage');
+  const t = useTranslations('auth.pages.OnboardingPage');
 
   return (
     <div className="hidden flex-col gap-4 md:flex">

@@ -1,6 +1,6 @@
-import MyPageTabContextProvider from '../../contexts/MyPageTabContext';
-import DesktopLayout from './DesktopLayout';
-import MobileLayout from './MobileLayout';
+import DesktopLayout from '../components/my-page-layout/DesktopLayout';
+import MobileLayout from '../components/my-page-layout/MobileLayout';
+import MyPageTabContextProvider from '../contexts/MyPageTabContext';
 
 export default function MyPageLayout({
   children,
