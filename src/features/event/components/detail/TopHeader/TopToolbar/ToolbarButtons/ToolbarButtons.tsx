@@ -4,7 +4,10 @@ import ConfirmEventButton from './ConfirmEventButton';
 import EventDeleteAlert from './EventDeleteAlert';
 import ToolbarButton from './ToolbarButton';
 import { EditIcon, TrashIcon } from '@/components/icon';
-import { useEventWithAuthQuery } from '@/features/event/api/event.query';
+import {
+  useEventQuery,
+  useEventWithAuthQuery,
+} from '@/features/event/api/event.query';
 import useEventConfirmStatus from '@/features/event/hooks/useEventConfirmStatus';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
@@ -17,6 +20,7 @@ export default function ToolbarButtons() {
   const progressRouter = useProgressRouter();
   const eventConfirmStatus = useEventConfirmStatus();
 
+  const { data: event } = useEventQuery(params.id);
   const { data: eventWithAuth } = useEventWithAuthQuery(params.id);
 
   const isCreator = ['CREATOR', 'CREATOR_AND_PARTICIPANT'].includes(
@@ -26,11 +30,13 @@ export default function ToolbarButtons() {
   return (
     <>
       <div className="flex items-center gap-2 text-2xl text-gray-00">
-        <ToolbarButton
-          onClick={() => progressRouter.push(`/events/${params.id}/edit`)}
-        >
-          <EditIcon />
-        </ToolbarButton>
+        {!event.confirmation && (
+          <ToolbarButton
+            onClick={() => progressRouter.push(`/events/${params.id}/edit`)}
+          >
+            <EditIcon />
+          </ToolbarButton>
+        )}
         {isCreator && (
           <ToolbarButton onClick={() => setIsDeleteAlertOpen(true)}>
             <TrashIcon innerfill="#474A5C" />

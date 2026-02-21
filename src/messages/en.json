@@ -26,7 +26,8 @@
         "toast": {
           "filterInExampleEvent": "This feature is not available in example events",
           "talkCalendarSuccess": "Talk Calendar event created successfully",
-          "talkCalendarError": "Failed to create Talk Calendar event"
+          "talkCalendarError": "Failed to create Talk Calendar event",
+          "disableScheduleWhenConfirmed": "Schedules cannot be {action, select, edit {edited} other {added}} for confirmed events"
         }
       },
       "EventCreatePage": {
