@@ -81,6 +81,16 @@
         "deleteEventConfirm": "Delete",
         "deleteEventCancel": "Cancel",
         "deleteEventConfirming": "Deleting..."
+      },
+      "ScheduleConfirmModal": {
+        "title": "Confirm Schedule",
+        "start": "Start",
+        "end": "End",
+        "selectDateTime": "Select Date/Time",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "confirmButton": "Confirm",
+        "selectFromRecommended": "Select from recommended times"
       }
     }
   },

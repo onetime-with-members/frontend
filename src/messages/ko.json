@@ -81,6 +81,16 @@
         "deleteEventConfirm": "삭제",
         "deleteEventCancel": "취소",
         "deleteEventConfirming": "삭제 중..."
+      },
+      "ScheduleConfirmModal": {
+        "title": "일정 확정",
+        "start": "시작",
+        "end": "종료",
+        "selectDateTime": "일시 선택",
+        "cancel": "취소",
+        "confirm": "확인",
+        "confirmButton": "확정",
+        "selectFromRecommended": "추천 시간에서 선택"
       }
     }
   },
