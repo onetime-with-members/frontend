@@ -33,7 +33,7 @@ export default function SharePopUp({
     if (urlInputRef.current) {
       urlInputRef.current.select();
     }
-    toast(t('toast.copiedLink'));
+    toast(t('event.components.SharePopUp.toast.copiedLink'));
   }
 
   return createPortal(
@@ -48,7 +48,7 @@ export default function SharePopUp({
         >
           <div className="flex items-center justify-between px-5 pb-3 pt-4">
             <h2 className="text-gray-80 text-lg-300">
-              {t('EventDetailPage.SharePopUp.share')}
+              {t('event.components.SharePopUp.share')}
             </h2>
             <button className="text-gray-40" onClick={() => setIsOpen(false)}>
               <IconX size={24} />
@@ -67,23 +67,25 @@ export default function SharePopUp({
             </div>
             <div className="flex items-center justify-center gap-4 xs:gap-6 sm:gap-8">
               <ShareButtonWrapper
-                label={t('EventDetailPage.SharePopUp.copyLink')}
+                label={t('event.components.SharePopUp.copyLink')}
               >
                 <ShareBlueButton onClick={handleCopyLink}>
                   <IconLink size={24} />
                 </ShareBlueButton>
               </ShareButtonWrapper>
               <ShareButtonWrapper
-                label={t('EventDetailPage.SharePopUp.qrCode')}
+                label={t('event.components.SharePopUp.qrCode')}
               >
                 <ShareBlueButton onClick={() => setIsQrCodeScreenOpen(true)}>
                   <IconQrcode size={24} />
                 </ShareBlueButton>
               </ShareButtonWrapper>
-              <ShareButtonWrapper label={t('EventDetailPage.SharePopUp.kakao')}>
+              <ShareButtonWrapper
+                label={t('event.components.SharePopUp.kakao')}
+              >
                 <ShareKakaoButton />
               </ShareButtonWrapper>
-              <ShareButtonWrapper label={t('EventDetailPage.SharePopUp.more')}>
+              <ShareButtonWrapper label={t('event.components.SharePopUp.more')}>
                 <ShareMoreButton />
               </ShareButtonWrapper>
             </div>

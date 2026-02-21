@@ -12,7 +12,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const t = await getTranslations({
     locale,
-    namespace: 'MyScheduleEverytimeEditPage',
+    namespace: 'mySchedule.pages.MyScheduleEverytimeEditPage',
   });
 
   return {

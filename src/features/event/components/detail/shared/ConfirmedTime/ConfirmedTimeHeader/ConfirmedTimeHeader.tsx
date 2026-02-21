@@ -6,7 +6,7 @@ import { EditIcon } from '@/components/icon';
 import { ShareIcon } from '@/components/icon/ShareIcon';
 
 export default function ConfirmedTimeHeader() {
-  const t = useTranslations('confirm');
+  const t = useTranslations('event.pages.EventDetailPage.confirm');
 
   return (
     <div className="flex items-center justify-between pl-2">

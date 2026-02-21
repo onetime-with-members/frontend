@@ -20,7 +20,7 @@ export default function BottomButton({
 }) {
   const { isFooterShown } = useContext(FooterContext);
 
-  const t = useTranslations('MyScheduleEverytimeEditPage');
+  const t = useTranslations('mySchedule.pages.MyScheduleEverytimeEditPage');
 
   const message = isPending
     ? t('pendingMessage')

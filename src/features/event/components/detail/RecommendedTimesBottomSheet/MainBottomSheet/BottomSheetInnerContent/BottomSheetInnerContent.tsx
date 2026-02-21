@@ -11,7 +11,7 @@ export default function BottomSheetInnerContent() {
   const { recommendedTimes } = useContext(EventParticipantFilterContext);
   const { dragControls } = useContext(BottomSheetContext);
 
-  const t = useTranslations('EventDetailPage');
+  const t = useTranslations('event.pages.EventDetailPage');
 
   return (
     <>

@@ -20,7 +20,7 @@ export default function TopAppBar({
   const { sleepTime } = useContext(SleepTimeContext);
 
   const router = useRouter();
-  const t = useTranslations('MyScheduleEditPage');
+  const t = useTranslations('mySchedule.pages.MyScheduleEditPage');
 
   const { editMySchedule, isPending: isMySchedulePending } =
     useEditMyScheduleMutation();

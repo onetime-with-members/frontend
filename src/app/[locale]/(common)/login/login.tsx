@@ -16,7 +16,7 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 
 export default function LoginPage() {
-  const t = useTranslations('LoginPage');
+  const t = useTranslations('auth.pages.LoginPage');
   const searchParams = useSearchParams();
 
   const progressRouter = useProgressRouter();
@@ -102,7 +102,7 @@ export function SocialLoginButton({
 }) {
   const [isLastLogin, setIsLastLogin] = useState<boolean>(false);
 
-  const t = useTranslations('LoginPage');
+  const t = useTranslations('auth.pages.LoginPage');
 
   useEffect(() => {
     async function lastLogin() {

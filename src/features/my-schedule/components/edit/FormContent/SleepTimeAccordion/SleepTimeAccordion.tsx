@@ -17,7 +17,7 @@ export default function SleepTimeAccordion({
   isAccordionOpen: boolean;
   setIsAccordionOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const t = useTranslations('MyScheduleEditPage');
+  const t = useTranslations('mySchedule.pages.MyScheduleEditPage');
 
   return (
     <div className="sticky top-[120px] z-20 flex flex-col gap-3 bg-gray-05 px-5 py-4">

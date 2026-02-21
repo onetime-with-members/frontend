@@ -4,7 +4,7 @@ import { ProgressLink } from '@/navigation';
 import { IconPlus } from '@tabler/icons-react';
 
 export default function EmptyMyEvent() {
-  const t = useTranslations('MyEventListPage');
+  const t = useTranslations('user.pages.MyEventListPage');
 
   return (
     <div className="flex h-full translate-y-14 flex-col items-center justify-center gap-8 px-4 md:translate-y-0 md:justify-start md:py-12">

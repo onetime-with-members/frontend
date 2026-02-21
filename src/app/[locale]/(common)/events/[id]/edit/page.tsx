@@ -20,14 +20,20 @@ export async function generateMetadata({
     foundExampleEvent(eventId)?.event ?? (await fetchEvent(eventId));
 
   if (!event) {
-    const t = await getTranslations({ locale, namespace: 'NotFoundPage' });
+    const t = await getTranslations({
+      locale,
+      namespace: 'setUp.pages.NotFoundPage',
+    });
 
     return {
       title: t('notFound'),
     };
   }
 
-  const t = await getTranslations({ locale, namespace: 'EventEditPage' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'event.pages.EventEditPage',
+  });
 
   return {
     title: t('editEvent', {

@@ -88,7 +88,7 @@ export default function ScheduleFormSubScreen() {
 
   useEffect(() => {
     if (isScheduleEmpty && (!isFixedScheduleEmpty || !isSleepTimeEmpty)) {
-      toast(t('toast.loadedMySchedule'));
+      toast(t('schedule.pages.ScheduleNewPage.toast.loadedMySchedule'));
     }
   }, [isFixedScheduleEmpty, isScheduleEmpty, isSleepTimeEmpty]);
 

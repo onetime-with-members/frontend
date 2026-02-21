@@ -10,7 +10,7 @@ export default function ParticipantsSection({
   type: 'available' | 'unavailable';
   participants: string[];
 }) {
-  const t = useTranslations('EventDetailPage');
+  const t = useTranslations('event.pages.EventDetailPage');
 
   return (
     participants.length > 0 && (

@@ -39,7 +39,7 @@ export default function ConfirmedTimeMain() {
   const confirmedTimeFromNow = getConfirmedTimeFromNow({
     confirmedTime: event.confirmation ?? defaultConfirmedTime,
     category: event.category,
-    ongoingText: t('confirm.ongoing'),
+    ongoingText: t('event.pages.EventDetailPage.confirm.ongoing'),
   });
 
   return (

@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 export default function TextContent() {
-  const t = useTranslations('TalkCalendarShareModal');
+  const t = useTranslations('event.components.TalkCalendarShareModal');
 
   return (
     <div className="flex flex-col gap-1 text-center">

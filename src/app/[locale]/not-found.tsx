@@ -11,7 +11,10 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'NotFoundPage' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'setUp.pages.NotFoundPage',
+  });
 
   return {
     title: t('notFound'),
@@ -19,7 +22,7 @@ export async function generateMetadata({
 }
 
 export default async function NotFound() {
-  const t = await getTranslations('NotFoundPage');
+  const t = await getTranslations('setUp.pages.NotFoundPage');
 
   return (
     <div className="flex flex-1 flex-col">

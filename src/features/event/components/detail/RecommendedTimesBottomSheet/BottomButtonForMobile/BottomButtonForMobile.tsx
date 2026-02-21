@@ -19,7 +19,7 @@ export default function BottomButtonForMobile({
   onShareButtonClick: () => void;
   onEditButtonClick: () => void;
 }) {
-  const t = useTranslations('EventDetailPage');
+  const t = useTranslations('event.pages.EventDetailPage');
   const locale = useLocale();
 
   return (

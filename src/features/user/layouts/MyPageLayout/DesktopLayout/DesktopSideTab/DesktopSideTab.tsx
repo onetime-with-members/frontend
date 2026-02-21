@@ -9,7 +9,7 @@ import { MyPageTabContext } from '@/features/user/contexts/MyPageTabContext';
 export default function DesktopSideTab() {
   const { tabActive } = useContext(MyPageTabContext);
 
-  const t = useTranslations('MyPageLayout');
+  const t = useTranslations('user.layouts.MyPageLayout');
 
   return (
     <nav className="sticky top-[64px] h-screen border-l border-r border-gray-10 px-5 py-7">

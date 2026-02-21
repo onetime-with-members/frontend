@@ -12,7 +12,7 @@ export default function ChipList({
   setCategory: (category: EventSchema['category']) => void;
   setRanges: (ranges: EventSchema['ranges']) => void;
 }) {
-  const t = useTranslations('EventForm');
+  const t = useTranslations('event.components.EventForm');
 
   return (
     <div className="flex gap-2">

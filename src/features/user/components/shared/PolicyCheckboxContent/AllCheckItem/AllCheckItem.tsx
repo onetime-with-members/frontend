@@ -11,7 +11,7 @@ export default function AllCheckItem({
   value: PolicySchema;
   setValue: (newValue: PolicySchema) => void;
 }) {
-  const t = useTranslations('PolicyEditPage');
+  const t = useTranslations('user.pages.PolicyEditPage');
 
   const isAllChecked =
     value.servicePolicy && value.privacyPolicy && value.marketingPolicy;

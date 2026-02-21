@@ -7,7 +7,7 @@ import { TimeBlockBoardContext } from '@/features/schedule/contexts/TimeBlockBoa
 export default function ResetButton() {
   const { handleResetButtonClick } = useContext(TimeBlockBoardContext);
 
-  const t = useTranslations('TimeBlockBoard');
+  const t = useTranslations('schedule.components.TimeBlockBoard');
 
   return (
     <button

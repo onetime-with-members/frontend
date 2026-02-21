@@ -7,7 +7,7 @@ import { IconX } from '@tabler/icons-react';
 export default function ClearButton() {
   const { handleClearButtonClick } = useContext(TimeBlockBoardContext);
 
-  const t = useTranslations('TimeBlockBoard');
+  const t = useTranslations('schedule.components.TimeBlockBoard');
 
   return (
     <button

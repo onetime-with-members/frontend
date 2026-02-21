@@ -18,7 +18,7 @@ export default function Header({
   description?: string;
   isPending?: boolean;
 }) {
-  const t = useTranslations('DashboardPage');
+  const t = useTranslations('home.pages.DashboardPage');
 
   return (
     <SkeletonTheme baseColor={SKELETON_DARK_GRAY} borderRadius={9999}>

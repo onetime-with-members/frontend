@@ -10,7 +10,7 @@ import { IconPlus } from '@tabler/icons-react';
 
 export default function EverytimeUI({ className }: { className?: string }) {
   const pathname = usePathname();
-  const t = useTranslations('MyScheduleEditPage');
+  const t = useTranslations('mySchedule.pages.MyScheduleEditPage');
 
   return (
     <div

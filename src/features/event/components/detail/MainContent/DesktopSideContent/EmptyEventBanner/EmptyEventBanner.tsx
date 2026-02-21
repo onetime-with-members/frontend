@@ -18,7 +18,7 @@ export default function EmptyEventBanner({
   const [isCopied, setIsCopied] = useState(false);
 
   const params = useParams<{ id: string }>();
-  const t = useTranslations('EventDetailPage');
+  const t = useTranslations('event.pages.EventDetailPage');
 
   const { data: event } = useEventQuery(params.id);
   const { data: shortUrl } = useShortUrlQuery(window.location.href);

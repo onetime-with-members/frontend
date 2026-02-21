@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import { ProgressLink } from '@/navigation';
 
 export default function PolicyLinks() {
-  const t = useTranslations('Footer');
+  const t = useTranslations('setUp.components.Footer');
 
   return (
     <div className="flex items-center gap-2 text-gray-40">

@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 export default function BrokenClockImage() {
-  const t = useTranslations('WithdrawPage');
+  const t = useTranslations('user.pages.WithdrawPage');
 
   return (
     <div className="flex flex-col items-center gap-8">

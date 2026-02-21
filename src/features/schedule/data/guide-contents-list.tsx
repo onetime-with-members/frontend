@@ -6,8 +6,8 @@ export const guideContentsList = (
   t: ReturnType<typeof createTranslator>,
 ): GuideContents[] => [
   {
-    title: t('ScheduleGuideModal.title1'),
-    description: t.rich('ScheduleGuideModal.description1', {
+    title: t('schedule.components.ScheduleGuideModal.title1'),
+    description: t.rich('schedule.components.ScheduleGuideModal.description1', {
       br: () => <br />,
     }),
     imageSrc: {
@@ -20,8 +20,8 @@ export const guideContentsList = (
     },
   },
   {
-    title: t('ScheduleGuideModal.title2'),
-    description: t.rich('ScheduleGuideModal.description2', {
+    title: t('schedule.components.ScheduleGuideModal.title2'),
+    description: t.rich('schedule.components.ScheduleGuideModal.description2', {
       br: () => <br />,
     }),
     imageSrc: {

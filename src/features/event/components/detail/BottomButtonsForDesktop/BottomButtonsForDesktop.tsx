@@ -19,7 +19,7 @@ export default function BottomButtonsForDesktop() {
 
   const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
-  const t = useTranslations('EventDetailPage');
+  const t = useTranslations('event.pages.EventDetailPage');
 
   const { isLoggedIn } = useAuth();
   const isEventEdited = useIsEventEdited();

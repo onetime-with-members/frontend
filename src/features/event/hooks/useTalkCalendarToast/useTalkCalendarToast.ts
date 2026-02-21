@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 
 export default function useTalkCalendarToast() {
   const searchParams = useSearchParams();
-  const t = useTranslations('toast');
+  const t = useTranslations('event.pages.EventDetailPage.toast');
 
   const toast = useToast();
   const { removeSearchParams } = useChangeSearchParams();
@@ -21,7 +21,9 @@ export default function useTalkCalendarToast() {
         toast(t('talkCalendarSuccess'));
       }
       if (toastCode === TALK_CALENDAR_ERROR) {
-        toast(t('talkCalendarError'), { type: 'error' });
+        toast(t('talkCalendarError'), {
+          type: 'error',
+        });
       }
       removeSearchParams(['toast']);
     }

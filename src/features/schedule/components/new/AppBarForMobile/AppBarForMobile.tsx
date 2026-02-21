@@ -7,7 +7,7 @@ import { IconChevronLeft } from '@tabler/icons-react';
 export default function AppBarForMobile() {
   const { handleBackButtonClick } = useContext(ScheduleFormContext);
 
-  const t = useTranslations('ScheduleNewPage');
+  const t = useTranslations('schedule.pages.ScheduleNewPage');
 
   return (
     <header className="block h-[69px] sm:hidden">

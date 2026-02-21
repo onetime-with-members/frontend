@@ -9,7 +9,7 @@ export default function TimeControl() {
   const { startTime, setStartTime, endTime, setEndTime } =
     useContext(EventFormContext);
 
-  const t = useTranslations('EventForm');
+  const t = useTranslations('event.components.EventForm');
 
   return (
     <div className="flex flex-col gap-2 md:gap-4">

@@ -25,7 +25,9 @@ export default function ParticipantFilter() {
 
   function handleFilterItemClick(participant: ParticipantType) {
     if (isExampleEventSlug(params.id)) {
-      toast(t('toast.filterInExampleEvent'), { type: 'error' });
+      toast(t('event.pages.EventDetailPage.toast.filterInExampleEvent'), {
+        type: 'error',
+      });
     } else {
       changeFilteredParticipants(participant);
     }
@@ -40,7 +42,7 @@ export default function ParticipantFilter() {
           className="pt-2"
           sticky
         >
-          {t('EventDetailPage.participant', {
+          {t('event.pages.EventDetailPage.participant', {
             count: participants.length,
           })}
         </SectionHeading>

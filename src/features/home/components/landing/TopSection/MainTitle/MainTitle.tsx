@@ -2,7 +2,7 @@ import cn from '@/lib/cn';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 export default async function MainTitle() {
-  const t = await getTranslations('LandingPage');
+  const t = await getTranslations('home.pages.LandingPage');
   const locale = await getLocale();
 
   return (

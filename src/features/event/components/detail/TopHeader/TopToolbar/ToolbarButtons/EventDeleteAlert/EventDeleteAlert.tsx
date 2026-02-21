@@ -13,7 +13,7 @@ export default function EventDeleteAlert({
 }) {
   const router = useRouter();
   const params = useParams<{ id: string }>();
-  const t = useTranslations('EventDeleteAlert');
+  const t = useTranslations('event.components.EventDeleteAlert');
 
   const homeUrl = useHomeUrl();
 

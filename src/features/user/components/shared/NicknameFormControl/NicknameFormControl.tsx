@@ -13,7 +13,7 @@ export default function NicknameFormControl({
   registerNickname: UseFormRegisterReturn;
   errors: FieldErrors;
 }) {
-  const t = useTranslations('NicknameFormControl');
+  const t = useTranslations('user.components.NicknameFormControl');
 
   return (
     <div className="flex flex-col gap-2">

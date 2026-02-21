@@ -15,7 +15,7 @@ export default function PolicyCheckboxContent({
     React.SetStateAction<keyof PolicySchema | null>
   >;
 }) {
-  const t = useTranslations('PolicyEditPage');
+  const t = useTranslations('user.pages.PolicyEditPage');
 
   return (
     <div className="flex flex-col gap-6">

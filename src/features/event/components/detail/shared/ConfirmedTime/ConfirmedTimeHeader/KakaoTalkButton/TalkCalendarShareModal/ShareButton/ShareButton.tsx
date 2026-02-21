@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 
 export default function ShareButton({ onClose }: { onClose: () => void }) {
   const params = useParams<{ id: string }>();
-  const t = useTranslations('TalkCalendarShareModal');
+  const t = useTranslations('event.components.TalkCalendarShareModal');
 
   const shareTalkCalendar = useTalkCalendarShare(params.id);
 

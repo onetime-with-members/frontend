@@ -13,7 +13,7 @@ import { useParams } from 'next/navigation';
 
 export default function ConfirmEventButton() {
   const params = useParams<{ id: string }>();
-  const t = useTranslations('confirm');
+  const t = useTranslations('event.pages.EventDetailPage.confirm');
   const locale = useLocale();
 
   const { data: event } = useEventQuery(params.id);

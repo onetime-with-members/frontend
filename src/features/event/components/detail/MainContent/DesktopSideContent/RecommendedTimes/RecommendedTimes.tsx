@@ -14,7 +14,7 @@ export default function RecommendedTimes({
 }) {
   const { recommendedTimes } = useContext(EventParticipantFilterContext);
 
-  const t = useTranslations('EventDetailPage');
+  const t = useTranslations('event.pages.EventDetailPage');
 
   return (
     <div className={cn('flex flex-col gap-1', className)}>

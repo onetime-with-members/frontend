@@ -21,7 +21,10 @@ export async function generateMetadata({
   const event = foundExampleEvent(id)?.event ?? (await fetchEvent(id));
 
   if (!event) {
-    const t = await getTranslations({ locale, namespace: 'NotFoundPage' });
+    const t = await getTranslations({
+      locale,
+      namespace: 'setUp.pages.NotFoundPage',
+    });
 
     return {
       title: t('notFound'),

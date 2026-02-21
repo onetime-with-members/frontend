@@ -14,7 +14,7 @@ export default function DateControl() {
     useContext(EventFormContext);
   const { pageMode } = useContext(PageModeContext);
 
-  const t = useTranslations('EventForm');
+  const t = useTranslations('event.components.EventForm');
 
   return (
     <div className="flex flex-col gap-4">
