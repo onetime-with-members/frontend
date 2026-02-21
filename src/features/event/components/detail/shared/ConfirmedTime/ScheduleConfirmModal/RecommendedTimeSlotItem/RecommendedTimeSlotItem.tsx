@@ -48,7 +48,12 @@ export default function RecommendedTimeSlotItem({
           {recommendedTime.start_time} - {recommendedTime.end_time}
         </span>
       </div>
-      <div className="flex shrink-0 items-center text-gray-30 text-sm-200">
+      <div
+        className={cn(
+          'flex shrink-0 items-center text-sm-200',
+          isSelected ? 'text-primary-40' : 'text-gray-30',
+        )}
+      >
         <HumanIcon fontSize={18} />
         <span>
           {recommendedTime.possible_count}/{total}
