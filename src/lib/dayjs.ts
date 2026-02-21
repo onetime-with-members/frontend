@@ -38,4 +38,5 @@ dayjs.updateLocale('ko', {
   },
 });
 
+export type { Dayjs } from 'dayjs';
 export default dayjs;

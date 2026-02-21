@@ -4,6 +4,16 @@ import { weekdaysShortKo } from '@/constants';
 import { MyEventType } from '@/features/user/types';
 import dayjs from '@/lib/dayjs';
 
+export function formatTimeAmPm(time: string): string {
+  const [hStr, mStr] = time.split(':');
+  const h = parseInt(hStr, 10);
+  const m = mStr ?? '00';
+  if (h === 0) return `오전 12:${m}`;
+  if (h < 12) return `오전 ${h}:${m}`;
+  if (h === 12) return `오후 12:${m}`;
+  return `오후 ${h - 12}:${m}`;
+}
+
 export const foundExampleEvent = (eventId: string) =>
   exampleEventList.find(({ slug }) => slug.includes(eventId));
 
