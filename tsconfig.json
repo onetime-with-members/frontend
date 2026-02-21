@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/features/set-up/components/NoScripts/MetaPixelNoScript",
+    "src/features/set-up/components/root-layout/NoScripts/MetaPixelNoScript",
     "vitest.setup.mts"
   ],
   "exclude": ["node_modules"]
