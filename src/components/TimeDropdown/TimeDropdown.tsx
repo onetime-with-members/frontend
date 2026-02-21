@@ -7,16 +7,28 @@ import {
   IconTriangleInvertedFilled,
 } from '@tabler/icons-react';
 
+function formatTimeAmPm(time: string): string {
+  const [hStr, mStr] = time.split(':');
+  const h = parseInt(hStr, 10);
+  const m = mStr ?? '00';
+  if (h === 0) return `오전 12:${m}`;
+  if (h < 12) return `오전 ${h}:${m}`;
+  if (h === 12) return `오후 12:${m}`;
+  return `오후 ${h - 12}:${m}`;
+}
+
 export default function TimeDropdown({
   time,
   setTime,
   className,
   variant = 'default',
+  displayFormat,
 }: {
   time: string;
   setTime: (time: string) => void;
   className?: string;
-  variant?: 'default' | 'white';
+  variant?: 'default' | 'white' | 'lightGray';
+  displayFormat?: '24h' | '12h';
 }) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -25,34 +37,52 @@ export default function TimeDropdown({
       dropdownRef,
     });
 
-  function handleSelectTime(time: string) {
-    setTime(time);
+  function handleSelectTime(t: string) {
+    setTime(t);
     setIsDropdownMenuOpen(false);
   }
+
+  const displayTime =
+    displayFormat === '12h' ? formatTimeAmPm(time) : time;
 
   return (
     <div className={cn('relative', className)} ref={dropdownRef}>
       <div
         className={cn(
-          'flex cursor-pointer items-center justify-between gap-4 rounded-xl bg-gray-05 px-4 py-3',
+          'flex cursor-pointer items-center justify-between gap-4 rounded-xl px-4 py-3',
           {
+            'bg-gray-05': variant === 'default',
             'bg-gray-00': variant === 'white',
-            'bg-primary-40': isDropdownMenuOpen,
+            'bg-gray-10': variant === 'lightGray',
+            'bg-primary-40': isDropdownMenuOpen && variant !== 'lightGray',
+            'bg-gray-20': isDropdownMenuOpen && variant === 'lightGray',
           },
         )}
         onClick={handleDropdownClick}
       >
         <span
-          className={cn('text-gray-70 text-lg-200', {
-            'text-gray-00': isDropdownMenuOpen,
-          })}
+          className={cn(
+            'text-lg-200',
+            variant === 'lightGray'
+              ? 'text-gray-70'
+              : {
+                  'text-gray-70': !isDropdownMenuOpen,
+                  'text-gray-00': isDropdownMenuOpen,
+                },
+          )}
         >
-          {time}
+          {displayTime}
         </span>
         {isDropdownMenuOpen ? (
-          <IconTriangleFilled size={12} className="text-gray-00" />
+          <IconTriangleFilled
+            size={12}
+            className={variant === 'lightGray' ? 'text-gray-50' : 'text-gray-00'}
+          />
         ) : (
-          <IconTriangleInvertedFilled size={12} className="text-gray-40" />
+          <IconTriangleInvertedFilled
+            size={12}
+            className={variant === 'lightGray' ? 'text-gray-40' : 'text-gray-40'}
+          />
         )}
       </div>
       {isDropdownMenuOpen && (
