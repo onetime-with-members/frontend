@@ -1,9 +1,9 @@
-import { createTranslator } from 'next-intl';
+import { useTranslations } from 'next-intl';
 
 import { GuideContents } from '../types';
 
 export const guideContentsList = (
-  t: ReturnType<typeof createTranslator>,
+  t: ReturnType<typeof useTranslations<never>>,
 ): GuideContents[] => [
   {
     title: t('schedule.components.ScheduleGuideModal.title1'),

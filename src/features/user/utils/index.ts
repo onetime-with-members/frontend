@@ -1,4 +1,4 @@
-import { Locale, createTranslator } from 'next-intl';
+import { Locale, useTranslations } from 'next-intl';
 
 import { PageTitleType, TabActiveType } from '../types';
 
@@ -17,7 +17,7 @@ export function myPageTabActive(pathname: string): TabActiveType {
 
 export function myPageTitle(
   tabActive: string | null,
-  t: ReturnType<typeof createTranslator>,
+  t: ReturnType<typeof useTranslations<never>>,
 ): PageTitleType {
   return (
     (tabActive &&
