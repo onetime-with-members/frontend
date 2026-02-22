@@ -18,7 +18,7 @@ export default function TimeSummary({
   event: MyEventType;
   isPending: boolean;
 }) {
-  const t = useTranslations('common');
+  const t = useTranslations('user.components.MyEvent');
   const locale = useLocale();
 
   const recommendedTime =

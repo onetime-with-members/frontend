@@ -12,7 +12,7 @@ export default function EventContent({
   event: MyEventType;
   isPending: boolean;
 }) {
-  const t = useTranslations('common');
+  const t = useTranslations('user.components.MyEvent');
 
   return (
     <div className="flex flex-col gap-1">

@@ -1,8 +1,4 @@
 {
-  "common": {
-    "noOneSchedule": "No one has added a schedule.",
-    "participantCount": "{count, plural, =1 {# person} other {# people}}"
-  },
   "event": {
     "pages": {
       "EventDetailPage": {
@@ -280,6 +276,10 @@
         "noSpecialCharactersAndNumbers": "Special characters and numbers cannot be used.",
         "max50Characters": "Up to 50 characters can be entered.",
         "enterName": "Enter your name"
+      },
+      "MyEvent": {
+        "noOneSchedule": "No one has added a schedule.",
+        "participantCount": "{count, plural, =1 {# person} other {# people}}"
       }
     },
     "layouts": {

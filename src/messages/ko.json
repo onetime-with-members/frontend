@@ -1,8 +1,4 @@
 {
-  "common": {
-    "noOneSchedule": "아무도 스케줄을 등록하지 않았어요.",
-    "participantCount": "{count}명"
-  },
   "event": {
     "pages": {
       "EventDetailPage": {
@@ -280,6 +276,10 @@
         "noSpecialCharactersAndNumbers": "특수문자 및 숫자는 사용할 수 없어요.",
         "max50Characters": "50자 이내로 입력해주세요.",
         "enterName": "당신의 이름은 무엇인가요?"
+      },
+      "MyEvent": {
+        "noOneSchedule": "아무도 스케줄을 등록하지 않았어요.",
+        "participantCount": "{count}명"
       }
     },
     "layouts": {
