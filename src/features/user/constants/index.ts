@@ -21,6 +21,7 @@ export const defaultMyEvent: MyEventType = {
   event_id: '',
   category: 'DATE',
   most_possible_times: [],
+  confirmation: null,
 };
 
 export const defaultPolicy: PolicySchema = {
