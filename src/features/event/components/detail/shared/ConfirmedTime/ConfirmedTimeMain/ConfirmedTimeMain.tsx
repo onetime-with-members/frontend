@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { useParams } from 'next/navigation';
+import { useState } from 'react';
 
 import ScheduleConfirmModal from '../ScheduleConfirmModal';
 import { CalendarIcon } from '@/components/icon';
@@ -12,12 +11,14 @@ import {
   getConfirmedTimeFromNow,
   getConfirmedTimeText,
 } from '@/features/event/utils';
+import { useParams } from 'next/navigation';
 
 export default function ConfirmedTimeMain() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const params = useParams<{ id: string }>();
   const t = useTranslations();
-  const locale = useLocale() as 'ko' | 'en';
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const locale = useLocale();
 
   const { data: event } = useEventQuery(params.id);
 

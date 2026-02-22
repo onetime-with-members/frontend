@@ -1,16 +1,11 @@
 'use client';
 
-import { useLocale, useTranslations } from 'next-intl';
-import Skeleton from 'react-loading-skeleton';
-
-import { SKELETON_DARK_GRAY, SKELETON_GRAY } from '@/constants';
-import { getRecommendedTimeText } from '@/features/event/utils';
+import EventContent from './EventContent';
+import TimeSummary from './TimeSummary/TimeSummary';
+import { SKELETON_GRAY } from '@/constants';
 import { MyEventType } from '@/features/user/types';
 import cn from '@/lib/cn';
-import dayjs from '@/lib/dayjs';
 import { ProgressLink } from '@/navigation';
-import { IconChevronRight } from '@tabler/icons-react';
-import Image from 'next/image';
 
 export default function MyEvent({
   event,
@@ -21,14 +16,6 @@ export default function MyEvent({
   className?: string;
   isPending?: boolean;
 }) {
-  const t = useTranslations('common');
-  const locale = useLocale() as 'ko' | 'en';
-
-  const isRecommended =
-    event.most_possible_times.length > 0 && event.participant_count >= 1;
-
-  const recommendedTime = event.most_possible_times[0];
-
   return (
     <ProgressLink
       href={`/events/view/${event.event_id}`}
@@ -41,91 +28,8 @@ export default function MyEvent({
       }}
       {...(!isPending && { 'data-testid': 'my-event' })}
     >
-      <div className="flex flex-col gap-1">
-        <div className="flex items-center gap-1 text-gray-30 text-sm-200">
-          <span>
-            {!isPending ? (
-              dayjs(event.created_date).fromNow()
-            ) : (
-              <Skeleton width={100} baseColor={SKELETON_DARK_GRAY} />
-            )}
-          </span>
-          <span>·</span>
-          <span>
-            {!isPending ? (
-              t('participantCount', {
-                count: event.participant_count,
-              })
-            ) : (
-              <Skeleton width={50} baseColor={SKELETON_DARK_GRAY} />
-            )}
-          </span>
-        </div>
-        <h1 className="overflow-hidden text-ellipsis whitespace-nowrap text-gray-80 text-md-300 sm:text-lg-300">
-          {!isPending ? (
-            event.title
-          ) : (
-            <Skeleton width={200} baseColor={SKELETON_DARK_GRAY} />
-          )}
-        </h1>
-      </div>
-      {isPending ? (
-        <Skeleton
-          height={44}
-          borderRadius="0.5rem"
-          baseColor={SKELETON_DARK_GRAY}
-        />
-      ) : (
-        <div
-          className={cn(
-            'flex items-center justify-between rounded-lg bg-gray-05 px-4 py-3',
-            {
-              'bg-primary-00': isRecommended,
-            },
-          )}
-        >
-          <div
-            className={cn(
-              'flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap text-gray-40 text-sm-200 xs:text-md-200',
-              {
-                'text-primary-50': isRecommended,
-              },
-            )}
-          >
-            {isRecommended ? (
-              recommendedTime && (
-                <>
-                  <span>
-                    <Image
-                      src="/images/alarm-icon.svg"
-                      alt="알람 아이콘"
-                      width={23}
-                      height={20}
-                    />
-                  </span>
-                  <span>
-                    {getRecommendedTimeText({
-                      recommendedTime,
-                      category: event.category,
-                      locale,
-                    })}
-                  </span>
-                </>
-              )
-            ) : (
-              <span>{t('noOneSchedule')}</span>
-            )}
-          </div>
-          <div>
-            <IconChevronRight
-              size={20}
-              className={cn('text-gray-30', {
-                'text-primary-20': isRecommended,
-              })}
-            />
-          </div>
-        </div>
-      )}
+      <EventContent event={event} isPending={isPending} />
+      <TimeSummary event={event} isPending={isPending} />
     </ProgressLink>
   );
 }
