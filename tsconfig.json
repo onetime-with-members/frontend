@@ -20,7 +20,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
   "include": [
     "next-env.d.ts",
@@ -28,7 +29,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/features/set-up/components/root-layout/NoScripts/MetaPixelNoScript",
-    "vitest.setup.mts"
+    "./vitest.setup.mts"
   ],
   "exclude": ["node_modules"]
 }
