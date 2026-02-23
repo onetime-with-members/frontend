@@ -17,12 +17,7 @@ export default function RecommendedTimesSection({
 
   return (
     <section className="flex w-full flex-col gap-2 bg-white px-4 md:min-w-0 md:flex-1 md:rounded-3xl md:p-6">
-      <h2 className="text-gray-60 text-md-200 md:hidden">
-        {t('recommendedTime')}
-      </h2>
-      <h2 className="hidden text-gray-60 text-md-200 md:block">
-        {t('selectFromRecommended')}
-      </h2>
+      <h2 className="text-gray-60 text-md-200">{t('selectFromRecommended')}</h2>
       <div className="flex max-h-[671px] flex-col gap-2 overflow-y-auto">
         {recommendedTimes.map((recommendedTime, index) => (
           <RecommendedTimeSlotItem

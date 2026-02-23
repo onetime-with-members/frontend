@@ -1,7 +1,7 @@
 import { useLocale } from 'next-intl';
 import { useContext, useState } from 'react';
 
-import DateItem from '../DateItem';
+import DateItem from '../../features/event/components/form/EventForm/FormContent/InputContent/DateControl/DateItem';
 import { WeekdayLocaleContext } from '@/contexts/WeekdayLocaleContext';
 import useDragSelect from '@/features/event/hooks/useDragSelect';
 import cn from '@/lib/cn';
@@ -21,8 +21,6 @@ export default function CalendarSelect({
   const [currentDate, setCurrentDate] = useState(
     ranges.length > 0 ? dayjs(ranges[0], 'YYYY.MM.dd') : dayjs(),
   );
-
-  console.log(ranges);
 
   const { weekdaysShort } = useContext(WeekdayLocaleContext);
 

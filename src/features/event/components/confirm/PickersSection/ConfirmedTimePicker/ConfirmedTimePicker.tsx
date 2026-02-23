@@ -12,24 +12,26 @@ export default function ConfirmedTimePicker({
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }) {
-  const [selectedDate, setSelectedDate] = useState('');
-  const [selectedTime, setSelectedTime] = useState('');
-  const [prevSelectedDate, setPrevSelectedDate] = useState('');
-  const [prevSelectedTime, setPrevSelectedTime] = useState('');
+  const [selectedDateTime, setSelectedDateTime] = useState({
+    date: '',
+    time: '',
+  });
+  const [prevSelectedDateTime, setPrevSelectedDateTime] = useState({
+    date: '',
+    time: '',
+  });
 
   function handleTriggerClick() {
     setIsOpen(!isOpen);
   }
 
   function handlePanelConfirm() {
-    setPrevSelectedDate(selectedDate);
-    setPrevSelectedTime(selectedTime);
+    setPrevSelectedDateTime(selectedDateTime);
     setIsOpen(false);
   }
 
   function handlePanelClose() {
-    setSelectedDate(prevSelectedDate);
-    setSelectedTime(prevSelectedTime);
+    setSelectedDateTime(prevSelectedDateTime);
     setIsOpen(false);
   }
 
@@ -37,18 +39,15 @@ export default function ConfirmedTimePicker({
     <div className="relative">
       <PickerTrigger
         type={type}
-        selectedDate={selectedDate}
-        selectedTime={selectedTime}
+        selectedDateTime={selectedDateTime}
         active={isOpen}
         onClick={handleTriggerClick}
       />
       {isOpen && (
         <PickerPanel
           type={type}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          selectedTime={selectedTime}
-          setSelectedTime={setSelectedTime}
+          selectedDateTime={selectedDateTime}
+          setSelectedDateTime={setSelectedDateTime}
           onConfirm={handlePanelConfirm}
           onCancel={handlePanelClose}
         />

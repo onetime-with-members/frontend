@@ -1,42 +1,39 @@
 import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
+import CalendarSelect from '@/components/CalendarSelect';
 import TimeDropdown from '@/components/TimeDropdown';
-import CalendarSelect from '@/features/event/components/form/EventForm/FormContent/InputContent/DateControl/CalendarSelect';
 import cn from '@/lib/cn';
 
 export default function PickerPanel({
   type,
-  selectedDate,
-  setSelectedDate,
-  selectedTime,
-  setSelectedTime,
+  selectedDateTime,
+  setSelectedDateTime,
   onConfirm,
   onCancel,
 }: {
   type: 'start' | 'end';
-  selectedDate: string;
-  setSelectedDate: (date: string) => void;
-  selectedTime: string;
-  setSelectedTime: (time: string) => void;
+  selectedDateTime: { date: string; time: string };
+  setSelectedDateTime: ({ date, time }: { date: string; time: string }) => void;
   onConfirm: () => void;
   onCancel: () => void;
 }) {
   const [currentRanges, setCurrentRanges] = useState<string[]>(
-    selectedDate ? [selectedDate] : [],
+    selectedDateTime.date ? [selectedDateTime.date] : [],
   );
 
   const t = useTranslations('event.pages.EventConfirmPage');
 
-  const isDisabled = !selectedDate || !selectedTime;
+  const isDisabled = !selectedDateTime.date || !selectedDateTime.time;
 
   const setRanges = (ranges: string[]) => {
-    setCurrentRanges((prev) => ranges.filter((range) => !prev.includes(range)));
+    const newRanges = ranges.filter((range) => !currentRanges.includes(range));
+    setCurrentRanges(newRanges);
+    setSelectedDateTime({
+      date: newRanges.length > 0 ? newRanges[0] : '',
+      time: selectedDateTime.time,
+    });
   };
-
-  useEffect(() => {
-    setSelectedDate(currentRanges.length > 0 ? currentRanges[0] : '');
-  }, [currentRanges]);
 
   return (
     <div
@@ -49,8 +46,10 @@ export default function PickerPanel({
     >
       <CalendarSelect ranges={currentRanges} setRanges={setRanges} />
       <TimeDropdown
-        time={selectedTime}
-        setTime={setSelectedTime}
+        time={selectedDateTime.time}
+        setTime={(time: string) =>
+          setSelectedDateTime({ date: selectedDateTime.date, time })
+        }
         variant="default"
         displayFormat="12h"
         className="w-[9rem]"

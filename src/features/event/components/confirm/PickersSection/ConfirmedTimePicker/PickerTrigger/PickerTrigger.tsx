@@ -6,14 +6,12 @@ import { formatTimeAmPm } from '@/utils';
 
 export default function PickerTrigger({
   type,
-  selectedDate,
-  selectedTime,
+  selectedDateTime,
   active,
   onClick,
 }: {
   type: 'start' | 'end';
-  selectedDate: string;
-  selectedTime: string;
+  selectedDateTime: { date: string; time: string };
   active?: boolean;
   onClick: () => void;
 }) {
@@ -38,12 +36,12 @@ export default function PickerTrigger({
         {type === 'start' ? t('start') : t('end')}
       </span>
       <span className="text-md-200">
-        {selectedDate
-          ? dayjs(selectedDate).format('YYYY.MM.DD dd')
+        {selectedDateTime.date
+          ? dayjs(selectedDateTime.date).format('YYYY.MM.DD dd')
           : t('selectDateTime')}
       </span>
       <span className="text-md-300">
-        {selectedTime ? formatTimeAmPm(selectedTime) : '-'}
+        {selectedDateTime.time ? formatTimeAmPm(selectedDateTime.time) : '-'}
       </span>
     </button>
   );
