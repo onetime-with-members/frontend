@@ -4,24 +4,24 @@ import cn from '@/lib/cn';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 type ModalHeaderProps = {
-  onClose: () => void;
+  onBackButtonClick: () => void;
   isConfirmDisabled?: boolean;
   onComplete?: () => void;
 };
 
-export default function ModalHeader({
-  onClose,
+export default function MobileHeader({
+  onBackButtonClick,
   isConfirmDisabled = true,
   onComplete,
 }: ModalHeaderProps) {
   const t = useTranslations('event.pages.EventConfirmPage');
 
   return (
-    <div className="flex shrink-0 items-center justify-between bg-gray-00 px-4 py-3 md:hidden">
+    <header className="flex shrink-0 items-center justify-between bg-gray-00 px-4 py-3 md:hidden">
       <button
         type="button"
         className="-m-1 flex rounded-lg p-1 text-gray-70 hover:bg-gray-10"
-        onClick={onClose}
+        onClick={onBackButtonClick}
         aria-label={t('cancel')}
       >
         <IconChevronLeft size={24} />
@@ -42,6 +42,6 @@ export default function ModalHeader({
       >
         {t('done')}
       </button>
-    </div>
+    </header>
   );
 }

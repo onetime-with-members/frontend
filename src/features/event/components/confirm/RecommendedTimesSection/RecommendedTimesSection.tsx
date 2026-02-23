@@ -4,21 +4,19 @@ import RecommendedTimeSlotItem from '../RecommendedTimeSlotItem';
 import { RecommendedScheduleType } from '@/features/event/types';
 import { IconChevronDown } from '@tabler/icons-react';
 
-type RightPanelProps = {
-  recommendedTimes: RecommendedScheduleType[];
-  selectedSlotIndex: number | null;
-  onSelectSlot: (slot: RecommendedScheduleType, index: number) => void;
-};
-
-export default function RightPanel({
+export default function RecommendedTimesSection({
   recommendedTimes,
   selectedSlotIndex,
   onSelectSlot,
-}: RightPanelProps) {
+}: {
+  recommendedTimes: RecommendedScheduleType[];
+  selectedSlotIndex: number | null;
+  onSelectSlot: (slot: RecommendedScheduleType, index: number) => void;
+}) {
   const t = useTranslations('event.pages.EventConfirmPage');
 
   return (
-    <div className="flex w-full flex-col gap-2 bg-white px-4 md:min-w-0 md:flex-1 md:rounded-3xl md:p-6">
+    <section className="flex w-full flex-col gap-2 bg-white px-4 md:min-w-0 md:flex-1 md:rounded-3xl md:p-6">
       <h2 className="text-gray-60 text-md-200 md:hidden">
         {t('recommendedTime')}
       </h2>
@@ -42,6 +40,6 @@ export default function RightPanel({
         {t('viewMore')}
         <IconChevronDown size={16} />
       </button>
-    </div>
+    </section>
   );
 }
