@@ -1,21 +1,13 @@
+import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
 import useDropdown from '@/hooks/useDropdown';
 import cn from '@/lib/cn';
+import { formatTimeAmPm } from '@/utils';
 import {
   IconTriangleFilled,
   IconTriangleInvertedFilled,
 } from '@tabler/icons-react';
-
-function formatTimeAmPm(time: string): string {
-  const [hStr, mStr] = time.split(':');
-  const h = parseInt(hStr, 10);
-  const m = mStr ?? '00';
-  if (h === 0) return `오전 12:${m}`;
-  if (h < 12) return `오전 ${h}:${m}`;
-  if (h === 12) return `오후 12:${m}`;
-  return `오후 ${h - 12}:${m}`;
-}
 
 export default function TimeDropdown({
   time,
@@ -23,14 +15,18 @@ export default function TimeDropdown({
   className,
   variant = 'default',
   displayFormat,
+  placement = 'bottom',
 }: {
   time: string;
   setTime: (time: string) => void;
   className?: string;
   variant?: 'default' | 'white' | 'lightGray';
   displayFormat?: '24h' | '12h';
+  placement?: 'top' | 'bottom';
 }) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const t = useTranslations('components.TimeDropdown');
 
   const { isDropdownMenuOpen, setIsDropdownMenuOpen, handleDropdownClick } =
     useDropdown({
@@ -42,8 +38,11 @@ export default function TimeDropdown({
     setIsDropdownMenuOpen(false);
   }
 
-  const displayTime =
-    displayFormat === '12h' ? formatTimeAmPm(time) : time;
+  const displayTime = time
+    ? displayFormat === '12h'
+      ? formatTimeAmPm(time)
+      : time
+    : t('selectTime');
 
   return (
     <div className={cn('relative', className)} ref={dropdownRef}>
@@ -76,24 +75,33 @@ export default function TimeDropdown({
         {isDropdownMenuOpen ? (
           <IconTriangleFilled
             size={12}
-            className={variant === 'lightGray' ? 'text-gray-50' : 'text-gray-00'}
+            className={
+              variant === 'lightGray' ? 'text-gray-50' : 'text-gray-00'
+            }
           />
         ) : (
           <IconTriangleInvertedFilled
             size={12}
-            className={variant === 'lightGray' ? 'text-gray-40' : 'text-gray-40'}
+            className={
+              variant === 'lightGray' ? 'text-gray-40' : 'text-gray-40'
+            }
           />
         )}
       </div>
       {isDropdownMenuOpen && (
-        <ul className="scrollbar-hidden absolute -bottom-3 z-10 max-h-[15.5rem] w-full translate-y-full overflow-y-auto rounded-xl bg-gray-00 py-2 shadow-[0_4px_24px_0_rgba(0,0,0,0.15)]">
+        <ul
+          className={cn(
+            'scrollbar-hidden absolute z-10 max-h-[15.5rem] w-full overflow-y-auto rounded-xl bg-gray-00 py-2 shadow-[0_4px_24px_0_rgba(0,0,0,0.15)]',
+            {
+              '-bottom-3 translate-y-full': placement === 'bottom',
+              '-top-3 -translate-y-full': placement === 'top',
+            },
+          )}
+        >
           {Array.from({ length: 25 }, (_, index) => index).map((time) => (
             <li
               key={time}
-              className={cn(
-                'w-full cursor-pointer py-2 text-center text-gray-50 text-lg-200',
-                className,
-              )}
+              className="w-full cursor-pointer py-2 text-center text-gray-50 text-lg-200"
               onClick={() =>
                 handleSelectTime(`${time.toString().padStart(2, '0')}:00`)
               }

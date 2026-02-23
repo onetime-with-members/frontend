@@ -31,6 +31,19 @@
       },
       "EventEditPage": {
         "editEvent": "{name} 수정"
+      },
+      "EventConfirmPage": {
+        "title": "일정 확정",
+        "start": "시작",
+        "end": "종료",
+        "selectDateTime": "일시 선택",
+        "cancel": "취소",
+        "confirm": "확인",
+        "confirmButton": "확정",
+        "done": "완료",
+        "selectFromRecommended": "추천 시간에서 선택",
+        "recommendedTime": "추천 시간",
+        "viewMore": "더보기"
       }
     },
     "components": {
@@ -77,19 +90,6 @@
         "deleteEventConfirm": "삭제",
         "deleteEventCancel": "취소",
         "deleteEventConfirming": "삭제 중..."
-      },
-      "ScheduleConfirmModal": {
-        "title": "일정 확정",
-        "start": "시작",
-        "end": "종료",
-        "selectDateTime": "일시 선택",
-        "cancel": "취소",
-        "confirm": "확인",
-        "confirmButton": "확정",
-        "done": "완료",
-        "selectFromRecommended": "추천 시간에서 선택",
-        "recommendedTime": "추천 시간",
-        "viewMore": "더보기"
       }
     }
   },
@@ -329,6 +329,9 @@
       "backButtonDescription": "스케줄을 등록하지 않고 페이지를 벗어날 경우, <br></br>지금까지 입력한 내용이 사라져요!",
       "backButtonConfirm": "계속 입력하기",
       "backButtonCancel": "나가기"
+    },
+    "TimeDropdown": {
+      "selectTime": "시간 선택"
     }
   }
 }

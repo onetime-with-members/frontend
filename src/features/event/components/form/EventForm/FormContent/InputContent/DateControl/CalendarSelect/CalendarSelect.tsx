@@ -18,7 +18,11 @@ export default function CalendarSelect({
   ranges: string[];
   setRanges: (ranges: string[]) => void;
 }) {
-  const [currentDate, setCurrentDate] = useState(dayjs());
+  const [currentDate, setCurrentDate] = useState(
+    ranges.length > 0 ? dayjs(ranges[0], 'YYYY.MM.dd') : dayjs(),
+  );
+
+  console.log(ranges);
 
   const { weekdaysShort } = useContext(WeekdayLocaleContext);
 

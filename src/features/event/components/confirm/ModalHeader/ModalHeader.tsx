@@ -14,7 +14,7 @@ export default function ModalHeader({
   isConfirmDisabled = true,
   onComplete,
 }: ModalHeaderProps) {
-  const t = useTranslations('event.components.ScheduleConfirmModal');
+  const t = useTranslations('event.pages.EventConfirmPage');
 
   return (
     <div className="flex shrink-0 items-center justify-between bg-gray-00 px-4 py-3 md:hidden">

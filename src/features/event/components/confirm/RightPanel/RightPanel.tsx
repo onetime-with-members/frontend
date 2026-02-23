@@ -15,7 +15,7 @@ export default function RightPanel({
   selectedSlotIndex,
   onSelectSlot,
 }: RightPanelProps) {
-  const t = useTranslations('event.components.ScheduleConfirmModal');
+  const t = useTranslations('event.pages.EventConfirmPage');
 
   return (
     <div className="flex w-full flex-col gap-2 bg-white px-4 md:min-w-0 md:flex-1 md:rounded-3xl md:p-6">
