@@ -1,64 +1,62 @@
 'use client';
 
-import { createPortal } from 'react-dom';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import LeftPanel from './LeftPanel';
-import ModalHeader from './ModalHeader';
-import RightPanel from './RightPanel';
-import { useScheduleConfirmState } from './hooks';
-import EventFormTopNavBar from '@/features/event/components/form/EventForm/TopNavBar';
-import Button from '@/components/button';
+import LeftPanel from '../components/confirm/LeftPanel';
+import ModalHeader from '../components/confirm/ModalHeader';
+import RightPanel from '../components/confirm/RightPanel';
+import { useScheduleConfirmState } from '../hooks/useScheduleConfirmState';
 import GrayBackground from '@/components/GrayBackground';
+import NavBar from '@/components/NavBar';
+import Button from '@/components/button';
 import useIsMobile from '@/hooks/useIsMobile';
+import { useRouter } from '@/i18n/navigation';
 import cn from '@/lib/cn';
 import { IconChevronLeft } from '@tabler/icons-react';
 
-export default function ScheduleConfirmModal({
-  onClose,
-}: {
-  onClose: () => void;
-}) {
-  const t = useTranslations('event.components.ScheduleConfirmModal');
-  const state = useScheduleConfirmState();
-  const isMobile = useIsMobile();
+export default function EventConfirmPage() {
   const [mobileStep, setMobileStep] = useState<'datetime' | 'recommended'>(
     'datetime',
   );
 
+  const t = useTranslations('event.components.ScheduleConfirmModal');
+  const router = useRouter();
+
+  const state = useScheduleConfirmState();
+  const isMobile = useIsMobile();
+
   const showCalendarSection = !isMobile || mobileStep === 'datetime';
-  const handleLeftPanelConfirm = () => {
+
+  function handleClose() {
+    router.back();
+  }
+
+  function handleLeftPanelConfirm() {
     if (isMobile && mobileStep === 'datetime') {
       setMobileStep('recommended');
     } else {
-      onClose();
+      handleClose();
     }
-  };
+  }
 
-  return createPortal(
-    <div
-      className="fixed inset-0 z-50 flex flex-col bg-white md:bg-gray-05"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="schedule-confirm-title"
-    >
+  return (
+    <div className="flex flex-col bg-gray-00 md:bg-gray-05">
       <GrayBackground device="desktop" breakpoint="md" />
       <div className="hidden md:block">
-        <EventFormTopNavBar />
+        <NavBar />
       </div>
       <ModalHeader
-        onClose={onClose}
+        onClose={handleClose}
         isConfirmDisabled={state.isConfirmDisabled}
-        onComplete={onClose}
+        onComplete={handleClose}
       />
-
       <main className="flex flex-col items-center bg-gray-05">
         <div className="mx-auto flex w-full max-w-[825px] flex-col items-center justify-center md:pt-6">
           <div className="hidden w-full items-center justify-start gap-[2px] pb-6 md:flex">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="flex items-center justify-center"
               aria-label={t('cancel')}
             >
@@ -66,7 +64,7 @@ export default function ScheduleConfirmModal({
             </button>
             <h1 className="text-gray-90 text-lg-300">일정 확정</h1>
           </div>
-          <div className="flex w-full flex-col bg-white md:flex-row gap-8">
+          <div className="flex w-full flex-col gap-8 bg-white md:flex-row">
             <LeftPanel
               eventTitle={state.event?.title ?? ''}
               focusedField={state.focusedField}
@@ -80,7 +78,7 @@ export default function ScheduleConfirmModal({
               onStartTimeChange={state.setStartTime}
               onEndTimeChange={state.setEndTime}
               isConfirmDisabled={state.isConfirmDisabled}
-              onCancel={onClose}
+              onCancel={handleClose}
               onConfirm={handleLeftPanelConfirm}
               showCalendarSection={showCalendarSection}
             />
@@ -94,7 +92,7 @@ export default function ScheduleConfirmModal({
           </div>
         </div>
 
-        <div className="sticky bottom-0 left-0 hidden w-full md:mt-8 md:block md:static md:w-[25rem] md:bg-transparent">
+        <div className="sticky bottom-0 left-0 hidden w-full md:static md:mt-8 md:block md:w-[25rem] md:bg-transparent">
           <Button
             type="button"
             variant="dark"
@@ -103,13 +101,12 @@ export default function ScheduleConfirmModal({
               'pointer-events-none cursor-default': state.isConfirmDisabled,
             })}
             disabled={state.isConfirmDisabled}
-            onClick={() => !state.isConfirmDisabled && onClose()}
+            onClick={() => !state.isConfirmDisabled && handleClose()}
           >
             {t('confirmButton')}
           </Button>
         </div>
       </main>
-    </div>,
-    document.getElementById('pop-up') as HTMLElement,
+    </div>
   );
 }

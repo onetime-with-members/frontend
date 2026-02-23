@@ -33,7 +33,7 @@ export function useEventWithAuthQuery(id: string) {
     ...eventWithAuthQueryOptions(id),
   });
 
-  return { data };
+  return { data: data || defaultEvent };
 }
 
 export function useShortUrlQuery(url: string) {

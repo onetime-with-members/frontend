@@ -1,5 +1,3 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
 
 import cn from '@/lib/cn';
@@ -22,7 +20,7 @@ export default function ModalHeader({
     <div className="flex shrink-0 items-center justify-between bg-gray-00 px-4 py-3 md:hidden">
       <button
         type="button"
-        className="flex p-1 -m-1 rounded-lg text-gray-70 hover:bg-gray-10"
+        className="-m-1 flex rounded-lg p-1 text-gray-70 hover:bg-gray-10"
         onClick={onClose}
         aria-label={t('cancel')}
       >
@@ -37,7 +35,7 @@ export default function ModalHeader({
           'rounded-lg px-3 py-1.5 text-sm-200',
           isConfirmDisabled
             ? 'bg-gray-10 text-gray-30'
-            : 'md:bg-primary-40 md:text-gray-00 bg-[#E8EBFC] text-[#4C65E5] ',
+            : 'bg-[#E8EBFC] text-[#4C65E5] md:bg-primary-40 md:text-gray-00',
         )}
         disabled={isConfirmDisabled}
         onClick={() => !isConfirmDisabled && onComplete?.()}

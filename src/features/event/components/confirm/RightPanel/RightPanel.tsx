@@ -1,5 +1,3 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
 
 import RecommendedTimeSlotItem from '../RecommendedTimeSlotItem';
@@ -20,7 +18,7 @@ export default function RightPanel({
   const t = useTranslations('event.components.ScheduleConfirmModal');
 
   return (
-    <div className="flex w-full flex-col gap-2 md:rounded-3xl bg-white md:p-6 px-4 md:min-w-0 md:flex-1">
+    <div className="flex w-full flex-col gap-2 bg-white px-4 md:min-w-0 md:flex-1 md:rounded-3xl md:p-6">
       <h2 className="text-gray-60 text-md-200 md:hidden">
         {t('recommendedTime')}
       </h2>

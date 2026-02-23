@@ -24,7 +24,7 @@ export default function ToolbarButtons() {
   const { data: eventWithAuth } = useEventWithAuthQuery(params.id);
 
   const isCreator = ['CREATOR', 'CREATOR_AND_PARTICIPANT'].includes(
-    eventWithAuth?.participation_role ?? '',
+    eventWithAuth.participation_role,
   );
 
   return (

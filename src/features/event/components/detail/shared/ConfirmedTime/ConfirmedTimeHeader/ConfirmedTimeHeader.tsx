@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl';
 
-import ActionButton from './ActionButton';
+import EditButton from './EditButton';
 import KakaoTalkButton from './KakaoTalkButton';
-import { EditIcon, ShareIcon } from '@/components/icon';
+import ShareButton from './ShareButton';
 
 export default function ConfirmedTimeHeader() {
   const t = useTranslations('event.pages.EventDetailPage.confirm');
@@ -12,12 +12,8 @@ export default function ConfirmedTimeHeader() {
       <h2 className="text-md-300">{t('eventInfo')}</h2>
       <div className="flex flex-row items-center gap-[6px] text-xl">
         <KakaoTalkButton />
-        <ActionButton>
-          <ShareIcon />
-        </ActionButton>
-        <ActionButton>
-          <EditIcon />
-        </ActionButton>
+        <ShareButton />
+        <EditButton />
       </div>
     </div>
   );
