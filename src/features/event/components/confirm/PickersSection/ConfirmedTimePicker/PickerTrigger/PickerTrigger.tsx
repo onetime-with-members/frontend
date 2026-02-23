@@ -37,7 +37,7 @@ export default function PickerTrigger({
       </span>
       <span className="text-md-200">
         {selectedDateTime.date
-          ? dayjs(selectedDateTime.date).format('YYYY.MM.DD dd')
+          ? dayjs(selectedDateTime.date, 'YYYY.MM.DD').format('YYYY.MM.DD dd')
           : t('selectDateTime')}
       </span>
       <span className="text-md-300">
