@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import throttle from 'lodash/throttle';
+
 export default function useScrollArrowButton({
   ref,
   scrollSyncRef,
@@ -35,43 +37,46 @@ export default function useScrollArrowButton({
   }
 
   useEffect(() => {
-    if (!ref?.current) return;
+    const scrollableElement = ref?.current;
 
-    const scrollableElement = ref.current;
+    if (!scrollableElement) return;
 
-    const isScrollable =
-      scrollableElement.scrollWidth > scrollableElement.clientWidth;
-
-    handleScroll();
-
-    function handleScroll() {
+    function updateArrowVisibility() {
       if (!scrollableElement) return;
 
+      const { scrollWidth, clientWidth, scrollLeft } = scrollableElement;
+      const isScrollable = scrollWidth > clientWidth;
+
       if (!isScrollable) {
-        setArrowButtonVisible({
-          left: false,
-          right: false,
-        });
+        setArrowButtonVisible({ left: false, right: false });
+        return;
       }
 
-      setArrowButtonVisible((prev) => ({
-        ...prev,
-        left: scrollableElement.scrollLeft !== 0,
-      }));
-      setArrowButtonVisible((prev) => ({
-        ...prev,
-        right:
-          Math.ceil(scrollableElement.scrollLeft) <
-          scrollableElement.scrollWidth - scrollableElement.clientWidth,
-      }));
+      setArrowButtonVisible({
+        left: scrollLeft > 0,
+        right: Math.ceil(scrollLeft) < scrollWidth - clientWidth,
+      });
     }
 
-    scrollableElement.addEventListener('scroll', handleScroll);
+    const throttledUpdate = throttle(updateArrowVisibility, 100);
+
+    scrollableElement.addEventListener('scroll', throttledUpdate);
+
+    function handleResize() {
+      updateArrowVisibility();
+    }
+
+    const resizeObserver = new ResizeObserver(handleResize);
+    resizeObserver.observe(scrollableElement);
+
+    updateArrowVisibility();
 
     return () => {
-      scrollableElement.removeEventListener('scroll', handleScroll);
+      scrollableElement.removeEventListener('scroll', throttledUpdate);
+      resizeObserver.disconnect();
+      throttledUpdate.cancel();
     };
-  }, [ref]);
+  }, []);
 
   return {
     arrowButtonVisible,
