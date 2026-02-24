@@ -5,10 +5,10 @@ import cn from '@/lib/cn';
 
 export default function BottomButton({
   disabled,
-  onBackButtonClick,
+  onClick,
 }: {
   disabled: boolean;
-  onBackButtonClick: () => void;
+  onClick: () => void;
 }) {
   const t = useTranslations('event.pages.EventConfirmPage');
 
@@ -22,7 +22,7 @@ export default function BottomButton({
           'pointer-events-none cursor-default': disabled,
         })}
         disabled={disabled}
-        onClick={() => !disabled && onBackButtonClick()}
+        onClick={onClick}
       >
         {t('confirmButton')}
       </Button>

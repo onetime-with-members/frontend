@@ -6,11 +6,11 @@ import { IconChevronLeft } from '@tabler/icons-react';
 export default function MobileHeader({
   disabled,
   onBackButtonClick,
-  onComplete,
+  onConfirm,
 }: {
   disabled: boolean;
   onBackButtonClick: () => void;
-  onComplete?: () => void;
+  onConfirm: () => void;
 }) {
   const t = useTranslations('event.pages.EventConfirmPage');
 
@@ -36,7 +36,7 @@ export default function MobileHeader({
             : 'bg-[#E8EBFC] text-[#4C65E5] md:bg-primary-40 md:text-gray-00',
         )}
         disabled={disabled}
-        onClick={() => !disabled && onComplete?.()}
+        onClick={onConfirm}
       >
         {t('done')}
       </button>

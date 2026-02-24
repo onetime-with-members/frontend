@@ -160,6 +160,14 @@ export async function confirmEvent(
   return res.data.payload;
 }
 
+export async function editEventConfirmedTime(
+  eventId: string,
+  data: ConfirmEventRequestData,
+) {
+  const res = await apiClient.put(`/events/${eventId}/confirm`, data);
+  return res.data.payload;
+}
+
 export async function createTalkCalendarEvent(
   accessToken: string,
   event: EventType,

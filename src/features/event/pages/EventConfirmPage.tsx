@@ -2,6 +2,11 @@
 
 import { useContext } from 'react';
 
+import {
+  useConfirmEventMutation,
+  useEditEventConfirmedTimeMutation,
+  useEventQuery,
+} from '../api/event.query';
 import BottomButton from '../components/confirm/BottomButton';
 import DesktopHeader from '../components/confirm/DesktopHeader';
 import DesktopNavBar from '../components/confirm/DesktopNavBar';
@@ -11,11 +16,42 @@ import RecommendedTimesSection from '../components/confirm/RecommendedTimesSecti
 import { SelectedDateTimeContext } from '../contexts/SelectedDateTimeContext';
 import GrayBackground from '@/components/GrayBackground';
 import { useRouter } from '@/i18n/navigation';
+import { useProgressRouter } from '@/navigation';
+import { useParams } from 'next/navigation';
 
 export default function EventConfirmPage() {
   const { finalDateTime } = useContext(SelectedDateTimeContext);
 
+  const progressRouter = useProgressRouter();
   const router = useRouter();
+  const params = useParams<{ id: string }>();
+
+  const { data: event } = useEventQuery(params.id);
+
+  const { mutateAsync: confirmEvent } = useConfirmEventMutation();
+  const { mutateAsync: editEventConfirmedTime } =
+    useEditEventConfirmedTimeMutation();
+
+  async function handleConfirm() {
+    const data = {
+      eventId: params.id,
+      data: {
+        start_date: finalDateTime.start.date,
+        end_date: finalDateTime.end.date,
+        start_time: finalDateTime.start.time,
+        end_time: finalDateTime.end.time,
+        selection_source: 'MANUAL' as const,
+      },
+    };
+
+    if (event.confirmation) {
+      await editEventConfirmedTime(data);
+    } else {
+      await confirmEvent(data);
+    }
+
+    progressRouter.back();
+  }
 
   function handleBackButtonClick() {
     router.back();
@@ -33,7 +69,7 @@ export default function EventConfirmPage() {
       <DesktopNavBar />
       <MobileHeader
         onBackButtonClick={handleBackButtonClick}
-        onComplete={handleBackButtonClick}
+        onConfirm={handleConfirm}
         disabled={isDisabled}
       />
       <main className="flex flex-col items-center pb-10">
@@ -44,10 +80,7 @@ export default function EventConfirmPage() {
             <RecommendedTimesSection />
           </div>
         </div>
-        <BottomButton
-          onBackButtonClick={handleBackButtonClick}
-          disabled={isDisabled}
-        />
+        <BottomButton onClick={handleConfirm} disabled={isDisabled} />
       </main>
     </div>
   );

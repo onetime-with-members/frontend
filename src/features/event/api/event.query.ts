@@ -7,6 +7,7 @@ import {
   createTalkCalendarEvent,
   deleteEventAction,
   editEventAction,
+  editEventConfirmedTime,
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,
 } from './event.api';
@@ -160,7 +161,26 @@ export function useConfirmEventMutation() {
   return { mutateAsync };
 }
 
-export function useCreateTalkCalendarEvent() {
+export function useEditEventConfirmedTimeMutation() {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({
+      eventId,
+      data,
+    }: {
+      eventId: string;
+      data: ConfirmEventRequestData;
+    }) => await editEventConfirmedTime(eventId, data),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+    },
+  });
+
+  return { mutateAsync };
+}
+
+export function useCreateTalkCalendarEventMutation() {
   const { mutateAsync, isPending, isSuccess, isError } = useMutation({
     mutationFn: async ({
       accessToken,

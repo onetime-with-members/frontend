@@ -2,7 +2,10 @@
 
 import { useContext, useEffect } from 'react';
 
-import { useCreateTalkCalendarEvent, useEventQuery } from '../api/event.query';
+import {
+  useCreateTalkCalendarEventMutation,
+  useEventQuery,
+} from '../api/event.query';
 import { TALK_CALENDAR_ERROR, TALK_CALENDAR_SUCCESS } from '../constants';
 import {
   addTalkCalendarEventCookie,
@@ -39,7 +42,7 @@ export default function EventTalkCalendarPage({
     isPending,
     isSuccess,
     isError,
-  } = useCreateTalkCalendarEvent();
+  } = useCreateTalkCalendarEventMutation();
 
   useEffect(() => {
     setFooterVisible(false);
