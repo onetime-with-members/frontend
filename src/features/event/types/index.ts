@@ -74,3 +74,14 @@ export type ConfirmEventRequestData = {
       end_day: string;
     }
 );
+
+export interface SelectedDateTime {
+  start: {
+    date: string;
+    time: string;
+  };
+  end: {
+    date: string;
+    time: string;
+  };
+}

@@ -3,12 +3,21 @@ import { useState } from 'react';
 
 import RecommendedTimeItem from './RecommendedTimeItem';
 import { useRecommendedTimesQuery } from '@/features/event/api/event.query';
+import { SelectedDateTime } from '@/features/event/types';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
-export default function RecommendedTimesSection() {
-  const [selectedItemIndex, setSelectedItemIndex] = useState<number>();
+export default function RecommendedTimesSection({
+  setSelectedDateTime,
+  setFinalDateTime,
+}: {
+  setSelectedDateTime: (dateTime: SelectedDateTime) => void;
+  setFinalDateTime: (dateTime: SelectedDateTime) => void;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(
+    null,
+  );
 
   const params = useParams<{ id: string }>();
   const t = useTranslations('event.pages.EventConfirmPage');
@@ -23,6 +32,25 @@ export default function RecommendedTimesSection() {
     setIsExpanded((prev) => !prev);
   }
 
+  function handleItemClick(index: number) {
+    setSelectedItemIndex(index);
+
+    const { time_point, start_time, end_time } = recommendedTimesData[index];
+    const result = {
+      start: {
+        date: time_point,
+        time: start_time,
+      },
+      end: {
+        date: time_point,
+        time: end_time,
+      },
+    };
+
+    setSelectedDateTime(result);
+    setFinalDateTime(result);
+  }
+
   return (
     <section className="flex w-full flex-col gap-2 bg-white px-4 md:min-w-0 md:flex-1 md:rounded-3xl md:p-6">
       <h2 className="text-gray-60 text-md-200">{t('selectFromRecommended')}</h2>
@@ -32,7 +60,7 @@ export default function RecommendedTimesSection() {
             key={index}
             recommendedTime={recommendedTime}
             isSelected={selectedItemIndex === index}
-            onClick={() => setSelectedItemIndex(index)}
+            onClick={() => handleItemClick(index)}
           />
         ))}
       </ul>

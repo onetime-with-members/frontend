@@ -1,37 +1,35 @@
-import { useState } from 'react';
-
 import PickerPanel from './PickerPanel';
 import PickerTrigger from './PickerTrigger';
+import { SelectedDateTime } from '@/features/event/types';
 
 export default function ConfirmedTimePicker({
   type,
   isOpen,
   setIsOpen,
+  selectedDateTime,
+  setSelectedDateTime,
+  finalDateTime,
+  setFinalDateTime,
 }: {
   type: 'start' | 'end';
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  selectedDateTime: SelectedDateTime['start' | 'end'];
+  setSelectedDateTime: (dateTime: SelectedDateTime['start' | 'end']) => void;
+  finalDateTime: SelectedDateTime['start' | 'end'];
+  setFinalDateTime: (dateTime: SelectedDateTime['start' | 'end']) => void;
 }) {
-  const [selectedDateTime, setSelectedDateTime] = useState({
-    date: '',
-    time: '',
-  });
-  const [prevSelectedDateTime, setPrevSelectedDateTime] = useState({
-    date: '',
-    time: '',
-  });
-
   function handleTriggerClick() {
     setIsOpen(!isOpen);
   }
 
   function handlePanelConfirm() {
-    setPrevSelectedDateTime(selectedDateTime);
+    setFinalDateTime(selectedDateTime);
     setIsOpen(false);
   }
 
   function handlePanelClose() {
-    setSelectedDateTime(prevSelectedDateTime);
+    setSelectedDateTime(finalDateTime);
     setIsOpen(false);
   }
 

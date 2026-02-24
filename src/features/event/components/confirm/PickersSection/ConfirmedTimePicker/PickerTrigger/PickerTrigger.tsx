@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 
+import { SelectedDateTime } from '@/features/event/types';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { formatTimeAmPm } from '@/utils';
@@ -11,7 +12,7 @@ export default function PickerTrigger({
   onClick,
 }: {
   type: 'start' | 'end';
-  selectedDateTime: { date: string; time: string };
+  selectedDateTime: SelectedDateTime['start' | 'end'];
   active?: boolean;
   onClick: () => void;
 }) {

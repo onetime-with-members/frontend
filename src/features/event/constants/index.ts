@@ -1,4 +1,9 @@
-import { EventSchema, EventType } from '../types';
+import {
+  ConfirmedEventData,
+  EventSchema,
+  EventType,
+  SelectedDateTime,
+} from '../types';
 
 export const EDITED_EVENTS_COOKIE_KEY = 'edited_events';
 
@@ -31,7 +36,7 @@ export const defaultEventValue: EventSchema = {
   ranges: [],
 };
 
-export const defaultConfirmedTime = {
+export const defaultConfirmedTime: ConfirmedEventData = {
   start_date: null,
   end_date: null,
   start_day: null,
@@ -39,4 +44,15 @@ export const defaultConfirmedTime = {
   start_time: '',
   end_time: '',
   created_date: '',
+};
+
+export const defaultSelectedDateTime: SelectedDateTime = {
+  start: {
+    date: '',
+    time: '',
+  },
+  end: {
+    date: '',
+    time: '',
+  },
 };
