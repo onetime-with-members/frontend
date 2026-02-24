@@ -1,25 +1,24 @@
-import { useContext } from 'react';
-
 import PickerPanel from './PickerPanel';
 import PickerTrigger from './PickerTrigger';
-import { SelectedDateTimeContext } from '@/features/event/contexts/SelectedDateTimeContext';
+import { SelectedDateTime } from '@/features/event/types';
 
 export default function ConfirmedTimePicker({
   type,
   isOpen,
   setIsOpen,
+  selectedDateTime,
+  setSelectedDateTime,
+  finalDateTime,
+  setFinalDateTime,
 }: {
   type: 'start' | 'end';
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  selectedDateTime: SelectedDateTime['start' | 'end'];
+  setSelectedDateTime: (dateTime: SelectedDateTime['start' | 'end']) => void;
+  finalDateTime: SelectedDateTime['start' | 'end'];
+  setFinalDateTime: (dateTime: SelectedDateTime['start' | 'end']) => void;
 }) {
-  const {
-    selectedDateTime,
-    setSelectedDateTime,
-    finalDateTime,
-    setFinalDateTime,
-  } = useContext(SelectedDateTimeContext);
-
   function handleTriggerClick() {
     setIsOpen(!isOpen);
   }
@@ -36,12 +35,19 @@ export default function ConfirmedTimePicker({
 
   return (
     <div className="relative">
-      <PickerTrigger type={type} active={isOpen} onClick={handleTriggerClick} />
+      <PickerTrigger
+        type={type}
+        active={isOpen}
+        onClick={handleTriggerClick}
+        selectedDateTime={selectedDateTime}
+      />
       {isOpen && (
         <PickerPanel
           type={type}
           onConfirm={handlePanelConfirm}
           onCancel={handlePanelClose}
+          selectedDateTime={selectedDateTime}
+          setSelectedDateTime={setSelectedDateTime}
         />
       )}
     </div>

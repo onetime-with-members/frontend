@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext } from 'react';
+import { useState } from 'react';
 
 import {
   useConfirmEventMutation,
@@ -13,14 +13,17 @@ import DesktopNavBar from '../components/confirm/DesktopNavBar';
 import MobileHeader from '../components/confirm/MobileHeader';
 import PickersSection from '../components/confirm/PickersSection';
 import RecommendedTimesSection from '../components/confirm/RecommendedTimesSection';
-import { SelectedDateTimeContext } from '../contexts/SelectedDateTimeContext';
+import { defaultSelectedDateTime } from '../constants';
 import GrayBackground from '@/components/GrayBackground';
 import { useRouter } from '@/i18n/navigation';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
 export default function EventConfirmPage() {
-  const { finalDateTime } = useContext(SelectedDateTimeContext);
+  const [selectedDateTime, setSelectedDateTime] = useState(
+    defaultSelectedDateTime,
+  );
+  const [finalDateTime, setFinalDateTime] = useState(defaultSelectedDateTime);
 
   const progressRouter = useProgressRouter();
   const router = useRouter();
@@ -76,8 +79,16 @@ export default function EventConfirmPage() {
         <div className="mx-auto flex w-full max-w-[825px] flex-col items-center justify-center md:pt-6">
           <DesktopHeader onBackButtonClick={handleBackButtonClick} />
           <div className="flex w-full flex-col gap-8 rounded-3xl bg-gray-00 md:flex-row">
-            <PickersSection />
-            <RecommendedTimesSection />
+            <PickersSection
+              selectedDateTime={selectedDateTime}
+              setSelectedDateTime={setSelectedDateTime}
+              finalDateTime={finalDateTime}
+              setFinalDateTime={setFinalDateTime}
+            />
+            <RecommendedTimesSection
+              setSelectedDateTime={setSelectedDateTime}
+              setFinalDateTime={setFinalDateTime}
+            />
           </div>
         </div>
         <BottomButton onClick={handleConfirm} disabled={isDisabled} />

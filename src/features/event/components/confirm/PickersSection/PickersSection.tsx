@@ -3,9 +3,20 @@ import { useState } from 'react';
 import ConfirmedTimePicker from './ConfirmedTimePicker';
 import { CalendarIcon } from '@/components/icon';
 import { useEventQuery } from '@/features/event/api/event.query';
+import { SelectedDateTime } from '@/features/event/types';
 import { useParams } from 'next/navigation';
 
-export default function PickersSection() {
+export default function PickersSection({
+  selectedDateTime,
+  setSelectedDateTime,
+  finalDateTime,
+  setFinalDateTime,
+}: {
+  selectedDateTime: SelectedDateTime;
+  setSelectedDateTime: (dateTime: SelectedDateTime) => void;
+  finalDateTime: SelectedDateTime;
+  setFinalDateTime: (dateTime: SelectedDateTime) => void;
+}) {
   const [activePicker, setActivePicker] = useState<'start' | 'end' | 'none'>(
     'none',
   );
@@ -13,6 +24,21 @@ export default function PickersSection() {
   const params = useParams<{ id: string }>();
 
   const { data: event } = useEventQuery(params.id);
+
+  const pickerProps = (type: 'start' | 'end') => ({
+    type: type,
+    isOpen: activePicker === type,
+    setIsOpen: (isOpen: boolean) => setActivePicker(isOpen ? type : 'none'),
+    selectedDateTime: selectedDateTime[type],
+    setSelectedDateTime: () =>
+      setSelectedDateTime({
+        ...selectedDateTime,
+        [type]: selectedDateTime[type],
+      }),
+    finalDateTime: finalDateTime[type],
+    setFinalDateTime: () =>
+      setFinalDateTime({ ...finalDateTime, [type]: finalDateTime[type] }),
+  });
 
   return (
     <section className="flex w-full flex-col gap-3 bg-gray-00 px-4 pt-4 md:w-[442px] md:rounded-3xl md:p-6">
@@ -22,20 +48,8 @@ export default function PickersSection() {
           <span className="text-gray-70 text-lg-300">{event.title}</span>
         </h3>
         <div className="grid grid-cols-2 gap-3">
-          <ConfirmedTimePicker
-            type="start"
-            isOpen={activePicker === 'start'}
-            setIsOpen={(isOpen: boolean) =>
-              setActivePicker(isOpen ? 'start' : 'none')
-            }
-          />
-          <ConfirmedTimePicker
-            type="end"
-            isOpen={activePicker === 'end'}
-            setIsOpen={(isOpen: boolean) =>
-              setActivePicker(isOpen ? 'end' : 'none')
-            }
-          />
+          <ConfirmedTimePicker {...pickerProps('start')} />
+          <ConfirmedTimePicker {...pickerProps('end')} />
         </div>
       </div>
     </section>

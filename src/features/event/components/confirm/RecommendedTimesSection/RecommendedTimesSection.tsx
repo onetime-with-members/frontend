@@ -1,20 +1,22 @@
 import { useTranslations } from 'next-intl';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import RecommendedTimeItem from './RecommendedTimeItem';
 import { useRecommendedTimesQuery } from '@/features/event/api/event.query';
-import { SelectedDateTimeContext } from '@/features/event/contexts/SelectedDateTimeContext';
+import { SelectedDateTime } from '@/features/event/types';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
-export default function RecommendedTimesSection() {
+export default function RecommendedTimesSection({
+  setSelectedDateTime,
+  setFinalDateTime,
+}: {
+  setSelectedDateTime: (dateTime: SelectedDateTime) => void;
+  setFinalDateTime: (dateTime: SelectedDateTime) => void;
+}) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(
     null,
-  );
-
-  const { setSelectedDateTime, setFinalDateTime } = useContext(
-    SelectedDateTimeContext,
   );
 
   const params = useParams<{ id: string }>();
