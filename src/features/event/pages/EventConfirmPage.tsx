@@ -13,24 +13,25 @@ import DesktopNavBar from '../components/confirm/DesktopNavBar';
 import MobileHeader from '../components/confirm/MobileHeader';
 import PickersSection from '../components/confirm/PickersSection';
 import RecommendedTimesSection from '../components/confirm/RecommendedTimesSection';
-import { defaultSelectedDateTime } from '../constants';
+import { eventToDateTime } from '../utils';
 import GrayBackground from '@/components/GrayBackground';
 import { useRouter } from '@/i18n/navigation';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
 export default function EventConfirmPage() {
-  const [selectedDateTime, setSelectedDateTime] = useState(
-    defaultSelectedDateTime,
-  );
-  const [finalDateTime, setFinalDateTime] = useState(defaultSelectedDateTime);
-
-  const router = useRouter();
   const params = useParams<{ id: string }>();
 
-  const progressRouter = useProgressRouter();
+  const { data: event } = useEventQuery(params.id);
 
-  const { data: event, isPending } = useEventQuery(params.id);
+  const [selectedDateTime, setSelectedDateTime] = useState(
+    eventToDateTime(event),
+  );
+  const [finalDateTime, setFinalDateTime] = useState(eventToDateTime(event));
+
+  const router = useRouter();
+
+  const progressRouter = useProgressRouter();
 
   const { mutateAsync: confirmEvent } = useConfirmEventMutation();
   const { mutateAsync: editEventConfirmedTime } =
@@ -68,15 +69,7 @@ export default function EventConfirmPage() {
     !finalDateTime.end.time;
 
   useEffect(() => {
-    if (isPending || !event.confirmation) return;
-    const confirmedTime = event.confirmation;
-    const newDateTime = {
-      start: {
-        date: confirmedTime.start_date ?? '',
-        time: confirmedTime.start_time,
-      },
-      end: { date: confirmedTime.end_date ?? '', time: confirmedTime.end_time },
-    };
+    const newDateTime = eventToDateTime(event);
     setSelectedDateTime(newDateTime);
     setFinalDateTime(newDateTime);
   }, [event]);

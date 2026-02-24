@@ -1,5 +1,5 @@
 import { exampleEventList } from '../mocks/example-events';
-import { ConfirmedEventData } from '../types';
+import { ConfirmedEventData, EventType, SelectedDateTime } from '../types';
 import { weekdaysShortKo } from '@/constants';
 import { MyEventType } from '@/features/user/types';
 import dayjs from '@/lib/dayjs';
@@ -135,4 +135,18 @@ export function getConfirmedTimeFromNow({
         ? startDayTime.add(1, 'week').fromNow()
         : ongoingText;
   }
+}
+
+export function eventToDateTime(event: EventType): SelectedDateTime {
+  const confirmedTime = event.confirmation;
+  return {
+    start: {
+      date: confirmedTime?.start_date ?? '',
+      time: confirmedTime?.start_time ?? '',
+    },
+    end: {
+      date: confirmedTime?.end_date ?? '',
+      time: confirmedTime?.end_time ?? '',
+    },
+  };
 }
