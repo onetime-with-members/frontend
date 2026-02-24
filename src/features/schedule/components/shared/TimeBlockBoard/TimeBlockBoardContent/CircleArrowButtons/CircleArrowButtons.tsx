@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import CircleArrowButtonForBoard from './CircleArrowButtonForBoard';
@@ -15,6 +15,10 @@ export default function CircleArrowButtons() {
       ref: boardContentRef,
       scrollSyncRef: topLabelRef,
     });
+
+  useEffect(() => {
+    console.log(arrowButtonVisible);
+  }, [arrowButtonVisible]);
 
   return (
     <>
