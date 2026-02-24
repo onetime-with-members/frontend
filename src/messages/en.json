@@ -43,7 +43,8 @@
         "done": "Done",
         "selectFromRecommended": "Select from recommended times",
         "recommendedTime": "Recommended Time",
-        "viewMore": "View More"
+        "viewMore": "View more",
+        "viewLess": "View less"
       }
     },
     "components": {

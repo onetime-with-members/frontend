@@ -3,17 +3,15 @@ import { useTranslations } from 'next-intl';
 import cn from '@/lib/cn';
 import { IconChevronLeft } from '@tabler/icons-react';
 
-type ModalHeaderProps = {
-  onBackButtonClick: () => void;
-  isConfirmDisabled?: boolean;
-  onComplete?: () => void;
-};
-
 export default function MobileHeader({
   onBackButtonClick,
-  isConfirmDisabled = true,
+  disabled = true,
   onComplete,
-}: ModalHeaderProps) {
+}: {
+  onBackButtonClick: () => void;
+  disabled?: boolean;
+  onComplete?: () => void;
+}) {
   const t = useTranslations('event.pages.EventConfirmPage');
 
   return (
@@ -33,12 +31,12 @@ export default function MobileHeader({
         type="button"
         className={cn(
           'rounded-lg px-3 py-1.5 text-sm-200',
-          isConfirmDisabled
+          disabled
             ? 'bg-gray-10 text-gray-30'
             : 'bg-[#E8EBFC] text-[#4C65E5] md:bg-primary-40 md:text-gray-00',
         )}
-        disabled={isConfirmDisabled}
-        onClick={() => !isConfirmDisabled && onComplete?.()}
+        disabled={disabled}
+        onClick={() => !disabled && onComplete?.()}
       >
         {t('done')}
       </button>

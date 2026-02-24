@@ -1,39 +1,52 @@
 import { useTranslations } from 'next-intl';
+import { useState } from 'react';
 
-import RecommendedTimeSlotItem from '../RecommendedTimeSlotItem';
-import { RecommendedScheduleType } from '@/features/event/types';
-import { IconChevronDown } from '@tabler/icons-react';
+import RecommendedTimeItem from './RecommendedTimeItem';
+import { useRecommendedTimesQuery } from '@/features/event/api/event.query';
+import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
+import { useParams } from 'next/navigation';
 
-export default function RecommendedTimesSection({
-  recommendedTimes,
-  selectedSlotIndex,
-  onSelectSlot,
-}: {
-  recommendedTimes: RecommendedScheduleType[];
-  selectedSlotIndex: number | null;
-  onSelectSlot: (slot: RecommendedScheduleType, index: number) => void;
-}) {
+export default function RecommendedTimesSection() {
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number>();
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const params = useParams<{ id: string }>();
   const t = useTranslations('event.pages.EventConfirmPage');
+
+  const { data: recommendedTimesData } = useRecommendedTimesQuery(params.id);
+
+  const recommendedTimes = isExpanded
+    ? recommendedTimesData
+    : recommendedTimesData.slice(0, 3);
+
+  function handleToggle() {
+    setIsExpanded((prev) => !prev);
+  }
 
   return (
     <section className="flex w-full flex-col gap-2 bg-white px-4 md:min-w-0 md:flex-1 md:rounded-3xl md:p-6">
       <h2 className="text-gray-60 text-md-200">{t('selectFromRecommended')}</h2>
-      <div className="flex max-h-[671px] flex-col gap-2 overflow-y-auto">
+      <ul className="flex flex-col gap-2 overflow-y-auto">
         {recommendedTimes.map((recommendedTime, index) => (
-          <RecommendedTimeSlotItem
+          <RecommendedTimeItem
             key={index}
             recommendedTime={recommendedTime}
-            isSelected={selectedSlotIndex === index}
-            onClick={() => onSelectSlot(recommendedTime, index)}
+            isSelected={selectedItemIndex === index}
+            onClick={() => setSelectedItemIndex(index)}
           />
         ))}
-      </div>
+      </ul>
       <button
         type="button"
-        className="flex items-center justify-center gap-1 py-3 text-gray-40 text-sm-200 md:hidden"
+        className="flex items-center justify-center gap-1 py-3 text-gray-40 text-sm-200"
+        onClick={handleToggle}
       >
-        {t('viewMore')}
-        <IconChevronDown size={16} />
+        <span>{isExpanded ? t('viewLess') : t('viewMore')}</span>
+        {isExpanded ? (
+          <IconChevronUp size={16} />
+        ) : (
+          <IconChevronDown size={16} />
+        )}
       </button>
     </section>
   );

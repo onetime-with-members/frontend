@@ -18,7 +18,7 @@ export default function PickerPanel({
   onConfirm: () => void;
   onCancel: () => void;
 }) {
-  const [currentRanges, setCurrentRanges] = useState<string[]>(
+  const [currentRanges, setCurrentRanges] = useState(
     selectedDateTime.date ? [selectedDateTime.date] : [],
   );
 

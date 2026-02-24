@@ -6,19 +6,11 @@ import DesktopNavBar from '../components/confirm/DesktopNavBar';
 import MobileHeader from '../components/confirm/MobileHeader';
 import PickersSection from '../components/confirm/PickersSection';
 import RecommendedTimesSection from '../components/confirm/RecommendedTimesSection';
-import { useScheduleConfirmState } from '../hooks/useScheduleConfirmState';
 import GrayBackground from '@/components/GrayBackground';
 import { useRouter } from '@/i18n/navigation';
 
 export default function EventConfirmPage() {
   const router = useRouter();
-
-  const {
-    isConfirmDisabled,
-    recommendedTimes,
-    selectedSlotIndex,
-    handleSelectRecommended,
-  } = useScheduleConfirmState();
 
   function handleBackButtonClick() {
     router.back();
@@ -30,24 +22,20 @@ export default function EventConfirmPage() {
       <DesktopNavBar />
       <MobileHeader
         onBackButtonClick={handleBackButtonClick}
-        isConfirmDisabled={isConfirmDisabled}
         onComplete={handleBackButtonClick}
+        disabled={false}
       />
-      <main className="flex flex-col items-center bg-gray-05">
+      <main className="flex flex-col items-center pb-10">
         <div className="mx-auto flex w-full max-w-[825px] flex-col items-center justify-center md:pt-6">
           <DesktopHeader onBackButtonClick={handleBackButtonClick} />
-          <div className="flex w-full flex-col gap-8 bg-white md:flex-row">
+          <div className="flex w-full flex-col gap-8 rounded-3xl bg-gray-00 md:flex-row">
             <PickersSection />
-            <RecommendedTimesSection
-              recommendedTimes={recommendedTimes}
-              selectedSlotIndex={selectedSlotIndex}
-              onSelectSlot={handleSelectRecommended}
-            />
+            <RecommendedTimesSection />
           </div>
         </div>
         <BottomButton
           onBackButtonClick={handleBackButtonClick}
-          disabled={isConfirmDisabled}
+          disabled={false}
         />
       </main>
     </div>
