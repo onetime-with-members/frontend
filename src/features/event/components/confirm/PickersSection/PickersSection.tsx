@@ -26,18 +26,18 @@ export default function PickersSection({
   const { data: event } = useEventQuery(params.id);
 
   const pickerProps = (type: 'start' | 'end') => ({
-    type: type,
+    type,
     isOpen: activePicker === type,
     setIsOpen: (isOpen: boolean) => setActivePicker(isOpen ? type : 'none'),
     selectedDateTime: selectedDateTime[type],
-    setSelectedDateTime: () =>
+    setSelectedDateTime: (dateTime: SelectedDateTime[typeof type]) =>
       setSelectedDateTime({
         ...selectedDateTime,
-        [type]: selectedDateTime[type],
+        [type]: dateTime,
       }),
     finalDateTime: finalDateTime[type],
-    setFinalDateTime: () =>
-      setFinalDateTime({ ...finalDateTime, [type]: finalDateTime[type] }),
+    setFinalDateTime: (dateTime: SelectedDateTime[typeof type]) =>
+      setFinalDateTime({ ...finalDateTime, [type]: dateTime }),
   });
 
   return (
