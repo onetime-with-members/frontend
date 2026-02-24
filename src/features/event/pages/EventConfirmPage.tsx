@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   useConfirmEventMutation,
@@ -25,18 +25,19 @@ export default function EventConfirmPage() {
   );
   const [finalDateTime, setFinalDateTime] = useState(defaultSelectedDateTime);
 
-  const progressRouter = useProgressRouter();
   const router = useRouter();
   const params = useParams<{ id: string }>();
 
-  const { data: event } = useEventQuery(params.id);
+  const progressRouter = useProgressRouter();
+
+  const { data: event, isPending } = useEventQuery(params.id);
 
   const { mutateAsync: confirmEvent } = useConfirmEventMutation();
   const { mutateAsync: editEventConfirmedTime } =
     useEditEventConfirmedTimeMutation();
 
   async function handleConfirm() {
-    const data = {
+    const request = {
       eventId: params.id,
       data: {
         start_date: finalDateTime.start.date,
@@ -48,9 +49,9 @@ export default function EventConfirmPage() {
     };
 
     if (event.confirmation) {
-      await editEventConfirmedTime(data);
+      await editEventConfirmedTime(request);
     } else {
-      await confirmEvent(data);
+      await confirmEvent(request);
     }
 
     progressRouter.back();
@@ -65,6 +66,20 @@ export default function EventConfirmPage() {
     !finalDateTime.start.time ||
     !finalDateTime.end.date ||
     !finalDateTime.end.time;
+
+  useEffect(() => {
+    if (isPending || !event.confirmation) return;
+    const confirmedTime = event.confirmation;
+    const newDateTime = {
+      start: {
+        date: confirmedTime.start_date ?? '',
+        time: confirmedTime.start_time,
+      },
+      end: { date: confirmedTime.end_date ?? '', time: confirmedTime.end_time },
+    };
+    setSelectedDateTime(newDateTime);
+    setFinalDateTime(newDateTime);
+  }, [event]);
 
   return (
     <div className="flex flex-col bg-gray-00 md:bg-gray-05">
