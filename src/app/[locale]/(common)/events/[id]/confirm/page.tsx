@@ -1,5 +1,10 @@
+import SelectedDateTimeContextProvider from '@/features/event/contexts/SelectedDateTimeContext';
 import EventConfirmPage from '@/features/event/pages/EventConfirmPage';
 
 export default function Page() {
-  return <EventConfirmPage />;
+  return (
+    <SelectedDateTimeContextProvider>
+      <EventConfirmPage />
+    </SelectedDateTimeContextProvider>
+  );
 }

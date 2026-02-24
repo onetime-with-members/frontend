@@ -3,20 +3,9 @@ import { useState } from 'react';
 import ConfirmedTimePicker from './ConfirmedTimePicker';
 import { CalendarIcon } from '@/components/icon';
 import { useEventQuery } from '@/features/event/api/event.query';
-import { SelectedDateTime } from '@/features/event/types';
 import { useParams } from 'next/navigation';
 
-export default function PickersSection({
-  selectedDateTime,
-  setSelectedDateTime,
-  finalDateTime,
-  setFinalDateTime,
-}: {
-  selectedDateTime: SelectedDateTime;
-  setSelectedDateTime: (dateTime: SelectedDateTime) => void;
-  finalDateTime: SelectedDateTime;
-  setFinalDateTime: (dateTime: SelectedDateTime) => void;
-}) {
+export default function PickersSection() {
   const [activePicker, setActivePicker] = useState<'start' | 'end' | 'none'>(
     'none',
   );
@@ -39,34 +28,12 @@ export default function PickersSection({
             setIsOpen={(isOpen: boolean) =>
               setActivePicker(isOpen ? 'start' : 'none')
             }
-            selectedDateTime={selectedDateTime.start}
-            setSelectedDateTime={(dateTime: SelectedDateTime['start']) =>
-              setSelectedDateTime({ ...selectedDateTime, start: dateTime })
-            }
-            finalDateTime={finalDateTime.end}
-            setFinalDateTime={(dateTime: SelectedDateTime['start']) =>
-              setFinalDateTime({
-                ...finalDateTime,
-                start: dateTime,
-              })
-            }
           />
           <ConfirmedTimePicker
             type="end"
             isOpen={activePicker === 'end'}
             setIsOpen={(isOpen: boolean) =>
               setActivePicker(isOpen ? 'end' : 'none')
-            }
-            selectedDateTime={selectedDateTime.end}
-            setSelectedDateTime={(dateTime: SelectedDateTime['end']) =>
-              setSelectedDateTime({ ...selectedDateTime, end: dateTime })
-            }
-            finalDateTime={finalDateTime.end}
-            setFinalDateTime={(dateTime: SelectedDateTime['end']) =>
-              setFinalDateTime({
-                ...finalDateTime,
-                end: dateTime,
-              })
             }
           />
         </div>

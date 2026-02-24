@@ -4,12 +4,12 @@ import cn from '@/lib/cn';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function MobileHeader({
+  disabled,
   onBackButtonClick,
-  disabled = true,
   onComplete,
 }: {
+  disabled: boolean;
   onBackButtonClick: () => void;
-  disabled?: boolean;
   onComplete?: () => void;
 }) {
   const t = useTranslations('event.pages.EventConfirmPage');

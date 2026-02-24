@@ -1,21 +1,22 @@
 import { useTranslations } from 'next-intl';
+import { useContext } from 'react';
 
-import { SelectedDateTime } from '@/features/event/types';
+import { SelectedDateTimeContext } from '@/features/event/contexts/SelectedDateTimeContext';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
 import { formatTimeAmPm } from '@/utils';
 
 export default function PickerTrigger({
   type,
-  selectedDateTime,
   active,
   onClick,
 }: {
   type: 'start' | 'end';
-  selectedDateTime: SelectedDateTime['start' | 'end'];
   active?: boolean;
   onClick: () => void;
 }) {
+  const { selectedDateTime } = useContext(SelectedDateTimeContext);
+
   const t = useTranslations('event.pages.EventConfirmPage');
 
   return (
@@ -37,12 +38,16 @@ export default function PickerTrigger({
         {type === 'start' ? t('start') : t('end')}
       </span>
       <span className="text-md-200">
-        {selectedDateTime.date
-          ? dayjs(selectedDateTime.date, 'YYYY.MM.DD').format('YYYY.MM.DD dd')
+        {selectedDateTime[type].date
+          ? dayjs(selectedDateTime[type].date, 'YYYY.MM.DD').format(
+              'YYYY.MM.DD dd',
+            )
           : t('selectDateTime')}
       </span>
       <span className="text-md-300">
-        {selectedDateTime.time ? formatTimeAmPm(selectedDateTime.time) : '-'}
+        {selectedDateTime[type].time
+          ? formatTimeAmPm(selectedDateTime[type].time)
+          : '-'}
       </span>
     </button>
   );

@@ -1,37 +1,42 @@
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 
 import CalendarSelect from '@/components/CalendarSelect';
 import TimeDropdown from '@/components/TimeDropdown';
+import { SelectedDateTimeContext } from '@/features/event/contexts/SelectedDateTimeContext';
 import cn from '@/lib/cn';
 
 export default function PickerPanel({
   type,
-  selectedDateTime,
-  setSelectedDateTime,
   onConfirm,
   onCancel,
 }: {
   type: 'start' | 'end';
-  selectedDateTime: { date: string; time: string };
-  setSelectedDateTime: ({ date, time }: { date: string; time: string }) => void;
   onConfirm: () => void;
   onCancel: () => void;
 }) {
+  const { selectedDateTime, setSelectedDateTime } = useContext(
+    SelectedDateTimeContext,
+  );
+
   const [currentRanges, setCurrentRanges] = useState(
-    selectedDateTime.date ? [selectedDateTime.date] : [],
+    selectedDateTime[type].date ? [selectedDateTime[type].date] : [],
   );
 
   const t = useTranslations('event.pages.EventConfirmPage');
 
-  const isDisabled = !selectedDateTime.date || !selectedDateTime.time;
+  const isDisabled =
+    !selectedDateTime[type].date || !selectedDateTime[type].time;
 
   const setRanges = (ranges: string[]) => {
     const newRanges = ranges.filter((range) => !currentRanges.includes(range));
     setCurrentRanges(newRanges);
     setSelectedDateTime({
-      date: newRanges.length > 0 ? newRanges[0] : '',
-      time: selectedDateTime.time,
+      ...selectedDateTime,
+      [type]: {
+        date: newRanges.length > 0 ? newRanges[0] : '',
+        time: selectedDateTime[type].time,
+      },
     });
   };
 
@@ -46,9 +51,15 @@ export default function PickerPanel({
     >
       <CalendarSelect ranges={currentRanges} setRanges={setRanges} />
       <TimeDropdown
-        time={selectedDateTime.time}
+        time={selectedDateTime[type].time}
         setTime={(time: string) =>
-          setSelectedDateTime({ date: selectedDateTime.date, time })
+          setSelectedDateTime({
+            ...selectedDateTime,
+            [type]: {
+              date: selectedDateTime[type].date,
+              time,
+            },
+          })
         }
         variant="default"
         displayFormat="12h"

@@ -4,11 +4,11 @@ import Button from '@/components/button';
 import cn from '@/lib/cn';
 
 export default function BottomButton({
-  onBackButtonClick,
   disabled,
+  onBackButtonClick,
 }: {
-  onBackButtonClick: () => void;
   disabled: boolean;
+  onBackButtonClick: () => void;
 }) {
   const t = useTranslations('event.pages.EventConfirmPage');
 
