@@ -1,8 +1,9 @@
 import { AnimatePresence } from 'framer-motion';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 
-import BottomButtonForMobile from './BottomButtonForMobile';
+import DisabledBottomButton from './DisabledBottomButton';
 import MainBottomSheet from './MainBottomSheet';
+import ScheduleBottomButton from './ScheduleBottomButton';
 import { useEventQuery } from '@/features/event/api/event.query';
 import LoginAlert from '@/features/event/components/detail/shared/LoginAlert';
 import SharePopUp from '@/features/event/components/detail/shared/SharePopUp';
@@ -17,8 +18,6 @@ import { useParams } from 'next/navigation';
 export default function RecommendedTimesBottomSheet() {
   const [isSharePopUpOpen, setIsSharePopUpOpen] = useState(false);
   const [isLoginAlertOpen, setIsLoginAlertOpen] = useState(false);
-  const [shouldBottomButtonShown, setShouldBottomButtonShown] = useState(false);
-  const [shouldBottomSheetShown, setShouldBottomSheetShown] = useState(false);
 
   const { isFooterShown } = useContext(FooterContext);
 
@@ -32,6 +31,13 @@ export default function RecommendedTimesBottomSheet() {
   const { data: event } = useEventQuery(params.id);
   const { data: schedules } = useSchedulesQuery(event);
 
+  const shouldDisabledBottomButtonShown =
+    event.event_status === 'CONFIRMED' && !isFooterShown;
+  const shouldScheduleBottomButtonShown =
+    event.event_status === 'ACTIVE' && !isFooterShown;
+  const shouldBottomSheetShown =
+    !isFooterShown && schedules?.length !== 0 && isMobile;
+
   async function handleBottomButtonClick() {
     if (isLoggedIn) {
       progressRouter.push(`/events/${params.id}/schedules/new`);
@@ -40,24 +46,17 @@ export default function RecommendedTimesBottomSheet() {
     }
   }
 
-  useEffect(() => {
-    setShouldBottomButtonShown(!isFooterShown);
-  }, [isFooterShown]);
-
-  useEffect(() => {
-    setShouldBottomSheetShown(
-      !isFooterShown && schedules?.length !== 0 && isMobile,
-    );
-  }, [isFooterShown, schedules, isMobile]);
-
   return (
     <>
       <AnimatePresence>
         {shouldBottomSheetShown && <MainBottomSheet />}
       </AnimatePresence>
       <AnimatePresence>
-        {shouldBottomButtonShown && (
-          <BottomButtonForMobile
+        {shouldDisabledBottomButtonShown && <DisabledBottomButton />}
+      </AnimatePresence>
+      <AnimatePresence>
+        {shouldScheduleBottomButtonShown && (
+          <ScheduleBottomButton
             schedules={schedules || []}
             isEventEdited={isEventEdited}
             onShareButtonClick={() => setIsSharePopUpOpen(true)}

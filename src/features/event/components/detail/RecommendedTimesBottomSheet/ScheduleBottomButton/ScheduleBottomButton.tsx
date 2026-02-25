@@ -8,7 +8,7 @@ import { opacityMotionProps } from '@/lib/motion-props';
 import { IconEdit, IconPlus } from '@tabler/icons-react';
 import Image from 'next/image';
 
-export default function BottomButtonForMobile({
+export default function ScheduleBottomButton({
   schedules,
   isEventEdited,
   onShareButtonClick,
