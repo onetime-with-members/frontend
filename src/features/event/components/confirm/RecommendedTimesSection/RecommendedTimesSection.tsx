@@ -51,28 +51,36 @@ export default function RecommendedTimesSection({
   return (
     <section className="flex w-full flex-col gap-2 bg-white px-4 md:min-w-0 md:flex-1 md:rounded-3xl md:p-6">
       <h2 className="text-gray-60 text-md-200">{t('selectFromRecommended')}</h2>
-      <ul className="flex flex-col gap-2 overflow-y-auto">
-        {recommendedTimes.map((recommendedTime, index) => (
-          <RecommendedTimeItem
-            key={index}
-            recommendedTime={recommendedTime}
-            isSelected={selectedItemIndex === index}
-            onClick={() => handleItemClick(index)}
-          />
-        ))}
-      </ul>
-      <button
-        type="button"
-        className="flex items-center justify-center gap-1 py-3 text-gray-40 text-sm-200"
-        onClick={handleToggle}
-      >
-        <span>{isExpanded ? t('viewLess') : t('viewMore')}</span>
-        {isExpanded ? (
-          <IconChevronUp size={16} />
-        ) : (
-          <IconChevronDown size={16} />
-        )}
-      </button>
+      {recommendedTimes.length === 0 ? (
+        <div className="py-3 text-center italic text-gray-60 text-sm-200">
+          {t('noRecommendedTimes')}
+        </div>
+      ) : (
+        <ul className="flex flex-col gap-2 overflow-y-auto">
+          {recommendedTimes.map((recommendedTime, index) => (
+            <RecommendedTimeItem
+              key={index}
+              recommendedTime={recommendedTime}
+              isSelected={selectedItemIndex === index}
+              onClick={() => handleItemClick(index)}
+            />
+          ))}
+        </ul>
+      )}
+      {recommendedTimes.length > 0 && (
+        <button
+          type="button"
+          className="flex items-center justify-center gap-1 py-3 text-gray-40 text-sm-200"
+          onClick={handleToggle}
+        >
+          <span>{isExpanded ? t('viewLess') : t('viewMore')}</span>
+          {isExpanded ? (
+            <IconChevronUp size={16} />
+          ) : (
+            <IconChevronDown size={16} />
+          )}
+        </button>
+      )}
     </section>
   );
 }

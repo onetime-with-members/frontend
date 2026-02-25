@@ -40,12 +40,13 @@
         "selectDateTime": "Select Date/Time",
         "cancel": "Cancel",
         "confirm": "Confirm",
-        "confirmButton": "Confirm",
+        "confirmButton": "Save",
         "done": "Done",
         "selectFromRecommended": "Select from recommended times",
         "recommendedTime": "Recommended Time",
         "viewMore": "View more",
-        "viewLess": "View less"
+        "viewLess": "View less",
+        "noRecommendedTimes": "No recommended times"
       }
     },
     "components": {
