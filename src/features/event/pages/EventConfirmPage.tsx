@@ -25,9 +25,6 @@ export default function EventConfirmPage() {
 
   const { data: event } = useEventQuery(params.id);
 
-  const [selectedDateTime, setSelectedDateTime] = useState(
-    eventToDateTime(event),
-  );
   const [finalDateTime, setFinalDateTime] = useState(eventToDateTime(event));
 
   const router = useRouter();
@@ -72,9 +69,7 @@ export default function EventConfirmPage() {
     !finalDateTime.end.time;
 
   useEffect(() => {
-    const newDateTime = eventToDateTime(event);
-    setSelectedDateTime(newDateTime);
-    setFinalDateTime(newDateTime);
+    setFinalDateTime(eventToDateTime(event));
   }, [event]);
 
   return (
@@ -91,15 +86,10 @@ export default function EventConfirmPage() {
           <DesktopHeader onBackButtonClick={handleBackButtonClick} />
           <div className="flex w-full flex-col gap-8 rounded-3xl bg-gray-00 md:flex-row">
             <PickersSection
-              selectedDateTime={selectedDateTime}
-              setSelectedDateTime={setSelectedDateTime}
               finalDateTime={finalDateTime}
               setFinalDateTime={setFinalDateTime}
             />
-            <RecommendedTimesSection
-              setSelectedDateTime={setSelectedDateTime}
-              setFinalDateTime={setFinalDateTime}
-            />
+            <RecommendedTimesSection setFinalDateTime={setFinalDateTime} />
           </div>
         </div>
         <BottomButton onClick={handleConfirm} disabled={isDisabled} />

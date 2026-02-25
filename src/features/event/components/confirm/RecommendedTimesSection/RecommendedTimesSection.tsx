@@ -8,10 +8,8 @@ import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
 export default function RecommendedTimesSection({
-  setSelectedDateTime,
   setFinalDateTime,
 }: {
-  setSelectedDateTime: (dateTime: SelectedDateTime) => void;
   setFinalDateTime: (dateTime: SelectedDateTime) => void;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -47,7 +45,6 @@ export default function RecommendedTimesSection({
       },
     };
 
-    setSelectedDateTime(result);
     setFinalDateTime(result);
   }
 

@@ -8,13 +8,9 @@ import { SelectedDateTime } from '@/features/event/types';
 import { useParams } from 'next/navigation';
 
 export default function PickersSection({
-  selectedDateTime,
-  setSelectedDateTime,
   finalDateTime,
   setFinalDateTime,
 }: {
-  selectedDateTime: SelectedDateTime;
-  setSelectedDateTime: (dateTime: SelectedDateTime) => void;
   finalDateTime: SelectedDateTime;
   setFinalDateTime: (dateTime: SelectedDateTime) => void;
 }) {
@@ -31,12 +27,6 @@ export default function PickersSection({
     datePickerType: event.category === 'DATE' ? 'date' : 'day',
     isOpen: activePicker === type,
     setIsOpen: (isOpen: boolean) => setActivePicker(isOpen ? type : 'none'),
-    selectedDateTime: selectedDateTime[type],
-    setSelectedDateTime: (dateTime: SelectedDateTime[typeof type]) =>
-      setSelectedDateTime({
-        ...selectedDateTime,
-        [type]: dateTime,
-      }),
     finalDateTime: finalDateTime[type],
     setFinalDateTime: (dateTime: SelectedDateTime[typeof type]) =>
       setFinalDateTime({ ...finalDateTime, [type]: dateTime }),
