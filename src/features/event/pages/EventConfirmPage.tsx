@@ -45,7 +45,6 @@ export default function EventConfirmPage() {
           finalDateTime.end.date,
         start_time: finalDateTime.start.time,
         end_time: finalDateTime.end.time,
-        selection_source: 'MANUAL',
       } as ConfirmEventRequestData,
     };
 

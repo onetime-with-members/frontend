@@ -66,7 +66,6 @@ export interface ConfirmedEventData {
 export type ConfirmEventRequestData = {
   start_time: string;
   end_time: string;
-  selection_source: 'RECOMMENDED' | 'MANUAL';
 } & (
   | { start_date: string; end_date: string }
   | {
