@@ -24,7 +24,8 @@
           "talkCalendarSuccess": "Talk Calendar event created successfully",
           "talkCalendarError": "Failed to create Talk Calendar event",
           "disableScheduleWhenConfirmed": "Schedules cannot be {action, select, edit {edited} other {added}} for confirmed events"
-        }
+        },
+        "confirmed": "This event has been confirmed"
       },
       "EventCreatePage": {
         "createEvent": "Create Event"
