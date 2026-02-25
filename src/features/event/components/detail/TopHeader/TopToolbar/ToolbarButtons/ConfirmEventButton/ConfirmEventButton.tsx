@@ -2,13 +2,7 @@ import { useLocale, useTranslations } from 'next-intl';
 
 import SpeechBalloon from '../../../../shared/SpeechBalloon';
 import { CalendarIcon } from '@/components/icon';
-import { weekdaysShortKo } from '@/constants';
-import {
-  useConfirmEventMutation,
-  useEventQuery,
-  useRecommendedTimesQuery,
-} from '@/features/event/api/event.query';
-import dayjs from '@/lib/dayjs';
+import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
 export default function ConfirmEventButton() {
@@ -16,40 +10,10 @@ export default function ConfirmEventButton() {
   const t = useTranslations('event.pages.EventDetailPage.confirm');
   const locale = useLocale();
 
-  const { data: event } = useEventQuery(params.id);
-  const { data: recommendedTimes } = useRecommendedTimesQuery(params.id);
-
-  const { mutateAsync: confirmEvent } = useConfirmEventMutation();
+  const progressRouter = useProgressRouter();
 
   async function handleClick() {
-    if (recommendedTimes.length === 0) return;
-    const recommendedTime = recommendedTimes[0];
-    await confirmEvent({
-      eventId: params.id,
-      data:
-        event.category === 'DATE'
-          ? {
-              start_date: recommendedTime.time_point,
-              end_date: dayjs(recommendedTime.time_point, 'YYYY.MM.DD')
-                .add(1, 'day')
-                .format('YYYY.MM.DD'),
-              start_time: recommendedTime.start_time,
-              end_time: recommendedTime.end_time,
-              selection_source: 'RECOMMENDED',
-            }
-          : {
-              start_day: recommendedTime.time_point,
-              end_day:
-                weekdaysShortKo[
-                  weekdaysShortKo.findIndex(
-                    (weekday) => weekday === recommendedTime.time_point,
-                  ) + 1
-                ],
-              start_time: recommendedTime.start_time,
-              end_time: recommendedTime.end_time,
-              selection_source: 'RECOMMENDED',
-            },
-    });
+    progressRouter.push(`/events/${params.id}/confirm`);
   }
 
   return (
