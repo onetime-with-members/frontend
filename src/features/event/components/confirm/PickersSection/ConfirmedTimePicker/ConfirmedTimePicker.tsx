@@ -2,23 +2,27 @@ import PickerPanel from './PickerPanel';
 import PickerTrigger from './PickerTrigger';
 import { SelectedDateTime } from '@/features/event/types';
 
-export default function ConfirmedTimePicker({
-  type,
-  isOpen,
-  setIsOpen,
-  selectedDateTime,
-  setSelectedDateTime,
-  finalDateTime,
-  setFinalDateTime,
-}: {
+export interface ConfirmedTimePickerProps {
   type: 'start' | 'end';
+  datePickerType: 'date' | 'day';
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   selectedDateTime: SelectedDateTime['start' | 'end'];
   setSelectedDateTime: (dateTime: SelectedDateTime['start' | 'end']) => void;
   finalDateTime: SelectedDateTime['start' | 'end'];
   setFinalDateTime: (dateTime: SelectedDateTime['start' | 'end']) => void;
-}) {
+}
+
+export default function ConfirmedTimePicker({
+  type,
+  datePickerType,
+  isOpen,
+  setIsOpen,
+  selectedDateTime,
+  setSelectedDateTime,
+  finalDateTime,
+  setFinalDateTime,
+}: ConfirmedTimePickerProps) {
   function handleTriggerClick() {
     setIsOpen(!isOpen);
   }
@@ -37,6 +41,7 @@ export default function ConfirmedTimePicker({
     <div className="relative">
       <PickerTrigger
         type={type}
+        datePickerType={datePickerType}
         active={isOpen}
         onClick={handleTriggerClick}
         selectedDateTime={selectedDateTime}
@@ -44,6 +49,7 @@ export default function ConfirmedTimePicker({
       {isOpen && (
         <PickerPanel
           type={type}
+          datePickerType={datePickerType}
           onConfirm={handlePanelConfirm}
           onCancel={handlePanelClose}
           selectedDateTime={selectedDateTime}

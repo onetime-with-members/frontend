@@ -3,17 +3,20 @@ import { useState } from 'react';
 
 import CalendarSelect from '@/components/CalendarSelect';
 import TimeDropdown from '@/components/TimeDropdown';
+import WeekdaySelect from '@/features/event/components/form/EventForm/FormContent/InputContent/DateControl/WeekdaySelect';
 import { SelectedDateTime } from '@/features/event/types';
 import cn from '@/lib/cn';
 
 export default function PickerPanel({
   type,
+  datePickerType,
   onConfirm,
   onCancel,
   selectedDateTime,
   setSelectedDateTime,
 }: {
   type: 'start' | 'end';
+  datePickerType: 'date' | 'day';
   onConfirm: () => void;
   onCancel: () => void;
   selectedDateTime: SelectedDateTime['start' | 'end'];
@@ -45,7 +48,11 @@ export default function PickerPanel({
         },
       )}
     >
-      <CalendarSelect ranges={currentRanges} setRanges={setRanges} />
+      {datePickerType === 'date' ? (
+        <CalendarSelect ranges={currentRanges} setRanges={setRanges} />
+      ) : (
+        <WeekdaySelect ranges={currentRanges} setRanges={setRanges} />
+      )}
       <TimeDropdown
         time={selectedDateTime.time}
         setTime={(time: string) =>

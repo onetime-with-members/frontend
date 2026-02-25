@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import ConfirmedTimePicker from './ConfirmedTimePicker';
+import { ConfirmedTimePickerProps } from './ConfirmedTimePicker/ConfirmedTimePicker';
 import { CalendarIcon } from '@/components/icon';
 import { useEventQuery } from '@/features/event/api/event.query';
 import { SelectedDateTime } from '@/features/event/types';
@@ -25,8 +26,9 @@ export default function PickersSection({
 
   const { data: event } = useEventQuery(params.id);
 
-  const pickerProps = (type: 'start' | 'end') => ({
+  const pickerProps = (type: 'start' | 'end'): ConfirmedTimePickerProps => ({
     type,
+    datePickerType: event.category === 'DATE' ? 'date' : 'day',
     isOpen: activePicker === type,
     setIsOpen: (isOpen: boolean) => setActivePicker(isOpen ? type : 'none'),
     selectedDateTime: selectedDateTime[type],

@@ -139,13 +139,20 @@ export function getConfirmedTimeFromNow({
 
 export function eventToDateTime(event: EventType): SelectedDateTime {
   const confirmedTime = event.confirmation;
+
   return {
     start: {
-      date: confirmedTime?.start_date ?? '',
+      date:
+        event.category === 'DATE'
+          ? (confirmedTime?.start_date ?? '')
+          : (confirmedTime?.start_day ?? ''),
       time: confirmedTime?.start_time ?? '',
     },
     end: {
-      date: confirmedTime?.end_date ?? '',
+      date:
+        event.category === 'DATE'
+          ? (confirmedTime?.end_date ?? '')
+          : (confirmedTime?.end_day ?? ''),
       time: confirmedTime?.end_time ?? '',
     },
   };

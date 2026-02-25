@@ -13,6 +13,7 @@ import DesktopNavBar from '../components/confirm/DesktopNavBar';
 import MobileHeader from '../components/confirm/MobileHeader';
 import PickersSection from '../components/confirm/PickersSection';
 import RecommendedTimesSection from '../components/confirm/RecommendedTimesSection';
+import { ConfirmEventRequestData } from '../types';
 import { eventToDateTime } from '../utils';
 import GrayBackground from '@/components/GrayBackground';
 import { useRouter } from '@/i18n/navigation';
@@ -41,12 +42,14 @@ export default function EventConfirmPage() {
     const request = {
       eventId: params.id,
       data: {
-        start_date: finalDateTime.start.date,
-        end_date: finalDateTime.end.date,
+        [event.category === 'DATE' ? 'start_date' : 'start_day']:
+          finalDateTime.start.date,
+        [event.category === 'DATE' ? 'end_date' : 'end_day']:
+          finalDateTime.end.date,
         start_time: finalDateTime.start.time,
         end_time: finalDateTime.end.time,
-        selection_source: 'MANUAL' as const,
-      },
+        selection_source: 'MANUAL',
+      } as ConfirmEventRequestData,
     };
 
     if (event.confirmation) {
