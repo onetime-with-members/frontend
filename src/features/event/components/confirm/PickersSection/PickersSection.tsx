@@ -33,7 +33,7 @@ export default function PickersSection({
   });
 
   return (
-    <section className="flex w-full flex-col gap-3 bg-gray-00 px-4 pt-4 md:w-[442px] md:rounded-3xl md:p-6">
+    <section className="flex flex-1 flex-col gap-3 bg-gray-00 px-4 pt-4 md:rounded-3xl md:p-6">
       <div className="flex flex-col gap-2 rounded-2xl bg-transparent md:gap-3 md:p-0">
         <h3 className="flex items-center gap-1">
           <CalendarIcon fontSize={20} innerfill="#F6F7F8" />

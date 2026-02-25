@@ -49,7 +49,7 @@ export default function RecommendedTimesSection({
   }
 
   return (
-    <section className="flex w-full flex-col gap-2 bg-white px-4 md:min-w-0 md:flex-1 md:rounded-3xl md:p-6">
+    <section className="flex w-full flex-col gap-2 bg-gray-00 px-4 md:min-w-0 md:flex-1 md:rounded-3xl md:p-6">
       <h2 className="text-gray-60 text-md-200">{t('selectFromRecommended')}</h2>
       {recommendedTimes.length === 0 ? (
         <div className="py-3 text-center italic text-gray-60 text-sm-200">
