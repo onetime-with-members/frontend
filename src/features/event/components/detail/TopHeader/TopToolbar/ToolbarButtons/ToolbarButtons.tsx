@@ -8,7 +8,6 @@ import {
   useEventQuery,
   useEventWithAuthQuery,
 } from '@/features/event/api/event.query';
-import useEventConfirmStatus from '@/features/event/hooks/useEventConfirmStatus';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
@@ -18,7 +17,6 @@ export default function ToolbarButtons() {
   const params = useParams<{ id: string }>();
 
   const progressRouter = useProgressRouter();
-  const eventConfirmStatus = useEventConfirmStatus();
 
   const { data: event } = useEventQuery(params.id);
   const { data: eventWithAuth } = useEventWithAuthQuery(params.id);
@@ -42,7 +40,7 @@ export default function ToolbarButtons() {
             <TrashIcon innerfill="#474A5C" />
           </ToolbarButton>
         )}
-        {eventConfirmStatus === 'available' && <ConfirmEventButton />}
+        {event.event_status === 'ACTIVE' && <ConfirmEventButton />}
       </div>
       {isDeleteAlertOpen && (
         <EventDeleteAlert setIsEventDeleteAlertOpen={setIsDeleteAlertOpen} />

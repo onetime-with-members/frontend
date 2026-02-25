@@ -1,9 +1,10 @@
 import { useContext } from 'react';
 
-import useEventConfirmStatus from '../useEventConfirmStatus';
+import { useEventQuery } from '../../api/event.query';
 import { BarBannerContext } from '@/features/banner/contexts/BarBannerContext';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import useIsMobile from '@/hooks/useIsMobile';
+import { useParams } from 'next/navigation';
 
 export default function useTopContentHeight(
   callback: (heights: {
@@ -16,21 +17,22 @@ export default function useTopContentHeight(
   const { isBarBannerShown } = useContext(BarBannerContext);
   const { schedules } = useContext(EventParticipantFilterContext);
 
+  const params = useParams<{ id: string }>();
+
   const isMobile = useIsMobile();
-  const eventConfirmStatus = useEventConfirmStatus();
+
+  const { data: event } = useEventQuery(params.id);
 
   const navBar = 64;
   const participantFilter = schedules.length > 0 ? 36 : 0;
   const barBanner = isBarBannerShown ? 56 : 0;
 
   const eventConfirmBanner = isMobile
-    ? eventConfirmStatus === 'confirm'
+    ? event.event_status === 'CONFIRMED'
       ? 124
-      : eventConfirmStatus === 'available'
-        ? 48
-        : 0
+      : 0
     : 0;
-  const eventHeaderGap = eventConfirmStatus !== 'unavailable' ? 12 : 0;
+  const eventHeaderGap = event.event_status === 'CONFIRMED' ? 12 : 0;
   const eventHeader = isMobile ? 52 + eventHeaderGap + eventConfirmBanner : 64;
 
   return callback({
