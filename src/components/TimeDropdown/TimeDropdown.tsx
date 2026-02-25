@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
+import { timeLabelList } from '@/features/schedule/utils';
 import useDropdown from '@/hooks/useDropdown';
 import cn from '@/lib/cn';
 import { formatTimeAmPm } from '@/utils';
@@ -16,6 +17,7 @@ export default function TimeDropdown({
   variant = 'default',
   displayFormat,
   placement = 'bottom',
+  interval = '1h',
 }: {
   time: string;
   setTime: (time: string) => void;
@@ -23,6 +25,7 @@ export default function TimeDropdown({
   variant?: 'default' | 'white' | 'lightGray';
   displayFormat?: '24h' | '12h';
   placement?: 'top' | 'bottom';
+  interval?: '1h' | '30m';
 }) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -98,15 +101,13 @@ export default function TimeDropdown({
             },
           )}
         >
-          {Array.from({ length: 25 }, (_, index) => index).map((time) => (
+          {timeLabelList('00:00', '24:00', interval).map((time) => (
             <li
               key={time}
               className="w-full cursor-pointer py-2 text-center text-gray-50 text-lg-200"
-              onClick={() =>
-                handleSelectTime(`${time.toString().padStart(2, '0')}:00`)
-              }
+              onClick={() => handleSelectTime(time)}
             >
-              {time.toString().padStart(2, '0')}:00
+              {time}
             </li>
           ))}
         </ul>

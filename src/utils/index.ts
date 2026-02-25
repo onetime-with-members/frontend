@@ -37,7 +37,7 @@ export function formatTimeAmPm(time: string): string {
   const h = parseInt(hStr, 10);
   const m = mStr ?? '00';
   if (h === 0) return `오전 12:${m}`;
-  if (h < 12) return `오전 ${h}:${m}`;
+  if (h < 12) return `오전 ${h.toString().padStart(2, '0')}:${m}`;
   if (h === 12) return `오후 12:${m}`;
-  return `오후 ${h - 12}:${m}`;
+  return `오후 ${(h - 12).toString().padStart(2, '0')}:${m}`;
 }

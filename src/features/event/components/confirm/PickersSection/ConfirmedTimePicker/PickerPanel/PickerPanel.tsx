@@ -49,7 +49,11 @@ export default function PickerPanel({
       )}
     >
       {datePickerType === 'date' ? (
-        <CalendarSelect ranges={currentRanges} setRanges={setRanges} />
+        <CalendarSelect
+          ranges={currentRanges}
+          setRanges={setRanges}
+          dateRange="all"
+        />
       ) : (
         <WeekdaySelect ranges={currentRanges} setRanges={setRanges} />
       )}
@@ -65,6 +69,7 @@ export default function PickerPanel({
         displayFormat="12h"
         className="w-[9rem]"
         placement="top"
+        interval="30m"
       />
       <div className="flex justify-end gap-2 pt-2">
         <button

@@ -13,10 +13,12 @@ export default function CalendarSelect({
   className,
   ranges,
   setRanges,
+  dateRange = 'prev',
 }: {
   className?: string;
   ranges: string[];
   setRanges: (ranges: string[]) => void;
+  dateRange?: 'prev' | 'all';
 }) {
   const [currentDate, setCurrentDate] = useState(
     ranges.length > 0 ? dayjs(ranges[0], 'YYYY.MM.dd') : dayjs(),
@@ -38,9 +40,10 @@ export default function CalendarSelect({
 
   const firstWeekdayIndex = currentDate.startOf('month').day();
   const lastDate = currentDate.endOf('month').date();
-  const isPrevDisabled = currentDate
-    .subtract(1, 'month')
-    .isBefore(dayjs(), 'month');
+  const isPrevDisabled =
+    dateRange === 'prev'
+      ? currentDate.subtract(1, 'month').isBefore(dayjs(), 'month')
+      : false;
 
   function currentDateFormat(date: number) {
     return currentDate.date(date).format('YYYY.MM.DD');
@@ -112,34 +115,44 @@ export default function CalendarSelect({
           </DateItem>
         ))}
         {Array.from({ length: lastDate }, (_, index) => index + 1).map(
-          (date) => (
-            <div key={date} className="flex items-center justify-center">
-              <DateItem
-                key={date}
-                data-date={currentDateFormat(date)}
-                active={ranges.includes(currentDateFormat(date))}
-                disabled={currentDate.date(date).isBefore(dayjs(), 'date')}
-                aria-disabled={currentDate.date(date).isBefore(dayjs(), 'date')}
-                onMouseDown={() =>
-                  handleDragStart({
-                    isFilling: !ranges.includes(currentDateFormat(date)),
-                  })
-                }
-                onMouseMove={handleDragMove}
-                onMouseUp={handleDragEnd}
-                onTouchStart={() =>
-                  handleDragStart({
-                    isFilling: !ranges.includes(currentDateFormat(date)),
-                  })
-                }
-                onTouchMove={handleDragMove}
-                onTouchEnd={handleDragEnd}
-                style={cssStyle}
+          (date) => {
+            const formattedDate = currentDateFormat(date);
+
+            const isDisabled =
+              dateRange === 'prev'
+                ? currentDate.date(date).isBefore(dayjs(), 'date')
+                : false;
+            const isActive = ranges.includes(formattedDate);
+
+            const handleDateItemDragStart = () =>
+              handleDragStart({
+                isFilling: !isActive,
+              });
+
+            return (
+              <div
+                key={formattedDate}
+                className="flex items-center justify-center"
               >
-                {date}
-              </DateItem>
-            </div>
-          ),
+                <DateItem
+                  key={formattedDate}
+                  data-date={formattedDate}
+                  active={isActive}
+                  disabled={isDisabled}
+                  aria-disabled={isDisabled}
+                  onMouseDown={handleDateItemDragStart}
+                  onMouseMove={handleDragMove}
+                  onMouseUp={handleDragEnd}
+                  onTouchStart={handleDateItemDragStart}
+                  onTouchMove={handleDragMove}
+                  onTouchEnd={handleDragEnd}
+                  style={cssStyle}
+                >
+                  {date}
+                </DateItem>
+              </div>
+            );
+          },
         )}
       </div>
     </div>

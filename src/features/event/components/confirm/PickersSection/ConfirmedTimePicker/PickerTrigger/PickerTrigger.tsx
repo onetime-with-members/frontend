@@ -42,7 +42,9 @@ export default function PickerTrigger({
       <span className="text-md-200">
         {selectedDateTime.date
           ? datePickerType === 'date'
-            ? dayjs(selectedDateTime.date, 'YYYY.MM.DD').format('YYYY.MM.DD dd')
+            ? dayjs(selectedDateTime.date, 'YYYY.MM.DD').format(
+                'YYYY.MM.DD ddd',
+              )
             : dayjs()
                 .day(
                   weekdaysShortKo.findIndex(
