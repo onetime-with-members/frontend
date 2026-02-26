@@ -43,8 +43,6 @@ export async function createUserAction(value: OnboardingType) {
     service_policy_agreement: value.servicePolicy,
     privacy_policy_agreement: value.privacyPolicy,
     marketing_policy_agreement: value.marketingPolicy,
-    sleep_start_time: value.startSleepTime,
-    sleep_end_time: value.endSleepTime,
     language: value.language,
   });
   return res.data.payload;

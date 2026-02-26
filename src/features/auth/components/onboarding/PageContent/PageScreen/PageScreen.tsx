@@ -2,7 +2,6 @@ import { useContext } from 'react';
 
 import NicknameFormScreen from './NicknameFormScreen';
 import PolicyScreen from './PolicyScreen';
-import SleepTimeScreen from './SleepTimeScreen';
 import WelcomeScreen from './WelcomeScreen';
 import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 
@@ -13,8 +12,7 @@ export default function PageScreen() {
     <>
       {pageIndex === 0 && <PolicyScreen />}
       {pageIndex === 1 && <NicknameFormScreen />}
-      {pageIndex === 2 && <SleepTimeScreen />}
-      {pageIndex === 3 && <WelcomeScreen />}
+      {pageIndex === 2 && <WelcomeScreen />}
     </>
   );
 }

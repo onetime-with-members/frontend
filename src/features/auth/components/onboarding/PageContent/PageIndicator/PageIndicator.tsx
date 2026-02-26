@@ -9,10 +9,10 @@ export default function PageIndicator() {
   return (
     <div
       className={cn('flex items-center gap-2 py-4 md:justify-center', {
-        hidden: pageIndex === 3,
+        hidden: pageIndex === 2,
       })}
     >
-      {Array.from({ length: 3 }, (_, i) => i + 1).map((pageNumber, index) => (
+      {Array.from({ length: 2 }, (_, i) => i + 1).map((pageNumber, index) => (
         <div
           key={index}
           className={cn(
