@@ -83,9 +83,9 @@ export default function EventConfirmPage() {
         disabled={isDisabled}
       />
       <main className="flex flex-col items-center pb-10">
-        <div className="mx-auto flex w-full max-w-[825px] flex-col items-center justify-center md:pt-6">
+        <div className="mx-auto flex w-full max-w-[908px] flex-col items-center justify-center md:pt-6">
           <DesktopHeader onBackButtonClick={handleBackButtonClick} />
-          <div className="flex w-full flex-col gap-8 rounded-3xl md:flex-row">
+          <div className="flex w-full flex-col gap-8 rounded-3xl md:max-h-[701px] md:flex-row">
             <PickersSection />
             <RecommendedTimesSection />
           </div>

@@ -8,6 +8,7 @@ import {
   useConfirmedTimeDispatch,
 } from '@/features/event/contexts/ConfirmedTimeContext';
 import { RecommendedScheduleType } from '@/features/event/types';
+import useIsMobile from '@/hooks/useIsMobile';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
@@ -16,15 +17,18 @@ export default function RecommendedTimesSection() {
 
   const confirmedTime = useConfirmedTime();
   const dispatch = useConfirmedTimeDispatch();
+  const isMobile = useIsMobile();
 
   const params = useParams<{ id: string }>();
   const t = useTranslations('event.pages.EventConfirmPage');
 
   const { data: recommendedTimesData } = useRecommendedTimesQuery(params.id);
 
-  const recommendedTimes = isExpanded
-    ? recommendedTimesData
-    : recommendedTimesData.slice(0, 3);
+  const recommendedTimes = isMobile
+    ? isExpanded
+      ? recommendedTimesData
+      : recommendedTimesData.slice(0, 3)
+    : recommendedTimesData;
 
   const isActive = (recommendedTime: RecommendedScheduleType) =>
     recommendedTime.time_point === confirmedTime.start.date &&
@@ -64,7 +68,7 @@ export default function RecommendedTimesSection() {
           ))}
         </ul>
       )}
-      {recommendedTimes.length > 0 && (
+      {recommendedTimes.length > 0 && isMobile && (
         <button
           type="button"
           className="flex items-center justify-center gap-1 py-3 text-gray-40 text-sm-200"

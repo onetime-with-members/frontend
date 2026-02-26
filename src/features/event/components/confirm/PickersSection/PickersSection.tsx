@@ -33,6 +33,7 @@ export default function PickersSection() {
           <ConfirmedTimePicker {...pickerProps('start')} />
           <ConfirmedTimePicker {...pickerProps('end')} />
         </div>
+        <div id="desktop-picker-panel" />
       </div>
     </section>
   );
