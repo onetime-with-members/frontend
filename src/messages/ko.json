@@ -46,7 +46,8 @@
         "recommendedTime": "추천 시간",
         "viewMore": "더보기",
         "viewLess": "숨기기",
-        "noRecommendedTimes": "추천 시간이 없습니다"
+        "noRecommendedTimes": "추천 시간이 없습니다",
+        "metaTitle": "{name} 확정"
       }
     },
     "components": {

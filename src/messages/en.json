@@ -46,7 +46,8 @@
         "recommendedTime": "Recommended Time",
         "viewMore": "View more",
         "viewLess": "View less",
-        "noRecommendedTimes": "No recommended times"
+        "noRecommendedTimes": "No recommended times",
+        "metaTitle": "Confirm {name}"
       }
     },
     "components": {
