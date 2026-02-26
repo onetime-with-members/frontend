@@ -4,16 +4,9 @@ import ConfirmedTimePicker from './ConfirmedTimePicker';
 import { ConfirmedTimePickerProps } from './ConfirmedTimePicker/ConfirmedTimePicker';
 import { CalendarIcon } from '@/components/icon';
 import { useEventQuery } from '@/features/event/api/event.query';
-import { SelectedDateTime } from '@/features/event/types';
 import { useParams } from 'next/navigation';
 
-export default function PickersSection({
-  finalDateTime,
-  setFinalDateTime,
-}: {
-  finalDateTime: SelectedDateTime;
-  setFinalDateTime: (dateTime: SelectedDateTime) => void;
-}) {
+export default function PickersSection() {
   const [activePicker, setActivePicker] = useState<'start' | 'end' | 'none'>(
     'none',
   );
@@ -26,10 +19,7 @@ export default function PickersSection({
     type,
     datePickerType: event.category === 'DATE' ? 'date' : 'day',
     isOpen: activePicker === type,
-    setIsOpen: (isOpen: boolean) => setActivePicker(isOpen ? type : 'none'),
-    finalDateTime: finalDateTime[type],
-    setFinalDateTime: (dateTime: SelectedDateTime[typeof type]) =>
-      setFinalDateTime({ ...finalDateTime, [type]: dateTime }),
+    onOpen: (isOpen: boolean) => setActivePicker(isOpen ? type : 'none'),
   });
 
   return (

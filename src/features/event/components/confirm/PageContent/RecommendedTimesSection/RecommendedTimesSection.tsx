@@ -4,20 +4,18 @@ import { useState } from 'react';
 import RecommendedTimeItem from './RecommendedTimeItem';
 import { useRecommendedTimesQuery } from '@/features/event/api/event.query';
 import {
-  RecommendedScheduleType,
-  SelectedDateTime,
-} from '@/features/event/types';
+  useConfirmedTime,
+  useConfirmedTimeDispatch,
+} from '@/features/event/contexts/ConfirmedTimeContext';
+import { RecommendedScheduleType } from '@/features/event/types';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
-export default function RecommendedTimesSection({
-  finalDateTime,
-  setFinalDateTime,
-}: {
-  finalDateTime: SelectedDateTime;
-  setFinalDateTime: (dateTime: SelectedDateTime) => void;
-}) {
+export default function RecommendedTimesSection() {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const confirmedTime = useConfirmedTime();
+  const dispatch = useConfirmedTimeDispatch();
 
   const params = useParams<{ id: string }>();
   const t = useTranslations('event.pages.EventConfirmPage');
@@ -29,29 +27,18 @@ export default function RecommendedTimesSection({
     : recommendedTimesData.slice(0, 3);
 
   const isActive = (recommendedTime: RecommendedScheduleType) =>
-    recommendedTime.time_point === finalDateTime.start.date &&
-    recommendedTime.time_point === finalDateTime.end.date &&
-    recommendedTime.start_time === finalDateTime.start.time &&
-    recommendedTime.end_time === finalDateTime.end.time;
+    recommendedTime.time_point === confirmedTime.start.date &&
+    recommendedTime.time_point === confirmedTime.end.date &&
+    recommendedTime.start_time === confirmedTime.start.time &&
+    recommendedTime.end_time === confirmedTime.end.time;
+
+  function handleItemClick(recommendedTime: RecommendedScheduleType) {
+    if (!dispatch) return;
+    dispatch({ type: 'recommended_time_click', recommendedTime });
+  }
 
   function handleToggle() {
     setIsExpanded((prev) => !prev);
-  }
-
-  function handleItemClick(recommendedTime: RecommendedScheduleType) {
-    const { time_point, start_time, end_time } = recommendedTime;
-    const result = {
-      start: {
-        date: time_point,
-        time: start_time,
-      },
-      end: {
-        date: time_point,
-        time: end_time,
-      },
-    };
-
-    setFinalDateTime(result);
   }
 
   return (

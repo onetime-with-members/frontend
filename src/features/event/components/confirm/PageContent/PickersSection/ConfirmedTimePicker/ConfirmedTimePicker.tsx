@@ -2,45 +2,54 @@ import { useEffect, useState } from 'react';
 
 import PickerPanel from './PickerPanel';
 import PickerTrigger from './PickerTrigger';
-import { SelectedDateTime } from '@/features/event/types';
+import {
+  useConfirmedTime,
+  useConfirmedTimeDispatch,
+} from '@/features/event/contexts/ConfirmedTimeContext';
 
 export interface ConfirmedTimePickerProps {
   type: 'start' | 'end';
   datePickerType: 'date' | 'day';
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
-  finalDateTime: SelectedDateTime['start' | 'end'];
-  setFinalDateTime: (dateTime: SelectedDateTime['start' | 'end']) => void;
+  onOpen: (isOpen: boolean) => void;
 }
 
 export default function ConfirmedTimePicker({
   type,
   datePickerType,
   isOpen,
-  setIsOpen,
-  finalDateTime,
-  setFinalDateTime,
+  onOpen,
 }: ConfirmedTimePickerProps) {
-  const [selectedDateTime, setSelectedDateTime] =
-    useState<SelectedDateTime['start' | 'end']>(finalDateTime);
+  const confirmedTime = useConfirmedTime();
+  const dispatch = useConfirmedTimeDispatch();
+
+  const [selectedDateTime, setSelectedDateTime] = useState<{
+    date: string;
+    time: string;
+  }>(confirmedTime[type]);
 
   function handleTriggerClick() {
-    setIsOpen(!isOpen);
+    onOpen(!isOpen);
   }
 
   function handlePanelConfirm() {
-    setFinalDateTime(selectedDateTime);
-    setIsOpen(false);
+    if (!dispatch) return;
+    if (type === 'start') {
+      dispatch({ type: 'start_picker_selected', ...selectedDateTime });
+    } else {
+      dispatch({ type: 'end_picker_selected', ...selectedDateTime });
+    }
+    onOpen(false);
   }
 
   function handlePanelClose() {
-    setSelectedDateTime(finalDateTime);
-    setIsOpen(false);
+    setSelectedDateTime(confirmedTime[type]);
+    onOpen(false);
   }
 
   useEffect(() => {
-    setSelectedDateTime(finalDateTime);
-  }, [finalDateTime]);
+    setSelectedDateTime(confirmedTime[type]);
+  }, [confirmedTime[type]]);
 
   return (
     <div className="relative">
