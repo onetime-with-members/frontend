@@ -2,6 +2,7 @@ import {
   eventQueryOptions,
   recommendedTimesQueryOptions,
 } from '@/features/event/api/event.option';
+import { ConfirmedTimeProvider } from '@/features/event/contexts/ConfirmedTimeContext';
 import EventConfirmPage from '@/features/event/pages/EventConfirmPage';
 import {
   HydrationBoundary,
@@ -23,7 +24,9 @@ export default async function Page({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <EventConfirmPage />
+      <ConfirmedTimeProvider>
+        <EventConfirmPage />
+      </ConfirmedTimeProvider>
     </HydrationBoundary>
   );
 }
