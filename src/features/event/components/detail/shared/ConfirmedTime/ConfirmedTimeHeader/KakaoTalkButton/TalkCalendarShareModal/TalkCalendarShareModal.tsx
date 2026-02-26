@@ -29,6 +29,6 @@ export default function TalkCalendarShareModal({
         </div>
       </div>
     </div>,
-    document.getElementById('pop-up') as HTMLElement,
+    document.getElementById('pop-up')!,
   );
 }

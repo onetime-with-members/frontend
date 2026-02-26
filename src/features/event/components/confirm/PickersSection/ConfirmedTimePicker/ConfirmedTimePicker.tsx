@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import ConfirmedTimePickerButton from '../../shared/ConfirmedTimePickerButton';
 import PickerPanel from './PickerPanel';
-import PickerTrigger from './PickerTrigger';
 import {
   useConfirmedTime,
   useConfirmedTimeDispatch,
@@ -53,7 +53,7 @@ export default function ConfirmedTimePicker({
 
   return (
     <div className="relative">
-      <PickerTrigger
+      <ConfirmedTimePickerButton
         type={type}
         datePickerType={datePickerType}
         active={isOpen}
