@@ -13,6 +13,7 @@ import {
 } from '@/features/event/api/event.query';
 import { useConfirmedTime } from '@/features/event/contexts/ConfirmedTimeContext';
 import { ConfirmEventRequestData } from '@/features/event/types';
+import { parseDateTime, parseDayTime } from '@/features/event/utils';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
@@ -29,11 +30,21 @@ export default function PageContent() {
   const { mutateAsync: editEventConfirmedTime } =
     useEditEventConfirmedTimeMutation();
 
-  const isDisabled =
-    !confirmedTime.start.date ||
-    !confirmedTime.start.time ||
-    !confirmedTime.end.date ||
-    !confirmedTime.end.time;
+  const isAllPickerSelected =
+    confirmedTime.start.date &&
+    confirmedTime.start.time &&
+    confirmedTime.end.date &&
+    confirmedTime.end.time;
+  const isStartEndDateTimeValid = () => {
+    const parse = event.category === 'DATE' ? parseDateTime : parseDayTime;
+    const startDayjs = parse(
+      confirmedTime.start.date,
+      confirmedTime.start.time,
+    );
+    const endDayjs = parse(confirmedTime.end.date, confirmedTime.end.time);
+    return startDayjs.isBefore(endDayjs) || startDayjs.isSame(endDayjs);
+  };
+  const isDisabled = !isAllPickerSelected || !isStartEndDateTimeValid();
 
   async function handleConfirm() {
     const request = {

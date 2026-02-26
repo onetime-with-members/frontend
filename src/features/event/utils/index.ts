@@ -10,11 +10,11 @@ export const foundExampleEvent = (eventId: string) =>
 export const isExampleEventSlug = (eventId: string) =>
   !!foundExampleEvent(eventId);
 
-function parseDateTime(date: string, time: string) {
+export function parseDateTime(date: string, time: string) {
   return dayjs(`${date} ${time}`, 'YYYY.MM.DD HH:mm');
 }
 
-function parseDayTime(day: string, time: string) {
+export function parseDayTime(day: string, time: string) {
   return dayjs(time, 'HH:mm').day(
     weekdaysShortKo.findIndex((weekday) => weekday === day),
   );
