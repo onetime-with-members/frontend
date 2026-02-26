@@ -3,19 +3,21 @@ import { useState } from 'react';
 
 import RecommendedTimeItem from './RecommendedTimeItem';
 import { useRecommendedTimesQuery } from '@/features/event/api/event.query';
-import { SelectedDateTime } from '@/features/event/types';
+import {
+  RecommendedScheduleType,
+  SelectedDateTime,
+} from '@/features/event/types';
 import { IconChevronDown, IconChevronUp } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
 export default function RecommendedTimesSection({
+  finalDateTime,
   setFinalDateTime,
 }: {
+  finalDateTime: SelectedDateTime;
   setFinalDateTime: (dateTime: SelectedDateTime) => void;
 }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(
-    null,
-  );
 
   const params = useParams<{ id: string }>();
   const t = useTranslations('event.pages.EventConfirmPage');
@@ -26,14 +28,18 @@ export default function RecommendedTimesSection({
     ? recommendedTimesData
     : recommendedTimesData.slice(0, 3);
 
+  const isActive = (recommendedTime: RecommendedScheduleType) =>
+    recommendedTime.time_point === finalDateTime.start.date &&
+    recommendedTime.time_point === finalDateTime.end.date &&
+    recommendedTime.start_time === finalDateTime.start.time &&
+    recommendedTime.end_time === finalDateTime.end.time;
+
   function handleToggle() {
     setIsExpanded((prev) => !prev);
   }
 
-  function handleItemClick(index: number) {
-    setSelectedItemIndex(index);
-
-    const { time_point, start_time, end_time } = recommendedTimesData[index];
+  function handleItemClick(recommendedTime: RecommendedScheduleType) {
+    const { time_point, start_time, end_time } = recommendedTime;
     const result = {
       start: {
         date: time_point,
@@ -57,12 +63,16 @@ export default function RecommendedTimesSection({
         </div>
       ) : (
         <ul className="flex flex-col gap-2 overflow-y-auto">
-          {recommendedTimes.map((recommendedTime, index) => (
+          {recommendedTimes.map((recommendedTime) => (
             <RecommendedTimeItem
-              key={index}
+              key={
+                recommendedTime.time_point +
+                recommendedTime.start_time +
+                recommendedTime.end_time
+              }
               recommendedTime={recommendedTime}
-              isSelected={selectedItemIndex === index}
-              onClick={() => handleItemClick(index)}
+              isSelected={isActive(recommendedTime)}
+              onClick={() => handleItemClick(recommendedTime)}
             />
           ))}
         </ul>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import PickerPanel from './PickerPanel';
 import PickerTrigger from './PickerTrigger';
@@ -37,6 +37,10 @@ export default function ConfirmedTimePicker({
     setSelectedDateTime(finalDateTime);
     setIsOpen(false);
   }
+
+  useEffect(() => {
+    setSelectedDateTime(finalDateTime);
+  }, [finalDateTime]);
 
   return (
     <div className="relative">

@@ -16,7 +16,6 @@ import RecommendedTimesSection from '../components/confirm/RecommendedTimesSecti
 import { ConfirmEventRequestData } from '../types';
 import { eventToDateTime } from '../utils';
 import GrayBackground from '@/components/GrayBackground';
-import { useRouter } from '@/i18n/navigation';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
@@ -26,8 +25,6 @@ export default function EventConfirmPage() {
   const { data: event } = useEventQuery(params.id);
 
   const [finalDateTime, setFinalDateTime] = useState(eventToDateTime(event));
-
-  const router = useRouter();
 
   const progressRouter = useProgressRouter();
 
@@ -58,7 +55,7 @@ export default function EventConfirmPage() {
   }
 
   function handleBackButtonClick() {
-    router.back();
+    progressRouter.back();
   }
 
   const isDisabled =
@@ -88,7 +85,10 @@ export default function EventConfirmPage() {
               finalDateTime={finalDateTime}
               setFinalDateTime={setFinalDateTime}
             />
-            <RecommendedTimesSection setFinalDateTime={setFinalDateTime} />
+            <RecommendedTimesSection
+              finalDateTime={finalDateTime}
+              setFinalDateTime={setFinalDateTime}
+            />
           </div>
         </div>
         <BottomButton onClick={handleConfirm} disabled={isDisabled} />
