@@ -37,9 +37,13 @@ export function useEventWithAuthQuery(id: string) {
   return { data: data || defaultEvent };
 }
 
-export function useShortUrlQuery(url: string) {
+export function useShortUrlQuery(
+  url: string,
+  { enabled }: { enabled?: boolean } = {},
+) {
   const { data } = useQuery({
     ...eventShortUrlQueryOptions(url),
+    enabled,
   });
 
   return { data };

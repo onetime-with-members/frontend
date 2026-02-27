@@ -1,4 +1,4 @@
-import { useShortUrlQuery } from '@/features/event/api/event.query';
+import useShortUrl from '../useShortUrl';
 import { EventType } from '@/features/event/types';
 
 export default function useKakaoShare({
@@ -6,7 +6,7 @@ export default function useKakaoShare({
 }: {
   event: EventType | null | undefined;
 }) {
-  const { data: shortUrl } = useShortUrlQuery(window.location.href);
+  const shortUrl = useShortUrl();
 
   function handleKakaoShare() {
     if (!event || !shortUrl) return;

@@ -1,10 +1,8 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import {
-  useEventQuery,
-  useShortUrlQuery,
-} from '@/features/event/api/event.query';
+import { useEventQuery } from '@/features/event/api/event.query';
+import useShortUrl from '@/features/event/hooks/useShortUrl';
 import cn from '@/lib/cn';
 import { IconCheck, IconCopy } from '@tabler/icons-react';
 import Image from 'next/image';
@@ -18,10 +16,10 @@ export default function EmptyEventBanner({
   const [isCopied, setIsCopied] = useState(false);
 
   const params = useParams<{ id: string }>();
+  const shortUrl = useShortUrl();
   const t = useTranslations('event.pages.EventDetailPage');
 
   const { data: event } = useEventQuery(params.id);
-  const { data: shortUrl } = useShortUrlQuery(window.location.href);
 
   const handleCopyButtonClick = () => {
     if (!event) return;

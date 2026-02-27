@@ -9,7 +9,7 @@ import ShareButtonWrapper from './ShareButtonWrapper';
 import ShareKakaoButton from './ShareKakaoButton';
 import ShareMoreButton from './ShareMoreButton';
 import Input from '@/components/Input';
-import { useShortUrlQuery } from '@/features/event/api/event.query';
+import useShortUrl from '@/features/event/hooks/useShortUrl';
 import useToast from '@/hooks/useToast';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';
 
@@ -22,11 +22,10 @@ export default function SharePopUp({
 
   const urlInputRef = useRef<HTMLInputElement>(null);
 
-  const toast = useToast();
-
   const t = useTranslations();
 
-  const { data: shortenUrl } = useShortUrlQuery(window.location.href);
+  const toast = useToast();
+  const shortenUrl = useShortUrl();
 
   function handleCopyLink() {
     navigator.clipboard.writeText(shortenUrl || '');
