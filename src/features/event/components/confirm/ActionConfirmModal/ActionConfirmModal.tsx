@@ -3,54 +3,22 @@ import { createPortal } from 'react-dom';
 import ConfirmedTimePickerButton from '../shared/ConfirmedTimePickerButton';
 import EventHeading from '../shared/EventHeading/EventHeading';
 import ModalButton from './ModalButton/ModalButton';
-import {
-  useConfirmEventMutation,
-  useEditEventConfirmedTimeMutation,
-  useEventQuery,
-} from '@/features/event/api/event.query';
+import { useEventQuery } from '@/features/event/api/event.query';
 import { useConfirmedTime } from '@/features/event/contexts/ConfirmedTimeContext';
-import { ConfirmEventRequestData } from '@/features/event/types';
-import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
 
 export default function ActionConfirmModal({
   onCancel,
+  onConfirm,
 }: {
   onCancel: () => void;
+  onConfirm: () => void;
 }) {
   const confirmedTime = useConfirmedTime();
 
   const params = useParams<{ id: string }>();
 
-  const progressRouter = useProgressRouter();
-
   const { data: event } = useEventQuery(params.id);
-
-  const { mutateAsync: confirmEvent } = useConfirmEventMutation();
-  const { mutateAsync: editEventConfirmedTime } =
-    useEditEventConfirmedTimeMutation();
-
-  async function handleConfirm() {
-    const request = {
-      eventId: params.id,
-      data: {
-        [event.category === 'DATE' ? 'start_date' : 'start_day']:
-          confirmedTime.start.date,
-        [event.category === 'DATE' ? 'end_date' : 'end_day']:
-          confirmedTime.end.date,
-        start_time: confirmedTime.start.time,
-        end_time: confirmedTime.end.time,
-      } as ConfirmEventRequestData,
-    };
-
-    if (event.confirmation) {
-      await editEventConfirmedTime(request);
-    } else {
-      await confirmEvent(request);
-    }
-
-    progressRouter.back();
-  }
 
   return createPortal(
     <div className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4">
@@ -91,7 +59,7 @@ export default function ActionConfirmModal({
           <ModalButton variant="secondary" onClick={onCancel}>
             취소하기
           </ModalButton>
-          <ModalButton variant="primary" onClick={handleConfirm}>
+          <ModalButton variant="primary" onClick={onConfirm}>
             확정하기
           </ModalButton>
         </div>
