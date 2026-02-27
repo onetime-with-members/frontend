@@ -32,9 +32,12 @@ export default function EventConfirmPage() {
 
   const { data: event } = useEventQuery(params.id);
 
-  const { mutateAsync: confirmEvent } = useConfirmEventMutation();
-  const { mutateAsync: editEventConfirmedTime } =
+  const { mutateAsync: confirmEvent, isPending: isCreatePending } =
+    useConfirmEventMutation();
+  const { mutateAsync: editEventConfirmedTime, isPending: isEditPending } =
     useEditEventConfirmedTimeMutation();
+
+  const isPending = isCreatePending || isEditPending;
 
   const isAllPickerSelected =
     confirmedTime.start.date &&
@@ -69,6 +72,7 @@ export default function EventConfirmPage() {
   }
 
   async function handleConfirm() {
+    if (isPending) return;
     const request = {
       eventId: params.id,
       data: {
@@ -99,6 +103,7 @@ export default function EventConfirmPage() {
           onBackButtonClick={handleBackButtonClick}
           onConfirm={handleSubmit}
           disabled={isDisabled}
+          isPending={isPending}
         />
         <main className="flex flex-col items-center pb-10">
           <div className="mx-auto flex w-full max-w-[908px] flex-col items-center justify-center md:pt-6">
@@ -108,13 +113,18 @@ export default function EventConfirmPage() {
               <RecommendedTimesSection />
             </div>
           </div>
-          <BottomButton onClick={handleSubmit} disabled={isDisabled} />
+          <BottomButton
+            onClick={handleSubmit}
+            disabled={isDisabled}
+            isPending={isPending}
+          />
         </main>
       </div>
       {isModalOpen && (
         <ActionConfirmModal
           onCancel={handleModalClose}
           onConfirm={handleConfirm}
+          isPending={isPending}
         />
       )}
     </>

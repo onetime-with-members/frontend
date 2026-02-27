@@ -6,9 +6,11 @@ import cn from '@/lib/cn';
 export default function BottomButton({
   disabled,
   onClick,
+  isPending,
 }: {
   disabled: boolean;
   onClick: () => void;
+  isPending: boolean;
 }) {
   const t = useTranslations('event.pages.EventConfirmPage');
 
@@ -19,12 +21,12 @@ export default function BottomButton({
         variant="dark"
         fullWidth
         className={cn({
-          'pointer-events-none cursor-default': disabled,
+          'pointer-events-none cursor-default': disabled || isPending,
         })}
         disabled={disabled}
         onClick={onClick}
       >
-        {t('confirmButton')}
+        {isPending ? t('pending') : t('confirmButton')}
       </Button>
     </div>
   );

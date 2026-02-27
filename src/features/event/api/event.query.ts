@@ -145,7 +145,7 @@ export function useChangeFilteredEventDataMutation({
 export function useConfirmEventMutation() {
   const queryClient = useQueryClient();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationFn: async ({
       eventId,
       data,
@@ -158,13 +158,13 @@ export function useConfirmEventMutation() {
     },
   });
 
-  return { mutateAsync };
+  return { mutateAsync, isPending: isPending || isSuccess };
 }
 
 export function useEditEventConfirmedTimeMutation() {
   const queryClient = useQueryClient();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationFn: async ({
       eventId,
       data,
@@ -177,7 +177,7 @@ export function useEditEventConfirmedTimeMutation() {
     },
   });
 
-  return { mutateAsync };
+  return { mutateAsync, isPending: isPending || isSuccess };
 }
 
 export function useCreateTalkCalendarEventMutation() {

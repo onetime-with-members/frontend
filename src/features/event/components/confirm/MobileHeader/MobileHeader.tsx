@@ -7,10 +7,12 @@ export default function MobileHeader({
   disabled,
   onBackButtonClick,
   onConfirm,
+  isPending,
 }: {
   disabled: boolean;
   onBackButtonClick: () => void;
   onConfirm: () => void;
+  isPending: boolean;
 }) {
   const t = useTranslations('event.pages.EventConfirmPage');
 
@@ -30,15 +32,16 @@ export default function MobileHeader({
       <button
         type="button"
         className={cn(
-          'rounded-lg px-3 py-1.5 text-sm-200',
-          disabled
-            ? 'bg-gray-10 text-gray-30'
-            : 'bg-[#E8EBFC] text-[#4C65E5] md:bg-primary-40 md:text-gray-00',
+          'rounded-lg bg-[#E8EBFC] px-3 py-1.5 text-[#4C65E5] text-sm-200 md:bg-primary-40 md:text-gray-00',
+          {
+            'pointer-events-none cursor-default bg-gray-10 text-gray-30':
+              disabled || isPending,
+          },
         )}
         disabled={disabled}
         onClick={onConfirm}
       >
-        {t('done')}
+        {isPending ? t('pending') : t('done')}
       </button>
     </header>
   );

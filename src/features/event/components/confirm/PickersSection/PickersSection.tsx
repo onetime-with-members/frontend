@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import EventHeading from '../shared/EventHeading/EventHeading';
+import EventHeading from '../shared/EventHeading';
 import ConfirmedTimePicker from './ConfirmedTimePicker';
 import { ConfirmedTimePickerProps } from './ConfirmedTimePicker/ConfirmedTimePicker';
 import { useEventQuery } from '@/features/event/api/event.query';
