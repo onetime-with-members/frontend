@@ -85,10 +85,11 @@ export default async function Page({
   if (!event) notFound();
 
   const headerList = await headers();
-  const currentUrl = headerList.get('x-current-url') ?? '';
+  const origin = headerList.get('x-origin') ?? '';
+  const pathname = headerList.get('x-pathname') ?? '';
 
   await queryClient.prefetchQuery(eventQueryOptions(eventId));
-  await queryClient.prefetchQuery(eventShortUrlQueryOptions(currentUrl));
+  await queryClient.prefetchQuery(eventShortUrlQueryOptions(origin + pathname));
   await queryClient.prefetchQuery(recommendedTimesQueryOptions(eventId));
   await queryClient.prefetchQuery(qrCodeQueryOptions(eventId));
   await queryClient.prefetchQuery(participantsQueryOptions(eventId));

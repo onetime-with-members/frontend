@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
   const handleI18nRouting = createMiddleware(routing);
   const response = handleI18nRouting(request);
 
-  response.headers.set('x-current-url', request.url);
+  response.headers.set('x-origin', request.nextUrl.origin);
   response.headers.set('x-pathname', pathname);
 
   return response;
