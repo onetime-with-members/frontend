@@ -95,6 +95,13 @@
         "deleteEventConfirm": "삭제",
         "deleteEventCancel": "취소",
         "deleteEventConfirming": "삭제 중..."
+      },
+      "ActionConfirmModal": {
+        "cancel": "취소하기",
+        "confirm": "확정하기",
+        "confirmQuestion": "이 일정으로 확정할까요?",
+        "warningText": "멤버들이 입력했던 스케줄을 수정할 수 없어요.",
+        "submitting": "진행 중..."
       }
     }
   },

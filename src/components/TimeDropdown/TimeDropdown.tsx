@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useRef } from 'react';
 
 import { timeLabelList } from '@/features/schedule/utils';
@@ -30,6 +30,7 @@ export default function TimeDropdown({
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const t = useTranslations('components.TimeDropdown');
+  const locale = useLocale();
 
   const { isDropdownMenuOpen, setIsDropdownMenuOpen, handleDropdownClick } =
     useDropdown({
@@ -43,7 +44,7 @@ export default function TimeDropdown({
 
   const displayTime = time
     ? displayFormat === '12h'
-      ? formatTimeAmPm(time)
+      ? formatTimeAmPm(time, locale)
       : time
     : t('selectTime');
 

@@ -95,6 +95,13 @@
         "deleteEventConfirm": "Delete",
         "deleteEventCancel": "Cancel",
         "deleteEventConfirming": "Deleting..."
+      },
+      "ActionConfirmModal": {
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "confirmQuestion": "Confirm this time?",
+        "warningText": "Members won't be able to edit their availability.",
+        "submitting": "Submitting..."
       }
     }
   },

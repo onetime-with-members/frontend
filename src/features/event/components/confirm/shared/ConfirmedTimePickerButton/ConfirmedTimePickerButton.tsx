@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { weekdaysShortKo } from '@/constants';
 import { SelectedDateTime } from '@/features/event/types';
@@ -22,6 +22,7 @@ export default function ConfirmedTimePickerButton({
   variant?: 'default' | 'dark';
 }) {
   const t = useTranslations('event.pages.EventConfirmPage');
+  const locale = useLocale();
 
   return (
     <button
@@ -60,7 +61,9 @@ export default function ConfirmedTimePickerButton({
           : t('selectDateTime')}
       </span>
       <span className="text-md-300">
-        {selectedDateTime.time ? formatTimeAmPm(selectedDateTime.time) : '-'}
+        {selectedDateTime.time
+          ? formatTimeAmPm(selectedDateTime.time, locale)
+          : '-'}
       </span>
     </button>
   );
