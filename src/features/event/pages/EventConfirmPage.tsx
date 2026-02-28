@@ -2,11 +2,7 @@
 
 import { useState } from 'react';
 
-import {
-  useConfirmEventMutation,
-  useEditEventConfirmedTimeMutation,
-  useEventQuery,
-} from '../api/event.query';
+import { useConfirmEventMutation, useEventQuery } from '../api/event.query';
 import ActionConfirmModal from '../components/confirm/ActionConfirmModal';
 import BottomButton from '../components/confirm/BottomButton';
 import DesktopHeader from '../components/confirm/DesktopHeader';
@@ -32,12 +28,7 @@ export default function EventConfirmPage() {
 
   const { data: event } = useEventQuery(params.id);
 
-  const { mutateAsync: confirmEvent, isPending: isCreatePending } =
-    useConfirmEventMutation();
-  const { mutateAsync: editEventConfirmedTime, isPending: isEditPending } =
-    useEditEventConfirmedTimeMutation();
-
-  const isPending = isCreatePending || isEditPending;
+  const { mutateAsync: confirmEvent, isPending } = useConfirmEventMutation();
 
   const isAllPickerSelected =
     confirmedTime.start.date &&
@@ -73,7 +64,7 @@ export default function EventConfirmPage() {
 
   async function handleConfirm() {
     if (isPending) return;
-    const request = {
+    await confirmEvent({
       eventId: params.id,
       data: {
         [event.category === 'DATE' ? 'start_date' : 'start_day']:
@@ -83,14 +74,7 @@ export default function EventConfirmPage() {
         start_time: confirmedTime.start.time,
         end_time: confirmedTime.end.time,
       } as ConfirmEventRequestData,
-    };
-
-    if (event.confirmation) {
-      await editEventConfirmedTime(request);
-    } else {
-      await confirmEvent(request);
-    }
-
+    });
     progressRouter.back();
   }
 

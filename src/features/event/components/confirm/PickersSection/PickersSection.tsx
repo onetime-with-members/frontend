@@ -25,29 +25,33 @@ export default function PickersSection() {
 
   const { data: event } = useEventQuery(params.id);
 
-  function handlePickerTrigger(type: 'start' | 'end') {
-    switch (activePicker) {
-      case type:
-        setSelectedDateTime(confirmedTime);
-        setActivePicker('none');
-        return;
-      case 'none':
-        setActivePicker(type);
-        return;
-      default:
-        setSelectedDateTime(confirmedTime);
-        setActivePicker(type);
-        return;
-    }
-  }
-
-  function handlePanelConfirm() {
+  function dispatchConfirmedTime() {
     if (!dispatch) return;
     if (activePicker === 'start') {
       dispatch({ type: 'start_picker_selected', ...selectedDateTime['start'] });
     } else {
       dispatch({ type: 'end_picker_selected', ...selectedDateTime['end'] });
     }
+  }
+
+  function handlePickerTrigger(type: 'start' | 'end') {
+    switch (activePicker) {
+      case 'none':
+        setActivePicker(type);
+        return;
+      case type:
+        setSelectedDateTime(confirmedTime);
+        setActivePicker('none');
+        return;
+      default:
+        dispatchConfirmedTime();
+        setActivePicker(type);
+        return;
+    }
+  }
+
+  function handlePanelConfirm() {
+    dispatchConfirmedTime();
     setActivePicker('none');
   }
 

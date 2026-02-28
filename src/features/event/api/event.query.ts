@@ -7,7 +7,6 @@ import {
   createTalkCalendarEvent,
   deleteEventAction,
   editEventAction,
-  editEventConfirmedTime,
   fetchFilteredRecommendedTimes,
   fetchFilteredSchedules,
 } from './event.api';
@@ -157,25 +156,6 @@ export function useConfirmEventMutation() {
       eventId: string;
       data: ConfirmEventRequestData;
     }) => await confirmEvent(eventId, data),
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: ['events'] });
-    },
-  });
-
-  return { mutateAsync, isPending: isPending || isSuccess };
-}
-
-export function useEditEventConfirmedTimeMutation() {
-  const queryClient = useQueryClient();
-
-  const { mutateAsync, isPending, isSuccess } = useMutation({
-    mutationFn: async ({
-      eventId,
-      data,
-    }: {
-      eventId: string;
-      data: ConfirmEventRequestData;
-    }) => await editEventConfirmedTime(eventId, data),
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['events'] });
     },

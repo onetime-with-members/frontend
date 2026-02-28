@@ -156,14 +156,7 @@ export async function confirmEvent(
   eventId: string,
   data: ConfirmEventRequestData,
 ) {
-  const res = await apiClient.post(`/events/${eventId}/confirm`, data);
-  return res.data.payload;
-}
-
-export async function editEventConfirmedTime(
-  eventId: string,
-  data: ConfirmEventRequestData,
-) {
+  console.log(data);
   const res = await apiClient.put(`/events/${eventId}/confirm`, data);
   return res.data.payload;
 }
