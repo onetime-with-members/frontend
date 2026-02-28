@@ -42,7 +42,7 @@ export default function EventConfirmPage() {
       confirmedTime.start.time,
     );
     const endDayjs = parse(confirmedTime.end.date, confirmedTime.end.time);
-    return startDayjs.isBefore(endDayjs) || startDayjs.isSame(endDayjs);
+    return startDayjs.isBefore(endDayjs);
   };
   const isDisabled = !isAllPickerSelected || !isStartEndDateTimeValid();
 
