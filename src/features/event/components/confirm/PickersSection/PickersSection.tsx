@@ -40,8 +40,7 @@ export default function PickersSection() {
         setActivePicker(type);
         return;
       case type:
-        setSelectedDateTime(confirmedTime);
-        setActivePicker('none');
+        handlePanelConfirm();
         return;
       default:
         dispatchConfirmedTime();
