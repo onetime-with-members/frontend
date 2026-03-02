@@ -10,8 +10,8 @@ export default function useIsEuropean() {
     async function fetchIsEuropean() {
       try {
         const res = await fetch(IP_API_URL);
-        const { country_code } = await res.json();
-        setIsEuropean(europeanCountryCodes.includes(country_code));
+        const { countryCode } = await res.json();
+        setIsEuropean(europeanCountryCodes.includes(countryCode));
       } catch {
         setIsEuropean(false);
       } finally {

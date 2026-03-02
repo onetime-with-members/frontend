@@ -14,7 +14,7 @@ export const DENIED = 'denied';
 export const GRANT = 'grant';
 export const REVOKE = 'revoke';
 
-export const IP_API_URL = 'https://ipapi.co/json/';
+export const IP_API_URL = 'http://ip-api.com/json/';
 
 export const europeanCountryCodes = [
   'AT',
