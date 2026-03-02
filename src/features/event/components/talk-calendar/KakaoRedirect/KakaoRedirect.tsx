@@ -21,7 +21,7 @@ export default function KakaoRedirect() {
         await addTalkCalendarEventCookie(eventIdParam);
         setTimeout(() => {
           buttonRef.current?.click();
-        }, 1000);
+        }, 500);
       }
     })();
   }, [eventIdParam]);
