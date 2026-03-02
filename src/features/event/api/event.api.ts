@@ -156,7 +156,6 @@ export async function confirmEvent(
   eventId: string,
   data: ConfirmEventRequestData,
 ) {
-  console.log(data);
   const res = await apiClient.put(`/events/${eventId}/confirm`, data);
   return res.data.payload;
 }
