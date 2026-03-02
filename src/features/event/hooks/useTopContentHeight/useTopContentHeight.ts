@@ -30,9 +30,10 @@ export default function useTopContentHeight(
   const eventConfirmBanner = isMobile
     ? event.event_status === 'CONFIRMED'
       ? 124
-      : 0
+      : 48
     : 0;
-  const eventHeaderGap = event.event_status === 'CONFIRMED' ? 12 : 0;
+  const eventHeaderGap =
+    isMobile || event.event_status === 'CONFIRMED' ? 12 : 0;
   const eventHeader = isMobile ? 60 + eventHeaderGap + eventConfirmBanner : 64;
 
   return callback({
