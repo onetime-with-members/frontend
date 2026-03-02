@@ -7,17 +7,16 @@ import { useSearchParams } from 'next/navigation';
 export default function KakaoRedirect() {
   const searchParams = useSearchParams();
 
-  const code = searchParams.get('code');
   const eventIdParam = searchParams.get('event_id');
 
   useEffect(() => {
-    if (!code && eventIdParam) {
-      (async () => {
+    (async () => {
+      if (eventIdParam) {
         await addTalkCalendarEventCookie(eventIdParam);
         getKakaoAuthCode('/events/talk-calendar');
-      })();
-    }
-  }, [code, eventIdParam]);
+      }
+    })();
+  }, [eventIdParam]);
 
-  return null;
+  return <div></div>;
 }
