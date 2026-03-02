@@ -13,10 +13,12 @@ export default function KakaoRedirect() {
     (async () => {
       if (eventIdParam) {
         await addTalkCalendarEventCookie(eventIdParam);
-        getKakaoAuthCode('/events/talk-calendar');
+        setTimeout(() => {
+          getKakaoAuthCode('/events/talk-calendar');
+        }, 100);
       }
     })();
   }, [eventIdParam]);
 
-  return <div></div>;
+  return null;
 }
