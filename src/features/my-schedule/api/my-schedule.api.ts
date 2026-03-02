@@ -19,7 +19,11 @@ export async function fetchMySchedule() {
 
 export async function fetchSleepTime() {
   const res = await apiClient.get('/users/sleep-time');
-  return res.data.payload;
+  const sleepTime = res.data.payload;
+  if (sleepTime.sleep_start_time && sleepTime.sleep_end_time) {
+    return sleepTime;
+  }
+  return { sleep_start_time: '00:00', sleep_end_time: '00:00' };
 }
 
 export async function editMyScheduleAction(mySchedule: MyScheduleTimeType[]) {
