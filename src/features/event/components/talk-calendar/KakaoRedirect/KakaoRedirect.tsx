@@ -21,14 +21,10 @@ export default function KakaoRedirect() {
         await addTalkCalendarEventCookie(eventIdParam);
         setTimeout(() => {
           buttonRef.current?.click();
-        }, 1000);
+        }, 100);
       }
     })();
   }, [eventIdParam]);
 
-  return (
-    <button ref={buttonRef} onClick={handleClick}>
-      이동
-    </button>
-  );
+  return <button ref={buttonRef} onClick={handleClick}></button>;
 }
