@@ -17,7 +17,7 @@
           "speechBalloon": "You can notify team members after confirming the schedule",
           "banner": "Confirm and share the schedule",
           "ongoing": "Ongoing",
-          "eventInfo": "Event Info"
+          "confirmedDate": "Confirmed Date"
         },
         "toast": {
           "filterInExampleEvent": "This feature is not available in example events",

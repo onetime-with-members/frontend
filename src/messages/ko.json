@@ -17,7 +17,7 @@
           "speechBalloon": "일정 확정 후, 팀원들에게 일정 알림을 보낼 수 있어요",
           "banner": "일정을 확정하고 공유해보세요",
           "ongoing": "진행 중",
-          "eventInfo": "일정"
+          "confirmedDate": "확정된 일정"
         },
         "toast": {
           "filterInExampleEvent": "예시 이벤트에서는 사용할 수 없는 기능입니다",

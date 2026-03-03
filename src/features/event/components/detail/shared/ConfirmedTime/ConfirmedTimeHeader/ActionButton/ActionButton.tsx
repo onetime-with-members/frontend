@@ -8,7 +8,7 @@ export default function ActionButton({
   return (
     <button
       className={cn(
-        'flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gray-60 duration-150 hover:brightness-90',
+        'flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gray-60 text-gray-00 duration-150 hover:brightness-90',
         className,
       )}
       {...props}
