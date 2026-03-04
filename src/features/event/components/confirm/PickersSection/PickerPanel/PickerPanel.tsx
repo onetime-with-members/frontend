@@ -46,7 +46,7 @@ export default function PickerPanel({
   return (
     <div
       className={cn(
-        'absolute -bottom-3 flex w-[394px] translate-y-full flex-col gap-5 rounded-[20px] bg-gray-00 p-5 shadow-[0_6px_40px_0_rgba(49,51,63,0.20)] md:static md:bottom-auto md:w-full md:translate-y-0 md:border md:border-gray-10 md:shadow-none',
+        'absolute -bottom-3 flex w-full max-w-[394px] translate-y-full flex-col gap-5 rounded-[20px] bg-gray-00 p-5 shadow-[0_6px_40px_0_rgba(49,51,63,0.20)] md:static md:bottom-auto md:w-full md:translate-y-0 md:border md:border-gray-10 md:shadow-none',
         {
           'right-0': type === 'end',
         },

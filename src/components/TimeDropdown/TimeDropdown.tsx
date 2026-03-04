@@ -18,6 +18,7 @@ export default function TimeDropdown({
   displayFormat,
   placement = 'bottom',
   interval = '1h',
+  textSize = 'md',
 }: {
   time: string;
   setTime: (time: string) => void;
@@ -26,6 +27,7 @@ export default function TimeDropdown({
   displayFormat?: '24h' | '12h';
   placement?: 'top' | 'bottom';
   interval?: '1h' | '30m';
+  textSize?: 'md' | 'lg';
 }) {
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -65,13 +67,15 @@ export default function TimeDropdown({
       >
         <span
           className={cn(
-            'text-lg-200',
-            variant === 'lightGray'
-              ? 'text-gray-70'
-              : {
-                  'text-gray-70': !isDropdownMenuOpen,
-                  'text-gray-00': isDropdownMenuOpen,
-                },
+            'text-md-200',
+            {
+              'text-gray-70': !isDropdownMenuOpen,
+              'text-gray-00': variant !== 'lightGray' && isDropdownMenuOpen,
+            },
+            {
+              'text-md-200': textSize === 'md',
+              'text-lg-200': textSize === 'lg',
+            },
           )}
         >
           {displayTime}
@@ -105,7 +109,13 @@ export default function TimeDropdown({
           {timeLabelList('00:00', '24:00', interval).map((time) => (
             <li
               key={time}
-              className="w-full cursor-pointer py-2 text-center text-gray-50 text-lg-200"
+              className={cn(
+                'w-full cursor-pointer py-2 text-center text-gray-50 text-md-200',
+                {
+                  'text-md-200': textSize === 'md',
+                  'text-lg-200': textSize === 'lg',
+                },
+              )}
               onClick={() => handleSelectTime(time)}
             >
               {time}

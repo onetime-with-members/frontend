@@ -21,7 +21,7 @@ export default function ActionConfirmModal({
     <div className="fixed left-0 top-0 z-50 flex h-full w-full cursor-pointer items-center justify-center bg-gray-90 bg-opacity-50 px-4">
       <div
         className={cn(
-          'relative flex w-full max-w-[328px] cursor-auto flex-col overflow-hidden rounded-2xl bg-gray-00',
+          'relative flex w-full max-w-[360px] cursor-auto flex-col overflow-hidden rounded-2xl bg-gray-00',
           {
             'max-w-[360px]': locale === 'en',
           },
