@@ -25,7 +25,9 @@ export default function ParticipantFilter() {
 
   function handleFilterItemClick(participant: ParticipantType) {
     if (isExampleEventSlug(params.id)) {
-      toast(t('toast.filterInExampleEvent'), { type: 'error' });
+      toast(t('event.pages.EventDetailPage.toast.filterInExampleEvent'), {
+        type: 'error',
+      });
     } else {
       changeFilteredParticipants(participant);
     }
@@ -40,7 +42,9 @@ export default function ParticipantFilter() {
           className="pt-2"
           sticky
         >
-          {t('eventDetail.participant', { count: participants.length })}
+          {t('event.pages.EventDetailPage.participant', {
+            count: participants.length,
+          })}
         </SectionHeading>
         <ul
           className="mt-2 flex flex-wrap gap-1.5 pb-4 pt-0 md:pb-6"

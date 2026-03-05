@@ -1,265 +1,349 @@
 {
-  "common": {
-    "noOneSchedule": "No one has added a schedule.",
-    "participantCount": "{count, plural, =1 {# person} other {# people}}",
-    "title": "Find The Perfect Time Easily And Quickly"
-  },
-  "toast": {
-    "copiedLink": "Copied event link",
-    "loadedMySchedule": "My schedule has been loaded",
-    "everytime": "Everytime timetable has been loaded",
-    "filterInExampleEvent": "This feature is not available in example events"
-  },
-  "navbar": {
-    "login": "Login",
-    "logout": "Logout",
-    "allEvents": "All Events",
-    "mySchedule": "My Schedule",
-    "profile": "Profile"
-  },
-  "footer": {
-    "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy",
-    "feedbackIssue": "Issue & Feedback Report",
-    "exampleEvent": {
-      "useCases": "Use Cases",
-      "teamMeetings": "Team Meetings",
-      "oneOnOneMeetings": "1:1 Business Meetings",
-      "socialGatherings": "Social Gatherings"
+  "event": {
+    "pages": {
+      "EventDetailPage": {
+        "participant": "Participant{count, plural, =1 {} other {s}}",
+        "available": "Available",
+        "unavailable": "Unavailable",
+        "addSchedule": "Add Schedule",
+        "editSchedule": "Edit Schedule",
+        "recommendedTime": "Recommended Time{count, plural, =1 {} other {s}}",
+        "emptyEventBanner": "Share the link <br></br>and find the perfect time!",
+        "copyLink": "Copy Link",
+        "copied": "Copied",
+        "shareMessage": "Try sharing it!",
+        "confirm": {
+          "button": "Confirm Schedule",
+          "speechBalloon": "You can notify team members after confirming the schedule",
+          "banner": "Confirm and share the schedule",
+          "ongoing": "Ongoing",
+          "confirmedDate": "Confirmed Date"
+        },
+        "toast": {
+          "filterInExampleEvent": "This feature is not available in example events",
+          "talkCalendarSuccess": "Talk Calendar event created successfully",
+          "talkCalendarError": "Failed to create Talk Calendar event",
+          "disableScheduleWhenConfirmed": "Schedules cannot be {action, select, edit {edited} other {added}} for confirmed events"
+        },
+        "confirmed": "This event has been confirmed"
+      },
+      "EventCreatePage": {
+        "createEvent": "Create Event"
+      },
+      "EventEditPage": {
+        "editEvent": "Edit {name}"
+      },
+      "EventConfirmPage": {
+        "title": "Confirm Event",
+        "start": "Start",
+        "end": "End",
+        "selectDateTime": "Select Date/Time",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "confirmButton": "Save",
+        "done": "Save",
+        "selectFromRecommended": "Select from recommended times",
+        "recommendedTime": "Recommended Time",
+        "viewMore": "View more",
+        "viewLess": "View less",
+        "noRecommendedTimes": "No recommended times",
+        "metaTitle": "Confirm {name}",
+        "pending": "Saving..."
+      }
+    },
+    "components": {
+      "SharePopUp": {
+        "share": "Share",
+        "copyLink": "Copy Link",
+        "qrCode": "QR Code",
+        "kakao": "KakaoTalk",
+        "more": "More",
+        "qrCodeScreen": "Please add your schedule <br></br>to <Name>{eventName}</Name>!",
+        "toast": {
+          "copiedLink": "Copied event link"
+        }
+      },
+      "EventForm": {
+        "eventName": "Event Name",
+        "max50Characters": "Max 50 characters",
+        "enterEventName": "Enter the event name",
+        "timeRange": "Time",
+        "selectTimeRange": "Select the time range for the event.",
+        "dateRange": "Date",
+        "selectDateRange": "Select the date range for the event.",
+        "date": "Date",
+        "weekday": "Weekday",
+        "createEvent": "Create Event",
+        "editEvent": "Edit Event",
+        "creatingEvent": "Creating Event...",
+        "editingEvent": "Editing Event..."
+      },
+      "TalkCalendarShareModal": {
+        "title": "Share with members and <br></br>add to Talk Calendar!",
+        "description": "You can receive notifications <br></br>on KakaoTalk.",
+        "shareViaKakaoButton": "Share via KakaoTalk"
+      },
+      "LoginAlert": {
+        "loginTitle": "Would you like to log in?",
+        "loginDescription": "Your information is auto-filled, and your schedule can be saved!",
+        "loginConfirm": "Login",
+        "loginCancel": "Not now"
+      },
+      "EventDeleteAlert": {
+        "deleteEventTitle": "Do you really want to delete the event?",
+        "deleteEventDescription": "If you delete the event, all schedules added to it will be removed!",
+        "deleteEventConfirm": "Delete",
+        "deleteEventCancel": "Cancel",
+        "deleteEventConfirming": "Deleting..."
+      },
+      "ActionConfirmModal": {
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "confirmQuestion": "Confirm this time?",
+        "warningText": "Members won't be able to edit their availability.",
+        "submitting": "Submitting..."
+      }
     }
   },
-  "login": {
-    "login": "Login",
-    "logoTitle": "For Our Perfect Time,",
-    "kakao": "Continue with KakaoTalk",
-    "naver": "Continue with Naver",
-    "google": "Continue with Google",
-    "lastLogin": "Last Login"
-  },
-  "landing": {
-    "title": {
-      "main": "For Our Perfect Time",
-      "feature1": "Simple Scheduling, <br></br>No more Stress",
-      "feature2": "Easier Selections <br></br>with Clear Available Times",
-      "highlight": "Smart Auto-Scheduling. <br></br>No Planning, No Stress!",
-      "card1": "One Share Is All You Need",
-      "card2": "One QR Code Is All We Need",
-      "last": "Experience Simple Scheduling <br></br>with OneTime"
+  "schedule": {
+    "pages": {
+      "ScheduleNewPage": {
+        "enterSchedule": "Enter Schedule",
+        "addSchedule": "Add Schedule",
+        "addingSchedule": "Adding Schedule...",
+        "password": "Password",
+        "passwordInfo": "If you set a password, you can edit the schedule by entering the same name and password.",
+        "next": "Next",
+        "save": "Save",
+        "saving": "Saving...",
+        "toast": {
+          "loadedMySchedule": "My schedule has been loaded"
+        }
+      }
     },
-    "description": {
-      "main": "With just one share of the link, organize schedules <br></br>with many people and find the best time.",
-      "feature1": "What time works for everyone? <br></br>Simply check the best time with OneTime!",
-      "feature2": "Hard to find the available time? <br></br>Remove the busy ones!",
-      "card1": "When you pre-register your schedule once, the unavailable time is automatically excluded.",
-      "card2": "In offline, try adjusting the time with just one QR code instead of sharing the link."
-    },
-    "badge": {
-      "feature1": "Status at a Glance",
-      "feature2": "Easy Slot Check",
-      "card1": "Add My Schedule",
-      "card2": "Generate QR Code"
-    },
-    "button": {
-      "start": "Get Started",
-      "createEvent": "Create Event"
+    "components": {
+      "TimeBlockBoard": {
+        "availableToggleText": "Available",
+        "unavailableToggleText": "Unavailable",
+        "reset": "Reset",
+        "reload": "Reload",
+        "clear": "Clear"
+      },
+      "ScheduleGuideModal": {
+        "title1": "Explore",
+        "title2": "Enter Schedule",
+        "description1": "Scroll up, down, left, and right <br></br>to check times and dates",
+        "description2": "Touch the start and end of a block <br></br>to fill or erase it",
+        "next": "Next",
+        "start": "Start"
+      }
     }
   },
-  "onboarding": {
-    "onboarding": "Onboarding",
-    "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy",
-    "title1": "Please agree to the terms <br></br>to use the service",
-    "title2": "Please tell me your name",
-    "title3": "Before starting, <br></br>please tell me your sleep time.",
-    "title4": "Welcome, <br></br>{name}!",
-    "description3": "When adding a schedule to the event, you can automatically exclude sleep time.",
-    "description4": "Let's get started with OneTime",
-    "sleepTime": "Sleep Time",
-    "next": "Next",
-    "goBack": "Go Back",
-    "previous": "Previous",
-    "start": "Get Started"
-  },
-  "eventDetail": {
-    "participant": "Participant{count, plural, =1 {} other {s}}",
-    "available": "Available",
-    "unavailable": "Unavailable",
-    "edit": "Edit",
-    "delete": "Delete",
-    "addSchedule": "Add Schedule",
-    "editSchedule": "Edit Schedule",
-    "recommendedTime": "Recommended Time{count, plural, =1 {} other {s}}",
-    "allAvailable": "All Available Times",
-    "peopleWhoAddedSchedules": "Person who added schedule{count, plural, =1 {} other {s}}",
-    "whenAvailableTimes": "When are the available times?",
-    "emptyEventBanner": "Share the link <br></br>and find the perfect time!",
-    "copyLink": "Copy Link",
-    "copied": "Copied",
-    "shareMessage": "Try sharing it!"
-  },
-  "sharePopUp": {
-    "share": "Share",
-    "copyLink": "Copy Link",
-    "qrCode": "QR Code",
-    "kakao": "KakaoTalk",
-    "more": "More",
-    "qrCodeScreen": "Please add your schedule <br></br>to <Name>{eventName}</Name>!"
-  },
-  "alert": {
-    "loginTitle": "Would you like to log in?",
-    "loginDescription": "Your information is auto-filled, and your schedule can be saved!",
-    "loginConfirm": "Login",
-    "loginCancel": "Not now",
-    "deleteEventTitle": "Do you really want to delete the event?",
-    "deleteEventDescription": "If you delete the event, all schedules added to it will be removed!",
-    "deleteEventConfirm": "Delete",
-    "deleteEventCancel": "Cancel",
-    "deleteEventConfirming": "Deleting...",
-    "backButtonTitle": "Do you want to leave the page?",
-    "backButtonDescription": "If you leave the page without adding a schedule, all the information you entered will disappear!",
-    "backButtonConfirm": "Continue",
-    "backButtonCancel": "Leave"
-  },
-  "createEvent": {
-    "createEvent": "Create Event"
-  },
-  "editEvent": {
-    "editEvent": "Edit {name}"
-  },
-  "eventForm": {
-    "eventName": "Event Name",
-    "max50Characters": "Max 50 characters",
-    "enterEventName": "Enter the event name",
-    "timeRange": "Time",
-    "selectTimeRange": "Select the time range for the event.",
-    "dateRange": "Date",
-    "selectDateRange": "Select the date range for the event.",
-    "date": "Date",
-    "weekday": "Weekday",
-    "createEvent": "Create Event",
-    "editEvent": "Edit Event",
-    "creatingEvent": "Creating Event...",
-    "editingEvent": "Editing Event..."
-  },
-  "scheduleAdd": {
-    "enterSchedule": "Enter Schedule",
-    "addSchedule": "Add Schedule",
-    "addingSchedule": "Adding Schedule...",
-    "password": "Password",
-    "passwordInfo": "If you set a password, you can edit the schedule by entering the same name and password.",
-    "next": "Next",
-    "save": "Save",
-    "saving": "Saving..."
-  },
-  "timeBlockBoard": {
-    "availableToggleText": "Available",
-    "unavailableToggleText": "Unavailable",
-    "reset": "Reset",
-    "reload": "Reload",
-    "clear": "Clear"
-  },
-  "scheduleGuideModal": {
-    "title1": "Explore",
-    "title2": "Enter Schedule",
-    "description1": "Scroll up, down, left, and right <br></br>to check times and dates",
-    "description2": "Touch the start and end of a block <br></br>to fill or erase it",
-    "next": "Next",
-    "start": "Start"
-  },
-  "userDashboard": {
-    "more": "More",
-    "hello": "Hello, {name}",
-    "createEvent": "Create Event",
-    "recentEvent": "Recent Event",
-    "recentEvents": "Recent Events",
-    "mySchedule": "My Schedule",
-    "myScheduleDescription": "It is automatically loaded when you enter a schedule.",
-    "loadingEvents": "Loading events...",
-    "noEvent": "You haven't joined any events yet."
-  },
-  "mypage": {
-    "allEvents": "All Events",
-    "mySchedule": "My Schedule",
-    "profile": "Profile"
-  },
-  "myEvents": {
-    "empty": {
-      "title": "You haven't joined any events yet.",
-      "button": "Add Event"
+  "auth": {
+    "pages": {
+      "LoginPage": {
+        "login": "Login",
+        "logoTitle": "For Our Perfect Time,",
+        "kakao": "Continue with KakaoTalk",
+        "naver": "Continue with Naver",
+        "google": "Continue with Google",
+        "lastLogin": "Last Login"
+      },
+      "OnboardingPage": {
+        "onboarding": "Onboarding",
+        "termsOfService": "Terms of Service",
+        "privacyPolicy": "Privacy Policy",
+        "title1": "Please agree to the terms <br></br>to use the service",
+        "title2": "Please tell me your name",
+        "title3": "Before starting, <br></br>please tell me your sleep time.",
+        "title4": "Welcome, <br></br>{name}!",
+        "description3": "When adding a schedule to the event, you can automatically exclude sleep time.",
+        "description4": "Let's get started with OneTime",
+        "sleepTime": "Sleep Time",
+        "next": "Next",
+        "goBack": "Go Back",
+        "previous": "Previous",
+        "start": "Get Started"
+      }
     }
   },
-  "myScheduleEdit": {
-    "myScheduleEdit": "Edit My Schedule",
-    "editMySchedule": "Edit My Schedule",
-    "sleepTime": "Sleep Time",
-    "everytime": "Add Everytime timetable",
-    "done": "Done",
-    "save": "Save",
-    "saving": "Saving..."
+  "home": {
+    "pages": {
+      "DashboardPage": {
+        "more": "More",
+        "hello": "Hello, {name}",
+        "createEvent": "Create Event",
+        "recentEvent": "Recent Event",
+        "recentEvents": "Recent Events",
+        "mySchedule": "My Schedule",
+        "myScheduleDescription": "It is automatically loaded when you enter a schedule.",
+        "noEvent": "You haven't joined any events yet."
+      },
+      "LandingPage": {
+        "title": {
+          "main": "For Our Perfect Time",
+          "feature1": "Simple Scheduling, <br></br>No more Stress",
+          "feature2": "Easier Selections <br></br>with Clear Available Times",
+          "highlight": "Smart Auto-Scheduling. <br></br>No Planning, No Stress!",
+          "card1": "One Share Is All You Need",
+          "card2": "One QR Code Is All We Need",
+          "last": "Experience Simple Scheduling <br></br>with OneTime"
+        },
+        "description": {
+          "main": "With just one share of the link, organize schedules <br></br>with many people and find the best time.",
+          "feature1": "What time works for everyone? <br></br>Simply check the best time with OneTime!",
+          "feature2": "Hard to find the available time? <br></br>Remove the busy ones!",
+          "card1": "When you pre-register your schedule once, the unavailable time is automatically excluded.",
+          "card2": "In offline, try adjusting the time with just one QR code instead of sharing the link."
+        },
+        "badge": {
+          "feature1": "Status at a Glance",
+          "feature2": "Easy Slot Check",
+          "card1": "Add My Schedule",
+          "card2": "Generate QR Code"
+        },
+        "button": {
+          "start": "Get Started",
+          "createEvent": "Create Event"
+        }
+      }
+    }
   },
-  "everytimeScheduleEdit": {
-    "title": "Add Everytime Timetable",
-    "description": "Copy and Paste the timetable link using the method below.",
-    "placeholder": "Paste link here...",
-    "submit": "Submit",
-    "submitting": "Submitting...",
-    "publicWarning": "Please set the timetable to 'Public' temporarily. (Setting Icon -> Set sharing rights -> Public)",
-    "emptyTimetable": "No classes are registered in the timetable.",
-    "pendingMessage": "The request is in progress. Please wait a moment.",
-    "invalidURLMessage": "The entered URL is invalid. Please try again with a valid URL.",
-    "privateURLMessage": "The timetable is not public. Please set the sharing rights to 'Public'.",
-    "serverErrorMessage": "An error occurred while processing the request. Please try again."
+  "mySchedule": {
+    "pages": {
+      "MyScheduleEditPage": {
+        "myScheduleEdit": "Edit My Schedule",
+        "editMySchedule": "Edit My Schedule",
+        "sleepTime": "Sleep Time",
+        "everytime": "Add Everytime timetable",
+        "save": "Save",
+        "saving": "Saving...",
+        "toast": {
+          "everytime": "Everytime timetable has been loaded"
+        }
+      },
+      "MyScheduleEverytimeEditPage": {
+        "title": "Add Everytime Timetable",
+        "description": "Copy and Paste the timetable link using the method below.",
+        "placeholder": "Paste link here...",
+        "submit": "Submit",
+        "publicWarning": "Please set the timetable to 'Public' temporarily. (Setting Icon -> Set sharing rights -> Public)",
+        "emptyTimetable": "No classes are registered in the timetable.",
+        "pendingMessage": "The request is in progress. Please wait a moment.",
+        "invalidURLMessage": "The entered URL is invalid. Please try again with a valid URL.",
+        "privateURLMessage": "The timetable is not public. Please set the sharing rights to 'Public'.",
+        "serverErrorMessage": "An error occurred while processing the request. Please try again."
+      }
+    }
   },
-  "profile": {
-    "profile": "Profile",
-    "editProfile": "Edit Profile",
-    "logout": "Logout",
-    "service": "Service",
-    "report": "Error Report & Other Inquiries",
-    "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy",
-    "version": "Version",
-    "withdraw": "Delete account"
+  "user": {
+    "pages": {
+      "MyEventListPage": {
+        "empty": {
+          "title": "You haven't joined any events yet.",
+          "button": "Add Event"
+        }
+      },
+      "ProfilePage": {
+        "profile": "Profile",
+        "editProfile": "Edit Profile",
+        "logout": "Logout",
+        "service": "Service",
+        "report": "Error Report & Other Inquiries",
+        "termsOfService": "Terms of Service",
+        "privacyPolicy": "Privacy Policy",
+        "version": "Version",
+        "withdraw": "Delete account"
+      },
+      "ProfileEditPage": {
+        "editProfile": "Edit Profile",
+        "save": "Save",
+        "saving": "Saving..."
+      },
+      "PolicyEditPage": {
+        "agreeToTerms": "Agree to Terms",
+        "title": "Please agree to the terms <br></br>to use the service",
+        "all": "Agree to all",
+        "termsOfService": "Terms of Service (Required)",
+        "privacyPolicy": "Privacy Policy (Required)",
+        "marketing": "Receive marketing information (Optional)",
+        "submit": "Submit",
+        "toWithdrawText": "Do you not agree to the terms?",
+        "toWithdrawLink": "Go to withdraw"
+      },
+      "WithdrawPage": {
+        "deleteAccount": "Delete account",
+        "mainTitle": "Do you really want to delete your account?",
+        "title1": "Your account will be deleted immediately",
+        "description1": "The information of the deleted account cannot be recovered. After deletion, your account will be deleted immediately.",
+        "title2": "All your event and schedule data will be deleted",
+        "description2": "All content written in OneTime, such as the schedules added for events, will be deleted.",
+        "agreeText": "Yes, I have confirmed the above.",
+        "withdraw": "Delete account"
+      }
+    },
+    "components": {
+      "NicknameFormControl": {
+        "name": "Name",
+        "noSpecialCharactersAndNumbers": "Special characters and numbers cannot be used.",
+        "max50Characters": "Up to 50 characters can be entered.",
+        "enterName": "Enter your name"
+      },
+      "MyEvent": {
+        "noOneSchedule": "No one has added a schedule.",
+        "participantCount": "{count, plural, =1 {# person} other {# people}}"
+      }
+    },
+    "layouts": {
+      "MyPageLayout": {
+        "allEvents": "All Events",
+        "mySchedule": "My Schedule",
+        "profile": "Profile"
+      }
+    }
   },
-  "nickname": {
-    "name": "Name",
-    "noSpecialCharactersAndNumbers": "Special characters and numbers cannot be used.",
-    "max50Characters": "Up to 50 characters can be entered.",
-    "enterName": "Enter your name"
+  "setUp": {
+    "pages": {
+      "NotFoundPage": {
+        "notFound": "Page Not Found",
+        "title": "This page cannot be found",
+        "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please make sure the address is correct."
+      }
+    },
+    "components": {
+      "NetworkErrorScreen": {
+        "title": "Network Connection Error",
+        "description": "Please check your network connection and try again."
+      },
+      "Footer": {
+        "termsOfService": "Terms of Service",
+        "privacyPolicy": "Privacy Policy",
+        "feedbackIssue": "Issue & Feedback Report",
+        "exampleEvent": {
+          "useCases": "Use Cases",
+          "teamMeetings": "Team Meetings",
+          "oneOnOneMeetings": "1:1 Business Meetings",
+          "socialGatherings": "Social Gatherings"
+        }
+      }
+    }
   },
-  "profileEdit": {
-    "editProfile": "Edit Profile",
-    "save": "Save",
-    "saving": "Saving..."
-  },
-  "policyEdit": {
-    "agreeToTerms": "Agree to Terms",
-    "title": "Please agree to the terms <br></br>to use the service",
-    "all": "Agree to all",
-    "termsOfService": "Terms of Service (Required)",
-    "privacyPolicy": "Privacy Policy (Required)",
-    "marketing": "Receive marketing information (Optional)",
-    "submit": "Submit",
-    "toWithdrawText": "Do you not agree to the terms?",
-    "toWithdrawLink": "Go to withdraw"
-  },
-  "withdraw": {
-    "deleteAccount": "Delete account",
-    "mainTitle": "Do you really want to delete your account?",
-    "title1": "Your account will be deleted immediately",
-    "description1": "The information of the deleted account cannot be recovered. After deletion, your account will be deleted immediately.",
-    "title2": "All your event and schedule data will be deleted",
-    "description2": "All content written in OneTime, such as the schedules added for events, will be deleted.",
-    "agreeText": "Yes, I have confirmed the above.",
-    "withdraw": "Delete account"
-  },
-  "404": {
-    "notFound": "Page Not Found",
-    "title": "This page cannot be found",
-    "description": "The URL you entered may be incorrect, <br></br>or the page may have been changed or deleted. <br></br>Please make sure the address is correct."
-  },
-  "networkError": {
-    "title": "Network Connection Error",
-    "description": "Please check your network connection and try again."
+  "components": {
+    "NavBar": {
+      "login": "Login",
+      "logout": "Logout",
+      "allEvents": "All Events",
+      "mySchedule": "My Schedule",
+      "profile": "Profile"
+    },
+    "BackButtonAlert": {
+      "backButtonTitle": "Do you want to leave the page?",
+      "backButtonDescription": "If you leave the page without adding a schedule, all the information you entered will disappear!",
+      "backButtonConfirm": "Continue",
+      "backButtonCancel": "Leave"
+    },
+    "TimeDropdown": {
+      "selectTime": "Select..."
+    }
   }
 }

@@ -1,4 +1,5 @@
 import {
+  GuideContents,
   ScheduleGuideModalViewLog,
   ScheduleType,
   TimeBlockPopUpDataType,
@@ -34,4 +35,17 @@ export const defaultTimeBlockPopUpData: TimeBlockPopUpDataType = {
 
 export const defaultScheduleGuideModalViewLog: ScheduleGuideModalViewLog = {
   is_viewed: true,
+};
+
+export const defaultGuideContents: GuideContents = {
+  title: '',
+  description: undefined,
+  imageSrc: {
+    en: '',
+    ko: '',
+  },
+  imageAlt: {
+    en: '',
+    ko: '',
+  },
 };

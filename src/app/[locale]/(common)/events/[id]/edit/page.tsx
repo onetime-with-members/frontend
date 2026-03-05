@@ -5,6 +5,7 @@ import { fetchEvent } from '@/features/event/api/event.api';
 import { eventQueryOptions } from '@/features/event/api/event.option';
 import EventEditPage from '@/features/event/pages/EventEditPage';
 import { foundExampleEvent } from '@/features/event/utils';
+import { redirect } from '@/i18n/navigation';
 import { QueryClient } from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -20,14 +21,20 @@ export async function generateMetadata({
     foundExampleEvent(eventId)?.event ?? (await fetchEvent(eventId));
 
   if (!event) {
-    const t404 = await getTranslations({ locale, namespace: '404' });
+    const t = await getTranslations({
+      locale,
+      namespace: 'setUp.pages.NotFoundPage',
+    });
 
     return {
-      title: t404('notFound'),
+      title: t('notFound'),
     };
   }
 
-  const t = await getTranslations({ locale, namespace: 'editEvent' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'event.pages.EventEditPage',
+  });
 
   return {
     title: t('editEvent', {
@@ -39,9 +46,9 @@ export async function generateMetadata({
 export default async function Page({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: Locale }>;
 }) {
-  const { id: eventId } = await params;
+  const { id: eventId, locale } = await params;
 
   const queryClient = new QueryClient();
 
@@ -51,6 +58,10 @@ export default async function Page({
 
   if (!event) {
     notFound();
+  }
+
+  if (!!event.confirmation) {
+    redirect({ href: `/events/view/${event.event_id}`, locale });
   }
 
   return <EventEditPage eventId={eventId} />;

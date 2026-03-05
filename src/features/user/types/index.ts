@@ -5,6 +5,7 @@ import {
   policySchema,
   profileNicknameSchema,
 } from '../schemas';
+import { ConfirmedEventData } from '@/features/event/types';
 
 export interface UserType {
   nickname: string;
@@ -24,6 +25,7 @@ export interface MyEventType {
     start_time: string;
     end_time: string;
   }[];
+  confirmation: ConfirmedEventData | null;
 }
 
 export interface MyEventListType {

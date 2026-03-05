@@ -1,10 +1,12 @@
+import { Locale } from 'next-intl';
+
 import { redirect } from '@/i18n/navigation';
 import { auth } from '@/lib/auth';
 
 export default async function Home({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
 

@@ -14,7 +14,7 @@ export default function LoginAlert({
   const pathname = usePathname();
   const params = useParams<{ id: string }>();
 
-  const t = useTranslations('alert');
+  const t = useTranslations('event.components.LoginAlert');
 
   return (
     <Alert

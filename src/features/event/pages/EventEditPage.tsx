@@ -1,10 +1,10 @@
 'use client';
 
 import { useEventQuery } from '../api/event.query';
-import EventFormScreen from '../components/form/EventFormScreen';
+import EventForm from '../components/form/EventForm';
 
 export default function EventEditPage({ eventId }: { eventId: string }) {
   const { data: event } = useEventQuery(eventId);
 
-  return <EventFormScreen formStatus="edit" originData={event} />;
+  return <EventForm formStatus="edit" originData={event} />;
 }

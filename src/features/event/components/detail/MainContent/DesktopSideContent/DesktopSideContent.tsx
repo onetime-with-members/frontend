@@ -1,3 +1,4 @@
+import ConfirmedTime from '../../shared/ConfirmedTime';
 import BannerList from '../BannerList';
 import EmptyEventBanner from './EmptyEventBanner';
 import RecommendedTimes from './RecommendedTimes';
@@ -14,6 +15,7 @@ export default function DesktopSideContent() {
 
   return (
     <div className="hidden flex-col md:flex md:w-1/2">
+      {event.event_status === 'CONFIRMED' && <ConfirmedTime />}
       <BannerList className="pt-2" />
       {!isSchedulesPending && schedules.length === 0 ? (
         <EmptyEventBanner />

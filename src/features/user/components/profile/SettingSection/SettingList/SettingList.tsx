@@ -4,7 +4,7 @@ import LanguageDropdown from '../../../shared/LanguageDropdown';
 import SettingItem from './SettingItem';
 
 export default function SettingList() {
-  const t = useTranslations('profile');
+  const t = useTranslations('user.pages.ProfilePage');
 
   return (
     <div className="flex flex-col gap-12">
@@ -19,7 +19,7 @@ export default function SettingList() {
         <SettingItem href="/policy/privacy">{t('privacyPolicy')}</SettingItem>
         <SettingItem>
           <span>{t('version')}</span>
-          <span className="text-primary-40">v 1.6.4</span>
+          <span className="text-primary-40">v 1.7.0</span>
         </SettingItem>
         <SettingItem href="/withdraw" className="text-gray-30 text-sm-200">
           {t('withdraw')}

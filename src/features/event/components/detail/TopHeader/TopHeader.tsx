@@ -4,15 +4,14 @@ import useTopContentHeight from '@/features/event/hooks/useTopContentHeight';
 import cn from '@/lib/cn';
 
 export default function TopHeader() {
-  const eventHeaderHeight = useTopContentHeight(
-    ({ eventHeader }) => eventHeader,
+  const headerHeight = useTopContentHeight(
+    ({ eventHeader, barBanner }) => eventHeader + barBanner,
   );
-  const barBannerHeight = useTopContentHeight(({ barBanner }) => barBanner);
 
   return (
     <header
       className={cn('flex w-full justify-center')}
-      style={{ height: eventHeaderHeight + barBannerHeight }}
+      style={{ height: headerHeight }}
     >
       <div className="fixed z-30 mx-auto w-full max-w-[calc(768px+2rem)] rounded-t-3xl bg-gray-00 duration-150">
         <TopToolbar />

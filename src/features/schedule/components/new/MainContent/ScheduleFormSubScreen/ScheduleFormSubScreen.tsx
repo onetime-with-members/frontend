@@ -3,17 +3,19 @@ import { useContext, useEffect } from 'react';
 
 import TimeBlockBoard from '../../../shared/TimeBlockBoard';
 import BottomSubmitButton from './BottomSubmitButton';
-import GuideModal from './GuideModal';
+import ScheduleGuideModal from './ScheduleGuideModal';
 import TopSubmitButton from './TopSubmitButton';
 import { useEventQuery } from '@/features/event/api/event.query';
 import useGuestEditedEvents from '@/features/event/hooks/useGuestEditedEvents';
 import {
   useCreateNewMemberScheduleMutation,
+  useSendNewScheduleMessageMutation,
   useUpdateScheduleMutation,
 } from '@/features/schedule/api/schedule.query';
 import { GuideModalContext } from '@/features/schedule/contexts/GuideModalContext';
 import { ScheduleFormContext } from '@/features/schedule/contexts/ScheduleFormContext';
 import useScheduleAdd from '@/features/schedule/hooks/useScheduleAdd';
+import { useUserQuery } from '@/features/user/api/user.query';
 import useToast from '@/hooks/useToast';
 import { useProgressRouter } from '@/navigation';
 import { useParams } from 'next/navigation';
@@ -45,11 +47,14 @@ export default function ScheduleFormSubScreen() {
   });
 
   const { data: event } = useEventQuery(params.id);
+  const { data: user } = useUserQuery();
 
   const { mutateAsync: createNewMemberSchedule, isPending: isCreatePending } =
     useCreateNewMemberScheduleMutation();
   const { mutateAsync: updateSchedule, isPending: isUpdatePending } =
     useUpdateScheduleMutation();
+  const { mutateAsync: sendNewScheduleMessage } =
+    useSendNewScheduleMessageMutation();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -71,13 +76,19 @@ export default function ScheduleFormSubScreen() {
         schedule: scheduleValue[0].schedules,
       });
     }
+    if (isScheduleEmpty) {
+      await sendNewScheduleMessage({
+        eventId: params.id,
+        username: user?.nickname ?? guestValue.name ?? '(알수없음)',
+      }).catch(() => {});
+    }
     await addNewEditedEvent(params.id);
     progressRouter.push(`/events/view/${params.id}`);
   }
 
   useEffect(() => {
     if (isScheduleEmpty && (!isFixedScheduleEmpty || !isSleepTimeEmpty)) {
-      toast(t('toast.loadedMySchedule'));
+      toast(t('schedule.pages.ScheduleNewPage.toast.loadedMySchedule'));
     }
   }, [isFixedScheduleEmpty, isScheduleEmpty, isSleepTimeEmpty]);
 
@@ -104,7 +115,7 @@ export default function ScheduleFormSubScreen() {
         onClick={handleScheduleSubmit}
         isPending={isCreatePending || isUpdatePending}
       />
-      {isGuideModalShown && <GuideModal />}
+      {isGuideModalShown && <ScheduleGuideModal />}
     </>
   );
 }

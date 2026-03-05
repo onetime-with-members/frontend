@@ -6,7 +6,7 @@ import FloatingBottomButton from '@/components/button/FloatingBottomButton';
 export default function BottomSubmitButton() {
   const { pending } = useFormStatus();
 
-  const t = useTranslations('scheduleAdd');
+  const t = useTranslations('schedule.pages.ScheduleNewPage');
 
   return (
     <FloatingBottomButton variant="dark" maxWidth={480}>

@@ -37,7 +37,7 @@ export interface GuestValueType {
 
 export interface GuideContents {
   title: string;
-  description: string;
+  description: React.ReactNode;
   imageSrc: { en: string; ko: string };
   imageAlt: { en: string; ko: string };
 }

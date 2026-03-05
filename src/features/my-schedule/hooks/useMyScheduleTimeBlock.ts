@@ -19,7 +19,7 @@ export default function useMyScheduleTimeBlock() {
 
   const { data: myScheduleData } = useMyScheduleQuery();
 
-  const t = useTranslations('toast');
+  const t = useTranslations('mySchedule.pages.MyScheduleEditPage.toast');
 
   const toast = useToast();
 

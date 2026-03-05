@@ -1,0 +1,48 @@
+import { useTranslations } from 'next-intl';
+
+import cn from '@/lib/cn';
+import { IconChevronLeft } from '@tabler/icons-react';
+
+export default function MobileHeader({
+  disabled,
+  onBackButtonClick,
+  onConfirm,
+  isPending,
+}: {
+  disabled: boolean;
+  onBackButtonClick: () => void;
+  onConfirm: () => void;
+  isPending: boolean;
+}) {
+  const t = useTranslations('event.pages.EventConfirmPage');
+
+  return (
+    <header className="flex shrink-0 items-center justify-between bg-gray-00 px-4 py-3 md:hidden">
+      <button
+        type="button"
+        className="-m-1 flex rounded-lg p-1 text-gray-70 hover:bg-gray-10"
+        onClick={onBackButtonClick}
+        aria-label={t('cancel')}
+      >
+        <IconChevronLeft size={24} />
+      </button>
+      <h1 id="schedule-confirm-title" className="text-gray-70 text-lg-300">
+        {t('title')}
+      </h1>
+      <button
+        type="button"
+        className={cn(
+          'rounded-lg bg-[#E8EBFC] px-3 py-1.5 text-[#4C65E5] text-sm-200 md:bg-primary-40 md:text-gray-00',
+          {
+            'pointer-events-none cursor-default bg-gray-10 text-gray-30':
+              disabled || isPending,
+          },
+        )}
+        disabled={disabled}
+        onClick={onConfirm}
+      >
+        {isPending ? t('pending') : t('done')}
+      </button>
+    </header>
+  );
+}

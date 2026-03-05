@@ -4,6 +4,7 @@ import { ScheduleType } from '../types';
 import { SERVER_API_URL } from '@/constants';
 import { EventType } from '@/features/event/types';
 import apiClient from '@/lib/api';
+import discordApiClient from '@/lib/api/discord-api-client';
 
 export async function fetchSchedules(event: EventType) {
   if (!event.event_id) return [];
@@ -125,6 +126,19 @@ export async function updateSchedule({
     },
   );
   return res.data.payload;
+}
+
+export async function sendNewScheduleMessage({
+  eventId,
+  username,
+}: {
+  eventId: string;
+  username: string;
+}) {
+  const res = await discordApiClient.post(`/send-message/${eventId}`, {
+    username,
+  });
+  return res.data;
 }
 
 export async function closeScheduleGuideModal() {

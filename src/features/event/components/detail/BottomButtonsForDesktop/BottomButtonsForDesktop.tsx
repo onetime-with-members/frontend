@@ -4,8 +4,10 @@ import { useContext, useState } from 'react';
 import LoginAlert from '../shared/LoginAlert';
 import SharePopUp from '../shared/SharePopUp';
 import BadgeFloatingBottomButton from './BadgeFloatingBottomButton';
+import { useEventQuery } from '@/features/event/api/event.query';
 import useIsEventEdited from '@/features/event/hooks/useIsEventEdited';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
+import useToast from '@/hooks/useToast';
 import { useAuth } from '@/lib/auth';
 import cn from '@/lib/cn';
 import { useProgressRouter } from '@/navigation';
@@ -17,19 +19,33 @@ export default function BottomButtonsForDesktop() {
 
   const { isFooterShown } = useContext(FooterContext);
 
-  const progressRouter = useProgressRouter();
   const params = useParams<{ id: string }>();
-  const t = useTranslations('eventDetail');
+  const t = useTranslations('event.pages.EventDetailPage');
 
+  const progressRouter = useProgressRouter();
   const { isLoggedIn } = useAuth();
   const isEventEdited = useIsEventEdited();
+  const toast = useToast();
+
+  const { data: event } = useEventQuery(params.id);
 
   async function handleBottomButtonClick() {
+    if (event.confirmation) {
+      toast(
+        t('toast.disableScheduleWhenConfirmed', {
+          action: isEventEdited ? 'edit' : 'add',
+        }),
+        { type: 'error' },
+      );
+      return;
+    }
+
     if (isLoggedIn) {
       progressRouter.push(`/events/${params.id}/schedules/new`);
-    } else {
-      setIsLoginAlertOpen(true);
+      return;
     }
+
+    setIsLoginAlertOpen(true);
   }
 
   function handleSendButtonClick() {

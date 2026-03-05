@@ -9,11 +9,13 @@ import { errorCodes } from '@/utils';
 export default function NicknameFormControl({
   registerNickname,
   errors,
+  onChange,
 }: {
   registerNickname: UseFormRegisterReturn;
   errors: FieldErrors;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-  const t = useTranslations('nickname');
+  const t = useTranslations('user.components.NicknameFormControl');
 
   return (
     <div className="flex flex-col gap-2">
@@ -27,6 +29,10 @@ export default function NicknameFormControl({
               [nicknameSchemaCodes.MAX, nicknameSchemaCodes.REGEX] as string[]
             ).includes(errors.nickname?.message as string),
           })}
+          onChange={(e) => {
+            registerNickname.onChange(e);
+            onChange?.(e);
+          }}
         />
         <ul className="flex h-4 flex-col gap-1">
           {errorCodes(errors, 'nickname').includes(

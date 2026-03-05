@@ -9,7 +9,7 @@ export default function PinPasswordControl({
 }: {
   control: Control<GuestSchema>;
 }) {
-  const t = useTranslations('scheduleAdd');
+  const t = useTranslations('schedule.pages.ScheduleNewPage');
 
   return (
     <div className="flex flex-col gap-4">

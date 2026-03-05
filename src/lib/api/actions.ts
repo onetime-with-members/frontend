@@ -1,6 +1,6 @@
 import { getCookie } from 'cookies-next';
 
-import apiClient from './axios';
+import apiClient from './api-client';
 import { Session } from '@/features/auth/types';
 
 export async function signOutAction() {

@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
-import dayjs from 'dayjs';
-
 import { Session } from '@/features/auth/types';
+import dayjs from '@/lib/dayjs';
 
 // ***********************************************
 // This example commands.ts shows you how to
@@ -61,6 +60,7 @@ Cypress.Commands.add('login', () => {
         } satisfies Session),
       );
       cy.wrap(accessToken).as('accessToken');
+      cy.wrap(refreshToken).as('refreshToken');
     },
   );
 });

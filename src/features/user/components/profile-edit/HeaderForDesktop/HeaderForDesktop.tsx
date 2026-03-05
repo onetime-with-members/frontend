@@ -4,7 +4,7 @@ import { useRouter } from '@/i18n/navigation';
 import { IconChevronLeft } from '@tabler/icons-react';
 
 export default function HeaderForDesktop() {
-  const t = useTranslations('profileEdit');
+  const t = useTranslations('user.pages.ProfileEditPage');
   const router = useRouter();
 
   return (

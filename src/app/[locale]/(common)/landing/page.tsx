@@ -1,3 +1,5 @@
+import { Locale } from 'next-intl';
+
 import LandingPage from '@/features/home/pages/LandingPage';
 import { redirect } from '@/i18n/navigation';
 import { auth } from '@/lib/auth';
@@ -5,7 +7,7 @@ import { auth } from '@/lib/auth';
 export default async function Page({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { locale } = await params;
 

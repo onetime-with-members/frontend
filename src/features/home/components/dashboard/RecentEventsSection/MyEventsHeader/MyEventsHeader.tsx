@@ -5,7 +5,7 @@ import { useRecentMyEventListQuery } from '@/features/user/api/user.query';
 import cn from '@/lib/cn';
 
 export default function MyEventsHeader() {
-  const t = useTranslations('userDashboard');
+  const t = useTranslations('home.pages.DashboardPage');
 
   const { data: myEventList } = useRecentMyEventListQuery();
 

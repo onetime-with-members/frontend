@@ -3,7 +3,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
 export default async function TypoSection() {
-  const t = await getTranslations('landing');
+  const t = await getTranslations('home.pages.LandingPage');
   const locale = await getLocale();
 
   return (

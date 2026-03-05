@@ -1,14 +1,27 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
+import { bannerQueryOptions } from '@/features/banner/api/banner.options';
 import { fetchEvent } from '@/features/event/api/event.api';
-import { eventQueryOptions } from '@/features/event/api/event.option';
+import {
+  eventQueryOptions,
+  eventShortUrlQueryOptions,
+  participantsQueryOptions,
+  qrCodeQueryOptions,
+  recommendedTimesQueryOptions,
+} from '@/features/event/api/event.option';
 import EventParticipantFilterContextProvider from '@/features/event/contexts/EventParticipantFilterContext';
 import { exampleEventList } from '@/features/event/mocks/example-events';
 import EventDetailPage from '@/features/event/pages/EventDetailPage';
 import { foundExampleEvent } from '@/features/event/utils';
-import { QueryClient } from '@tanstack/react-query';
+import { schedulesQueryOptions } from '@/features/schedule/api/schedule.option';
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query';
 import { getTranslations } from 'next-intl/server';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
@@ -21,10 +34,13 @@ export async function generateMetadata({
   const event = foundExampleEvent(id)?.event ?? (await fetchEvent(id));
 
   if (!event) {
-    const t404 = await getTranslations({ locale, namespace: '404' });
+    const t = await getTranslations({
+      locale,
+      namespace: 'setUp.pages.NotFoundPage',
+    });
 
     return {
-      title: t404('notFound'),
+      title: t('notFound'),
     };
   }
 
@@ -68,9 +84,23 @@ export default async function Page({
 
   if (!event) notFound();
 
+  const headerList = await headers();
+  const origin = headerList.get('x-origin') ?? '';
+  const pathname = headerList.get('x-pathname') ?? '';
+
+  await queryClient.prefetchQuery(eventQueryOptions(eventId));
+  await queryClient.prefetchQuery(eventShortUrlQueryOptions(origin + pathname));
+  await queryClient.prefetchQuery(recommendedTimesQueryOptions(eventId));
+  await queryClient.prefetchQuery(qrCodeQueryOptions(eventId));
+  await queryClient.prefetchQuery(participantsQueryOptions(eventId));
+  await queryClient.prefetchQuery(schedulesQueryOptions(event));
+  await queryClient.prefetchQuery(bannerQueryOptions);
+
   return (
-    <EventParticipantFilterContextProvider>
-      <EventDetailPage />
-    </EventParticipantFilterContextProvider>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <EventParticipantFilterContextProvider>
+        <EventDetailPage />
+      </EventParticipantFilterContextProvider>
+    </HydrationBoundary>
   );
 }

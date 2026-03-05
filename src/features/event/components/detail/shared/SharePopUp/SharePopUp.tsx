@@ -9,7 +9,7 @@ import ShareButtonWrapper from './ShareButtonWrapper';
 import ShareKakaoButton from './ShareKakaoButton';
 import ShareMoreButton from './ShareMoreButton';
 import Input from '@/components/Input';
-import { useShortUrlQuery } from '@/features/event/api/event.query';
+import useShortUrl from '@/features/event/hooks/useShortUrl';
 import useToast from '@/hooks/useToast';
 import { IconLink, IconQrcode, IconX } from '@tabler/icons-react';
 
@@ -22,19 +22,17 @@ export default function SharePopUp({
 
   const urlInputRef = useRef<HTMLInputElement>(null);
 
+  const t = useTranslations();
+
   const toast = useToast();
-
-  const t = useTranslations('sharePopUp');
-  const tToast = useTranslations('toast');
-
-  const { data: shortenUrl } = useShortUrlQuery(window.location.href);
+  const shortenUrl = useShortUrl();
 
   function handleCopyLink() {
     navigator.clipboard.writeText(shortenUrl || '');
     if (urlInputRef.current) {
       urlInputRef.current.select();
     }
-    toast(tToast('copiedLink'));
+    toast(t('event.components.SharePopUp.toast.copiedLink'));
   }
 
   return createPortal(
@@ -48,7 +46,9 @@ export default function SharePopUp({
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between px-5 pb-3 pt-4">
-            <h2 className="text-gray-80 text-lg-300">{t('share')}</h2>
+            <h2 className="text-gray-80 text-lg-300">
+              {t('event.components.SharePopUp.share')}
+            </h2>
             <button className="text-gray-40" onClick={() => setIsOpen(false)}>
               <IconX size={24} />
             </button>
@@ -65,20 +65,26 @@ export default function SharePopUp({
               />
             </div>
             <div className="flex items-center justify-center gap-4 xs:gap-6 sm:gap-8">
-              <ShareButtonWrapper label={t('copyLink')}>
+              <ShareButtonWrapper
+                label={t('event.components.SharePopUp.copyLink')}
+              >
                 <ShareBlueButton onClick={handleCopyLink}>
                   <IconLink size={24} />
                 </ShareBlueButton>
               </ShareButtonWrapper>
-              <ShareButtonWrapper label={t('qrCode')}>
+              <ShareButtonWrapper
+                label={t('event.components.SharePopUp.qrCode')}
+              >
                 <ShareBlueButton onClick={() => setIsQrCodeScreenOpen(true)}>
                   <IconQrcode size={24} />
                 </ShareBlueButton>
               </ShareButtonWrapper>
-              <ShareButtonWrapper label={t('kakao')}>
+              <ShareButtonWrapper
+                label={t('event.components.SharePopUp.kakao')}
+              >
                 <ShareKakaoButton />
               </ShareButtonWrapper>
-              <ShareButtonWrapper label={t('more')}>
+              <ShareButtonWrapper label={t('event.components.SharePopUp.more')}>
                 <ShareMoreButton />
               </ShareButtonWrapper>
             </div>

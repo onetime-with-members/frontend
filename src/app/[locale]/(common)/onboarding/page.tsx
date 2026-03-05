@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
+import OnboardingPage from '@/features/auth/pages/OnboardingPage';
 import OnboardingContextProvider from '@/features/user/contexts/OnboardingContext';
-import OnboardingPage from '@/features/user/pages/OnboardingPage';
 import { redirect } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 
@@ -12,7 +12,10 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'onboarding' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'auth.pages.OnboardingPage',
+  });
 
   return {
     title: t('onboarding'),
@@ -24,7 +27,7 @@ export default async function Page({
   params,
 }: {
   searchParams: Promise<{ name: string; register_token: string }>;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const { name, register_token: registerToken } = await searchParams;
   const { locale } = await params;
