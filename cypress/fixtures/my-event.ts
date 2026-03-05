@@ -9,7 +9,7 @@ export const myEventList = ({ size }: { size: number }) => ({
         title: '테스트용 이벤트 1',
         created_date: '2025-12-24T17:07:49.801',
         participant_count: 0,
-        event_status: 'CREATOR',
+        participation_role: 'CREATOR',
         most_possible_times: [],
       },
       {
@@ -18,7 +18,7 @@ export const myEventList = ({ size }: { size: number }) => ({
         title: '테스트용 이벤트 2',
         created_date: '2025-12-24T17:07:43.980',
         participant_count: 0,
-        event_status: 'CREATOR',
+        participation_role: 'CREATOR',
         most_possible_times: [],
       },
       {
@@ -27,7 +27,7 @@ export const myEventList = ({ size }: { size: number }) => ({
         title: '테스트용 이벤트 3',
         created_date: '2025-12-24T17:07:39.533',
         participant_count: 0,
-        event_status: 'CREATOR',
+        participation_role: 'CREATOR',
         most_possible_times: [],
       },
       {
@@ -36,7 +36,7 @@ export const myEventList = ({ size }: { size: number }) => ({
         title: '테스트용 이벤트 4',
         created_date: '2025-12-24T17:07:35.064',
         participant_count: 0,
-        event_status: 'CREATOR',
+        participation_role: 'CREATOR',
         most_possible_times: [],
       },
     ].slice(0, size),
@@ -60,7 +60,7 @@ export const myEventsResponseList = [
           title: '테스트용 이벤트 1',
           created_date: '2025-12-24T17:07:49.801',
           participant_count: 0,
-          event_status: 'CREATOR',
+          participation_role: 'CREATOR',
           most_possible_times: [],
         },
         {
@@ -69,7 +69,7 @@ export const myEventsResponseList = [
           title: '테스트용 이벤트 2',
           created_date: '2025-12-24T17:07:43.980',
           participant_count: 0,
-          event_status: 'CREATOR',
+          participation_role: 'CREATOR',
           most_possible_times: [],
         },
         {
@@ -78,7 +78,7 @@ export const myEventsResponseList = [
           title: '테스트용 이벤트 3',
           created_date: '2025-12-24T17:07:39.533',
           participant_count: 0,
-          event_status: 'CREATOR',
+          participation_role: 'CREATOR',
           most_possible_times: [],
         },
         {
@@ -87,7 +87,7 @@ export const myEventsResponseList = [
           title: '테스트용 이벤트 4',
           created_date: '2025-12-24T17:07:35.064',
           participant_count: 0,
-          event_status: 'CREATOR',
+          participation_role: 'CREATOR',
           most_possible_times: [],
         },
       ],
@@ -109,7 +109,7 @@ export const myEventsResponseList = [
           title: '테스트용 이벤트 5',
           created_date: '2025-12-24T17:07:30.792',
           participant_count: 0,
-          event_status: 'CREATOR',
+          participation_role: 'CREATOR',
           most_possible_times: [],
         },
         {
@@ -118,7 +118,7 @@ export const myEventsResponseList = [
           title: '테스트용 이벤트 6',
           created_date: '2025-12-24T17:07:26.173',
           participant_count: 0,
-          event_status: 'CREATOR',
+          participation_role: 'CREATOR',
           most_possible_times: [],
         },
         {
@@ -127,7 +127,7 @@ export const myEventsResponseList = [
           title: '테스트용 이벤트 7',
           created_date: '2025-12-24T17:05:27.764',
           participant_count: 0,
-          event_status: 'CREATOR',
+          participation_role: 'CREATOR',
           most_possible_times: [],
         },
         {
@@ -136,7 +136,7 @@ export const myEventsResponseList = [
           title: '테스트용 이벤트 8',
           created_date: '2025-12-24T17:05:22.810',
           participant_count: 0,
-          event_status: 'CREATOR',
+          participation_role: 'CREATOR',
           most_possible_times: [],
         },
       ],

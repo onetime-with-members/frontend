@@ -1,11 +1,12 @@
 'use server';
 
+import { deleteCookie, setCookie } from 'cookies-next';
+
 import dayjs from '@/lib/dayjs';
 import { cookies } from 'next/headers';
 
 export async function addSignOutCookie() {
-  const cookieStore = await cookies();
-  cookieStore.set('sign-out', String(true), {
+  setCookie('sign-out', String(true), {
     expires: dayjs().add(1, 'hour').toDate(),
   });
 }
@@ -16,6 +17,5 @@ export async function hasSignOutCookie() {
 }
 
 export async function deleteSignOutCookie() {
-  const cookieStore = await cookies();
-  cookieStore.delete('sign-out');
+  deleteCookie('sign-out');
 }

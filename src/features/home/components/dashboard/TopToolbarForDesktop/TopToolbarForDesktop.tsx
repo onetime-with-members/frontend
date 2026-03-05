@@ -7,7 +7,7 @@ import { ProgressLink } from '@/navigation';
 export default function TopToolbarForDesktop() {
   const { data: user } = useUserQuery();
 
-  const t = useTranslations('userDashboard');
+  const t = useTranslations('home.pages.DashboardPage');
 
   return (
     <header className="hidden h-[72px] md:block">

@@ -10,7 +10,7 @@ export default function AgreeToWithdraw({
   isChecked: boolean;
   onChecked: () => void;
 }) {
-  const t = useTranslations('withdraw');
+  const t = useTranslations('user.pages.WithdrawPage');
 
   return (
     <div className="flex w-full flex-col gap-4">

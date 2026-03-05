@@ -6,7 +6,7 @@ import { useProgressRouter } from '@/navigation';
 
 export default function ProfileActions() {
   const progressRouter = useProgressRouter();
-  const t = useTranslations('profile');
+  const t = useTranslations('user.pages.ProfilePage');
 
   const { signOut } = useAuth();
 

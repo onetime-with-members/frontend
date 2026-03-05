@@ -48,7 +48,7 @@ export default function useSetUpCookieWithUserData() {
 
   useEffect(() => {
     (async () => {
-      const userLocaleCookie = await getCookie('USER_LOCALE');
+      const userLocaleCookie = (await getCookie('USER_LOCALE')) as Locale;
       const nextLocaleCookie = await getCookie('NEXT_LOCALE');
       if (
         userLocaleCookie &&

@@ -1,6 +1,14 @@
-import { EventSchema, EventType } from '../types';
+import {
+  ConfirmedEventData,
+  EventSchema,
+  EventType,
+  SelectedDateTime,
+} from '../types';
 
 export const EDITED_EVENTS_COOKIE_KEY = 'edited_events';
+
+export const TALK_CALENDAR_SUCCESS = 'talk_calendar_success';
+export const TALK_CALENDAR_ERROR = 'talk_calendar_error';
 
 export const bottomSheetHeight = {
   all: 500,
@@ -15,7 +23,9 @@ export const defaultEvent: EventType = {
   end_time: '',
   category: 'DATE',
   ranges: [],
-  event_status: 'PARTICIPANT',
+  participation_role: 'PARTICIPANT',
+  event_status: 'ACTIVE',
+  confirmation: null,
 };
 
 export const defaultEventValue: EventSchema = {
@@ -24,4 +34,25 @@ export const defaultEventValue: EventSchema = {
   end_time: '24:00',
   category: 'DATE',
   ranges: [],
+};
+
+export const defaultConfirmedTime: ConfirmedEventData = {
+  start_date: null,
+  end_date: null,
+  start_day: null,
+  end_day: null,
+  start_time: '',
+  end_time: '',
+  created_date: '',
+};
+
+export const defaultSelectedDateTime: SelectedDateTime = {
+  start: {
+    date: '',
+    time: '',
+  },
+  end: {
+    date: '',
+    time: '',
+  },
 };

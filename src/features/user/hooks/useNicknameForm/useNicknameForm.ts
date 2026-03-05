@@ -12,5 +12,7 @@ export default function useNicknameForm({
   return useForm<ProfileNicknameSchema>({
     resolver: zodResolver(profileNicknameSchema),
     defaultValues: { nickname: onboardingValue.nickname },
+    mode: 'onChange',
+    criteriaMode: 'all',
   });
 }

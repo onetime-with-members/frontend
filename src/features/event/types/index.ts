@@ -12,7 +12,9 @@ export interface EventType {
   end_time: string;
   category: 'DATE' | 'DAY';
   ranges: string[];
-  event_status: 'CREATOR' | 'PARTICIPANT';
+  event_status: 'ACTIVE' | 'CONFIRMED';
+  participation_role: 'CREATOR' | 'PARTICIPANT' | 'CREATOR_AND_PARTICIPANT';
+  confirmation: ConfirmedEventData | null;
 }
 
 export interface ExampleEventType {
@@ -50,3 +52,35 @@ export interface RecommendedScheduleType {
 
 export type EventSchema = z.infer<typeof eventSchema>;
 export type GuestSchema = z.infer<typeof guestSchema>;
+
+export interface ConfirmedEventData {
+  start_date: string | null;
+  end_date: string | null;
+  start_day: string | null;
+  end_day: string | null;
+  start_time: string;
+  end_time: string;
+  created_date: string;
+}
+
+export type ConfirmEventRequestData = {
+  start_time: string;
+  end_time: string;
+} & (
+  | { start_date: string; end_date: string }
+  | {
+      start_day: string;
+      end_day: string;
+    }
+);
+
+export interface SelectedDateTime {
+  start: {
+    date: string;
+    time: string;
+  };
+  end: {
+    date: string;
+    time: string;
+  };
+}

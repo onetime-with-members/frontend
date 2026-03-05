@@ -1,21 +1,19 @@
-import {
-  useEventQuery,
-  useShortUrlQuery,
-} from '@/features/event/api/event.query';
+import { useEventQuery } from '@/features/event/api/event.query';
+import useShortUrl from '@/features/event/hooks/useShortUrl';
 import { IconDots } from '@tabler/icons-react';
 import { useParams } from 'next/navigation';
 
 export default function ShareMoreButton() {
   const params = useParams<{ id: string }>();
+  const shortUrl = useShortUrl();
 
   const { data: event } = useEventQuery(params.id);
-  const { data: shortenUrl } = useShortUrlQuery(window.location.href);
 
   function handleClick() {
     const shareData = {
       title: `${event?.title} - OneTime`,
       text: '스케줄 등록 요청이 도착했습니다.',
-      url: shortenUrl || '',
+      url: shortUrl || '',
     };
 
     if (navigator.share) {

@@ -1,11 +1,9 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
-import LoginPage from './login';
+import LoginPage from '../../../../features/auth/pages/LoginPage';
 import { redirect } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
-
-export type SocialLoginType = 'naver' | 'kakao' | 'google';
 
 export async function generateMetadata({
   params,
@@ -13,7 +11,11 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'login' });
+
+  const t = await getTranslations({
+    locale,
+    namespace: 'auth.pages.LoginPage',
+  });
 
   return {
     title: t('login'),
@@ -25,7 +27,7 @@ export default async function Page(props: {
     register_token?: string;
     name?: string;
   }>;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }) {
   const searchParams = await props.searchParams;
   const { locale } = await props.params;

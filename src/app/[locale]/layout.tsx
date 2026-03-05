@@ -4,27 +4,11 @@ import { Locale, hasLocale } from 'next-intl';
 import '../globals.css';
 import '@/assets/styles/font.css';
 import '@/assets/styles/github-markdown.css';
-import Toast from '@/components/Toast';
-import CookieModal from '@/features/set-up/components/CookieModal/CookieModal';
-import Favicon from '@/features/set-up/components/Favicon';
-import Footer from '@/features/set-up/components/Footer';
-import NetworkErrorScreen from '@/features/set-up/components/NetworkErrorScreen';
-import NoScripts from '@/features/set-up/components/NoScripts';
-import PreloadImages from '@/features/set-up/components/PreloadImages';
-import ProgressBar from '@/features/set-up/components/ProgressBar';
-import Providers from '@/features/set-up/components/Providers';
-import Scripts from '@/features/set-up/components/Scripts';
+import RootLayout from '@/features/set-up/layouts/RootLayout';
 import { routing } from '@/i18n/routing';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import 'react-loading-skeleton/dist/skeleton.css';
-
-declare global {
-  interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Kakao: any;
-  }
-}
 
 export async function generateMetadata({
   params,
@@ -96,27 +80,5 @@ export default async function Layout({
   // const initialIsLandingPopUpShown =
   //   !!cookieStore.get('landing-pop-up') === false;
 
-  return (
-    <html lang={locale}>
-      <head>
-        <Favicon />
-      </head>
-      <body cz-shortcut-listen="true" className="font-pretendard">
-        <Providers>
-          <ProgressBar />
-          <div className="flex min-h-[110vh] flex-col">{children}</div>
-          <Footer />
-          {/* <LandingPopUp initialIsShown={initialIsLandingPopUpShown} /> */}
-          <CookieModal />
-          <div id="pop-up" />
-          <div id="alert" />
-          <Toast />
-          <NetworkErrorScreen />
-        </Providers>
-        <PreloadImages />
-        <NoScripts />
-      </body>
-      <Scripts />
-    </html>
-  );
+  return <RootLayout locale={locale}>{children}</RootLayout>;
 }

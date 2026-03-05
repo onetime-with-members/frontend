@@ -9,7 +9,7 @@ import MyEvent from '@/features/user/components/shared/MyEvent';
 import cn from '@/lib/cn';
 
 export default function MyEventsContent() {
-  const t = useTranslations('userDashboard');
+  const t = useTranslations('home.pages.DashboardPage');
 
   const { data: myEventList, isLoading } = useRecentMyEventListQuery();
 

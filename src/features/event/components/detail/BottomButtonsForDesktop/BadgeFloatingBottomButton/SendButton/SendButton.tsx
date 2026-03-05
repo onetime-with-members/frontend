@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 
 export default function SendButton({ onClick }: { onClick: () => void }) {
   const params = useParams<{ id: string }>();
-  const t = useTranslations('eventDetail');
+  const t = useTranslations('event.pages.EventDetailPage');
   const locale = useLocale();
 
   const { data: event } = useEventQuery(params.id);

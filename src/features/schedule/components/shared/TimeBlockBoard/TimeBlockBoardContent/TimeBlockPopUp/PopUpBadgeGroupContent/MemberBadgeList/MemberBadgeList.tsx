@@ -14,7 +14,7 @@ export default function MemberBadgeList({
     popUpData: { members },
   } = useContext(TimeBlockPopUpContext);
 
-  const t = useTranslations('eventDetail');
+  const t = useTranslations('event.pages.EventDetailPage');
 
   const filteredMembers =
     type === 'possible' ? members.possible : members.impossible;

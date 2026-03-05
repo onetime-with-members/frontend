@@ -1,5 +1,5 @@
-import TabLayout from '@/features/user/components/tab-layout';
+import MyPageLayout from '@/features/user/layouts/MyPageLayout';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <TabLayout>{children}</TabLayout>;
+  return <MyPageLayout>{children}</MyPageLayout>;
 }

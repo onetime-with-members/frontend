@@ -20,17 +20,17 @@ export default function BottomButton({
 }) {
   const { isFooterShown } = useContext(FooterContext);
 
-  const t = useTranslations('everytimeScheduleEdit');
+  const t = useTranslations('mySchedule.pages.MyScheduleEverytimeEditPage');
 
-  const errorMessageKey = isPending
-    ? 'pendingMessage'
+  const message = isPending
+    ? t('pendingMessage')
     : errorCode === 'E_BAD_REQUEST'
-      ? 'invalidURLMessage'
+      ? t('invalidURLMessage')
       : errorCode === 'FIXED-002'
-        ? 'privateURLMessage'
+        ? t('privateURLMessage')
         : errorCode === 'FIXED-005'
-          ? 'emptyTimetable'
-          : 'serverErrorMessage';
+          ? t('emptyTimetable')
+          : t('serverErrorMessage');
 
   return (
     <AnimatePresence>
@@ -51,7 +51,7 @@ export default function BottomButton({
                     },
                   )}
                 >
-                  {t.rich(errorMessageKey)}
+                  {message}
                 </motion.div>
               )}
             </AnimatePresence>

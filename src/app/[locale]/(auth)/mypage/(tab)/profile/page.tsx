@@ -10,7 +10,10 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'profile' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'user.pages.ProfilePage',
+  });
 
   return {
     title: t('profile'),

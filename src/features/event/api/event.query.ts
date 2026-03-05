@@ -1,8 +1,10 @@
 import { defaultEvent } from '../constants';
-import { MemberFilterType } from '../types';
+import { ConfirmEventRequestData, EventType, MemberFilterType } from '../types';
 import { isExampleEventSlug } from '../utils';
 import {
+  confirmEvent,
   createEventAction,
+  createTalkCalendarEvent,
   deleteEventAction,
   editEventAction,
   fetchFilteredRecommendedTimes,
@@ -19,31 +21,28 @@ import {
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export function useEventQuery(id: string) {
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     ...eventQueryOptions(id),
+  });
+
+  return { data: data || defaultEvent, isPending };
+}
+
+export function useEventWithAuthQuery(id: string) {
+  const { data } = useQuery({
+    ...eventWithAuthQueryOptions(id),
   });
 
   return { data: data || defaultEvent };
 }
 
-export function useEventWithAuthQuery({
-  id,
-  enabled,
-}: {
-  id: string;
-  enabled?: boolean;
-}) {
-  const { data } = useQuery({
-    ...eventWithAuthQueryOptions(id),
-    enabled,
-  });
-
-  return { data };
-}
-
-export function useShortUrlQuery(url: string) {
+export function useShortUrlQuery(
+  url: string,
+  { enabled }: { enabled?: boolean } = {},
+) {
   const { data } = useQuery({
     ...eventShortUrlQueryOptions(url),
+    enabled,
   });
 
   return { data };
@@ -66,11 +65,11 @@ export function useQrCodeQuery(eventId: string) {
 }
 
 export function useParticipantsQuery(eventId: string) {
-  const { data } = useQuery({
+  const { data, isPending } = useQuery({
     ...participantsQueryOptions(eventId),
   });
 
-  return { data: data || [] };
+  return { data: data || [], isPending };
 }
 
 export function useCreateEventMutation() {
@@ -144,4 +143,37 @@ export function useChangeFilteredEventDataMutation({
   });
 
   return { mutateAsync };
+}
+
+export function useConfirmEventMutation() {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync, isPending, isSuccess } = useMutation({
+    mutationFn: async ({
+      eventId,
+      data,
+    }: {
+      eventId: string;
+      data: ConfirmEventRequestData;
+    }) => await confirmEvent(eventId, data),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['events'] });
+    },
+  });
+
+  return { mutateAsync, isPending: isPending || isSuccess };
+}
+
+export function useCreateTalkCalendarEventMutation() {
+  const { mutateAsync, isPending, isSuccess, isError } = useMutation({
+    mutationFn: async ({
+      accessToken,
+      event,
+    }: {
+      accessToken: string;
+      event: EventType;
+    }) => await createTalkCalendarEvent(accessToken, event),
+  });
+
+  return { mutateAsync, isPending, isSuccess, isError };
 }

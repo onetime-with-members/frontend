@@ -21,7 +21,7 @@ export default function MyPageTabContextProvider({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const t = useTranslations('mypage');
+  const t = useTranslations();
 
   const [tabActive, setTabActive] = useState<TabActiveType>(
     myPageTabActive(pathname),

@@ -21,6 +21,7 @@ export const defaultMyEvent: MyEventType = {
   event_id: '',
   category: 'DATE',
   most_possible_times: [],
+  confirmation: null,
 };
 
 export const defaultPolicy: PolicySchema = {
@@ -31,8 +32,6 @@ export const defaultPolicy: PolicySchema = {
 
 export const defaultOnboardingValue: OnboardingSchema = {
   nickname: '',
-  startSleepTime: '23:00',
-  endSleepTime: '07:00',
   servicePolicy: false,
   privacyPolicy: false,
   marketingPolicy: false,

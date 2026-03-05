@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 export default function SettingHeader() {
-  const t = useTranslations('profile');
+  const t = useTranslations('user.pages.ProfilePage');
 
   return (
     <header className="px-4 py-1">

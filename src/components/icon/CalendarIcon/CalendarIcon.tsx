@@ -1,4 +1,6 @@
-export function CalendarIcon(props: React.SVGProps<SVGSVGElement>) {
+export function CalendarIcon(
+  props: React.SVGProps<SVGSVGElement> & { innerfill: string },
+) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +20,12 @@ export function CalendarIcon(props: React.SVGProps<SVGSVGElement>) {
         strokeWidth="2"
         rx="3"
       />
-      <path stroke="#fff" strokeLinecap="round" strokeWidth="2" d="M8 9h8" />
+      <path
+        stroke={props.innerfill}
+        strokeLinecap="round"
+        strokeWidth="2"
+        d="M8 9h8"
+      />
       <path
         stroke="currentColor"
         strokeLinecap="round"

@@ -7,7 +7,7 @@ import { ProgressLink, useProgressRouter } from '@/navigation';
 export default function LoginButton({ disabled }: { disabled?: boolean }) {
   const progressRouter = useProgressRouter();
   const pathname = usePathname();
-  const t = useTranslations('navbar');
+  const t = useTranslations('components.NavBar');
 
   function handleLoginClick(e: React.MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
