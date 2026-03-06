@@ -9,6 +9,7 @@ import {
   useConfirmedTimeDispatch,
 } from '@/features/event/contexts/ConfirmedTimeContext';
 import { SelectedDateTime } from '@/features/event/types';
+import useIsMobile from '@/hooks/useIsMobile';
 import { useParams } from 'next/navigation';
 
 export default function PickersSection() {
@@ -16,12 +17,14 @@ export default function PickersSection() {
   const dispatch = useConfirmedTimeDispatch();
 
   const [activePicker, setActivePicker] = useState<'start' | 'end' | 'none'>(
-    'start',
+    'none',
   );
   const [selectedDateTime, setSelectedDateTime] =
     useState<SelectedDateTime>(confirmedTime);
 
   const params = useParams<{ id: string }>();
+
+  const isMobile = useIsMobile();
 
   const { data: event } = useEventQuery(params.id);
 
@@ -62,6 +65,10 @@ export default function PickersSection() {
   useEffect(() => {
     setSelectedDateTime(confirmedTime);
   }, [confirmedTime]);
+
+  useEffect(() => {
+    setActivePicker(isMobile ? 'none' : 'start');
+  }, [isMobile]);
 
   return (
     <section className="flex flex-1 flex-col gap-3 bg-gray-00 px-4 pt-4 md:rounded-3xl md:p-6">
