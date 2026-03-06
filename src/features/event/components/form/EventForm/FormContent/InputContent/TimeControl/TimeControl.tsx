@@ -24,12 +24,14 @@ export default function TimeControl() {
             className="w-[7.5rem]"
             time={startTime}
             setTime={setStartTime}
+            textSize="lg"
           />
           <span className="text-gray-70 text-md-300">-</span>
           <TimeDropdown
             className="w-[7.5rem]"
             time={endTime}
             setTime={setEndTime}
+            textSize="lg"
           />
         </div>
       </div>
