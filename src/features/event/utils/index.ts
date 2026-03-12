@@ -10,12 +10,14 @@ export const foundExampleEvent = (eventId: string) =>
 export const isExampleEventSlug = (eventId: string) =>
   !!foundExampleEvent(eventId);
 
-export function parseDateTime(date: string, time: string) {
-  return dayjs(`${date} ${time}`, 'YYYY.MM.DD HH:mm');
+export function parseDateTime(date: string, time?: string) {
+  return time
+    ? dayjs(`${date} ${time}`, 'YYYY.MM.DD HH:mm')
+    : dayjs(date, 'YYYY.MM.DD');
 }
 
-export function parseDayTime(day: string, time: string) {
-  return dayjs(time, 'HH:mm').day(
+export function parseDayTime(day: string, time?: string) {
+  return dayjs(...(time ? [time, 'HH:mm'] : [])).day(
     weekdaysShortKo.findIndex((weekday) => weekday === day),
   );
 }
@@ -32,21 +34,21 @@ function getEventTimeSummary({
   locale: 'ko' | 'en';
 }) {
   if (category === 'DATE') {
-    const startDateTime = parseDateTime(start.date, start.time);
-    const endDateTime = parseDateTime(end.date ?? '', end.time);
+    const startDate = parseDateTime(start.date);
+    const endDate = parseDateTime(end.date);
 
     return start.date === end.date
-      ? `${startDateTime.format('MM/DD (ddd) HH:mm')} - ${endDateTime.format('HH:mm')}`
-      : `${startDateTime.format('MM/DD(ddd) HH:mm')} - ${endDateTime.format('MM/DD(ddd) HH:mm')}`;
+      ? `${startDate.format('MM/DD (ddd)')} ${start.time} - ${end.time}`
+      : `${startDate.format('MM/DD(ddd)')} ${start.time} - ${endDate.format('MM/DD(ddd)')} ${end.time}`;
   } else {
-    const startDayTime = parseDayTime(start.day, start.time);
-    const endDayTime = parseDayTime(end.day, end.time);
+    const startDay = parseDayTime(start.day);
+    const endDay = parseDayTime(end.day);
 
     const ddd = locale === 'ko' ? 'dddd' : 'ddd';
 
     return start.day === end.day
-      ? `${startDayTime.format(`${ddd} HH:mm`)} - ${endDayTime.format('HH:mm')}`
-      : `${startDayTime.format(`${ddd} HH:mm`)} - ${endDayTime.format(`${ddd} HH:mm`)}`;
+      ? `${startDay.format(ddd)} ${start.time} - ${end.time}`
+      : `${startDay.format(ddd)} - ${endDay.format(ddd)} ${end.time}`;
   }
 }
 

@@ -18,15 +18,15 @@ export default function ConfirmedTimeMain() {
 
   const { data: event } = useEventQuery(params.id);
 
-  const confirmedTimeText = getConfirmedTimeText({
-    confirmedTime: event.confirmation ?? defaultConfirmedTime,
-    category: event.category,
-    locale,
-  });
   const confirmedTimeFromNow = getConfirmedTimeFromNow({
     confirmedTime: event.confirmation ?? defaultConfirmedTime,
     category: event.category,
     ongoingText: t('event.pages.EventDetailPage.confirm.ongoing'),
+  });
+  const confirmedTimeText = getConfirmedTimeText({
+    confirmedTime: event.confirmation ?? defaultConfirmedTime,
+    category: event.category,
+    locale,
   });
 
   return (
