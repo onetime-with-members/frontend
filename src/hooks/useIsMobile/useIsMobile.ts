@@ -6,12 +6,16 @@ export default function useIsMobile() {
   const [clientWidth, setClientWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 0,
   );
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 0 < breakpoint.md,
+  );
 
   useEffect(() => {
     function handleResize() {
       setClientWidth(window.innerWidth);
     }
+
+    handleResize();
 
     window.addEventListener('resize', handleResize);
 
