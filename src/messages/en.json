@@ -163,7 +163,8 @@
         "next": "Next",
         "goBack": "Go Back",
         "previous": "Previous",
-        "start": "Get Started"
+        "start": "Get Started",
+        "register": "Register"
       }
     }
   },
