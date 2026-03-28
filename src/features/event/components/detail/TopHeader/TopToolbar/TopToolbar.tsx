@@ -1,4 +1,3 @@
-import ConfirmedTime from '../../shared/ConfirmedTime';
 import ConfirmEventBanner from './ConfirmEventBanner';
 import ToolbarButtons from './ToolbarButtons/ToolbarButtons';
 import { useEventQuery } from '@/features/event/api/event.query';
@@ -17,13 +16,11 @@ export default function TopToolbar() {
         </h1>
         <ToolbarButtons />
       </div>
-      <div className="md:hidden">
-        {event.event_status === 'CONFIRMED' ? (
-          <ConfirmedTime />
-        ) : (
+      {event.event_status !== 'CONFIRMED' && (
+        <div className="md:hidden">
           <ConfirmEventBanner />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

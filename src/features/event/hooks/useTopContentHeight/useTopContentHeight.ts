@@ -27,11 +27,8 @@ export default function useTopContentHeight(
   const participantFilter = schedules.length > 0 ? 36 : 0;
   const barBanner = isBarBannerShown ? 56 : 0;
 
-  const eventConfirmBanner = isMobile
-    ? event.event_status === 'CONFIRMED'
-      ? 124
-      : 48
-    : 0;
+  const eventConfirmBanner =
+    isMobile && event.event_status !== 'CONFIRMED' ? 48 : 0;
   const eventHeaderGap =
     isMobile || event.event_status === 'CONFIRMED' ? 12 : 0;
   const eventHeader = isMobile ? 60 + eventHeaderGap + eventConfirmBanner : 64;
