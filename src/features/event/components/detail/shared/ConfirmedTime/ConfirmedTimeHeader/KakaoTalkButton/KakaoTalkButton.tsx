@@ -18,10 +18,11 @@ export default function KakaoTalkButton() {
   return (
     <>
       <ActionButton
-        className="bg-[#FAE100] text-[#3B1E1E]"
+        className="bg-[#FAE100] text-gray-90 flex flex-row items-center gap-1 pl-[10px] h-9 pr-3 rounded-lg w-full justify-center"
         onClick={handleModalOpen}
       >
-        <KakaoTalkIcon fontSize={24} innerfill="#FAE100" />
+        <KakaoTalkIcon fontSize={24} innerfill="" />
+        <span className='text-sm-200 text-gray-90'> 공유하기</span>
       </ActionButton>
       {isModalOpen && <TalkCalendarShareModal onClose={handleModalClose} />}
     </>
