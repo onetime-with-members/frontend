@@ -83,6 +83,11 @@
         "description": "카카오톡에서 알림을 받을 수 있어요.",
         "shareViaKakaoButton": "카카오톡으로 공유하기"
       },
+      "ConfirmEventKakaoShareModal": {
+        "title": "확정된 일정을 공유하고 <br></br>알림을 받아보세요!",
+        "description": "카카오톡 캘릭더에 일정이 추가돼요.",
+        "shareViaKakaoButton": "카카오톡 공유하기"
+      },
       "LoginAlert": {
         "loginTitle": "로그인 하시겠어요?",
         "loginDescription": "로그인하면 정보가 자동으로 입력되고, <br></br>스케줄을 저장할 수 있어요!",

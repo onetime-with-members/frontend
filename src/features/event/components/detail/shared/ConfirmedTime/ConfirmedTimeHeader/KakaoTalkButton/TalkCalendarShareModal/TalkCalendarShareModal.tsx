@@ -7,8 +7,10 @@ import TextContent from './TextContent';
 
 export default function TalkCalendarShareModal({
   onClose,
+  variant = 'default',
 }: {
   onClose: () => void;
+  variant?: 'default' | 'afterConfirm';
 }) {
   return createPortal(
     <div
@@ -22,7 +24,7 @@ export default function TalkCalendarShareModal({
         <div className="flex flex-col gap-4 px-4 pb-6 pt-8">
           <CloseButton onClick={onClose} />
           <ImageContent />
-          <TextContent />
+          <TextContent variant={variant} />
         </div>
         <div className="p-3 pt-0">
           <ShareButton onClose={onClose} />

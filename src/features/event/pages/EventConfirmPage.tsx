@@ -1,8 +1,10 @@
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import { useConfirmEventMutation, useEventQuery } from '../api/event.query';
+import { SESSION_STORAGE_SHOW_KAKAO_AFTER_CONFIRM } from '../constants';
 import ActionConfirmModal from '../components/confirm/ActionConfirmModal';
 import BottomButton from '../components/confirm/BottomButton';
 import DesktopHeader from '../components/confirm/DesktopHeader';
@@ -24,6 +26,7 @@ export default function EventConfirmPage() {
 
   const params = useParams<{ id: string }>();
 
+  const queryClient = useQueryClient();
   const progressRouter = useProgressRouter();
 
   const { data: event } = useEventQuery(params.id);
@@ -51,11 +54,7 @@ export default function EventConfirmPage() {
   }
 
   function handleSubmit() {
-    if (event.confirmation) {
-      handleConfirm();
-    } else {
-      setIsModalOpen(true);
-    }
+    setIsModalOpen(true);
   }
 
   function handleModalClose() {
@@ -75,6 +74,9 @@ export default function EventConfirmPage() {
         end_time: confirmedTime.end.time,
       } as ConfirmEventRequestData,
     });
+    await queryClient.refetchQueries({ queryKey: ['events', params.id] });
+    setIsModalOpen(false);
+    sessionStorage.setItem(SESSION_STORAGE_SHOW_KAKAO_AFTER_CONFIRM, params.id);
     progressRouter.back();
   }
 

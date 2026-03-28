@@ -83,6 +83,11 @@
         "description": "You can receive notifications <br></br>on KakaoTalk.",
         "shareViaKakaoButton": "Share via KakaoTalk"
       },
+      "ConfirmEventKakaoShareModal": {
+        "title": "Share your confirmed schedule <br></br>and get notified",
+        "description": "The event is added to your KakaoTalk Calendar.",
+        "shareViaKakaoButton": "Share via KakaoTalk"
+      },
       "LoginAlert": {
         "loginTitle": "Would you like to log in?",
         "loginDescription": "Your information is auto-filled, and your schedule can be saved!",
