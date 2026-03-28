@@ -5,6 +5,7 @@ import CalendarSelect from '@/components/CalendarSelect';
 import TimeDropdown from '@/components/TimeDropdown';
 import WeekdaySelect from '@/features/event/components/form/EventForm/FormContent/InputContent/DateControl/WeekdaySelect';
 import { SelectedDateTime } from '@/features/event/types';
+import { getDefaultConfirmTimeFromNow } from '@/features/event/utils';
 import cn from '@/lib/cn';
 
 export default function PickerPanel({
@@ -42,6 +43,15 @@ export default function PickerPanel({
   useEffect(() => {
     setCurrentRanges(selectedDateTime.date ? [selectedDateTime.date] : []);
   }, [selectedDateTime.date]);
+
+  useEffect(() => {
+    if (!selectedDateTime.time) {
+      setSelectedDateTime({
+        date: selectedDateTime.date,
+        time: getDefaultConfirmTimeFromNow(),
+      });
+    }
+  }, [selectedDateTime.time, type]);
 
   return (
     <div

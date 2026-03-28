@@ -159,3 +159,18 @@ export function eventToDateTime(event: EventType): SelectedDateTime {
     },
   };
 }
+
+export function getDefaultConfirmTimeFromNow(): string {
+  const now = dayjs();
+  const totalMinutes = now.hour() * 60 + now.minute();
+  const ceiledMinutes = Math.ceil(totalMinutes / 30) * 30;
+
+  if (ceiledMinutes >= 24 * 60) {
+    return '24:00';
+  }
+
+  const h = Math.floor(ceiledMinutes / 60);
+  const m = ceiledMinutes % 60;
+
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+}
