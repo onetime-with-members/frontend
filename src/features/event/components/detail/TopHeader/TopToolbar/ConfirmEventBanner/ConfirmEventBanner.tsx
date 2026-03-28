@@ -17,11 +17,11 @@ export default function ConfirmEventBanner() {
 
   return (
     <div
-      className="flex cursor-pointer items-center gap-1.5 rounded-2xl bg-gray-70 px-4 py-3 text-gray-30"
+      className="flex cursor-pointer items-center gap-1.5 rounded-2xl bg-gray-70 px-4 py-3 text-gray-30 transition-colors [--cal-inner:#474a5c] active:text-gray-00 active:bg-primary-50 active:[--cal-inner:#4C65E5]"
       onClick={handleClick}
     >
-      <span>
-        <CalendarIcon innerfill="#474a5c" fontSize={20} />
+      <span className="shrink-0">
+        <CalendarIcon innerfill="var(--cal-inner)" fontSize={20} />
       </span>
       <span className="flex-1 text-md-200">{t('banner')}</span>
       <span>
