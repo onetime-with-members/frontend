@@ -28,6 +28,36 @@ export default function PickersSection() {
 
   const { data: event } = useEventQuery(params.id);
 
+  const isStartFilled =
+    Boolean(selectedDateTime.start.date) && Boolean(selectedDateTime.start.time);
+  const isEndFilled =
+    Boolean(selectedDateTime.end.date) && Boolean(selectedDateTime.end.time);
+
+  function isStartActive() {
+    if (activePicker === 'start') return true;
+    if (
+      isMobile &&
+      activePicker === 'none' &&
+      !isStartFilled
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  function isEndActive() {
+    if (activePicker === 'end') return true;
+    if (
+      isMobile &&
+      activePicker === 'none' &&
+      isStartFilled &&
+      !isEndFilled
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   function dispatchConfirmedTime() {
     if (!dispatch) return;
     if (activePicker === 'start') {
@@ -79,14 +109,14 @@ export default function PickersSection() {
             <ConfirmedTimePickerButton
               type="start"
               datePickerType={event.category === 'DATE' ? 'date' : 'day'}
-              active={activePicker === 'start'}
+              active={isStartActive()}
               onClick={() => handlePickerTrigger('start')}
               selectedDateTime={selectedDateTime['start']}
             />
             <ConfirmedTimePickerButton
               type="end"
               datePickerType={event.category === 'DATE' ? 'date' : 'day'}
-              active={activePicker === 'end'}
+              active={isEndActive()}
               onClick={() => handlePickerTrigger('end')}
               selectedDateTime={selectedDateTime['end']}
             />
