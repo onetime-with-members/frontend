@@ -1,1 +1,5 @@
-export { default } from './RecommendedTimes';
+export {
+  default,
+  RecommendedTimesHeading,
+  RecommendedTimesList,
+} from './RecommendedTimes';
