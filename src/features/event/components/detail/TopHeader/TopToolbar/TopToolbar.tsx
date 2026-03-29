@@ -17,9 +17,7 @@ export default function TopToolbar() {
         <ToolbarButtons />
       </div>
       {event.event_status !== 'CONFIRMED' && (
-        <div className="md:hidden">
-          <ConfirmEventBanner />
-        </div>
+        <ConfirmEventBanner className="md:hidden" />
       )}
     </div>
   );
