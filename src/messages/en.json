@@ -79,11 +79,6 @@
         "editingEvent": "Editing Event..."
       },
       "TalkCalendarShareModal": {
-        "title": "Share with members and <br></br>add to Talk Calendar!",
-        "description": "You can receive notifications <br></br>on KakaoTalk.",
-        "shareViaKakaoButton": "Share via KakaoTalk"
-      },
-      "ConfirmEventKakaoShareModal": {
         "title": "Share your confirmed schedule <br></br>and get notified",
         "description": "The event is added to your KakaoTalk Calendar.",
         "shareViaKakaoButton": "Share via KakaoTalk"

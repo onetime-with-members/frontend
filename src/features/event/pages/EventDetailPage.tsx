@@ -47,10 +47,7 @@ export default function EventDetailPage() {
       {event.event_status !== 'CONFIRMED' && <BottomButtonsForDesktop />}
       <RecommendedTimesBottomSheet />
       {isKakaoShareAfterConfirmOpen && (
-        <TalkCalendarShareModal
-          variant="afterConfirm"
-          onClose={handleCloseKakaoShareAfterConfirm}
-        />
+        <TalkCalendarShareModal onClose={handleCloseKakaoShareAfterConfirm} />
       )}
     </div>
   );

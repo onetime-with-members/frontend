@@ -79,14 +79,9 @@
         "editingEvent": "이벤트 수정 중..."
       },
       "TalkCalendarShareModal": {
-        "title": "멤버에게 공유하고 <br></br>톡캘린더에 추가해보세요!",
-        "description": "카카오톡에서 알림을 받을 수 있어요.",
-        "shareViaKakaoButton": "카카오톡으로 공유하기"
-      },
-      "ConfirmEventKakaoShareModal": {
         "title": "확정된 일정을 공유하고 <br></br>알림을 받아보세요!",
         "description": "카카오톡 캘릭더에 일정이 추가돼요.",
-        "shareViaKakaoButton": "카카오톡 공유하기"
+        "shareViaKakaoButton": "카카오톡으로 공유하기"
       },
       "LoginAlert": {
         "loginTitle": "로그인 하시겠어요?",

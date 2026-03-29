@@ -1,15 +1,7 @@
 import { useTranslations } from 'next-intl';
 
-export default function TextContent({
-  variant = 'default',
-}: {
-  variant?: 'default' | 'afterConfirm';
-}) {
-  const t = useTranslations(
-    variant === 'afterConfirm'
-      ? 'event.components.ConfirmEventKakaoShareModal'
-      : 'event.components.TalkCalendarShareModal',
-  );
+export default function TextContent() {
+  const t = useTranslations('event.components.TalkCalendarShareModal');
 
   return (
     <div className="flex flex-col gap-1 text-center">
