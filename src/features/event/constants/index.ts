@@ -7,6 +7,7 @@ import {
 
 export const EDITED_EVENTS_COOKIE_KEY = 'edited_events';
 
+export const TALK_CALENDAR_EVENT_ID = 'talk_calendar_event_id';
 export const TALK_CALENDAR_SUCCESS = 'talk_calendar_success';
 export const TALK_CALENDAR_ERROR = 'talk_calendar_error';
 

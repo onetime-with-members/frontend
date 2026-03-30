@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { getKakaoAuthCode } from '@/features/auth/api/auth.api';
+import { TALK_CALENDAR_EVENT_ID } from '@/features/event/constants';
 import { useSearchParams } from 'next/navigation';
 
 export default function KakaoRedirect() {
@@ -12,7 +13,7 @@ export default function KakaoRedirect() {
 
   function handleAutoClick() {
     if (!eventIdParam) return;
-    sessionStorage.setItem('talk-calendar-event-id', eventIdParam);
+    sessionStorage.setItem(TALK_CALENDAR_EVENT_ID, eventIdParam);
     getKakaoAuthCode();
   }
 
