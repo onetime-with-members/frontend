@@ -23,7 +23,7 @@ export default function MainContent() {
   );
 
   return (
-    <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] gap-6 bg-gray-00 px-4 pb-16 pt-2 md:px-6">
+    <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] gap-6 bg-gray-00 p-4 pb-16">
       <div className="w-full md:w-1/2">
         {event.event_status === 'CONFIRMED' && (
           <div className="mb-3 md:hidden">

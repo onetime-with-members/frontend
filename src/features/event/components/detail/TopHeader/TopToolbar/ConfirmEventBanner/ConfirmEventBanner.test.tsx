@@ -8,11 +8,16 @@ import { faker } from '@faker-js/faker';
 import { fireEvent, render, screen } from '@testing-library/react';
 import * as nextNavigation from 'next/navigation';
 
-vi.mock(import('next/navigation'));
-
 let eventId = vi.hoisted(() => '');
 eventId = faker.string.uuid();
-vi.mocked(nextNavigation.useParams).mockReturnValue({ id: eventId });
+
+vi.mock('next/navigation', async (importOriginal) => {
+  const actual = await importOriginal<typeof nextNavigation>();
+  return {
+    ...actual,
+    useParams: () => ({ id: eventId }),
+  };
+});
 
 describe('ConfirmEventBanner', () => {
   const pushSpy = vi.fn();

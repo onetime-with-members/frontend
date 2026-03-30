@@ -17,7 +17,7 @@ export default function LoginButton({ disabled }: { disabled?: boolean }) {
   return (
     <ProgressLink
       href="/login"
-      className={cn('flex items-center text-lg-200', {
+      className={cn('flex items-center text-md-200', {
         'pointer-events-none': disabled,
       })}
       onClick={handleLoginClick}

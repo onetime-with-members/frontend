@@ -2,7 +2,7 @@ import cn from '@/lib/cn';
 import Image from 'next/image';
 
 export default function Avatar({
-  size = 40,
+  size = 32,
   name,
   imageUrl,
   onClick,
