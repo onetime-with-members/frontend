@@ -1,31 +1,27 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { Mock, afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import ConfirmEventBanner from './ConfirmEventBanner';
 import messages from '@/messages/ko.json';
-import * as navigation from '@/navigation';
+import { useProgressRouter } from '@/navigation';
 import { faker } from '@faker-js/faker';
 import { fireEvent, render, screen } from '@testing-library/react';
-import * as nextNavigation from 'next/navigation';
+import { useParams } from 'next/navigation';
 
-let eventId = vi.hoisted(() => '');
-eventId = faker.string.uuid();
+vi.mock(import('next/navigation'));
+vi.mock(import('@/navigation'));
 
-vi.mock('next/navigation', async (importOriginal) => {
-  const actual = await importOriginal<typeof nextNavigation>();
-  return {
-    ...actual,
-    useParams: () => ({ id: eventId }),
-  };
-});
+const eventId = faker.string.uuid();
+
+(useParams as Mock).mockReturnValue({ id: eventId });
 
 describe('ConfirmEventBanner', () => {
   const pushSpy = vi.fn();
 
   beforeEach(() => {
-    vi.spyOn(navigation, 'useProgressRouter').mockReturnValue({
+    (useProgressRouter as Mock).mockReturnValue({
       push: pushSpy,
-    } as unknown as ReturnType<typeof navigation.useProgressRouter>);
+    });
   });
 
   afterEach(() => {

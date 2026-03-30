@@ -9,7 +9,7 @@ import { useEventQuery } from '@/features/event/api/event.query';
 import { defaultConfirmedTime } from '@/features/event/constants';
 import {
   getConfirmedTimeFromNow,
-  getConfirmedTimeMainLineText,
+  getConfirmedTimeSummary,
 } from '@/features/event/utils';
 import { useParams } from 'next/navigation';
 
@@ -25,7 +25,7 @@ export default function ConfirmedTimeMain() {
     category: event.category,
     ongoingText: t('event.pages.EventDetailPage.confirm.ongoing'),
   });
-  const confirmedTimeMainLine = getConfirmedTimeMainLineText({
+  const confirmedTimeSummary = getConfirmedTimeSummary({
     confirmedTime: event.confirmation ?? defaultConfirmedTime,
     category: event.category,
     locale,
@@ -38,7 +38,7 @@ export default function ConfirmedTimeMain() {
         <span className="text-sm-200">{confirmedTimeFromNow}</span>
       </div>
       <span className="whitespace-nowrap text-md-300 xs:text-lg-300">
-        {confirmedTimeMainLine}
+        {confirmedTimeSummary}
       </span>
 
       <div className="mt-2 flex flex-row gap-2">

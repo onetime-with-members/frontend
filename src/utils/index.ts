@@ -47,17 +47,3 @@ export function formatTimeAmPm(time: string, locale: Locale): string {
   if (h === 12) return `${pm} 12:${m}`;
   return `${pm} ${(h - 12).toString().padStart(2, '0')}:${m}`;
 }
-
-export function formatTimeAmPmCompact(time: string, locale: Locale): string {
-  const [hStr, mStr] = time.split(':');
-  const h = parseInt(hStr, 10);
-  const m = mStr ?? '00';
-
-  const am = locale === 'ko' ? '오전' : 'AM';
-  const pm = locale === 'ko' ? '오후' : 'PM';
-
-  if (h === 0) return `${am} 12:${m}`;
-  if (h < 12) return `${am} ${h}:${m}`;
-  if (h === 12) return `${pm} 12:${m}`;
-  return `${pm} ${h - 12}:${m}`;
-}

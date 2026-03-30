@@ -1,7 +1,7 @@
 import { useLocale } from 'next-intl';
 
 import { useEventQuery } from '../../api/event.query';
-import { getConfirmedTimeText } from '../../utils';
+import { getConfirmedTimeSummary } from '../../utils';
 
 export default function useTalkCalendarShare(eventId: string) {
   const locale = useLocale();
@@ -10,7 +10,7 @@ export default function useTalkCalendarShare(eventId: string) {
 
   if (!event.confirmation) return () => {};
 
-  const confirmedTimeSummary = getConfirmedTimeText({
+  const confirmedTimeSummary = getConfirmedTimeSummary({
     confirmedTime: event.confirmation,
     category: event.category,
     locale,

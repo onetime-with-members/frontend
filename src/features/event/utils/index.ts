@@ -1,11 +1,10 @@
-import type { Locale } from 'next-intl';
+import { Locale } from 'next-intl';
 
 import { exampleEventList } from '../mocks/example-events';
 import { ConfirmedEventData, EventType, SelectedDateTime } from '../types';
 import { weekdaysShortKo } from '@/constants';
 import { MyEventType } from '@/features/user/types';
 import dayjs from '@/lib/dayjs';
-import { formatTimeAmPmCompact } from '@/utils';
 
 export const foundExampleEvent = (eventId: string) =>
   exampleEventList.find(({ slug }) => slug.includes(eventId));
@@ -34,7 +33,7 @@ function getEventTimeSummary({
   start: { date: string; day: string; time: string };
   end: { date: string; day: string; time: string };
   category: 'DATE' | 'DAY';
-  locale: 'ko' | 'en';
+  locale: Locale;
 }) {
   if (category === 'DATE') {
     const startDate = parseDateTime(start.date);
@@ -55,14 +54,14 @@ function getEventTimeSummary({
   }
 }
 
-export function getRecommendedTimeText({
+export function getRecommendedTimeSummary({
   recommendedTime,
   category,
   locale,
 }: {
   recommendedTime: MyEventType['most_possible_times'][0];
   category: 'DATE' | 'DAY';
-  locale: 'ko' | 'en';
+  locale: Locale;
 }) {
   return getEventTimeSummary({
     start: {
@@ -80,14 +79,14 @@ export function getRecommendedTimeText({
   });
 }
 
-export function getConfirmedTimeText({
+export function getConfirmedTimeSummary({
   confirmedTime,
   category,
   locale,
 }: {
   confirmedTime: ConfirmedEventData;
   category: 'DATE' | 'DAY';
-  locale: 'ko' | 'en';
+  locale: Locale;
 }) {
   return getEventTimeSummary({
     start: {
@@ -103,51 +102,6 @@ export function getConfirmedTimeText({
     category,
     locale,
   });
-}
-
-export function getConfirmedTimeMainLineText({
-  confirmedTime,
-  category,
-  locale,
-}: {
-  confirmedTime: ConfirmedEventData;
-  category: 'DATE' | 'DAY';
-  locale: Locale;
-}): string {
-  const startTime = confirmedTime.start_time;
-  if (!startTime) return '';
-
-  const timeStr = formatTimeAmPmCompact(startTime, locale);
-
-  if (category === 'DATE') {
-    const startDate = confirmedTime.start_date;
-    if (!startDate) return timeStr;
-
-    const d = parseDateTime(startDate, startTime);
-
-    if (locale === 'ko') {
-      const dateStr = `${d.format('YYYY')}. ${d.format('M')}. ${d.format('D')}.`;
-      const w = weekdaysShortKo[d.day()];
-      return `${dateStr} ${w} ${timeStr}`;
-    }
-
-    const w = d.locale('en').format('ddd');
-    const dateStr = d.locale('en').format('MMM D, YYYY');
-    return `${w}, ${dateStr} ${timeStr}`;
-  }
-
-  const startDay = confirmedTime.start_day ?? '';
-  if (locale === 'ko') {
-    return startDay ? `${startDay} ${timeStr}` : timeStr;
-  }
-
-  const idx = weekdaysShortKo.findIndex((w) => w === startDay);
-  if (idx >= 0) {
-    const label = dayjs().day(idx).locale('en').format('dddd');
-    return `${label} ${timeStr}`;
-  }
-
-  return startDay ? `${startDay} ${timeStr}` : timeStr;
 }
 
 export function getConfirmedTimeFromNow({
