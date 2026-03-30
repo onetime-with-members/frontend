@@ -1,5 +1,4 @@
 import { eventQueryOptions } from '@/features/event/api/event.option';
-import { getTalkCalendarEventCookie } from '@/features/event/lib/talk-calendar-event-cookie';
 import EventTalkCalendarPage from '@/features/event/pages/EventTalkCalendarPage';
 import {
   HydrationBoundary,
@@ -13,11 +12,7 @@ export default async function Page({
 }: {
   searchParams: Promise<{ event_id: string }>;
 }) {
-  const { event_id: eventIdParam } = await searchParams;
-
-  const eventIdCookie = await getTalkCalendarEventCookie();
-
-  const eventId = eventIdParam ?? eventIdCookie;
+  const { event_id: eventId } = await searchParams;
 
   if (!eventId) {
     redirect('/');
@@ -31,7 +26,7 @@ export default async function Page({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <EventTalkCalendarPage eventId={eventId} />
+      <EventTalkCalendarPage />
     </HydrationBoundary>
   );
 }

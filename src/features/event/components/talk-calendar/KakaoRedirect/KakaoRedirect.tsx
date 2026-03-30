@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 
 import { getKakaoAuthCode } from '@/features/auth/api/auth.api';
-import { addTalkCalendarEventCookie } from '@/features/event/lib/talk-calendar-event-cookie';
 import { useSearchParams } from 'next/navigation';
 
 export default function KakaoRedirect() {
@@ -11,20 +10,19 @@ export default function KakaoRedirect() {
 
   const eventIdParam = searchParams.get('event_id');
 
-  function handleClick() {
-    getKakaoAuthCode('/events/talk-calendar');
+  function handleAutoClick() {
+    if (!eventIdParam) return;
+    sessionStorage.setItem('talk-calendar-event-id', eventIdParam);
+    getKakaoAuthCode();
   }
 
   useEffect(() => {
     (async () => {
-      if (eventIdParam) {
-        await addTalkCalendarEventCookie(eventIdParam);
-        setTimeout(() => {
-          buttonRef.current?.click();
-        }, 1000);
-      }
+      setTimeout(() => {
+        buttonRef.current?.click();
+      }, 1000);
     })();
-  }, [eventIdParam]);
+  }, []);
 
-  return <button ref={buttonRef} onClick={handleClick}></button>;
+  return <button ref={buttonRef} onClick={handleAutoClick}></button>;
 }

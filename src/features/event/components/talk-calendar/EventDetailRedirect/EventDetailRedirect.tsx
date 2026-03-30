@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { useKakaoAccessTokenQuery } from '@/features/auth/api/auth.query';
+import { useGetKakaoAccessTokenMutation } from '@/features/auth/api/auth.query';
 import {
   useCreateTalkCalendarEventMutation,
   useEventQuery,
@@ -9,22 +9,22 @@ import {
   TALK_CALENDAR_ERROR,
   TALK_CALENDAR_SUCCESS,
 } from '@/features/event/constants';
-import { deleteTalkCalendarEventCookie } from '@/features/event/lib/talk-calendar-event-cookie';
 import { useRouter } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
 
-export default function EventDetailRedirect({ eventId }: { eventId: string }) {
+export default function EventDetailRedirect() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const code = searchParams.get('code');
+  const eventId = searchParams.get('event_id');
 
-  const { data: event, isPending: isEventPending } = useEventQuery(eventId);
-  const { data: kakaoAccessToken } = useKakaoAccessTokenQuery(
-    code ?? '',
-    '/events/talk-calendar',
-    { enabled: !!code },
+  const { data: event, isPending: isEventPending } = useEventQuery(
+    eventId ?? '',
+    { enabled: !!eventId },
   );
+
+  const { getKakaoAccessToken } = useGetKakaoAccessTokenMutation();
 
   const {
     mutateAsync: createTalkCalendarEvent,
@@ -35,19 +35,18 @@ export default function EventDetailRedirect({ eventId }: { eventId: string }) {
 
   useEffect(() => {
     (async () => {
-      if (!kakaoAccessToken || isEventPending || isPending || isSuccess) return;
+      if (isEventPending || isPending || isSuccess || !code) return;
 
       if (isError) {
-        await deleteTalkCalendarEventCookie();
         router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_ERROR}`);
         return;
       }
 
-      await createTalkCalendarEvent({ accessToken: kakaoAccessToken, event });
-      await deleteTalkCalendarEventCookie();
+      const accessToken = await getKakaoAccessToken(code);
+      await createTalkCalendarEvent({ accessToken, event });
       router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_SUCCESS}`);
     })();
-  }, [kakaoAccessToken, event, isEventPending, isPending, isSuccess, isError]);
+  }, [event, isEventPending, isPending, isSuccess, isError]);
 
   return null;
 }

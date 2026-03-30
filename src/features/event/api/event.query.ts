@@ -20,9 +20,13 @@ import {
 } from './event.option';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export function useEventQuery(id: string) {
+export function useEventQuery(
+  id: string,
+  { enabled }: { enabled?: boolean } = {},
+) {
   const { data, isPending } = useQuery({
     ...eventQueryOptions(id),
+    enabled,
   });
 
   return { data: data || defaultEvent, isPending };
