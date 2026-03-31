@@ -21,7 +21,6 @@
         },
         "toast": {
           "filterInExampleEvent": "예시 이벤트에서는 사용할 수 없는 기능입니다",
-          "talkCalendarSuccess": "톡캘린더 일정이 성공적으로 생성되었습니다",
           "talkCalendarError": "톡캘린더 일정 생성에 실패했습니다",
           "disableScheduleWhenConfirmed": "이미 확정된 이벤트는 스케줄을 {action, select, edit {수정} other {추가}}할 수 없습니다"
         },
@@ -82,6 +81,13 @@
         "title": "확정된 일정을 공유하고 <br></br>알림을 받아보세요!",
         "description": "카카오톡 캘릭더에 일정이 추가돼요.",
         "shareViaKakaoButton": "카카오톡으로 공유하기"
+      },
+      "TalkCalendarSuccessModal": {
+        "title": "일정이 등록됐어요",
+        "description": "<bold><visual>카카오톡 > 더보기 > 캘린더</visual><sr>카카오톡 앱의 더보기 화면에 있는 캘린더</sr></bold>에서 <br/>확인해 보세요!",
+        "confirmButton": "자세히 보기",
+        "closeButton": "닫기",
+        "imageAlt": "카카오톡 앱의 더보기 화면에서 캘린더 아이콘이 하이라이트된 이미지"
       },
       "LoginAlert": {
         "loginTitle": "로그인 하시겠어요?",

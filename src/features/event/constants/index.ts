@@ -8,8 +8,8 @@ import {
 export const EDITED_EVENTS_COOKIE_KEY = 'edited_events';
 
 export const TALK_CALENDAR_EVENT_ID = 'talk_calendar_event_id';
-export const TALK_CALENDAR_SUCCESS = 'talk_calendar_success';
-export const TALK_CALENDAR_ERROR = 'talk_calendar_error';
+export const TALK_CALENDAR_SUCCESS = 'success';
+export const TALK_CALENDAR_ERROR = 'error';
 
 export const SESSION_STORAGE_SHOW_KAKAO_AFTER_CONFIRM =
   'onetime_show_kakao_share_after_confirm';

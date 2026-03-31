@@ -38,13 +38,27 @@ export default function EventDetailRedirect() {
       if (isEventPending || isPending || isSuccess || !code) return;
 
       if (isError) {
-        router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_ERROR}`);
+        router.push({
+          pathname: `/events/view/${eventId}`,
+          query: {
+            calendar_status: TALK_CALENDAR_ERROR,
+          },
+        });
         return;
       }
 
       const accessToken = await getKakaoAccessToken(code);
-      await createTalkCalendarEvent({ accessToken, event });
-      router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_SUCCESS}`);
+      const { event_id: calendarEventId } = await createTalkCalendarEvent({
+        accessToken,
+        event,
+      });
+      router.push({
+        pathname: `/events/view/${eventId}`,
+        query: {
+          calendar_status: TALK_CALENDAR_SUCCESS,
+          calendar_event_id: calendarEventId,
+        },
+      });
     })();
   }, [event, isEventPending, isPending, isSuccess, isError]);
 

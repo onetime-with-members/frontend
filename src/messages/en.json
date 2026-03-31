@@ -21,7 +21,6 @@
         },
         "toast": {
           "filterInExampleEvent": "This feature is not available in example events",
-          "talkCalendarSuccess": "Talk Calendar event created successfully",
           "talkCalendarError": "Failed to create Talk Calendar event",
           "disableScheduleWhenConfirmed": "Schedules cannot be {action, select, edit {edited} other {added}} for confirmed events"
         },
@@ -82,6 +81,13 @@
         "title": "Share your confirmed schedule <br></br>and get notified",
         "description": "The event is added to your KakaoTalk Calendar.",
         "shareViaKakaoButton": "Share via KakaoTalk"
+      },
+      "TalkCalendarSuccessModal": {
+        "title": "Event added successfully",
+        "description": "Check it out in <bold><visual>KakaoTalk > More > Calendar</visual><sr>Calendar on the More screen of the KakaoTalk app</sr></bold>!",
+        "confirmButton": "View event",
+        "closeButton": "Close",
+        "imageAlt": "Calendar icon highlighted in the More screen of the KakaoTalk app"
       },
       "LoginAlert": {
         "loginTitle": "Would you like to log in?",
