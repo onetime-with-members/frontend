@@ -10,6 +10,7 @@ export default function MyTimeBlockBoard({
   backgroundColor = 'gray',
   topDateGroupClassName = '',
   setIsEdited = () => {},
+  topDateGroupStyle = {},
 }: {
   mode: 'view' | 'edit';
   mySchedule: MyScheduleTimeType[];
@@ -17,6 +18,7 @@ export default function MyTimeBlockBoard({
   className?: string;
   backgroundColor?: 'gray' | 'white';
   topDateGroupClassName?: string;
+  topDateGroupStyle?: React.CSSProperties;
   setIsEdited?: (isEdited: boolean) => void;
 }) {
   return (
@@ -27,6 +29,7 @@ export default function MyTimeBlockBoard({
       className={className}
       backgroundColor={backgroundColor}
       topDateGroupClassName={topDateGroupClassName}
+      topDateGroupStyle={topDateGroupStyle}
       setIsEdited={setIsEdited}
     >
       <MyTimeBlockBoardContent />
