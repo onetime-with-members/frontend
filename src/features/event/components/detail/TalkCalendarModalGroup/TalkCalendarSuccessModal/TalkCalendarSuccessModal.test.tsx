@@ -43,6 +43,7 @@ describe('TalkCalendarSuccessModal', () => {
       'alt',
       '카카오톡 앱의 더보기 화면에서 캘린더 아이콘이 하이라이트된 이미지',
     );
+    expect(image).toHaveAttribute('src', expect.stringContaining('ko'));
   });
 
   it('현재 언어가 영어이고 톡캘린더 일정 생성을 성공하면, 모달이 영어로 올바르게 표시된다.', () => {
@@ -65,6 +66,7 @@ describe('TalkCalendarSuccessModal', () => {
       'alt',
       'Calendar icon highlighted in the More screen of the KakaoTalk app',
     );
+    expect(image).toHaveAttribute('src', expect.stringContaining('en'));
   });
 
   it('모달 우측 상단에 있는 X 버튼을 누르면, 모달이 사라진다.', () => {
