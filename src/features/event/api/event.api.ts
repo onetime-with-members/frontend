@@ -1,3 +1,5 @@
+import { Locale } from 'next-intl';
+
 import {
   ConfirmEventRequestData,
   EventSchema,
@@ -160,14 +162,22 @@ export async function confirmEvent(
   return res.data.payload;
 }
 
-export async function createTalkCalendarEvent(
-  accessToken: string,
-  event: EventType,
-) {
+export async function createTalkCalendarEvent({
+  accessToken,
+  event,
+  locale,
+}: {
+  accessToken: string;
+  event: EventType;
+  locale: Locale;
+}) {
   const res = await apiClient.post(`/kakao/calendar/confirmation`, {
     access_token: accessToken,
     event_id: event.event_id,
-    description: 'OneTime에 의해 추가된 일정입니다.',
+    description:
+      locale === 'ko'
+        ? 'OneTime에 의해 추가된 일정입니다.'
+        : 'This event was added by OneTime.',
     reminders: [30, 1440],
     color: 'LAVENDER',
     ...(event.category === 'DAY' ? { rrule: 'FREQ=WEEKLY' } : {}),

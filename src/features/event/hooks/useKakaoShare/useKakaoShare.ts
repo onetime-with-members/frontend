@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import useShortUrl from '../useShortUrl';
 import { EventType } from '@/features/event/types';
 
@@ -6,6 +8,8 @@ export default function useKakaoShare({
 }: {
   event: EventType | null | undefined;
 }) {
+  const t = useTranslations('event.pages.EventDetailPage.kakaoShare.schedule');
+
   const shortUrl = useShortUrl();
 
   function handleKakaoShare() {
@@ -15,7 +19,7 @@ export default function useKakaoShare({
       objectType: 'feed',
       content: {
         title: `${event.title} | OneTime`,
-        description: `스케줄 등록 요청이 도착했습니다.`,
+        description: t('description'),
         imageUrl: `${process.env.NEXT_PUBLIC_SITE_DOMAIN}/images/kakao/kakaotalk-share-thumbnail.png`,
         imageWidth: 1200,
         imageHeight: 630,
@@ -26,7 +30,7 @@ export default function useKakaoShare({
       },
       buttons: [
         {
-          title: '스케줄 등록하러 가기',
+          title: t('linkButton'),
           link: {
             webUrl: shortUrl,
             mobileWebUrl: shortUrl,

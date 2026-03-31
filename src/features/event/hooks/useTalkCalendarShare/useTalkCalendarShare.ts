@@ -1,10 +1,13 @@
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { useEventQuery } from '../../api/event.query';
 import { getConfirmedTimeSummary } from '../../utils';
 
 export default function useTalkCalendarShare(eventId: string) {
   const locale = useLocale();
+  const t = useTranslations(
+    'event.pages.EventDetailPage.kakaoShare.talkCalendar',
+  );
 
   const { data: event, isPending } = useEventQuery(eventId);
 
@@ -30,7 +33,7 @@ export default function useTalkCalendarShare(eventId: string) {
       objectType: 'feed',
       content: {
         title: `${event.title} | OneTime`,
-        description: `확정된 일정 : ${confirmedTimeSummary}`,
+        description: t('confirmedDate', { date: confirmedTimeSummary }),
         imageUrl: `${process.env.NEXT_PUBLIC_SITE_DOMAIN}/images/kakao/talk-calendar-share-thumbnail.png`,
         imageWidth: 1200,
         imageHeight: 630,
@@ -41,14 +44,14 @@ export default function useTalkCalendarShare(eventId: string) {
       },
       buttons: [
         {
-          title: '카톡 알림 추가',
+          title: t('remindMe'),
           link: {
             webUrl: buttonUrl,
             mobileWebUrl: buttonUrl,
           },
         },
         {
-          title: '자세히 보기',
+          title: t('viewDetails'),
           link: {
             webUrl: currentUrl,
             mobileWebUrl: currentUrl,

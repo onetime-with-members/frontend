@@ -1,3 +1,4 @@
+import { useLocale } from 'next-intl';
 import { useEffect } from 'react';
 
 import { useGetKakaoAccessTokenMutation } from '@/features/auth/api/auth.query';
@@ -15,6 +16,7 @@ import { useSearchParams } from 'next/navigation';
 export default function EventDetailRedirect() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const locale = useLocale();
 
   const code = searchParams.get('code');
   const eventId = searchParams.get('event_id');
@@ -51,6 +53,7 @@ export default function EventDetailRedirect() {
       const { event_id: calendarEventId } = await createTalkCalendarEvent({
         accessToken,
         event,
+        locale,
       });
       router.push({
         pathname: `/events/view/${eventId}`,

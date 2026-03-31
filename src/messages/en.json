@@ -12,6 +12,7 @@
         "copyLink": "Copy Link",
         "copied": "Copied",
         "shareMessage": "Try sharing it!",
+        "confirmed": "This event has been confirmed",
         "confirm": {
           "button": "Confirm Schedule",
           "speechBalloon": "You can notify team members after confirming the schedule",
@@ -24,7 +25,17 @@
           "talkCalendarError": "Failed to create Talk Calendar event",
           "disableScheduleWhenConfirmed": "Schedules cannot be {action, select, edit {edited} other {added}} for confirmed events"
         },
-        "confirmed": "This event has been confirmed"
+        "kakaoShare": {
+          "schedule": {
+            "description": "You have received a schedule registration request.",
+            "linkButton": "Go to register schedule"
+          },
+          "talkCalendar": {
+            "confirmedDate": "Confirmed date : {date}",
+            "remindMe": "Remind me",
+            "viewDetails": "View details"
+          }
+        }
       },
       "EventCreatePage": {
         "createEvent": "Create Event"

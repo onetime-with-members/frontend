@@ -12,6 +12,7 @@
         "copyLink": "링크 복사",
         "copied": "복사 완료",
         "shareMessage": "공유해보세요!",
+        "confirmed": "일정이 확정되었어요",
         "confirm": {
           "button": "일정 확정하기",
           "speechBalloon": "일정 확정 후, 팀원들에게 일정 알림을 보낼 수 있어요",
@@ -24,7 +25,17 @@
           "talkCalendarError": "톡캘린더 일정 생성에 실패했습니다",
           "disableScheduleWhenConfirmed": "이미 확정된 이벤트는 스케줄을 {action, select, edit {수정} other {추가}}할 수 없습니다"
         },
-        "confirmed": "일정이 확정되었어요"
+        "kakaoShare": {
+          "schedule": {
+            "description": "스케줄 등록 요청이 도착했습니다.",
+            "linkButton": "스케줄 등록하러 가기"
+          },
+          "talkCalendar": {
+            "confirmedDate": "확정된 일정 : {date}",
+            "remindMe": "카톡 알림 추가",
+            "viewDetails": "자세히 보기"
+          }
+        }
       },
       "EventCreatePage": {
         "createEvent": "이벤트 생성"
