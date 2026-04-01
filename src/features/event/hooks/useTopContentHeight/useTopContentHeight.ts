@@ -22,7 +22,7 @@ export default function useTopContentHeight(
 
   const isMobile = useIsMobile();
 
-  const { data: event } = useEventQuery(params.id);
+  const { data: event } = useEventQuery(params.id, { enabled: !!params.id });
 
   const navBar = 56;
   const participantFilter = schedules.length > 0 ? 36 : 0;
