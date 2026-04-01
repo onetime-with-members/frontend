@@ -1,5 +1,5 @@
 import { useLocale, useTranslations } from 'next-intl';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { timeLabelList } from '@/features/schedule/utils';
 import useDropdown from '@/hooks/useDropdown';
@@ -29,7 +29,9 @@ export default function TimeDropdown({
   interval?: '1h' | '30m';
   textSize?: 'md' | 'lg';
 }) {
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLUListElement>(null);
+  const selectedItemRef = useRef<HTMLLIElement>(null);
 
   const t = useTranslations('components.TimeDropdown');
   const locale = useLocale();
@@ -49,6 +51,18 @@ export default function TimeDropdown({
       ? formatTimeAmPm(time, locale)
       : time
     : t('selectTime');
+
+  useEffect(() => {
+    if (isDropdownMenuOpen && menuRef.current && selectedItemRef.current) {
+      const menu = menuRef.current;
+      const selectedItem = selectedItemRef.current;
+
+      menu.scrollTop =
+        selectedItem.offsetTop -
+        menu.clientHeight / 2 +
+        selectedItem.clientHeight / 2;
+    }
+  }, [isDropdownMenuOpen, menuRef, selectedItemRef]);
 
   return (
     <div className={cn('relative', className)} ref={dropdownRef}>
@@ -98,6 +112,7 @@ export default function TimeDropdown({
       </div>
       {isDropdownMenuOpen && (
         <ul
+          ref={menuRef}
           className={cn(
             'scrollbar-hidden absolute z-10 max-h-[15.5rem] w-full overflow-y-auto rounded-xl bg-gray-00 py-2 shadow-[0_4px_24px_0_rgba(0,0,0,0.15)]',
             {
@@ -106,19 +121,21 @@ export default function TimeDropdown({
             },
           )}
         >
-          {timeLabelList('00:00', '24:00', interval).map((time) => (
+          {timeLabelList('00:00', '24:00', interval).map((currentTime) => (
             <li
-              key={time}
+              key={currentTime}
+              ref={time === currentTime ? selectedItemRef : null}
               className={cn(
                 'w-full cursor-pointer py-2 text-center text-gray-50 text-md-200',
                 {
                   'text-md-200': textSize === 'md',
                   'text-lg-200': textSize === 'lg',
+                  'bg-primary-00 text-primary-40': time === currentTime,
                 },
               )}
-              onClick={() => handleSelectTime(time)}
+              onClick={() => handleSelectTime(currentTime)}
             >
-              {time}
+              {currentTime}
             </li>
           ))}
         </ul>
