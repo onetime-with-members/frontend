@@ -7,7 +7,7 @@ import { useWithdrawMutation } from '@/features/user/api/user.query';
 export default function MainContent() {
   const [isChecked, setIsChecked] = useState(false);
 
-  const { withdraw, isLoading } = useWithdrawMutation();
+  const { withdraw, isPending } = useWithdrawMutation();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -26,7 +26,7 @@ export default function MainContent() {
         className="mx-auto flex w-full max-w-screen-sm flex-col items-center gap-10"
       >
         <Information isChecked={isChecked} onChecked={toggleIsChecked} />
-        <SubmitButton disabled={!isChecked} isLoading={isLoading} />
+        <SubmitButton disabled={!isChecked} isPending={isPending} />
       </form>
     </main>
   );

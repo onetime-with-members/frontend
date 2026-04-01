@@ -5,10 +5,10 @@ import cn from '@/lib/cn';
 
 export default function SubmitButton({
   disabled,
-  isLoading,
+  isPending,
 }: {
   disabled: boolean;
-  isLoading: boolean;
+  isPending: boolean;
 }) {
   const t = useTranslations('user.pages.WithdrawPage');
 
@@ -18,9 +18,9 @@ export default function SubmitButton({
       variant="danger"
       disabled={disabled}
       fullWidth
-      className={cn({ 'pointer-events-none': isLoading })}
+      className={cn({ 'pointer-events-none': isPending })}
     >
-      {isLoading ? t('withdrawing') : t('withdraw')}
+      {isPending ? t('withdrawing') : t('withdraw')}
     </Button>
   );
 }

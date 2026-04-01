@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
 
-import { SESSION_STORAGE_SHOW_KAKAO_AFTER_CONFIRM } from '../../constants';
-import { useParams } from 'next/navigation';
+import useChangeSearchParams from '@/hooks/useChangeSearchParams';
+import { useSearchParams } from 'next/navigation';
 
 export default function useTalkCalendarShareModal() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const params = useParams<{ id: string }>();
+  const searchParams = useSearchParams();
+
+  const { removeSearchParams } = useChangeSearchParams();
 
   useEffect(() => {
-    const storedId = sessionStorage.getItem(
-      SESSION_STORAGE_SHOW_KAKAO_AFTER_CONFIRM,
-    );
-    if (storedId === params.id) {
+    const calendarStatus = searchParams.get('calendar_status');
+    if (calendarStatus === 'request') {
       setIsModalOpen(true);
+      removeSearchParams(['calendar_status']);
     }
-  }, [params.id]);
+  }, [searchParams, setIsModalOpen, removeSearchParams]);
 
   function handleModalClose() {
-    sessionStorage.removeItem(SESSION_STORAGE_SHOW_KAKAO_AFTER_CONFIRM);
     setIsModalOpen(false);
   }
 

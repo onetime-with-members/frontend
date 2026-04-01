@@ -142,6 +142,6 @@ export function useWithdrawMutation() {
 
   return {
     withdraw: mutateAsync,
-    isLoading: isPending || isSuccess,
+    isPending: isPending || isSuccess,
   };
 }

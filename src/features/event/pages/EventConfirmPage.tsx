@@ -1,10 +1,8 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import { useConfirmEventMutation, useEventQuery } from '../api/event.query';
-import { SESSION_STORAGE_SHOW_KAKAO_AFTER_CONFIRM } from '../constants';
 import ActionConfirmModal from '../components/confirm/ActionConfirmModal';
 import BottomButton from '../components/confirm/BottomButton';
 import DesktopHeader from '../components/confirm/DesktopHeader';
@@ -22,12 +20,10 @@ import { useParams } from 'next/navigation';
 export default function EventConfirmPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const confirmedTime = useConfirmedTime();
-
   const params = useParams<{ id: string }>();
 
-  const queryClient = useQueryClient();
   const progressRouter = useProgressRouter();
+  const confirmedTime = useConfirmedTime();
 
   const { data: event } = useEventQuery(params.id);
 
@@ -48,13 +44,18 @@ export default function EventConfirmPage() {
     return startDayjs.isBefore(endDayjs);
   };
   const isDisabled = !isAllPickerSelected || !isStartEndDateTimeValid();
+  const isEdited = !!event.confirmation;
 
   function handleBackButtonClick() {
     progressRouter.back();
   }
 
   function handleSubmit() {
-    setIsModalOpen(true);
+    if (isEdited) {
+      handleConfirm();
+    } else {
+      setIsModalOpen(true);
+    }
   }
 
   function handleModalClose() {
@@ -74,10 +75,13 @@ export default function EventConfirmPage() {
         end_time: confirmedTime.end.time,
       } as ConfirmEventRequestData,
     });
-    await queryClient.refetchQueries({ queryKey: ['events', params.id] });
-    setIsModalOpen(false);
-    sessionStorage.setItem(SESSION_STORAGE_SHOW_KAKAO_AFTER_CONFIRM, params.id);
-    progressRouter.back();
+    if (isEdited) {
+      progressRouter.replace(`/events/view/${params.id}`);
+    } else {
+      progressRouter.replace(
+        `/events/view/${params.id}?${new URLSearchParams({ calendar_status: 'request' })}`,
+      );
+    }
   }
 
   return (

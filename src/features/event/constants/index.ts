@@ -10,9 +10,7 @@ export const EDITED_EVENTS_COOKIE_KEY = 'edited_events';
 export const TALK_CALENDAR_EVENT_ID = 'talk_calendar_event_id';
 export const TALK_CALENDAR_SUCCESS = 'success';
 export const TALK_CALENDAR_ERROR = 'error';
-
-export const SESSION_STORAGE_SHOW_KAKAO_AFTER_CONFIRM =
-  'onetime_show_kakao_share_after_confirm';
+export const TALK_CALENDAR_REQUEST = 'request';
 
 export const bottomSheetHeight = {
   all: 500,
