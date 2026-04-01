@@ -297,7 +297,8 @@
         "title2": "All your event and schedule data will be deleted",
         "description2": "All content written in OneTime, such as the schedules added for events, will be deleted.",
         "agreeText": "Yes, I have confirmed the above.",
-        "withdraw": "Delete account"
+        "withdraw": "Delete account",
+        "withdrawing": "Deleting account..."
       }
     },
     "components": {

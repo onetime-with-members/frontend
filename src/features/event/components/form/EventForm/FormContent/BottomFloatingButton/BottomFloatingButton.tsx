@@ -25,8 +25,7 @@ export default function BottomFloatingButton({
         variant="dark"
         fullWidth
         className={cn({
-          'pointer-events-none cursor-default':
-            isCreateLoading || isEditLoading,
+          'pointer-events-none': isCreateLoading || isEditLoading,
         })}
         disabled={!isValid}
       >
