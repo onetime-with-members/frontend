@@ -252,6 +252,16 @@
         "privateURLMessage": "시간표가 공개 상태가 아닙니다. 공개 범위를 '전체 공개'로 바꿔주세요.",
         "serverErrorMessage": "요청 도중 오류가 발생했습니다. 다시 시도해주세요."
       }
+    },
+    "components": {
+      "MyScheduleRequestModal": {
+        "title": "알바, 학교 시간표를 <br></br>원타임에 등록해 보세요!",
+        "description": "일정을 조율할 때 불러올 수 있어요.",
+        "buttons": {
+          "register": "등록하기",
+          "later": "다음에 할래요"
+        }
+      }
     }
   },
   "user": {

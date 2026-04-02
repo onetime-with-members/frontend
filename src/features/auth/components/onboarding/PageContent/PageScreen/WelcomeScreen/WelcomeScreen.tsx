@@ -5,7 +5,7 @@ import { useContext } from 'react';
 import Button from '@/components/button';
 import { REDIRECT_URL } from '@/features/auth/constants';
 import useHomeUrl from '@/features/home/hooks/useHomeUrl';
-import { createModalSession } from '@/features/my-schedule/lib/my-schedule-request-modal-session';
+import { MY_SCHEDULE_REQUEST_MODAL_SESSION } from '@/features/my-schedule/constants';
 import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
@@ -28,7 +28,7 @@ export default function WelcomeScreen() {
     } else {
       progressRouter.push(homeUrl);
     }
-    createModalSession();
+    sessionStorage.setItem(MY_SCHEDULE_REQUEST_MODAL_SESSION, String(true));
   }
 
   return (

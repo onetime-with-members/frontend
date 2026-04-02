@@ -3,33 +3,30 @@
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
-import {
-  hasModalSession,
-  removeModalSession,
-} from '@/features/my-schedule/lib/my-schedule-request-modal-session';
+import { MY_SCHEDULE_REQUEST_MODAL_SESSION } from '@/features/my-schedule/constants';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 
 export default function MyScheduleRequestModal() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const t = useTranslations('auth.pages.OnboardingPage');
+  const t = useTranslations('mySchedule.components.MyScheduleRequestModal');
 
   const progressRouter = useProgressRouter();
 
   function handleConfirm() {
-    removeModalSession();
+    sessionStorage.removeItem(MY_SCHEDULE_REQUEST_MODAL_SESSION);
     setIsOpen(false);
     progressRouter.push('/mypage/schedule/edit');
   }
 
   function handleClose() {
-    removeModalSession();
+    sessionStorage.removeItem(MY_SCHEDULE_REQUEST_MODAL_SESSION);
     setIsOpen(false);
   }
 
   useEffect(() => {
-    if (hasModalSession()) {
+    if (sessionStorage.getItem(MY_SCHEDULE_REQUEST_MODAL_SESSION)) {
       setIsOpen(true);
     }
   }, []);
@@ -47,11 +44,10 @@ export default function MyScheduleRequestModal() {
           />
           <div className="flex flex-col items-center justify-center gap-1 px-4 py-6">
             <span className="text-center text-gray-80 text-lg-300">
-              알바, 학교 시간표를 <br />
-              원타임에 등록해 보세요!
+              {t.rich('title', { br: () => <br /> })}
             </span>
             <span className="text-center text-gray-50 text-md-200">
-              일정을 조율할 때 불러올 수 있어요
+              {t('description')}
             </span>
           </div>
           <div className="flex w-full flex-col items-center justify-center gap-3 px-3 pb-[10px]">
@@ -59,14 +55,14 @@ export default function MyScheduleRequestModal() {
               className="w-full rounded-xl bg-primary-40 p-3 text-gray-00 text-md-300"
               onClick={handleConfirm}
             >
-              {t('register')}
+              {t('buttons.register')}
             </button>
             <button
               type="button"
               onClick={handleClose}
               className="text-center text-gray-40 text-sm-200"
             >
-              다음에 할래요
+              {t('buttons.later')}
             </button>
           </div>
         </div>

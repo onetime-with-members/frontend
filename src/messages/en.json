@@ -252,6 +252,16 @@
         "privateURLMessage": "The timetable is not public. Please set the sharing rights to 'Public'.",
         "serverErrorMessage": "An error occurred while processing the request. Please try again."
       }
+    },
+    "components": {
+      "MyScheduleRequestModal": {
+        "title": "Register your part-time job or <br></br>school timetables on OneTime!",
+        "description": "You can load them when adding your schedule to the event.",
+        "buttons": {
+          "register": "Register",
+          "later": "Maybe later"
+        }
+      }
     }
   },
   "user": {
