@@ -1,24 +1,38 @@
+import { deleteCookie, getCookie } from 'cookies-next';
 import { useTranslations } from 'next-intl';
 import { useContext } from 'react';
 
 import Button from '@/components/button';
+import { REDIRECT_URL } from '@/features/auth/constants';
+import useHomeUrl from '@/features/home/hooks/useHomeUrl';
+import { createModalSession } from '@/features/my-schedule/lib/my-schedule-request-modal-session';
 import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
+import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 
 export default function WelcomeScreen() {
   const {
     onboardingValue: { nickname },
-    setShowCompleteModal,
   } = useContext(OnboardingContext);
 
   const t = useTranslations('auth.pages.OnboardingPage');
 
+  const progressRouter = useProgressRouter();
+  const homeUrl = useHomeUrl();
+
   function handleStartButtonClick() {
-    setShowCompleteModal(true);
+    const url = getCookie(REDIRECT_URL);
+    if (url) {
+      deleteCookie(REDIRECT_URL);
+      progressRouter.push(url as string);
+    } else {
+      progressRouter.push(homeUrl);
+    }
+    createModalSession();
   }
 
   return (
-    <section className="flex flex-1 -translate-y-6 flex-col items-center justify-center gap-12 md:-translate-y-16">
+    <section className="flex flex-1 -translate-y-16 flex-col items-center justify-center gap-12 md:-translate-y-16">
       <div className="flex flex-col items-center gap-6">
         <div>
           <Image

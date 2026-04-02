@@ -1,5 +1,6 @@
 import { Locale } from 'next-intl';
 
+import MyScheduleRequestModal from '../../my-schedule/components/shared/MyScheduleRequestModal';
 import Scripts from '../components/Scripts';
 import CookieModal from '../components/root-layout/CookieModal';
 import Favicon from '../components/root-layout/Favicon';
@@ -31,6 +32,7 @@ export default function RootLayout({
           <Footer />
           {/* <LandingPopUp initialIsShown={initialIsLandingPopUpShown} /> */}
           <CookieModal />
+          <MyScheduleRequestModal />
           <div id="pop-up" />
           <div id="alert" />
           <Toast />
