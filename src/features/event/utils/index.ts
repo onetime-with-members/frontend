@@ -50,7 +50,7 @@ function getEventTimeSummary({
 
     return start.day === end.day
       ? `${startDay.format(ddd)} ${start.time} - ${end.time}`
-      : `${startDay.format(ddd)} - ${endDay.format(ddd)} ${end.time}`;
+      : `${startDay.format(ddd)} ${start.time} - ${endDay.format(ddd)} ${end.time}`;
   }
 }
 
