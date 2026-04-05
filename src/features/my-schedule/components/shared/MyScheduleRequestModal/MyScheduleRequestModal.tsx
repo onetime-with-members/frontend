@@ -4,11 +4,14 @@ import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
 import { MY_SCHEDULE_REQUEST_MODAL_SESSION } from '@/features/my-schedule/constants';
+import { usePathname } from '@/i18n/navigation';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
 
 export default function MyScheduleRequestModal() {
   const [isOpen, setIsOpen] = useState(false);
+
+  const pathname = usePathname();
 
   const t = useTranslations('mySchedule.components.MyScheduleRequestModal');
 
@@ -26,10 +29,12 @@ export default function MyScheduleRequestModal() {
   }
 
   useEffect(() => {
-    if (sessionStorage.getItem(MY_SCHEDULE_REQUEST_MODAL_SESSION)) {
-      setIsOpen(true);
-    }
-  }, []);
+
+    const shouldShow =
+      pathname === '/dashboard' &&
+      Boolean(sessionStorage.getItem(MY_SCHEDULE_REQUEST_MODAL_SESSION));
+    setIsOpen(shouldShow);
+  }, [pathname]);
 
   return (
     isOpen && (

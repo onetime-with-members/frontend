@@ -4,7 +4,6 @@ import { useContext } from 'react';
 
 import Button from '@/components/button';
 import { REDIRECT_URL } from '@/features/auth/constants';
-import useHomeUrl from '@/features/home/hooks/useHomeUrl';
 import { MY_SCHEDULE_REQUEST_MODAL_SESSION } from '@/features/my-schedule/constants';
 import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 import { useProgressRouter } from '@/navigation';
@@ -18,7 +17,6 @@ export default function WelcomeScreen() {
   const t = useTranslations('auth.pages.OnboardingPage');
 
   const progressRouter = useProgressRouter();
-  const homeUrl = useHomeUrl();
 
   function handleStartButtonClick() {
     const url = getCookie(REDIRECT_URL);
@@ -26,7 +24,7 @@ export default function WelcomeScreen() {
       deleteCookie(REDIRECT_URL);
       progressRouter.push(url as string);
     } else {
-      progressRouter.push(homeUrl);
+      progressRouter.push('/dashboard');
     }
     sessionStorage.setItem(MY_SCHEDULE_REQUEST_MODAL_SESSION, String(true));
   }
