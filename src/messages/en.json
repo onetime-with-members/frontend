@@ -95,7 +95,7 @@
       },
       "TalkCalendarSuccessModal": {
         "title": "Event added successfully",
-        "description": "Check it out in <bold><visual>KakaoTalk > More > Calendar</visual><sr>Calendar on the More screen of the KakaoTalk app</sr></bold>!",
+        "description": "Check it out in <br></br><bold><visual>KakaoTalk > More > Calendar</visual><sr>Calendar on the More screen of the KakaoTalk app</sr></bold>!",
         "confirmButton": "View event",
         "closeButton": "Close",
         "imageAlt": "Calendar icon highlighted in the More screen of the KakaoTalk app"

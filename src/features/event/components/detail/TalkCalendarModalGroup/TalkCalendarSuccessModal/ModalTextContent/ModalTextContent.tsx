@@ -8,6 +8,7 @@ export default function ModalTextContent() {
       <h2 className="title-sm-300">{t('title')}</h2>
       <p className="text-md-100">
         {t.rich('description', {
+          br: () => <br />,
           bold: (chunks) => (
             <strong className="text-primary-50 text-md-300">{chunks}</strong>
           ),

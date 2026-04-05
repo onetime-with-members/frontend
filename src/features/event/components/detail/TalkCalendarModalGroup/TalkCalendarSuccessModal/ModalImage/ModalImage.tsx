@@ -7,11 +7,13 @@ export default function ModalImage() {
   const locale = useLocale();
 
   return (
-    <Image
-      src={`/images/kakao/talk-calendar-guide-${locale}.png`}
-      width={360}
-      height={384}
-      alt={t('imageAlt')}
-    />
+    <div>
+      <Image
+        src={`/images/kakao/talk-calendar-guide-${locale}.png`}
+        width={360}
+        height={384}
+        alt={t('imageAlt')}
+      />
+    </div>
   );
 }
