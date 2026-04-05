@@ -95,7 +95,7 @@
       },
       "TalkCalendarSuccessModal": {
         "title": "일정이 등록됐어요",
-        "description": "<bold><visual>카카오톡 > 더보기 > 캘린더</visual><sr>카카오톡 앱의 더보기 화면에 있는 캘린더</sr></bold>에서 <br/>확인해 보세요!",
+        "description": "<bold><visual>카카오톡 > 더보기 > 캘린더</visual><sr>카카오톡 앱의 더보기 화면에 있는 캘린더</sr></bold>에서 <br></br>확인해 보세요!",
         "confirmButton": "자세히 보기",
         "closeButton": "닫기",
         "imageAlt": "카카오톡 앱의 더보기 화면에서 캘린더 아이콘이 하이라이트된 이미지"
