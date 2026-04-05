@@ -90,7 +90,7 @@
       },
       "TalkCalendarShareModal": {
         "title": "확정된 일정을 공유하고 <br></br>알림을 받아보세요!",
-        "description": "카카오톡 캘릭더에 일정이 추가돼요.",
+        "description": "카카오톡 캘린더에 일정이 추가돼요.",
         "shareViaKakaoButton": "카카오톡으로 공유하기"
       },
       "TalkCalendarSuccessModal": {
