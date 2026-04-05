@@ -6,10 +6,15 @@ import { useEffect, useState } from 'react';
 import { MY_SCHEDULE_REQUEST_MODAL_SESSION } from '@/features/my-schedule/constants';
 import { usePathname } from '@/i18n/navigation';
 import { useProgressRouter } from '@/navigation';
-import Image from 'next/image';
+
+import MyScheduleRequestModalCarousel, {
+  MY_SCHEDULE_REQUEST_MODAL_SLIDES,
+} from './MyScheduleRequestModalCarousel';
+import MyScheduleRequestModalSlideText from './MyScheduleRequestModalSlideText';
 
 export default function MyScheduleRequestModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const [slideIndex, setSlideIndex] = useState(0);
 
   const pathname = usePathname();
 
@@ -29,32 +34,24 @@ export default function MyScheduleRequestModal() {
   }
 
   useEffect(() => {
-
     const shouldShow =
       pathname === '/dashboard' &&
       Boolean(sessionStorage.getItem(MY_SCHEDULE_REQUEST_MODAL_SESSION));
     setIsOpen(shouldShow);
+    if (shouldShow) setSlideIndex(0);
   }, [pathname]);
 
   return (
     isOpen && (
       <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black/50">
         <div className="relative flex w-full max-w-[328px] flex-col overflow-hidden rounded-xl bg-gray-00">
-          <Image
-            src="/images/popup-modal.png"
-            alt="Signup-Popup-Modal"
-            width={328}
-            height={328}
-            className="h-full w-full object-cover"
+          <MyScheduleRequestModalCarousel
+            slideIndex={slideIndex}
+            setSlideIndex={setSlideIndex}
           />
-          <div className="flex flex-col items-center justify-center gap-1 px-4 py-6">
-            <span className="text-center text-gray-80 text-lg-300">
-              {t.rich('title', { br: () => <br /> })}
-            </span>
-            <span className="text-center text-gray-50 text-md-200">
-              {t('description')}
-            </span>
-          </div>
+          <MyScheduleRequestModalSlideText
+            messageKey={MY_SCHEDULE_REQUEST_MODAL_SLIDES[slideIndex].messageKey}
+          />
           <div className="flex w-full flex-col items-center justify-center gap-3 px-3 pb-[10px]">
             <button
               className="w-full rounded-xl bg-primary-40 p-3 text-gray-00 text-md-300"

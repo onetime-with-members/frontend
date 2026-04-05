@@ -255,8 +255,14 @@
     },
     "components": {
       "MyScheduleRequestModal": {
-        "title": "Register your part-time job or <br></br>school timetables on OneTime!",
-        "description": "You can load them when adding your schedule to the event.",
+        "slideEverytime": {
+          "title": "Easily import your school timetable with Everytime",
+          "description": "Just paste your timetable link and it’s added automatically!"
+        },
+        "slideGeneral": {
+          "title": "Register your part-time job or <br></br>school timetables on OneTime!",
+          "description": "You can load them when adding your schedule to the event."
+        },
         "buttons": {
           "register": "Register",
           "later": "Maybe later"
