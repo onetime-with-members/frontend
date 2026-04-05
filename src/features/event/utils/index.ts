@@ -19,9 +19,12 @@ export function parseDateTime(date: string, time?: string) {
 }
 
 export function parseDayTime(day: string, time?: string) {
-  return dayjs(...(time ? [time, 'HH:mm'] : [])).day(
-    weekdaysShortKo.findIndex((weekday) => weekday === day),
-  );
+  const dayIndex = weekdaysShortKo.findIndex((weekday) => weekday === day);
+  const nextDayIndex = (dayIndex + 1) % weekdaysShortKo.length;
+
+  if (!time) return dayjs().day(dayIndex);
+  if (time === '24:00') return dayjs('00:00', 'HH:mm').day(nextDayIndex);
+  return dayjs(time, 'HH:mm').day(dayIndex);
 }
 
 function getEventTimeSummary({
