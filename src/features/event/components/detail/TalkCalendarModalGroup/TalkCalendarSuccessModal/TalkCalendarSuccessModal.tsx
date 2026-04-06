@@ -23,7 +23,6 @@ export default function TalkCalendarSuccessModal({
 
   useEffect(() => {
     setCalendarEventId(calendarEventIdParams ?? '');
-    removeSearchParams(['calendar_event_id']);
   }, [calendarEventIdParams, removeSearchParams]);
 
   return createPortal(

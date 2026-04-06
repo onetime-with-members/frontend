@@ -19,6 +19,7 @@ export default function useTalkCalendarComplete() {
 
   function handleModalClose() {
     setIsModalOpen(false);
+    removeSearchParams(['calendar_status', 'calendar_event_id']);
   }
 
   useEffect(() => {
@@ -30,8 +31,8 @@ export default function useTalkCalendarComplete() {
         toast(t('talkCalendarError'), {
           type: 'error',
         });
+        removeSearchParams(['calendar_status']);
       }
-      removeSearchParams(['calendar_status']);
     }
   }, [calendarStatus]);
 
