@@ -21,7 +21,7 @@ export default function KakaoCallbackPage() {
     const eventId = getCookie(TALK_CALENDAR_EVENT_ID) as string;
     deleteCookie(TALK_CALENDAR_EVENT_ID);
     router.replace(
-      `/events/talk-calendar?${new URLSearchParams({ code, event_id: eventId }).toString()}`,
+      `/events/talk-calendar?${new URLSearchParams({ code, ...(eventId ? { event_id: eventId } : {}) }).toString()}`,
     );
   }, [code, router]);
 
