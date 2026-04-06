@@ -5,6 +5,7 @@ import { weekdaysShortKo } from '@/constants';
 import { RecommendedScheduleType } from '@/features/event/types';
 import cn from '@/lib/cn';
 import dayjs from '@/lib/dayjs';
+import { formatTimeAmPm } from '@/utils';
 
 export default function RecommendedTimeItem({
   recommendedTime,
@@ -51,7 +52,8 @@ export default function RecommendedTimeItem({
         >
           <span className="text-sm-200">{dateLabel}</span>
           <span className="text-lg-300">
-            {recommendedTime.start_time} - {recommendedTime.end_time}
+            {formatTimeAmPm(recommendedTime.start_time, locale)} -{' '}
+            {formatTimeAmPm(recommendedTime.end_time, locale)}
           </span>
         </div>
         <div
