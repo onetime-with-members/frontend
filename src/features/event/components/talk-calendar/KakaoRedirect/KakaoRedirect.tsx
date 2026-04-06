@@ -1,3 +1,4 @@
+import { setCookie } from 'cookies-next';
 import { useEffect, useRef } from 'react';
 
 import { getKakaoAuthCode } from '@/features/auth/api/auth.api';
@@ -11,9 +12,9 @@ export default function KakaoRedirect() {
 
   const eventIdParam = searchParams.get('event_id');
 
-  function handleAutoClick() {
+  async function handleAutoClick() {
     if (!eventIdParam) return;
-    sessionStorage.setItem(TALK_CALENDAR_EVENT_ID, eventIdParam);
+    await setCookie(TALK_CALENDAR_EVENT_ID, eventIdParam);
     getKakaoAuthCode();
   }
 

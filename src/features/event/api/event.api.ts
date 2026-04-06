@@ -183,5 +183,6 @@ export async function createTalkCalendarEvent({
     ...(event.category === 'DAY' ? { rrule: 'FREQ=WEEKLY' } : {}),
     time_zone: dayjs.tz.guess(),
   });
+  console.log(res.data.payload);
   return res.data.payload;
 }
