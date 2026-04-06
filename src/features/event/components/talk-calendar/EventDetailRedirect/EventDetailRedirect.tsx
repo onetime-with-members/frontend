@@ -1,3 +1,4 @@
+import { deleteCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
 import { useEffect } from 'react';
 
@@ -8,6 +9,7 @@ import {
 } from '@/features/event/api/event.query';
 import {
   TALK_CALENDAR_ERROR,
+  TALK_CALENDAR_EVENT_ID,
   TALK_CALENDAR_SUCCESS,
 } from '@/features/event/constants';
 import { useRouter } from '@/i18n/navigation';
@@ -37,6 +39,8 @@ export default function EventDetailRedirect() {
 
   useEffect(() => {
     (async () => {
+      deleteCookie(TALK_CALENDAR_EVENT_ID);
+
       if (isEventPending || isPending || isSuccess || !code) return;
 
       if (isError) {

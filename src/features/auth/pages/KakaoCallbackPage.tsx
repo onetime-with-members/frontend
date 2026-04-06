@@ -1,6 +1,6 @@
 'use client';
 
-import { deleteCookie, getCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { useEffect } from 'react';
 
 import { TALK_CALENDAR_EVENT_ID } from '@/features/event/constants';
@@ -19,7 +19,6 @@ export default function KakaoCallbackPage() {
       return;
     }
     const eventId = getCookie(TALK_CALENDAR_EVENT_ID) as string;
-    deleteCookie(TALK_CALENDAR_EVENT_ID);
     router.replace(
       `/events/talk-calendar?${new URLSearchParams({ code, ...(eventId ? { event_id: eventId } : {}) }).toString()}`,
     );
