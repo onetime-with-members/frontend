@@ -1,16 +1,13 @@
 import { useTranslations } from 'next-intl';
 
-import { useSearchParams } from 'next/navigation';
-
 export default function ModalConfirmButton({
+  calendarEventId,
   onClick,
 }: {
   onClick: () => void;
+  calendarEventId: string;
 }) {
   const t = useTranslations('event.components.TalkCalendarSuccessModal');
-  const searchParams = useSearchParams();
-
-  const calendarEventId = searchParams.get('calendar_event_id');
 
   return (
     <a

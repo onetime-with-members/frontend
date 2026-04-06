@@ -63,7 +63,7 @@ export default function NavBar({
           },
         )}
       >
-        <div className="mx-auto flex max-w-screen-md items-center justify-between">
+        <div className="mx-auto flex h-full max-w-screen-md items-center justify-between">
           <ProgressLink
             href={homeUrl}
             className={cn({

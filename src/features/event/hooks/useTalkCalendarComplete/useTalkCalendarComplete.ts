@@ -31,7 +31,7 @@ export default function useTalkCalendarComplete() {
           type: 'error',
         });
       }
-      removeSearchParams(['toast', 'calendar_event_id']);
+      removeSearchParams(['calendar_status']);
     }
   }, [calendarStatus]);
 
