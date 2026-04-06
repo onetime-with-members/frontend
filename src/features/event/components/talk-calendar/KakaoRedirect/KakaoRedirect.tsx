@@ -11,11 +11,9 @@ export default function KakaoRedirect() {
   const eventIdParam = searchParams.get('event_id');
 
   useEffect(() => {
-    (async () => {
-      if (!eventIdParam) return;
-      await setCookie(TALK_CALENDAR_EVENT_ID, eventIdParam);
-      getKakaoAuthCode();
-    })();
+    if (!eventIdParam) return;
+    setCookie(TALK_CALENDAR_EVENT_ID, eventIdParam);
+    getKakaoAuthCode();
   }, [eventIdParam]);
 
   return null;

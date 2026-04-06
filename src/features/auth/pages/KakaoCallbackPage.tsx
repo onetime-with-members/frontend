@@ -14,19 +14,16 @@ export default function KakaoCallbackPage() {
   const code = searchParams.get('code');
 
   useEffect(() => {
-    (async () => {
-      if (!code) {
-        router.replace('/');
-        return;
-      }
-      const eventId = getCookie(TALK_CALENDAR_EVENT_ID) as string;
-      await deleteCookie(TALK_CALENDAR_EVENT_ID);
-      router.replace({
-        pathname: '/events/talk-calendar',
-        query: { code, event_id: eventId },
-      });
-    })();
-  }, [code]);
+    if (!code) {
+      router.replace('/');
+      return;
+    }
+    const eventId = getCookie(TALK_CALENDAR_EVENT_ID) as string;
+    deleteCookie(TALK_CALENDAR_EVENT_ID);
+    router.replace(
+      `/events/talk-calendar?${new URLSearchParams({ code, event_id: eventId }).toString()}`,
+    );
+  }, [code, router]);
 
   return null;
 }
