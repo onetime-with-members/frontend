@@ -210,6 +210,7 @@ export async function createTalkCalendarEvent({
                         (weekday) => weekday === confirmedTime?.end_day,
                       ),
                     )
+                    .add(confirmedTime?.end_time === '24:00' ? 1 : 0, 'day')
                     .toISOString(),
             time_zone: dayjs.tz.guess(),
           },
