@@ -1,6 +1,6 @@
-import { deleteCookie } from 'cookies-next';
+import { deleteCookie, getCookie } from 'cookies-next';
 import { useLocale } from 'next-intl';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useGetKakaoAccessTokenMutation } from '@/features/auth/api/auth.query';
 import {
@@ -16,12 +16,13 @@ import { useRouter } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
 
 export default function EventDetailRedirect() {
+  const [eventId, setEventId] = useState('');
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const locale = useLocale();
 
   const code = searchParams.get('code');
-  const eventId = searchParams.get('event_id');
 
   const { data: event, isPending: isEventPending } = useEventQuery(
     eventId ?? '',
@@ -37,11 +38,17 @@ export default function EventDetailRedirect() {
     isError,
   } = useCreateTalkCalendarEventMutation();
 
+  const isCompleted = isPending || isSuccess;
+
+  useEffect(() => {
+    const eventId = getCookie(TALK_CALENDAR_EVENT_ID) as string;
+    setEventId(eventId);
+    deleteCookie(TALK_CALENDAR_EVENT_ID);
+  }, []);
+
   useEffect(() => {
     (async () => {
-      deleteCookie(TALK_CALENDAR_EVENT_ID);
-
-      if (isEventPending || isPending || isSuccess || !code) return;
+      if (isEventPending || isCompleted || !code || !eventId) return;
 
       if (isError) {
         router.push({
@@ -53,7 +60,10 @@ export default function EventDetailRedirect() {
         return;
       }
 
-      const accessToken = await getKakaoAccessToken(code);
+      const accessToken = await getKakaoAccessToken({
+        code,
+        redirect: '/events/talk-calendar',
+      });
       const { event_id: calendarEventId } = await createTalkCalendarEvent({
         accessToken,
         event,
@@ -67,7 +77,7 @@ export default function EventDetailRedirect() {
         },
       });
     })();
-  }, [event, isEventPending, isPending, isSuccess, isError]);
+  }, [event, isEventPending, isCompleted, isError]);
 
   return null;
 }

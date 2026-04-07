@@ -9,7 +9,7 @@ import {
   ParticipantType,
   RecommendedScheduleType,
 } from '../types';
-import { SERVER_API_URL } from '@/constants';
+import { SERVER_API_URL, weekdaysShortKo } from '@/constants';
 import { ScheduleType } from '@/features/schedule/types';
 import apiClient from '@/lib/api';
 import dayjs from '@/lib/dayjs';
@@ -171,18 +171,65 @@ export async function createTalkCalendarEvent({
   event: EventType;
   locale: Locale;
 }) {
-  const res = await apiClient.post(`/kakao/calendar/confirmation`, {
-    access_token: accessToken,
-    event_id: event.event_id,
-    description:
-      locale === 'ko'
-        ? 'OneTime에 의해 추가된 일정입니다.'
-        : 'This event was added by OneTime.',
-    reminders: [30, 1440],
-    color: 'LAVENDER',
-    ...(event.category === 'DAY' ? { rrule: 'FREQ=WEEKLY' } : {}),
-    time_zone: dayjs.tz.guess(),
-  });
-  console.log(res.data.payload);
-  return res.data.payload;
+  const confirmedTime = event.confirmation;
+
+  const res = await fetch(
+    'https://kapi.kakao.com/v2/api/calendar/create/event',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: new URLSearchParams({
+        event: JSON.stringify({
+          title: event.title,
+          time: {
+            start_at:
+              event.category === 'DATE'
+                ? dayjs(
+                    `${confirmedTime?.start_date} ${confirmedTime?.start_time}`,
+                    'YYYY.MM.DD HH:mm',
+                  ).toISOString()
+                : dayjs(confirmedTime?.start_time, 'HH:mm')
+                    .day(
+                      weekdaysShortKo.findIndex(
+                        (weekday) => weekday === confirmedTime?.start_day,
+                      ),
+                    )
+                    .toISOString(),
+            end_at:
+              event.category === 'DATE'
+                ? dayjs(
+                    `${confirmedTime?.end_date} ${confirmedTime?.end_time}`,
+                    'YYYY.MM.DD HH:mm',
+                  ).toISOString()
+                : dayjs(confirmedTime?.end_time, 'HH:mm')
+                    .day(
+                      weekdaysShortKo.findIndex(
+                        (weekday) => weekday === confirmedTime?.end_day,
+                      ),
+                    )
+                    .toISOString(),
+            time_zone: dayjs.tz.guess(),
+          },
+          description:
+            locale === 'ko'
+              ? 'OneTime에 의해 추가된 일정입니다.'
+              : 'This event was added by OneTime.',
+          reminders: [30, 1440],
+          color: 'LAVENDER',
+          ...(event.category === 'DAY' ? { rrule: 'FREQ=WEEKLY' } : {}),
+        }),
+      }),
+    },
+  );
+
+  if (!res.ok) {
+    throw new Error('톡캘린더 이벤트 생성 도중 에러가 발생했습니다.');
+  }
+
+  const data = await res.json();
+
+  return data;
 }
