@@ -21,11 +21,11 @@ export default function ConfirmEventButton() {
       <SpeechBalloon.Container>
         <SpeechBalloon.Wrapper>
           <button
-            className="flex items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 text-gray-00 text-md-300"
+            className="flex h-8 items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 text-gray-00 text-sm-300"
             onClick={handleClick}
           >
             <span>
-              <CalendarIcon innerfill="#4c65e5" fontSize={24} />
+              <CalendarIcon innerfill="#4c65e5" fontSize={20} />
             </span>
             <span>{t('button')}</span>
           </button>
@@ -36,7 +36,7 @@ export default function ConfirmEventButton() {
           vertical="bottom"
           horizontal="right"
           variant="secondary"
-          triangleOffset={70}
+          triangleOffset={60}
         >
           {t('speechBalloon')}
         </SpeechBalloon.Main>

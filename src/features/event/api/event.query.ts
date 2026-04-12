@@ -1,5 +1,5 @@
 import { defaultEvent } from '../constants';
-import { ConfirmEventRequestData, EventType, MemberFilterType } from '../types';
+import { ConfirmEventRequestData, MemberFilterType } from '../types';
 import { isExampleEventSlug } from '../utils';
 import {
   confirmEvent,
@@ -20,9 +20,13 @@ import {
 } from './event.option';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export function useEventQuery(id: string) {
+export function useEventQuery(
+  id: string,
+  { enabled }: { enabled?: boolean } = {},
+) {
   const { data, isPending } = useQuery({
     ...eventQueryOptions(id),
+    enabled,
   });
 
   return { data: data || defaultEvent, isPending };
@@ -166,13 +170,7 @@ export function useConfirmEventMutation() {
 
 export function useCreateTalkCalendarEventMutation() {
   const { mutateAsync, isPending, isSuccess, isError } = useMutation({
-    mutationFn: async ({
-      accessToken,
-      event,
-    }: {
-      accessToken: string;
-      event: EventType;
-    }) => await createTalkCalendarEvent(accessToken, event),
+    mutationFn: createTalkCalendarEvent,
   });
 
   return { mutateAsync, isPending, isSuccess, isError };

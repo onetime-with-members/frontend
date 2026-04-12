@@ -11,7 +11,13 @@ export function getKakaoAuthCode(redirectPathname: string) {
   ).toString()}`;
 }
 
-export async function getKakaoAccessToken(code: string, redirect: string) {
+export async function getKakaoAccessToken({
+  code,
+  redirect,
+}: {
+  code: string;
+  redirect: string;
+}) {
   const res = await fetch('https://kauth.kakao.com/oauth/token', {
     method: 'POST',
     headers: {

@@ -1,30 +1,35 @@
-import { useEffect } from 'react';
+import { deleteCookie, getCookie } from 'cookies-next';
+import { useLocale } from 'next-intl';
+import { useEffect, useState } from 'react';
 
-import { useKakaoAccessTokenQuery } from '@/features/auth/api/auth.query';
+import { useGetKakaoAccessTokenMutation } from '@/features/auth/api/auth.query';
 import {
   useCreateTalkCalendarEventMutation,
   useEventQuery,
 } from '@/features/event/api/event.query';
 import {
   TALK_CALENDAR_ERROR,
+  TALK_CALENDAR_EVENT_ID,
   TALK_CALENDAR_SUCCESS,
 } from '@/features/event/constants';
-import { deleteTalkCalendarEventCookie } from '@/features/event/lib/talk-calendar-event-cookie';
 import { useRouter } from '@/i18n/navigation';
 import { useSearchParams } from 'next/navigation';
 
-export default function EventDetailRedirect({ eventId }: { eventId: string }) {
+export default function EventDetailRedirect() {
+  const [eventId, setEventId] = useState('');
+
   const router = useRouter();
   const searchParams = useSearchParams();
+  const locale = useLocale();
 
   const code = searchParams.get('code');
 
-  const { data: event, isPending: isEventPending } = useEventQuery(eventId);
-  const { data: kakaoAccessToken } = useKakaoAccessTokenQuery(
-    code ?? '',
-    '/events/talk-calendar',
-    { enabled: !!code },
+  const { data: event, isPending: isEventPending } = useEventQuery(
+    eventId ?? '',
+    { enabled: !!eventId },
   );
+
+  const { getKakaoAccessToken } = useGetKakaoAccessTokenMutation();
 
   const {
     mutateAsync: createTalkCalendarEvent,
@@ -33,21 +38,46 @@ export default function EventDetailRedirect({ eventId }: { eventId: string }) {
     isError,
   } = useCreateTalkCalendarEventMutation();
 
+  const isCompleted = isPending || isSuccess;
+
+  useEffect(() => {
+    const eventId = getCookie(TALK_CALENDAR_EVENT_ID) as string;
+    setEventId(eventId);
+    deleteCookie(TALK_CALENDAR_EVENT_ID);
+  }, []);
+
   useEffect(() => {
     (async () => {
-      if (!kakaoAccessToken || isEventPending || isPending || isSuccess) return;
+      if (isEventPending || isCompleted || !code || !eventId) return;
 
       if (isError) {
-        await deleteTalkCalendarEventCookie();
-        router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_ERROR}`);
+        router.push({
+          pathname: `/events/view/${eventId}`,
+          query: {
+            calendar_status: TALK_CALENDAR_ERROR,
+          },
+        });
         return;
       }
 
-      await createTalkCalendarEvent({ accessToken: kakaoAccessToken, event });
-      await deleteTalkCalendarEventCookie();
-      router.push(`/events/view/${eventId}?toast=${TALK_CALENDAR_SUCCESS}`);
+      const accessToken = await getKakaoAccessToken({
+        code,
+        redirect: '/events/talk-calendar',
+      });
+      const { event_id: calendarEventId } = await createTalkCalendarEvent({
+        accessToken,
+        event,
+        locale,
+      });
+      router.push({
+        pathname: `/events/view/${eventId}`,
+        query: {
+          calendar_status: TALK_CALENDAR_SUCCESS,
+          calendar_event_id: calendarEventId,
+        },
+      });
     })();
-  }, [kakaoAccessToken, event, isEventPending, isPending, isSuccess, isError]);
+  }, [event, isEventPending, isCompleted, isError]);
 
   return null;
 }

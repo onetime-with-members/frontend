@@ -5,11 +5,16 @@ import { MyTimeBlockBoardContext } from '@/features/my-schedule/contexts/MyTimeB
 import cn from '@/lib/cn';
 
 export default function DateIndicator() {
-  const { topDateGroupClassName } = useContext(MyTimeBlockBoardContext);
+  const { topDateGroupClassName, topDateGroupStyle } = useContext(
+    MyTimeBlockBoardContext,
+  );
   const { weekdaysShort } = useContext(WeekdayLocaleContext);
 
   return (
-    <div className={cn('relative', topDateGroupClassName)}>
+    <div
+      className={cn('relative', topDateGroupClassName)}
+      style={topDateGroupStyle}
+    >
       <div className="grid grid-cols-7 gap-2 pl-6">
         {weekdaysShort.map((weekday) => (
           <div

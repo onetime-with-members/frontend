@@ -13,8 +13,9 @@ export default function EditButton() {
   }
 
   return (
-    <ActionButton onClick={handleClick}>
+    <ActionButton className='flex flex-row items-center gap-1 pl-[10px] pr-3 h-9 rounded-lg bg-gray-70 w-full justify-center' onClick={handleClick}>
       <EditIcon />
+      <span className='text-sm-200 text-gray-00'>변경하기</span>
     </ActionButton>
   );
 }

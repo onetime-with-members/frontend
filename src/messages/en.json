@@ -12,6 +12,7 @@
         "copyLink": "Copy Link",
         "copied": "Copied",
         "shareMessage": "Try sharing it!",
+        "confirmed": "This event has been confirmed",
         "confirm": {
           "button": "Confirm Schedule",
           "speechBalloon": "You can notify team members after confirming the schedule",
@@ -21,11 +22,20 @@
         },
         "toast": {
           "filterInExampleEvent": "This feature is not available in example events",
-          "talkCalendarSuccess": "Talk Calendar event created successfully",
           "talkCalendarError": "Failed to create Talk Calendar event",
           "disableScheduleWhenConfirmed": "Schedules cannot be {action, select, edit {edited} other {added}} for confirmed events"
         },
-        "confirmed": "This event has been confirmed"
+        "kakaoShare": {
+          "schedule": {
+            "description": "You have received a schedule registration request.",
+            "linkButton": "Go to register schedule"
+          },
+          "talkCalendar": {
+            "confirmedDate": "Confirmed date : {date}",
+            "remindMe": "Remind me",
+            "viewDetails": "View details"
+          }
+        }
       },
       "EventCreatePage": {
         "createEvent": "Create Event"
@@ -79,9 +89,16 @@
         "editingEvent": "Editing Event..."
       },
       "TalkCalendarShareModal": {
-        "title": "Share with members and <br></br>add to Talk Calendar!",
-        "description": "You can receive notifications <br></br>on KakaoTalk.",
+        "title": "Share your confirmed schedule <br></br>and get notified",
+        "description": "The event is added to your KakaoTalk Calendar.",
         "shareViaKakaoButton": "Share via KakaoTalk"
+      },
+      "TalkCalendarSuccessModal": {
+        "title": "Event added successfully",
+        "description": "Check it out in <br></br><bold><visual>KakaoTalk > More > Calendar</visual><sr>Calendar on the More screen of the KakaoTalk app</sr></bold>!",
+        "confirmButton": "View event",
+        "closeButton": "Close",
+        "imageAlt": "Calendar icon highlighted in the More screen of the KakaoTalk app"
       },
       "LoginAlert": {
         "loginTitle": "Would you like to log in?",
@@ -163,7 +180,8 @@
         "next": "Next",
         "goBack": "Go Back",
         "previous": "Previous",
-        "start": "Get Started"
+        "start": "Get Started",
+        "register": "Register"
       }
     }
   },
@@ -234,6 +252,22 @@
         "privateURLMessage": "The timetable is not public. Please set the sharing rights to 'Public'.",
         "serverErrorMessage": "An error occurred while processing the request. Please try again."
       }
+    },
+    "components": {
+      "MyScheduleRequestModal": {
+        "slideEverytime": {
+          "title": "Easily import your school timetable with Everytime",
+          "description": "Just paste your timetable link and it’s added automatically!"
+        },
+        "slideGeneral": {
+          "title": "Register your part-time job or <br></br>school timetables on OneTime!",
+          "description": "You can load them when adding your schedule to the event."
+        },
+        "buttons": {
+          "register": "Register",
+          "later": "Maybe later"
+        }
+      }
     }
   },
   "user": {
@@ -279,7 +313,8 @@
         "title2": "All your event and schedule data will be deleted",
         "description2": "All content written in OneTime, such as the schedules added for events, will be deleted.",
         "agreeText": "Yes, I have confirmed the above.",
-        "withdraw": "Delete account"
+        "withdraw": "Delete account",
+        "withdrawing": "Deleting account..."
       }
     },
     "components": {

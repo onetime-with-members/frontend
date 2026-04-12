@@ -4,8 +4,8 @@ import Skeleton from 'react-loading-skeleton';
 import { AlarmIcon } from '@/components/icon';
 import { SKELETON_DARK_GRAY } from '@/constants';
 import {
-  getConfirmedTimeText,
-  getRecommendedTimeText,
+  getConfirmedTimeSummary,
+  getRecommendedTimeSummary,
 } from '@/features/event/utils';
 import { MyEventType } from '@/features/user/types';
 import cn from '@/lib/cn';
@@ -61,7 +61,7 @@ export default function TimeSummary({
             </span>
             {confirmedTime ? (
               <span>
-                {getConfirmedTimeText({
+                {getConfirmedTimeSummary({
                   confirmedTime,
                   category: event.category,
                   locale,
@@ -69,7 +69,7 @@ export default function TimeSummary({
               </span>
             ) : recommendedTime ? (
               <span>
-                {getRecommendedTimeText({
+                {getRecommendedTimeSummary({
                   recommendedTime,
                   category: event.category,
                   locale,

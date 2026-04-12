@@ -133,7 +133,7 @@ export function useEditPolicyMutation() {
 export function useWithdrawMutation() {
   const { clearAuth } = useAuth();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isPending, isSuccess } = useMutation({
     mutationFn: withdrawAction,
     onSuccess: async () => {
       await clearAuth();
@@ -142,5 +142,6 @@ export function useWithdrawMutation() {
 
   return {
     withdraw: mutateAsync,
+    isPending: isPending || isSuccess,
   };
 }

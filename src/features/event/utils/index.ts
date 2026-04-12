@@ -1,3 +1,5 @@
+import { Locale } from 'next-intl';
+
 import { exampleEventList } from '../mocks/example-events';
 import { ConfirmedEventData, EventType, SelectedDateTime } from '../types';
 import { weekdaysShortKo } from '@/constants';
@@ -17,9 +19,12 @@ export function parseDateTime(date: string, time?: string) {
 }
 
 export function parseDayTime(day: string, time?: string) {
-  return dayjs(...(time ? [time, 'HH:mm'] : [])).day(
-    weekdaysShortKo.findIndex((weekday) => weekday === day),
-  );
+  const dayIndex = weekdaysShortKo.findIndex((weekday) => weekday === day);
+  const nextDayIndex = (dayIndex + 1) % weekdaysShortKo.length;
+
+  if (!time) return dayjs().day(dayIndex);
+  if (time === '24:00') return dayjs('00:00', 'HH:mm').day(nextDayIndex);
+  return dayjs(time, 'HH:mm').day(dayIndex);
 }
 
 function getEventTimeSummary({
@@ -31,7 +36,7 @@ function getEventTimeSummary({
   start: { date: string; day: string; time: string };
   end: { date: string; day: string; time: string };
   category: 'DATE' | 'DAY';
-  locale: 'ko' | 'en';
+  locale: Locale;
 }) {
   if (category === 'DATE') {
     const startDate = parseDateTime(start.date);
@@ -48,18 +53,18 @@ function getEventTimeSummary({
 
     return start.day === end.day
       ? `${startDay.format(ddd)} ${start.time} - ${end.time}`
-      : `${startDay.format(ddd)} - ${endDay.format(ddd)} ${end.time}`;
+      : `${startDay.format(ddd)} ${start.time} - ${endDay.format(ddd)} ${end.time}`;
   }
 }
 
-export function getRecommendedTimeText({
+export function getRecommendedTimeSummary({
   recommendedTime,
   category,
   locale,
 }: {
   recommendedTime: MyEventType['most_possible_times'][0];
   category: 'DATE' | 'DAY';
-  locale: 'ko' | 'en';
+  locale: Locale;
 }) {
   return getEventTimeSummary({
     start: {
@@ -77,14 +82,14 @@ export function getRecommendedTimeText({
   });
 }
 
-export function getConfirmedTimeText({
+export function getConfirmedTimeSummary({
   confirmedTime,
   category,
   locale,
 }: {
   confirmedTime: ConfirmedEventData;
   category: 'DATE' | 'DAY';
-  locale: 'ko' | 'en';
+  locale: Locale;
 }) {
   return getEventTimeSummary({
     start: {
@@ -158,4 +163,19 @@ export function eventToDateTime(event: EventType): SelectedDateTime {
       time: confirmedTime?.end_time ?? '',
     },
   };
+}
+
+export function getDefaultConfirmTimeFromNow(): string {
+  const now = dayjs();
+  const totalMinutes = now.hour() * 60 + now.minute();
+  const ceiledMinutes = Math.ceil(totalMinutes / 30) * 30;
+
+  if (ceiledMinutes >= 24 * 60) {
+    return '24:00';
+  }
+
+  const h = Math.floor(ceiledMinutes / 60);
+  const m = ceiledMinutes % 60;
+
+  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 }

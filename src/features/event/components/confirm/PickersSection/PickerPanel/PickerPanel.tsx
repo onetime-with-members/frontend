@@ -3,9 +3,12 @@ import { useEffect, useState } from 'react';
 
 import CalendarSelect from '@/components/CalendarSelect';
 import TimeDropdown from '@/components/TimeDropdown';
+import { useEventQuery } from '@/features/event/api/event.query';
 import WeekdaySelect from '@/features/event/components/form/EventForm/FormContent/InputContent/DateControl/WeekdaySelect';
 import { SelectedDateTime } from '@/features/event/types';
+import { getDefaultConfirmTimeFromNow } from '@/features/event/utils';
 import cn from '@/lib/cn';
+import { useParams } from 'next/navigation';
 
 export default function PickerPanel({
   type,
@@ -22,6 +25,9 @@ export default function PickerPanel({
   selectedDateTime: SelectedDateTime['start' | 'end'];
   setSelectedDateTime: (dateTime: SelectedDateTime['start' | 'end']) => void;
 }) {
+  const params = useParams<{ id: string }>();
+  const { data: event } = useEventQuery(params.id);
+
   const [currentRanges, setCurrentRanges] = useState(
     selectedDateTime.date ? [selectedDateTime.date] : [],
   );
@@ -42,6 +48,36 @@ export default function PickerPanel({
   useEffect(() => {
     setCurrentRanges(selectedDateTime.date ? [selectedDateTime.date] : []);
   }, [selectedDateTime.date]);
+
+  useEffect(() => {
+    let nextDate = selectedDateTime.date;
+    const nextTime =
+      selectedDateTime.time || getDefaultConfirmTimeFromNow();
+
+    if (
+      datePickerType === 'date' &&
+      type === 'start' &&
+      event.category === 'DATE' &&
+      !nextDate &&
+      event.ranges[0]
+    ) {
+      nextDate = event.ranges[0];
+    }
+
+    if (
+      nextDate !== selectedDateTime.date ||
+      nextTime !== selectedDateTime.time
+    ) {
+      setSelectedDateTime({ date: nextDate, time: nextTime });
+    }
+  }, [
+    datePickerType,
+    type,
+    event.category,
+    event.ranges,
+    selectedDateTime.date,
+    selectedDateTime.time,
+  ]);
 
   return (
     <div

@@ -63,10 +63,7 @@ describe('이벤트', () => {
                 cy.get('input[placeholder="당신의 이름은 무엇인가요?"]').type(
                   '홍민서',
                 );
-                cy.get('input[id="pin"]').type('1');
-                cy.get('input[id="pin-2"]').type('1');
-                cy.get('input[id="pin-3"]').type('1');
-                cy.get('input[id="pin-4"]').type('1');
+                cy.get('input.pin').each(($pin) => cy.wrap($pin).type('1'));
                 cy.contains('button', '다음').click();
               }
 

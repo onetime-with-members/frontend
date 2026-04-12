@@ -9,6 +9,7 @@ export const MyTimeBlockBoardContext = createContext<{
   className: string;
   backgroundColor: 'gray' | 'white';
   topDateGroupClassName: string;
+  topDateGroupStyle: React.CSSProperties;
   setIsEdited: (isEdited: boolean) => void;
 }>({
   mode: 'view',
@@ -17,6 +18,7 @@ export const MyTimeBlockBoardContext = createContext<{
   className: '',
   backgroundColor: 'gray',
   topDateGroupClassName: '',
+  topDateGroupStyle: {},
   setIsEdited: () => {},
 });
 
@@ -28,6 +30,7 @@ export default function MyTimeBlockBoardContextProvider({
   className,
   backgroundColor,
   topDateGroupClassName,
+  topDateGroupStyle,
   setIsEdited,
 }: {
   children: React.ReactNode;
@@ -37,6 +40,7 @@ export default function MyTimeBlockBoardContextProvider({
   className: string;
   backgroundColor: 'gray' | 'white';
   topDateGroupClassName: string;
+  topDateGroupStyle: React.CSSProperties;
   setIsEdited: (isEdited: boolean) => void;
 }) {
   return (
@@ -48,6 +52,7 @@ export default function MyTimeBlockBoardContextProvider({
         className,
         backgroundColor,
         topDateGroupClassName,
+        topDateGroupStyle,
         setIsEdited,
       }}
     >

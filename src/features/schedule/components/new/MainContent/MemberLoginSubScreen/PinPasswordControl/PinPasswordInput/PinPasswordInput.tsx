@@ -1,73 +1,79 @@
 import { useRef } from 'react';
 
 import PinPasswordInputField from './PinPasswordInputField';
-import { isNumber } from '@/utils';
+import { PinPasswordInputFieldRef } from './PinPasswordInputField/PinPasswordInputField';
 
 export default function PinPasswordInput({
-  inputId,
   pin,
   setPin,
 }: {
-  inputId: string;
   pin: string;
   setPin: (pin: string) => void;
 }) {
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
-
-  const MAX_PIN_LENGTH = 4;
-
-  function handleInputChange(
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number,
-  ) {
-    if (!isNumber(e.target.value)) {
-      e.target.value = '';
-      return;
-    }
-    const newPin = pin.split('');
-    newPin[index] = e.target.value;
-    setPin(newPin.join(''));
-
-    if (index < MAX_PIN_LENGTH - 1) {
-      inputRefs.current[index + 1]?.focus();
-    }
-  }
+  const inputsRef = useRef<Map<number, PinPasswordInputFieldRef | null>>(null);
 
   function handleKeyDown(
     e: React.KeyboardEvent<HTMLInputElement>,
     index: number,
   ) {
     if (e.key === 'Backspace') {
-      const newPin = pin.split('');
-      if (e.currentTarget.value) {
-        newPin[index] = '-';
-      } else if (index > 0) {
-        inputRefs.current[index - 1]?.focus();
-        newPin[index - 1] = '-';
+      const newPin = [...pin];
+      if (newPin[index] === '-') {
+        const map = getMap();
+        if (map.has(index - 1)) {
+          const inputRef = map.get(index - 1);
+          inputRef?.focus();
+        }
       }
+      newPin[index] = '-';
       setPin(newPin.join(''));
+      return;
+    }
+
+    if (e.repeat) return;
+
+    const numberRegex = /^[0-9]/g;
+    if (!numberRegex.test(e.key)) return;
+
+    const newPin = [...pin];
+    newPin[index] = e.key;
+    setPin(newPin.join(''));
+
+    if (inputsRef.current?.has(index + 1)) {
+      const inputRef = inputsRef.current?.get(index + 1);
+      setTimeout(() => {
+        inputRef?.focus();
+      }, 0);
     }
   }
 
-  function handleFocus(e: React.FocusEvent<HTMLInputElement>) {
-    e.target.select();
+  function handleFocus(index: number) {
+    const map = getMap();
+    const inputRef = map.get(index);
+    inputRef?.select();
+  }
+
+  function getMap() {
+    if (!inputsRef.current) {
+      inputsRef.current = new Map();
+    }
+    return inputsRef.current;
   }
 
   return (
     <div className="grid grid-cols-4 gap-3">
-      {Array.from({ length: MAX_PIN_LENGTH }).map((_, index) => (
+      {Array.from({ length: 4 }).map((_, index) => (
         <PinPasswordInputField
           key={index}
-          size={1}
-          maxLength={1}
-          id={index === 0 ? inputId : `pin-${index + 1}`}
-          inputRef={(el) => {
-            inputRefs.current[index] = el;
+          ref={(node) => {
+            const map = getMap();
+            map.set(index, node);
+            return () => {
+              map.delete(index);
+            };
           }}
-          onChange={(e) => handleInputChange(e, index)}
           onKeyDown={(e) => handleKeyDown(e, index)}
-          onFocus={handleFocus}
-          inputMode="numeric"
+          onFocus={() => handleFocus(index)}
           value={pin[index] === '-' ? '' : pin[index]}
         />
       ))}

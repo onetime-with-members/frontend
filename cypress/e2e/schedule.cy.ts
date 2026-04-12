@@ -66,10 +66,7 @@ describe('스케줄 등록', () => {
     cy.contains('button', '다음에 할게요').click();
 
     cy.get('input[placeholder="당신의 이름은 무엇인가요?"]').type('홍민서');
-    cy.get('input[id="pin"]').type('1');
-    cy.get('input[id="pin-2"]').type('1');
-    cy.get('input[id="pin-3"]').type('1');
-    cy.get('input[id="pin-4"]').type('1');
+    cy.get('input.pin').each(($pin) => cy.wrap($pin).type('1'));
     cy.contains('button', '다음').click();
 
     cy.getCookie('schedule-guide-modal').should('not.exist');
@@ -87,10 +84,7 @@ describe('스케줄 등록', () => {
     cy.contains('button', '다음에 할게요').click();
 
     cy.get('input[placeholder="당신의 이름은 무엇인가요?"]').type('홍민서');
-    cy.get('input[id="pin"]').type('1');
-    cy.get('input[id="pin-2"]').type('1');
-    cy.get('input[id="pin-3"]').type('1');
-    cy.get('input[id="pin-4"]').type('1');
+    cy.get('input.pin').each(($pin) => cy.wrap($pin).type('1'));
     cy.contains('button', '다음').click();
 
     cy.getCookie('schedule-guide-modal').should('exist');
