@@ -20,11 +20,10 @@ import { useParams } from 'next/navigation';
 export default function EventConfirmPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const confirmedTime = useConfirmedTime();
-
   const params = useParams<{ id: string }>();
 
   const progressRouter = useProgressRouter();
+  const confirmedTime = useConfirmedTime();
 
   const { data: event } = useEventQuery(params.id);
 
@@ -45,13 +44,14 @@ export default function EventConfirmPage() {
     return startDayjs.isBefore(endDayjs);
   };
   const isDisabled = !isAllPickerSelected || !isStartEndDateTimeValid();
+  const isEdited = !!event.confirmation;
 
   function handleBackButtonClick() {
     progressRouter.back();
   }
 
   function handleSubmit() {
-    if (event.confirmation) {
+    if (isEdited) {
       handleConfirm();
     } else {
       setIsModalOpen(true);
@@ -75,7 +75,13 @@ export default function EventConfirmPage() {
         end_time: confirmedTime.end.time,
       } as ConfirmEventRequestData,
     });
-    progressRouter.back();
+    if (isEdited) {
+      progressRouter.replace(`/events/view/${params.id}`);
+    } else {
+      progressRouter.replace(
+        `/events/view/${params.id}?${new URLSearchParams({ calendar_status: 'request' })}`,
+      );
+    }
   }
 
   return (

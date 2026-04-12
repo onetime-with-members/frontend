@@ -7,27 +7,50 @@ import { ClockIcon } from '@/components/icon';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import cn from '@/lib/cn';
 
-export default function RecommendedTimes({
+export function RecommendedTimesHeading({
+  className,
+}: {
+  className?: string;
+}) {
+  const { recommendedTimes } = useContext(EventParticipantFilterContext);
+  const t = useTranslations('event.pages.EventDetailPage');
+
+  return (
+    <div className={cn(className)}>
+      <SectionHeading icon={<ClockIcon className="mr-1" />} sticky>
+        {t('recommendedTime', {
+          count: recommendedTimes.length,
+        })}
+      </SectionHeading>
+    </div>
+  );
+}
+
+export function RecommendedTimesList({
   className,
 }: {
   className?: string;
 }) {
   const { recommendedTimes } = useContext(EventParticipantFilterContext);
 
-  const t = useTranslations('event.pages.EventDetailPage');
+  return (
+    <div className={cn('flex flex-col gap-6 mt-2', className)}>
+      {recommendedTimes.map((recommendedTime, index) => (
+        <RecommendedTime key={index} recommendedTime={recommendedTime} />
+      ))}
+    </div>
+  );
+}
 
+export default function RecommendedTimes({
+  className,
+}: {
+  className?: string;
+}) {
   return (
     <div className={cn('flex flex-col gap-1', className)}>
-      <SectionHeading icon={<ClockIcon className="mr-1" />} sticky>
-        {t('recommendedTime', {
-          count: recommendedTimes.length,
-        })}
-      </SectionHeading>
-      <div className="flex flex-col gap-6">
-        {recommendedTimes.map((recommendedTime, index) => (
-          <RecommendedTime key={index} recommendedTime={recommendedTime} />
-        ))}
-      </div>
+      <RecommendedTimesHeading />
+      <RecommendedTimesList />
     </div>
   );
 }

@@ -2,7 +2,7 @@
 
 import { useContext } from 'react';
 
-import { addSignOutCookie } from './sign-out-cookie';
+import { addSignOutSession } from './sign-out-session';
 import { SessionContext } from '@/features/auth/contexts/SessionContext';
 import { Session } from '@/features/auth/types';
 import { useUserQuery } from '@/features/user/api/user.query';
@@ -40,7 +40,7 @@ export function useAuth() {
 
   async function clearAuth() {
     await deleteSession();
-    await addSignOutCookie();
+    await addSignOutSession();
     queryClient.clear();
 
     router.refresh();

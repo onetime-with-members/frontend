@@ -1,4 +1,6 @@
-export function ProfileIcon(props: React.SVGProps<SVGSVGElement>) {
+export function ProfileIcon(
+  props: React.SVGProps<SVGSVGElement> & { innerfill: string },
+) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +22,7 @@ export function ProfileIcon(props: React.SVGProps<SVGSVGElement>) {
       >
         <circle cx="12" cy="12" r="10" fill="#D9D9D9" />
       </mask>
-      <g fill="#F6F7F8" mask="url(#a)">
+      <g fill={props.innerfill} mask="url(#a)">
         <circle cx="12" cy="9.658" r="3.834" />
         <path
           fillRule="evenodd"

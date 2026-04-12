@@ -7,11 +7,7 @@ import KakaoRedirect from '../components/talk-calendar/KakaoRedirect';
 import { FooterContext } from '@/features/set-up/contexts/FooterContext';
 import { useSearchParams } from 'next/navigation';
 
-export default function EventTalkCalendarPage({
-  eventId,
-}: {
-  eventId: string;
-}) {
+export default function EventTalkCalendarPage() {
   const { setFooterVisible } = useContext(FooterContext);
 
   const searchParams = useSearchParams();
@@ -30,5 +26,5 @@ export default function EventTalkCalendarPage({
     return <KakaoRedirect />;
   }
 
-  return <EventDetailRedirect eventId={eventId} />;
+  return <EventDetailRedirect />;
 }

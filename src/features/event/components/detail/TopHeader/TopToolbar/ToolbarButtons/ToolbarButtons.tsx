@@ -32,12 +32,12 @@ export default function ToolbarButtons() {
           <ToolbarButton
             onClick={() => progressRouter.push(`/events/${params.id}/edit`)}
           >
-            <EditIcon />
+            <EditIcon fontSize={20} />
           </ToolbarButton>
         )}
         {isCreator && (
           <ToolbarButton onClick={() => setIsDeleteAlertOpen(true)}>
-            <TrashIcon innerfill="#474A5C" />
+            <TrashIcon innerfill="#474A5C" fontSize={20} />
           </ToolbarButton>
         )}
         {event.event_status === 'ACTIVE' && <ConfirmEventButton />}

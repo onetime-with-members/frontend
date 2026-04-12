@@ -17,7 +17,7 @@ export default function DesktopSideTab() {
         <SideTabItem
           href="/mypage/events"
           active={tabActive === 'events'}
-          icon={<EventIcon />}
+          icon={<EventIcon innerfill="var(--inner-fill)" />}
           className="w-[10rem]"
         >
           {t('allEvents')}
@@ -25,14 +25,14 @@ export default function DesktopSideTab() {
         <SideTabItem
           href="/mypage/schedules"
           active={tabActive === 'schedules'}
-          icon={<CalendarIcon innerfill="#FFFFFF" />}
+          icon={<CalendarIcon innerfill="var(--inner-fill)" />}
         >
           {t('mySchedule')}
         </SideTabItem>
         <SideTabItem
           href="/mypage/profile"
           active={tabActive === 'profile'}
-          icon={<ProfileIcon />}
+          icon={<ProfileIcon innerfill="var(--inner-fill)" />}
         >
           {t('profile')}
         </SideTabItem>

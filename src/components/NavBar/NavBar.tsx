@@ -44,14 +44,14 @@ export default function NavBar({
       className={cn(
         'flex w-full items-center',
         {
-          'h-[4rem]': !heightZero,
+          'h-14': !heightZero,
         },
         className,
       )}
     >
       <div
         className={cn(
-          'fixed left-0 top-0 z-40 w-full bg-gray-00 p-4 text-gray-80 duration-150',
+          'fixed left-0 top-0 z-40 w-full bg-gray-00 px-4 py-3 text-gray-80 duration-150',
           {
             'shadow-lg': isScrolling && shadow,
             'bg-gray-80 text-gray-00': variant === 'black',
@@ -59,7 +59,7 @@ export default function NavBar({
             'bg-transparent': variant === 'transparent' && !isScrolling,
           },
           {
-            'h-[4rem]': !heightZero,
+            'h-14': !heightZero,
           },
         )}
       >
@@ -79,9 +79,8 @@ export default function NavBar({
                   : '/images/logo-white.svg'
               }
               alt="OneTime"
-              width={148}
-              height={32}
-              className="h-[2rem]"
+              width={110}
+              height={24}
               priority
             />
           </ProgressLink>

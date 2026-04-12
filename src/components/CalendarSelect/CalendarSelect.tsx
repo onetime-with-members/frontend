@@ -1,5 +1,5 @@
 import { useLocale } from 'next-intl';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import DateItem from '../../features/event/components/form/EventForm/FormContent/InputContent/DateControl/DateItem';
 import { WeekdayLocaleContext } from '@/contexts/WeekdayLocaleContext';
@@ -21,8 +21,16 @@ export default function CalendarSelect({
   dateRange?: 'prev' | 'all';
 }) {
   const [currentDate, setCurrentDate] = useState(
-    ranges.length > 0 ? dayjs(ranges[0], 'YYYY.MM.dd') : dayjs(),
+    ranges.length > 0 ? dayjs(ranges[0], 'YYYY.MM.DD') : dayjs(),
   );
+
+  useEffect(() => {
+    if (ranges.length === 0) return;
+    const d = dayjs(ranges[0], 'YYYY.MM.DD');
+    if (d.isValid()) {
+      setCurrentDate(d);
+    }
+  }, [ranges[0]]);
 
   const { weekdaysShort } = useContext(WeekdayLocaleContext);
 

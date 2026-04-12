@@ -13,3 +13,7 @@ export interface SleepTimeType {
 export type EverytimeSchedule = TimeType[];
 
 export type EverytimeUrlSchema = z.infer<typeof everytimeUrlSchema>;
+
+export type MyScheduleRequestModalSlideMessageKey =
+  | 'slideGeneral'
+  | 'slideEverytime';

@@ -4,7 +4,7 @@ import { useContext } from 'react';
 
 import Button from '@/components/button';
 import { REDIRECT_URL } from '@/features/auth/constants';
-import useHomeUrl from '@/features/home/hooks/useHomeUrl';
+import { MY_SCHEDULE_REQUEST_MODAL_SESSION } from '@/features/my-schedule/constants';
 import { OnboardingContext } from '@/features/user/contexts/OnboardingContext';
 import { useProgressRouter } from '@/navigation';
 import Image from 'next/image';
@@ -17,21 +17,20 @@ export default function WelcomeScreen() {
   const t = useTranslations('auth.pages.OnboardingPage');
 
   const progressRouter = useProgressRouter();
-  const homeUrl = useHomeUrl();
 
   function handleStartButtonClick() {
-    const redirectUrl = getCookie(REDIRECT_URL);
-
-    if (redirectUrl) {
+    const url = getCookie(REDIRECT_URL);
+    if (url) {
       deleteCookie(REDIRECT_URL);
-      progressRouter.push(redirectUrl as string);
+      progressRouter.push(url as string);
     } else {
-      progressRouter.push(homeUrl);
+      progressRouter.push('/dashboard');
     }
+    sessionStorage.setItem(MY_SCHEDULE_REQUEST_MODAL_SESSION, String(true));
   }
 
   return (
-    <section className="flex flex-1 -translate-y-6 flex-col items-center justify-center gap-12 md:-translate-y-16">
+    <section className="flex flex-1 -translate-y-16 flex-col items-center justify-center gap-12 md:-translate-y-16">
       <div className="flex flex-col items-center gap-6">
         <div>
           <Image

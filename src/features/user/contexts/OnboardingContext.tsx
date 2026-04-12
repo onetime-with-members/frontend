@@ -46,7 +46,6 @@ export default function OnboardingContextProvider({
 
   const locale = useLocale();
   const router = useRouter();
-
   const homeUrl = useHomeUrl();
 
   const redirectUrl = getCookie(REDIRECT_URL);

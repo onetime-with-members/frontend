@@ -1,3 +1,5 @@
+import { Locale } from 'next-intl';
+
 import {
   ConfirmEventRequestData,
   EventSchema,
@@ -160,10 +162,15 @@ export async function confirmEvent(
   return res.data.payload;
 }
 
-export async function createTalkCalendarEvent(
-  accessToken: string,
-  event: EventType,
-) {
+export async function createTalkCalendarEvent({
+  accessToken,
+  event,
+  locale,
+}: {
+  accessToken: string;
+  event: EventType;
+  locale: Locale;
+}) {
   const confirmedTime = event.confirmation;
 
   const res = await fetch(
@@ -203,10 +210,14 @@ export async function createTalkCalendarEvent(
                         (weekday) => weekday === confirmedTime?.end_day,
                       ),
                     )
+                    .add(confirmedTime?.end_time === '24:00' ? 1 : 0, 'day')
                     .toISOString(),
             time_zone: dayjs.tz.guess(),
           },
-          description: 'OneTime에 의해 추가된 일정입니다.',
+          description:
+            locale === 'ko'
+              ? 'OneTime에 의해 추가된 일정입니다.'
+              : 'This event was added by OneTime.',
           reminders: [30, 1440],
           color: 'LAVENDER',
           ...(event.category === 'DAY' ? { rrule: 'FREQ=WEEKLY' } : {}),
@@ -218,4 +229,8 @@ export async function createTalkCalendarEvent(
   if (!res.ok) {
     throw new Error('톡캘린더 이벤트 생성 도중 에러가 발생했습니다.');
   }
+
+  const data = await res.json();
+
+  return data;
 }

@@ -21,11 +21,7 @@ export default function PinPasswordControl({
           name="pin"
           control={control}
           render={({ field }) => (
-            <PinPasswordInput
-              inputId="pin"
-              pin={field.value}
-              setPin={field.onChange}
-            />
+            <PinPasswordInput pin={field.value} setPin={field.onChange} />
           )}
         />
       </div>

@@ -1,6 +1,8 @@
 import { MyScheduleTimeType, SleepTimeType } from '../types';
 import { weekdaysShortKo } from '@/constants';
 
+export const MY_SCHEDULE_REQUEST_MODAL_SESSION = 'my_schedule_request_modal';
+
 export const defaultMySchedule: MyScheduleTimeType[] = weekdaysShortKo.map(
   (weekday) => ({
     time_point: weekday,

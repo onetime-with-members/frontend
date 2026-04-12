@@ -7,7 +7,7 @@ import Avatar from '@/components/Avatar';
 import cn from '@/lib/cn';
 
 export default function AvatarDropdown({
-  size = 40,
+  size = 32,
   name,
   imageUrl,
   disabled,

@@ -12,6 +12,7 @@
         "copyLink": "링크 복사",
         "copied": "복사 완료",
         "shareMessage": "공유해보세요!",
+        "confirmed": "일정이 확정되었어요",
         "confirm": {
           "button": "일정 확정하기",
           "speechBalloon": "일정 확정 후, 팀원들에게 일정 알림을 보낼 수 있어요",
@@ -21,11 +22,20 @@
         },
         "toast": {
           "filterInExampleEvent": "예시 이벤트에서는 사용할 수 없는 기능입니다",
-          "talkCalendarSuccess": "톡캘린더 일정이 성공적으로 생성되었습니다",
           "talkCalendarError": "톡캘린더 일정 생성에 실패했습니다",
           "disableScheduleWhenConfirmed": "이미 확정된 이벤트는 스케줄을 {action, select, edit {수정} other {추가}}할 수 없습니다"
         },
-        "confirmed": "일정이 확정되었어요"
+        "kakaoShare": {
+          "schedule": {
+            "description": "스케줄 등록 요청이 도착했습니다.",
+            "linkButton": "스케줄 등록하러 가기"
+          },
+          "talkCalendar": {
+            "confirmedDate": "확정된 일정 : {date}",
+            "remindMe": "카톡 알림 추가",
+            "viewDetails": "자세히 보기"
+          }
+        }
       },
       "EventCreatePage": {
         "createEvent": "이벤트 생성"
@@ -79,9 +89,16 @@
         "editingEvent": "이벤트 수정 중..."
       },
       "TalkCalendarShareModal": {
-        "title": "멤버에게 공유하고 <br></br>톡캘린더에 추가해보세요!",
-        "description": "카카오톡에서 알림을 받을 수 있어요.",
+        "title": "확정된 일정을 공유하고 <br></br>알림을 받아보세요!",
+        "description": "카카오톡 캘린더에 일정이 추가돼요.",
         "shareViaKakaoButton": "카카오톡으로 공유하기"
+      },
+      "TalkCalendarSuccessModal": {
+        "title": "일정이 등록됐어요",
+        "description": "<bold><visual>카카오톡 > 더보기 > 캘린더</visual><sr>카카오톡 앱의 더보기 화면에 있는 캘린더</sr></bold>에서 <br></br>확인해 보세요!",
+        "confirmButton": "자세히 보기",
+        "closeButton": "닫기",
+        "imageAlt": "카카오톡 앱의 더보기 화면에서 캘린더 아이콘이 하이라이트된 이미지"
       },
       "LoginAlert": {
         "loginTitle": "로그인 하시겠어요?",
@@ -163,7 +180,8 @@
         "next": "다음",
         "goBack": "돌아가기",
         "previous": "이전으로",
-        "start": "시작하기"
+        "start": "시작하기",
+        "register": "등록하기"
       }
     }
   },
@@ -234,6 +252,22 @@
         "privateURLMessage": "시간표가 공개 상태가 아닙니다. 공개 범위를 '전체 공개'로 바꿔주세요.",
         "serverErrorMessage": "요청 도중 오류가 발생했습니다. 다시 시도해주세요."
       }
+    },
+    "components": {
+      "MyScheduleRequestModal": {
+        "slideEverytime": {
+          "title": "에브리타임 연동으로 <br></br>학교 시간표 간편하게 불러오기",
+          "description": "시간표 링크만 붙여넣으면 자동으로 쏙!"
+        },
+        "slideGeneral": {
+          "title": "알바, 학교 시간표를 <br></br>원타임에 등록해 보세요!",
+          "description": "일정을 조율할 때 불러올 수 있어요."
+        },
+        "buttons": {
+          "register": "등록하기",
+          "later": "다음에 할래요"
+        }
+      }
     }
   },
   "user": {
@@ -279,7 +313,8 @@
         "title2": "회원님의 일정 및 스케줄 데이터가 모두 삭제돼요",
         "description2": "참여한 이벤트에 등록한 스케줄 등 OneTime에서 작성하신 내용이 모두 삭제돼요.",
         "agreeText": "상기 내용을 모두 확인했습니다.",
-        "withdraw": "탈퇴하기"
+        "withdraw": "탈퇴하기",
+        "withdrawing": "탈퇴 중..."
       }
     },
     "components": {

@@ -1,11 +1,12 @@
 import { eventQueryOptions } from '@/features/event/api/event.option';
-import { getTalkCalendarEventCookie } from '@/features/event/lib/talk-calendar-event-cookie';
+import { TALK_CALENDAR_EVENT_ID } from '@/features/event/constants';
 import EventTalkCalendarPage from '@/features/event/pages/EventTalkCalendarPage';
 import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
 } from '@tanstack/react-query';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export default async function Page({
@@ -15,9 +16,10 @@ export default async function Page({
 }) {
   const { event_id: eventIdParam } = await searchParams;
 
-  const eventIdCookie = await getTalkCalendarEventCookie();
+  const cookieStore = await cookies();
+  const eventIdCookie = cookieStore.get(TALK_CALENDAR_EVENT_ID)?.value;
 
-  const eventId = eventIdParam ?? eventIdCookie;
+  const eventId = eventIdParam || eventIdCookie;
 
   if (!eventId) {
     redirect('/');
@@ -31,7 +33,7 @@ export default async function Page({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <EventTalkCalendarPage eventId={eventId} />
+      <EventTalkCalendarPage />
     </HydrationBoundary>
   );
 }

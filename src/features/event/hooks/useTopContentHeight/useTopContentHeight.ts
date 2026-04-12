@@ -12,6 +12,7 @@ export default function useTopContentHeight(
     eventHeader: number;
     participantFilter: number;
     barBanner: number;
+    dashboardHeader: number;
   }) => number,
 ) {
   const { isBarBannerShown } = useContext(BarBannerContext);
@@ -21,25 +22,23 @@ export default function useTopContentHeight(
 
   const isMobile = useIsMobile();
 
-  const { data: event } = useEventQuery(params.id);
+  const { data: event } = useEventQuery(params.id, { enabled: !!params.id });
 
-  const navBar = 64;
+  const navBar = 56;
   const participantFilter = schedules.length > 0 ? 36 : 0;
   const barBanner = isBarBannerShown ? 56 : 0;
 
-  const eventConfirmBanner = isMobile
-    ? event.event_status === 'CONFIRMED'
-      ? 124
-      : 48
-    : 0;
-  const eventHeaderGap =
-    isMobile || event.event_status === 'CONFIRMED' ? 12 : 0;
-  const eventHeader = isMobile ? 60 + eventHeaderGap + eventConfirmBanner : 64;
+  const eventConfirmBanner = event.event_status !== 'CONFIRMED' ? 48 : 0;
+  const eventHeaderGap = event.event_status !== 'CONFIRMED' ? 12 : 0;
+  const eventHeader = isMobile ? 52 + eventHeaderGap + eventConfirmBanner : 56;
+
+  const dashboardHeader = !isMobile ? 72 : 0;
 
   return callback({
     navBar,
     eventHeader,
     participantFilter,
     barBanner,
+    dashboardHeader,
   });
 }
