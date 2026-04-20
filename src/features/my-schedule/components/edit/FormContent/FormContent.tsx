@@ -3,9 +3,9 @@ import { useContext, useState } from 'react';
 import EverytimeUI from '../../shared/EverytimeUI';
 import MyTimeBlockBoard from '../../shared/MyTimeBlockBoard';
 import SleepTimeAccordion from './SleepTimeAccordion';
+import useMyScheduleEditTopContentHeight from '@/features/event/hooks/useMyScheduleEditTopContentHeight';
 import { SleepTimeContext } from '@/features/my-schedule/contexts/SleepTimeContext';
 import useMyScheduleTimeBlock from '@/features/my-schedule/hooks/useMyScheduleTimeBlock';
-import cn from '@/lib/cn';
 
 export default function FormContent() {
   const [isAccordionOpen, setIsAccordionOpen] = useState(true);
@@ -14,6 +14,10 @@ export default function FormContent() {
 
   const { mySchedule, setMySchedule, setIsMyScheduleEdited } =
     useMyScheduleTimeBlock();
+  const stickyTop = useMyScheduleEditTopContentHeight(
+    { isAccordionOpen },
+    ({ appBar, everytime, sleepTime }) => appBar + everytime + sleepTime,
+  );
 
   return (
     <form className="mx-auto max-w-screen-sm">
@@ -29,10 +33,11 @@ export default function FormContent() {
         mySchedule={mySchedule}
         setMySchedule={setMySchedule}
         className="pb-16 pl-2 pr-3"
-        topDateGroupClassName={cn('sticky top-[176px] z-10 bg-gray-00', {
-          'top-[239px] ': isAccordionOpen,
-        })}
+        topDateGroupClassName="sticky top-[176px] z-10 bg-gray-00"
         setIsEdited={setIsMyScheduleEdited}
+        topDateGroupStyle={{
+          top: stickyTop,
+        }}
       />
     </form>
   );
