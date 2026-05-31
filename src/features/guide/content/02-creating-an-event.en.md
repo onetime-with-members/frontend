@@ -41,6 +41,3 @@ Once everything is set, tap **Create Event**. The event is created and you're ta
 ## Next step
 
 Now it's time for participants to add their availability to the event. The next article covers how to mark your times.
-
-Previous: [Getting Started with OneTime](/guide/getting-started)
-Next: [Adding Your Availability](/guide/adding-availability)

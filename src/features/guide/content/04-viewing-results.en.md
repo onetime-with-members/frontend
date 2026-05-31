@@ -30,6 +30,3 @@ Want to know whether a specific person is free? Use the **participant filter**.
 ## Next step
 
 Once you've zeroed in on candidate times, it's time to share the event more widely and confirm the final time. The next article covers sharing and confirming the schedule.
-
-Previous: [Adding Your Availability](/guide/adding-availability)
-Next: [Sharing and Confirming](/guide/sharing-and-confirming)

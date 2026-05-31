@@ -38,5 +38,3 @@ Want to see how OneTime works in specific situations? Check out the use cases. F
 - [View the team meeting example](/events/view/team-meeting)
 - [View the 1:1 business meeting example](/events/view/business-one-on-one)
 - [View the social gathering example](/events/view/social-gatherings)
-
-Previous: [Viewing the Results](/guide/viewing-results)

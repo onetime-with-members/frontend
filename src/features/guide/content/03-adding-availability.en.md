@@ -37,6 +37,3 @@ When you're done marking, save. Your times are added to the tally immediately, s
 ## Next step
 
 Once participants have added their times, it's time to see who is available when. The next article covers how to read the results screen and use the recommended times feature.
-
-Previous: [Creating an Event](/guide/creating-an-event)
-Next: [Viewing the Results](/guide/viewing-results)

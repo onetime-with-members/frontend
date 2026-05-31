@@ -38,5 +38,3 @@ description: 이벤트 링크, QR, 카카오톡으로 공유하고, 최종 시�
 - [팀 회의 예시 보기](/events/view/team-meeting)
 - [1:1 비즈니스 미팅 예시 보기](/events/view/business-one-on-one)
 - [오프라인 약속 예시 보기](/events/view/social-gatherings)
-
-이전 편: [결과 확인하기](/guide/viewing-results)

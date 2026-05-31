@@ -36,5 +36,3 @@ Curious how a finished event looks before you build one? Browse the examples bel
 ## Next step
 
 Ready? It's time to create your first event. In the next article we walk through setting the event name, dates or weekdays, and time range.
-
-Next: [Creating an Event](/guide/creating-an-event)
