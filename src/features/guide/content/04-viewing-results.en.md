@@ -9,9 +9,13 @@ As participants add their times, the event page's grid shows everyone's availabi
 
 Scroll through and compare the color intensity across dates and time slots. You can tell at a glance where the most people overlap.
 
+![The aggregated grid with everyone's availability stacked and shown by color intensity — darker cells mean more people are free](/images/guide/viewing-results-grid-en.png)
+
 ## Use recommended times
 
 You don't have to compare the grid by hand — OneTime **recommends the slots where the most people are available**. Recommended times help you narrow the options quickly, which is especially handy for larger groups.
+
+![The recommended times listed as a ranked set of slots where the most participants are available](/images/guide/viewing-results-recommended-en.png)
 
 ## Check by participant
 
@@ -20,6 +24,8 @@ Want to know whether a specific person is free? Use the **participant filter**.
 - See who has responded and who hasn't submitted their times yet.
 - Select a participant to view only their availability.
 - Easily spot who would be missing from a given slot — useful when key people must attend.
+
+![The participant filter with one person selected, showing only that person's availability on the grid](/images/guide/viewing-results-filter-en.png)
 
 ## Next step
 
