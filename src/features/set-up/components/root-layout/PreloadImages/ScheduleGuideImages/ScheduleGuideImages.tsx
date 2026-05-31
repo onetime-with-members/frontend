@@ -26,7 +26,7 @@ export default function ScheduleGuideImages() {
     shouldPreload && (
       <>
         <Image
-          src={`/images/guide/schedule-modal-1-${params.locale}.png`}
+          src={`/images/schedule-guide/schedule-modal-1-${params.locale}.png`}
           alt="preload"
           width={656}
           height={700}
@@ -34,7 +34,7 @@ export default function ScheduleGuideImages() {
           data-testid="schedule-guide-modal-1-preload"
         />
         <Image
-          src={`/images/guide/schedule-modal-2-${params.locale}.png`}
+          src={`/images/schedule-guide/schedule-modal-2-${params.locale}.png`}
           alt="preload"
           width={656}
           height={700}
