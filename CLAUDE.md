@@ -48,9 +48,18 @@ src/features/guide/
 ├─ types/
 │  ├─ index.ts                # GuideArticle, GuideSection, ArticleSource, ParsedMarkdown 등
 │  └─ markdown.d.ts           # declare module '*.md'
-├─ components/                # GuideSidebar, GuideSectionList, GuideArticleContent, GuidePrevNext
+├─ components/                # GuideSidebar, GuideSectionList, GuidePrevNext, GuideArticleContent
+│  └─ GuideArticleContent/    # react-markdown 래퍼 + 마크다운 렌더러 하위 컴포넌트
+│     ├─ GuideArticleContent.tsx   # components 매핑 + <ReactMarkdown> 만
+│     ├─ MarkdownAnchor/      # a: 내부 링크는 ProgressLink, 외부는 새 탭 <a>
+│     ├─ MarkdownImage/       # img: <figure> + 캡션, 사이즈/테두리 스타일
+│     └─ MarkdownParagraph/   # p: 이미지 단독 단락은 <p> 언랩 (하이드레이션 방지)
 └─ pages/                     # GuideIndexPage, GuideArticlePage (server components)
 ```
+
+본문 이미지는 `public/images/guide/`에 두고 `/images/guide/<slug>-{ko,en}.png`로 참조합니다.
+(스케줄 등록 안내 팝업 이미지는 가이드와 무관하므로 `public/images/schedule-guide/`에
+분리되어 있습니다 — 헷갈리지 말 것.)
 
 ### 핵심 규칙
 
@@ -64,7 +73,24 @@ src/features/guide/
 - **데이터 ↔ 로직 분리**: 커지는 데이터는 `article-registry.ts`, 고정 조회 로직은
   `articles.ts`. 소비처(`pages/*`, `src/app/sitemap.ts`)는 `utils/articles`에서 import.
 - **렌더링**: 본문은 `GuideArticleContent`(`'use client'`, `react-markdown`)에서 변환.
-  메타데이터/사이드바/카드/`<h1>`은 server component에서 frontmatter 값으로 생성.
+  `react-markdown`의 `components`로 `a`/`img`/`p`를 각각 `MarkdownAnchor`/`MarkdownImage`/
+  `MarkdownParagraph` 하위 컴포넌트에 매핑합니다. 메타데이터/사이드바/카드/`<h1>`은 server
+  component에서 frontmatter 값으로 생성.
+
+### 본문 이미지 (`MarkdownImage`)
+
+- **삽입**: 본문에 `![alt](/images/guide/<slug>-{ko,en}.png "캡션")` 형태로 작성합니다.
+  `alt`는 접근성용 설명(화면 비노출), 큰따옴표 안의 **`title`이 캡션**으로 `<figcaption>`에
+  노출됩니다. 둘은 의도적으로 분리합니다.
+- **사이즈 조정**: `MarkdownImage.tsx`의 `<img>` className에 있는 **`!max-w-*`** 한 곳에서
+  전체 가이드 이미지 폭을 제어합니다(`w-full`로 작은 화면 대응, `h-auto`로 비율 유지).
+- **`!`(important) 이유**: 본문은 `markdown-body`(github-markdown.css)를 쓰는데
+  `.markdown-body img`(`max-width:100%`·`border-style:none`)와 `.markdown-body figure`
+  (`display:block`·`margin:1em 40px`) 규칙이 specificity로 더 강합니다. 폭/테두리/`flex`(gap)/
+  여백을 덮으려면 해당 유틸리티에 `!`를 붙여야 합니다.
+- **하이드레이션**: react-markdown은 이미지 한 줄도 `<p>`로 감싸는데, 그 안의 블록
+  `<figure>`는 잘못된 중첩이라 하이드레이션 오류가 납니다. `MarkdownParagraph`가 이미지
+  단독 단락을 감지해 `<p>` 래퍼 없이 렌더링합니다.
 
 ### 글 추가 방법
 
