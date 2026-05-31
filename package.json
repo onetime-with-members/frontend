@@ -2,13 +2,7 @@
   "name": "onetime",
   "version": "1.7.0",
   "private": true,
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.3.0",
-      "onFail": "download"
-    }
-  },
+  "packageManager": "pnpm@11.5.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
