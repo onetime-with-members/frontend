@@ -218,7 +218,7 @@ export async function createTalkCalendarEvent({
             locale === 'ko'
               ? 'OneTime에 의해 추가된 일정입니다.'
               : 'This event was added by OneTime.',
-          reminders: [30, 1440],
+          reminders: [60, 1440],
           color: 'LAVENDER',
           ...(event.category === 'DAY' ? { rrule: 'FREQ=WEEKLY' } : {}),
         }),
