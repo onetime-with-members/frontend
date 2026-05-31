@@ -1,29 +1,23 @@
 'use client';
 
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { type Components } from 'react-markdown';
 
-import { ProgressLink } from '@/navigation';
+import MarkdownAnchor from './MarkdownAnchor';
+import MarkdownImage from './MarkdownImage';
+import MarkdownParagraph from './MarkdownParagraph';
 
-function MarkdownAnchor({
-  href,
-  children,
+const markdownComponents: Components = {
+  a: MarkdownAnchor,
+  img: MarkdownImage,
+  p: MarkdownParagraph,
+};
+
+export default function GuideArticleContent({
+  markdown,
 }: {
-  href?: string;
-  children?: React.ReactNode;
+  markdown: string;
 }) {
-  if (href && href.startsWith('/')) {
-    return <ProgressLink href={href}>{children}</ProgressLink>;
-  }
-
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer">
-      {children}
-    </a>
-  );
-}
-
-export default function GuideArticleContent({ markdown }: { markdown: string }) {
-  return (
-    <ReactMarkdown components={{ a: MarkdownAnchor }}>{markdown}</ReactMarkdown>
+    <ReactMarkdown components={markdownComponents}>{markdown}</ReactMarkdown>
   );
 }

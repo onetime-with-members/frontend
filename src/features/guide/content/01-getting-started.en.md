@@ -9,7 +9,7 @@ OneTime is a **free scheduling tool that gathers everyone's availability and fin
 
 There is nothing to install — it runs right in your web browser. **You can create an event without signing up**, but logging in auto-fills your name and lets you save the events you create and the schedules you submit.
 
-![OneTime home screen — the landing page showing the service tagline and the "Create Event" button](/images/guide/getting-started-home-en.png)
+![OneTime home screen — the landing page showing the service tagline and the "Create Event" button](/images/guide/getting-started-home-en.png 'OneTime home screen')
 
 ## The flow at a glance
 
@@ -20,8 +20,6 @@ Scheduling with OneTime comes down to five steps.
 3. **Add availability** — each participant marks the times that work for them.
 4. **View the results** — see which time slots work for the most people.
 5. **Confirm the schedule** — lock in the final time and share it with everyone.
-
-![Five-step flow diagram: create an event → share the link → add availability → view the results → confirm the schedule](/images/guide/getting-started-flow-en.png)
 
 This tutorial series follows that exact order. Go through it one article at a time and even a first-time user can coordinate a meeting without getting stuck.
 
