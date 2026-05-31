@@ -1,15 +1,18 @@
 import { MetadataRoute } from 'next';
 
+import { guideSlugs } from '@/features/guide/utils/articles';
 import { routing } from '@/i18n/routing';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_DOMAIN 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_DOMAIN
 
   const eventRoutes = [
     '/ko/events/new',
     '/ko/events/view/team-meeting',
     '/ko/events/view/business-one-on-one',
     '/ko/events/view/social-gatherings',
+    '/ko/guide',
+    ...guideSlugs.map((slug) => `/ko/guide/${slug}`),
   ];
 
   const routes: MetadataRoute.Sitemap = [];

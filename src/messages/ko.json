@@ -1,4 +1,19 @@
 {
+  "guide": {
+    "nav": {
+      "title": "사용법"
+    },
+    "index": {
+      "title": "사용법 가이드",
+      "description": "OneTime으로 모임 일정을 조율하는 방법을 단계별로 안내합니다. 처음이라면 튜토리얼부터 시작해 보세요."
+    },
+    "sections": {
+      "tutorial": "튜토리얼",
+      "useCase": "사용 사례"
+    },
+    "prev": "이전",
+    "next": "다음"
+  },
   "event": {
     "pages": {
       "EventDetailPage": {
@@ -353,6 +368,7 @@
       "Footer": {
         "termsOfService": "서비스 이용약관",
         "privacyPolicy": "개인정보처리방침",
+        "userGuide": "사용법",
         "feedbackIssue": "버그 및 불편사항 제보",
         "exampleEvent": {
           "useCases": "사용 사례",

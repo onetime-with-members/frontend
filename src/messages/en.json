@@ -1,4 +1,19 @@
 {
+  "guide": {
+    "nav": {
+      "title": "Guide"
+    },
+    "index": {
+      "title": "User Guide",
+      "description": "A step-by-step guide to coordinating meeting times with OneTime. New here? Start with the tutorials."
+    },
+    "sections": {
+      "tutorial": "Tutorial",
+      "useCase": "Use Cases"
+    },
+    "prev": "Previous",
+    "next": "Next"
+  },
   "event": {
     "pages": {
       "EventDetailPage": {
@@ -353,6 +368,7 @@
       "Footer": {
         "termsOfService": "Terms of Service",
         "privacyPolicy": "Privacy Policy",
+        "userGuide": "User Guide",
         "feedbackIssue": "Issue & Feedback Report",
         "exampleEvent": {
           "useCases": "Use Cases",
