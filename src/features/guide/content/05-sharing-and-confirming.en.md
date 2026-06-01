@@ -16,19 +16,23 @@ To gather participants, you need to share the event. Tap the **paper-airplane bu
 
 Use whichever method is easiest to get the event in front of your participants.
 
-## Confirm the schedule
+## Confirm the time on the confirm page
 
-Once enough people have submitted their times and the candidates have narrowed, the organizer can **confirm the final time**. Pick a slot that works for everyone on the results screen and confirm it — the event status changes to "Confirmed" and the locked-in time is shown clearly to participants.
+Once enough people have submitted their times and the candidates have narrowed, the organizer can confirm the final time on the **confirm page**. Pick a popular slot from the recommended times list on the right, or choose a date and time directly from the calendar on the left, then tap **Confirm** to lock it in.
 
-![The confirmation screen where the final time is picked from the recommended times and calendar](/images/guide/sharing-and-confirming/confirm-en.png "Confirming the schedule")
+![The confirm page where the final time is picked from the recommended times and calendar](/images/guide/sharing-and-confirming/confirm-en.png "The confirm page")
 
-> Tip: double-check with the [participant filter](/guide/viewing-results) that all key people are available before confirming, to avoid mistakes.
+## Check the confirmed schedule
+
+Once confirmed, the event status changes to "Confirmed" and a **confirmed schedule card** appears on the event detail screen. The card shows the locked-in date and time along with how long until the event, and below it are **Change** and **Share** buttons. Change takes you back to the confirm page to adjust the time, while Share lets you notify participants of the confirmation right away.
+
+![The confirmed schedule card — showing the confirmed date and time with Change and Share buttons](/images/guide/sharing-and-confirming/confirmed-event-en.png#md "The confirmed schedule card")
 
 ## Add it to your KakaoTalk Calendar
 
-After confirming, you can add the event to your **KakaoTalk Calendar**. Adding it to the calendar lets participants receive reminders, so there's less chance of anyone forgetting. You can find the added event under KakaoTalk > More > Calendar.
+Tapping **Share** on the confirmed schedule card opens the KakaoTalk Calendar popup, and tapping **Share via KakaoTalk** adds the event to your KakaoTalk Calendar. Adding it to the calendar lets participants receive reminders, so there's less chance of anyone forgetting, and you can find the added event under KakaoTalk > More > Calendar.
 
-![The confirmed event registered and shown in the KakaoTalk Calendar](/images/guide/sharing-and-confirming/kakao-calendar-en.png "Adding to KakaoTalk Calendar")
+![The KakaoTalk Calendar popup — a "Share your confirmed schedule and get notified" message with a Share via KakaoTalk button](/images/guide/sharing-and-confirming/kakao-share-en.png#sm "The KakaoTalk share popup")![The confirmed event registered and shown in the KakaoTalk Calendar — marked as added by OneTime](/images/guide/sharing-and-confirming/kakao-calendar-en.png#xs "Adding to KakaoTalk Calendar")
 
 ## Wrapping up
 

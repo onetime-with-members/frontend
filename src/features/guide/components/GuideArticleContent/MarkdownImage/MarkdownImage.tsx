@@ -5,6 +5,7 @@ import { type ExtraProps } from 'react-markdown';
 // 해시는 실제 파일 요청에서 무시되므로 이미지 로딩에는 영향이 없습니다.
 // 힌트가 없으면 기본 `!max-w-xl`을 씁니다.
 const MAX_WIDTH_BY_SIZE: Record<string, string> = {
+  xs: '!max-w-xs',
   sm: '!max-w-sm',
   md: '!max-w-md',
   lg: '!max-w-lg',
