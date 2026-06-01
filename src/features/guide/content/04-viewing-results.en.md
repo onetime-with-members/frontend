@@ -11,21 +11,27 @@ Scroll through and compare the color intensity across dates and time slots. You 
 
 ![The aggregated grid with everyone's availability stacked and shown by color intensity — darker cells mean more people are free](/images/guide/viewing-results/grid-en.png "The aggregated grid")
 
+> Tip: Slots where **everyone** is available are highlighted in **green**, so they're easy to spot at a glance.
+
 ## Use recommended times
 
 You don't have to compare the grid by hand — OneTime **recommends the slots where the most people are available**. Recommended times help you narrow the options quickly, which is especially handy for larger groups.
 
-![The recommended times listed as a ranked set of slots where the most participants are available](/images/guide/viewing-results/recommended-en.png "Recommended times")
+![The recommended times listed as a ranked set of slots where the most participants are available](/images/guide/viewing-results/recommended-en.png#sm "Recommended times")
 
 ## Check by participant
 
 Want to know whether a specific person is free? Use the **participant filter**.
 
 - See who has responded and who hasn't submitted their times yet.
-- Select a participant to view only their availability.
+- Select **one** participant to view only their availability.
+- Select **several** participants to see their availability stacked, revealing when that exact group can meet.
 - Easily spot who would be missing from a given slot — useful when key people must attend.
 
-![The participant filter with one person selected, showing only that person's availability on the grid](/images/guide/viewing-results/filter-en.png "Participant filter")
+![One participant selected, showing only that person's availability on the grid](/images/guide/viewing-results/filter-one-en.png#sm "One selected — only that person's free times")
+![Two participants selected, with their overlapping availability shown by color intensity](/images/guide/viewing-results/filter-two-en.png#sm "Two selected — shared free times stand out")
+
+> Tip: When you select participants, the **recommended times** on the right update to match your selection too.
 
 ## Next step
 
