@@ -11,7 +11,7 @@ To gather participants, you need to share the event. OneTime offers several ways
 - **QR code** — show the QR code or save it as an image to collect responses easily, even offline.
 - **Share via KakaoTalk** — share the event straight to KakaoTalk. A preview card is sent along with it, which helps boost response rates.
 
-![The event share screen with copy-link, QR code, and KakaoTalk share buttons side by side](/images/guide/sharing-options-en.png "Ways to share the event")
+![The event share screen with copy-link, QR code, and KakaoTalk share buttons side by side](/images/guide/sharing-and-confirming/options-en.png "Ways to share the event")
 
 Use whichever method is easiest to get the event in front of your participants.
 
@@ -19,7 +19,7 @@ Use whichever method is easiest to get the event in front of your participants.
 
 Once enough people have submitted their times and the candidates have narrowed, the organizer can **confirm the final time**. Pick a slot that works for everyone on the results screen and confirm it — the event status changes to "Confirmed" and the locked-in time is shown clearly to participants.
 
-![The confirmation screen where a final time is selected and the "Confirm" button is pressed — the locked-in time highlighted](/images/guide/sharing-confirm-en.png "Confirming the schedule")
+![The confirmation screen where a final time is selected and the "Confirm" button is pressed — the locked-in time highlighted](/images/guide/sharing-and-confirming/confirm-en.png "Confirming the schedule")
 
 > Tip: double-check with the [participant filter](/guide/viewing-results) that all key people are available before confirming, to avoid mistakes.
 
@@ -27,7 +27,7 @@ Once enough people have submitted their times and the candidates have narrowed, 
 
 After confirming, you can add the event to your **KakaoTalk Calendar**. Adding it to the calendar lets participants receive reminders, so there's less chance of anyone forgetting. You can find the added event under KakaoTalk > More > Calendar.
 
-![The confirmed event registered and shown in the KakaoTalk Calendar](/images/guide/sharing-kakao-calendar-en.png "Adding to KakaoTalk Calendar")
+![The confirmed event registered and shown in the KakaoTalk Calendar](/images/guide/sharing-and-confirming/kakao-calendar-en.png "Adding to KakaoTalk Calendar")
 
 ## Wrapping up
 

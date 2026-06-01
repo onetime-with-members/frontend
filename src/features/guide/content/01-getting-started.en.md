@@ -9,7 +9,7 @@ OneTime is a **free scheduling tool that gathers everyone's availability and fin
 
 There is nothing to install — it runs right in your web browser. **You can create an event without signing up**, but logging in auto-fills your name and lets you save the events you create and the schedules you submit.
 
-![OneTime home screen — the landing page showing the service tagline and the "Create Event" button](/images/guide/getting-started-home-en.png 'OneTime home screen')
+![OneTime home screen — the landing page showing the service tagline and the "Create Event" button](/images/guide/getting-started/home-en.png 'OneTime home screen')
 
 ## The flow at a glance
 

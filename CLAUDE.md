@@ -57,7 +57,9 @@ src/features/guide/
 └─ pages/                     # GuideIndexPage, GuideArticlePage (server components)
 ```
 
-본문 이미지는 `public/images/guide/`에 두고 `/images/guide/<slug>-{ko,en}.png`로 참조합니다.
+본문 이미지는 **글(slug)별 하위 폴더**로 정리합니다: `public/images/guide/<slug>/<name>-{ko,en}.png`
+(예: `public/images/guide/creating-an-event/title-ko.png`). 폴더명이 페이지를 나타내므로
+파일명에 slug를 반복하지 않습니다.
 (스케줄 등록 안내 팝업 이미지는 가이드와 무관하므로 `public/images/schedule-guide/`에
 분리되어 있습니다 — 헷갈리지 말 것.)
 
@@ -79,11 +81,17 @@ src/features/guide/
 
 ### 본문 이미지 (`MarkdownImage`)
 
-- **삽입**: 본문에 `![alt](/images/guide/<slug>-{ko,en}.png "캡션")` 형태로 작성합니다.
+- **삽입**: 본문에 `![alt](/images/guide/<slug>/<name>-{ko,en}.png "캡션")` 형태로 작성합니다.
   `alt`는 접근성용 설명(화면 비노출), 큰따옴표 안의 **`title`이 캡션**으로 `<figcaption>`에
   노출됩니다. 둘은 의도적으로 분리합니다.
-- **사이즈 조정**: `MarkdownImage.tsx`의 `<img>` className에 있는 **`!max-w-*`** 한 곳에서
-  전체 가이드 이미지 폭을 제어합니다(`w-full`로 작은 화면 대응, `h-auto`로 비율 유지).
+- **사이즈 조정**: 기본 폭은 `MarkdownImage.tsx`의 `<img>` className에 있는 **`!max-w-*`**
+  한 곳에서 제어합니다(`w-full`로 작은 화면 대응, `h-auto`로 비율 유지). **이미지별로** 더
+  작게 하려면 src 끝에 URL 해시로 크기 힌트를 붙입니다: `...time-ko.png#sm`(`#sm`/`#md`/
+  `#lg`/`#xl`). 해시는 실제 파일 요청에서 무시되므로 로딩에 영향이 없고, `MarkdownImage`가
+  `MAX_WIDTH_BY_SIZE`로 `!max-w-*` 클래스에 매핑합니다.
+- **나란히 배치**: 한 단락에 이미지를 빈 줄 없이 연속으로 적으면(react-markdown이 같은 `<p>`로
+  묶음) `MarkdownParagraph`가 이미지 2개 이상을 감지해 가로 행(`flex`)으로 나란히 보여 줍니다
+  (작은 화면에서는 세로로 쌓임). 각 이미지는 자신의 캡션을 그대로 가집니다.
 - **`!`(important) 이유**: 본문은 `markdown-body`(github-markdown.css)를 쓰는데
   `.markdown-body img`(`max-width:100%`·`border-style:none`)와 `.markdown-body figure`
   (`display:block`·`margin:1em 40px`) 규칙이 specificity로 더 강합니다. 폭/테두리/`flex`(gap)/
