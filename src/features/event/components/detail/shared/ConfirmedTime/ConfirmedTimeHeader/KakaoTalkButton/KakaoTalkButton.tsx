@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import TalkCalendarShareModal from '../../../TalkCalendarShareModal';
@@ -6,6 +7,8 @@ import { KakaoTalkIcon } from '@/components/icon';
 
 export default function KakaoTalkButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const t = useTranslations('event.pages.EventDetailPage.confirm');
 
   function handleModalOpen() {
     setIsModalOpen(true);
@@ -22,7 +25,7 @@ export default function KakaoTalkButton() {
         onClick={handleModalOpen}
       >
         <KakaoTalkIcon fontSize={16} innerfill="" />
-        <span className="text-gray-90 text-sm-200"> 공유하기</span>
+        <span className="text-gray-90 text-sm-200">{t('share')}</span>
       </ActionButton>
       {isModalOpen && <TalkCalendarShareModal onClose={handleModalClose} />}
     </>
