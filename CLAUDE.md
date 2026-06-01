@@ -52,8 +52,8 @@ src/features/guide/
 │  └─ GuideArticleContent/    # react-markdown 래퍼 + 마크다운 렌더러 하위 컴포넌트
 │     ├─ GuideArticleContent.tsx   # components 매핑 + <ReactMarkdown> 만
 │     ├─ MarkdownAnchor/      # a: 내부 링크는 ProgressLink, 외부는 새 탭 <a>
-│     ├─ MarkdownImage/       # img: <figure> + 캡션, 사이즈/테두리 스타일
-│     └─ MarkdownParagraph/   # p: 이미지 단독 단락은 <p> 언랩 (하이드레이션 방지)
+│     ├─ MarkdownImage/       # img: <figure> + 캡션, 사이즈(#sm 힌트)/테두리 스타일
+│     └─ MarkdownParagraph/   # p: 이미지 단독 단락은 <p> 언랩, 다중 이미지는 가로 행
 └─ pages/                     # GuideIndexPage, GuideArticlePage (server components)
 ```
 
