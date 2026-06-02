@@ -43,15 +43,20 @@ src/features/guide/
 ├─ utils/
 │  ├─ define.ts               # parseMarkdown(frontmatter 파서) + buildArticle
 │  ├─ article-registry.ts     # articles 배열 = .md import + buildArticle (글 추가 시 여기만 증가)
-│  └─ articles.ts             # guideArticles(정렬)·guideSlugs·조회 함수 (고정 로직)
+│  ├─ articles.ts             # guideArticles(정렬)·guideSlugs·조회 함수 (고정 로직)
+│  └─ toc.ts                  # slugifyHeading·getNodeText·extractHeadings (목차/앵커 공용)
 ├─ constants/index.ts         # GUIDE_SECTION_ORDER, GUIDE_SECTION_MESSAGE_KEY
+├─ styles/guide-article.css   # .guide-markdown 스코프 본문 스타일 (markdown-body 오버라이드)
 ├─ types/
-│  ├─ index.ts                # GuideArticle, GuideSection, ArticleSource, ParsedMarkdown 등
+│  ├─ index.ts                # GuideArticle, GuideSection, GuideTocItem, ParsedMarkdown 등
 │  └─ markdown.d.ts           # declare module '*.md'
-├─ components/                # GuideSidebar, GuideSectionList, GuidePrevNext, GuideArticleContent
+├─ components/                # GuideSidebar, GuideSectionList, GuidePrevNext, GuideToc, GuideArticleContent
+│  ├─ GuideToc/               # 우측 "이 글의 목차" ('use client', IntersectionObserver scroll-spy)
 │  └─ GuideArticleContent/    # react-markdown 래퍼 + 마크다운 렌더러 하위 컴포넌트
 │     ├─ GuideArticleContent.tsx   # components 매핑 + <ReactMarkdown> 만
 │     ├─ MarkdownAnchor/      # a: 내부 링크는 ProgressLink, 외부는 새 탭 <a>
+│     ├─ MarkdownHeading/     # h2: 앵커 id 부여(slugifyHeading) — 목차 링크와 슬러그 공유
+│     ├─ MarkdownBlockquote/  # blockquote: 팁/주의 콜아웃 감지·라벨 분리, 그 외엔 기본
 │     ├─ MarkdownImage/       # img: <figure> + 캡션, 사이즈(#sm 힌트)/테두리 스타일
 │     └─ MarkdownParagraph/   # p: 이미지 단독 단락은 <p> 언랩, 다중 이미지는 가로 행
 └─ pages/                     # GuideIndexPage, GuideArticlePage (server components)
@@ -75,9 +80,45 @@ src/features/guide/
 - **데이터 ↔ 로직 분리**: 커지는 데이터는 `article-registry.ts`, 고정 조회 로직은
   `articles.ts`. 소비처(`pages/*`, `src/app/sitemap.ts`)는 `utils/articles`에서 import.
 - **렌더링**: 본문은 `GuideArticleContent`(`'use client'`, `react-markdown`)에서 변환.
-  `react-markdown`의 `components`로 `a`/`img`/`p`를 각각 `MarkdownAnchor`/`MarkdownImage`/
-  `MarkdownParagraph` 하위 컴포넌트에 매핑합니다. 메타데이터/사이드바/카드/`<h1>`은 server
-  component에서 frontmatter 값으로 생성.
+  `react-markdown`의 `components`로 `a`/`h2`/`blockquote`/`img`/`p`를 각각 `MarkdownAnchor`/
+  `MarkdownHeading`/`MarkdownBlockquote`/`MarkdownImage`/`MarkdownParagraph`에 매핑합니다.
+  메타데이터/사이드바/카드는 server component에서 frontmatter 값으로 생성. **`<h1>`과 설명
+  (`description`) 리드 문단은 `markdown-body` 밖**에서 직접 스타일링합니다(본문 `[&_p]` 오버라이드와
+  충돌 방지). 본문 `<h1>`은 frontmatter에 두지 않습니다(제목은 `title`에서 옴).
+- **글 페이지 레이아웃(`GuideArticlePage`)**: 3단 — 좌측 `GuideSidebar` · 중앙 `<article>`(본문) ·
+  우측 `GuideToc`(이 글의 목차). 컨테이너 `max-w-screen-xl`, 모바일에서는 좌/우 사이드가 숨겨집니다.
+
+### 본문 스타일 (`styles/guide-article.css`)
+
+- 가이드 본문(`<article class="markdown-body guide-markdown">`) 전용 스타일은 **이 CSS 파일 한 곳**에
+  모읍니다. `GuideArticlePage`에서 import하며, 컴포넌트/페이지에 `[&_...]:!...` 인라인 오버라이드를
+  쓰지 않습니다.
+- **스코프 + 우선순위**: 모든 규칙을 `.markdown-body.guide-markdown ...` **복합 선택자**로 작성합니다.
+  ① `guide-markdown`이 없는 다른 `markdown-body` 사용처(예: `PolicyDetailScreen` 약관/정책)에는 영향이
+  없고, ② 두 클래스를 모두 명시해 `github-markdown.css`의 `.markdown-body` 기본 규칙보다 specificity가
+  높아 **`!important` 없이** 덮입니다. (이미지의 `!`와 대비 — 아래 참고)
+- 페이지 청크(`page.css`)로 번들되어 전역 `github-markdown.css`(layout.css) **뒤에** 로드되는 것도
+  우선순위에 유리합니다. `@apply`로 Tailwind 토큰(색/굵기)을 그대로 사용합니다.
+- 현재 덮는 항목: 제목(h2/h3) 밑줄 제거, 본문 색(`gray-70`), 링크 primary 색, 불릿(ul) primary 점,
+  숫자(ol) **점 없는** primary 카운터, 팁/주의 콜아웃.
+
+### 목차 (`GuideToc` + `utils/toc`)
+
+- `extractHeadings(body)`가 본문 **H2**만 뽑아 `{ id, text }[]`를 만들고, `GuideArticlePage`가 우측
+  `GuideToc`에 넘깁니다. `GuideToc`은 `'use client'`로 `IntersectionObserver` scroll-spy를 합니다.
+- **앵커 일치 규칙**: 본문 H2의 `id`(`MarkdownHeading`)와 목차 링크(`#id`)는 **같은 `slugifyHeading`**
+  으로 만들어 일치시킵니다. 헤딩 텍스트가 곧 슬러그이며, H2에 `scroll-mt-*`로 상단 고정 NavBar 가림을
+  방지합니다.
+
+### 팁/주의 콜아웃 (`MarkdownBlockquote`)
+
+- 인용구 첫 줄이 `팁:`/`Tip:` → **팁(primary)**, `주의:`/`Caution:`/`Note:` → **주의(warning)** 박스로
+  렌더링됩니다(대소문자·전각 콜론 `：` 허용). 그 외 인용구는 기본 `blockquote` 스타일.
+- 접두 라벨(`팁:` 등)은 본문 텍스트에서 **분리 추출**해 헤더(아이콘+라벨) 요소로 올립니다. 본문 첫
+  텍스트 노드에서만 제거하되, react-markdown이 `<p>` 앞뒤에 끼우는 공백 노드를 건너뛰고 **첫 요소**를
+  찾습니다.
+- 박스/색/볼드 강조(`strong`) 스타일은 모두 `guide-article.css`의 `.guide-callout*`에 있습니다
+  (팁 `strong`=primary-60, 주의 `strong`=gray-90 — warning 색은 연한 배경에서 가독성이 낮아 회피).
 
 ### 본문 이미지 (`MarkdownImage`)
 
@@ -95,7 +136,8 @@ src/features/guide/
 - **`!`(important) 이유**: 본문은 `markdown-body`(github-markdown.css)를 쓰는데
   `.markdown-body img`(`max-width:100%`·`border-style:none`)와 `.markdown-body figure`
   (`display:block`·`margin:1em 40px`) 규칙이 specificity로 더 강합니다. 폭/테두리/`flex`(gap)/
-  여백을 덮으려면 해당 유틸리티에 `!`를 붙여야 합니다.
+  여백을 덮으려면 해당 유틸리티에 `!`를 붙여야 합니다. (이미지는 컴포넌트 단에서 인라인 `!`로 덮는
+  반면, 그 외 본문 스타일은 `guide-article.css`의 복합 선택자로 `!` 없이 덮습니다 — 위 "본문 스타일" 참고.)
 - **하이드레이션**: react-markdown은 이미지 한 줄도 `<p>`로 감싸는데, 그 안의 블록
   `<figure>`는 잘못된 중첩이라 하이드레이션 오류가 납니다. `MarkdownParagraph`가 이미지
   단독 단락을 감지해 `<p>` 래퍼 없이 렌더링합니다.
@@ -106,7 +148,10 @@ src/features/guide/
    `description` 포함).
 2. `utils/article-registry.ts`에 `.md` import 2줄 + `buildArticle({ slug, section, order,
    ko, en })` 블록 하나 추가.
-3. 사이드바·인덱스·prev/next·sitemap·정적 경로(`generateStaticParams`)는 자동 반영됩니다.
+3. 사이드바·인덱스·prev/next·우측 목차(본문 H2 기준)·sitemap·정적 경로(`generateStaticParams`)는
+   자동 반영됩니다.
+4. 본문에 팁/주의를 넣을 땐 인용구로 `> 팁: ...` / `> 주의: ...`(en은 `> Tip:` / `> Caution:`)처럼
+   적으면 콜아웃으로 렌더링됩니다.
 
 ### 데이터 흐름
 
