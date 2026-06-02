@@ -9,7 +9,13 @@ type CalloutKind = 'tip' | 'caution';
 // `> 팁: ...`(ko) / `> Tip: ...`(en) → 팁(primary) 박스,
 // `> 주의: ...` / `> Caution:` / `> Note:` → 주의(warning) 박스로 렌더링합니다.
 // 그 외 인용구는 기본 blockquote 스타일을 유지합니다.
+// 박스 스타일은 styles/guide-article.css의 `.guide-callout`에서 처리합니다.
 const CALLOUT_PATTERN = /^\s*(팁|Tip|주의|Caution|Note)\s*[:：]/i;
+
+const ICON: Record<CalloutKind, typeof IconBulb> = {
+  tip: IconBulb,
+  caution: IconAlertTriangle,
+};
 
 function detectKind(text: string): CalloutKind | null {
   const match = CALLOUT_PATTERN.exec(text);
@@ -17,22 +23,6 @@ function detectKind(text: string): CalloutKind | null {
   const keyword = match[1].toLowerCase();
   return keyword === '팁' || keyword === 'tip' ? 'tip' : 'caution';
 }
-
-// markdown-body의 blockquote 기본 규칙(padding/color/border-left)을 덮어야 하므로
-// 배경·테두리·여백 유틸리티에 `!`를 붙입니다.
-const STYLES: Record<
-  CalloutKind,
-  { box: string; icon: typeof IconBulb }
-> = {
-  tip: {
-    box: '!border !border-primary-10 bg-primary-00 [&_strong]:text-primary-60',
-    icon: IconBulb,
-  },
-  caution: {
-    box: '!border !border-warning-30 bg-warning-10',
-    icon: IconAlertTriangle,
-  },
-};
 
 export default function MarkdownBlockquote({
   node,
@@ -44,23 +34,12 @@ export default function MarkdownBlockquote({
     return <blockquote>{children}</blockquote>;
   }
 
-  const { box, icon: Icon } = STYLES[kind];
+  const Icon = ICON[kind];
 
   return (
-    <blockquote
-      className={`!my-6 flex gap-3 !rounded-2xl !p-4 !text-gray-80 ${box}`}
-    >
-      <Icon
-        size={20}
-        className={
-          kind === 'tip'
-            ? 'mt-0.5 shrink-0 text-primary-50'
-            : 'mt-0.5 shrink-0 text-warning-60'
-        }
-      />
-      <div className="min-w-0 [&>:first-child]:!mt-0 [&>:last-child]:!mb-0">
-        {children}
-      </div>
+    <blockquote className={`guide-callout guide-callout--${kind}`}>
+      <Icon size={20} className="guide-callout__icon" />
+      <div className="guide-callout__body">{children}</div>
     </blockquote>
   );
 }

@@ -14,8 +14,8 @@ import {
 } from '../utils/articles';
 import { extractHeadings } from '../utils/toc';
 import { GuideLocale, GuideSectionId } from '../types';
-import cn from '@/lib/cn';
 import NavBar from '@/components/NavBar';
+import '../styles/guide-article.css';
 
 export default async function GuideArticlePage({ slug }: { slug: string }) {
   const locale = (await getLocale()) as Locale & GuideLocale;
@@ -59,22 +59,7 @@ export default async function GuideArticlePage({ slug }: { slug: string }) {
           <p className="mb-9 mt-3 text-[1.0625rem] leading-relaxed text-gray-50">
             {article.description[locale]}
           </p>
-          <article
-            className={cn(
-              'markdown-body bg-transparent',
-              // 시안 A에 맞춘 본문 보정: 제목 아래 밑줄 제거, 본문 색
-              '[&_h2]:!mb-3 [&_h2]:!mt-10 [&_h2]:!border-0 [&_h2]:!pb-0',
-              '[&_h3]:!border-0 [&_h3]:!pb-0',
-              '[&_p]:!text-gray-70 [&_li]:!text-gray-70',
-              // 불릿(ul): 기본 디스크 제거 + primary 작은 점
-              '[&_ul]:!list-none [&_ul]:!pl-1',
-              "[&_ul>li]:relative [&_ul>li]:!pl-5 [&_ul>li]:before:absolute [&_ul>li]:before:left-1 [&_ul>li]:before:top-[0.62em] [&_ul>li]:before:h-[5px] [&_ul>li]:before:w-[5px] [&_ul>li]:before:rounded-full [&_ul>li]:before:bg-primary-40 [&_ul>li]:before:content-['']",
-              // 숫자(ol): 기본 마커(1.) 제거 후 카운터로 점 없는 숫자만 primary 강조
-              '[&_ol]:!list-none [&_ol]:!pl-1 [&_ol]:[counter-reset:guide-ol]',
-              '[&_ol>li]:relative [&_ol>li]:!pl-6 [&_ol>li]:[counter-increment:guide-ol]',
-              '[&_ol>li]:before:absolute [&_ol>li]:before:left-0 [&_ol>li]:before:font-semibold [&_ol>li]:before:text-primary-50 [&_ol>li]:before:[content:counter(guide-ol)]',
-            )}
-          >
+          <article className="markdown-body guide-markdown bg-transparent">
             <GuideArticleContent markdown={article.body[locale]} />
           </article>
           <GuidePrevNext
