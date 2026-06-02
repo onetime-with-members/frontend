@@ -67,18 +67,29 @@
   @apply text-primary-50;
 }
 
-/* 팁/주의 콜아웃 (MarkdownBlockquote가 클래스를 부여) */
+/* 팁/주의 콜아웃 (MarkdownBlockquote가 클래스를 부여)
+ * 헤더(아이콘+라벨) 한 줄 + 본문 줄을 세로로 쌓아, 아이콘·라벨은 가깝게,
+ * 라벨과 본문은 분리되도록 합니다. */
 .markdown-body.guide-markdown blockquote.guide-callout {
   display: flex;
-  gap: 0.75rem;
+  flex-direction: column;
+  gap: 0.375rem;
   margin: 1.5rem 0;
-  padding: 1rem;
+  padding: 0.875rem 1.125rem 1rem;
   border: 1px solid transparent;
   border-radius: 1rem;
 }
+.markdown-body.guide-markdown blockquote.guide-callout .guide-callout__head {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
 .markdown-body.guide-markdown blockquote.guide-callout .guide-callout__icon {
   flex-shrink: 0;
-  margin-top: 0.125rem;
+}
+.markdown-body.guide-markdown blockquote.guide-callout .guide-callout__label {
+  font-weight: 600;
+  @apply text-gray-90;
 }
 .markdown-body.guide-markdown blockquote.guide-callout .guide-callout__body > :first-child {
   margin-top: 0;
