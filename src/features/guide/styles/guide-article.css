@@ -116,3 +116,6 @@
 .markdown-body.guide-markdown blockquote.guide-callout--caution .guide-callout__icon {
   @apply text-warning-60;
 }
+.markdown-body.guide-markdown blockquote.guide-callout--caution strong {
+  @apply text-gray-90;
+}

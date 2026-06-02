@@ -22,7 +22,7 @@ Once enough people have submitted their times and the candidates have narrowed, 
 
 ![The confirm page where the final time is picked from the recommended times and calendar](/images/guide/sharing-and-confirming/confirm-en.png "The confirm page")
 
-> Caution: Once you confirm a time, you can't revert to the unconfirmed state. After confirming, participants can no longer submit or edit their availability, so make sure enough people have responded before you confirm.
+> Caution: Once you confirm a time, **you can't revert to the unconfirmed state.** After confirming, **participants can no longer submit or edit their availability,** so make sure enough people have responded before you confirm.
 
 ## Check the confirmed schedule
 
