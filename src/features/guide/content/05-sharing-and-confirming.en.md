@@ -22,6 +22,8 @@ Once enough people have submitted their times and the candidates have narrowed, 
 
 ![The confirm page where the final time is picked from the recommended times and calendar](/images/guide/sharing-and-confirming/confirm-en.png "The confirm page")
 
+> Caution: Once you confirm a time, you can't revert to the unconfirmed state. After confirming, participants can no longer submit or edit their availability, so make sure enough people have responded before you confirm.
+
 ## Check the confirmed schedule
 
 Once confirmed, the event status changes to "Confirmed" and a **confirmed schedule card** appears on the event detail screen. The card shows the locked-in date and time along with how long until the event, and below it are **Change** and **Share** buttons. Change takes you back to the confirm page to adjust the time, while Share lets you notify participants of the confirmation right away.
