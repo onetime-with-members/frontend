@@ -12,7 +12,10 @@
       "useCase": "Use Cases"
     },
     "prev": "Previous",
-    "next": "Next"
+    "next": "Next",
+    "toc": {
+      "title": "On this page"
+    }
   },
   "event": {
     "pages": {

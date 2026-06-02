@@ -23,6 +23,11 @@ export interface AdjacentArticles {
   next: GuideArticle | null;
 }
 
+export interface GuideTocItem {
+  id: string;
+  text: string;
+}
+
 export interface ParsedMarkdown {
   title: string;
   description: string;

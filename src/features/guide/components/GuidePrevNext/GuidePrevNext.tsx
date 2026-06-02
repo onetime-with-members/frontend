@@ -4,6 +4,7 @@ import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 interface NavItem {
   slug: string;
   title: string;
+  section: string;
 }
 
 export default function GuidePrevNext({
@@ -31,6 +32,7 @@ export default function GuidePrevNext({
             {prevLabel}
           </span>
           <span className="text-md-300 text-gray-90">{prev.title}</span>
+          <span className="text-sm-100 text-gray-40">{prev.section}</span>
         </ProgressLink>
       ) : (
         <span className="hidden flex-1 sm:block" />
@@ -45,6 +47,7 @@ export default function GuidePrevNext({
             <IconChevronRight size={14} />
           </span>
           <span className="text-md-300 text-gray-90">{next.title}</span>
+          <span className="text-sm-100 text-gray-40">{next.section}</span>
         </ProgressLink>
       ) : (
         <span className="hidden flex-1 sm:block" />
