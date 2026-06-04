@@ -68,7 +68,7 @@
 }
 
 /* 팁/주의 콜아웃 (MarkdownBlockquote가 클래스를 부여)
- * 헤더(아이콘+라벨) 한 줄 + 본문 줄을 세로로 쌓아, 아이콘·라벨은 가깝게,
+ * 헤더(아이콘+라벨) 한 줄 + 본문 줄을 세로로 쌓아, 아이콘, 라벨은 가깝게,
  * 라벨과 본문은 분리되도록 합니다. */
 .markdown-body.guide-markdown blockquote.guide-callout {
   display: flex;
