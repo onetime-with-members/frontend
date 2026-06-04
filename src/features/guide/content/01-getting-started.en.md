@@ -1,5 +1,5 @@
 ---
-title: Getting Started with OneTime
+title: What Is OneTime?
 description: Understand what OneTime is and the end-to-end flow of coordinating a meeting time in five minutes.
 ---
 
@@ -21,7 +21,7 @@ Scheduling with OneTime comes down to five steps.
 4. **View the results** — see which time slots work for the most people.
 5. **Confirm the schedule** — lock in the final time and share it with everyone.
 
-This tutorial series follows that exact order. Go through it one article at a time and even a first-time user can coordinate a meeting without getting stuck.
+This guide follows that exact order. Go through it one article at a time and even a first-time user can coordinate a meeting without getting stuck.
 
 ## Get a feel for it with an example
 

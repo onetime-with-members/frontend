@@ -40,7 +40,7 @@ Tapping **Share** on the confirmed schedule card opens the KakaoTalk Calendar po
 
 If you've followed along this far, you can now coordinate a meeting from start to finish with OneTime. You've learned the full flow: creating an event, sharing it, finding a time that works for everyone, and confirming it.
 
-Want to see how OneTime works in specific situations? Check out the use cases. For now, you can start by browsing the finished example events.
+If you coordinate meetings often, see the next section—My Schedule—to skip re-entering your times for every event. You can also browse the finished example events.
 
 - [View the team meeting example](/events/view/team-meeting)
 - [View the 1:1 business meeting example](/events/view/business-one-on-one)

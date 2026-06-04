@@ -1,6 +1,6 @@
 export type GuideLocale = 'ko' | 'en';
 
-export type GuideSectionId = 'tutorial' | 'my-schedule' | 'use-case';
+export type GuideSectionId = 'tutorial' | 'my-schedule';
 
 export type LocalizedText = Record<GuideLocale, string>;
 

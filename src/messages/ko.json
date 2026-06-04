@@ -5,12 +5,11 @@
     },
     "index": {
       "title": "사용법 가이드",
-      "description": "OneTime으로 모임 일정을 조율하는 방법을 단계별로 안내합니다. 처음이라면 튜토리얼부터 시작해 보세요."
+      "description": "OneTime으로 모임 일정을 조율하는 방법을 단계별로 안내합니다. 처음이라면 첫 편부터 차례대로 따라와 보세요."
     },
     "sections": {
-      "tutorial": "튜토리얼",
-      "mySchedule": "내 스케줄",
-      "useCase": "사용 사례"
+      "tutorial": "시작하기",
+      "mySchedule": "내 스케줄"
     },
     "prev": "이전",
     "next": "다음",
