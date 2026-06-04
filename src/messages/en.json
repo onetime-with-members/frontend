@@ -9,6 +9,7 @@
     },
     "sections": {
       "tutorial": "Tutorial",
+      "mySchedule": "My Schedule",
       "useCase": "Use Cases"
     },
     "prev": "Previous",

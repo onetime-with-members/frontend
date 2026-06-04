@@ -9,6 +9,12 @@ import viewingResultsEn from '../content/04-viewing-results.en.md';
 import viewingResultsKo from '../content/04-viewing-results.ko.md';
 import sharingAndConfirmingEn from '../content/05-sharing-and-confirming.en.md';
 import sharingAndConfirmingKo from '../content/05-sharing-and-confirming.ko.md';
+import recurringScheduleEn from '../content/06-recurring-schedule.en.md';
+import recurringScheduleKo from '../content/06-recurring-schedule.ko.md';
+import everytimeImportEn from '../content/07-everytime-import.en.md';
+import everytimeImportKo from '../content/07-everytime-import.ko.md';
+import loadingMyScheduleEn from '../content/08-loading-my-schedule.en.md';
+import loadingMyScheduleKo from '../content/08-loading-my-schedule.ko.md';
 import { GuideArticle } from '../types';
 
 export const articles: GuideArticle[] = [
@@ -46,5 +52,26 @@ export const articles: GuideArticle[] = [
     order: 5,
     ko: sharingAndConfirmingKo,
     en: sharingAndConfirmingEn,
+  }),
+  buildArticle({
+    slug: 'recurring-schedule',
+    section: 'my-schedule',
+    order: 1,
+    ko: recurringScheduleKo,
+    en: recurringScheduleEn,
+  }),
+  buildArticle({
+    slug: 'everytime-import',
+    section: 'my-schedule',
+    order: 2,
+    ko: everytimeImportKo,
+    en: everytimeImportEn,
+  }),
+  buildArticle({
+    slug: 'loading-my-schedule',
+    section: 'my-schedule',
+    order: 3,
+    ko: loadingMyScheduleKo,
+    en: loadingMyScheduleEn,
   }),
 ];
