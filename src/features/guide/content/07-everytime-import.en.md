@@ -11,11 +11,17 @@ Painting the same class hours onto the board one by one is tedious. If you're a 
 
 ![An Everytime timetable reflected directly in the weekly fixed schedule](/images/guide/everytime-import/result-en.png 'Reflected in the weekly board')
 
+> Tip: Already have a My Schedule set up? No problem. Importing your Everytime timetable **keeps your existing weekly fixed schedule intact** and simply paints your class hours on top of it. Nothing you've already marked is erased, so import with confidence.
+
 ## Open the import screen
 
-Tap **Add Everytime timetable** at the top of the My Schedule **edit** screen to open the screen where you paste the link.
+You import your Everytime timetable from the **My Schedule edit screen**. Open it from **My Schedule** on My Page, or jump straight to it from the **My Schedule** section on the home screen once you're logged in.
 
-![The Add Everytime timetable button at the top of the My Schedule editor](/images/guide/everytime-import/entry-en.png#lg 'Open Everytime import')
+![The Add Everytime timetable button in the My Schedule section on the home screen](/images/guide/everytime-import/home-entry-en.png#lg 'Access from the home My Schedule section')
+
+![The Add Everytime timetable button at the top of the My Schedule editor](/images/guide/everytime-import/entry-en.png#lg 'Access from the My Schedule edit page')
+
+Tapping the button opens the **Everytime import screen**, where you paste the link.
 
 ![The Everytime import screen that opens after tapping the button](/images/guide/everytime-import/screen-en.png#lg 'The opened Everytime import screen')
 
