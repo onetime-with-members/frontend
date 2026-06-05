@@ -7,7 +7,7 @@ description: Learn how the My Schedule you registered is applied automatically w
 
 When you open an event's schedule entry screen while logged in, the **My Schedule** you set up is applied automatically. The **free time** left after subtracting your sleep hours and weekly fixed commitments is pre-marked as available, and a "Loaded your schedule" notice appears. No more painting an empty grid from scratch every time.
 
-![An event's schedule entry screen with My Schedule applied, availability pre-marked](/images/guide/my-schedule/autofill-en.png 'My Schedule auto-applied')
+![An event's schedule entry screen with My Schedule applied, availability pre-marked](/images/guide/loading-my-schedule/autofill-en.png#sm 'My Schedule auto-applied')
 
 ## Fine-tune what was loaded
 
