@@ -1,7 +1,8 @@
 {
   "guide": {
     "nav": {
-      "title": "Guide"
+      "title": "Guide",
+      "menu": "Contents"
     },
     "index": {
       "title": "User Guide",

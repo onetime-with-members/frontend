@@ -3,6 +3,7 @@ import { getLocale, getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 import GuideArticleContent from '../components/GuideArticleContent';
+import GuideMobileNav from '../components/GuideMobileNav';
 import GuidePrevNext from '../components/GuidePrevNext';
 import GuideSidebar from '../components/GuideSidebar';
 import GuideToc from '../components/GuideToc';
@@ -44,7 +45,15 @@ export default async function GuideArticlePage({ slug }: { slug: string }) {
 
   return (
     <div className="flex flex-col">
-      <NavBar />
+      <NavBar shadow={false} />
+      <GuideMobileNav
+        sections={sections}
+        navTitle={t('nav.title')}
+        buttonLabel={t('nav.menu')}
+        sectionTitle={sectionTitle}
+        articleTitle={article.title[locale]}
+        activeSlug={slug}
+      />
       <div className="mx-auto flex w-full max-w-screen-xl flex-col gap-8 px-4 py-8 md:flex-row md:gap-12 md:py-12">
         <GuideSidebar
           sections={sections}

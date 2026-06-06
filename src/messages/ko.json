@@ -1,7 +1,8 @@
 {
   "guide": {
     "nav": {
-      "title": "사용법"
+      "title": "사용법",
+      "menu": "목차"
     },
     "index": {
       "title": "사용법 가이드",
