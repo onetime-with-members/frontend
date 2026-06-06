@@ -100,7 +100,7 @@ export default function ScheduleFormSubScreen() {
           setSchedules={setScheduleValue}
           event={event}
           editable
-          topContentClassName="top-[69px] sm:top-[62px]"
+          topContentClassName="top-[69px] sm:top-14"
           isEdited={isScheduleEdited}
           setIsEdited={setIsScheduleEdited}
           initialSchedule={initialSchedule}
