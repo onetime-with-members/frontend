@@ -55,11 +55,7 @@ export default async function GuideArticlePage({ slug }: { slug: string }) {
         activeSlug={slug}
       />
       <div className="mx-auto flex w-full max-w-screen-xl flex-col gap-8 px-4 py-8 md:flex-row md:gap-12 md:py-12">
-        <GuideSidebar
-          sections={sections}
-          title={t('nav.title')}
-          activeSlug={slug}
-        />
+        <GuideSidebar sections={sections} activeSlug={slug} />
         <main className="min-w-0 flex-1 md:max-w-[680px]">
           <p className="text-sm-300 text-primary-50">{sectionTitle}</p>
           <h1 className="mt-2 text-[2rem] font-bold leading-tight tracking-tight text-gray-90">

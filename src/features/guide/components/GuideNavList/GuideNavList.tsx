@@ -23,7 +23,7 @@ export default function GuideNavList({
     <>
       {sections.map((section) => (
         <div key={section.id} className="flex flex-col gap-2">
-          <p className="text-sm-300 text-gray-40">{section.title}</p>
+          <p className="text-md-300 text-gray-90">{section.title}</p>
           <ul className="flex flex-col gap-0.5">
             {section.articles.map((article) => {
               const isActive = article.slug === activeSlug;

@@ -99,10 +99,9 @@ export default function GuideMobileNav({
           open ? 'translate-y-0' : 'translate-y-full',
         )}
       >
-        <div className="flex justify-center pb-1 pt-3">
+        <div className="flex justify-center pb-2 pt-3">
           <span className="h-1 w-9 rounded-full bg-gray-15" />
         </div>
-        <p className="text-md-300 px-5 pb-2 pt-1 text-gray-90">{navTitle}</p>
         <nav
           onClick={() => setOpen(false)}
           className="flex flex-col gap-6 overflow-y-auto px-3 pb-8 pt-2"
