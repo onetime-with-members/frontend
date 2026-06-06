@@ -21,11 +21,11 @@ export default function GuidePrevNext({
   if (!prev && !next) return null;
 
   return (
-    <nav className="mt-12 flex flex-col gap-3 border-t border-gray-10 pt-6 sm:flex-row sm:justify-between">
+    <nav className="mt-12 flex justify-between gap-3">
       {prev ? (
         <ProgressLink
           href={`/guide/${prev.slug}`}
-          className="flex flex-1 flex-col gap-1 rounded-xl border border-gray-10 p-4 hover:bg-gray-05 sm:max-w-[48%]"
+          className="flex max-w-[48%] flex-1 flex-col gap-1 rounded-xl border border-gray-10 p-4 hover:bg-gray-05"
         >
           <span className="flex items-center gap-1 text-sm-100 text-gray-40">
             <IconChevronLeft size={14} />
@@ -35,12 +35,12 @@ export default function GuidePrevNext({
           <span className="text-sm-100 text-gray-40">{prev.section}</span>
         </ProgressLink>
       ) : (
-        <span className="hidden flex-1 sm:block" />
+        <span className="flex-1" />
       )}
       {next ? (
         <ProgressLink
           href={`/guide/${next.slug}`}
-          className="flex flex-1 flex-col gap-1 rounded-xl border border-gray-10 p-4 text-right hover:bg-gray-05 sm:max-w-[48%] sm:items-end"
+          className="flex max-w-[48%] flex-1 flex-col items-end gap-1 rounded-xl border border-gray-10 p-4 text-right hover:bg-gray-05"
         >
           <span className="flex items-center gap-1 text-sm-100 text-gray-40">
             {nextLabel}
@@ -50,7 +50,7 @@ export default function GuidePrevNext({
           <span className="text-sm-100 text-gray-40">{next.section}</span>
         </ProgressLink>
       ) : (
-        <span className="hidden flex-1 sm:block" />
+        <span className="flex-1" />
       )}
     </nav>
   );
