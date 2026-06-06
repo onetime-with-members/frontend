@@ -50,8 +50,11 @@ src/features/guide/
 ├─ types/
 │  ├─ index.ts                # GuideArticle, GuideSection, GuideTocItem, ParsedMarkdown 등
 │  └─ markdown.d.ts           # declare module '*.md'
-├─ components/                # GuideSidebar, GuideSectionList, GuidePrevNext, GuideToc, GuideArticleContent
-│  ├─ GuideToc/               # 우측 "이 글의 목차" ('use client', IntersectionObserver scroll-spy)
+├─ components/                # GuideNavList, GuideSidebar, GuideMobileNav, GuideSectionList, GuidePrevNext, GuideToc, GuideArticleContent
+│  ├─ GuideNavList/           # 섹션·글 목록 (사이드바·모바일 시트가 공유하는 프레젠테이션 컴포넌트)
+│  ├─ GuideSidebar/           # 좌측 가이드 목차 (server, hidden md:block — 모바일 숨김), GuideNavList 사용
+│  ├─ GuideMobileNav/         # 모바일 전용('use client', md:hidden): NavBar 아래 fixed 바 + 바텀시트(GuideNavList)
+│  ├─ GuideToc/               # 우측 "이 글의 목차" ('use client', IntersectionObserver scroll-spy, hidden md:block — 모바일 제거)
 │  └─ GuideArticleContent/    # react-markdown 래퍼 + 마크다운 렌더러 하위 컴포넌트
 │     ├─ GuideArticleContent.tsx   # components 매핑 + <ReactMarkdown> 만
 │     ├─ MarkdownAnchor/      # a: 내부 링크는 ProgressLink, 외부는 새 탭 <a>
@@ -85,8 +88,19 @@ src/features/guide/
   메타데이터/사이드바/카드는 server component에서 frontmatter 값으로 생성. **`<h1>`과 설명
   (`description`) 리드 문단은 `markdown-body` 밖**에서 직접 스타일링합니다(본문 `[&_p]` 오버라이드와
   충돌 방지). 본문 `<h1>`은 frontmatter에 두지 않습니다(제목은 `title`에서 옴).
-- **글 페이지 레이아웃(`GuideArticlePage`)**: 3단 — 좌측 `GuideSidebar` · 중앙 `<article>`(본문) ·
-  우측 `GuideToc`(이 글의 목차). 컨테이너 `max-w-screen-xl`, 모바일에서는 좌/우 사이드가 숨겨집니다.
+- **글 페이지 레이아웃(`GuideArticlePage`)**: 컨테이너 `max-w-screen-xl`.
+  - **데스크톱(md↑)**: 3단 — 좌측 `GuideSidebar` · 중앙 `<article>`(본문) · 우측 `GuideToc`(이 글의 목차).
+  - **모바일(md 미만)**: 좌측 `GuideSidebar`와 우측 `GuideToc`는 모두 `hidden`. 대신 `NavBar`
+    바로 아래에 `GuideMobileNav`가 **`fixed` 바**(`top-14`, `h-12` — 같은 높이 스페이서로 본문
+    자리 확보)로 `섹션 · 글 제목`을 보여주고, "목차" 버튼으로 **바텀시트**를 열어 전체 목록을 노출합니다.
+    이 페이지의 `NavBar`는 `shadow={false}`(고정 바와 한 덩어리로 보이게).
+- **가이드 목차의 데이터 흐름**: 섹션·글 목록 렌더링은 `GuideNavList`에 단일화되어 `GuideSidebar`
+  (데스크톱)와 `GuideMobileNav`(모바일 시트)가 공유합니다 — 활성 표시·링크 스타일이 한 곳에서 관리됩니다.
+  상단에 별도 "사용법" 헤더는 두지 않고(제거됨), 섹션 제목 자체를 최상위 헤딩(`text-md-300 text-gray-90`)으로
+  강조합니다. `nav.title`("사용법")는 모바일 시트의 `aria-label`로만 쓰이고, 버튼 라벨은 `nav.menu`("목차").
+- **시트 닫힘 처리**: `GuideMobileNav` 바텀시트는 링크 자체가 아니라 **상위 `<nav>`의 onClick 버블링**으로
+  닫습니다(`ProgressLink`에 `onClick`을 주면 자체 nprogress 네비게이션이 꺼지므로). 시트 열림 동안
+  `body` 스크롤을 잠그고 Esc/오버레이로도 닫힙니다.
 
 ### 본문 스타일 (`styles/guide-article.css`)
 
@@ -148,8 +162,8 @@ src/features/guide/
    `description` 포함).
 2. `utils/article-registry.ts`에 `.md` import 2줄 + `buildArticle({ slug, section, order,
    ko, en })` 블록 하나 추가.
-3. 사이드바·인덱스·prev/next·우측 목차(본문 H2 기준)·sitemap·정적 경로(`generateStaticParams`)는
-   자동 반영됩니다.
+3. 사이드바·모바일 목차(둘 다 `GuideNavList`)·인덱스·prev/next·우측 목차(본문 H2 기준)·sitemap·
+   정적 경로(`generateStaticParams`)는 자동 반영됩니다.
 4. 본문에 팁/주의를 넣을 땐 인용구로 `> 팁: ...` / `> 주의: ...`(en은 `> Tip:` / `> Caution:`)처럼
    적으면 콜아웃으로 렌더링됩니다.
 
