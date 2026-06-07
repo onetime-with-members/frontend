@@ -10,14 +10,17 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'guide' });
+  const t = await getTranslations({
+    locale,
+    namespace: 'guide.pages.GuideIndexPage',
+  });
 
   return {
-    title: t('index.title'),
-    description: t('index.description'),
+    title: t('title'),
+    description: t('description'),
     openGraph: {
-      title: `${t('index.title')} | OneTime`,
-      description: t('index.description'),
+      title: `${t('title')} | OneTime`,
+      description: t('description'),
       images: '/images/opengraph/opengraph-thumbnail.png',
       siteName: 'OneTime',
     },

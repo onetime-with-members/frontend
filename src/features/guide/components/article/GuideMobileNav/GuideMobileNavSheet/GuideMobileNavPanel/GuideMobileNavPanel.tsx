@@ -12,13 +12,13 @@ export default function GuideMobileNavPanel({
   onClose: () => void;
   children: ReactNode;
 }) {
-  const t = useTranslations('guide');
+  const t = useTranslations('guide.components.GuideMobileNav');
 
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-label={t('nav.title')}
+      aria-label={t('title')}
       className={cn(
         'fixed inset-x-0 bottom-0 z-50 flex max-h-[80vh] flex-col rounded-t-2xl bg-gray-00 transition-transform duration-300 ease-out md:hidden',
         isOpen ? 'translate-y-0' : 'translate-y-full',

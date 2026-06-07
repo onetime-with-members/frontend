@@ -14,7 +14,7 @@ export default function GuideMobileNavBar({
   onOpen: () => void;
 }) {
   const locale = useLocale();
-  const t = useTranslations('guide');
+  const t = useTranslations('guide.components.GuideMobileNav');
 
   const sectionTitle = getGuideSectionTitle(article.section, locale);
 
@@ -33,7 +33,7 @@ export default function GuideMobileNavBar({
           className="flex shrink-0 items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 font-semibold text-gray-00 text-sm-100"
         >
           <MenuIcon width={15} height={15} aria-hidden />
-          {t('nav.menu')}
+          {t('menu')}
         </button>
       </div>
       <div className="h-12 md:hidden" aria-hidden />

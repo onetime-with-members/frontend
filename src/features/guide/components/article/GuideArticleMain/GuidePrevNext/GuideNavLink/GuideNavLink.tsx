@@ -13,7 +13,7 @@ export default async function GuideNavLink({
   direction: 'prev' | 'next';
 }) {
   const locale = await getLocale();
-  const t = await getTranslations('guide');
+  const t = await getTranslations('guide.components.GuidePrevNext');
 
   return (
     <ProgressLink

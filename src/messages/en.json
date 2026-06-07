@@ -1,19 +1,4 @@
 {
-  "guide": {
-    "nav": {
-      "title": "Guide",
-      "menu": "Contents"
-    },
-    "index": {
-      "title": "User Guide",
-      "description": "A step-by-step guide to coordinating meeting times with OneTime. New here? Start with the first article."
-    },
-    "prev": "Previous",
-    "next": "Next",
-    "toc": {
-      "title": "On this page"
-    }
-  },
   "event": {
     "pages": {
       "EventDetailPage": {
@@ -397,6 +382,27 @@
     },
     "TimeDropdown": {
       "selectTime": "Select..."
+    }
+  },
+  "guide": {
+    "pages": {
+      "GuideIndexPage": {
+        "title": "User Guide",
+        "description": "A step-by-step guide to coordinating meeting times with OneTime. New here? Start with the first article."
+      }
+    },
+    "components": {
+      "GuideMobileNav": {
+        "title": "Guide",
+        "menu": "Contents"
+      },
+      "GuideToc": {
+        "title": "On this page"
+      },
+      "GuidePrevNext": {
+        "prev": "Previous",
+        "next": "Next"
+      }
     }
   }
 }

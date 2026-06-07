@@ -7,7 +7,7 @@ import GuideTocLink from './GuideTocLink';
 import { GuideTocItem } from '@/features/guide/types';
 
 export default function GuideToc({ headings }: { headings: GuideTocItem[] }) {
-  const t = useTranslations('guide');
+  const t = useTranslations('guide.components.GuideToc');
   const [activeId, setActiveId] = useState<string>(headings[0]?.id ?? '');
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export default function GuideToc({ headings }: { headings: GuideTocItem[] }) {
 
   return (
     <aside className="hidden md:sticky md:top-20 md:block md:h-fit md:w-44 md:shrink-0 lg:w-48">
-      <p className="mb-3 text-gray-40 text-sm-300">{t('toc.title')}</p>
+      <p className="mb-3 text-gray-40 text-sm-300">{t('title')}</p>
       <ul className="flex flex-col">
         {headings.map((heading) => (
           <GuideTocLink
