@@ -2,19 +2,20 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 
+import { MenuIcon } from '@/components/icon';
 import { GUIDE_SECTION_MESSAGE_KEY } from '@/features/guide/constants';
-import { GuideArticleMeta, GuideLocale } from '@/features/guide/types';
+import { GuideArticleMeta } from '@/features/guide/types';
 
 export default function GuideMobileNavBar({
   article,
-  open,
+  isOpen,
   onOpen,
 }: {
   article: GuideArticleMeta;
-  open: boolean;
+  isOpen: boolean;
   onOpen: () => void;
 }) {
-  const locale = useLocale() as GuideLocale;
+  const locale = useLocale();
   const t = useTranslations('guide');
 
   const sectionTitle = t(
@@ -32,21 +33,10 @@ export default function GuideMobileNavBar({
           type="button"
           onClick={onOpen}
           aria-haspopup="dialog"
-          aria-expanded={open}
+          aria-expanded={isOpen}
           className="flex shrink-0 items-center gap-1.5 rounded-full bg-primary-50 px-3 py-1.5 font-semibold text-gray-00 text-sm-100"
         >
-          <svg
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            aria-hidden
-          >
-            <path d="M4 6h16M4 12h16M4 18h10" />
-          </svg>
+          <MenuIcon width={15} height={15} aria-hidden />
           {t('nav.menu')}
         </button>
       </div>

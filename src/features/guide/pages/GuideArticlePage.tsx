@@ -1,12 +1,9 @@
-import { Locale } from 'next-intl';
-
 import GuideArticleMain from '../components/article/GuideArticleMain';
 import GuideMobileNav from '../components/article/GuideMobileNav';
 import GuideNavList from '../components/article/GuideNavList';
 import GuideSidebar from '../components/article/GuideSidebar';
 import GuideToc from '../components/article/GuideToc';
 import '../styles/guide-article.css';
-import { GuideLocale } from '../types';
 import { getGuideArticleBody, getGuideArticleMeta } from '../utils/articles';
 import { extractHeadings } from '../utils/toc';
 import NavBar from '@/components/NavBar';
@@ -14,7 +11,7 @@ import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 export default async function GuideArticlePage({ slug }: { slug: string }) {
-  const locale = (await getLocale()) as Locale & GuideLocale;
+  const locale = await getLocale();
 
   const article = getGuideArticleMeta(slug);
   const body = getGuideArticleBody(slug);
@@ -33,7 +30,7 @@ export default async function GuideArticlePage({ slug }: { slug: string }) {
           <GuideNavList activeSlug={slug} />
         </GuideSidebar>
         <GuideArticleMain slug={slug} />
-        <GuideToc items={headings} />
+        <GuideToc headings={headings} />
       </div>
     </div>
   );

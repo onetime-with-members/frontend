@@ -22,7 +22,7 @@ export function getNodeText(node: unknown): string {
 }
 
 export function extractHeadings(markdown: string): GuideTocItem[] {
-  const items: GuideTocItem[] = [];
+  const headings: GuideTocItem[] = [];
   let inFence = false;
 
   for (const line of markdown.split('\n')) {
@@ -41,8 +41,8 @@ export function extractHeadings(markdown: string): GuideTocItem[] {
       .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
       .trim();
 
-    items.push({ id: slugifyHeading(text), text });
+    headings.push({ id: slugifyHeading(text), text });
   }
 
-  return items;
+  return headings;
 }

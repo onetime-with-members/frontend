@@ -6,15 +6,15 @@ import { useEffect, useState } from 'react';
 import GuideTocLink from './GuideTocLink';
 import { GuideTocItem } from '@/features/guide/types';
 
-export default function GuideToc({ items }: { items: GuideTocItem[] }) {
+export default function GuideToc({ headings }: { headings: GuideTocItem[] }) {
   const t = useTranslations('guide');
-  const [activeId, setActiveId] = useState<string>(items[0]?.id ?? '');
+  const [activeId, setActiveId] = useState<string>(headings[0]?.id ?? '');
 
   useEffect(() => {
-    const headings = items
-      .map((item) => document.getElementById(item.id))
+    const headingElements = headings
+      .map((heading) => document.getElementById(heading.id))
       .filter((el): el is HTMLElement => el !== null);
-    if (headings.length === 0) return;
+    if (headingElements.length === 0) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -28,21 +28,21 @@ export default function GuideToc({ items }: { items: GuideTocItem[] }) {
       { rootMargin: '-96px 0px -70% 0px' },
     );
 
-    headings.forEach((heading) => observer.observe(heading));
+    headingElements.forEach((heading) => observer.observe(heading));
     return () => observer.disconnect();
-  }, [items]);
+  }, [headings]);
 
-  if (items.length === 0) return null;
+  if (headings.length === 0) return null;
 
   return (
     <aside className="hidden md:sticky md:top-20 md:block md:h-fit md:w-44 md:shrink-0 lg:w-48">
       <p className="mb-3 text-gray-40 text-sm-300">{t('toc.title')}</p>
       <ul className="flex flex-col">
-        {items.map((item) => (
+        {headings.map((heading) => (
           <GuideTocLink
-            key={item.id}
-            item={item}
-            isActive={item.id === activeId}
+            key={heading.id}
+            heading={heading}
+            isActive={heading.id === activeId}
           />
         ))}
       </ul>

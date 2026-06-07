@@ -13,16 +13,16 @@ export default function GuideMobileNav({
   children: ReactNode;
   article: GuideArticleMeta;
 }) {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    if (!open) return;
+    if (!isOpen) return;
 
     const { overflow } = document.body.style;
     document.body.style.overflow = 'hidden';
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Escape') setIsOpen(false);
     };
     window.addEventListener('keydown', onKeyDown);
 
@@ -30,16 +30,16 @@ export default function GuideMobileNav({
       document.body.style.overflow = overflow;
       window.removeEventListener('keydown', onKeyDown);
     };
-  }, [open]);
+  }, [isOpen]);
 
   return (
     <>
       <GuideMobileNavBar
         article={article}
-        open={open}
-        onOpen={() => setOpen(true)}
+        isOpen={isOpen}
+        onOpen={() => setIsOpen(true)}
       />
-      <GuideMobileNavSheet open={open} onClose={() => setOpen(false)}>
+      <GuideMobileNavSheet isOpen={isOpen} onClose={() => setIsOpen(false)}>
         {children}
       </GuideMobileNavSheet>
     </>

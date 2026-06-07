@@ -1,7 +1,5 @@
-import { Locale } from 'next-intl';
-
 import { GUIDE_SECTION_MESSAGE_KEY } from '@/features/guide/constants';
-import { GuideArticleMeta, GuideLocale } from '@/features/guide/types';
+import { GuideArticleMeta } from '@/features/guide/types';
 import { getLocale, getTranslations } from 'next-intl/server';
 
 export default async function GuideArticleHeader({
@@ -9,7 +7,7 @@ export default async function GuideArticleHeader({
 }: {
   article: GuideArticleMeta;
 }) {
-  const locale = (await getLocale()) as Locale & GuideLocale;
+  const locale = await getLocale();
   const t = await getTranslations('guide');
 
   return (

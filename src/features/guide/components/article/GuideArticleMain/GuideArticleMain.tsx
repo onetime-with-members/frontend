@@ -1,9 +1,6 @@
-import { Locale } from 'next-intl';
-
 import GuideArticleContent from './GuideArticleContent';
 import GuideArticleHeader from './GuideArticleHeader';
 import GuidePrevNext from './GuidePrevNext';
-import { GuideLocale } from '@/features/guide/types';
 import {
   getGuideArticleBody,
   getGuideArticleMeta,
@@ -12,7 +9,7 @@ import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 export default async function GuideArticleMain({ slug }: { slug: string }) {
-  const locale = (await getLocale()) as Locale & GuideLocale;
+  const locale = await getLocale();
 
   const meta = getGuideArticleMeta(slug);
   const body = getGuideArticleBody(slug);

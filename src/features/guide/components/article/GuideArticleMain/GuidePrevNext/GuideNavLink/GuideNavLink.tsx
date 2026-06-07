@@ -1,7 +1,5 @@
-import { Locale } from 'next-intl';
-
 import { GUIDE_SECTION_MESSAGE_KEY } from '@/features/guide/constants';
-import { GuideArticleMeta, GuideLocale } from '@/features/guide/types';
+import { GuideArticleMeta } from '@/features/guide/types';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
@@ -14,7 +12,7 @@ export default async function GuideNavLink({
   article: GuideArticleMeta;
   direction: 'prev' | 'next';
 }) {
-  const locale = (await getLocale()) as Locale & GuideLocale;
+  const locale = await getLocale();
   const t = await getTranslations('guide');
 
   return (

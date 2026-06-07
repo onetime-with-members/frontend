@@ -15,3 +15,4 @@ export * from './TrashIcon';
 export * from './KakaoTalkIcon';
 export * from './ShareIcon';
 export * from './AlarmIcon';
+export * from './MenuIcon';
