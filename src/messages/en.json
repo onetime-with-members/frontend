@@ -355,6 +355,7 @@
       "Footer": {
         "termsOfService": "Terms of Service",
         "privacyPolicy": "Privacy Policy",
+        "userGuide": "User Guide",
         "feedbackIssue": "Issue & Feedback Report",
         "exampleEvent": {
           "useCases": "Use Cases",
@@ -381,6 +382,27 @@
     },
     "TimeDropdown": {
       "selectTime": "Select..."
+    }
+  },
+  "guide": {
+    "pages": {
+      "GuideIndexPage": {
+        "title": "User Guide",
+        "description": "A step-by-step guide to coordinating meeting times with OneTime. New here? Start with the first article."
+      }
+    },
+    "components": {
+      "GuideMobileNav": {
+        "title": "Guide",
+        "menu": "Contents"
+      },
+      "GuideToc": {
+        "title": "On this page"
+      },
+      "GuidePrevNext": {
+        "prev": "Previous",
+        "next": "Next"
+      }
     }
   }
 }

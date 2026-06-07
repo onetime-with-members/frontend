@@ -355,6 +355,7 @@
       "Footer": {
         "termsOfService": "서비스 이용약관",
         "privacyPolicy": "개인정보처리방침",
+        "userGuide": "사용법",
         "feedbackIssue": "버그 및 불편사항 제보",
         "exampleEvent": {
           "useCases": "사용 사례",
@@ -381,6 +382,27 @@
     },
     "TimeDropdown": {
       "selectTime": "시간 선택"
+    }
+  },
+  "guide": {
+    "pages": {
+      "GuideIndexPage": {
+        "title": "사용법 가이드",
+        "description": "OneTime으로 모임 일정을 조율하는 방법을 단계별로 안내합니다. 처음이라면 첫 편부터 차례대로 따라와 보세요."
+      }
+    },
+    "components": {
+      "GuideMobileNav": {
+        "title": "사용법",
+        "menu": "목차"
+      },
+      "GuideToc": {
+        "title": "이 글의 목차"
+      },
+      "GuidePrevNext": {
+        "prev": "이전",
+        "next": "다음"
+      }
     }
   }
 }
