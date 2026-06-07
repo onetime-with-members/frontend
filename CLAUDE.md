@@ -25,6 +25,16 @@
 - 내부 링크는 `@/navigation`의 `ProgressLink`를 사용합니다(locale 접두사 + 상단 진행바 유지).
 - i18n 메시지는 `src/messages/{ko,en}.json`. 라우트는 `[locale]` 세그먼트 기반.
 
+## Git / PR
+
+- **PR 생성은 항상 `gh pr create --web`**으로 브라우저를 열어, 생성 전에 웹 UI에서 내용(대상
+  브랜치·제목·본문·리뷰어 등)을 직접 확인한 뒤 올립니다. CLI로 곧바로 생성하지 않습니다.
+- **PR 제목은 대괄호 워크플로우 라벨**로 시작합니다(한국어 제목, 커밋의 `[Feat]`/`[Fix]` 등
+  Conventional 라벨과는 **별개 체계**):
+  - `[Hotfix]` — 기능·버그·UI 수정 등 일반 작업 (예: `[Hotfix] 가이드 본문 이미지 CLS 해결`)
+  - `[Sync]` — 브랜치 간 동기화 (예: `[Sync] sprint-22와 hotfix 브랜치 동기화`)
+  - `[Release]` — sprint 배포 (예: `[Release] Sprint 22 1차 배포`)
+
 ## Guide 기능 (`src/features/guide/`)
 
 AdSense 승인용 사용법 가이드(`/guide`, `/guide/[slug]`). 글 본문은 Markdown 파일에 두고
