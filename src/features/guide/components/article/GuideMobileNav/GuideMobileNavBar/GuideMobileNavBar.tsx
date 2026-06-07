@@ -1,5 +1,3 @@
-'use client';
-
 import { useLocale, useTranslations } from 'next-intl';
 
 import { MenuIcon } from '@/components/icon';
