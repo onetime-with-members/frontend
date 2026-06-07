@@ -1,4 +1,4 @@
-import { GUIDE_SECTION_MESSAGE_KEY } from '@/features/guide/constants';
+import { getGuideSectionTitle } from '@/features/guide/utils/sections';
 import { GuideArticleMeta } from '@/features/guide/types';
 import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
@@ -30,7 +30,7 @@ export default async function GuideNavLink({
       </span>
       <span className="text-gray-90 text-md-300">{article.title[locale]}</span>
       <span className="text-gray-40 text-sm-100">
-        {t(`sections.${GUIDE_SECTION_MESSAGE_KEY[article.section]}`)}
+        {getGuideSectionTitle(article.section, locale)}
       </span>
     </ProgressLink>
   );

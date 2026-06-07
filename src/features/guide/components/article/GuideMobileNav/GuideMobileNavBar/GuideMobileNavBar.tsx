@@ -1,7 +1,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 
 import { MenuIcon } from '@/components/icon';
-import { GUIDE_SECTION_MESSAGE_KEY } from '@/features/guide/constants';
+import { getGuideSectionTitle } from '@/features/guide/utils/sections';
 import { GuideArticleMeta } from '@/features/guide/types';
 
 export default function GuideMobileNavBar({
@@ -16,9 +16,7 @@ export default function GuideMobileNavBar({
   const locale = useLocale();
   const t = useTranslations('guide');
 
-  const sectionTitle = t(
-    `sections.${GUIDE_SECTION_MESSAGE_KEY[article.section]}`,
-  );
+  const sectionTitle = getGuideSectionTitle(article.section, locale);
 
   return (
     <>

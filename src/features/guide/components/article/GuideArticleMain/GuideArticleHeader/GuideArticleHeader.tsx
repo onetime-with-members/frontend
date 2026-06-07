@@ -1,6 +1,6 @@
-import { GUIDE_SECTION_MESSAGE_KEY } from '@/features/guide/constants';
+import { getGuideSectionTitle } from '@/features/guide/utils/sections';
 import { GuideArticleMeta } from '@/features/guide/types';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getLocale } from 'next-intl/server';
 
 export default async function GuideArticleHeader({
   article,
@@ -8,12 +8,11 @@ export default async function GuideArticleHeader({
   article: GuideArticleMeta;
 }) {
   const locale = await getLocale();
-  const t = await getTranslations('guide');
 
   return (
     <>
       <p className="text-primary-50 text-sm-300">
-        {t(`sections.${GUIDE_SECTION_MESSAGE_KEY[article.section]}`)}
+        {getGuideSectionTitle(article.section, locale)}
       </p>
       <h1 className="mt-2 text-[2rem] font-bold leading-tight tracking-tight text-gray-90">
         {article.title[locale]}

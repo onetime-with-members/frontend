@@ -8,10 +8,6 @@
       "title": "User Guide",
       "description": "A step-by-step guide to coordinating meeting times with OneTime. New here? Start with the first article."
     },
-    "sections": {
-      "tutorial": "Getting Started",
-      "mySchedule": "My Schedule"
-    },
     "prev": "Previous",
     "next": "Next",
     "toc": {

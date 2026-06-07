@@ -16,8 +16,12 @@ export interface GuideArticle extends GuideArticleMeta {
   body: LocalizedText;
 }
 
-export interface GuideSection {
+export interface GuideSectionMeta {
   id: GuideSectionId;
+  title: LocalizedText;
+}
+
+export interface GuideSection extends GuideSectionMeta {
   articles: GuideArticleMeta[];
 }
 

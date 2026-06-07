@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { GUIDE_SECTION_ORDER } from '../constants';
+import { GUIDE_SECTIONS, GUIDE_SECTION_ORDER } from '../constants';
 import {
   AdjacentArticles,
   GuideArticle,
@@ -41,10 +41,11 @@ export function getGuideArticleBody(slug: string): LocalizedText | undefined {
 }
 
 export function getGuideSections(): GuideSection[] {
-  return GUIDE_SECTION_ORDER.map((id) => ({
-    id,
+  return GUIDE_SECTIONS.map((section) => ({
+    id: section.id,
+    title: section.title,
     articles: guideArticles
-      .filter((article) => article.section === id)
+      .filter((article) => article.section === section.id)
       .map(toMeta),
   })).filter((section) => section.articles.length > 0);
 }
