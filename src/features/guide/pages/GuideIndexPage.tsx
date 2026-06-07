@@ -1,7 +1,7 @@
 import { Locale } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
 
-import GuideSectionList from '../components/GuideSectionList';
+import GuideSectionList from '../components/index/GuideSectionList';
 import { GUIDE_SECTION_MESSAGE_KEY } from '../constants';
 import { getGuideSections } from '../utils/articles';
 import { GuideLocale } from '../types';

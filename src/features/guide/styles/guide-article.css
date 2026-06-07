@@ -1,10 +1,3 @@
-/* 가이드 글 본문 전용 스타일.
- * github-markdown.css(.markdown-body) 위에 덮어쓰되 .guide-markdown 스코프로
- * 한정하여, 정책/약관 등 다른 .markdown-body 사용처에는 영향을 주지 않습니다.
- * 본문에는 .markdown-body와 .guide-markdown이 함께 붙으므로, 두 클래스를 모두
- * 명시해 .markdown-body 기본 규칙보다 우선순위를 확보합니다. */
-
-/* 제목: 아래 밑줄(border) 제거 + 간격 (시안 A) */
 .markdown-body.guide-markdown h2,
 .markdown-body.guide-markdown h3 {
   padding-bottom: 0;
@@ -14,13 +7,11 @@
   @apply mb-3 mt-10;
 }
 
-/* 본문 텍스트 색 */
 .markdown-body.guide-markdown p,
 .markdown-body.guide-markdown li {
   @apply text-gray-70;
 }
 
-/* 링크: primary 색 (MarkdownAnchor의 내부/외부 링크 공통) */
 .markdown-body.guide-markdown a {
   @apply font-medium text-primary-50;
 }
@@ -28,7 +19,6 @@
   @apply text-primary-60 underline;
 }
 
-/* 불릿(ul): 기본 디스크 제거 후 primary 작은 점 */
 .markdown-body.guide-markdown ul {
   list-style: none;
   padding-left: 0.25rem;
@@ -48,7 +38,6 @@
   @apply bg-primary-40;
 }
 
-/* 숫자(ol): 기본 마커(1.) 제거 후 점 없는 숫자만 primary 강조 */
 .markdown-body.guide-markdown ol {
   list-style: none;
   padding-left: 0.25rem;
@@ -67,9 +56,6 @@
   @apply text-primary-50;
 }
 
-/* 팁/주의 콜아웃 (MarkdownBlockquote가 클래스를 부여)
- * 헤더(아이콘+라벨) 한 줄 + 본문 줄을 세로로 쌓아, 아이콘, 라벨은 가깝게,
- * 라벨과 본문은 분리되도록 합니다. */
 .markdown-body.guide-markdown blockquote.guide-callout {
   display: flex;
   flex-direction: column;
@@ -98,7 +84,6 @@
   margin-bottom: 0;
 }
 
-/* 팁: primary */
 .markdown-body.guide-markdown blockquote.guide-callout--tip {
   @apply border-primary-10 bg-primary-00;
 }
@@ -109,7 +94,6 @@
   @apply text-primary-60;
 }
 
-/* 주의: warning */
 .markdown-body.guide-markdown blockquote.guide-callout--caution {
   @apply border-warning-30 bg-warning-10;
 }

@@ -1,10 +1,13 @@
 import { Metadata } from 'next';
 import { Locale } from 'next-intl';
-import { notFound } from 'next/navigation';
 
-import { getGuideArticle, guideSlugs } from '@/features/guide/utils/articles';
 import GuideArticlePage from '@/features/guide/pages/GuideArticlePage';
 import { GuideLocale } from '@/features/guide/types';
+import {
+  getGuideArticleMeta,
+  guideSlugs,
+} from '@/features/guide/utils/articles';
+import { notFound } from 'next/navigation';
 
 export function generateStaticParams() {
   return guideSlugs.map((slug) => ({ slug }));
@@ -16,7 +19,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string; locale: Locale }>;
 }): Promise<Metadata> {
   const { slug, locale } = await params;
-  const article = getGuideArticle(slug);
+  const article = getGuideArticleMeta(slug);
 
   if (!article) return {};
 
@@ -41,7 +44,7 @@ export default async function Page({
 }) {
   const { slug } = await params;
 
-  if (!getGuideArticle(slug)) notFound();
+  if (!getGuideArticleMeta(slug)) notFound();
 
   return <GuideArticlePage slug={slug} />;
 }

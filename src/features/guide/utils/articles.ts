@@ -1,24 +1,51 @@
-import { articles } from './article-registry';
-import { GUIDE_SECTION_ORDER } from '../constants';
-import { AdjacentArticles, GuideArticle, GuideSection } from '../types';
+import 'server-only';
 
-export const guideArticles: GuideArticle[] = [...articles].sort((a, b) => {
+import { GUIDE_SECTION_ORDER } from '../constants';
+import {
+  AdjacentArticles,
+  GuideArticle,
+  GuideArticleMeta,
+  GuideSection,
+  LocalizedText,
+} from '../types';
+import { articles } from './article-registry';
+
+const guideArticles: GuideArticle[] = [...articles].sort((a, b) => {
   const sectionDiff =
     GUIDE_SECTION_ORDER.indexOf(a.section) -
     GUIDE_SECTION_ORDER.indexOf(b.section);
   return sectionDiff !== 0 ? sectionDiff : a.order - b.order;
 });
 
+function toMeta(article: GuideArticle): GuideArticleMeta {
+  return {
+    slug: article.slug,
+    section: article.section,
+    order: article.order,
+    title: article.title,
+    description: article.description,
+  };
+}
+
 export const guideSlugs: string[] = guideArticles.map(({ slug }) => slug);
 
-export function getGuideArticle(slug: string): GuideArticle | undefined {
-  return guideArticles.find((article) => article.slug === slug);
+export function getGuideArticleMeta(
+  slug: string,
+): GuideArticleMeta | undefined {
+  const article = guideArticles.find((article) => article.slug === slug);
+  return article && toMeta(article);
+}
+
+export function getGuideArticleBody(slug: string): LocalizedText | undefined {
+  return guideArticles.find((article) => article.slug === slug)?.body;
 }
 
 export function getGuideSections(): GuideSection[] {
   return GUIDE_SECTION_ORDER.map((id) => ({
     id,
-    articles: guideArticles.filter((article) => article.section === id),
+    articles: guideArticles
+      .filter((article) => article.section === id)
+      .map(toMeta),
   })).filter((section) => section.articles.length > 0);
 }
 
@@ -26,7 +53,10 @@ export function getAdjacentArticles(slug: string): AdjacentArticles {
   const index = guideArticles.findIndex((article) => article.slug === slug);
   if (index === -1) return { prev: null, next: null };
   return {
-    prev: index > 0 ? guideArticles[index - 1] : null,
-    next: index < guideArticles.length - 1 ? guideArticles[index + 1] : null,
+    prev: index > 0 ? toMeta(guideArticles[index - 1]) : null,
+    next:
+      index < guideArticles.length - 1
+        ? toMeta(guideArticles[index + 1])
+        : null,
   };
 }

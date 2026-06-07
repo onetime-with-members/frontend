@@ -4,23 +4,26 @@ export type GuideSectionId = 'tutorial' | 'my-schedule';
 
 export type LocalizedText = Record<GuideLocale, string>;
 
-export interface GuideArticle {
+export interface GuideArticleMeta {
   slug: string;
   section: GuideSectionId;
   order: number;
   title: LocalizedText;
   description: LocalizedText;
+}
+
+export interface GuideArticle extends GuideArticleMeta {
   body: LocalizedText;
 }
 
 export interface GuideSection {
   id: GuideSectionId;
-  articles: GuideArticle[];
+  articles: GuideArticleMeta[];
 }
 
 export interface AdjacentArticles {
-  prev: GuideArticle | null;
-  next: GuideArticle | null;
+  prev: GuideArticleMeta | null;
+  next: GuideArticleMeta | null;
 }
 
 export interface GuideTocItem {

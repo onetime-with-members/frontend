@@ -1,3 +1,5 @@
+import 'server-only';
+
 import buildArticle from './define';
 import gettingStartedEn from '../content/01-getting-started.en.md';
 import gettingStartedKo from '../content/01-getting-started.ko.md';

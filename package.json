@@ -38,6 +38,7 @@
     "react-loading-skeleton": "^3.5.0",
     "react-markdown": "^9.0.3",
     "react-player": "^2.16.0",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^2.6.0",
     "zod": "^4.0.5"
   },
