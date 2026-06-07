@@ -47,6 +47,7 @@ src/features/guide/
 │  ├─ sections.ts             # 섹션 조회 getGuideSection·getGuideSectionTitle (GUIDE_SECTIONS만 의존 → server-only 아님, client/server 공용)
 │  └─ toc.ts                  # slugifyHeading·getNodeText·extractHeadings (목차/앵커 공용)
 ├─ constants/index.ts         # GUIDE_SECTIONS (섹션 id+제목 LocalizedText, 순수 데이터). GuideSectionId·정렬 순서가 여기서 파생
+├─ generated/image-sizes.json # 본문 이미지 width/height manifest (scripts/gen-guide-image-sizes.mjs 생성 — CLS 방지)
 ├─ styles/guide-article.css   # .guide-markdown 스코프 본문 스타일 (markdown-body 오버라이드)
 ├─ types/
 │  ├─ index.ts                # GuideArticle(Meta), GuideSection(Meta), GuideSectionId(GUIDE_SECTIONS 파생), LocalizedText, GuideTocItem
@@ -153,16 +154,28 @@ src/features/guide/
 - 박스/색/볼드 강조(`strong`) 스타일은 모두 `guide-article.css`의 `.guide-callout*`에 있습니다
   (팁 `strong`=primary-60, 주의 `strong`=gray-90 — warning 색은 연한 배경에서 가독성이 낮아 회피).
 
-### 본문 이미지 (`MarkdownImage`)
+### 본문 이미지 (`MarkdownImage` + 크기 manifest)
 
-- **삽입**: 본문에 `![alt](/images/guide/<slug>/<name>-{ko,en}.png "캡션")` 형태로 작성합니다.
+- **삽입**: 본문에 `![alt](/images/guide/<slug>/<name>-{ko,en}.<ext> "캡션")` 형태로 작성합니다.
   `alt`는 접근성용 설명(화면 비노출), 큰따옴표 안의 **`title`이 캡션**으로 `<figcaption>`에
   노출됩니다. 둘은 의도적으로 분리합니다.
-- **사이즈 조정**: 기본 폭은 `MarkdownImage.tsx`의 `<img>` className에 있는 **`!max-w-*`**
-  한 곳에서 제어합니다(`w-full`로 작은 화면 대응, `h-auto`로 비율 유지). **이미지별로** 더
-  작게 하려면 src 끝에 URL 해시로 크기 힌트를 붙입니다: `...time-ko.png#sm`(`#sm`/`#md`/
-  `#lg`/`#xl`). 해시는 실제 파일 요청에서 무시되므로 로딩에 영향이 없고, `MarkdownImage`가
-  `MAX_WIDTH_BY_SIZE`로 `!max-w-*` 클래스에 매핑합니다.
+- **확장자는 원본 그대로**: `.png`가 기본이지만 `.jpg`/`.jpeg` 등 다른 포맷이 들어와도 **확장자를
+  바꾸지 말고 그대로** 참조합니다. `MarkdownImage`는 src 확장자를 가정하지 않고(`next/image`가 처리),
+  크기 추출 스크립트도 **파일 내용(시그니처)으로 PNG/JPEG를 판별**하므로 포맷 변환이 불필요합니다.
+  (확장자가 실제 포맷과 다른 파일만 예외 — 예: 내용은 JPEG인데 `.png` — 헤더 파싱이 깨지므로 그럴 땐
+  실제 포맷에 맞게 확장자만 리네임합니다.)
+- **렌더링은 `next/image`**: `MarkdownImage`는 `<img>`가 아니라 `next/image`의 `Image`로 렌더합니다.
+  각 이미지의 실제 픽셀 `width`/`height`를 줘 브라우저가 **로드 전 종횡비 공간을 예약** → Layout
+  Shift(CLS)를 방지합니다. 표시 크기는 `w-full h-auto !max-w-*`(반응형)로 제어하고 `sizes`로 srcset을 고릅니다.
+- **크기 manifest**: width/height는 `generated/image-sizes.json`(`{ "<url>": { width, height } }`)에서
+  옵니다. `scripts/gen-guide-image-sizes.mjs`가 `public/images/guide/**`의 PNG/JPEG **헤더에서 크기를
+  추출**해 생성합니다(npm 의존성 0, 시그니처로 포맷 분기). `predev`/`prebuild`에서 자동 갱신되고, 수동은
+  `pnpm gen:guide-image-sizes`. **이미지를 추가·교체하면 manifest를 갱신**해야 합니다(누락 시 fallback
+  크기가 적용돼 CLS·왜곡이 생깁니다).
+- **사이즈 조정**: 기본 폭은 `MarkdownImage.tsx`의 `!max-w-*`(=xl) 한 곳에서 제어합니다(`w-full`로 작은
+  화면 대응, `h-auto`로 비율 유지). **이미지별로** 더 작게 하려면 src 끝에 URL 해시로 크기 힌트를 붙입니다:
+  `...time-ko.png#sm`(`#xs`/`#sm`/`#md`/`#lg`/`#xl`). 해시는 실제 파일 요청·manifest 조회에서 무시되고,
+  `MarkdownImage`가 `SIZE_HINT`로 `!max-w-*` 클래스와 `sizes`에 매핑합니다.
 - **나란히 배치**: 한 단락에 이미지를 빈 줄 없이 연속으로 적으면(react-markdown이 같은 `<p>`로
   묶음) `MarkdownParagraph`가 이미지 2개 이상을 감지해 가로 행(`flex`)으로 나란히 보여 줍니다
   (작은 화면에서는 세로로 쌓임). 각 이미지는 자신의 캡션을 그대로 가집니다.
@@ -183,9 +196,12 @@ src/features/guide/
    ko, en })` 블록 하나 추가. `section`은 `GUIDE_SECTIONS`의 id 중 하나입니다 — **새 섹션이 필요하면**
    `constants`의 `GUIDE_SECTIONS`에 `{ id, title: { ko, en } }`를 먼저 추가하면 `GuideSectionId`·정렬
    순서·섹션 헤딩이 자동 반영됩니다(i18n 메시지 추가 불필요).
-3. 사이드바·모바일 목차(둘 다 `GuideNavList`)·인덱스·prev/next·우측 목차(본문 H2 기준)·sitemap·
+3. 본문에 이미지를 넣으면 `public/images/guide/<slug>/`에 `<name>-{ko,en}.<ext>`로 두고(확장자는
+   **원본 그대로** — png/jpg 등 변환 X), 크기 manifest는 `predev`/`prebuild`(또는 `pnpm
+   gen:guide-image-sizes`)로 갱신합니다.
+4. 사이드바·모바일 목차(둘 다 `GuideNavList`)·인덱스·prev/next·우측 목차(본문 H2 기준)·sitemap·
    정적 경로(`generateStaticParams`)는 자동 반영됩니다.
-4. 본문에 팁/주의를 넣을 땐 인용구로 `> 팁: ...` / `> 주의: ...`(en은 `> Tip:` / `> Caution:`)처럼
+5. 본문에 팁/주의를 넣을 땐 인용구로 `> 팁: ...` / `> 주의: ...`(en은 `> Tip:` / `> Caution:`)처럼
    적으면 콜아웃으로 렌더링됩니다.
 
 ### 데이터 흐름
