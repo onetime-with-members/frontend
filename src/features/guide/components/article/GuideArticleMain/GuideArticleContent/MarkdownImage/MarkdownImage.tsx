@@ -1,13 +1,18 @@
 import { type ComponentPropsWithoutRef } from 'react';
 import { type ExtraProps } from 'react-markdown';
 
-const MAX_WIDTH_BY_SIZE: Record<string, string> = {
-  xs: '!max-w-xs',
-  sm: '!max-w-sm',
-  md: '!max-w-md',
-  lg: '!max-w-lg',
-  xl: '!max-w-xl',
+import imageSizes from '@/features/guide/generated/image-sizes.json';
+import Image from 'next/image';
+
+const SIZE_HINT: Record<string, { className: string; maxPx: number }> = {
+  xs: { className: '!max-w-xs', maxPx: 320 },
+  sm: { className: '!max-w-sm', maxPx: 384 },
+  md: { className: '!max-w-md', maxPx: 448 },
+  lg: { className: '!max-w-lg', maxPx: 512 },
+  xl: { className: '!max-w-xl', maxPx: 576 },
 };
+
+const sizes = imageSizes as Record<string, { width: number; height: number }>;
 
 export default function MarkdownImage({
   src,
@@ -19,15 +24,19 @@ export default function MarkdownImage({
   const hashIndex = src.indexOf('#');
   const resolvedSrc = hashIndex >= 0 ? src.slice(0, hashIndex) : src;
   const sizeKey = hashIndex >= 0 ? src.slice(hashIndex + 1) : '';
-  const maxWidthClass = MAX_WIDTH_BY_SIZE[sizeKey] ?? MAX_WIDTH_BY_SIZE.xl;
+  const { className: maxWidthClass, maxPx } =
+    SIZE_HINT[sizeKey] ?? SIZE_HINT.xl;
+
+  const dimensions = sizes[resolvedSrc];
 
   return (
     <figure className="!mx-0 !my-8 !flex w-full flex-col items-center gap-1">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <Image
         src={resolvedSrc}
         alt={alt ?? ''}
-        loading="lazy"
+        width={dimensions?.width ?? 1200}
+        height={dimensions?.height ?? 800}
+        sizes={`(max-width: ${maxPx}px) 100vw, ${maxPx}px`}
         className={`mx-auto block h-auto w-full ${maxWidthClass} rounded-md border !border-solid border-gray-10`}
       />
       {title && (

@@ -1,0 +1,242 @@
+{
+  "/images/guide/adding-availability/grid-en.png": {
+    "width": 1690,
+    "height": 1472
+  },
+  "/images/guide/adding-availability/grid-ko.png": {
+    "width": 1690,
+    "height": 1472
+  },
+  "/images/guide/adding-availability/login-en.png": {
+    "width": 1036,
+    "height": 1270
+  },
+  "/images/guide/adding-availability/login-ko.png": {
+    "width": 1036,
+    "height": 1272
+  },
+  "/images/guide/adding-availability/marking-en.png": {
+    "width": 1036,
+    "height": 1330
+  },
+  "/images/guide/adding-availability/marking-ko.png": {
+    "width": 1036,
+    "height": 1330
+  },
+  "/images/guide/adding-availability/save-en.png": {
+    "width": 1690,
+    "height": 1472
+  },
+  "/images/guide/adding-availability/save-ko.png": {
+    "width": 1690,
+    "height": 1472
+  },
+  "/images/guide/creating-an-event/date-en.png": {
+    "width": 784,
+    "height": 896
+  },
+  "/images/guide/creating-an-event/date-ko.png": {
+    "width": 784,
+    "height": 896
+  },
+  "/images/guide/creating-an-event/screen-en.png": {
+    "width": 1772,
+    "height": 1174
+  },
+  "/images/guide/creating-an-event/screen-ko.png": {
+    "width": 1772,
+    "height": 1174
+  },
+  "/images/guide/creating-an-event/time-en.png": {
+    "width": 628,
+    "height": 774
+  },
+  "/images/guide/creating-an-event/time-ko.png": {
+    "width": 628,
+    "height": 774
+  },
+  "/images/guide/creating-an-event/title-en.png": {
+    "width": 854,
+    "height": 268
+  },
+  "/images/guide/creating-an-event/title-ko.png": {
+    "width": 854,
+    "height": 268
+  },
+  "/images/guide/creating-an-event/weekday-en.png": {
+    "width": 770,
+    "height": 346
+  },
+  "/images/guide/creating-an-event/weekday-ko.png": {
+    "width": 770,
+    "height": 346
+  },
+  "/images/guide/everytime-import/entry-en.png": {
+    "width": 1326,
+    "height": 242
+  },
+  "/images/guide/everytime-import/entry-ko.png": {
+    "width": 1326,
+    "height": 242
+  },
+  "/images/guide/everytime-import/home-entry-en.png": {
+    "width": 1574,
+    "height": 222
+  },
+  "/images/guide/everytime-import/home-entry-ko.png": {
+    "width": 1574,
+    "height": 222
+  },
+  "/images/guide/everytime-import/paste-en.png": {
+    "width": 1364,
+    "height": 436
+  },
+  "/images/guide/everytime-import/paste-ko.png": {
+    "width": 1364,
+    "height": 436
+  },
+  "/images/guide/everytime-import/result-en.png": {
+    "width": 1362,
+    "height": 1560
+  },
+  "/images/guide/everytime-import/result-ko.png": {
+    "width": 1362,
+    "height": 1560
+  },
+  "/images/guide/everytime-import/screen-en.png": {
+    "width": 1364,
+    "height": 1554
+  },
+  "/images/guide/everytime-import/screen-ko.png": {
+    "width": 1364,
+    "height": 1554
+  },
+  "/images/guide/everytime-import/source-en.png": {
+    "width": 1179,
+    "height": 2556
+  },
+  "/images/guide/everytime-import/source-ko.png": {
+    "width": 1179,
+    "height": 2556
+  },
+  "/images/guide/getting-started/home-en.png": {
+    "width": 1642,
+    "height": 1312
+  },
+  "/images/guide/getting-started/home-ko.png": {
+    "width": 1642,
+    "height": 1312
+  },
+  "/images/guide/loading-my-schedule/autofill-en.png": {
+    "width": 1068,
+    "height": 1452
+  },
+  "/images/guide/loading-my-schedule/autofill-ko.png": {
+    "width": 1068,
+    "height": 1452
+  },
+  "/images/guide/recurring-schedule/edit-en.png": {
+    "width": 1372,
+    "height": 1318
+  },
+  "/images/guide/recurring-schedule/edit-ko.png": {
+    "width": 1372,
+    "height": 1318
+  },
+  "/images/guide/recurring-schedule/overview-en.png": {
+    "width": 1570,
+    "height": 1290
+  },
+  "/images/guide/recurring-schedule/overview-ko.png": {
+    "width": 1570,
+    "height": 1290
+  },
+  "/images/guide/recurring-schedule/sleep-en.png": {
+    "width": 1326,
+    "height": 734
+  },
+  "/images/guide/recurring-schedule/sleep-ko.png": {
+    "width": 1326,
+    "height": 734
+  },
+  "/images/guide/recurring-schedule/weekly-en.png": {
+    "width": 1326,
+    "height": 1036
+  },
+  "/images/guide/recurring-schedule/weekly-ko.png": {
+    "width": 1326,
+    "height": 1036
+  },
+  "/images/guide/sharing-and-confirming/confirm-en.png": {
+    "width": 1702,
+    "height": 1596
+  },
+  "/images/guide/sharing-and-confirming/confirm-ko.png": {
+    "width": 1702,
+    "height": 1596
+  },
+  "/images/guide/sharing-and-confirming/confirmed-event-en.png": {
+    "width": 956,
+    "height": 466
+  },
+  "/images/guide/sharing-and-confirming/confirmed-event-ko.png": {
+    "width": 956,
+    "height": 466
+  },
+  "/images/guide/sharing-and-confirming/kakao-calendar-en.jpg": {
+    "width": 1179,
+    "height": 1129
+  },
+  "/images/guide/sharing-and-confirming/kakao-calendar-ko.jpg": {
+    "width": 1179,
+    "height": 1086
+  },
+  "/images/guide/sharing-and-confirming/kakao-share-en.png": {
+    "width": 694,
+    "height": 724
+  },
+  "/images/guide/sharing-and-confirming/kakao-share-ko.png": {
+    "width": 694,
+    "height": 686
+  },
+  "/images/guide/sharing-and-confirming/options-en.png": {
+    "width": 1250,
+    "height": 592
+  },
+  "/images/guide/sharing-and-confirming/options-ko.png": {
+    "width": 1250,
+    "height": 592
+  },
+  "/images/guide/viewing-results/filter-one-en.png": {
+    "width": 796,
+    "height": 1038
+  },
+  "/images/guide/viewing-results/filter-one-ko.png": {
+    "width": 796,
+    "height": 1038
+  },
+  "/images/guide/viewing-results/filter-two-en.png": {
+    "width": 796,
+    "height": 1038
+  },
+  "/images/guide/viewing-results/filter-two-ko.png": {
+    "width": 796,
+    "height": 1038
+  },
+  "/images/guide/viewing-results/grid-en.png": {
+    "width": 1690,
+    "height": 1472
+  },
+  "/images/guide/viewing-results/grid-ko.png": {
+    "width": 1690,
+    "height": 1472
+  },
+  "/images/guide/viewing-results/recommended-en.png": {
+    "width": 796,
+    "height": 1050
+  },
+  "/images/guide/viewing-results/recommended-ko.png": {
+    "width": 796,
+    "height": 1050
+  }
+}

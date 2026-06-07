@@ -34,7 +34,7 @@ Once confirmed, the event status changes to "Confirmed" and a **confirmed schedu
 
 Tapping **Share** on the confirmed schedule card opens the KakaoTalk Calendar popup, and tapping **Share via KakaoTalk** adds the event to your KakaoTalk Calendar. Adding it to the calendar lets participants receive reminders, so there's less chance of anyone forgetting, and you can find the added event under KakaoTalk > More > Calendar.
 
-![The KakaoTalk Calendar popup — a "Share your confirmed schedule and get notified" message with a Share via KakaoTalk button](/images/guide/sharing-and-confirming/kakao-share-en.png#sm "The KakaoTalk share popup")![The confirmed event registered and shown in the KakaoTalk Calendar — marked as added by OneTime](/images/guide/sharing-and-confirming/kakao-calendar-en.png#xs "Adding to KakaoTalk Calendar")
+![The KakaoTalk Calendar popup — a "Share your confirmed schedule and get notified" message with a Share via KakaoTalk button](/images/guide/sharing-and-confirming/kakao-share-en.png#sm "The KakaoTalk share popup")![The confirmed event registered and shown in the KakaoTalk Calendar — marked as added by OneTime](/images/guide/sharing-and-confirming/kakao-calendar-en.jpg#xs "Adding to KakaoTalk Calendar")
 
 ## Wrapping up
 
