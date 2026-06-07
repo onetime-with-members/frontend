@@ -34,6 +34,8 @@
   - `[Hotfix]` — 기능·버그·UI 수정 등 일반 작업 (예: `[Hotfix] 가이드 본문 이미지 CLS 해결`)
   - `[Sync]` — 브랜치 간 동기화 (예: `[Sync] sprint-22와 hotfix 브랜치 동기화`)
   - `[Release]` — sprint 배포 (예: `[Release] Sprint 22 1차 배포`)
+- **PR 본문**은 변경 내용을 반영해 `## 작업 내용`(주요 변경을 분류·요약)과 `## 확인`(`tsc`·`next
+  build`·검증 결과)으로 구성합니다. **이후 커밋이 추가·변경되면 PR 본문도 최신 상태로 갱신**합니다.
 
 ## Guide 기능 (`src/features/guide/`)
 
