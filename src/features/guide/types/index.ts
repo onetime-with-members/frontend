@@ -1,8 +1,15 @@
-export type GuideLocale = 'ko' | 'en';
+import { Locale } from 'next-intl';
 
-export type GuideSectionId = 'tutorial' | 'my-schedule';
+import { GUIDE_SECTIONS } from '../constants';
 
-export type LocalizedText = Record<GuideLocale, string>;
+export type LocalizedText = Record<Locale, string>;
+
+export type GuideSectionId = (typeof GUIDE_SECTIONS)[number]['id'];
+
+export interface GuideSectionMeta {
+  id: GuideSectionId;
+  title: LocalizedText;
+}
 
 export interface GuideArticleMeta {
   slug: string;
@@ -16,35 +23,11 @@ export interface GuideArticle extends GuideArticleMeta {
   body: LocalizedText;
 }
 
-export interface GuideSectionMeta {
-  id: GuideSectionId;
-  title: LocalizedText;
-}
-
 export interface GuideSection extends GuideSectionMeta {
   articles: GuideArticleMeta[];
-}
-
-export interface AdjacentArticles {
-  prev: GuideArticleMeta | null;
-  next: GuideArticleMeta | null;
 }
 
 export interface GuideTocItem {
   id: string;
   text: string;
-}
-
-export interface ParsedMarkdown {
-  title: string;
-  description: string;
-  body: string;
-}
-
-export interface ArticleSource {
-  slug: string;
-  section: GuideSectionId;
-  order: number;
-  ko: string;
-  en: string;
 }

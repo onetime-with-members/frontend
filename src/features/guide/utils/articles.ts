@@ -1,8 +1,7 @@
 import 'server-only';
 
-import { GUIDE_SECTIONS, GUIDE_SECTION_ORDER } from '../constants';
+import { GUIDE_SECTIONS } from '../constants';
 import {
-  AdjacentArticles,
   GuideArticle,
   GuideArticleMeta,
   GuideSection,
@@ -10,12 +9,11 @@ import {
 } from '../types';
 import { articles } from './article-registry';
 
-const guideArticles: GuideArticle[] = [...articles].sort((a, b) => {
-  const sectionDiff =
-    GUIDE_SECTION_ORDER.indexOf(a.section) -
-    GUIDE_SECTION_ORDER.indexOf(b.section);
-  return sectionDiff !== 0 ? sectionDiff : a.order - b.order;
-});
+const guideArticles: GuideArticle[] = GUIDE_SECTIONS.flatMap((section) =>
+  articles
+    .filter((article) => article.section === section.id)
+    .sort((a, b) => a.order - b.order),
+);
 
 function toMeta(article: GuideArticle): GuideArticleMeta {
   return {
@@ -50,7 +48,10 @@ export function getGuideSections(): GuideSection[] {
   })).filter((section) => section.articles.length > 0);
 }
 
-export function getAdjacentArticles(slug: string): AdjacentArticles {
+export function getAdjacentArticles(slug: string): {
+  prev: GuideArticleMeta | null;
+  next: GuideArticleMeta | null;
+} {
   const index = guideArticles.findIndex((article) => article.slug === slug);
   if (index === -1) return { prev: null, next: null };
   return {

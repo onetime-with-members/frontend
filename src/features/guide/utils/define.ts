@@ -1,6 +1,10 @@
-import { ArticleSource, GuideArticle, ParsedMarkdown } from '../types';
+import { GuideArticle, GuideSectionId } from '../types';
 
-export function parseMarkdown(raw: string): ParsedMarkdown {
+export function parseMarkdown(raw: string): {
+  title: string;
+  description: string;
+  body: string;
+} {
   const normalized = raw.replace(/\r\n/g, '\n');
   const match = /^---\n([\s\S]*?)\n---\n?/.exec(normalized);
 
@@ -31,7 +35,13 @@ export function parseMarkdown(raw: string): ParsedMarkdown {
   };
 }
 
-export default function buildArticle(src: ArticleSource): GuideArticle {
+export default function buildArticle(src: {
+  slug: string;
+  section: GuideSectionId;
+  order: number;
+  ko: string;
+  en: string;
+}): GuideArticle {
   const ko = parseMarkdown(src.ko);
   const en = parseMarkdown(src.en);
 

@@ -2,7 +2,6 @@ import { Metadata } from 'next';
 import { Locale } from 'next-intl';
 
 import GuideArticlePage from '@/features/guide/pages/GuideArticlePage';
-import { GuideLocale } from '@/features/guide/types';
 import {
   getGuideArticleMeta,
   guideSlugs,
@@ -23,14 +22,12 @@ export async function generateMetadata({
 
   if (!article) return {};
 
-  const loc = locale as GuideLocale;
-
   return {
-    title: article.title[loc],
-    description: article.description[loc],
+    title: article.title[locale],
+    description: article.description[locale],
     openGraph: {
-      title: `${article.title[loc]} | OneTime`,
-      description: article.description[loc],
+      title: `${article.title[locale]} | OneTime`,
+      description: article.description[locale],
       images: '/images/opengraph/opengraph-thumbnail.png',
       siteName: 'OneTime',
     },
