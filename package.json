@@ -4,9 +4,6 @@
   "private": true,
   "packageManager": "pnpm@11.5.0",
   "scripts": {
-    "gen:guide-image-sizes": "node scripts/gen-guide-image-sizes.mjs",
-    "predev": "node scripts/gen-guide-image-sizes.mjs",
-    "prebuild": "node scripts/gen-guide-image-sizes.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -14,7 +11,10 @@
     "lint": "next lint",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "gen:guide-image-sizes": "node scripts/gen-guide-image-sizes.mjs",
+    "predev": "node scripts/gen-guide-image-sizes.mjs",
+    "prebuild": "node scripts/gen-guide-image-sizes.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.1.1",
