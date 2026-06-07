@@ -4,6 +4,9 @@
   "private": true,
   "packageManager": "pnpm@11.5.0",
   "scripts": {
+    "gen:guide-image-sizes": "node scripts/gen-guide-image-sizes.mjs",
+    "predev": "node scripts/gen-guide-image-sizes.mjs",
+    "prebuild": "node scripts/gen-guide-image-sizes.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

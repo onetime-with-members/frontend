@@ -34,7 +34,7 @@ description: 이벤트 링크, QR, 카카오톡으로 공유하고, 최종 시�
 
 확정된 일정 카드에서 **공유하기**를 누르면 카카오톡 캘린더 등록 팝업이 열리고, **카카오톡으로 공유하기**를 누르면 일정이 카카오톡 캘린더에 추가됩니다. 캘린더에 추가하면 참여자들이 일정 알림을 받을 수 있어 약속을 깜빡할 걱정이 줄어들고, 카카오톡 > 더보기 > 캘린더에서 등록된 일정을 확인할 수 있습니다.
 
-![카카오톡 캘린더 등록 팝업 — "확정된 일정을 공유하고 알림을 받아보세요" 안내와 카카오톡으로 공유하기 버튼](/images/guide/sharing-and-confirming/kakao-share-ko.png#sm "카카오톡 공유 팝업")![확정된 일정이 카카오톡 캘린더에 등록되어 표시된 화면 — OneTime에 의해 추가된 일정으로 표시됨](/images/guide/sharing-and-confirming/kakao-calendar-ko.png#xs "카카오톡 캘린더 등록")
+![카카오톡 캘린더 등록 팝업 — "확정된 일정을 공유하고 알림을 받아보세요" 안내와 카카오톡으로 공유하기 버튼](/images/guide/sharing-and-confirming/kakao-share-ko.png#sm "카카오톡 공유 팝업")![확정된 일정이 카카오톡 캘린더에 등록되어 표시된 화면 — OneTime에 의해 추가된 일정으로 표시됨](/images/guide/sharing-and-confirming/kakao-calendar-ko.jpg#xs "카카오톡 캘린더 등록")
 
 ## 마무리
 
