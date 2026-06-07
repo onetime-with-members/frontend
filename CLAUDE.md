@@ -43,14 +43,15 @@ src/features/guide/
 ├─ utils/
 │  ├─ define.ts               # parseMarkdown(frontmatter 파서) + buildArticle
 │  ├─ article-registry.ts     # articles 배열 = .md import + buildArticle (글 추가 시 여기만 증가)
-│  ├─ articles.ts             # guideArticles(정렬)·guideSlugs·조회 함수 (고정 로직)
+│  ├─ articles.ts             # 'server-only': guideArticles(GUIDE_SECTIONS 순서로 정렬)·guideSlugs·글 조회 (본문 .md 의존)
+│  ├─ sections.ts             # 섹션 조회 getGuideSection·getGuideSectionTitle (GUIDE_SECTIONS만 의존 → server-only 아님, client/server 공용)
 │  └─ toc.ts                  # slugifyHeading·getNodeText·extractHeadings (목차/앵커 공용)
-├─ constants/index.ts         # GUIDE_SECTION_ORDER, GUIDE_SECTION_MESSAGE_KEY
+├─ constants/index.ts         # GUIDE_SECTIONS (섹션 id+제목 LocalizedText, 순수 데이터). GuideSectionId·정렬 순서가 여기서 파생
 ├─ styles/guide-article.css   # .guide-markdown 스코프 본문 스타일 (markdown-body 오버라이드)
 ├─ types/
-│  ├─ index.ts                # GuideArticle, GuideSection, GuideTocItem, ParsedMarkdown 등
+│  ├─ index.ts                # GuideArticle(Meta), GuideSection(Meta), GuideSectionId(GUIDE_SECTIONS 파생), LocalizedText, GuideTocItem
 │  └─ markdown.d.ts           # declare module '*.md'
-├─ components/                # GuideNavList, GuideSidebar, GuideMobileNav, GuideSectionList, GuidePrevNext, GuideToc, GuideArticleContent
+├─ components/                # index/(GuideIndexHeader·GuideSectionList) + article/(GuideNavList·GuideSidebar·GuideMobileNav·GuidePrevNext·GuideToc·GuideArticleContent)
 │  ├─ GuideNavList/           # 섹션·글 목록 (사이드바·모바일 시트가 공유하는 프레젠테이션 컴포넌트)
 │  ├─ GuideSidebar/           # 좌측 가이드 목차 (server, hidden md:block — 모바일 숨김), GuideNavList 사용
 │  ├─ GuideMobileNav/         # 모바일 전용('use client', md:hidden): NavBar 아래 fixed 바 + 바텀시트(GuideNavList)
@@ -80,8 +81,25 @@ src/features/guide/
   호출에 명시합니다(frontmatter가 아님). 한 곳에서 전체 글의 순서·섹션을 볼 수 있습니다.
 - **파일명 접두사** `01-`~: `order` 값과 맞춘 정렬용 표기일 뿐, **URL 슬러그와 무관**합니다.
   슬러그는 `buildArticle`의 `slug` 값에서 옵니다.
-- **데이터 ↔ 로직 분리**: 커지는 데이터는 `article-registry.ts`, 고정 조회 로직은
-  `articles.ts`. 소비처(`pages/*`, `src/app/sitemap.ts`)는 `utils/articles`에서 import.
+- **데이터 ↔ 로직 분리**: 커지는 글 데이터는 `article-registry.ts`, 고정 글 조회 로직은
+  `articles.ts`(`'server-only'` — 본문 `.md` 전체를 들고 있어 client 번들 유출 방지). 소비처
+  (`pages/*`, `src/app/sitemap.ts`)는 `utils/articles`에서 import.
+- **섹션은 `GUIDE_SECTIONS` 단일 소스**: 섹션 id·제목(`LocalizedText`)은 `constants/index.ts`의
+  `GUIDE_SECTIONS`(순수 데이터, import 0)에 두고, `GuideSectionId`는 `(typeof GUIDE_SECTIONS)[number]['id']`로
+  **파생**합니다(수동 유니온 동기화 X). 글 정렬도 `GUIDE_SECTIONS.flatMap`으로 그 순서를 직접 씁니다(별도
+  순서 상수 없음). 섹션 조회(`getGuideSection`/`getGuideSectionTitle`)는 `utils/sections.ts`에 두는데,
+  `articles.ts`(server-only)와 달리 **`GUIDE_SECTIONS`만 의존하므로 server-only가 아니라 client
+  (`GuideMobileNavBar` 등)·server 양쪽에서 사용**합니다. 섹션 제목은 **i18n 메시지가 아니라 데이터**
+  (article 제목과 동일하게 `LocalizedText`로 `[locale]` 접근)입니다.
+- **타입 위치**: 도메인 타입은 `types/index.ts`에 모으되, `LocalizedText`만은 `constants`에 두면
+  `constants → types → constants` 순환이 생기므로 `types`가 `GUIDE_SECTIONS`(값)를 import해
+  `GuideSectionId`를 파생하는 단방향(`types → constants`)을 유지합니다. 단일 함수 전용 ad-hoc 타입
+  (반환/인자 shape)은 named로 빼지 않고 그 자리에 inline합니다.
+- **i18n 메시지 구조**: guide 메시지는 다른 도메인과 동일하게 `guide.pages.<PageName>` /
+  `guide.components.<ComponentName>` 패턴으로 둡니다(예: `guide.pages.GuideIndexPage.{title, description}`,
+  `guide.components.{GuideMobileNav, GuideToc, GuidePrevNext}`). 소비처는 그 네임스페이스로
+  `useTranslations`/`getTranslations`를 좁혀 평평한 키로 씁니다. **콘텐츠성 텍스트(섹션·글 제목)는
+  메시지가 아니라 데이터**(`GUIDE_SECTIONS`·frontmatter)에 있고, 메시지에는 UI 텍스트만 둡니다.
 - **렌더링**: 본문은 `GuideArticleContent`(`'use client'`, `react-markdown`)에서 변환.
   `react-markdown`의 `components`로 `a`/`h2`/`blockquote`/`img`/`p`를 각각 `MarkdownAnchor`/
   `MarkdownHeading`/`MarkdownBlockquote`/`MarkdownImage`/`MarkdownParagraph`에 매핑합니다.
@@ -97,7 +115,8 @@ src/features/guide/
 - **가이드 목차의 데이터 흐름**: 섹션·글 목록 렌더링은 `GuideNavList`에 단일화되어 `GuideSidebar`
   (데스크톱)와 `GuideMobileNav`(모바일 시트)가 공유합니다 — 활성 표시·링크 스타일이 한 곳에서 관리됩니다.
   상단에 별도 "사용법" 헤더는 두지 않고(제거됨), 섹션 제목 자체를 최상위 헤딩(`text-md-300 text-gray-90`)으로
-  강조합니다. `nav.title`("사용법")는 모바일 시트의 `aria-label`로만 쓰이고, 버튼 라벨은 `nav.menu`("목차").
+  강조합니다. 섹션 제목은 `GUIDE_SECTIONS` 데이터에서 옵니다(i18n 아님). 모바일 시트의 `aria-label`("사용법")과
+  "목차" 버튼 라벨은 i18n 메시지 `guide.components.GuideMobileNav.{title, menu}`에서 옵니다.
 - **시트 닫힘 처리**: `GuideMobileNav` 바텀시트는 링크 자체가 아니라 **상위 `<nav>`의 onClick 버블링**으로
   닫습니다(`ProgressLink`에 `onClick`을 주면 자체 nprogress 네비게이션이 꺼지므로). 시트 열림 동안
   `body` 스크롤을 잠그고 Esc/오버레이로도 닫힙니다.
@@ -161,7 +180,9 @@ src/features/guide/
 1. `content/`에 `NN-<slug>.ko.md` / `NN-<slug>.en.md` 생성 (frontmatter에 `title`,
    `description` 포함).
 2. `utils/article-registry.ts`에 `.md` import 2줄 + `buildArticle({ slug, section, order,
-   ko, en })` 블록 하나 추가.
+   ko, en })` 블록 하나 추가. `section`은 `GUIDE_SECTIONS`의 id 중 하나입니다 — **새 섹션이 필요하면**
+   `constants`의 `GUIDE_SECTIONS`에 `{ id, title: { ko, en } }`를 먼저 추가하면 `GuideSectionId`·정렬
+   순서·섹션 헤딩이 자동 반영됩니다(i18n 메시지 추가 불필요).
 3. 사이드바·모바일 목차(둘 다 `GuideNavList`)·인덱스·prev/next·우측 목차(본문 H2 기준)·sitemap·
    정적 경로(`generateStaticParams`)는 자동 반영됩니다.
 4. 본문에 팁/주의를 넣을 땐 인용구로 `> 팁: ...` / `> 주의: ...`(en은 `> Tip:` / `> Caution:`)처럼
@@ -173,6 +194,11 @@ src/features/guide/
 content/NN-*.md (frontmatter + 본문)
    → [webpack asset/source] 원시 문자열
    → utils/article-registry.ts: buildArticle → articles[]
-   → utils/articles.ts: 정렬·조회 (guideArticles, guideSlugs, getGuideArticle 등)
+   → utils/articles.ts ('server-only'): GUIDE_SECTIONS 순서로 정렬·조회 (guideArticles, guideSlugs, getGuideArticleMeta 등)
    → pages / sitemap 소비
+
+constants/GUIDE_SECTIONS (섹션 id+제목 데이터, 순수)
+   → types: GuideSectionId 파생 (+ GuideSectionMeta, LocalizedText)
+   → utils/sections.ts: getGuideSection·getGuideSectionTitle (client/server 공용)
+   → 사이드바·모바일 바·prev/next·인덱스 섹션 헤딩 소비
 ```
