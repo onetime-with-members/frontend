@@ -11,6 +11,13 @@ export const SHORT_URL_DOMAIN =
 export const DISCORD_API_URL =
   process.env.NEXT_PUBLIC_DISCORD_API_URL || DEFAULT_URL;
 
+export const ADSENSE_CLIENT_ID = 'ca-pub-6214559505940019';
+export const ADSENSE_PLACEHOLDER_HEIGHT = {
+  auto: 'h-[100px]',
+  horizontal: 'h-[60px]',
+  rectangle: 'h-[250px]',
+};
+
 export const LOCALES = ['ko', 'en'] as const;
 export const POLICY_KEY_LIST = ['privacy', 'service'] as const;
 
