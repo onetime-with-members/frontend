@@ -36,7 +36,7 @@ export default function MainContent() {
         <AdSenseUnit
           slot={ADSENSE_SLOTS.eventDetail.mobileHorizontal}
           device="mobile"
-          format="horizontal"
+          fixedSize={{ width: 320, height: 100 }}
           className="mt-3 md:hidden"
         />
         <ParticipantFilter />
@@ -51,7 +51,6 @@ export default function MainContent() {
         <AdSenseUnit
           slot={ADSENSE_SLOTS.eventDetail.mobileRectangle}
           device="mobile"
-          format="rectangle"
           className="mt-4 md:hidden"
         />
       </div>
