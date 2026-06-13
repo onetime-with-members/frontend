@@ -33,13 +33,13 @@ export default function DesktopSideContent() {
         </>
       ) : (
         <>
-          <RecommendedTimesHeading />
           <BannerList className="pt-2" />
           <AdSenseUnit
             slot={ADSENSE_SLOTS.eventDetail.desktop}
             device="desktop"
             className="mt-3"
           />
+          <RecommendedTimesHeading />
           <RecommendedTimesList />
         </>
       )}
