@@ -5,25 +5,18 @@ import cn from '@/lib/cn';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
-declare global {
-  interface Window {
-    adsbygoogle?: object[];
-  }
-}
-
-interface AdSenseUnitProps {
-  slot: string | undefined;
-  format?: 'auto' | 'horizontal' | 'rectangle';
-  className?: string;
-}
-
 export default function AdSenseUnit({
   slot,
   format = 'auto',
   className,
-}: AdSenseUnitProps) {
-  const pathname = usePathname();
+}: {
+  slot: string | undefined;
+  format?: 'auto' | 'horizontal' | 'rectangle';
+  className?: string;
+}) {
   const insRef = useRef<HTMLModElement>(null);
+
+  const pathname = usePathname();
 
   useEffect(() => {
     const ins = insRef.current;
