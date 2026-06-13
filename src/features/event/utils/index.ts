@@ -1,10 +1,37 @@
 import { Locale } from 'next-intl';
 
 import { exampleEventList } from '../mocks/example-events';
-import { ConfirmedEventData, EventType, SelectedDateTime } from '../types';
+import {
+  ConfirmedEventData,
+  EventType,
+  ResponsiveTopContentHeight,
+  SelectedDateTime,
+} from '../types';
 import { weekdaysShortKo } from '@/constants';
 import { MyEventType } from '@/features/user/types';
 import dayjs from '@/lib/dayjs';
+
+function toResponsiveStyle(
+  { mobile, desktop }: ResponsiveTopContentHeight,
+  cssProperty: 'top' | 'height',
+): { className: string; style: React.CSSProperties } {
+  return {
+    className: '[--tc:var(--tc-m)] md:[--tc:var(--tc-d)]',
+    style: {
+      '--tc-m': `${mobile}px`,
+      '--tc-d': `${desktop}px`,
+      [cssProperty]: 'var(--tc)',
+    } as React.CSSProperties,
+  };
+}
+
+export function toStickyStyle(height: ResponsiveTopContentHeight) {
+  return toResponsiveStyle(height, 'top');
+}
+
+export function toFixedStyle(height: ResponsiveTopContentHeight) {
+  return toResponsiveStyle(height, 'height');
+}
 
 export const foundExampleEvent = (eventId: string) =>
   exampleEventList.find(({ slug }) => slug.includes(eventId));

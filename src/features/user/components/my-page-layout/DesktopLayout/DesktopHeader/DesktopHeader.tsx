@@ -2,7 +2,9 @@ import { useContext } from 'react';
 
 import { PenIcon } from '@/components/icon';
 import useTopContentHeight from '@/features/event/hooks/useTopContentHeight';
+import { toStickyStyle } from '@/features/event/utils';
 import { MyPageTabContext } from '@/features/user/contexts/MyPageTabContext';
+import cn from '@/lib/cn';
 import { ProgressLink } from '@/navigation';
 
 export default function DesktopHeader() {
@@ -10,12 +12,16 @@ export default function DesktopHeader() {
 
   const navBarHeight = useTopContentHeight(({ navBar }) => navBar);
 
+  const { className: topClassName, style: topStyle } =
+    toStickyStyle(navBarHeight);
+
   return (
     <header
-      className="sticky z-20 flex items-center justify-between bg-gray-00 py-2"
-      style={{
-        top: navBarHeight,
-      }}
+      className={cn(
+        'sticky z-20 flex items-center justify-between bg-gray-00 py-2',
+        topClassName,
+      )}
+      style={topStyle}
     >
       <h1 className="text-[1.75rem] font-semibold">{pageTitle}</h1>
       {tabActive === 'schedules' && (

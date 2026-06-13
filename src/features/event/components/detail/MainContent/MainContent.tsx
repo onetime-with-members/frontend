@@ -9,6 +9,7 @@ import { ADSENSE_SLOTS } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import useTopContentHeight from '@/features/event/hooks/useTopContentHeight';
+import { toStickyStyle } from '@/features/event/utils';
 import TimeBlockBoard from '@/features/schedule/components/shared/TimeBlockBoard';
 import { useParams } from 'next/navigation';
 
@@ -23,6 +24,9 @@ export default function MainContent() {
     ({ navBar, eventHeader, participantFilter, barBanner }) =>
       navBar + eventHeader + participantFilter + barBanner,
   );
+
+  const { className: stickyTopClassName, style: stickyTopStyle } =
+    toStickyStyle(stickyTop);
 
   return (
     <main className="mx-auto flex w-full max-w-[calc(768px+2rem)] gap-6 bg-gray-00 p-4 pb-16">
@@ -44,9 +48,8 @@ export default function MainContent() {
           event={event}
           schedules={schedules || []}
           backgroundColor="gray"
-          topContentStyle={{
-            top: stickyTop,
-          }}
+          topContentClassName={stickyTopClassName}
+          topContentStyle={stickyTopStyle}
         />
         <AdSenseUnit
           slot={ADSENSE_SLOTS.eventDetail.mobileRectangle}
