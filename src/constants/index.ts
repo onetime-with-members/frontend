@@ -19,11 +19,6 @@ export const ADSENSE_SLOTS = {
     desktop: '5366472351',
   },
 };
-export const ADSENSE_PLACEHOLDER_HEIGHT = {
-  auto: 'h-[100px]',
-  horizontal: 'h-[60px]',
-  rectangle: 'h-[250px]',
-};
 
 export const LOCALES = ['ko', 'en'] as const;
 export const POLICY_KEY_LIST = ['privacy', 'service'] as const;
