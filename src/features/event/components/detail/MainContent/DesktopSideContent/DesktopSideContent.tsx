@@ -5,7 +5,9 @@ import {
   RecommendedTimesHeading,
   RecommendedTimesList,
 } from './RecommendedTimes';
+import AdSenseUnit from '@/components/AdSenseUnit';
 import { useEventQuery } from '@/features/event/api/event.query';
+import { EVENT_DETAIL_ADSENSE_SLOT } from '@/features/event/constants';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import { useParams } from 'next/navigation';
 
@@ -22,12 +24,14 @@ export default function DesktopSideContent() {
       {!isSchedulesPending && schedules.length === 0 ? (
         <>
           <BannerList className="pt-2" />
+          <AdSenseUnit slot={EVENT_DETAIL_ADSENSE_SLOT} className="mt-3" />
           <EmptyEventBanner />
         </>
       ) : (
         <>
           <RecommendedTimesHeading />
           <BannerList className="pt-2" />
+          <AdSenseUnit slot={EVENT_DETAIL_ADSENSE_SLOT} className="mt-3" />
           <RecommendedTimesList />
         </>
       )}

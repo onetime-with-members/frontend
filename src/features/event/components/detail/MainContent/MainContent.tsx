@@ -4,7 +4,9 @@ import ConfirmedTime from '../shared/ConfirmedTime';
 import BannerList from './BannerList';
 import DesktopSideContent from './DesktopSideContent';
 import ParticipantFilter from './ParticipantFilter';
+import AdSenseUnit from '@/components/AdSenseUnit';
 import { useEventQuery } from '@/features/event/api/event.query';
+import { EVENT_DETAIL_ADSENSE_SLOT } from '@/features/event/constants';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import useTopContentHeight from '@/features/event/hooks/useTopContentHeight';
 import TimeBlockBoard from '@/features/schedule/components/shared/TimeBlockBoard';
@@ -31,6 +33,11 @@ export default function MainContent() {
           </div>
         )}
         <BannerList className="md:hidden" />
+        <AdSenseUnit
+          slot={EVENT_DETAIL_ADSENSE_SLOT}
+          format="horizontal"
+          className="mt-3 md:hidden"
+        />
         <ParticipantFilter />
         <TimeBlockBoard
           event={event}
@@ -39,6 +46,11 @@ export default function MainContent() {
           topContentStyle={{
             top: stickyTop,
           }}
+        />
+        <AdSenseUnit
+          slot={EVENT_DETAIL_ADSENSE_SLOT}
+          format="rectangle"
+          className="mt-4 md:hidden"
         />
       </div>
       <DesktopSideContent />
