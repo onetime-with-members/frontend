@@ -7,9 +7,6 @@ import {
 
 export const EDITED_EVENTS_COOKIE_KEY = 'edited_events';
 
-export const EVENT_DETAIL_ADSENSE_SLOT =
-  process.env.NEXT_PUBLIC_ADSENSE_EVENT_DETAIL_SLOT;
-
 export const TALK_CALENDAR_EVENT_ID = 'talk_calendar_event_id';
 export const TALK_CALENDAR_SUCCESS = 'success';
 export const TALK_CALENDAR_ERROR = 'error';

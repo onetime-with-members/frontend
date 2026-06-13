@@ -1,22 +1,29 @@
 'use client';
 
 import { ADSENSE_CLIENT_ID, ADSENSE_PLACEHOLDER_HEIGHT } from '@/constants';
+import useIsMobile from '@/hooks/useIsMobile';
+import useMounted from '@/hooks/useMounted';
 import cn from '@/lib/cn';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 
 export default function AdSenseUnit({
   slot,
+  device,
   format = 'auto',
   className,
 }: {
   slot: string | undefined;
+  device: 'mobile' | 'desktop';
   format?: 'auto' | 'horizontal' | 'rectangle';
   className?: string;
 }) {
   const insRef = useRef<HTMLModElement>(null);
 
   const pathname = usePathname();
+
+  const isMobile = useIsMobile();
+  const mounted = useMounted();
 
   useEffect(() => {
     const ins = insRef.current;
@@ -27,7 +34,7 @@ export default function AdSenseUnit({
     } catch {}
   }, [pathname]);
 
-  if (!slot) return null;
+  if (!slot || !mounted || (device === 'desktop') === isMobile) return null;
 
   if (process.env.NODE_ENV !== 'production') {
     return (
@@ -47,7 +54,11 @@ export default function AdSenseUnit({
     <ins
       key={pathname}
       ref={insRef}
-      className={cn('adsbygoogle block', className)}
+      className={cn(
+        'adsbygoogle block',
+        format !== 'auto' && ADSENSE_PLACEHOLDER_HEIGHT[format],
+        className,
+      )}
       data-ad-client={ADSENSE_CLIENT_ID}
       data-ad-slot={slot}
       data-ad-format={format}

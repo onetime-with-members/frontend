@@ -12,6 +12,13 @@ export const DISCORD_API_URL =
   process.env.NEXT_PUBLIC_DISCORD_API_URL || DEFAULT_URL;
 
 export const ADSENSE_CLIENT_ID = 'ca-pub-6214559505940019';
+export const ADSENSE_SLOTS = {
+  eventDetail: {
+    mobileHorizontal: '9627251182',
+    mobileRectangle: '5483696897',
+    desktop: '5366472351',
+  },
+};
 export const ADSENSE_PLACEHOLDER_HEIGHT = {
   auto: 'h-[100px]',
   horizontal: 'h-[60px]',
