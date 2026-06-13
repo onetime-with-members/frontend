@@ -1,13 +1,11 @@
-import ConfirmedTime from '../../shared/ConfirmedTime';
 import BannerList from '../BannerList';
 import EmptyEventBanner from './EmptyEventBanner';
-import {
-  RecommendedTimesHeading,
-  RecommendedTimesList,
-} from './RecommendedTimes';
+import RecommendedTimesHeading from './RecommendedTimesHeading';
+import RecommendedTimesList from './RecommendedTimesList';
 import AdSenseUnit from '@/components/AdSenseUnit';
 import { ADSENSE_SLOTS } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
+import ConfirmedTime from '@/features/event/components/detail/shared/ConfirmedTime';
 import { useSchedulesQuery } from '@/features/schedule/api/schedule.query';
 import { useParams } from 'next/navigation';
 
