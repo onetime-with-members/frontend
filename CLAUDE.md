@@ -24,6 +24,18 @@
   `query-client`). 특정 feature 타입에 의존하는 코드를 여기에 두지 않습니다.
 - 내부 링크는 `@/navigation`의 `ProgressLink`를 사용합니다(locale 접두사 + 상단 진행바 유지).
 - i18n 메시지는 `src/messages/{ko,en}.json`. 라우트는 `[locale]` 세그먼트 기반.
+- **컴포넌트 = 폴더 1개**: 모든 컴포넌트는 **이름과 같은 폴더** 안에 `ComponentName.tsx`(구현) +
+  `index.tsx`(배럴 `export { default } from './ComponentName'`)로 둡니다. 컴포넌트 폴더에 단독
+  `.tsx`를 흩어 두거나 한 파일에 여러 컴포넌트를 담지 않습니다. 소비처는 폴더 경로로 import합니다
+  (배럴 덕분에 파일명 반복 없음).
+- **단일 소비 하위 컴포넌트는 부모 폴더 안에 중첩**합니다. 어떤 컴포넌트가 **한 부모에서만** 쓰이면
+  형제로 두지 않고 그 부모 폴더의 하위 폴더로 넣습니다(예: `RecommendedTimesList/RecommendedTime/`,
+  `GuideArticleContent/MarkdownAnchor/`). 여러 곳에서 공유되면 해당 도메인의 `shared/`(또는 공용
+  위치)로 올립니다.
+- **import 경로**: 직속 형제·자식은 상대 경로(`./Foo`, `../Foo`)를 쓰고, **여러 단계 위로 올라가
+  병렬 트리(예: 도메인 `shared/`)나 다른 feature·글로벌로 넘어가면 `@/` alias 절대 경로**를 씁니다
+  (`../../../shared/...`처럼 길어지면 `@/features/<domain>/.../shared/...`). import 정렬은
+  `@trivago/prettier-plugin-sort-imports`가 처리하므로 수동 정렬 대신 prettier에 맡깁니다.
 
 ## 코드 스타일
 
