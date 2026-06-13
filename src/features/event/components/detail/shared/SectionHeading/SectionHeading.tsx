@@ -1,4 +1,5 @@
 import useTopContentHeight from '@/features/event/hooks/useTopContentHeight';
+import { toStickyStyle } from '@/features/event/utils';
 import cn from '@/lib/cn';
 
 export default function SectionHeading({
@@ -18,6 +19,8 @@ export default function SectionHeading({
     ({ navBar, eventHeader, barBanner }) => navBar + eventHeader + barBanner,
   );
 
+  const { className: topClassName, style: topStyle } = toStickyStyle(stickTop);
+
   return (
     <div
       className={cn(
@@ -25,11 +28,10 @@ export default function SectionHeading({
         {
           sticky,
         },
+        topClassName,
         className,
       )}
-      style={{
-        top: stickTop,
-      }}
+      style={topStyle}
     >
       <div className="flex items-center">
         <span className="text-xl">{icon}</span>

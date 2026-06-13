@@ -84,3 +84,5 @@ export interface SelectedDateTime {
     time: string;
   };
 }
+
+export type ResponsiveTopContentHeight = { mobile: number; desktop: number };
