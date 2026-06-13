@@ -5,8 +5,8 @@ import BannerList from './BannerList';
 import DesktopSideContent from './DesktopSideContent';
 import ParticipantFilter from './ParticipantFilter';
 import AdSenseUnit from '@/components/AdSenseUnit';
+import { ADSENSE_SLOTS } from '@/constants';
 import { useEventQuery } from '@/features/event/api/event.query';
-import { EVENT_DETAIL_ADSENSE_SLOT } from '@/features/event/constants';
 import { EventParticipantFilterContext } from '@/features/event/contexts/EventParticipantFilterContext';
 import useTopContentHeight from '@/features/event/hooks/useTopContentHeight';
 import TimeBlockBoard from '@/features/schedule/components/shared/TimeBlockBoard';
@@ -34,7 +34,8 @@ export default function MainContent() {
         )}
         <BannerList className="md:hidden" />
         <AdSenseUnit
-          slot={EVENT_DETAIL_ADSENSE_SLOT}
+          slot={ADSENSE_SLOTS.eventDetail.mobileHorizontal}
+          device="mobile"
           format="horizontal"
           className="mt-3 md:hidden"
         />
@@ -48,7 +49,8 @@ export default function MainContent() {
           }}
         />
         <AdSenseUnit
-          slot={EVENT_DETAIL_ADSENSE_SLOT}
+          slot={ADSENSE_SLOTS.eventDetail.mobileRectangle}
+          device="mobile"
           format="rectangle"
           className="mt-4 md:hidden"
         />
