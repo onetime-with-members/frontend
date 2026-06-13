@@ -44,7 +44,7 @@ export default function AdSenseUnit({
       <div
         className={cn(
           'flex items-center justify-center rounded-lg bg-gray-05 text-sm-200 text-gray-40',
-          fixedSize ? 'mx-auto' : 'h-[100px]',
+          fixedSize ? 'mx-auto' : 'h-[250px]',
           className,
         )}
         style={fixedSize}
