@@ -25,16 +25,19 @@ export default function AdSenseUnit({
   const isMobile = useIsMobile();
   const mounted = useMounted();
 
+  const active = !!slot && mounted && (device === 'desktop') !== isMobile;
+
   useEffect(() => {
+    if (!active) return;
     const ins = insRef.current;
     if (!ins || ins.offsetWidth === 0 || ins.getAttribute('data-ad-status'))
       return;
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch {}
-  }, [pathname]);
+  }, [pathname, active]);
 
-  if (!slot || !mounted || (device === 'desktop') === isMobile) return null;
+  if (!active) return null;
 
   if (process.env.NODE_ENV !== 'production') {
     return (
