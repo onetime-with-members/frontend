@@ -18,6 +18,11 @@ const nextConfig: NextConfig = {
         hostname: 'onetime-bucket.s3.ap-northeast-2.amazonaws.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'api.onetime.run',
+        pathname: '/files/**',
+      },
     ],
   },
 };
