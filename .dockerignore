@@ -1,0 +1,11 @@
+node_modules
+.next
+.open-next
+.wrangler
+.git
+.idea
+cypress
+Dockerfile
+.dockerignore
+.env*
+tsconfig.tsbuildinfo

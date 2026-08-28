@@ -3,6 +3,7 @@ import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   turbopack: {},
   webpack: (config) => {
     config.module.rules.push({
@@ -21,6 +22,11 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'api.onetime.run',
+        pathname: '/files/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'api.onetime-with-members.com',
         pathname: '/files/**',
       },
     ],
