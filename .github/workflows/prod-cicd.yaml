@@ -71,8 +71,6 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.tag }}
             ${{ env.IMAGE_NAME }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
   deploy:
     name: Deploy to Server
