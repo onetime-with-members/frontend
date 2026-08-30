@@ -61,6 +61,7 @@ jobs:
           # NEXT_PUBLIC_* 은 빌드 타임에 번들로 인라인되므로 여기서 주입한다 (서버 .env 아님)
           build-args: |
             NEXT_PUBLIC_SERVER_API_URL=${{ vars.NEXT_PUBLIC_SERVER_API_URL }}
+            NEXT_PUBLIC_SERVER_OAUTH2_URL=${{ vars.NEXT_PUBLIC_SERVER_OAUTH2_URL }}
             NEXT_PUBLIC_SITE_DOMAIN=${{ vars.NEXT_PUBLIC_SITE_DOMAIN }}
             NEXT_PUBLIC_SHORT_URL_DOMAIN=${{ vars.NEXT_PUBLIC_SHORT_URL_DOMAIN }}
             NEXT_PUBLIC_KAKAO_JS_KEY=${{ vars.NEXT_PUBLIC_KAKAO_JS_KEY }}
